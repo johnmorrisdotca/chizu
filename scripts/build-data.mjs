@@ -42,6 +42,17 @@ const EARTH_RADIUS_KM = 6371;
 const CONTINENTS = ["Asia", "Europe", "Africa", "North America", "South America", "Oceania"];
 
 const round = (value) => Math.round(value * 10 ** PRECISION) / 10 ** PRECISION;
+/*
+ * The numbers a map keeps about its projection (to put a longitude and latitude on it) are rounded, because the last
+ * digits of a fitted scale are not the same on every machine: a computer's trigonometry differs by a part in 10^12,
+ * and `pnpm data` must write the same bytes on a Mac and on the CI runner. The paths are not affected (they are
+ * rounded to two decimals from the exact projection, and are the same on both), and a rounded scale places a point
+ * to a ten-thousandth of a unit.
+ */
+const fixed = (digits) => (value) => Math.round(value * 10 ** digits) / 10 ** digits;
+const keepScale = fixed(2);
+const keepTranslate = fixed(3);
+const keepDegrees = fixed(6);
 
 /** Natural Earth's file, from the cache, fetched once and checked against the hash this version of the script was written for. */
 async function source(file) {
@@ -227,7 +238,7 @@ function buildWorld(collection) {
     width: WORLD_WIDTH,
     height,
     wraps: true,
-    projection: { kind: "miller", centre: CENTRE_LONGITUDE, scale: projection.scale(), translate: [tx, ty] },
+    projection: { kind: "miller", centre: CENTRE_LONGITUDE, scale: keepScale(projection.scale()), translate: [keepTranslate(tx), keepTranslate(ty)] },
     insets: [],
     source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, 1:110m, Miller cylindrical centred on ${CENTRE_LONGITUDE}°E`,
     regions,
@@ -314,7 +325,7 @@ function buildCountry(feature, near, fine) {
     width,
     height,
     wraps: false,
-    projection: { kind: "azimuthal-equal-area", centre: [round(lon * 1e4) / 1e4, round(lat * 1e4) / 1e4], scale: projection.scale(), translate: projection.translate() },
+    projection: { kind: "azimuthal-equal-area", centre: [keepDegrees(lon), keepDegrees(lat)], scale: keepScale(projection.scale()), translate: projection.translate().map(keepTranslate) },
     insets: [],
     source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, ${finer ? "1:10m" : "1:50m"}, Lambert azimuthal equal-area centred on the country, longer side ${COUNTRY_SIDE}`,
     regions: [region],
