@@ -1,0 +1,20 @@
+# Changelog
+
+## 1.0.0 — 2026-10-01
+
+The map engine of a Japanese study app and the world of Itsutsu's geography, made into a package that both import.
+
+- **Maps from Natural Earth** (public domain, release 5.1.2), made by `scripts/build-data.mjs`, which checks each file against its SHA-256 and writes the same bytes every time:
+  `@johnmorrisdotca/chizu/world` (173 countries, one canvas, Miller's projection centred on 155°E), `countries/<code>` (238 countries
+  each alone, 1:50m and 1:10m for the small ones), `divisions/<code>` (the regions of 31 countries, 1:10m), and `names` (every country
+  in English and Japanese, with the everyday short name and the reading in kana).
+- **`@johnmorrisdotca/chizu`**, the engine: windows, five zoom steps, fits and shape frames (`zoomBox`, `focusBox`, `regionBox`, `zoomToFit`,
+  `shapeGlyphBox`); insets (Alaska and Hawaii in boxes of their own); a world that goes round (`wrapOffsets`, `wrapIntoBox`); outlines as
+  rings with a point on each region's land; `layoutCallouts`, numbered circles in open water with leader lines that never cross, and its
+  parts (`placeCallouts`, `calloutSpaces`, `calloutFaults`); `findQuestion` and `pickDistractors`; `placesFromText`; `projectPoint` and
+  `unprojectPoint`, held to d3-geo's own; the words in English and Japanese.
+- **`@johnmorrisdotca/chizu/draw`**: a map as SVG text, with tones, labels, insets in dashed frames and numbered callouts, in light and dark.
+- **`@johnmorrisdotca/chizu/mount`**: `mountChizu`, a map to drag, zoom in five steps and press, by touch, mouse and keyboard, in English and Japanese.
+- **`@johnmorrisdotca/chizu/load`**: `loadCountry` and `loadDivisions`, one dynamic import for each file.
+- A demo with a map to explore, a which-one-is-this quiz and the callout placer, a Help switch, the cloth patches, and browser tests
+  (`pnpm test:demo`) at a phone's width and a desk's, in Chromium and WebKit.

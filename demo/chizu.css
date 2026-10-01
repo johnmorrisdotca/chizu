@@ -1,0 +1,51 @@
+/* Chizu's own look, after family.css: the map on its table, the quiz's choices and the list of names. */
+:root { --intro-room: 14rem; --intro-room-wide: 7rem; }
+.setup { margin-top: 10px; }
+.fam-field { max-width: 100%; }
+select.fam-field { min-width: min(100%, 22rem); }
+
+/* The map on its table: the mounted map on the family's felt. */
+#board { margin: 10px auto 0; max-width: min(100%, 1000px); padding: 14px 14px 10px; min-width: 0; }
+#board .czm-stage { border-color: rgba(255,255,255,.35); }
+#board .czm-says { color: var(--felt-ink); }
+#board .czm-zoom, #board .czm-button { color: var(--ink); }
+
+.settings { margin-top: 22px; display: grid; gap: 10px; }
+.settings h2 { margin: 0; font-size: 1.05rem; }
+.settings p { margin: 0; max-width: 70ch; }
+.settings .fam-label { min-width: 6.2rem; }
+.settings .fam-seg button { font-size: .85rem; }
+
+.info { display: grid; gap: 6px; min-height: 8.5rem; align-content: start; }
+.info p { margin: 0; }
+.info .info-name { font-size: 1.15rem; font-weight: 700; }
+.info .fam-chip { cursor: pointer; font: inherit; font-size: .85rem; font-weight: 600; color: inherit; }
+
+#filter { width: min(100%, 22rem); }
+#names { border-collapse: collapse; width: 100%; font-size: .9rem; }
+#names th, #names td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+#names th { position: sticky; top: 0; background: var(--surface); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); z-index: 1; }
+#names tbody tr { cursor: pointer; }
+#names tbody tr:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+#names tbody tr[aria-selected="true"] { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+#names tbody tr:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.fam-table-box { max-height: 22rem; overflow: auto; }
+
+#question { font-size: 1.05rem; font-weight: 600; min-height: 3.2em; }
+#question[data-result="right"] { color: var(--good); }
+#question[data-result="wrong"] { color: var(--bad); }
+.choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; max-width: 640px; }
+.choices .fam-button { min-height: 52px; justify-content: center; text-align: center; white-space: normal; line-height: 1.2; padding-top: 6px; padding-bottom: 6px; }
+@media (max-width: 520px) { .choices { grid-template-columns: 1fr; } }
+
+.legend { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 2px 14px; counter-reset: legend; list-style: none; font-size: .9rem; }
+.legend li { counter-increment: legend; display: flex; gap: 8px; align-items: baseline; min-height: 1.6em; }
+.legend li::before { content: counter(legend); min-width: 1.6em; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; color: var(--muted); }
+
+.uses { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.uses code { font-family: var(--mono); font-size: .85rem; overflow-wrap: anywhere; }
+.more .uses { grid-template-columns: 1fr; }
+@media (max-width: 520px) {
+  #board { padding: 10px 10px 8px; }
+  .settings .fam-label { min-width: 100%; }
+}
