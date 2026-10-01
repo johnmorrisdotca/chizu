@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.0.0 — 2026-10-01
+All notable changes to this project are written here. The format follows
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses
+[Semantic Versioning](https://semver.org/).
+
+## [Unreleased]
+
+## [1.0.0] - 2026-10-01
 
 The map engine of a Japanese study app and the world of Itsutsu's geography, made into a package that both import.
 
