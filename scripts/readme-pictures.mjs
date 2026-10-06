@@ -1,44 +1,50 @@
-// Takes the pictures the README shows, from the built demo in `site/`: `pnpm pictures` (builds the demo, then runs this).
-// The page is served to a browser without a port, never fetched from the live site, and the same each run: the map and
-// the mode are named by the address, the callouts are placed by the package from the map alone, and motion is reduced.
-// It waits on the map's own svg, never on a clock.
-// Output: docs/desktop.jpg (1280 wide, light, English) and docs/phone.jpg (390 by 844, dark, Japanese).
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+// Takes the pictures the README shows, from the built demo in `site/`: `pnpm screenshots:readme` (builds the demo, then runs this).
+// The family's standard is in johnmorrisdotca/.github (README-STANDARD.md); the shared part is readme-pictures-lib.mjs.
+// The page is served to a browser without a port, never fetched from the live site, and the same each run: the map and the mode
+// are named by the address, the callouts are placed by the package from the map alone, the quiz has a seed, and motion is
+// reduced. It waits on the map's own svg and the page's ready mark, never on a clock.
+// Output: docs/images/<subject>-<desk|phone>-<light|dark>.webp.
+import { takePictures } from "./readme-pictures-lib.mjs";
 
-import { chromium } from "@playwright/test";
+const READY = '[data-testid="board"][data-ready="true"] svg.chizu';
+const CALLOUTS = `${READY} .cz-callout`;
+const board = '[data-testid="board"]';
+const address = (query) => `/?lang=en&help=off&${query}`;
 
-const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const site = join(root, "site");
-const docs = join(root, "docs");
-const host = "http://chizu.test";
-const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml" };
-const QUALITY = 76;
+/** Scroll the page so that an element is at the top. */
+const scrollTo = (selector) => (page) => page.locator(selector).evaluate((element) => window.scrollTo(0, element.getBoundingClientRect().top + window.scrollY - 4));
 
-if (!existsSync(join(site, "index.html"))) throw new Error("site/ is not built: run `pnpm pictures` (it builds the demo first)");
-const browser = await chromium.launch();
-
-async function shot({ width, height, colorScheme, query, path, scrollTo, touch }) {
-  const context = await browser.newContext({ viewport: { width, height }, colorScheme, reducedMotion: "reduce", locale: "en-US", deviceScaleFactor: 2, hasTouch: touch, isMobile: touch });
-  const page = await context.newPage();
-  await page.route(`${host}/**`, (route) => {
-    const { pathname } = new URL(route.request().url());
-    const file = join(site, pathname === "/" ? "index.html" : pathname);
-    if (!existsSync(file)) return route.fulfill({ status: 404, body: "" });
-    return route.fulfill({ body: readFileSync(file), contentType: TYPES[file.slice(file.lastIndexOf("."))] ?? "application/octet-stream" });
-  });
-  await page.goto(`${host}/?${query}`);
-  await page.waitForSelector('[data-testid="board"][data-ready="true"] svg.chizu .cz-callout');
-  if (scrollTo) await page.locator(scrollTo).evaluate((element) => window.scrollTo(0, element.getBoundingClientRect().top + window.scrollY - 4));
-  else await page.evaluate(() => window.scrollTo(0, 0));
-  await page.mouse.move(0, 0);
-  await page.screenshot({ path, type: "jpeg", quality: QUALITY });
-  await context.close();
-}
-
-// The world with twenty countries numbered, on a desk, from the top of the page so the header, the language chooser, the cloth patches, the choices and the map all show.
-await shot({ width: 1280, height: 1560, colorScheme: "light", query: "mode=callouts&lang=en", path: join(docs, "desktop.jpg"), touch: false });
-// Germany's sixteen states on a phone in dark mode and Japanese, scrolled to the map.
-await shot({ width: 390, height: 844, colorScheme: "dark", query: "mode=callouts&map=divisions:de&lang=ja", path: join(docs, "phone.jpg"), scrollTo: '[data-testid="board"]', touch: true });
-await browser.close();
+await takePictures({
+  shots: [
+    // The world with twenty countries numbered, on a desk, from the top of the page. On a phone: Germany's sixteen states in Japanese, scrolled to the map.
+    {
+      subject: "hero",
+      views: ["desk", "phone"],
+      url: address("mode=callouts"),
+      height: 1000,
+      ready: CALLOUTS,
+      async prepare(page, { view }) {
+        if (view === "phone") {
+          await page.goto("http://chizu.test/?lang=ja&help=off&mode=callouts&map=divisions:de");
+          await page.waitForSelector(CALLOUTS);
+          await scrollTo(board)(page);
+        } else await page.evaluate(() => window.scrollTo(0, 0));
+        await page.mouse.move(0, 0);
+      },
+    },
+    // Explore: Japan chosen on the world, which is drawn with Japan in the middle and goes round without a seam.
+    { subject: "explore", views: ["desk"], url: address("mode=explore&select=JP"), ready: READY, target: board },
+    // A question: one country lit, four look-alikes to choose from.
+    { subject: "quiz", views: ["phone"], url: address("mode=quiz&seed=3"), ready: READY, async prepare(page) {
+        await page.waitForSelector('[data-testid="choices"] button');
+        await scrollTo(board)(page);
+      },
+    },
+    // Germany's sixteen states with numbered callouts in the open space around them.
+    { subject: "callouts", views: ["desk"], url: address("mode=callouts&map=divisions:de"), ready: CALLOUTS, target: board },
+    // The United States with Alaska and Hawaii in boxes of their own under the lower forty-eight.
+    { subject: "insets", views: ["desk"], url: address("mode=explore&map=divisions:us"), ready: READY, target: board },
+    // One country alone, from the 1:50m outlines.
+    { subject: "country", views: ["phone"], url: address("mode=explore&map=country:jp"), ready: READY, target: board },
+  ],
+});
