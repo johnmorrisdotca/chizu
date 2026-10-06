@@ -76,24 +76,3 @@ The Release workflow (`.github/workflows/release.yml`) checks and builds the
 package, attaches the tarball to a GitHub release and publishes it to npm by
 trusted publishing, with provenance and no token. A version already on npm is
 not published again.
-
-## Particular to Chizu
-
-Bug reports and ideas go in the [issues](https://github.com/johnmorrisdotca/chizu/issues).
-
-### Commands and rules
-
-```sh
-pnpm check          # lint, types and tests
-pnpm data           # make src/data again from Natural Earth (downloads once into .cache/)
-pnpm test:package   # pack it as npm does, install it in an empty project, import every entry
-pnpm test:demo      # build the demo and play it in a real browser
-pnpm docs:make      # rewrite docs/strings-ja.md after changing a word of the board
-```
-
-`src/data/` is written by `scripts/build-data.mjs` and never by hand. A change to a map is a change to that script
-or to `scripts/data-config.mjs`, then `pnpm data`, and the diff of `src/data/` is the review. The script
-checks each Natural Earth file against a SHA-256, so the same source makes the same bytes.
-
-A change to a map's codes or to how a region is drawn is a new major version, never a fix: a site keeps what people chose
-by region code, and a quiz kept by its seed is made again from it.
