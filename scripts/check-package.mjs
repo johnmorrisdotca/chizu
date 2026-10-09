@@ -76,7 +76,7 @@ const question = local.findQuestion(localWorld, "FR", local.seededRandom(7));
 const spots = local.layoutCallouts(localWorld, { codes: ["JP", "BR", "EG", "AU"], radiusRatio: 0.02 });
 
 // 4. Every entry in `exports`, by ESM and by require. A pattern is tried on a few of the files it matches.
-const SAMPLES = { "./countries/*": ["fr", "jp", "sg"], "./divisions/*": ["de", "us", "fr"] };
+const SAMPLES = { "./countries/*": ["fr", "jp", "sg"], "./divisions/*": ["de", "us", "fr"], "./features/*": ["world", "divisions-jp", "country-fr"] };
 const entries = Object.keys(pkg.exports).flatMap((key) => {
   if (key === ".") return [pkg.name];
   if (key.includes("*")) return SAMPLES[key].map((one) => `${pkg.name}/${key.slice(2).replace("*", one)}`);
@@ -107,6 +107,9 @@ const { loadCountry, loadDivisions, loadWorldDetail } = await import(${JSON.stri
 const france = await loadDivisions("fr");
 if (france.regions.length !== 96 || (await loadCountry("jp")).regions[0].nameJa !== "日本" || (await loadDivisions("jp")).regions.length !== 47 || (await loadDivisions("xx")) !== null || (await loadWorldDetail()).id !== "world-detail") throw new Error("the loaders are wrong");
 if (zoomBox(world, 2, { x: 500, y: 244 }).width !== 500) throw new Error("zoom is wrong");
+const { loadFeatures } = await import(${JSON.stringify(`${pkg.name}/load`)});
+const water = await loadFeatures("divisions-jp");
+if (!water.features.some((one) => one.code === "Q200239" && one.nameJa === "琵琶湖") || !drawChizu(world, { features: ["water"], featureLayer: await loadFeatures("world") }).includes("cz-feature")) throw new Error("the features are wrong");
 console.log(names.join(" "));
 `,
 );

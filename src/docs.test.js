@@ -53,11 +53,11 @@ describe("the documents", () => {
   it("name in the README every entry package.json exports, and no other", () => {
     const named = [...readme.matchAll(/`(@johnmorrisdotca\/chizu(?:\/[a-z<>/-]+)?)`/g)].map((match) => match[1]);
     for (const key of Object.keys(pkg.exports).filter((one) => one !== ".")) {
-      const entry = `${pkg.name}/${key.slice(2).replace("*", key.includes("countries") || key.includes("divisions") ? "<code>" : "*")}`;
+      const entry = `${pkg.name}/${key.slice(2).replace("*", key.includes("countries") || key.includes("divisions") ? "<code>" : key.includes("features") ? "<map>" : "*")}`;
       expect(readme, entry).toContain(`\`${entry}\``);
     }
     for (const entry of named) {
-      const key = entry === pkg.name ? "." : `./${entry.slice(pkg.name.length + 1).replace("<code>", "*")}`;
+      const key = entry === pkg.name ? "." : `./${entry.slice(pkg.name.length + 1).replace("<code>", "*").replace("<map>", "*")}`;
       expect(Object.keys(pkg.exports), entry).toContain(key);
     }
   });
@@ -172,14 +172,14 @@ describe("the README's promises", () => {
     expect(readme).toContain(`// ${JSON.stringify(pickDistractors(world, "DE", { count: 3 })).replace(/","/g, '", "')}: its neighbours first`);
     expect(readme).toContain(`// ${JSON.stringify(pickDistractors(world, "JP", { count: 3 })).replace(/","/g, '", "')}: nothing touches Japan`);
     const [x, y] = projectPoint(world, 139.69, 35.69);
-    expect(readme).toContain(`// [${x.toFixed(1)}, ${y.toFixed(1)}]: Tokyo on the world's canvas`);
+    expect(readme).toContain(`is Tokyo on the world's canvas, \`[${x.toFixed(1)}, ${y.toFixed(1)}]\``);
     const [lon, lat] = unprojectPoint(world, 456, 200);
-    expect(readme).toContain(`// [${lon.toFixed(1)}, ${lat.toFixed(1)}]`);
+    expect(readme).toContain(`[ ${lon.toFixed(1)}, ${lat.toFixed(1)} ]`);
     const [first] = layoutCallouts(world, { codes: ["JP", "BR", "EG", "AU"], radiusRatio: 0.02 });
     const r1 = (n) => String(Math.round(n * 10) / 10);
     expect(readme).toContain(`// [{ code: "JP", number: 1, start: [${r1(first.start[0])}, ${Math.round(first.start[1])}], circle: [${r1(first.circle[0])}, ${r1(first.circle[1])}], radius: ${first.radius} }, …]`);
     expect(placesFromText("Japan, フランス\nBrazil, Narnia", world.regions)).toEqual({ codes: ["JP", "FR", "BR"], missing: ["Narnia"] });
-    expect(readme).toContain('// { codes: ["JP", "FR", "BR"], missing: ["Narnia"] }');
+    expect(readme).toContain("{ codes: [ 'JP', 'FR', 'BR' ], missing: [ 'Narnia' ] }");
   });
 
   it("says where the data comes from as NOTICE.md and the build script do, with the hashes the script checks", () => {
@@ -190,8 +190,8 @@ describe("the README's promises", () => {
       expect(notice, file).toContain(hash);
       expect(notice, file).toContain(file.replace(".geojson", ""));
     }
-    expect(config.match(/"ne_[0-9a-z_]+\.geojson": "[0-9a-f]{64}"/g)).toHaveLength(4);
-    expect(CHIZU_SOURCE.files).toHaveLength(4);
+    expect(config.match(/"ne_[0-9a-z_]+\.geojson": "[0-9a-f]{64}"/g)).toHaveLength(9);
+    expect(CHIZU_SOURCE.files).toHaveLength(9);
     expect(notice).toContain(`tree/${CHIZU_SOURCE.tag}`);
     expect(pkg.files).toContain("NOTICE.md");
   });

@@ -1,7 +1,7 @@
 <h1 align="center">Chizu <sub>地図</sub></h1>
 
 <p align="center"><strong>Maps for JavaScript and TypeScript, in English and Japanese.</strong><br>
-The world and 32 countries' regions drawn from Natural Earth (public domain), Japan's 47 prefectures among them, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing and zoom, insets, a world that wraps round the date line, quiz distractors, and a callout placer that puts numbered circles in open water with leader lines that never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
+The world and 32 countries' regions drawn from Natural Earth (public domain), Japan's 47 prefectures among them, with their seas, lakes, rivers, mountains and capitals on request, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing and zoom, insets, a world that wraps round the date line, quiz distractors, and a callout placer that puts numbered circles in open water with leader lines that never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
 
 <p align="center">
   <a href="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml/badge.svg"></a>
@@ -75,7 +75,8 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 - **The world, and 238 countries each on its own.** One canvas for the world, Miller's projection centred on 155°E (so Japan and the whole Pacific are in the middle, the way a Japanese classroom's wall map is drawn). Each country alone is a map of its own, from the 1:50m outlines, and from the 1:10m ones for the small ones, so that Singapore and Malta are shapes and not hexagons.
 - **Japan's 47 prefectures**, from Natural Earth's admin-1 file, framed as a Japanese school atlas frames them: Okinawa and the Amami Islands in boxes in the Sea of Japan, Tokyo's Ogasawara Islands in a box of their own, each prefecture named and read (東京都, とうきょうと) and grouped in its region (Kanto, Kyushu).
 - **32 countries' regions**, each its own file: the prefectures of Japan, the states of the United States, Germany and Brazil, the provinces of Canada, the départements of France, the counties of Ireland, and on to Vietnam. Names in Japanese for nearly every one.
-- **ISO 3166-2 codes on the regions** (`JP-13`, `CA-ON`, `US-TX`), 1,320 of the 1,342, joined at build time from kuni 国, so a table of figures keyed by ISO code colours the map; the 22 without one are listed below with the reason.
+- **ISO 3166-2 codes on the regions** (`JP-13`, `CA-ON`, `US-TX`), 1,335 of the 1,342, joined at build time from kuni 国, so a table of figures keyed by ISO code colours the map; the 7 without one are listed below with the reason.
+- **Seas, lakes, rivers, mountains and capitals**, a layer each map turns on (`features: ["water"]`): the oceans, seas, bays and straits on its coasts, the lakes and rivers on its land, its deserts, ranges and peaks from Natural Earth's physical vectors, and its capitals from kuni, named in English and Japanese (Natural Earth's names, else Wikidata's) and read in kana; searched by name, framed, chosen, asked about and numbered like any place. Each map's are a file of their own, 29 kB for Japan.
 - **Names in English and Japanese for every country**, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time so the two packages never name a place two ways. The table of them, with the continents and subregions, is its own entry, 52 kB (10 kB gzipped), with no outlines. Nothing of kuni's is imported at run time: Chizu still depends on nothing.
 - **Framing and zoom in ten steps**, 1× to 10×, the lines as thin at 10× as at 1×, a window on a region, one tight on a shape, a square for an icon, and a fit for a group of regions. A region drawn in a box (Alaska, Hawaii, Okinawa) is framed where it is *drawn*, not out in the Pacific, and a prefecture whose far islands are boxed (Tokyo, Kagoshima) is framed on the part left in place.
 - **A world that goes round.** East and west never stop on the world: the canvas is drawn again either side of itself wherever the window overhangs.
@@ -192,77 +193,7 @@ Each country's map is its own file and its own dynamic import (`@johnmorrisdotca
 - **TypeScript types for all of it.** Every export has a doc comment, so an editor shows it as you type.
 ### In a framework
 
-A map is drawn by one call that takes an element and hands back an object with `destroy()`, so every framework does the same three things: make the element, mount into it when the page has it, and destroy the mount when the page lets it go. The package has no tag and no framework code of its own.
-
-#### React
-
-```jsx
-import { useEffect, useRef } from "react";
-import WORLD from "@johnmorrisdotca/chizu/world";
-import { mountChizu } from "@johnmorrisdotca/chizu/mount";
-
-export function WorldMap({ onSelect }) {
-  const host = useRef(null);
-  useEffect(() => {
-    const map = mountChizu(host.current, { map: WORLD, onSelect });
-    return () => map.destroy();
-  }, [onSelect]);
-  return <div ref={host} style={{ height: "70vh" }} />;
-}
-```
-
-#### Vue
-
-```vue
-<script setup>
-import { onBeforeUnmount, onMounted, ref } from "vue";
-import WORLD from "@johnmorrisdotca/chizu/world";
-import { mountChizu } from "@johnmorrisdotca/chizu/mount";
-
-const emit = defineEmits(["select"]);
-const host = ref(null);
-let map;
-onMounted(() => { map = mountChizu(host.value, { map: WORLD, onSelect: (code) => emit("select", code) }); });
-onBeforeUnmount(() => map?.destroy());
-</script>
-
-<template><div ref="host" style="height: 70vh"></div></template>
-```
-
-#### Svelte
-
-```svelte
-<script>
-  import { onMount } from "svelte";
-  import WORLD from "@johnmorrisdotca/chizu/world";
-  import { mountChizu } from "@johnmorrisdotca/chizu/mount";
-
-  export let onSelect = () => {};
-  let host;
-  onMount(() => {
-    const map = mountChizu(host, { map: WORLD, onSelect });
-    return () => map.destroy();
-  });
-</script>
-
-<div bind:this={host} style="height: 70vh"></div>
-```
-
-#### Angular
-
-```ts no-check
-import { Component, ElementRef, OnDestroy, AfterViewInit, ViewChild } from "@angular/core";
-import WORLD from "@johnmorrisdotca/chizu/world";
-import { mountChizu } from "@johnmorrisdotca/chizu/mount";
-
-@Component({ selector: "world-map", standalone: true, template: `<div #host style="height: 70vh"></div>` })
-export class WorldMapComponent implements AfterViewInit, OnDestroy {
-  @ViewChild("host") host!: ElementRef<HTMLElement>;
-  private map?: { destroy(): void };
-  ngAfterViewInit() { this.map = mountChizu(this.host.nativeElement, { map: WORLD }); }
-  ngOnDestroy() { this.map?.destroy(); }
-}
-```
+A map is drawn by one call that takes an element and hands back an object with `destroy()`: make the element, mount into it when the page has it, and destroy the mount when the page lets it go. [docs/frameworks.md](./docs/frameworks.md) has it in React, Vue, Svelte and Angular.
 
 ## Examples
 
@@ -382,6 +313,28 @@ console.log(placesFromText("Japan, フランス\nBrazil, Narnia", WORLD.regions)
 { codes: [ 'JP', 'FR', 'BR' ], missing: [ 'Narnia' ] }
 ```
 
+### Seas, lakes and rivers
+
+`loadFeatures` fetches a map's named features; `findFeatures` finds one by English, Japanese or kana; `drawChizu` draws the water and lights it; and `featureMap` makes the layer a map, so a quiz asks "which sea is this?".
+
+```ts
+import WORLD from "@johnmorrisdotca/chizu/world";
+import { drawChizu } from "@johnmorrisdotca/chizu/draw";
+import { loadFeatures } from "@johnmorrisdotca/chizu/load";
+import { featureMap, findFeatures, findQuestion, seededRandom } from "@johnmorrisdotca/chizu";
+
+const layer = (await loadFeatures("world"))!;
+const [caspian] = findFeatures(layer.features, "かすぴ");
+console.log(caspian!.code, caspian!.name, caspian!.kind, caspian!.reading);
+const svg = drawChizu(WORLD, { features: ["water"], featureLayer: layer, tones: { [caspian!.code]: "selected" } });
+console.log(svg.includes('data-tone="selected"'), findQuestion(featureMap(WORLD, layer, ["water"]), caspian!.code, seededRandom(2))!.choices.length);
+```
+
+```text
+Q5484 Caspian Sea sea かすぴかい
+true 4
+```
+
 ### Pin a member's town on the world
 
 `projectPoint` turns a longitude and latitude into a point on the map's canvas, and `unprojectPoint` goes back.
@@ -476,10 +429,10 @@ country-ie country 238 32
 | --- | --- | --- | --- |
 | The world | `@johnmorrisdotca/chizu/world` | 173 countries, Natural Earth at 1:110m | 170 kB |
 | The world drawn finer | `loadWorldDetail()` from `@johnmorrisdotca/chizu/load` | the same 173 countries on the same canvas, at 1:50m, for a map zoomed in (`mountChizu`'s `detail`) | 1.3 MB, fetched only when asked for |
-| The world drawn finer | `loadWorldDetail()` from `@johnmorrisdotca/chizu/load` | the same 173 countries on the same canvas, at 1:50m, for a map zoomed in (`mountChizu`'s `detail`) | 1.3 MB, fetched only when asked for |
 | A country alone | `@johnmorrisdotca/chizu/countries/<code>` or `loadCountry("<code>")` | 238 countries and territories at 1:50m (1:10m under 60,000 km²), on a canvas of their own whose longer side is 1,000 | 16 kB for Japan, 157 kB for Canada |
 | A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 32 countries, Natural Earth admin-1 at 1:10m | 203 kB for Germany, 1.8 MB for Russia |
 | Japan's prefectures | `divisions/jp` or `loadDivisions("jp")` | 47 prefectures, Natural Earth admin-1 at 1:10m, with Okinawa and the outlying islands in boxes | 186 kB |
+| A map's seas, lakes, rivers, mountains and capitals | `@johnmorrisdotca/chizu/features/<map>` or `loadFeatures("<map id>")` | 268 maps' named features on their own canvases: [docs/features.md](./docs/features.md) | 203 kB for the world, 29 kB for Japan's prefectures |
 
 The codes are ISO 3166-1 alpha-2, in lower case in a file's name (`fr`), and Natural Earth's own three letters for the few places that have none. `CHIZU_COUNTRIES` (from `@johnmorrisdotca/chizu/names`) lists every country with its names, and says which have a map of their own regions.
 
@@ -497,9 +450,9 @@ A map's canvas is `0 0 width height`, `viewBox` says so, and a region's `path` i
 
 ### ISO codes
 
-Every region of a country carries `iso`, its ISO 3166-2 code from kuni, the current one where Natural Earth's is out of date (Paris is `FR-75C`, Silesia `PL-24`); where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in (County Dublin's four councils are all `IE-D`). [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) says how each code is chosen. 22 of the 1,342 regions have no code: Norway's counties from before 2020, which kuni 1.0.0 does not have the 2024 codes for, a county split since (Northamptonshire), a territory with none (Jervis Bay), and a few more. [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) lists every one with the reason.
+Every region of a country carries `iso`, its ISO 3166-2 code from kuni, the current one where Natural Earth's is out of date (Paris is `FR-75C`, Silesia `PL-24`); where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in (County Dublin's four councils are all `IE-D`). [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) says how each code is chosen. Norway's counties, drawn as they were before 2020, carry the codes of the counties of 2024 they lie in. 7 of the 1,342 regions have no code: a county split since (Northamptonshire), a territory with none (Jervis Bay), and a few more. [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) lists every one with the reason.
 
-A region that is exactly one ISO subdivision takes kuni's names, so a map and a form name a place alike; Natural Earth's are kept where kuni 1.0.0's are wrong (it writes Peterborough as "Peter" and swaps Chiayi City and County) or read worse on a map (CLDR's "Chechen" for the Chechen Republic). The rest keep Natural Earth's names, and no two regions of one map share a name in either language. [docs/names.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/names.md) lists every name the map prints that is not kuni's, with the reason.
+A region that is exactly one ISO subdivision takes kuni's names, so a map and a form name a place alike. The rest keep Natural Earth's names, and no two regions of one map share a name in either language. [docs/names.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/names.md) lists every name the map prints that is not kuni's, with the reason.
 
 ## Framing a map
 
@@ -576,29 +529,15 @@ console.log(africa.nameJa, svg.length > 0, question.choices.every((code) => afri
 アフリカ true true
 ```
 
-**The continents** (`CHIZU_CONTINENTS` in `/names`) are kuni's seven, from UN M49 by way of CLDR: Africa, Antarctica, Asia, Europe, North America (with Central America and the Caribbean), Oceania and South America, each with its English and Japanese names, its reading and its countries. Every one of the 238 countries is in exactly one; Antarctica holds South Georgia and Heard Island, since Antarctica itself, like the French Southern Lands, is not drawn. A country's `group` is its continent's English name and `groupJa` its Japanese. **The subregions** (`CHIZU_SUBREGIONS`) are the twenty-two of UN M49 (Eastern Asia, Western Europe, the Caribbean…), kuni's too. **A map's own groups** are `regionGroups(map)`: the continents on the world, the eight regions on Japan's prefectures (北海道地方 to 九州地方, Okinawa in Kyushu), Canada's Atlantic, Central, Prairies, West Coast and North, and the Census regions of the United States, each named in English and Japanese. Named groupings beyond these (the EU, ASEAN, the G7) are kuni's to keep, with their dates and sources; until it has one, pass its codes.
+**The continents** (`CHIZU_CONTINENTS` in `/names`) are kuni's seven, from UN M49 by way of CLDR: Africa, Antarctica, Asia, Europe, North America (with Central America and the Caribbean), Oceania and South America, each with its English and Japanese names, its reading and its countries. Every one of the 238 countries is in exactly one; Antarctica, like the French Southern Lands, is not drawn, and holds none. A country's `group` is its continent's English name and `groupJa` its Japanese. **The subregions** (`CHIZU_SUBREGIONS`) are the twenty-two of UN M49 (Eastern Asia, Western Europe, the Caribbean…), kuni's too. **A map's own groups** are `regionGroups(map)`: the continents on the world, the eight regions on Japan's prefectures (北海道地方 to 九州地方, Okinawa in Kyushu), Canada's Atlantic, Central, Prairies, West Coast and North, and the Census regions of the United States, each named in English and Japanese. Named groupings beyond these (the EU, ASEAN, the G7) are kuni's to keep, with their dates and sources; until it has one, pass its codes.
 
 ## Pasted names
 
-```ts no-check
-import { placesFromText } from "@johnmorrisdotca/chizu";
-
-placesFromText("Japan, フランス\nBrazil, Narnia", WORLD.regions);
-// { codes: ["JP", "FR", "BR"], missing: ["Narnia"] }
-```
-
-Case and surrounding space never matter, a name may be English, Japanese, the short Japanese or the reading, and a line that matches nothing is said back and never guessed at: "Tokyo" does not quietly become Tochigi. `optionalEnding` lets a pasted prefecture leave off its 県 or 府 (`/[県府都道]$/u`). `countriesFromText` does the same over the table of every country.
+`placesFromText(text, map.regions)` is shown under [Examples](#examples). Case and surrounding space never matter, a name may be English, Japanese, the short Japanese or the reading, and a line that matches nothing is said back and never guessed at: "Tokyo" does not quietly become Tochigi. `optionalEnding` lets a pasted prefecture leave off its 県 or 府 (`/[県府都道]$/u`). `countriesFromText` does the same over the table of every country.
 
 ## Longitude and latitude
 
-```ts no-check
-import { projectPoint, unprojectPoint } from "@johnmorrisdotca/chizu";
-
-projectPoint(WORLD, 139.69, 35.69);    // [457.5, 212.5]: Tokyo on the world's canvas
-unprojectPoint(WORLD, 456, 200);       // [139.2, 39.6]
-```
-
-A map keeps how its canvas was made (`projection`). Two are closed formulas, done here with no dependency: Miller's cylindrical round a centre longitude (the world) and Lambert azimuthal equal-area round a centre (a country alone). A country's regions were fitted with a projection of their own, and `projectPoint` answers `null` for them, never a guess. The tests hold both formulas to d3-geo's own.
+`projectPoint(WORLD, 139.69, 35.69)` is Tokyo on the world's canvas, `[457.5, 212.5]`, and `unprojectPoint` goes back. A map keeps how its canvas was made (`projection`). Two are closed formulas, done here with no dependency: Miller's cylindrical round a centre longitude (the world) and Lambert azimuthal equal-area round a centre (a country alone). A country's regions were fitted with a projection of their own, and `projectPoint` answers `null` for them, never a guess. The tests hold both formulas to d3-geo's own.
 
 ## Drawing a map
 
@@ -649,14 +588,15 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 
 | Entry | What it holds |
 | --- | --- |
-| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
+| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
 | `@johnmorrisdotca/chizu/draw` | `drawChizu`, `CHIZU_STYLE` |
 | `@johnmorrisdotca/chizu/mount` | `mountChizu`, `ensureChizuMapStyle`, `CHIZU_MAP_STYLE` |
 | `@johnmorrisdotca/chizu/names` | `CHIZU_COUNTRIES`, `CHIZU_SOURCE`, `countryByCode`, `countriesFromText` |
-| `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `COUNTRY_CODES`, `DIVISIONS_CODES` |
+| `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
 | `@johnmorrisdotca/chizu/countries/<code>` | one country alone, as the default export |
 | `@johnmorrisdotca/chizu/divisions/<code>` | one country's regions, as the default export |
+| `@johnmorrisdotca/chizu/features/<map>` | one map's seas, lakes, rivers, landforms, peaks and capitals (`world`, `divisions-jp`), as the default export |
 
 Every function is pure: it returns new values and never changes what it was given.
 
@@ -683,6 +623,11 @@ Nothing here is branded. The drawing and the mounted map are coloured by custom 
 | `--cz-callout-ink` | a callout's number | `#1f2320` | the same |
 | `--cz-leader` | a leader line and its dot | `#3a3d38` | `#ece8dc` |
 | `--cz-halo` | the halo round a printed name | `#f7f3e8` | `#1d201e` |
+| `--cz-marine` | a sea, under the land | `#cfe3ee` | `#18303d` |
+| `--cz-water` | a lake and a river | `#a6cde6` | `#2f6283` |
+| `--cz-water-ink` | the name of water | `#2b5d84` | `#9fcbe8` |
+| `--cz-feature-line` | a landform's name and outline, a peak | `#6b5d45` | `#cdbd97` |
+| `--cz-feature-selected` | a chosen feature | `#4f9bd6` | `#3f8cc6` |
 | `--cz-font` | the font of names and numbers | the system's, with Hiragino and Noto Sans JP for Japanese | the same |
 
 **The mounted map** (`mountChizu`), custom properties on `.chizu-map`:
@@ -730,7 +675,7 @@ Any browser with ES2020 modules, pointer events and CSS `aspect-ratio`: Chrome a
 
 ## Languages
 
-English and Japanese: the names of every country and of nearly every region (kuni's, from Unicode CLDR and Wikidata, and Natural Earth's, from Wikidata), the everyday short name where it is not the formal one (アメリカ), the reading in kana of every country and every prefecture, the words of the drawing and the mounted map (`CHIZU_STRINGS`), and the demo. **Japanese: included; not yet reviewed by a native reader. Corrections welcome.** The readings are kuni's, but for the three places kuni does not have, whose readings are hand-written, 3 of them (`KANJI_READINGS` in `scripts/data-config.mjs`); a name in katakana is its own reading. Every string of the board is listed beside its English in [docs/strings-ja.md](./docs/strings-ja.md), and there is an [issue template](https://github.com/johnmorrisdotca/chizu/issues/new?template=fix-a-translation.md) for fixing one. Any other language is a table of your own, passed beside these two: Natural Earth carries names in more than twenty.
+English and Japanese: the names of every country, of nearly every region and of most seas, lakes and rivers (Natural Earth's, else Wikidata's: [docs/features.md](./docs/features.md)) (kuni's, from Unicode CLDR and Wikidata, and Natural Earth's, from Wikidata), the everyday short name where it is not the formal one (アメリカ), the reading in kana of every country and every prefecture, the words of the drawing and the mounted map (`CHIZU_STRINGS`), and the demo. **Japanese: included; not yet reviewed by a native reader. Corrections welcome.** The readings are kuni's, but for the three places kuni does not have, whose readings are hand-written, 3 of them (`KANJI_READINGS` in `scripts/data-config.mjs`); a name in katakana is its own reading. Every string of the board is listed beside its English in [docs/strings-ja.md](./docs/strings-ja.md), and there is an [issue template](https://github.com/johnmorrisdotca/chizu/issues/new?template=fix-a-translation.md) for fixing one. Any other language is a table of your own, passed beside these two: Natural Earth carries names in more than twenty.
 
 ## Roadmap
 
@@ -738,7 +683,7 @@ Not here yet, and each welcome as an [issue](https://github.com/johnmorrisdotca/
 
 - **The outlines as longitude and latitude**, an entry of their own, so that another map can be made from them in another projection or cut at another meridian: [Tenka](https://github.com/johnmorrisdotca/tenka) cuts its world at the Bering Strait and merges countries into territories, which a canvas that is already projected cannot do.
 - **Cities**: Natural Earth's populated places, projected on each map's canvas, for pinning a town and not only a country.
-- **Capital markers**: a dot and a name for each country's capital and each region's seat, with the coordinates and the Japanese names read from kuni 国 at build time, as the names are now (kuni 1.1.0 adds them). Facts about a place live in kuni; Chizu draws them.
+- **More named water**: Natural Earth's regional supplements of lakes and rivers, and the bays and rivers it does not draw at 1:10m (Tokyo Bay, the Shinano).
 - **Readings for the regions outside Japan**, when kuni has them.
 - A **US-style composite** (Albers USA) as an alternative to the two boxes.
 - A **tag** (`<chizu-map>`) beside `mountChizu`, as the other packages of the family have.
@@ -747,7 +692,7 @@ Left out on purpose: population, area, mottos and "famous for" facts. They are c
 
 ## Architecture
 
-The engine is plain functions over plain data with no DOM and no dependency. The maps are generated: `scripts/build-data.mjs` reads four Natural Earth files at a pinned release, and the names and ISO codes from kuni 国 at a pinned version, and writes every file under `src/data/`, and `pnpm data` twice leaves the tree unchanged. Each entry point is a file of its own, so a server that frames and numbers a map never loads the drawing, and a page that draws one country never loads another. Tests sit beside the code they test (`*.test.ts`). `scripts/` builds the data, the demo and its API reference page, takes the README's pictures and checks the package as npm packs it; `demo/` is the playable page, and `e2e/` its browser tests.
+The engine is plain functions over plain data with no DOM and no dependency. The maps are generated: `scripts/build-data.mjs` reads nine Natural Earth files at a pinned release, the names, ISO codes and capitals from kuni 国 at a pinned version, and the features' other names from Wikidata as `scripts/wikidata.mjs` last asked, and writes every file under `src/data/`, and `pnpm data` twice leaves the tree unchanged. Each entry point is a file of its own, so a server that frames and numbers a map never loads the drawing, and a page that draws one country never loads another. Tests sit beside the code they test (`*.test.ts`). `scripts/` builds the data, the demo and its API reference page, takes the README's pictures and checks the package as npm packs it; `demo/` is the playable page, and `e2e/` its browser tests.
 
 ```text
 src/
@@ -770,12 +715,14 @@ src/
 ├── distractors.ts      the wrong answers
 ├── quiz.ts             a question and its choices
 ├── groups.ts           continents and other groups: cut, framed, toned
+├── features.ts         seas, lakes, rivers and the rest: chosen, searched, made a map
 ├── fromText.ts         pasted names to places
 ├── countries.ts        the table of countries, looked up
 ├── project.ts          longitude and latitude on a canvas
 ├── strings.ts          the words, in English and Japanese
 ├── style.ts            the drawing's colours
 ├── draw.ts             a map as SVG text
+├── drawFeatures.ts     the features in a drawing, and their names
 ├── mount.ts            a map in a page
 ├── mountStyle.ts       the page's colours
 ├── random.ts           the seeded stream
@@ -786,7 +733,8 @@ src/
     ├── countries.ts        the table of every country
     ├── loaders.ts          one import for each country's map
     ├── countries/<code>.ts   238 countries, each alone
-    └── divisions/<code>.ts   32 countries' regions
+    ├── divisions/<code>.ts   32 countries' regions
+    └── features/<map>.ts     268 maps' named features
 ```
 
 ## The name
@@ -867,9 +815,9 @@ The code is [MIT](./LICENSE) © John Morris. The outlines and the names are data
 
 | Data | Made from | Terms |
 | --- | --- | --- |
-| The outlines of the world, of each country and of 32 countries' regions | [Natural Earth](https://www.naturalearthdata.com/) 5.1.2, admin-0 countries at 1:110m, 1:50m and 1:10m and admin-1 states and provinces at 1:10m | Public domain. Crediting the authors is unnecessary; it is done here anyway |
-| The countries' names, short names, readings and continents; the regions' ISO 3166-2 codes; the names of Japan's prefectures and of the regions that are one ISO subdivision | [kuni 国](https://github.com/johnmorrisdotca/kuni) 1.0.0, read at build time, whose names are [Unicode CLDR](https://cldr.unicode.org/)'s and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, whose notice is in NOTICE.md. Wikidata: CC0 |
-| The other regions' names in Japanese | Natural Earth's names, which are Wikidata's | CC0 |
+| The outlines of the world, of each country and of 32 countries' regions; the seas, lakes, rivers, landforms and peaks | [Natural Earth](https://www.naturalearthdata.com/) 5.1.2, admin-0 countries at 1:110m, 1:50m and 1:10m, admin-1 states and provinces and the physical vectors at 1:10m | Public domain. Crediting the authors is unnecessary; it is done here anyway |
+| The countries' names, short names, readings and continents; the regions' ISO 3166-2 codes; the names of Japan's prefectures and of the regions that are one ISO subdivision | [kuni 国](https://github.com/johnmorrisdotca/kuni) 1.1.0, read at build time, whose names are [Unicode CLDR](https://cldr.unicode.org/)'s and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, whose notice is in NOTICE.md. Wikidata: CC0 |
+| The other regions' names in Japanese; the features' names | Natural Earth's names, which are Wikidata's, and Wikidata's | CC0 |
 | The readings of three places kuni does not have, and the names that tell two regions of one map apart | Written for this package | MIT |
 
 Natural Earth is made by volunteers and supported by the North American Cartographic Information Society; their work is why a map like this can be free. Thank you.

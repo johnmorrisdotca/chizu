@@ -11,7 +11,7 @@ describe("the README's Architecture", () => {
   it("names exactly the files under src/, the generated maps apart", () => {
     const named = [...tree.matchAll(/[├└]── ([\w.-]+\.ts)\b/g)].map((match) => match[1]).sort();
     const listed = files("src")
-      .filter((path) => path.endsWith(".ts") && !/\.(test|fixture)\./.test(path) && !/^data\/(countries|divisions)\//.test(path))
+      .filter((path) => path.endsWith(".ts") && !/\.(test|fixture)\./.test(path) && !/^data\/(countries|divisions|features)\//.test(path))
       .map((path) => path.split("/").at(-1))
       .sort();
     expect(named).toEqual(listed);
@@ -21,5 +21,6 @@ describe("the README's Architecture", () => {
     const count = (folder) => files(`src/data/${folder}`).filter((path) => path.endsWith(".ts")).length;
     expect(tree).toContain(`countries/<code>.ts   ${count("countries")} countries, each alone`);
     expect(tree).toContain(`divisions/<code>.ts   ${count("divisions")} countries' regions`);
+    expect(tree).toContain(`features/<map>.ts     ${count("features")} maps' named features`);
   });
 });
