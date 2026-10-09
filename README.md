@@ -807,7 +807,7 @@ Please follow the [code of conduct](./CODE_OF_CONDUCT.md). A way to make the cal
 
 ## Changes
 
-See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.1.0, adds Japan's 47 prefectures, ISO 3166-2 codes on every region, names from kuni, continents and any grouping as a map, zoom to 10×, and a demo with quizzes, colour by figures and downloads.
+See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.2.0, adds named seas, lakes, rivers, landforms, peaks and capitals as layers you can search, select, quiz and download, and takes names and facts from kuni 1.1.0.
 
 ## Licence
 

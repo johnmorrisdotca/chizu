@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-09
+
 Nothing exported has been removed or renamed, and a map drawn without the new `features` option is drawn byte for byte as before. Names have changed where kuni 1.1.0 changed them: every change is listed below.
 
 ### Added

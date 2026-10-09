@@ -1,6 +1,6 @@
 {
   "name": "@johnmorrisdotca/chizu",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Chizu 地図, maps for JavaScript and TypeScript: the world and 31 countries' regions from Natural Earth, named in English and Japanese, with zoom, insets, quiz helpers and a callout placer. Drawn as SVG in any page. Zero dependencies.",
   "keywords": [
     "map",
