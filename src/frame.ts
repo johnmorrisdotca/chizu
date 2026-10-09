@@ -143,7 +143,7 @@ export type MapZoom = (typeof MAP_ZOOM_LEVELS)[number];
  * ```ts
  * import { isMapZoom } from "@johnmorrisdotca/chizu";
  *
- * console.log(isMapZoom(3), isMapZoom(2.5), isMapZoom(6));
+ * console.log(isMapZoom(3), isMapZoom(2.5), isMapZoom(11));
  * // true false false
  * ```
  */
@@ -158,8 +158,8 @@ export function isMapZoom(value: number): value is MapZoom {
  * ```ts
  * import { stepMapZoom } from "@johnmorrisdotca/chizu";
  *
- * console.log(stepMapZoom(1, 1), stepMapZoom(5, 1), stepMapZoom(1, -1));
- * // 2 5 1
+ * console.log(stepMapZoom(1, 1), stepMapZoom(10, 1), stepMapZoom(1, -1));
+ * // 2 10 1
  * ```
  */
 export function stepMapZoom(zoom: MapZoom, by: 1 | -1): MapZoom {
@@ -244,7 +244,7 @@ const FIT_MARGIN_RATIO = 0.15;
  *
  * const fit = zoomToFit(WORLD, ["GB", "IE"]);
  * console.log(fit.zoom, Math.round(fit.centre.x), Math.round(fit.centre.y));
- * // 5 58 148
+ * // 10 58 148
  * ```
  */
 export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>): { zoom: MapZoom; centre: { x: number; y: number } } {
@@ -282,7 +282,7 @@ export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>)
  * import { focusRegionFit } from "@johnmorrisdotca/chizu";
  *
  * console.log(focusRegionFit(WORLD, "JP")?.zoom, focusRegionFit(WORLD, "XX"));
- * // 5 null
+ * // 8 null
  * ```
  */
 export function focusRegionFit(map: Frameable, code: string | number | null): { zoom: MapZoom; centre: { x: number; y: number } } | null {

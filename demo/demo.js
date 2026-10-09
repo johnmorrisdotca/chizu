@@ -31,6 +31,8 @@ const params = new URLSearchParams(location.search);
 const MODES = ["explore", "quiz", "callouts", "colour"];
 const STYLES = ["choose", "type", "kana", "find"];
 const ROUND = 10;
+/** The deepest zoom step a quiz question is shown at. */
+const QUIZ_DEEPEST = 6;
 /** Twenty countries a school atlas names, for the world's callouts. */
 const TWENTY = ["JP", "CN", "KR", "IN", "AU", "NZ", "US", "CA", "MX", "BR", "AR", "GB", "FR", "DE", "IT", "ES", "RU", "EG", "ZA", "KE"];
 /** The colours a coloured map is shaded in, light and dark, and the colours of the parts of a map: tones the drawing does not have, given here. */
@@ -451,6 +453,9 @@ function askQuestion() {
     // The place is lit by a tone, never "chosen": a chosen place would be read out, and that is the answer.
     setTones({ ...partTones(), [target]: "selected" }, { selected: null, selectable: false, callouts: undefined });
     mount.show([target]);
+    // A question keeps some of the map round the place in view: its neighbours are half the clue. Closer than 6× only
+    // the place itself would show.
+    while (mount.view().zoom > QUIZ_DEEPEST) mount.zoomBy(-1);
   }
   renderQuestion();
   if (quiz.style === "type" || quiz.style === "kana") {

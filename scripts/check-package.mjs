@@ -103,9 +103,9 @@ const svg = drawChizu(world, { tones: { JP: "selected" }, callouts: ["JP", "BR"]
 if (!svg.startsWith("<svg") || !svg.includes("cz-tone-selected") || !svg.includes("cz-callout")) throw new Error("the drawing is " + String(svg).slice(0, 80));
 const { CHIZU_COUNTRIES, countryByCode } = await import(${JSON.stringify(`${pkg.name}/names`)});
 if (CHIZU_COUNTRIES.length !== 238 || countryByCode("jp").nameJa !== "日本") throw new Error("the names are wrong");
-const { loadCountry, loadDivisions } = await import(${JSON.stringify(`${pkg.name}/load`)});
+const { loadCountry, loadDivisions, loadWorldDetail } = await import(${JSON.stringify(`${pkg.name}/load`)});
 const france = await loadDivisions("fr");
-if (france.regions.length !== 96 || (await loadCountry("jp")).regions[0].nameJa !== "日本" || (await loadDivisions("jp")) !== null) throw new Error("the loaders are wrong");
+if (france.regions.length !== 96 || (await loadCountry("jp")).regions[0].nameJa !== "日本" || (await loadDivisions("jp")).regions.length !== 47 || (await loadDivisions("xx")) !== null || (await loadWorldDetail()).id !== "world-detail") throw new Error("the loaders are wrong");
 if (zoomBox(world, 2, { x: 500, y: 244 }).width !== 500) throw new Error("zoom is wrong");
 console.log(names.join(" "));
 `,
