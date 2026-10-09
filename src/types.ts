@@ -13,8 +13,16 @@ export type Bounds = readonly [number, number, number, number];
 
 /** One place on a map: a country on the world, a province or state on a country. */
 export interface ChizuRegion {
-  /** Its code within its map: an ISO 3166-1 alpha-2 code on the world (`JP`), the postal or ISO 3166-2 part on a country (`ON`). */
+  /** Its code within its map: an ISO 3166-1 alpha-2 code on the world (`JP`), the postal or ISO 3166-2 part on a country (`ON`), the prefecture number in Japan (`13`). */
   code: string;
+  /**
+   * Its ISO 3166-2 code, the full form (`JP-13`, `CA-ON`, `US-TX`), on a country's regions, from kuni 国
+   * (`@johnmorrisdotca/kuni`) at build time, so a figure keyed by ISO code joins to the map and a region joins to
+   * kuni. Where Natural Earth draws one ISO subdivision as several regions (County Dublin's four councils), each
+   * carries the code of the one it lies in. Absent where ISO 3166-2 has no code for the region drawn (a county
+   * merged away, a territory with none); the README lists them with the reasons.
+   */
+  iso?: string;
   /** Its English name. */
   name: string;
   /** Its name in Japanese, where there is one. */

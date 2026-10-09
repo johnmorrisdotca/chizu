@@ -32,7 +32,7 @@ describe("a map as SVG text", () => {
     const svg = drawChizu(world, { language: "ja" });
     expect(svg).toContain("<title>アメリカ</title>");
     expect(svg).toContain('aria-label="世界の地図"');
-    expect(drawChizu(world)).toContain("<title>United States of America</title>");
+    expect(drawChizu(world)).toContain("<title>United States</title>");
   });
 
   it("wears a tone on the regions it names, as a class and a data attribute", () => {

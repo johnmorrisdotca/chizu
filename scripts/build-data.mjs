@@ -2,14 +2,16 @@
 //
 //   src/data/world.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
 //   src/data/countries/<xx>.ts       each country alone, finer (admin-0 at 1:50m, and at 1:10m for the small ones), on a canvas of its own
-//   src/data/divisions/<xx>.ts       the provinces, states or départements of 31 countries (admin-1 at 1:10m)
+//   src/data/divisions/<xx>.ts       the provinces, states, prefectures or départements of 32 countries (admin-1 at 1:10m)
 //   src/data/countries.ts            the table of every country: names in English and Japanese, and what it has
 //   src/data/loaders.ts              one dynamic import for each file above
 //
 // SOURCE AND LICENCE. Natural Earth (naturalearthdata.com), release 5.1.2, read from the project's own repository at
 // that tag, each file checked against the SHA-256 written in data-config.mjs. Natural Earth is in the public domain:
 // "No permission is needed to use Natural Earth. Crediting the authors is unnecessary." Its names in other languages
-// come from Wikidata, which is CC0. The files are downloaded once into .cache/ (or CHIZU_CACHE) and the build reads
+// come from Wikidata, which is CC0. The names in English and Japanese, the readings, the continents and the ISO 3166-2
+// codes are kuni's (@johnmorrisdotca/kuni, a development dependency pinned in package.json and in data-config.mjs),
+// whose names are Unicode CLDR's and Wikidata's. The files are downloaded once into .cache/ (or CHIZU_CACHE) and the build reads
 // that copy, so it makes the same files each time and needs the network only the first time.
 //
 // DETERMINISTIC. No clock, no randomness, no network after the download: the same Natural Earth files and the same
@@ -21,9 +23,26 @@ import { dirname, join, resolve } from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
-import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoDistance, geoPath, geoProjection } from "d3-geo";
+import { country as kuniCountry } from "@johnmorrisdotca/kuni";
+import { subdivision as kuniSubdivision } from "@johnmorrisdotca/kuni/subdivisions";
+import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoDistance, geoMercator, geoPath, geoProjection } from "d3-geo";
 
-import { DIVISION_CONFIGS, EXCLUDED, KANJI_READINGS, NATURAL_EARTH, SHORT_NAMES_JA } from "./data-config.mjs";
+import {
+  AMAMI,
+  CONTINENT_NAMES,
+  DIVISION_CONFIGS,
+  EXCLUDED,
+  ISO_JOIN,
+  JAPAN_GROUPS,
+  JAPAN_OUTLYING,
+  KANJI_READINGS,
+  KUNI,
+  KUNI_NAMES_KEPT_FROM_NATURAL_EARTH,
+  NAME_FIXES,
+  NATURAL_EARTH,
+  SHORT_NAME_READINGS,
+  SHORT_NAMES_NOT_EVERYDAY,
+} from "./data-config.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const cache = resolve(root, process.env.CHIZU_CACHE ?? ".cache");
@@ -39,7 +58,7 @@ const NEAR_DEGREES = 9;
 /** A country smaller than this (in square kilometres) is drawn from the 1:10m file: at 1:50m Singapore and Malta are hexagons. */
 const SMALL_KM2 = 60000;
 const EARTH_RADIUS_KM = 6371;
-const CONTINENTS = ["Asia", "Europe", "Africa", "North America", "South America", "Oceania"];
+const CONTINENTS = ["Asia", "Europe", "Africa", "North America", "South America", "Oceania", "Antarctica"];
 
 const round = (value) => Math.round(value * 10 ** PRECISION) / 10 ** PRECISION;
 /*
@@ -156,11 +175,23 @@ export default map;
 
 // ---- The names -------------------------------------------------------------------------------------------------
 
-/** How a name written with kanji is read: from the hand-written table, or null. A katakana name is its own reading. */
+/** kuni is read from node_modules, and must be the version this script was written for: a newer one is a change of names, made on purpose. */
+function checkKuni() {
+  const installed = JSON.parse(readFileSync(join(root, "node_modules", ...KUNI.package.split("/"), "package.json"), "utf8")).version;
+  if (installed !== KUNI.version) throw new Error(`${KUNI.package} ${installed} is installed; this script reads ${KUNI.version} (data-config.mjs)`);
+}
+
+/** How a name written with kanji is read, for the few places kuni does not know: the hand-written table, or null. A katakana name is its own reading. */
 function readingOf(name) {
   if (KANJI_READINGS[name]) return KANJI_READINGS[name];
   if (/\p{Script=Han}/u.test(name)) return null;
   return name.replace(/・/g, "");
+}
+
+/** A name written in kana alone, as it is read: without its middle dots, its spaces and a bracketed second name (ミャンマー (ビルマ) is read ミャンマー). Null for a name with kanji in it. */
+function kanaReading(name) {
+  const bare = name.replace(/\s*[(（][^)）]*[)）]\s*/gu, "").replace(/[・\s]/gu, "");
+  return /^[\p{Script=Katakana}\p{Script=Hiragana}ー]+$/u.test(bare) ? bare : null;
 }
 
 /** The code a Natural Earth country goes by: ISO alpha-2, or its own three letters for a place with none. Each is made unique by the caller. */
@@ -185,17 +216,78 @@ function countriesFrom(collection) {
   return features;
 }
 
+/**
+ * A country's names: kuni's, which are CLDR's and Wikidata's, so that chizu and kuni never name a country two ways.
+ * The three places Natural Earth draws that have no ISO code (Ashmore and Cartier, the Indian Ocean Territories,
+ * the Siachen Glacier) are not in kuni, and keep Natural Earth's names.
+ */
 function namesOf(properties, code) {
-  const nameJa = properties.NAME_JA;
-  const short = SHORT_NAMES_JA[code];
-  const shown = short ? short[0] : nameJa;
-  const reading = short ? (short[1] ?? readingOf(short[0])) : readingOf(nameJa);
+  const known = kuniCountry(code);
+  if (!known) {
+    const nameJa = properties.NAME_JA;
+    const reading = readingOf(nameJa);
+    if (!reading) throw new Error(`${code}: no reading for ${nameJa}; add it to KANJI_READINGS`);
+    return { name: properties.NAME, nameJa, reading };
+  }
+  const short = SHORT_NAMES_NOT_EVERYDAY.has(code) ? undefined : known.shortName?.ja;
+  const reading = short ? (kanaReading(short) ?? SHORT_NAME_READINGS[short]) : (known.reading ?? kanaReading(known.name.ja));
+  if (!reading) throw new Error(`${code}: no reading for ${short ?? known.name.ja}; add it to SHORT_NAME_READINGS`);
+  return { name: known.name.en, nameJa: known.name.ja, ...(short ? { nameShortJa: short } : {}), reading };
+}
+
+/** A country's continent and three-letter code: kuni's, or Natural Earth's for the three places kuni does not have. */
+function identityOf(properties, code) {
+  const known = kuniCountry(code);
   return {
-    name: properties.NAME,
-    ...(nameJa ? { nameJa } : {}),
-    ...(short ? { nameShortJa: short[0] } : {}),
-    ...(reading && shown ? { reading } : {}),
+    group: known ? CONTINENT_NAMES[known.continent] : properties.CONTINENT,
+    iso3: known ? known.alpha3 : properties.ISO_A3_EH && properties.ISO_A3_EH !== "-99" ? properties.ISO_A3_EH : properties.ADM0_A3,
   };
+}
+
+/**
+ * The ISO 3166-2 code of one region of a country: Natural Earth's, when kuni has it, or the line in ISO_JOIN that
+ * says what it is instead, or why there is none. A region with neither stops the build, so a new region or a new
+ * kuni can never leave a code quietly wrong.
+ */
+function regionIso(country, feature) {
+  const key = `${country}:${feature.properties.__code}`;
+  const join = ISO_JOIN[key];
+  const iso = join ? join.iso : feature.properties.iso_3166_2;
+  if (!iso) {
+    if (join) return null;
+    throw new Error(`${key} (${feature.properties.name}) has no ISO 3166-2 code: give it a line in ISO_JOIN`);
+  }
+  if (!kuniSubdivision(iso)) throw new Error(`${key} (${feature.properties.name}): ${iso} is not in kuni ${KUNI.version}; give it a line in ISO_JOIN`);
+  return iso;
+}
+
+/**
+ * A region's names. One that is exactly one ISO subdivision (no other region of its map shares the code) takes
+ * kuni's, but for the few kuni has wrong; the rest keep Natural Earth's; and NAME_FIXES has the last word, for two
+ * regions that would otherwise share a name.
+ */
+function regionNames(country, feature, iso, shared) {
+  const p = feature.properties;
+  let name = p.name_en || p.name || p.__code;
+  let nameJa = p.name_ja || undefined;
+  const known = iso && !shared ? kuniSubdivision(iso) : null;
+  if (known) {
+    const kept = KUNI_NAMES_KEPT_FROM_NATURAL_EARTH[iso] ?? {};
+    if (!kept.en) name = known.name.en;
+    if (!kept.ja && known.name.ja) nameJa = known.name.ja;
+  }
+  const fix = NAME_FIXES[`${country}:${p.__code}`];
+  if (fix?.name) name = fix.name;
+  if (fix?.nameJa) nameJa = fix.nameJa;
+  return { name, ...(nameJa ? { nameJa } : {}) };
+}
+
+/** Each region's ISO code, and whether another region of the same map carries it too. */
+function isoCodes(country, features) {
+  const codes = features.map((feature) => regionIso(country, feature));
+  const counts = new Map();
+  for (const code of codes) if (code) counts.set(code, (counts.get(code) ?? 0) + 1);
+  return codes.map((code) => ({ iso: code, shared: code !== null && counts.get(code) > 1 }));
 }
 
 // ---- The world --------------------------------------------------------------------------------------------------
@@ -218,8 +310,7 @@ function buildWorld(collection) {
     return regionOf(draw, feature, {
       code: p.__code,
       ...namesOf(p, p.__code),
-      group: p.CONTINENT,
-      iso3: p.ISO_A3_EH && p.ISO_A3_EH !== "-99" ? p.ISO_A3_EH : p.ADM0_A3,
+      ...identityOf(p, p.__code),
       path: "",
       neighbors: near[index],
     });
@@ -308,8 +399,7 @@ function buildCountry(feature, near, fine) {
   const region = regionOf(geoPath(projection), shown, {
     code,
     ...namesOf(p, code),
-    group: p.CONTINENT,
-    iso3: p.ISO_A3_EH && p.ISO_A3_EH !== "-99" ? p.ISO_A3_EH : p.ADM0_A3,
+    ...identityOf(p, code),
     path: "",
     neighbors: near,
   });
@@ -346,21 +436,25 @@ function withRegionCodes(config, rawFeatures) {
   });
 }
 
+/** The fields a region of a country's map carries before its outline: its codes, names, larger part and kind. */
+function regionFields(config, feature, iso, shared) {
+  const p = feature.properties;
+  return {
+    code: p.__code,
+    ...(iso ? { iso } : {}),
+    ...regionNames(config.code, feature, iso, shared),
+    group: config.regionFn(feature),
+    ...(p.type_en ? { type: p.type_en.toLowerCase() } : {}),
+    path: "",
+  };
+}
+
 function regionsOf(draw, features, config) {
   const near = neighboursBySharedPoints(features, (feature) => feature.properties.__code);
-  const regions = features.map((feature, index) => {
-    const p = feature.properties;
-    const name = p.name_en || p.name || p.__code;
-    return regionOf(draw, feature, {
-      code: p.__code,
-      name,
-      ...(p.name_ja ? { nameJa: p.name_ja } : {}),
-      group: config.regionFn(feature),
-      ...(p.type_en ? { type: p.type_en.toLowerCase() } : {}),
-      path: "",
-      neighbors: near[index],
-    });
-  });
+  const isos = isoCodes(config.code, features);
+  const regions = features.map((feature, index) =>
+    regionOf(draw, feature, { ...regionFields(config, feature, isos[index].iso, isos[index].shared), neighbors: near[index] }),
+  );
   regions.sort((a, b) => a.code.localeCompare(b.code));
   return regions;
 }
@@ -404,18 +498,11 @@ function buildUnitedStates(rawFeatures, countryNames) {
   const alaska = geoConicEqualArea().parallels([55, 65]).rotate([154, 0]).center([0, 62]).scale(k).translate([0, 0]);
   const hawaii = geoConicEqualArea().parallels([8, 18]).rotate([157, 0]).center([0, 20]).scale(k).translate([0, 0]);
   const near = neighboursBySharedPoints(states, (feature) => feature.properties.__code);
+  const isos = isoCodes(config.code, states);
   const regions = states.map((feature, index) => {
     const p = feature.properties;
     const projection = p.__code === "AK" ? alaska : p.__code === "HI" ? hawaii : main;
-    return regionOf(geoPath(projection), feature, {
-      code: p.__code,
-      name: p.name_en || p.name,
-      ...(p.name_ja ? { nameJa: p.name_ja } : {}),
-      group: config.regionFn(feature),
-      ...(p.type_en ? { type: p.type_en.toLowerCase() } : {}),
-      path: "",
-      neighbors: near[index],
-    });
+    return regionOf(geoPath(projection), feature, { ...regionFields(config, feature, isos[index].iso, isos[index].shared), neighbors: near[index] });
   });
   regions.sort((a, b) => a.code.localeCompare(b.code));
   const height = 740;
@@ -440,9 +527,109 @@ function buildUnitedStates(rawFeatures, countryNames) {
   };
 }
 
+/** Okinawa's pieces that are the Amami Islands, which Natural Earth draws inside Okinawa, moved to Kagoshima (see AMAMI in data-config.mjs). */
+function withAmamiInKagoshima(features) {
+  const isAmami = (polygon) => {
+    const ring = polygon[0];
+    return Math.min(...ring.map(([lon]) => lon)) >= AMAMI.eastOf && Math.min(...ring.map(([, lat]) => lat)) >= AMAMI.northOf;
+  };
+  const okinawa = features.find((feature) => feature.properties.iso_3166_2 === "JP-47");
+  const amami = polygonsOf(okinawa.geometry).filter(isAmami);
+  if (amami.length === 0) throw new Error("no Amami Islands in Okinawa: has Natural Earth changed?");
+  return features.map((feature) => {
+    if (feature === okinawa) return { ...feature, geometry: { type: "MultiPolygon", coordinates: polygonsOf(feature.geometry).filter((polygon) => !isAmami(polygon)) } };
+    if (feature.properties.iso_3166_2 === "JP-46") return { ...feature, geometry: { type: "MultiPolygon", coordinates: [...polygonsOf(feature.geometry), ...amami] } };
+    return feature;
+  });
+}
+
+/** A prefecture's pieces whose northern edge is south of a latitude: the outlying islands that go in a box. */
+const northernEdge = (polygon) => Math.max(...polygon[0].map(([, lat]) => lat));
+
+/**
+ * Japan's forty-seven prefectures. The mainland, from Rebun to Yakushima and down the Izu Islands to Torishima, in
+ * Mercator fitted to a canvas 1000 across, the framing of the Japanese study app this package came from. Okinawa
+ * is drawn in a box off the south-east, where the map is open Pacific; Kagoshima's islands south of Yakushima in a
+ * box above it, which is north, as they lie; Tokyo's islands south of Torishima (Ogasawara, the Volcano Islands and
+ * Minamitorishima) in a box east of Tohoku. Codes are the prefecture numbers, `"1"` to `"47"`, with `iso` the
+ * ISO 3166-2 code (`JP-01`); the names and readings are kuni's.
+ */
+function buildJapan(rawFeatures, countryNames) {
+  const raw = rawFeatures.filter((feature) => feature.properties.iso_a2 === "JP");
+  if (raw.length !== 47) throw new Error(`Japan: ${raw.length} prefectures in Natural Earth, not 47`);
+  const features = withAmamiInKagoshima(raw).map((feature) => ({
+    ...feature,
+    properties: { ...feature.properties, __code: String(Number(feature.properties.iso_3166_2.slice(3))) },
+  }));
+  const mainland = features
+    .filter((feature) => feature.properties.__code !== "47")
+    .map((feature) => {
+      const south = feature.properties.__code === "46" ? JAPAN_OUTLYING.kagoshimaSouthOf : feature.properties.__code === "13" ? JAPAN_OUTLYING.tokyoSouthOf : -90;
+      return { ...feature, geometry: { type: "MultiPolygon", coordinates: polygonsOf(feature.geometry).filter((polygon) => northernEdge(polygon) >= south) } };
+    });
+  const width = 1000;
+  const projection = geoMercator().fitWidth(width, { type: "FeatureCollection", features: mainland });
+  const draw = geoPath(projection);
+  const height = Math.ceil(draw.bounds({ type: "FeatureCollection", features: mainland })[1][1]);
+  /* The line below which a prefecture's pieces are its outlying islands, on the canvas: a piece is outlying when its top is below it. */
+  const lineAt = (lon, lat) => round(projection([lon, lat])[1]);
+  const near = neighboursBySharedPoints(features, (feature) => feature.properties.__code);
+  const isos = isoCodes("JP", features);
+  const groupOf = (code) => JAPAN_GROUPS.find(([, first, last]) => Number(code) >= first && Number(code) <= last)[0];
+  const regions = features.map((feature, index) => {
+    const p = feature.properties;
+    const known = kuniSubdivision(isos[index].iso);
+    if (!known?.name.ja || !known.reading) throw new Error(`Japan ${p.__code}: kuni has no Japanese name or reading`);
+    return regionOf(draw, feature, {
+      code: p.__code,
+      iso: isos[index].iso,
+      name: known.name.en,
+      nameJa: known.name.ja,
+      reading: known.reading,
+      group: groupOf(p.__code),
+      type: p.type_en.toLowerCase(),
+      path: "",
+      neighbors: near[index],
+    });
+  });
+  regions.sort((a, b) => Number(a.code) - Number(b.code));
+  const [tx, ty] = projection.translate();
+  return {
+    id: "divisions-jp",
+    kind: "divisions",
+    name: "Japan",
+    ...(countryNames.get("JP")?.nameJa ? { nameJa: countryNames.get("JP").nameJa } : {}),
+    regionName: "Prefecture",
+    regionNamePlural: "Prefectures",
+    viewBox: `0 0 ${width} ${height}`,
+    width,
+    height,
+    wraps: false,
+    projection: { kind: "other", description: `d3-geo geoMercator, fitted to the mainland ${width} across (scale ${keepScale(projection.scale())}, translate ${keepTranslate(tx)},${keepTranslate(ty)})` },
+    insets: JAPAN_INSETS(lineAt),
+    source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, the Amami Islands given back to Kagoshima; Okinawa, Kagoshima's islands south of Yakushima and Tokyo's south of Torishima drawn in boxes`,
+    regions,
+  };
+}
+
+/**
+ * Where Japan's boxes sit, from the lines that split Kagoshima's and Tokyo's outlying islands off. Okinawa and the
+ * Amami Islands top left, in the Sea of Japan, where a Japanese atlas puts them, Okinawa at nearly its own scale
+ * and Amami east of it, as it lies; Tokyo's far islands bottom right, south-east of the Izu Islands, as they lie.
+ * Chosen against the data: a test checks that no other region reaches into a box.
+ */
+function JAPAN_INSETS(lineAt) {
+  return [
+    { code: "13", box: { x: 700, y: 900, width: 280, height: 150 }, outlyingBelow: lineAt(140, JAPAN_OUTLYING.tokyoSouthOf), magnify: true },
+    { code: "46", box: { x: 495, y: 10, width: 120, height: 230 }, outlyingBelow: lineAt(130, JAPAN_OUTLYING.kagoshimaSouthOf), magnify: true },
+    { code: "47", box: { x: 10, y: 10, width: 475, height: 230 } },
+  ];
+}
+
 // ---- The tables ------------------------------------------------------------------------------------------------
 
 async function main() {
+  checkKuni();
   const worldSource = await source("ne_110m_admin_0_countries.geojson");
   const countriesSource = await source("ne_50m_admin_0_countries.geojson");
   const fineSource = await source("ne_10m_admin_0_countries.geojson");
@@ -474,20 +661,21 @@ async function main() {
       iso3: map.regions[0].iso3,
       ...names,
       nameJa: names.nameJa ?? names.name,
-      group: p.CONTINENT,
+      group: map.regions[0].group,
       onWorld: onWorld.has(p.__code),
       hasDivisions: false,
     });
   }
 
   const configs = [...DIVISION_CONFIGS];
-  const divisionCodes = new Set([...configs.map((c) => c.code), "US"]);
+  const divisionCodes = new Set([...configs.map((c) => c.code), "US", "JP"]);
   for (const entry of table) entry.hasDivisions = divisionCodes.has(entry.code);
   const missing = [...divisionCodes].filter((code) => !table.some((entry) => entry.code === code));
   if (missing.length > 0) throw new Error(`regions asked for a country that has no map of its own: ${missing.join(" ")}`);
   const builtDivisions = [];
   for (const config of configs) builtDivisions.push(buildDivisions(config, divisionsSource.features, countryNames));
   builtDivisions.push(buildUnitedStates(divisionsSource.features, countryNames));
+  builtDivisions.push(buildJapan(divisionsSource.features, countryNames));
   for (const map of builtDivisions) {
     const file = map.id.replace("divisions-", "");
     writeMap(join(out, "divisions", `${file}.ts`), `${map.name}: ${map.regions.length} ${map.regionNamePlural.toLowerCase()}, ${map.source}.`, map);
@@ -501,7 +689,8 @@ async function main() {
     `/*
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.
  * Every country Natural Earth ${NATURAL_EARTH.version} draws at 1:50m (${table.length} of them): its names in English and
- * Japanese, which continent it is in, and which of the maps has it. Names in other languages are Wikidata's, which is CC0.
+ * Japanese, which continent it is in, and which of the maps has it. The names, readings, continents and three-letter
+ * codes are kuni's (${KUNI.package} ${KUNI.version}), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
  */
 import type { ChizuCountry } from "../types.ts";
 
@@ -516,6 +705,7 @@ export const CHIZU_SOURCE = ${literal({
       retrieved: NATURAL_EARTH.retrieved,
       licence: "Public domain",
       files: Object.keys(NATURAL_EARTH.files),
+      names: { name: "kuni", package: KUNI.package, version: KUNI.version, licence: "MIT; its names are Unicode CLDR's (Unicode-3.0) and Wikidata's (CC0)" },
     })};
 `,
   );

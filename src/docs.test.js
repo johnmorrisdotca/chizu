@@ -5,6 +5,7 @@ import process from "node:process";
 
 import { describe, expect, it } from "vitest";
 
+import { ISO_JOIN } from "../scripts/data-config.mjs";
 import { CHIZU_COUNTRIES, CHIZU_SOURCE } from "./data/countries.ts";
 import { DIVISIONS_LOADERS } from "./data/loaders.ts";
 import world from "./data/world.ts";
@@ -130,11 +131,22 @@ describe("the README's promises", () => {
     expect(readFileSync("src/distractors.ts", "utf8")).toContain("count + 3");
   });
 
-  it("names the 31 countries that have regions, and says how many", () => {
+  it("names the 32 countries that have regions, and says how many", () => {
     const maps = section("Maps");
-    expect(maps).toContain("**31 countries with regions**");
+    expect(maps).toContain("**32 countries with regions**");
     for (const country of CHIZU_COUNTRIES.filter((one) => one.hasDivisions)) expect(maps, country.code).toContain(country.name.replace(" of America", ""));
-    expect(Object.keys(DIVISIONS_LOADERS)).toHaveLength(31);
+    expect(Object.keys(DIVISIONS_LOADERS)).toHaveLength(32);
+  });
+
+  it("lists every region with no ISO 3166-2 code, with the reason the build script gives", () => {
+    const maps = section("Maps");
+    const missing = Object.entries(ISO_JOIN).filter(([, join]) => join.iso === null);
+    expect(maps).toContain(`These ${missing.length} of the`);
+    for (const [key, join] of missing) {
+      const [country, code] = key.split(":");
+      expect(maps, key).toContain(`| ${country} | \`${code}\` |`);
+      expect(maps, key).toContain(join.why);
+    }
   });
 
   it("keeps the worked examples true: what the README says the calls give is what they give", () => {

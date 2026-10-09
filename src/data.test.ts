@@ -1,4 +1,8 @@
+import { country as kuniCountry } from "@johnmorrisdotca/kuni";
+import { subdivision as kuniSubdivision } from "@johnmorrisdotca/kuni/subdivisions";
 import { describe, expect, it } from "vitest";
+
+import { ISO_JOIN, KUNI } from "../scripts/data-config.mjs";
 
 import { CHIZU_COUNTRIES, CHIZU_SOURCE } from "./data/countries.ts";
 import { COUNTRY_LOADERS, DIVISIONS_LOADERS } from "./data/loaders.ts";
@@ -91,15 +95,19 @@ describe("the world", () => {
     expect(get("PT").neighbors).toEqual(["ES"]);
   });
 
-  it("gives the everyday Japanese name where it is not the formal one", () => {
+  it("gives the everyday Japanese name where it is not the one kuni writes first", () => {
     const get = (code: string) => world.regions.find((region) => region.code === code)!;
     expect(get("US").nameJa).toBe("アメリカ合衆国");
     expect(get("US").nameShortJa).toBe("アメリカ");
     expect(get("US").reading).toBe("アメリカ");
-    expect(get("CN").nameShortJa).toBe("中国");
+    expect(get("CN").nameJa).toBe("中国");
+    expect(get("CN").nameShortJa).toBeUndefined();
     expect(get("CN").reading).toBe("ちゅうごく");
     expect(get("JP").reading).toBe("にほん");
     expect(get("FR").nameShortJa).toBeUndefined();
+    // CLDR's short form for the United Kingdom is 英国, the written abbreviation; the everyday name is イギリス.
+    expect(get("GB").nameJa).toBe("イギリス");
+    expect(get("GB").nameShortJa).toBeUndefined();
   });
 
   it("is grouped by continent, in the order a directory reads them", () => {
@@ -123,6 +131,23 @@ describe("the table of countries", () => {
     expect(CHIZU_COUNTRIES.filter((country) => country.onWorld).map((country) => country.code).sort()).toEqual(world.regions.map((region) => region.code).sort());
     expect(CHIZU_COUNTRIES.filter((country) => country.hasDivisions).map((country) => country.code.toLowerCase()).sort()).toEqual(Object.keys(DIVISIONS_LOADERS).sort());
     expect(Object.keys(COUNTRY_LOADERS).sort()).toEqual(CHIZU_COUNTRIES.map((country) => country.code.toLowerCase()).sort());
+  });
+
+  /* The point of reading kuni at build time: the two packages never name a country two ways. */
+  it("names every country kuni knows as kuni does, and only three places it does not know", () => {
+    const unknown: string[] = [];
+    for (const country of CHIZU_COUNTRIES) {
+      const known = kuniCountry(country.code);
+      if (!known) {
+        unknown.push(country.code);
+        continue;
+      }
+      expect([country.name, country.nameJa, country.iso3], country.code).toEqual([known.name.en, known.name.ja, known.alpha3]);
+      if (country.nameShortJa !== undefined) expect(country.nameShortJa, country.code).toBe(known.shortName?.ja);
+      expect(country.reading, country.code).toBeTruthy();
+    }
+    expect(unknown.sort()).toEqual(["ATC", "IOA", "KAS"]);
+    expect(CHIZU_SOURCE.names).toEqual({ name: "kuni", package: KUNI.package, version: KUNI.version, licence: expect.stringContaining("MIT") });
   });
 
   it("says where Natural Earth was read from, at a release tag", () => {
@@ -173,9 +198,9 @@ describe("each country alone", () => {
 });
 
 describe("the regions of a country", () => {
-  it("has 31 countries, each a real map", async () => {
+  it("has 32 countries, each a real map", async () => {
     const maps = await divisions();
-    expect(maps).toHaveLength(31);
+    expect(maps).toHaveLength(32);
     for (const map of maps) {
       checkMap(map);
       expect(map.kind).toBe("divisions");
@@ -186,12 +211,49 @@ describe("the regions of a country", () => {
 
   it("gives a country whole of its regions, in the counts its government gives", async () => {
     const by = Object.fromEntries((await divisions()).map((map) => [map.id.replace("divisions-", ""), map.regions.length]));
-    expect(by).toMatchObject({ us: 51, ca: 13, fr: 96, de: 16, kr: 17, br: 27, au: 10, mx: 32, es: 52, it: 110, pl: 16, ch: 26, at: 9, nl: 12, ie: 34, no: 21, se: 21, tw: 21, nz: 17 });
+    expect(by).toMatchObject({ jp: 47, us: 51, ca: 13, fr: 96, de: 16, kr: 17, br: 27, au: 10, mx: 32, es: 52, it: 110, pl: 16, ch: 26, at: 9, nl: 12, ie: 34, no: 21, se: 21, tw: 21, nz: 17 });
   });
 
-  it("has no region of Japan: the prefectures wait on a source that says what it may be used for", () => {
-    expect(Object.keys(DIVISIONS_LOADERS)).not.toContain("jp");
-  });
+  /*
+   * Every region has its ISO 3166-2 code, or a line in ISO_JOIN saying why it has none. A code two regions share is
+   * one ISO subdivision Natural Earth draws as several, and each holder has a line saying so: anything else would be
+   * two places claiming one code, which a choropleth would quietly paint alike.
+   */
+  it("gives every region its ISO 3166-2 code from kuni, or says why it has none", async () => {
+    for (const map of await divisions()) {
+      const country = map.id.replace("divisions-", "").toUpperCase();
+      const holders = new Map<string, string[]>();
+      for (const region of map.regions) {
+        const join = (ISO_JOIN as Record<string, { iso: string | null; why: string }>)[`${country}:${region.code}`];
+        if (region.iso === undefined) {
+          expect(join?.iso, `${map.id} ${region.code} ${region.name} has no ISO code and no reason`).toBeNull();
+          expect(join!.why.length).toBeGreaterThan(10);
+          continue;
+        }
+        expect(kuniSubdivision(region.iso), `${map.id} ${region.code}: ${region.iso} is not in kuni`).not.toBeNull();
+        holders.set(region.iso, [...(holders.get(region.iso) ?? []), region.code]);
+      }
+      for (const [iso, codes] of holders) {
+        if (codes.length === 1) continue;
+        for (const code of codes) expect((ISO_JOIN as Record<string, { why: string }>)[`${country}:${code}`]?.why, `${map.id} ${code} shares ${iso} with no reason`).toBeTruthy();
+      }
+    }
+  }, 60000);
+
+  it("has ISO 3166-2 codes for nearly every region", async () => {
+    const regions = (await divisions()).flatMap((map) => map.regions);
+    const coded = regions.filter((region) => region.iso !== undefined).length;
+    expect(coded / regions.length).toBeGreaterThan(0.98);
+  }, 60000);
+
+  /* A quiz that asks for “Cork” cannot have two right answers. */
+  it("never names two regions of one map alike, in English or in Japanese", async () => {
+    for (const map of await divisions()) {
+      const twice = (names: (string | undefined)[]) => names.filter((name, index) => name !== undefined && names.indexOf(name) !== index);
+      expect(twice(map.regions.map((region) => region.name)), map.id).toEqual([]);
+      expect(twice(map.regions.map((region) => region.nameJa)), map.id).toEqual([]);
+    }
+  }, 60000);
 
   it("names nearly every region in Japanese", async () => {
     for (const map of await divisions()) {
@@ -221,5 +283,70 @@ describe("the regions of a country", () => {
         expect(ring.maxY).toBeLessThanOrEqual(inset.box.y + inset.box.height + 1);
       }
     }
+  });
+});
+
+describe("Japan's prefectures", () => {
+  const japan = async () => (await DIVISIONS_LOADERS.jp!()).default;
+
+  it("has the forty-seven, numbered as Japan numbers them, with their ISO codes", async () => {
+    const map = await japan();
+    expect(map.regions.map((region) => region.code)).toEqual(Array.from({ length: 47 }, (_, index) => String(index + 1)));
+    expect(map.regions.map((region) => region.iso)).toEqual(Array.from({ length: 47 }, (_, index) => `JP-${String(index + 1).padStart(2, "0")}`));
+    expect([map.name, map.nameJa, map.regionName]).toEqual(["Japan", "日本", "Prefecture"]);
+  });
+
+  it("names and reads every prefecture as kuni does", async () => {
+    for (const region of (await japan()).regions) {
+      const known = kuniSubdivision(region.iso!)!;
+      expect([region.name, region.nameJa, region.reading], region.code).toEqual([known.name.en, known.name.ja, known.reading]);
+    }
+    const tokyo = (await japan()).regions.find((region) => region.code === "13")!;
+    expect([tokyo.nameJa, tokyo.reading, tokyo.type]).toEqual(["東京都", "とうきょうと", "metropolis"]);
+  });
+
+  it("groups them in the eight regions a Japanese school teaches", async () => {
+    const groups = new Map<string, number>();
+    for (const region of (await japan()).regions) groups.set(region.group, (groups.get(region.group) ?? 0) + 1);
+    expect(Object.fromEntries(groups)).toEqual({ Hokkaido: 1, Tohoku: 6, Kanto: 7, Chubu: 9, Kansai: 7, Chugoku: 5, Shikoku: 4, Kyushu: 8 });
+  });
+
+  it("knows which prefectures touch, and that Hokkaido and Okinawa touch none", async () => {
+    const get = async (code: string) => (await japan()).regions.find((region) => region.code === code)!;
+    expect((await get("13")).neighbors).toEqual(["11", "12", "14", "19"]);
+    expect((await get("1")).neighbors).toEqual([]);
+    expect((await get("47")).neighbors).toEqual([]);
+  });
+
+  /* Natural Earth draws the Amami Islands inside Okinawa; they are Kagoshima's, and the build gives them back. */
+  it("gives the Amami Islands to Kagoshima, drawn with its other islands south of Yakushima", async () => {
+    const map = await japan();
+    const outlines = mapOutlines(map);
+    const kagoshima = map.insets.find((inset) => inset.code === "46")!;
+    const inBox = (ring: { minX: number; maxX: number; minY: number; maxY: number }, box: typeof kagoshima.box) =>
+      ring.minX >= box.x - 1 && ring.maxX <= box.x + box.width + 1 && ring.minY >= box.y - 1 && ring.maxY <= box.y + box.height + 1;
+    const rings = outlines[map.regions.findIndex((region) => region.code === "46")]!.rings;
+    // Amami Ōshima, Kikai, Tokunoshima, Okinoerabu and Yoron, and the Tokara Islands, in the box; Kyushu's part and Yakushima out of it.
+    expect(rings.filter((ring) => inBox(ring, kagoshima.box)).length).toBeGreaterThanOrEqual(11);
+    expect(rings.filter((ring) => !inBox(ring, kagoshima.box)).length).toBeGreaterThanOrEqual(5);
+    expect(map.insets.map((inset) => inset.code).sort()).toEqual(["13", "46", "47"]);
+  });
+
+  it("draws all of Okinawa in its box, and Tokyo's far islands in theirs", async () => {
+    const map = await japan();
+    const outlines = mapOutlines(map);
+    for (const code of ["47", "13"]) {
+      const inset = map.insets.find((entry) => entry.code === code)!;
+      const rings = outlines[map.regions.findIndex((region) => region.code === code)]!.rings;
+      const boxed = rings.filter((ring) => ring.minX >= inset.box.x - 1 && ring.maxX <= inset.box.x + inset.box.width + 1 && ring.minY >= inset.box.y - 1);
+      if (code === "47") expect(boxed.length).toBe(rings.length);
+      else expect(boxed.length).toBeGreaterThanOrEqual(10);
+    }
+  });
+
+  it("is about the size of the other countries' maps", async () => {
+    const bytes = JSON.stringify(await japan()).length;
+    expect(bytes).toBeGreaterThan(100_000);
+    expect(bytes).toBeLessThan(400_000);
   });
 });

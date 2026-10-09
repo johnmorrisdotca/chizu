@@ -9,9 +9,72 @@ what it was made from.
 | --- | --- | --- |
 | `world` | Natural Earth 5.1.2, admin-0 countries at 1:110m (`ne_110m_admin_0_countries`) | Public domain |
 | `countries/<code>`, `names` | Natural Earth 5.1.2, admin-0 countries at 1:50m, and at 1:10m for countries under 60,000 km² (`ne_50m_admin_0_countries`, `ne_10m_admin_0_countries`) | Public domain |
-| `divisions/<code>` | Natural Earth 5.1.2, admin-1 states and provinces at 1:10m (`ne_10m_admin_1_states_provinces`) | Public domain |
-| The names in Japanese and in other languages | Natural Earth's name columns, which are Wikidata's | CC0 |
-| The everyday short names (アメリカ for アメリカ合衆国) and the readings in kana | Written for this package, in `scripts/data-config.mjs` | MIT |
+| `divisions/<code>`, Japan's prefectures among them | Natural Earth 5.1.2, admin-1 states and provinces at 1:10m (`ne_10m_admin_1_states_provinces`) | Public domain |
+| The countries' names in English and Japanese, their everyday short names (アメリカ for アメリカ合衆国), their readings in kana, continents and three-letter codes; the regions' ISO 3166-2 codes; the names of the regions that are exactly one ISO subdivision; Japan's prefectures' names and readings | kuni 国 (`@johnmorrisdotca/kuni` 1.0.0, read at build time), whose names are Unicode CLDR 48.2's and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, below. Wikidata: CC0 |
+| The other regions' names in English and Japanese | Natural Earth's name columns, which are Wikidata's | CC0 |
+| The readings of the three places kuni does not have, the names that tell two regions of one map apart (Cork City), and the table of which ISO code a region has when Natural Earth's is out of date | Written for this package, in `scripts/data-config.mjs` | MIT |
+
+## kuni and Unicode CLDR
+
+The names, readings, continents and ISO codes are read from kuni 国
+(https://github.com/johnmorrisdotca/kuni, `@johnmorrisdotca/kuni` on npm, MIT © John Morris) at build time, by
+`scripts/build-data.mjs`, at the version pinned in `package.json` and in `scripts/data-config.mjs`. kuni is a
+development dependency of the build script only: the package carries none of its code and imports nothing of it.
+kuni's names are from the Unicode Common Locale Data Repository (https://cldr.unicode.org/), whose licence
+(https://www.unicode.org/license.txt) asks that this notice appear with all copies of the data or in its
+documentation, and from Wikidata, which is CC0 (see kuni's own NOTICE.md for the files it was made from):
+
+```text
+UNICODE LICENSE V3
+
+COPYRIGHT AND PERMISSION NOTICE
+
+Copyright © 2004-2026 Unicode, Inc.
+
+NOTICE TO USER: Carefully read the following legal agreement. BY
+DOWNLOADING, INSTALLING, COPYING OR OTHERWISE USING DATA FILES, AND/OR
+SOFTWARE, YOU UNEQUIVOCALLY ACCEPT, AND AGREE TO BE BOUND BY, ALL OF THE
+TERMS AND CONDITIONS OF THIS AGREEMENT. IF YOU DO NOT AGREE, DO NOT
+DOWNLOAD, INSTALL, COPY, DISTRIBUTE OR USE THE DATA FILES OR SOFTWARE.
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of data files and any associated documentation (the "Data Files") or
+software and any associated documentation (the "Software") to deal in the
+Data Files or Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, and/or sell
+copies of the Data Files or Software, and to permit persons to whom the
+Data Files or Software are furnished to do so, provided that either (a)
+this copyright and permission notice appear with all copies of the Data
+Files or Software, or (b) this copyright and permission notice appear in
+associated Documentation.
+
+THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF
+THIRD PARTY RIGHTS.
+
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS NOTICE
+BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR CONSEQUENTIAL DAMAGES,
+OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THE DATA
+FILES OR SOFTWARE.
+
+Except as contained in this notice, the name of a copyright holder shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in these Data Files or Software without prior written
+authorization of the copyright holder.
+
+SPDX-License-Identifier: Unicode-3.0
+```
+
+**Which names, and what was changed.** A country takes kuni's English and Japanese names, its everyday short
+Japanese name (except the United Kingdom's 英国, CLDR's written abbreviation, where イギリス is kept), its reading,
+continent and three-letter code. A region of a country takes its ISO 3166-2 code from Natural Earth when kuni has
+the same code, or from the table `ISO_JOIN` in `scripts/data-config.mjs`, which says for each of the rest what the
+code is now or why there is none. A region that is exactly one ISO subdivision takes kuni's names, but for the few
+listed in `KUNI_NAMES_KEPT_FROM_NATURAL_EARTH` with the reason; `NAME_FIXES` tells apart two regions of one map that
+would otherwise share a name. Japan's prefectures take kuni's names and readings.
 
 ## Natural Earth
 
@@ -51,18 +114,22 @@ reads it, so it makes the same maps from the same files every time:
 
 **What was changed.** The outlines are projected onto a fixed canvas, rounded to
 two decimals and drawn as `M`/`L`/`Z` paths. For a country alone, only its
-largest piece and the pieces within 9° of it are kept. The names, the codes and
+largest piece and the pieces within 9° of it are kept. Natural Earth draws the
+Amami Islands (Amami Ōshima, Kikai, Tokunoshima, Okinoerabu and Yoron) inside
+Okinawa; they are Kagoshima's, and the build moves them there. The names, the codes and
 the neighbours (regions that share a border point) are Natural Earth's own, with
 a few Natural Earth codes made unique where two entries claim one. Natural
 Earth's disputed-territory choices are its own and are not this package's.
 
 ## Not carried
 
-Japan's prefectures are not in this package: the data they were first drawn from
-had no licence, and the maps wait on a source that says what it may be used for
-(the Geospatial Information Authority of Japan's Global Map, or Natural Earth's
-own admin-1 file). No population, area, capital, currency or other fact about a
-country is carried either, so no database with a share-alike condition is.
+Japan's prefectures were first drawn, in the study app this package came from, from the `japan.geojson` of
+dataofjapan/land (https://github.com/dataofjapan/land), whose README says it is made from the Geospatial
+Information Authority of Japan's Global Map (地球地図日本) and asks, for commercial use, both a credit and a report
+of the use to the copyright holder; the repository has no licence file. A condition that travels to every user of
+this package is not one an MIT package can carry, so those outlines are not here: Japan's prefectures are drawn from
+Natural Earth's admin-1 file like every other country's regions, in the same framing. No population, area, capital,
+currency or other fact about a country is carried either, so no database with a share-alike condition is.
 
 ## Made with
 

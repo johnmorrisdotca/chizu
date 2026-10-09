@@ -1,7 +1,7 @@
 <h1 align="center">Chizu <sub>地図</sub></h1>
 
 <p align="center"><strong>Maps for JavaScript and TypeScript, in English and Japanese.</strong><br>
-The world and 31 countries' regions drawn from Natural Earth (public domain), every country named in English and Japanese, and the engine around them: framing and zoom, insets, a world that wraps round the date line, quiz distractors, and a callout placer that puts numbered circles in open water with leader lines that never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
+The world and 32 countries' regions drawn from Natural Earth (public domain), Japan's 47 prefectures among them, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing and zoom, insets, a world that wraps round the date line, quiz distractors, and a callout placer that puts numbered circles in open water with leader lines that never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
 
 <p align="center">
   <a href="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml/badge.svg"></a>
@@ -73,9 +73,11 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 ## Features
 
 - **The world, and 238 countries each on its own.** One canvas for the world, Miller's projection centred on 155°E (so Japan and the whole Pacific are in the middle, the way a Japanese classroom's wall map is drawn). Each country alone is a map of its own, from the 1:50m outlines, and from the 1:10m ones for the small ones, so that Singapore and Malta are shapes and not hexagons.
-- **31 countries' regions**, each its own file: the states of the United States, Germany and Brazil, the provinces of Canada, the départements of France, the counties of Ireland, and on to Vietnam. Names in Japanese for nearly every one.
-- **Names in English and Japanese for every country**, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana. The table of them is its own entry, 38 kB, with no outlines.
-- **Framing and zoom in five steps**, a window on a region, one tight on a shape, a square for an icon, and a fit for a group of regions. A region drawn in a box (Alaska and Hawaii) is framed where it is *drawn*, not out in the Pacific.
+- **Japan's 47 prefectures**, from Natural Earth's admin-1 file, framed as a Japanese school atlas frames them: Okinawa and the Amami Islands in boxes in the Sea of Japan, Tokyo's Ogasawara Islands in a box of their own, each prefecture named and read (東京都, とうきょうと) and grouped in its region (Kanto, Kyushu).
+- **32 countries' regions**, each its own file: the prefectures of Japan, the states of the United States, Germany and Brazil, the provinces of Canada, the départements of France, the counties of Ireland, and on to Vietnam. Names in Japanese for nearly every one.
+- **ISO 3166-2 codes on the regions** (`JP-13`, `CA-ON`, `US-TX`), 1,320 of the 1,342, joined at build time from kuni 国, so a table of figures keyed by ISO code colours the map; the 22 without one are listed below with the reason.
+- **Names in English and Japanese for every country**, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time so the two packages never name a place two ways. The table of them is its own entry, 40 kB, with no outlines. Nothing of kuni's is imported at run time: Chizu still depends on nothing.
+- **Framing and zoom in five steps**, a window on a region, one tight on a shape, a square for an icon, and a fit for a group of regions. A region drawn in a box (Alaska, Hawaii, Okinawa) is framed where it is *drawn*, not out in the Pacific, and a prefecture whose far islands are boxed (Tokyo, Kagoshima) is framed on the part left in place.
 - **A world that goes round.** East and west never stop on the world: the canvas is drawn again either side of itself wherever the window overhangs.
 - **A callout placer.** Numbered circles in the water between and around the regions, no two leaders crossing, each crossing as little land as it can, with a slower pass for a printed sheet. The same arrangement every time.
 - **Quiz distractors.** The wrong answers for "which one is this?", tempting for a reason, the same for the same seed.
@@ -406,7 +408,7 @@ console.log(CHIZU_COUNTRIES.length, CHIZU_COUNTRIES.filter((country) => country.
 
 ```text
 Japan 日本 にほん Asia
-238 31
+238 32
 ```
 
 ### A look of your own
@@ -459,7 +461,7 @@ console.log(ireland.id, ireland.kind, COUNTRY_CODES.length, DIVISIONS_CODES.leng
 
 ```text
 France 96 Ain
-country-ie country 238 31
+country-ie country 238 32
 ```
 
 ## Maps
@@ -468,11 +470,14 @@ country-ie country 238 31
 | --- | --- | --- | --- |
 | The world | `@johnmorrisdotca/chizu/world` | 173 countries, Natural Earth at 1:110m | 170 kB |
 | A country alone | `@johnmorrisdotca/chizu/countries/<code>` or `loadCountry("<code>")` | 238 countries and territories at 1:50m (1:10m under 60,000 km²), on a canvas of their own whose longer side is 1,000 | 16 kB for Japan, 157 kB for Canada |
-| A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 31 countries, Natural Earth admin-1 at 1:10m | 203 kB for Germany, 1.8 MB for Russia |
+| A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 32 countries, Natural Earth admin-1 at 1:10m | 203 kB for Germany, 1.8 MB for Russia |
+| Japan's prefectures | `divisions/jp` or `loadDivisions("jp")` | 47 prefectures, Natural Earth admin-1 at 1:10m, with Okinawa and the outlying islands in boxes | 186 kB |
 
 The codes are ISO 3166-1 alpha-2, in lower case in a file's name (`fr`), and Natural Earth's own three letters for the few places that have none. `CHIZU_COUNTRIES` (from `@johnmorrisdotca/chizu/names`) lists every country with its names, and says which have a map of their own regions.
 
-The **31 countries with regions** are Argentina, Australia, Austria, Belgium, Brazil, Canada, Chile, China, Colombia, France, Germany, Ireland, Italy, Malaysia, Mexico, the Netherlands, New Zealand, Norway, Peru, the Philippines, Poland, Russia, South Korea, Spain, Sweden, Switzerland, Taiwan, Thailand, the United Kingdom, the United States and Vietnam.
+The **32 countries with regions** are Argentina, Australia, Austria, Belgium, Brazil, Canada, Chile, China, Colombia, France, Germany, Ireland, Italy, Japan, Malaysia, Mexico, the Netherlands, New Zealand, Norway, Peru, the Philippines, Poland, Russia, South Korea, Spain, Sweden, Switzerland, Taiwan, Thailand, the United Kingdom, the United States and Vietnam.
+
+**Japan.** The 47 prefectures are numbered as Japan numbers them, `"1"` (Hokkaidō) to `"47"` (Okinawa), with `iso` the ISO 3166-2 code (`JP-01`); `group` is the region a Japanese school teaches (Hokkaido, Tohoku, Kanto, Chubu, Kansai, Chugoku, Shikoku, Kyushu, with Okinawa in Kyushu); `type` is `prefecture`, `metropolis` (Tokyo), `urban prefecture` (Kyoto, Osaka) or `circuit` (Hokkaido); the names in both languages and the readings (`reading`, とうきょうと) are kuni's. The mainland is drawn in Mercator 1,000 across, from Rebun to Yakushima and down the Izu Islands to Torishima. Okinawa is drawn in a box at the top left, in the Sea of Japan, at nearly its own scale; Kagoshima's islands south of Yakushima (the Tokara and Amami Islands, which Natural Earth draws inside Okinawa and the build gives back to Kagoshima) in a box beside it, which is where they lie, north-east of Okinawa; and Tokyo's islands south of Torishima (Ogasawara, the Volcano Islands and Minamitorishima) in a box at the bottom right. The rest of each prefecture stays where it is.
 
 **What a country alone leaves out.** A country is drawn with its largest piece and every piece within 9° of it, so France is the mainland and Corsica, not French Guiana, Réunion and the Pacific (they are on the world map). The United States is the lower forty-eight and Alaska.
 
@@ -480,7 +485,40 @@ The **31 countries with regions** are Argentina, Australia, Austria, Belgium, Br
 
 ### The canvas and the codes
 
-A map's canvas is `0 0 width height`, `viewBox` says so, and a region's `path` is `M x,y L x,y … Z` with one piece for each part (an island is a piece), to two decimals. A region's `code` is its ISO 3166-1 alpha-2 code on the world, and on a country's regions the code Natural Earth gives (a postal code, the ISO 3166-2 part, or a number). `neighbors` lists the regions that share a border point with it. `group` is the continent on the world and the larger part of the country on a map of regions, and is what quiz distractors use.
+A map's canvas is `0 0 width height`, `viewBox` says so, and a region's `path` is `M x,y L x,y … Z` with one piece for each part (an island is a piece), to two decimals. A region's `code` is its ISO 3166-1 alpha-2 code on the world, and on a country's regions the code Natural Earth gives (a postal code, the ISO 3166-2 part, or a number), or the prefecture number in Japan. On a country's regions, `iso` is the full ISO 3166-2 code (`CA-ON`), the one kuni has: see [ISO codes](#iso-codes) below. `neighbors` lists the regions that share a border point with it. `group` is the continent on the world and the larger part of the country on a map of regions, and is what quiz distractors use.
+
+### ISO codes
+
+Every region of a country carries `iso`, its ISO 3166-2 code, unless ISO 3166-2 has no code for the region Natural Earth draws. The code is Natural Earth's when kuni 1.0.0 has it, and otherwise the one `ISO_JOIN` in `scripts/data-config.mjs` gives: Paris is `FR-75C` since 2019, Poland's voivodeships are numbered since 2018 (`PL-24`, Silesia), Mexico City is `MX-CMX`, New Taipei `TW-NWT`. Where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in: County Dublin's four councils are all `IE-D`, Cork City and the county council are both `IE-CO`, a district of Northern Ireland from before 2015 has the code of the district it is part of now (Derry and Strabane, `GB-DRS`). Crimea and Sevastopol, which Natural Earth draws in Russia, have the codes ISO 3166-2 gives them, `UA-43` and `UA-40`. Tests hold every region to a code or a line in that table, and every code two regions share to a line saying why.
+
+These 22 of the 1,342 regions have no code:
+
+| Country | `code` | Region | Why it has no ISO 3166-2 code |
+| --- | --- | --- | --- |
+| AU | `X02~` | Jervis Bay Territory | Jervis Bay Territory has no ISO 3166-2 code of its own |
+| GB | `NTH` | Northamptonshire | Northamptonshire was split in 2021 into North (GB-NNH) and West Northamptonshire (GB-WNH) |
+| NO | `X01~` | Bouvet Island | Bouvet Island is a country code of its own in ISO 3166-1 (BV), with no subdivision code |
+| NO | `01` | Østfold | Østfold, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Viken (NO-30), and not yet the codes of 2024 |
+| NO | `02` | Akershus | Akershus, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Viken (NO-30), and not yet the codes of 2024 |
+| NO | `06` | Buskerud | Buskerud, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Viken (NO-30), and not yet the codes of 2024 |
+| NO | `04` | Hedmark | Hedmark, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Innlandet (NO-34), and not yet the codes of 2024 |
+| NO | `05` | Oppland | Oppland, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Innlandet (NO-34), and not yet the codes of 2024 |
+| NO | `07` | Vestfold | Vestfold, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Vestfold og Telemark (NO-38), and not yet the codes of 2024 |
+| NO | `08` | Telemark | Telemark, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Vestfold og Telemark (NO-38), and not yet the codes of 2024 |
+| NO | `09` | Aust-Agder | Aust-Agder, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Agder (NO-42), and not yet the codes of 2024 |
+| NO | `10` | Vest-Agder | Vest-Agder, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Agder (NO-42), and not yet the codes of 2024 |
+| NO | `12` | Hordaland | Hordaland, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Vestland (NO-46), and not yet the codes of 2024 |
+| NO | `14` | Sogn og Fjordane | Sogn og Fjordane, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Vestland (NO-46), and not yet the codes of 2024 |
+| NO | `16` | Sør-Trøndelag | Sør-Trøndelag, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Trøndelag (NO-50), and not yet the codes of 2024 |
+| NO | `17` | Nord-Trøndelag | Nord-Trøndelag, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Trøndelag (NO-50), and not yet the codes of 2024 |
+| NO | `19` | Troms | Troms, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Troms og Finnmark (NO-54), and not yet the codes of 2024 |
+| NO | `20` | Finnmark | Finnmark, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Troms og Finnmark (NO-54), and not yet the codes of 2024 |
+| PH | `MAG` | Maguindanao | Maguindanao was split in 2022 into Maguindanao del Norte (PH-MGN) and del Sur (PH-MGS) |
+| PH | `MNL` | Mandaluyong | Mandaluyong, a city of Metro Manila (PH-00), which ISO 3166-2 does not code on its own |
+| PH | `SUN` | Surigao del Norte | Surigao del Norte as it was before 2006, with the Dinagat Islands (now PH-DIN) in it |
+| RU | `X01~` | X01~ | a piece of the Yamal coast, 38 km², that Natural Earth draws without a name or a code |
+
+A region that is exactly one ISO subdivision takes kuni's names, so a map and a form name a place alike; Natural Earth's are kept where kuni 1.0.0's are wrong (it writes Peterborough as "Peter" and swaps Chiayi City and County) or read worse on a map (CLDR's "Chechen" for the Chechen Republic). The rest keep Natural Earth's names, and no two regions of one map share a name in either language.
 
 ## Framing a map
 
@@ -663,7 +701,7 @@ All of these are held by tests, and the ones with a name are exported.
 | Zoom | five steps, 1× to 5× | `MAP_ZOOM_LEVELS` |
 | The world | 173 countries on a canvas 1,000 wide and 489 tall | `WORLD` |
 | Countries alone | 238, on a canvas whose longer side is 1,000 | `CHIZU_COUNTRIES` |
-| Countries with regions | 31 | `DIVISIONS_CODES` |
+| Countries with regions | 32 | `DIVISIONS_CODES` |
 | A callout's circle | 3% of the window's width unless asked otherwise | `CALLOUT_RADIUS_RATIO` |
 | Callouts that cross | none, for the maps and lists the tests place, polished or not | `calloutFaults` |
 | Wrong answers | 3 unless asked otherwise, drawn from the best `count + 3` | `pickDistractors` |
@@ -688,24 +726,24 @@ Any browser with ES2020 modules, pointer events and CSS `aspect-ratio`: Chrome a
 
 ## Languages
 
-English and Japanese: the names of every country and of nearly every region (Natural Earth's, from Wikidata, which is CC0), the everyday short name and the reading for the countries where a Japanese child's atlas would use one, the words of the drawing and the mounted map (`CHIZU_STRINGS`), and the demo. **Japanese: included; not yet reviewed by a native reader. Corrections welcome.** The readings of the names written with kanji are hand-written, 23 of them (`KANJI_READINGS` in `scripts/data-config.mjs`), and a name in katakana is its own reading. Every string of the board is listed beside its English in [docs/strings-ja.md](./docs/strings-ja.md), and there is an [issue template](https://github.com/johnmorrisdotca/chizu/issues/new?template=fix-a-translation.md) for fixing one. Any other language is a table of your own, passed beside these two: Natural Earth carries names in more than twenty.
+English and Japanese: the names of every country and of nearly every region (kuni's, from Unicode CLDR and Wikidata, and Natural Earth's, from Wikidata), the everyday short name where it is not the formal one (アメリカ), the reading in kana of every country and every prefecture, the words of the drawing and the mounted map (`CHIZU_STRINGS`), and the demo. **Japanese: included; not yet reviewed by a native reader. Corrections welcome.** The readings are kuni's, but for the three places kuni does not have, whose readings are hand-written, 3 of them (`KANJI_READINGS` in `scripts/data-config.mjs`); a name in katakana is its own reading. Every string of the board is listed beside its English in [docs/strings-ja.md](./docs/strings-ja.md), and there is an [issue template](https://github.com/johnmorrisdotca/chizu/issues/new?template=fix-a-translation.md) for fixing one. Any other language is a table of your own, passed beside these two: Natural Earth carries names in more than twenty.
 
 ## Roadmap
 
 Not here yet, and each welcome as an [issue](https://github.com/johnmorrisdotca/chizu/issues):
 
-- **Japan's 47 prefectures**, rebuilt from the Geospatial Information Authority's Global Map, or from Natural Earth's own admin-1 file (which has them, in the public domain). The outlines the first site drew them from came with no licence, so they are not carried over; the 1:50m outline of Japan alone is here.
 - **The outlines as longitude and latitude**, an entry of their own, so that another map can be made from them in another projection or cut at another meridian: [Tenka](https://github.com/johnmorrisdotca/tenka) cuts its world at the Bering Strait and merges countries into territories, which a canvas that is already projected cannot do.
 - **Cities**: Natural Earth's populated places, projected on each map's canvas, for pinning a town and not only a country.
-- **More names**: the countries' capitals and the regions' readings, from a source whose licence allows it.
-- A **US-style composite** (Albers USA) as an alternative to the two boxes, and the **Okinawa box** for Japan, once Japan's regions are here.
+- **Capital markers**: a dot and a name for each country's capital and each region's seat, with the coordinates and the Japanese names read from kuni 国 at build time, as the names are now (kuni 1.1.0 adds them). Facts about a place live in kuni; Chizu draws them.
+- **Readings for the regions outside Japan**, when kuni has them.
+- A **US-style composite** (Albers USA) as an alternative to the two boxes.
 - A **tag** (`<chizu-map>`) beside `mountChizu`, as the other packages of the family have.
 
-Left out on purpose: population, area, capitals, mottos and "famous for" facts. They are claims, and a map should not make them without a source for each.
+Left out on purpose: population, area, mottos and "famous for" facts. They are claims, and a map should not make them without a source for each; where kuni carries one with its source, Chizu reads it at build time rather than keeping a copy of its own.
 
 ## Architecture
 
-The engine is plain functions over plain data with no DOM and no dependency. The maps are generated: `scripts/build-data.mjs` reads three Natural Earth files at a pinned release and writes every file under `src/data/`, and `pnpm data` twice leaves the tree unchanged. Each entry point is a file of its own, so a server that frames and numbers a map never loads the drawing, and a page that draws one country never loads another. Tests sit beside the code they test (`*.test.ts`). `scripts/` builds the data, the demo and its API reference page, takes the README's pictures and checks the package as npm packs it; `demo/` is the playable page, and `e2e/` its browser tests.
+The engine is plain functions over plain data with no DOM and no dependency. The maps are generated: `scripts/build-data.mjs` reads four Natural Earth files at a pinned release, and the names and ISO codes from kuni 国 at a pinned version, and writes every file under `src/data/`, and `pnpm data` twice leaves the tree unchanged. Each entry point is a file of its own, so a server that frames and numbers a map never loads the drawing, and a page that draws one country never loads another. Tests sit beside the code they test (`*.test.ts`). `scripts/` builds the data, the demo and its API reference page, takes the README's pictures and checks the package as npm packs it; `demo/` is the playable page, and `e2e/` its browser tests.
 
 ```text
 src/
@@ -742,7 +780,7 @@ src/
     ├── countries.ts        the table of every country
     ├── loaders.ts          one import for each country's map
     ├── countries/<code>.ts   238 countries, each alone
-    └── divisions/<code>.ts   31 countries' regions
+    └── divisions/<code>.ts   32 countries' regions
 ```
 
 ## The name
@@ -823,9 +861,10 @@ The code is [MIT](./LICENSE) © John Morris. The outlines and the names are data
 
 | Data | Made from | Terms |
 | --- | --- | --- |
-| The outlines of the world, of each country and of 31 countries' regions | [Natural Earth](https://www.naturalearthdata.com/) 5.1.2, admin-0 countries at 1:110m, 1:50m and 1:10m and admin-1 states and provinces at 1:10m | Public domain. Crediting the authors is unnecessary; it is done here anyway |
-| The names in Japanese | Natural Earth's names, which are Wikidata's | CC0 |
-| The everyday short names and the readings in kana | Written for this package | MIT |
+| The outlines of the world, of each country and of 32 countries' regions | [Natural Earth](https://www.naturalearthdata.com/) 5.1.2, admin-0 countries at 1:110m, 1:50m and 1:10m and admin-1 states and provinces at 1:10m | Public domain. Crediting the authors is unnecessary; it is done here anyway |
+| The countries' names, short names, readings and continents; the regions' ISO 3166-2 codes; the names of Japan's prefectures and of the regions that are one ISO subdivision | [kuni 国](https://github.com/johnmorrisdotca/kuni) 1.0.0, read at build time, whose names are [Unicode CLDR](https://cldr.unicode.org/)'s and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, whose notice is in NOTICE.md. Wikidata: CC0 |
+| The other regions' names in Japanese | Natural Earth's names, which are Wikidata's | CC0 |
+| The readings of three places kuni does not have, and the names that tell two regions of one map apart | Written for this package | MIT |
 
 Natural Earth is made by volunteers and supported by the North American Cartographic Information Society; their work is why a map like this can be free. Thank you.
 

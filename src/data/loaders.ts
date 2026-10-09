@@ -249,7 +249,7 @@ export const COUNTRY_LOADERS: Readonly<Record<string, Load>> = {
   ag: () => import("./countries/ag.ts"),
 };
 
-/** The regions of the 31 countries that have them, by lower-case code. */
+/** The regions of the 32 countries that have them, by lower-case code. */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   ar: () => import("./divisions/ar.ts"),
   at: () => import("./divisions/at.ts"),
@@ -267,6 +267,7 @@ export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   gb: () => import("./divisions/gb.ts"),
   ie: () => import("./divisions/ie.ts"),
   it: () => import("./divisions/it.ts"),
+  jp: () => import("./divisions/jp.ts"),
   kr: () => import("./divisions/kr.ts"),
   mx: () => import("./divisions/mx.ts"),
   my: () => import("./divisions/my.ts"),

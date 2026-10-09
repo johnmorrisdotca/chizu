@@ -19,6 +19,7 @@ import {
   zoomToFit,
 } from "./frame.ts";
 import { insetFor } from "./insets.ts";
+import { drawnBounds } from "./outlines.ts";
 
 /* A country drawn with two regions in boxes of their own (Alaska and Hawaii), and the world, which wraps. */
 const MAP = us;
@@ -349,5 +350,25 @@ describe("choosing one place zooms in to fit it", () => {
   it("has nothing to fit for no code, or one this map does not hold", () => {
     expect(focusRegionFit(MAP, null)).toBeNull();
     expect(focusRegionFit(MAP, "ZZ")).toBeNull();
+  });
+});
+
+describe("framing a region whose outlying islands are drawn in a box", () => {
+  /* Before Japan, no map boxed only part of a region, and framing Tokyo took the reader to Ogasawara's box. */
+  it("frames Tokyo on the Tokyo left in place, and Okinawa on its box", async () => {
+    const japan = (await import("./data/divisions/jp.ts")).default;
+    const tokyo = japan.regions.find((region) => region.code === "13")!;
+    const box = japan.insets.find((inset) => inset.code === "13")!.box;
+    const centre = regionCentre(japan, "13")!;
+    // Tokyo in place is the city and the Izu Islands down to Torishima, all west of the box that holds Ogasawara.
+    expect(centre.x).toBeLessThan(box.x);
+    const [, , inPlaceRight] = drawnBounds(tokyo, insetFor(japan, "13"));
+    expect(inPlaceRight).toBeLessThan(box.x);
+    const frame = regionBox(japan, "13");
+    expect(frame.x + frame.width).toBeLessThan(box.x + box.width);
+    expect(frame.width).toBeLessThan(tokyo.bbox[2] - tokyo.bbox[0]);
+    const okinawa = japan.insets.find((inset) => inset.code === "47")!.box;
+    expect(regionCentre(japan, "47")).toEqual({ x: okinawa.x + okinawa.width / 2, y: okinawa.y + okinawa.height / 2 });
+    expect(zoomToFit(japan, ["13"]).zoom).toBeGreaterThan(1);
   });
 });
