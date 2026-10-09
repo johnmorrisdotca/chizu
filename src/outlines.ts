@@ -325,3 +325,24 @@ export function shiftedOutlines(outlines: readonly MapOutline[], by: number): Ma
   shiftCache.set(outlines, held);
   return moved;
 }
+
+/**
+ * The box round a region where it is *drawn*, to frame it by: its own box when it is drawn where it is, its box
+ * carried into its inset when it is drawn whole in one, and the box round the part left in place when only its
+ * outlying islands are boxed (Tokyo is framed on Tokyo, not on Ogasawara, and not on both with an ocean between).
+ */
+export function drawnBounds(
+  region: { path: string; bbox: readonly [number, number, number, number] },
+  inset: ChizuInset | null,
+): [number, number, number, number] {
+  const [x0, y0, x1, y1] = region.bbox;
+  if (!inset) return [x0, y0, x1, y1];
+  const pieces = mapRegionPieces(region, inset);
+  const inPlace = inset.outlyingBelow === undefined ? [] : pieces.filter((piece) => piece.transform === null);
+  if (inPlace.length === 0) {
+    const transform = insetTransform(region.bbox, inset.box, inset.magnify);
+    return [x0 * transform.scale + transform.x, y0 * transform.scale + transform.y, x1 * transform.scale + transform.x, y1 * transform.scale + transform.y];
+  }
+  const rings = inPlace.flatMap((piece) => parseMapRings(piece.d));
+  return [Math.min(...rings.map((ring) => ring.minX)), Math.min(...rings.map((ring) => ring.minY)), Math.max(...rings.map((ring) => ring.maxX)), Math.max(...rings.map((ring) => ring.maxY))];
+}

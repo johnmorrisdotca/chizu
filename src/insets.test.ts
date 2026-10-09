@@ -3,18 +3,19 @@ import { describe, expect, it } from "vitest";
 import us from "./data/divisions/us.ts";
 import { DIVISIONS_LOADERS } from "./data/loaders.ts";
 import { applyInsetTransform, insetFor, insetTransform, insetTransformAttribute } from "./insets.ts";
+import { drawnBounds } from "./outlines.ts";
 
 describe("where a map puts the regions it draws in a box", () => {
   /* The bug this guards: a box that sat on a neighbouring region, so the two read as one place. */
   it("puts every box where no other region reaches", async () => {
     for (const load of Object.values(DIVISIONS_LOADERS)) {
       const map = (await load()).default;
-      // Only a region drawn wholly in a box is out of the way. A box holding just a region's outlying islands leaves the region itself in place, so it is checked against every box like any other - including its own.
+      // Only a region drawn wholly in a box is out of the way. A box holding just a region's outlying islands leaves the rest of the region in place, so that part is checked against every box like any other - including its own.
       const inBoxes = new Set(map.insets.filter((inset) => inset.outlyingBelow === undefined).map((inset) => inset.code));
       for (const inset of map.insets) {
         const trespassers = map.regions.filter((region) => {
           if (inBoxes.has(region.code)) return false;
-          const [x0, y0, x1, y1] = region.bbox;
+          const [x0, y0, x1, y1] = drawnBounds(region, insetFor(map, region.code));
           return x0 < inset.box.x + inset.box.width && x1 > inset.box.x && y0 < inset.box.y + inset.box.height && y1 > inset.box.y;
         });
         expect(trespassers.map((region) => region.code), `${map.id} ${inset.code}`).toEqual([]);
@@ -35,14 +36,17 @@ describe("where a map puts the regions it draws in a box", () => {
   });
 
   // Two boxes that overlapped would read as one frame with two scales in it.
-  it("keeps the boxes off each other", () => {
-    const boxes = us.insets.map((inset) => inset.box);
-    for (let i = 0; i < boxes.length; i += 1) {
-      for (let j = i + 1; j < boxes.length; j += 1) {
-        const a = boxes[i]!;
-        const b = boxes[j]!;
-        const apart = a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y;
-        expect(apart, `${i} and ${j}`).toBe(true);
+  it("keeps the boxes off each other", async () => {
+    for (const load of Object.values(DIVISIONS_LOADERS)) {
+      const map = (await load()).default;
+      const boxes = map.insets.map((inset) => inset.box);
+      for (let i = 0; i < boxes.length; i += 1) {
+        for (let j = i + 1; j < boxes.length; j += 1) {
+          const a = boxes[i]!;
+          const b = boxes[j]!;
+          const apart = a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y;
+          expect(apart, `${map.id} ${i} and ${j}`).toBe(true);
+        }
       }
     }
   });

@@ -1,4 +1,5 @@
-import { applyInsetTransform, insetFor, insetTransform } from "./insets.ts";
+import { insetFor } from "./insets.ts";
+import { drawnBounds } from "./outlines.ts";
 import type { ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround } from "./wrap.ts";
 
@@ -136,8 +137,8 @@ export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>)
   const whole = wholeMapBox(map);
   const drawn = matching(map, codes).map((region) => {
     const seated = insetFor(map, region.code);
-    if (seated) return [seated.box.x, seated.box.y, seated.box.x + seated.box.width, seated.box.y + seated.box.height];
-    return region.bbox;
+    if (seated && seated.outlyingBelow === undefined) return [seated.box.x, seated.box.y, seated.box.x + seated.box.width, seated.box.y + seated.box.height];
+    return drawnBounds(region, seated);
   });
   if (drawn.length === 0) return { zoom: MAP_ZOOM_LEVELS[0], centre: boxCentre(whole) };
 
@@ -169,16 +170,16 @@ export function focusRegionFit(map: Frameable, code: string | number | null): { 
 
 /**
  * The middle of a region, for zooming to whatever somebody just chose: where it is *drawn*, not where it is. Okinawa
- * is drawn in a box off the south-west of the mainland and Alaska in one below the lower forty-eight, so centring on
- * their true positions would take the reader to open sea.
+ * is drawn in a box in the Sea of Japan and Alaska in one below the lower forty-eight, so centring on their true
+ * positions would take the reader to open sea; Tokyo, whose far islands are boxed, is centred on the Tokyo left in place.
  */
 export function regionCentre(map: Frameable, code: string | number | null): { x: number; y: number } | null {
   if (code === null) return null;
   const seated = insetFor(map, code);
-  if (seated) return boxCentre(seated.box);
+  if (seated && seated.outlyingBelow === undefined) return boxCentre(seated.box);
   const region = map.regions.find((entry) => String(entry.code) === String(code));
   if (!region) return null;
-  const [minX, minY, maxX, maxY] = region.bbox;
+  const [minX, minY, maxX, maxY] = drawnBounds(region, seated);
   return { x: (minX + maxX) / 2, y: (minY + maxY) / 2 };
 }
 
@@ -198,15 +199,8 @@ export function regionBox(map: Frameable, code: string | number, aspect = 1): Ma
   const region = map.regions.find((entry) => String(entry.code) === String(code));
   if (!region) return wholeMapBox(map);
 
-  const seated = insetFor(map, code);
-  const [x0, y0, x1, y1] = region.bbox;
-  const source = (() => {
-    if (!seated) return { minX: x0, minY: y0, maxX: x1, maxY: y1 };
-    const transform = insetTransform(region.bbox, seated.box, seated.magnify);
-    const [minX, minY] = applyInsetTransform([x0, y0], transform);
-    const [maxX, maxY] = applyInsetTransform([x1, y1], transform);
-    return { minX, minY, maxX, maxY };
-  })();
+  const [minX, minY, maxX, maxY] = drawnBounds(region, insetFor(map, code));
+  const source = { minX, minY, maxX, maxY };
 
   const spanX = Math.max(source.maxX - source.minX, 0.001);
   const spanY = Math.max(source.maxY - source.minY, 0.001);
