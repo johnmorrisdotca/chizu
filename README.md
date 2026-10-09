@@ -84,7 +84,7 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 - **Quiz distractors.** The wrong answers for "which one is this?", tempting for a reason, the same for the same seed.
 - **Pasted names to places.** A list somebody typed (English, Japanese, short names, readings) becomes the regions it names, in the order written, with what matched nothing said back.
 - **Longitude and latitude to the canvas, and back**, for the world and for each country alone, held to d3-geo's own to a hundredth of a unit.
-- **Drawn as SVG text** in an entry of its own, with tones for right and wrong, labels, insets in dashed frames and numbered callouts, for a server, an email, a build step or `innerHTML`.
+- **Drawn as SVG text** in an entry of its own, with tones for right and wrong, a colour of your own for any region, labels, insets in dashed frames and numbered callouts, for a server, an email, a build step or `innerHTML`.
 - **Dragged and zoomed in any page**: drag to move, buttons, Ctrl and the wheel or a pinch to zoom, arrow keys, a press to choose; with the words in English and Japanese for a screen reader.
 - **No dependencies**, no network requests, and nothing stored outside the page it is in.
 
@@ -450,7 +450,7 @@ A map's canvas is `0 0 width height`, `viewBox` says so, and a region's `path` i
 
 ### ISO codes
 
-Every region of a country carries `iso`, its ISO 3166-2 code from kuni, the current one where Natural Earth's is out of date (Paris is `FR-75C`, Silesia `PL-24`); where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in (County Dublin's four councils are all `IE-D`). [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) says how each code is chosen. Norway's counties, drawn as they were before 2020, carry the codes of the counties of 2024 they lie in. 7 of the 1,342 regions have no code: a county split since (Northamptonshire), a territory with none (Jervis Bay), and a few more. [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) lists every one with the reason.
+Every region of a country carries `iso`, its ISO 3166-2 code from kuni, the current one where Natural Earth's is out of date (Paris is `FR-75C`, Silesia `PL-24`); where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in (County Dublin's four councils are all `IE-D`). Norway's counties, drawn as they were before 2020, carry the codes of the counties of 2024 they lie in. 7 of the 1,342 regions have no code: a county split since (Northamptonshire), a territory with none (Jervis Bay), and a few more. [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) says how each code is chosen and lists every one with the reason.
 
 A region that is exactly one ISO subdivision takes kuni's names, so a map and a form name a place alike. The rest keep Natural Earth's names, and no two regions of one map share a name in either language. [docs/names.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/names.md) lists every name the map prints that is not kuni's, with the reason.
 
@@ -548,6 +548,7 @@ drawChizu(map, {
   box,                                      // a window; default the whole map
   language: "ja",                           // names for a screen reader and the labels
   tones: { BY: "selected", NW: "correct" }, // selected, correct, wrong, hint, muted, faint, or any name x for the class cz-tone-x
+  colors: { BY: "#2f6b4f", NW: "teal" },    // a fill of your own for a region; docs/colours.md
   callouts: ["BY", "NW", "SL"],             // or a full request, as layoutCallouts takes it
   labels: true,                             // names on the land, where they fit; or a list of codes
   interactive: true,                        // every region a thing to press

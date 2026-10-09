@@ -29,6 +29,14 @@ export type ChizuDrawOptions = {
   language?: ChizuLanguage;
   /** A tone for each region, by code: `selected`, `correct`, `wrong`, `hint`, `muted`, `faint`, or any name `x`, which is the class `cz-tone-x` for your own style. */
   tones?: Readonly<Record<string, string>>;
+  /**
+   * A colour for each region, by code: `{ JP: "#2f6b4f", GB: "#8a3b3b" }`, for two or more places that must be told
+   * apart (a comparison, a choropleth you colour yourself). A hex colour (`#2f6b4f`, `#fc0`), a CSS colour name
+   * (`teal`), `rgb()`, `hsl()` or a `var(--name)` is drawn as the land's fill, over its tone's; any other text is
+   * ignored, so a value from an address or a form cannot put anything else into the drawing. A region not named
+   * keeps the theme's land (or its tone's). The colour is the same in the light and dark looks. Default none.
+   */
+  colors?: Readonly<Record<string, string>>;
   /** Numbered circles in open water with leader lines to these regions (`layoutCallouts`): a list of codes, or a request. */
   callouts?: readonly string[] | Omit<CalloutRequest, "box">;
   /** Print the names on the land: all the regions that are big enough to hold theirs, or just these. */
@@ -53,6 +61,22 @@ export type ChizuDrawOptions = {
   /** Print the features' names. Default true. */
   featureLabels?: boolean;
 };
+
+/** A colour a drawing will carry: hex, a CSS name, `rgb()`, `hsl()` (and their `a` forms) or `var(--name)`. Nothing else, so none of it can end the attribute or the style it sits in. */
+const SAFE_COLOUR = /^(#[0-9a-f]{3,8}|[a-z]{3,30}|(?:rgb|hsl)a?\([0-9a-z.,%\s/+-]{1,60}\)|var\(--[a-z0-9_-]{1,40}\))$/i;
+
+/**
+ * Whether `colour` is one `drawChizu`'s `colors` will draw.
+ *
+ * @example
+ * ```ts
+ * import { isChizuColour } from "@johnmorrisdotca/chizu/draw";
+ *
+ * console.log(isChizuColour("#2f6b4f"), isChizuColour("teal"), isChizuColour("red;x:y"));
+ * // true true false
+ * ```
+ */
+export const isChizuColour = (colour: string): boolean => SAFE_COLOUR.test(colour.trim());
 
 const escape = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const num = (value: number) => String(Math.round(value * 100) / 100);
@@ -87,6 +111,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
   const offsets = mapWrapsAround(map) ? wrapOffsets(box, map.width) : [0];
   const interactive = options.interactive === true;
   const tones = options.tones ?? {};
+  const colors = options.colors ?? {};
   // The features chosen, and any other that is given a tone: a sea chosen from a list is drawn though its group is off.
   const shown: ChizuFeature[] =
     options.featureLayer && options.featureLayer.map === map.id
@@ -106,8 +131,9 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
   const regionGroup = (index: number) => {
     const region = map.regions[index]!;
     const tone = tones[region.code];
+    const colour = Object.hasOwn(colors, region.code) && typeof colors[region.code] === "string" && isChizuColour(colors[region.code]!) ? colors[region.code]!.trim() : undefined;
     const pieces = mapRegionPieces(region, insetOf.get(String(region.code)) ?? null);
-    const attributes = `class="cz-region${tone ? ` cz-tone-${escape(tone)}` : ""}" data-code="${escape(region.code)}"${tone ? ` data-tone="${escape(tone)}"` : ""}${interactive ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(nameOf(region, language))}"` : ""}`;
+    const attributes = `class="cz-region${tone ? ` cz-tone-${escape(tone)}` : ""}" data-code="${escape(region.code)}"${tone ? ` data-tone="${escape(tone)}"` : ""}${colour ? ` data-color="${escape(colour)}" style="--cz-color:${escape(colour)}"` : ""}${interactive ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(nameOf(region, language))}"` : ""}`;
     const paths = pieces.map((piece) => `<path class="cz-land" d="${piece.d}"${piece.transform ? ` transform="${insetTransformAttribute(piece.transform)}"` : ""}/>`).join("");
     return `<g ${attributes}><title>${escape(nameOf(region, language))}</title>${paths}</g>`;
   };

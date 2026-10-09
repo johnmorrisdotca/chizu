@@ -25,6 +25,7 @@ import {
   toJson,
   toText,
 } from "./tools.js";
+import { toMarkdown, toSql } from "./downloads.js";
 import { WORDS } from "./words.js";
 
 const params = new URLSearchParams(location.search);
@@ -380,6 +381,8 @@ function renderFeatures() {
     { format: "csv", type: "text/csv", name: viewName("features"), make: () => toCsv(columns, state.layer?.features ?? []) },
     { format: "json", type: "application/json", name: viewName("features"), make: () => toJson(columns, state.layer?.features ?? [], { map: state.map.id, source: state.layer?.source ?? null }) },
     { format: "txt", type: "text/plain", name: viewName("features"), make: () => toText(title, columns, state.layer?.features ?? []) },
+    { format: "md", type: "text/markdown", name: viewName("features"), make: () => toMarkdown(columns, state.layer?.features ?? []) },
+    { format: "sql", type: "application/sql", name: viewName("features"), make: () => toSql("features", columns, state.layer?.features ?? []) },
   ]);
 }
 
@@ -468,6 +471,8 @@ async function svgToPng(svg) {
   }
 }
 
+const FORMAT_LABELS = { md: "Markdown", sql: "SQL" };
+
 /** A row of buttons, one for each kind of file a thing can be downloaded as. */
 function downloadRow(container, testid, label, files) {
   container.replaceChildren(
@@ -481,7 +486,7 @@ function downloadRow(container, testid, label, files) {
           class: "fam-button",
           "data-format": file.format,
           "data-testid": `${testid}-${file.format}`,
-          text: file.format.toUpperCase(),
+          text: FORMAT_LABELS[file.format] ?? file.format.toUpperCase(),
           on: {
             click: async () => {
               const body = await file.make();
@@ -520,6 +525,8 @@ function renderExploreDownloads() {
     { format: "csv", type: "text/csv", name: viewName("places"), make: () => toCsv(placeTable().columns, placeTable().rows) },
     { format: "json", type: "application/json", name: viewName("places"), make: () => toJson(placeTable().columns, placeTable().rows, { map: state.map.id, part: state.part?.key ?? null }) },
     { format: "txt", type: "text/plain", name: viewName("places"), make: () => toText(title, placeTable().columns, placeTable().rows) },
+    { format: "md", type: "text/markdown", name: viewName("places"), make: () => toMarkdown(placeTable().columns, placeTable().rows) },
+    { format: "sql", type: "application/sql", name: viewName("places"), make: () => toSql("places", placeTable().columns, placeTable().rows) },
   ]);
 }
 
@@ -740,6 +747,8 @@ function renderSummary() {
     { format: "csv", type: "text/csv", name: viewName("quiz", String(quiz.seed)), make: () => toCsv(resultColumns(), rows) },
     { format: "json", type: "application/json", name: viewName("quiz", String(quiz.seed)), make: () => toJson(resultColumns(), rows, { map: state.map.id, part: state.part?.key ?? null, style: quiz.style, seed: quiz.seed, link: shareLink() }) },
     { format: "txt", type: "text/plain", name: viewName("quiz", String(quiz.seed)), make: () => toText(`${title}\n${$("summary-text").textContent}\n${shareLink()}`, resultColumns(), rows) },
+    { format: "md", type: "text/markdown", name: viewName("quiz", String(quiz.seed)), make: () => toMarkdown(resultColumns(), rows) },
+    { format: "sql", type: "application/sql", name: viewName("quiz", String(quiz.seed)), make: () => toSql("quiz_results", resultColumns(), rows) },
   ]);
   $("share-link").value = shareLink();
 }
@@ -791,6 +800,8 @@ function applyCallouts() {
     { format: "csv", type: "text/csv", name: viewName("callouts"), make: () => toCsv(columns, legendRows()) },
     { format: "json", type: "application/json", name: viewName("callouts"), make: () => toJson(columns, legendRows(), { map: state.map.id }) },
     { format: "txt", type: "text/plain", name: viewName("callouts"), make: () => toText(state.map.name, columns, legendRows()) },
+    { format: "md", type: "text/markdown", name: viewName("callouts"), make: () => toMarkdown(columns, legendRows()) },
+    { format: "sql", type: "application/sql", name: viewName("callouts"), make: () => toSql("callouts", columns, legendRows()) },
   ]);
 }
 
@@ -884,6 +895,8 @@ function renderColour() {
     { format: "csv", type: "text/csv", name: viewName("figures"), make: () => toCsv(columns, figureRows()) },
     { format: "json", type: "application/json", name: viewName("figures"), make: () => toJson(columns, figureRows(), { map: state.map.id }) },
     { format: "txt", type: "text/plain", name: viewName("figures"), make: () => toText(state.map.name, columns, figureRows()) },
+    { format: "md", type: "text/markdown", name: viewName("figures"), make: () => toMarkdown(columns, figureRows()) },
+    { format: "sql", type: "application/sql", name: viewName("figures"), make: () => toSql("figures", columns, figureRows()) },
   ]);
 }
 

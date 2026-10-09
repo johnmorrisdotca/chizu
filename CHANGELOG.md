@@ -6,6 +6,11 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **A colour for each region.** `drawChizu` and `mountChizu` take `colors`, a colour by region code (`{ JP: "#2f6b4f", GB: "#8a3b3b" }`), for two or more places that must be told apart. A hex colour, a CSS colour name, `rgb()`, `hsl()` or `var(--name)` is the land's fill (over its tone's); any other text is ignored, so nothing from an address or a form can end the attribute. A region with a colour carries `data-color` and `--cz-color`; a map drawn without `colors` is byte for byte as before. `isChizuColour(text)` in `/draw` says whether a value will be drawn. See docs/colours.md, which also says how to show or hide the capitals' marks (the `capitals` feature, off until chosen).
+- **The demo's lists also download as a Markdown table and as SQL**, beside CSV, JSON and text: the places, the features, a quiz round's results, the callouts' list and the figures. The Markdown is a GitHub table (`|` escaped, a line break `<br>`); the SQL is a `CREATE TABLE` and an `INSERT` a row, with double-quoted names, single-quoted text and NULL for what is missing, and runs in SQLite, PostgreSQL and MySQL (MySQL needs `ANSI_QUOTES` and `NO_BACKSLASH_ESCAPES`, which the file's second line says). The writers are `demo/downloads.js`, the same file in kuni, chizu and hata, held to one hash and tested by loading the SQL into SQLite.
+
 ## [1.2.0] - 2026-10-09
 
 Nothing exported has been removed or renamed, and a map drawn without the new `features` option is drawn byte for byte as before. Names have changed where kuni 1.1.0 changed them: every change is listed below.

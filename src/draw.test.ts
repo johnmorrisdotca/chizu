@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import de from "./data/divisions/de.ts";
 import us from "./data/divisions/us.ts";
 import world from "./data/world.ts";
-import { drawChizu } from "./draw.ts";
+import { drawChizu, isChizuColour } from "./draw.ts";
 import { regionBox, zoomBox } from "./frame.ts";
 import { CHIZU_STYLE } from "./style.ts";
 
@@ -41,6 +41,40 @@ describe("a map as SVG text", () => {
     expect(svg).toContain("cz-tone-correct");
     expect(svg).toContain("cz-tone-faded-out");
     expect(count(svg, /data-tone=/g)).toBe(3);
+  });
+
+  it("gives a region a colour of its own, as a custom property the style reads, and leaves the others alone", () => {
+    const svg = drawChizu(de, { colors: { BY: "#2f6b4f", NW: "teal", BE: "rgb(138, 59, 59)" } });
+    expect(svg).toContain('data-code="BY" data-color="#2f6b4f" style="--cz-color:#2f6b4f"');
+    expect(svg).toContain('data-color="teal" style="--cz-color:teal"');
+    expect(svg).toContain('data-color="rgb(138, 59, 59)"');
+    expect(count(svg, /data-color=/g)).toBe(3);
+    expect(drawChizu(de)).not.toContain("data-color");
+    expect(CHIZU_STYLE).toContain(".cz-region[data-color] .cz-land { fill: var(--cz-color); }");
+  });
+
+  it("keeps a region's tone beside its colour, and draws two places in two colours", () => {
+    const svg = drawChizu(de, { tones: { BY: "selected" }, colors: { BY: "#112233", NW: "#445566" } });
+    expect(svg).toContain('class="cz-region cz-tone-selected" data-code="BY" data-tone="selected" data-color="#112233"');
+    expect(svg).toContain('data-code="NW" data-color="#445566"');
+  });
+
+  it("ignores a colour that is not one, so nothing from an address or a form can end the attribute", () => {
+    const svg = drawChizu(de, { colors: { BY: 'red" onclick="x', NW: "red;fill:url(#x)", BE: "javascript:1", HH: "<b>" } });
+    expect(svg).not.toContain("data-color");
+    expect(svg).not.toContain("onclick");
+    expect(isChizuColour("#2f6b4f")).toBe(true);
+    expect(isChizuColour("#fc0")).toBe(true);
+    expect(isChizuColour(" teal ")).toBe(true);
+    expect(isChizuColour("hsl(120 40% 30% / .5)")).toBe(true);
+    expect(isChizuColour("var(--brand)")).toBe(true);
+    expect(isChizuColour("red;x:y")).toBe(false);
+    expect(isChizuColour("")).toBe(false);
+    expect(isChizuColour("url(#a)")).toBe(false);
+  });
+
+  it("takes a colour only for a code it was given, never from the object's prototype", () => {
+    expect(drawChizu(de, { colors: Object.create({ BY: "#112233" }) })).not.toContain("data-color");
   });
 
   it("frames a window with its own viewBox, and the sea fills it", () => {

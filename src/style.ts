@@ -8,7 +8,8 @@
  * for reduced motion to still.
  *
  * A region may be given a tone (`drawChizu`'s `tones` option): `selected`, `correct`, `wrong`, `hint`, `muted` or `faint`
- * are looked after here, and any other name `x` is the class `cz-tone-x` for the page to colour.
+ * are looked after here, and any other name `x` is the class `cz-tone-x` for the page to colour. A region may instead
+ * be given a colour of its own (`drawChizu`'s `colors` option), which sets `--cz-color` on it and wins over its tone's fill.
  *
  * @example
  * ```ts
@@ -54,6 +55,8 @@ export const CHIZU_STYLE = `
 .chizu .cz-tone-hint .cz-land { fill: var(--cz-hint); }
 .chizu .cz-tone-muted .cz-land { fill: var(--cz-muted); }
 .chizu .cz-tone-faint .cz-land { fill: var(--cz-faint); }
+.chizu .cz-region[data-color] .cz-land { fill: var(--cz-color); }
+.chizu .cz-region[data-color].cz-tone-selected .cz-land { stroke: var(--cz-ink); stroke-width: 2.5px; }
 .chizu .cz-inset { fill: none; stroke: var(--cz-inset); stroke-width: 1px; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; pointer-events: none; }
 .chizu .cz-leader { stroke: var(--cz-leader); stroke-width: 1.2px; stroke-linecap: round; vector-effect: non-scaling-stroke; pointer-events: none; }
 .chizu .cz-start { fill: var(--cz-leader); pointer-events: none; }

@@ -1,4 +1,6 @@
 // What the demo hands over: the map as you see it, the list of places, and a numbered sheet to print.
+import { DatabaseSync } from "node:sqlite";
+
 import { expect, test } from "@playwright/test";
 
 import { at, open } from "./demo.mjs";
@@ -30,6 +32,23 @@ test("the map downloads as an SVG that stands alone and a PNG, and the places as
   expect(json.rows[0]).toEqual({ code: "1", iso: "JP-01", name: "Hokkaidō", nameJa: "北海道", reading: "ほっかいどう", group: "Hokkaido", groupJa: "北海道地方" });
   const txt = (await take(page, "download-list-txt")).body.toString("utf8");
   expect(txt.split("\n")[0]).toBe("Japan");
+});
+
+test("the places also download as a Markdown table and as SQL that loads into a database", async ({ page }) => {
+  await open(page);
+  const md = await take(page, "download-list-md");
+  expect(md.name).toBe("chizu-divisions-jp-places.md");
+  const lines = md.body.toString("utf8").trim().split("\n");
+  expect(lines).toHaveLength(2 + 47);
+  expect(lines[0]).toBe("| code | iso | name | nameJa | reading | group | groupJa |");
+  expect(lines).toContain("| 13 | JP-13 | Tokyo | 東京都 | とうきょうと | Kanto | 関東地方 |");
+  const sql = await take(page, "download-list-sql");
+  expect(sql.name).toBe("chizu-divisions-jp-places.sql");
+  const database = new DatabaseSync(":memory:");
+  database.exec(sql.body.toString("utf8"));
+  expect(database.prepare('SELECT COUNT(*) AS n FROM "places"').get().n).toBe(47);
+  expect(database.prepare('SELECT "nameJa" AS name FROM "places" WHERE "iso" = ?').get("JP-13").name).toBe("東京都");
+  database.close();
 });
 
 test("a part's list holds only the part", async ({ page }) => {

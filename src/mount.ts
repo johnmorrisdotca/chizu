@@ -27,6 +27,8 @@ export type ChizuMountOptions = {
   zoom?: MapZoom;
   /** Tones by code (`drawChizu`'s `tones`). The chosen region is `selected` unless it is given a tone here. */
   tones?: Readonly<Record<string, string>>;
+  /** A colour for each region by code (`drawChizu`'s `colors`): two places told apart, or a map coloured your own way. */
+  colors?: Readonly<Record<string, string>>;
   /** Numbered callouts (`drawChizu`'s `callouts`), placed for the window as it is after each move. */
   callouts?: ChizuDrawOptions["callouts"];
   /** Print names on the land. */
@@ -309,6 +311,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       box: window_,
       language: language(),
       tones: tones(),
+      ...(options.colors ? { colors: options.colors } : {}),
       callouts: callouts(window_),
       labels: options.labels,
       interactive: true,
