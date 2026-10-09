@@ -1,0 +1,10 @@
+/*
+ * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run `pnpm data` to make it again.
+ * The named features of Palestine (country-ps): 1 seas, 0 lakes, 1 rivers, 0 landforms, 0 peaks.
+ * Natural Earth is in the public domain (naturalearthdata.com); Wikidata's names are CC0. See NOTICE.md.
+ */
+import type { ChizuFeatureLayer } from "../../types.ts";
+
+const layer: ChizuFeatureLayer = {"map":"country-ps","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-ps; names from Natural Earth and Wikidata","features":[{"code":"Q4918","kind":"sea","group":"marine","name":"Mediterranean Sea","nameJa":"地中海","reading":"ちちゅうかい","rank":1,"path":"M454.1,-1L390.9,260.5L309.8,486.6L183.8,714.3L121.4,795.5L-1,915.7L-1,-1Z","bbox":[-1,-1,454.1,915.7],"centroid":[199,199],"neighbors":[]},{"code":"Q40059","kind":"river","group":"rivers","name":"Jordan River","nameJa":"ヨルダン川","reading":"よるだんがわ","rank":6,"path":"M872.3,-1L873.5,7.4L875.3,12.2L866.5,12.2L866.5,17.4L872.5,17.2L877,23.9L878.4,27L882,30.7M882,38.6L878.7,39.7L874.9,43.7L872.6,48.8L871.5,53.8L876.9,57.9L879.8,58.5L879.8,64.1L875.7,66.9L871.5,68.8L875.5,74L866.7,79.6L868.2,81L869.4,80.7L870.5,81.2L871.6,84.7L866.7,84.8L866.7,89.4L870.7,93.3L871.4,96.4L868.6,98.5L862.5,99.7L865.3,108L866.8,110.4L870,113.7L872.6,118.4L874.5,124.2L875.7,131L871.7,131L871.7,125.9L866.8,125.9L866.9,131L870.4,138.3L870,161L875.8,172.1L872.9,181L872.8,195.3L875.2,209.6L880.3,218.4L877.1,220.2L874.8,222.2L873,225L872,229.2L880.3,229.2L869.5,276.8L872.2,285.7L872.3,291.3L867,294.1L864.1,297.5L864.1,301.6L867.4,306.3L856.8,324.8L856.5,333.5L863.3,342.8L852.6,351.7L849.1,364.7L850.3,399.4L857.4,417.1L858.8,425.1L859.2,435.4L860.3,441.7L864.1,450L863.6,456L860.7,459.4L856.3,460.8L852.3,463L850.5,469.1L866.4,529.3L859.5,538.7L859.6,544.3L873.2,585M787.1,917.1L786.1,933.4L777,949.2L769.1,967.6L772.6,988.2","bbox":[769.1,-1,882,988.2],"centroid":[872.3,289.3],"angle":-83,"neighbors":[]}]};
+
+export default layer;

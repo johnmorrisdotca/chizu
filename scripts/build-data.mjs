@@ -16,12 +16,9 @@
 //
 // DETERMINISTIC. No clock, no randomness, no network after the download: the same Natural Earth files and the same
 // d3-geo version (pinned by the lockfile) write the same bytes. `pnpm data` twice leaves the working tree clean.
-import { Buffer } from "node:buffer";
-import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import process from "node:process";
-import { fileURLToPath } from "node:url";
 
 import { CONTINENTS as KUNI_CONTINENTS, continentName, countries as kuniCountries, country as kuniCountry, subregionName } from "@johnmorrisdotca/kuni";
 import { subdivision as kuniSubdivision } from "@johnmorrisdotca/kuni/subdivisions";
@@ -48,9 +45,9 @@ import {
   DISPLAY_NAMES,
   CONTINENT_OVERRIDES,
 } from "./data-config.mjs";
+import { featureSources, featuresOn } from "./build-features.mjs";
+import { root, source } from "./natural-earth.mjs";
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const cache = resolve(root, process.env.CHIZU_CACHE ?? ".cache");
 const out = join(root, "src", "data");
 const PRECISION = 2;
 const WORLD_WIDTH = 1000;
@@ -77,23 +74,6 @@ const fixed = (digits) => (value) => Math.round(value * 10 ** digits) / 10 ** di
 const keepScale = fixed(2);
 const keepTranslate = fixed(3);
 const keepDegrees = fixed(6);
-
-/** Natural Earth's file, from the cache, fetched once and checked against the hash this version of the script was written for. */
-async function source(file) {
-  const path = join(cache, file);
-  if (!existsSync(path)) {
-    mkdirSync(cache, { recursive: true });
-    const url = `${NATURAL_EARTH.raw}/${file}`;
-    console.log(`fetching ${url}`);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`${url}: ${response.status}`);
-    writeFileSync(path, Buffer.from(await response.arrayBuffer()));
-  }
-  const bytes = readFileSync(path);
-  const hash = createHash("sha256").update(bytes).digest("hex");
-  if (hash !== NATURAL_EARTH.files[file]) throw new Error(`${file} is not the file this script was written for (sha256 ${hash})`);
-  return JSON.parse(bytes.toString("utf8"));
-}
 
 /**
  * A path as the engine wants it: `M x,y L x,y … Z` a piece, coordinates to two decimals, a point that rounding left on
@@ -174,6 +154,31 @@ import type { ChizuMap } from "${"../".repeat(path.slice(out.length + 1).split("
 ${doc}const map: ChizuMap = ${literal(map)};
 
 export default map;
+`,
+  );
+}
+
+/** A data module of one map's features, exported as the default. */
+function writeFeatures(path, map, features) {
+  mkdirSync(dirname(path), { recursive: true });
+  const count = (group) => features.filter((feature) => feature.group === group).length;
+  const layer = {
+    map: map.id,
+    source: `Natural Earth ${NATURAL_EARTH.version} physical vectors, 1:10m, on the canvas of ${map.id}; names from Natural Earth and Wikidata`,
+    features,
+  };
+  writeFileSync(
+    path,
+    `/*
+ * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.
+ * The named features of ${map.name} (${map.id}): ${count("marine")} seas, ${count("lakes")} lakes, ${count("rivers")} rivers, ${count("landforms")} landforms, ${count("peaks")} peaks.
+ * Natural Earth is in the public domain (naturalearthdata.com); Wikidata's names are CC0. See NOTICE.md.
+ */
+import type { ChizuFeatureLayer } from "../../types.ts";
+
+const layer: ChizuFeatureLayer = ${literal(layer)};
+
+export default layer;
 `,
   );
 }
@@ -309,6 +314,8 @@ millerRaw.invert = (x, y) => [x, 2.5 * Math.atan(Math.exp(0.8 * y)) - 0.625 * Ma
 
 /** The projection the world was fitted with, which its finer drawing is made with too. */
 let worldProjection = null;
+/** Each map's projection, by its id, for drawing its features on the same canvas (build-features.mjs). */
+const projections = new Map();
 
 function buildWorld(collection) {
   const features = countriesFrom(collection);
@@ -331,6 +338,7 @@ function buildWorld(collection) {
   regions.sort((a, b) => CONTINENTS.indexOf(a.group) - CONTINENTS.indexOf(b.group) || a.name.localeCompare(b.name, "en"));
   const [tx, ty] = projection.translate();
   worldProjection = projection;
+  projections.set("world", projection);
   return {
     id: "world",
     kind: "world",
@@ -440,6 +448,7 @@ function buildCountry(feature, near, fine) {
     neighbors: near,
   });
   const names = namesOf(p, code);
+  projections.set(`country-${code.toLowerCase()}`, projection);
   return {
     id: `country-${code.toLowerCase()}`,
     kind: "country",
@@ -510,6 +519,7 @@ function buildDivisions(config, rawFeatures, countryNames) {
   if (features.length === 0) throw new Error(`no regions for ${config.code}`);
   const projection = config.projection().fitSize([config.width, config.height], { type: "FeatureCollection", features });
   const regions = regionsOf(geoPath(projection), features, config);
+  projections.set(`divisions-${config.code.toLowerCase()}`, projection);
   return {
     id: `divisions-${config.code.toLowerCase()}`,
     kind: "divisions",
@@ -551,6 +561,7 @@ function buildUnitedStates(rawFeatures, countryNames) {
     return regionOf(geoPath(projection), feature, { ...regionFields(config, feature, isos[index].iso, isos[index].shared), neighbors: near[index] });
   });
   regions.sort((a, b) => a.code.localeCompare(b.code));
+  projections.set("divisions-us", main);
   const height = 740;
   return {
     id: "divisions-us",
@@ -641,6 +652,7 @@ function buildJapan(rawFeatures, countryNames) {
     });
   });
   regions.sort((a, b) => Number(a.code) - Number(b.code));
+  projections.set("divisions-jp", projection);
   const [tx, ty] = projection.translate();
   return {
     id: "divisions-jp",
@@ -740,6 +752,7 @@ async function main() {
 `,
   );
 
+  const allMaps = [world];
   const countries = countriesFrom(countriesSource);
   const near = neighboursBySharedPoints(countries, (feature) => feature.properties.__code);
   const table = [];
@@ -752,6 +765,7 @@ async function main() {
     const map = buildCountry(feature, near[index], fine);
     const file = p.__code.toLowerCase();
     writeMap(join(out, "countries", `${file}.ts`), `${names.name}, alone: ${map.source}.`, map);
+    allMaps.push(map);
     loaders.countries.push(file);
     table.push({
       code: p.__code,
@@ -776,9 +790,22 @@ async function main() {
   for (const map of builtDivisions) {
     const file = map.id.replace("divisions-", "");
     writeMap(join(out, "divisions", `${file}.ts`), `${map.name}: ${map.regions.length} ${map.regionNamePlural.toLowerCase()}, ${map.source}.`, map);
+    allMaps.push(map);
     loaders.divisions.push(file);
   }
   loaders.divisions.sort();
+
+  const sources = await featureSources();
+  loaders.features = [];
+  for (const map of allMaps) {
+    const avoid = map.insets.map((inset) => inset.box);
+    const features = featuresOn(map, projections.get(map.id), sources, { world: map.id === "world", avoid });
+    if (features.length === 0) continue;
+    writeFeatures(join(out, "features", `${map.id}.ts`), map, features);
+    loaders.features.push(map.id);
+  }
+  loaders.features.sort();
+  console.log(`features: ${loaders.features.length} maps · Japanese names ${JSON.stringify(sources.stats.japanese)} · readings ${JSON.stringify(sources.stats.readings)} · rivers ${JSON.stringify(sources.stats.rivers)}`);
 
   table.sort((a, b) => a.code.localeCompare(b.code));
   const inTable = new Set(table.map((entry) => entry.code));
@@ -888,7 +915,7 @@ export const CHIZU_SOURCE = ${literal({
  * One dynamic import for each country's own map and each country's regions, so that a bundler makes each its own
  * chunk and a page loads only the ones it draws.
  */
-import type { ChizuMap } from "../types.ts";
+import type { ChizuFeatureLayer, ChizuMap } from "../types.ts";
 
 type Load = () => Promise<{ default: ChizuMap }>;
 
@@ -903,6 +930,11 @@ export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.ts");
 /** The regions of the ${loaders.divisions.length} countries that have them, by lower-case code. */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
 ${lines(loaders.divisions, "divisions")}
+};
+
+/** The named physical features drawn on ${loaders.features.length} maps (seas, lakes, rivers, landforms, peaks), by the map's id. */
+export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuFeatureLayer }>>> = {
+${loaders.features.map((id) => `  ${JSON.stringify(id)}: () => import("./features/${id}.ts"),`).join("\n")}
 };
 `,
   );

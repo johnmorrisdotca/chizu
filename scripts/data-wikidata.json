@@ -1,0 +1,10615 @@
+{
+ "source": "Wikidata (wikidata.org), CC0",
+ "retrieved": "2026-10-09",
+ "match": {
+  "km": 120,
+  "farKm": 600,
+  "farLinks": 40
+ },
+ "rivers": {
+  "0|Irrawaddy Delta": "Q26076",
+  "0|San Pedro y San Pablo": "Q7415162",
+  "0|Usumacinta": "Q1139679",
+  "1|Yangtze": "Q5413",
+  "10|Ucayali": "Q200952",
+  "100|Araguaia": "Q171847",
+  "1000|Waiau": "Q1048696",
+  "1001|Tonle Sap": "Q939958",
+  "1002|Sheksna": "Q1147118",
+  "1003|Vorma": "Q576337",
+  "1004|Vyatka": "Q192495",
+  "1005|Maningory": "Q3285958",
+  "1007|Unzha": "Q1431174",
+  "1008|Sagavanirktok": "Q1569192",
+  "1009|Meade": "Q2412334",
+  "101|Vaal": "Q209530",
+  "1011|South Nahanni": "Q1535066",
+  "1012|Keele": "Q12282935",
+  "1013|Miramichi": "Q1553790",
+  "1014|Harricana": "Q71996",
+  "1016|Cauca": "Q853332",
+  "1018|Cojedes": "Q3647352",
+  "102|Aldan": "Q191832",
+  "1021|Santiago": "Q3087412",
+  "1022|Aripuanã": "Q1436100",
+  "1024|Unini": "Q7885257",
+  "1025|Ajajú": "Q4699515",
+  "1027|Rio das Mortes": "Q3130973",
+  "1028|Miranda": "Q1288341",
+  "1029|Verde": "Q10362725",
+  "103|Columbia": "Q2251",
+  "1030|Taquari": "Q1183037",
+  "1031|San Martin": "Q3394888",
+  "1034|Gallegos": "Q474602",
+  "1037|Rokel": "Q1781219",
+  "1038|Ogun": "Q4787012",
+  "1039|Gamtoos": "Q3312383",
+  "104|São  Francisco": "Q142148",
+  "1040|Wami": "Q1106820",
+  "1042|Mogalakwena": "Q16821611",
+  "1045|Shangani": "Q2276894",
+  "1046|Licungo": "Q4786422",
+  "1048|Kangen": "Q4788899",
+  "1049|Moulouya": "Q1146608",
+  "105|Rhein": "Q584",
+  "1050|Vltava": "Q131574",
+  "1052|Pinega": "Q8212",
+  "1053|Tsna": "Q217954",
+  "1054|Vym": "Q1065265",
+  "1055|Belaya": "Q192157",
+  "1056|Ceyhan": "Q1057961",
+  "1057|Vienne": "Q659546",
+  "106|Sukhona": "Q82812",
+  "1062|Dora Baltea": "Q675028",
+  "1063|Durance": "Q754718",
+  "1064|Tarn": "Q215653",
+  "1065|Ofanto": "Q841550",
+  "1068|Seym": "Q738986",
+  "1069|Marne": "Q41983",
+  "1070|Fen": "Q1154778",
+  "1073|Usa": "Q8175",
+  "1074|Tura": "Q588242",
+  "1077|Vasyugan": "Q511067",
+  "108|Paranaíba": "Q776155",
+  "1083|Kaladan": "Q3182712",
+  "1087|Tuo": "Q1192771",
+  "1088|Baram": "Q651903",
+  "109|La Grande": "Q31379",
+  "1091|Rangitaiki": "Q2130963",
+  "1092|Son": "Q1418174",
+  "1095|Betwa": "Q1334522",
+  "1096|Ba": "Q5207299",
+  "1098|Pembuang": "Q131548893",
+  "1099|Ramu": "Q2064454",
+  "110|Rio Grande": "Q160636",
+  "1100|Burnett": "Q1016767",
+  "1101|Swan": "Q1137387",
+  "1102|Parbati": "Q2173757",
+  "1103|Indravati": "Q1661830",
+  "1107|Ravi": "Q317899",
+  "1108|Tumen": "Q55499",
+  "1109|Markha": "Q185839",
+  "111|Ural": "Q80240",
+  "1110|Selemdzha": "Q1138427",
+  "1111|Selennyakh": "Q1784612",
+  "1112|Bytantay": "Q974630",
+  "1113|Uchur": "Q1074914",
+  "1114|Chara": "Q1074898",
+  "1115|Ozhogina": "Q1266978",
+  "1116|Nemor": "Q15890775",
+  "1117|Penzhina": "Q612112",
+  "1118|Quan": "Q11143225",
+  "1119|Muling": "Q715373",
+  "112|Saskatchewan": "Q3047",
+  "1120|Segre": "Q23145",
+  "1122|Kennebec": "Q1431323",
+  "1123|Missinaibi": "Q59480",
+  "1124|Ivaí": "Q2717631",
+  "1126|Tercero": "Q2839193",
+  "1129|Pibor": "Q3179125",
+  "113|Yenisey": "Q78707",
+  "1131|Tvertsa": "Q671890",
+  "1132|Voronya": "Q1191116",
+  "1133|Drin": "Q213975",
+  "1134|Minho": "Q14554",
+  "1135|Bojana": "Q372490",
+  "1139|Gandak": "Q18340305",
+  "114|Ob": "Q973",
+  "1143|Ying": "Q2341287",
+  "1144|Carcarañá": "Q2611819",
+  "1145|Gwayi": "Q1557811",
+  "1146|Sefid": "Q95994331",
+  "1147|IJssel": "Q217818",
+  "115|Tocantins": "Q156054",
+  "116|Dnipro": "Q40855",
+  "117|North Saskatchewan": "Q2237",
+  "118|Bafing": "Q180558",
+  "119|Bénoué": "Q204806",
+  "12|Lena": "Q46841",
+  "120|Dicle": "Q35591",
+  "121|Dnepre": "Q40855",
+  "122|Pechora": "Q8168",
+  "123|Indaiá": "Q10362010",
+  "124|Kolyma": "Q78879",
+  "126|Magdalena": "Q191829",
+  "127|Neuquén": "Q1472009",
+  "128|Nanpan": "Q1569231",
+  "129|Seine": "Q1471",
+  "13|Tongtian": "Q7821148",
+  "130|Oder": "Q552",
+  "131|Arkansas": "Q8319",
+  "132|Sénégal": "Q3569",
+  "134|Nu": "Q26422",
+  "135|Tigris": "Q35591",
+  "136|Severnaya Dvina": "Q8187",
+  "137|Benue": "Q204806",
+  "138|Ayeyarwady": "Q26076",
+  "14|Bahr el Jebel": "Q121424",
+  "140|Rhin": "Q584",
+  "141|Nederrijn": "Q1152951",
+  "142|Lek": "Q1143852",
+  "146|Nu": "Q26422",
+  "147|Hongshui": "Q615328",
+  "15|Jinsha": "Q1038418",
+  "150|Rhine": "Q584",
+  "151|Waal": "Q216171",
+  "153|Salween": "Q26422",
+  "155|Ebro": "Q10965",
+  "156|Mississippi": "Q1497",
+  "158|Stikine": "Q2092571",
+  "16|Bahr el Jebel": "Q4814791",
+  "160|Elbe": "Q1644",
+  "161|Thelon": "Q2416760",
+  "163|Colorado": "Q1265",
+  "164|Grande": "Q386331",
+  "165|Tajo": "Q14294",
+  "166|Vistula": "Q548",
+  "167|Sacramento": "Q335575",
+  "168|Neva": "Q645",
+  "169|Tennessee": "Q193737",
+  "17|El Bahr el Abyad": "Q4814791",
+  "170|Syr  Darya": "Q483159",
+  "171|Naryn": "Q651195",
+  "172|Klamath": "Q968640",
+  "173|Athabasca": "Q2216",
+  "174|Svir": "Q213067",
+  "175|Mouhoun": "Q1256528",
+  "176|Volta": "Q192415",
+  "177|Culuene": "Q1644776",
+  "178|Loire": "Q1469",
+  "179|Godävari": "Q191314",
+  "18|Chang Jiang": "Q5413",
+  "180|Tobol": "Q124653",
+  "181|Lower Tunguska": "Q26428",
+  "182|Daugava": "Q8197",
+  "183|Marañón": "Q200174",
+  "184|Caquetá": "Q171840",
+  "185|Holston": "Q1333747",
+  "186|Pamir": "Q8550",
+  "187|Fraser": "Q269710",
+  "188|Indigirka": "Q82207",
+  "189|Sprague": "Q2313261",
+  "19|Rosetta Branch": "Q23938824",
+  "190|Juruena": "Q472816",
+  "191|Vychegda": "Q65383",
+  "192|Colorado": "Q270627",
+  "193|Chixoy": "Q1726738",
+  "194|Bío-Bío": "Q93360",
+  "195|Panj": "Q8542",
+  "196|Santa Cruz": "Q1478566",
+  "197|Xingu": "Q49544",
+  "198|Tejo": "Q14294",
+  "199|Amu  Darya": "Q8493",
+  "2|Amazonas": "Q3783",
+  "200|Tapajós": "Q752674",
+  "2001|Ahuriri": "Q403053",
+  "2002|Aparima": "Q617750",
+  "2003|Awatere": "Q791642",
+  "2004|Buller": "Q836930",
+  "2007|Grey": "Q32213252",
+  "2009|Hurunui": "Q14922567",
+  "2011|Inangahua": "Q1660903",
+  "2012|Karamea": "Q1718641",
+  "2013|Kawarau": "Q863681",
+  "2015|Manganui": "Q6748803",
+  "2016|Moawhango": "Q6886521",
+  "2019|Motueka": "Q1950101",
+  "2022|Ngaruroro": "Q15262256",
+  "2024|Orari": "Q7099902",
+  "2027|Piako": "Q2091859",
+  "2028|Pomahaka": "Q940091",
+  "2029|Rakaia": "Q2128994",
+  "2030|Rangitata": "Q2130977",
+  "2032|Ruakituri": "Q7375688",
+  "2033|Taieri": "Q2307145",
+  "2034|Tongariro": "Q1725372",
+  "2035|Tukituki": "Q2459408",
+  "2036|Turakina": "Q7853674",
+  "2039|Waihou": "Q1510326",
+  "204|Japurá": "Q171840",
+  "2040|Waimakariri": "Q1535123",
+  "2041|Wairau": "Q2540733",
+  "2042|Wairoa": "Q638776",
+  "2043|Wairoa": "Q638735",
+  "2044|Waitaki": "Q2033279",
+  "2045|Waitoa": "Q7960628",
+  "2047|Whangaehu": "Q1490262",
+  "2048|Whanganui": "Q1940419",
+  "2050|Tekapo": "Q921081",
+  "2051|Pukaki": "Q2117684",
+  "206|Ottawa": "Q60974",
+  "207|Kem": "Q1130713",
+  "214|Ishikari": "Q1061515",
+  "215|Kayan": "Q6380446",
+  "216|Barito": "Q979518",
+  "217|Purari": "Q1724008",
+  "219|Po": "Q643",
+  "220|Okavango": "Q188773",
+  "222|Orange": "Q181475",
+  "223|Semliki": "Q205428",
+  "224|Koukourou": "Q22555212",
+  "225|Chari": "Q135477",
+  "22561|Salinas": "Q1161673",
+  "226|Bamingui": "Q22510041",
+  "228|Dalälven": "Q216627",
+  "229|Jordan": "Q40059",
+  "23|St. Lawrence": "Q134750",
+  "231|Dniester": "Q131210",
+  "234|Kuskokwim": "Q60067",
+  "236|Copper": "Q1131444",
+  "237|Susitna": "Q60065",
+  "238|Tanana": "Q393769",
+  "239|Porcupine": "Q284603",
+  "24|Ob": "Q973",
+  "240|Koyukuk": "Q1546553",
+  "243|Albany": "Q1241991",
+  "244|Churchill": "Q291233",
+  "245|Taz": "Q81555",
+  "246|Liao": "Q559661",
+  "247|Yuan": "Q1063190",
+  "249|San Joaquin": "Q751347",
+  "25|Danube": "Q1653",
+  "251|Alabama": "Q558643",
+  "252|Tugaloo": "Q2459279",
+  "253|Chattooga": "Q834880",
+  "254|Savannah": "Q370750",
+  "255|Rhône": "Q602",
+  "257|Ord": "Q2028742",
+  "258|Sutlej": "Q171675",
+  "259|Coppermine": "Q1131514",
+  "261|Biya": "Q859934",
+  "263|Rainy": "Q2128582",
+  "264|Winnipeg": "Q1400022",
+  "265|Back": "Q798339",
+  "266|South Saskatchewan": "Q2242",
+  "267|Nakanbé": "Q1259188",
+  "268|Kemijoki": "Q214779",
+  "269|Vilyuy": "Q26433",
+  "27|Selenga": "Q75745",
+  "270|Han": "Q875573",
+  "272|Pit": "Q1760800",
+  "273|Sassandra": "Q1535828",
+  "274|Waikato": "Q1048219",
+  "275|Nelson": "Q3292",
+  "276|Vorma": "Q576337",
+  "277|Don": "Q1229",
+  "278|Gan": "Q1046685",
+  "279|Krishna": "Q193499",
+  "28|Angara": "Q162737",
+  "280|Skeena": "Q2291822",
+  "281|Liard": "Q2249",
+  "282|Kwango": "Q732790",
+  "283|Kafue": "Q846063",
+  "284|Jequitinhonha": "Q2742774",
+  "285|Chubut": "Q955354",
+  "287|Salado": "Q1162365",
+  "288|Branco": "Q1165761",
+  "29|Ertis": "Q128102",
+  "290|Meta": "Q655251",
+  "291|Madre de Dios": "Q849693",
+  "293|Uruguay": "Q18278",
+  "294|Pilcomayo": "Q270569",
+  "296|Tshuapa": "Q2635327",
+  "297|Omo": "Q273456",
+  "298|Mananantanana": "Q12958300",
+  "299|Ouham": "Q2001150",
+  "3|Mississippi": "Q1497",
+  "30|Ertix": "Q128102",
+  "301|Ruvuma": "Q746779",
+  "302|Thames": "Q19686",
+  "303|Drau": "Q171009",
+  "303|Garonne": "Q5077",
+  "305|Helmand": "Q8510",
+  "306|Hong": "Q206850",
+  "307|Yamuna": "Q132726",
+  "308|Narmada": "Q234004",
+  "309|Dadu": "Q1075393",
+  "310|Xar Moron": "Q1131680",
+  "311|Kapuas": "Q841359",
+  "312|Katherine": "Q532543",
+  "313|Taritatu": "Q2324718",
+  "314|Mitchell": "Q1939518",
+  "315|Chenab": "Q216875",
+  "319|Kamchatka": "Q133476",
+  "32|Angara": "Q162737",
+  "320|Coco": "Q1468689",
+  "321|Double Mountain Fork Brazos": "Q5299851",
+  "322|Beaver": "Q2244",
+  "323|Finlay": "Q280696",
+  "326|Hudson": "Q3140",
+  "327|Wabash": "Q196183",
+  "328|Saint John": "Q607546",
+  "329|Yadkin": "Q1520726",
+  "33|Peace": "Q2220",
+  "331|Fitzroy": "Q1421418",
+  "332|Digul": "Q575695",
+  "333|Willamette": "Q131071",
+  "334|Gila": "Q838143",
+  "335|Tocantins": "Q156054",
+  "336|Limpopo": "Q173017",
+  "337|Glomma": "Q214535",
+  "338|San Juan": "Q933176",
+  "339|Mangoky": "Q1288223",
+  "34|Mackenzie": "Q3411",
+  "341|Daly": "Q13359982",
+  "342|Mamberamo": "Q726986",
+  "343|Kheta": "Q920267",
+  "344|Chulyshman": "Q1808438",
+  "345|Brazos": "Q903306",
+  "349|Tarim": "Q237901",
+  "350|Mataura": "Q609560",
+  "351|Trinity": "Q499797",
+  "354|Desaguadero": "Q385342",
+  "356|Sanaga": "Q1250532",
+  "358|Jubba": "Q138491",
+  "36|Paraná": "Q127892",
+  "360|Xiliao": "Q1416521",
+  "364|Sangha": "Q239883",
+  "365|Ruki": "Q3453117",
+  "366|Songhua": "Q210326",
+  "367|Min": "Q729269",
+  "368|Khatanga": "Q82175",
+  "37|Lualaba": "Q836812",
+  "370|Potomac": "Q179444",
+  "371|Jhelum": "Q214874",
+  "373|Guaporé": "Q916349",
+  "374|Kabalebo": "Q2752709",
+  "375|Katanga": "Q35350820",
+  "376|Kaduna": "Q2338605",
+  "378|Severn": "Q1239783",
+  "38|Donau": "Q1653",
+  "380|Ouémé": "Q595037",
+  "381|Komoé": "Q615662",
+  "382|Chulym": "Q214768",
+  "383|Verkhnyaya Taymyra": "Q48955716",
+  "384|Vitim": "Q26068",
+  "386|Mae Klong": "Q1194112",
+  "387|Yom": "Q586733",
+  "388|Cunene": "Q320649",
+  "39|Slave": "Q2226",
+  "390|Lempa": "Q1511554",
+  "391|Grijalva": "Q27035",
+  "393|Caniapiscau": "Q43990",
+  "395|Guadiana": "Q14305",
+  "396|Yellowstone": "Q374772",
+  "397|Wisconsin": "Q978496",
+  "398|North Platte": "Q1755015",
+  "399|Balsas": "Q1129218",
+  "4|Nile": "Q3392",
+  "40|Lancang": "Q41179",
+  "400|Paranapanema": "Q607976",
+  "401|Tana": "Q331162",
+  "402|Rusizi": "Q35246109",
+  "404|Chambal": "Q1060631",
+  "405|Zeya": "Q210220",
+  "406|Pangani": "Q506955",
+  "41|Congo": "Q3503",
+  "411|Suda": "Q1295629",
+  "413|Green": "Q952429",
+  "414|Red": "Q156032",
+  "415|Pecos": "Q1356561",
+  "416|Caroní": "Q590533",
+  "417|Bandama": "Q789969",
+  "418|Narva": "Q209031",
+  "42|Yarlung": "Q45403",
+  "420|Ping": "Q592383",
+  "423|Roanoke": "Q1584933",
+  "426|Wujia": "Q29990458",
+  "427|Trombetas": "Q2207501",
+  "429|Pripyat": "Q157042",
+  "43|Lualaba": "Q836812",
+  "431|Gambia": "Q160819",
+  "432|Apure": "Q853315",
+  "433|Jari": "Q2670262",
+  "434|Napo": "Q849480",
+  "435|Juruá": "Q117526",
+  "436|Parnaíba": "Q1419084",
+  "437|Ivanhoe": "Q1675657",
+  "438|Colville": "Q1113020",
+  "439|Susquehanna": "Q27538",
+  "44|Irtysh": "Q128102",
+  "440|Prairie Dog Town Fork Red": "Q7237856",
+  "441|Morava": "Q179251",
+  "442|Evros": "Q204347",
+  "443|Tevere": "Q13712",
+  "446|Mbam": "Q946653",
+  "447|Aïna": "Q4770458",
+  "448|Cuanza": "Q213840",
+  "449|Cuando": "Q182942",
+  "45|Congo": "Q3503",
+  "450|Marico": "Q2117755",
+  "451|Luwegu": "Q35411574",
+  "452|Akobo": "Q2829107",
+  "454|Chindwin": "Q870069",
+  "456|Wu": "Q1515792",
+  "457|Xiang": "Q831884",
+  "458|Huai": "Q213576",
+  "459|Ingoda": "Q695947",
+  "46|Mekong": "Q41179",
+  "462|Sartang": "Q1479580",
+  "463|Donets": "Q191238",
+  "464|Oka": "Q172089",
+  "465|Desna": "Q202796",
+  "466|Omolon": "Q1142842",
+  "468|Mezen": "Q79106",
+  "47|Dihang": "Q45403",
+  "470|Neris": "Q207903",
+  "471|Velikaya": "Q23550",
+  "472|Arctic Red": "Q638127",
+  "473|Min": "Q976458",
+  "475|Beni": "Q142604",
+  "476|Lachlan": "Q1321316",
+  "478|Betsiboka": "Q425",
+  "479|Courantyne": "Q508582",
+  "480|Haw": "Q14707960",
+  "484|Tumbes": "Q3236437",
+  "487|Fly": "Q739751",
+  "488|Kotto": "Q1781597",
+  "489|Gamka": "Q3643149",
+  "490|Atrek": "Q283622",
+  "493|Kotuy": "Q26374",
+  "494|Sava": "Q14383",
+  "496|Pur": "Q81528",
+  "497|Katun": "Q723864",
+  "498|Cuilco": "Q8055142",
+  "499|Baoulé": "Q42749941",
+  "501|Lomami": "Q753765",
+  "503|Mania": "Q3633526",
+  "504|Kabompo": "Q164993",
+  "505|Save": "Q293988",
+  "506|Sokoto": "Q2092438",
+  "51|Brahmaputra": "Q45403",
+  "510|Atrato": "Q1363972",
+  "511|Iriri": "Q1261515",
+  "512|Cuyuni": "Q1146770",
+  "515|Doce": "Q1757394",
+  "516|Litani": "Q2645279",
+  "517|Putumayo": "Q213782",
+  "518|Huallaga": "Q611388",
+  "519|Essequibo": "Q589911",
+  "520|Salado": "Q270655",
+  "524|Connecticut": "Q379648",
+  "525|Clark Fork": "Q664874",
+  "526|Winisk": "Q80350",
+  "528|Pearl": "Q1739672",
+  "529|Oconee": "Q851368",
+  "53|Yukon": "Q104437",
+  "532|Stewart": "Q167118",
+  "533|Onega": "Q78898",
+  "535|Bhima": "Q854999",
+  "538|Jialing": "Q1045185",
+  "539|Dong": "Q285137",
+  "54|Murray": "Q183078",
+  "540|Yalong": "Q876857",
+  "543|Nadym": "Q81507",
+  "544|Mahakam": "Q328396",
+  "545|Baliem": "Q7942747",
+  "547|Pahang": "Q1783725",
+  "549|Mahi": "Q542539",
+  "55|Ganges": "Q5089",
+  "551|Sankh": "Q7418705",
+  "552|Bei": "Q814633",
+  "553|Ussuri": "Q207777",
+  "554|Prut": "Q182445",
+  "555|Namhan": "Q10856094",
+  "557|Kuban": "Q82308",
+  "558|Caledon": "Q509983",
+  "56|Indus": "Q7348",
+  "560|Tugela": "Q476317",
+  "563|Weser": "Q1650",
+  "564|Rogue": "Q1848950",
+  "565|Eel": "Q3048862",
+  "566|Stanislaus": "Q2331044",
+  "568|Deseado": "Q1544156",
+  "569|Minnesota": "Q1136502",
+  "570|Mattagami": "Q59464",
+  "571|Groundhog": "Q1547693",
+  "573|Ivindo": "Q1650057",
+  "574|Rufiji": "Q936023",
+  "575|Shilka": "Q115456",
+  "578|Suriname": "Q635545",
+  "580|Cape Fear": "Q1034421",
+  "583|Gourits": "Q3642203",
+  "585|Nechako": "Q271025",
+  "586|Pyasina": "Q81626",
+  "588|Logone": "Q645191",
+  "59|Niger": "Q3542",
+  "590|Maroni": "Q1369002",
+  "593|Altamaha": "Q434188",
+  "594|Papaloapan": "Q583044",
+  "596|Donjek": "Q1241570",
+  "597|Mincio": "Q936688",
+  "599|Yong": "Q1053967",
+  "6|Kagera": "Q2750140",
+  "60|Ubangi": "Q171649",
+  "600|Brahmani": "Q2639171",
+  "601|Sepik": "Q848308",
+  "603|Platte": "Q655754",
+  "604|Moose": "Q59446",
+  "605|Aruwimi": "Q540956",
+  "606|Linyanti": "Q106333833",
+  "607|Sobat": "Q821911",
+  "608|Srepok": "Q3845122",
+  "609|Yongding": "Q1151727",
+  "61|Teslin": "Q284495",
+  "611|Ussuri": "Q207777",
+  "612|Neman": "Q5622",
+  "613|Ishim": "Q191524",
+  "614|Koksoak": "Q44163",
+  "615|Bani": "Q289460",
+  "616|Tsiribihina": "Q1419861",
+  "617|White": "Q1529669",
+  "62|Euphrates": "Q34589",
+  "621|Igan": "Q5991460",
+  "622|Tuloma": "Q1341908",
+  "623|Yu": "Q2669549",
+  "625|Podkamennaya Tunguska": "Q26361",
+  "626|Han": "Q55500",
+  "627|Anabar": "Q82187",
+  "629|Churchill": "Q3318",
+  "631|Hai": "Q501253",
+  "632|Yana": "Q78861",
+  "636|Chao Phraya": "Q118850",
+  "64|Columbia": "Q2251",
+  "643|Dordogne": "Q208174",
+  "644|Guárico": "Q1162389",
+  "645|Limay": "Q1470945",
+  "647|Ogooué": "Q750021",
+  "649|English": "Q286703",
+  "65|Firat": "Q34589",
+  "650|Feather": "Q1399312",
+  "651|San Juan": "Q1542874",
+  "652|Wind": "Q2745932",
+  "655|Thlewiaza": "Q72075",
+  "656|Kazan": "Q719436",
+  "657|Humboldt": "Q1361278",
+  "658|Yaqui": "Q1889886",
+  "659|Canadian": "Q597753",
+  "66|Huang": "Q7355",
+  "660|Fuerte": "Q514864",
+  "661|Lerma": "Q1633955",
+  "663|Chico": "Q5096447",
+  "664|Pongola": "Q2096856",
+  "665|Lufira": "Q624223",
+  "666|Lokoro": "Q3258735",
+  "667|Awash": "Q782845",
+  "668|Shannon": "Q192820",
+  "669|Ticino": "Q14366",
+  "67|Abay": "Q882739",
+  "670|Southern Bug": "Q188940",
+  "671|Beas": "Q319590",
+  "672|Tungabhadra": "Q949183",
+  "673|Mahaweli": "Q1518007",
+  "68|Volga": "Q626",
+  "680|Yalu": "Q55498",
+  "682|Lukuga": "Q128350",
+  "683|Cheyenne": "Q2116752",
+  "684|Congaree": "Q2992976",
+  "685|Flathead": "Q268532",
+  "687|Coatzacoalcos": "Q868103",
+  "688|Tietê": "Q849539",
+  "69|Al Furat": "Q34589",
+  "690|Ness": "Q1364584",
+  "691|Oich": "Q2155503",
+  "693|Oka": "Q288695",
+  "694|Mearim": "Q582321",
+  "695|Bear": "Q813008",
+  "697|San Juan": "Q35283964",
+  "698|Anderson": "Q491660",
+  "699|Kama": "Q79082",
+  "7|Madison": "Q947477",
+  "70|Zambezi": "Q43106",
+  "700|Saguenay": "Q392161",
+  "701|Oti": "Q252472",
+  "702|Luvua": "Q220839",
+  "703|Chusovaya": "Q756091",
+  "704|Cooper": "Q5167806",
+  "705|Cumberland": "Q1143718",
+  "706|Sabine": "Q596106",
+  "708|South Platte": "Q130892",
+  "709|Monongahela": "Q643780",
+  "71|Shire": "Q2279579",
+  "710|Tombigbee": "Q2297877",
+  "711|Moctezuma": "Q2179140",
+  "712|Atengo": "Q4813094",
+  "714|Bavispe": "Q4873719",
+  "715|Motagua": "Q1346148",
+  "716|Kankakee": "Q8642",
+  "717|Olt": "Q126822",
+  "718|Inn": "Q14369",
+  "719|Morava": "Q179251",
+  "72|Amur": "Q6862",
+  "720|Warta": "Q201823",
+  "721|Main": "Q1670",
+  "722|Ems": "Q1648",
+  "723|Guadalquivir": "Q14309",
+  "726|Bunga": "Q55577225",
+  "728|Lungwebungu": "Q1877507",
+  "729|Luangwa": "Q1321671",
+  "73|El Bahr el Azraq": "Q882739",
+  "730|Great Ruaha": "Q1861088",
+  "733|Karkheh": "Q1472376",
+  "734|Mun": "Q1455933",
+  "735|Chi": "Q1071554",
+  "738|Da": "Q1922260",
+  "739|Onon": "Q206694",
+  "74|Hailar": "Q3512918",
+  "740|Tone": "Q177452",
+  "741|Sakarya": "Q217466",
+  "744|Alazeya": "Q82228",
+  "745|Roper": "Q743160",
+  "746|Burdekin": "Q1010448",
+  "747|Kura": "Q156557",
+  "748|Mana": "Q178396",
+  "749|Popigay": "Q1630635",
+  "75|Orinoco": "Q131792",
+  "750|Contas": "Q22074156",
+  "751|Maicuru": "Q6735274",
+  "752|Assiniboine": "Q220503",
+  "753|James": "Q1542610",
+  "754|Grand": "Q1542859",
+  "755|Salmon": "Q601853",
+  "756|Pelly": "Q1898456",
+  "757|Kobuk": "Q1778017",
+  "758|New": "Q952823",
+  "759|Marais des Cygnes": "Q1892251",
+  "760|Des Moines": "Q492787",
+  "761|John Day": "Q1699782",
+  "762|Babine": "Q270717",
+  "763|Thompson": "Q2143805",
+  "76400|Namekagon": "Q6961571",
+  "765|Mira": "Q3458705",
+  "766|Copiapó": "Q738357",
+  "767|Dulce": "Q2565430",
+  "769|Nakdong": "Q55501",
+  "77|Grande": "Q1519602",
+  "770|Palyavaam": "Q527521",
+  "771|Ekwan": "Q72079",
+  "772|Black": "Q8665483",
+  "773|Scioto": "Q209540",
+  "774|Suwannee": "Q2299655",
+  "775|Great Kei": "Q1413605",
+  "776|Fraser": "Q22507743",
+  "777|Yonne": "Q213967",
+  "778|Lukenie": "Q913801",
+  "78|Negro": "Q118771",
+  "780|Kondoma": "Q1536880",
+  "781|Daling": "Q5366081",
+  "783|Aoukalé": "Q32232090",
+  "784|Victoria": "Q1540063",
+  "785|Mackenzie": "Q1559088",
+  "786|Tamar": "Q21900255",
+  "787|Blackwood": "Q695602",
+  "788|Broad": "Q921949",
+  "789|Cowpasture": "Q5179786",
+  "78900|Cowpasture": "Q5179786",
+  "79|Kibali": "Q1120933",
+  "79000|Ariège": "Q18451",
+  "791|Delaware": "Q143762",
+  "792|Merrimack": "Q517787",
+  "793|Mohawk": "Q1345896",
+  "794|Grand": "Q1542855",
+  "795|Kentucky": "Q1544834",
+  "796|White": "Q1813795",
+  "797|Kaskaskia": "Q776873",
+  "798|Cedar": "Q1052530",
+  "799|Chico": "Q11202446",
+  "8|Missouri": "Q5419",
+  "80|Allegheny": "Q686021",
+  "800|Tambo": "Q60852769",
+  "801|Pisco": "Q338316",
+  "804|Una": "Q2618598",
+  "809|Atoyac": "Q16252127",
+  "81|Kasai": "Q186541",
+  "810|San Pedro": "Q35287082",
+  "811|Olifants": "Q10990705",
+  "812|Alima": "Q2661731",
+  "813|Ebola": "Q934455",
+  "814|Lua": "Q3264588",
+  "815|Chinko": "Q1074381",
+  "816|Baoulé": "Q635292",
+  "818|Lucala": "Q3011855",
+  "819|Ngounie": "Q3134829",
+  "82|Barwon": "Q809666",
+  "820|Ribeira": "Q22051739",
+  "822|Trent": "Q19714",
+  "823|Zuo": "Q8075313",
+  "824|Duliu": "Q29988571",
+  "825|Mogami": "Q596120",
+  "827|Ituxi": "Q6095187",
+  "828|Tuscarawas": "Q750945",
+  "83|Uele": "Q171436",
+  "831|Lobaye": "Q1610446",
+  "832|Dja": "Q1231996",
+  "833|Sankuru": "Q899815",
+  "834|Kwilu": "Q1059228",
+  "835|Chambeshi": "Q777999",
+  "836|Inkisi": "Q3048266",
+  "84|Argun’": "Q26439",
+  "844|Moma": "Q783916",
+  "845|Adycha": "Q380249",
+  "847|Bikin": "Q860113",
+  "848|Maya": "Q831383",
+  "849|Kukhtuy": "Q3718531",
+  "85|Abay": "Q882739",
+  "852|Yaque del Norte": "Q776071",
+  "853|Ventuari": "Q1349924",
+  "854|Nhamundá": "Q9299577",
+  "855|Itiquira": "Q10362057",
+  "857|Verde": "Q7921060",
+  "858|Bermejo": "Q270467",
+  "859|Gongola": "Q4786963",
+  "86|Darling": "Q181482",
+  "860|Molopo": "Q546793",
+  "861|Auob": "Q31857611",
+  "862|Onilahy": "Q2465863",
+  "863|Adige": "Q13696",
+  "864|Luza": "Q1293972",
+  "865|Sura": "Q209891",
+  "866|Vishera": "Q476721",
+  "868|Haliacmon": "Q640366",
+  "869|Doubs": "Q14372",
+  "87|Mamoré": "Q117615",
+  "870|Severn": "Q19682",
+  "872|Drina": "Q186901",
+  "873|Wei": "Q847641",
+  "874|Vakh": "Q837201",
+  "88|Niagara": "Q182343",
+  "882|Jing": "Q773033",
+  "886|Ou": "Q713020",
+  "887|Wainganga": "Q3132789",
+  "889|Banas": "Q2722701",
+  "89|St. Clair": "Q1054325",
+  "890|Tel": "Q1804765",
+  "892|Esla": "Q14764",
+  "893|Zhang": "Q197189",
+  "895|Cagayan": "Q545808",
+  "896|Derwent": "Q583565",
+  "897|Palar": "Q609625",
+  "898|Tyung": "Q1347142",
+  "899|Dulgalakh": "Q1264793",
+  "90|Guaporé": "Q916349",
+  "900|Oloy": "Q1111329",
+  "903|Illinois": "Q8321",
+  "905|Bahr Aouk": "Q769856",
+  "908|Luan": "Q1193523",
+  "909|Richelieu": "Q1809877",
+  "91|Madeira": "Q118251",
+  "911|Aras": "Q179751",
+  "912|Kanawha": "Q918867",
+  "913|Osage": "Q1619907",
+  "914|Bighorn": "Q859686",
+  "915|Fox": "Q1440192",
+  "916|Bayou Lafourche": "Q2892300",
+  "917|Cree": "Q1139466",
+  "918|Burnside": "Q1016839",
+  "92|Ohio": "Q4915",
+  "921|French": "Q691791",
+  "922|Gods": "Q1533889",
+  "923|Exploits": "Q490358",
+  "924|St. Marys": "Q7590407",
+  "925|Muskingum": "Q1595409",
+  "926|Gatineau": "Q391411",
+  "928|Santa": "Q2121241",
+  "929|Maputo": "Q2452912",
+  "93|Heilong Jiang": "Q6862",
+  "930|Mongala": "Q3320633",
+  "931|Bakoy": "Q789056",
+  "932|Liu": "Q847844",
+  "933|Rong": "Q7365612",
+  "937|Kansas": "Q1367638",
+  "938|Republican": "Q673908",
+  "94|Shatt al Arab": "Q166966",
+  "943|Ibicuí": "Q2423275",
+  "944|Ticino": "Q14366",
+  "945|Wuding": "Q15907862",
+  "947|Aksu": "Q421658",
+  "949|Kureyka": "Q909457",
+  "95|Huang": "Q7355",
+  "950|Uda": "Q1474782",
+  "951|Tumnin": "Q2619442",
+  "952|Poronay": "Q715143",
+  "953|Caledonian Canal": "Q909073",
+  "956|Asahan": "Q2736616",
+  "958|Fimi": "Q2738652",
+  "96|Xi": "Q216941",
+  "961|Hayes": "Q72673",
+  "962|Fitzroy": "Q1421409",
+  "965|Luapula": "Q151858",
+  "966|Malagarasi": "Q1514693",
+  "97|Murray": "Q183078",
+  "970|Maas": "Q41986",
+  "974|Santee": "Q2223479",
+  "976|Rungwa": "Q35311383",
+  "979|Cuito": "Q1143331",
+  "98|Orange": "Q181475",
+  "982|Hadejia": "Q4786970",
+  "983|Sous": "Q2883844",
+  "985|Kalix": "Q845520",
+  "986|Volkhov": "Q15243",
+  "988|Salinas": "Q1161673",
+  "99|Paraná": "Q127892",
+  "991|Msta": "Q1139404",
+  "992|Coari": "Q5138059",
+  "993|Murat": "Q913193",
+  "995|Indalsälven": "Q426516",
+  "996|Kola": "Q1149171",
+  "997|Yanisyoki": "Q34955065",
+  "999|Dan": "Q5214284"
+ },
+ "items": {
+  "Q97": {
+   "en": "Atlantic Ocean",
+   "ja": "大西洋"
+  },
+  "Q98": {
+   "en": "Pacific Ocean",
+   "ja": "太平洋"
+  },
+  "Q166": {
+   "en": "Black Sea",
+   "ja": "黒海"
+  },
+  "Q425": {
+   "en": "Betsiboka River",
+   "ja": "ベチボカ川"
+  },
+  "Q513": {
+   "en": "Mount Everest",
+   "ja": "エベレスト"
+  },
+  "Q545": {
+   "en": "Baltic Sea",
+   "ja": "バルト海"
+  },
+  "Q548": {
+   "en": "Vistula",
+   "ja": "ヴィスワ川"
+  },
+  "Q552": {
+   "en": "Oder",
+   "ja": "オーデル川"
+  },
+  "Q583": {
+   "en": "Mont Blanc",
+   "ja": "モンブラン"
+  },
+  "Q584": {
+   "en": "Rhine",
+   "ja": "ライン川"
+  },
+  "Q602": {
+   "en": "Rhône",
+   "ja": "ローヌ川"
+  },
+  "Q626": {
+   "en": "Volga",
+   "ja": "ヴォルガ川"
+  },
+  "Q643": {
+   "en": "Po",
+   "ja": "ポー川"
+  },
+  "Q645": {
+   "en": "Neva",
+   "ja": "ネヴァ川"
+  },
+  "Q788": {
+   "en": "Arctic Ocean",
+   "ja": "北極海"
+  },
+  "Q812": {
+   "en": "Florida",
+   "ja": "フロリダ州"
+  },
+  "Q973": {
+   "en": "Ob",
+   "ja": "オビ川"
+  },
+  "Q993": {
+   "en": "Kamchatka Peninsula",
+   "ja": "カムチャツカ半島"
+  },
+  "Q1002": {
+   "en": "Chukchi Peninsula",
+   "ja": "チュクチ半島"
+  },
+  "Q1024": {
+   "en": "Triglav",
+   "ja": "トリグラウ山"
+  },
+  "Q1062": {
+   "en": "Lake Ontario",
+   "ja": "オンタリオ湖"
+  },
+  "Q1066": {
+   "en": "Lake Superior",
+   "ja": "スペリオル湖"
+  },
+  "Q1169": {
+   "en": "Lake Michigan",
+   "ja": "ミシガン湖"
+  },
+  "Q1229": {
+   "en": "Don",
+   "ja": "ドン川"
+  },
+  "Q1239": {
+   "en": "Indian Ocean",
+   "ja": "インド洋"
+  },
+  "Q1247": {
+   "en": "Caribbean Sea",
+   "ja": "カリブ海"
+  },
+  "Q1265": {
+   "en": "Colorado River",
+   "ja": "コロラド川"
+  },
+  "Q1286": {
+   "en": "Alps",
+   "ja": "アルプス山脈"
+  },
+  "Q1288": {
+   "en": "Carpathians",
+   "ja": "カルパティア山脈"
+  },
+  "Q1374": {
+   "en": "Matterhorn",
+   "ja": "マッターホルン"
+  },
+  "Q1383": {
+   "en": "Lake Huron",
+   "ja": "ヒューロン湖"
+  },
+  "Q1451": {
+   "en": "Pinatubo",
+   "ja": "ピナトゥボ山"
+  },
+  "Q1469": {
+   "en": "Loire",
+   "ja": "ロワール川"
+  },
+  "Q1471": {
+   "en": "Seine",
+   "ja": "セーヌ川"
+  },
+  "Q1497": {
+   "en": "Mississippi River",
+   "ja": "ミシシッピ川"
+  },
+  "Q1644": {
+   "en": "Elbe",
+   "ja": "エルベ川"
+  },
+  "Q1648": {
+   "en": "Ems",
+   "ja": "エムス川"
+  },
+  "Q1650": {
+   "en": "Weser",
+   "ja": "ヴェーザー川"
+  },
+  "Q1653": {
+   "en": "Danube",
+   "ja": "ドナウ川"
+  },
+  "Q1670": {
+   "en": "Main",
+   "ja": "マイン川"
+  },
+  "Q1693": {
+   "en": "North Sea",
+   "ja": "北海"
+  },
+  "Q1695": {
+   "en": "Skagerrak",
+   "ja": "スカゲラク海峡"
+  },
+  "Q2216": {
+   "en": "Athabasca River",
+   "ja": "アサバスカ川"
+  },
+  "Q2220": {
+   "en": "Peace River",
+   "ja": "ピース川"
+  },
+  "Q2226": {
+   "en": "Slave River",
+   "ja": "スレイブ川"
+  },
+  "Q2237": {
+   "en": "North Saskatchewan River",
+   "ja": "ノースサスカチュワン川"
+  },
+  "Q2242": {
+   "en": "South Saskatchewan River",
+   "ja": "サウスサスカチュワン川"
+  },
+  "Q2244": {
+   "en": "Beaver River",
+   "ja": "ビーバー川"
+  },
+  "Q2249": {
+   "en": "Liard River",
+   "ja": "リアード川"
+  },
+  "Q2251": {
+   "en": "Columbia River",
+   "ja": "コロンビア川"
+  },
+  "Q3040": {
+   "en": "Hudson Bay",
+   "ja": "ハドソン湾"
+  },
+  "Q3047": {
+   "en": "Saskatchewan River",
+   "ja": "サスカチュワン川"
+  },
+  "Q3140": {
+   "en": "Hudson River",
+   "ja": "ハドソン川"
+  },
+  "Q3272": {
+   "en": "Lake Winnipeg",
+   "ja": "ウィニペグ湖"
+  },
+  "Q3292": {
+   "en": "Nelson River",
+   "ja": "ネルソン川"
+  },
+  "Q3318": {
+   "en": "Churchill River",
+   "ja": "チャーチル川"
+  },
+  "Q3369": {
+   "en": "Müritz",
+   "ja": "ミューリッツ湖"
+  },
+  "Q3375": {
+   "en": "Zugspitze",
+   "ja": "ツークシュピッツェ"
+  },
+  "Q3388": {
+   "en": "Grossglockner",
+   "ja": "グロースグロックナー山"
+  },
+  "Q3392": {
+   "en": "Nile",
+   "ja": "ナイル川"
+  },
+  "Q3411": {
+   "en": "Mackenzie River",
+   "ja": "マッケンジー川"
+  },
+  "Q3503": {
+   "en": "River Congo",
+   "ja": "コンゴ川"
+  },
+  "Q3542": {
+   "en": "Niger River",
+   "ja": "ニジェール川"
+  },
+  "Q3569": {
+   "en": "Senegal River",
+   "ja": "セネガル川"
+  },
+  "Q3783": {
+   "en": "Amazon River",
+   "ja": "アマゾン川"
+  },
+  "Q4121": {
+   "en": "IJsselmeer",
+   "ja": "アイセル湖"
+  },
+  "Q4127": {
+   "en": "Lake Constance",
+   "ja": "ボーデン湖"
+  },
+  "Q4186": {
+   "en": "Harz",
+   "ja": "ハルツ山地"
+  },
+  "Q4198": {
+   "en": "Ore Mountains",
+   "ja": "エルツ山地"
+  },
+  "Q4269": {
+   "en": "Lake Poteriteri",
+   "ja": "ポテリテリ湖"
+  },
+  "Q4272": {
+   "en": "Lake Waikaremoana",
+   "ja": "ワイカレモアナ湖"
+  },
+  "Q4526": {
+   "en": "Sundarbans",
+   "ja": "シュンドルボン"
+  },
+  "Q4527": {
+   "en": "Western Ghats",
+   "ja": "西ガーツ山脈"
+  },
+  "Q4558": {
+   "en": "Cascade Range",
+   "ja": "カスケード山脈"
+  },
+  "Q4634": {
+   "en": "Lake Coleridge",
+   "ja": "コールリッジ湖"
+  },
+  "Q4777": {
+   "en": "Mount Roraima",
+   "ja": "ロライマ山"
+  },
+  "Q4915": {
+   "en": "Ohio River",
+   "ja": "オハイオ川"
+  },
+  "Q4918": {
+   "en": "Mediterranean Sea",
+   "ja": "地中海"
+  },
+  "Q5023": {
+   "en": "Cook Strait",
+   "ja": "クック海峡"
+  },
+  "Q5059": {
+   "en": "Aoraki / Mount Cook",
+   "ja": "クック山"
+  },
+  "Q5077": {
+   "en": "Garonne",
+   "ja": "ガロンヌ川"
+  },
+  "Q5089": {
+   "en": "Ganges",
+   "ja": "ガンジス川"
+  },
+  "Q5413": {
+   "en": "Yangtze River",
+   "ja": "長江"
+  },
+  "Q5419": {
+   "en": "Missouri River",
+   "ja": "ミズーリ川"
+  },
+  "Q5451": {
+   "en": "Himalayas",
+   "ja": "ヒマラヤ山脈"
+  },
+  "Q5456": {
+   "en": "Andes",
+   "ja": "アンデス山脈"
+  },
+  "Q5463": {
+   "en": "Rocky Mountains",
+   "ja": "ロッキー山脈"
+  },
+  "Q5469": {
+   "en": "Karakoram",
+   "ja": "カラコルム山脈"
+  },
+  "Q5472": {
+   "en": "Hindu Kush",
+   "ja": "ヒンドゥークシュ山脈"
+  },
+  "Q5474": {
+   "en": "Tianshan Mountains",
+   "ja": "天山山脈"
+  },
+  "Q5477": {
+   "en": "Caucasus Mountains",
+   "ja": "コーカサス山脈"
+  },
+  "Q5484": {
+   "en": "Caspian Sea",
+   "ja": "カスピ海"
+  },
+  "Q5492": {
+   "en": "Lake Erie",
+   "ja": "エリー湖"
+  },
+  "Q5505": {
+   "en": "Lake Victoria",
+   "ja": "ヴィクトリア湖"
+  },
+  "Q5511": {
+   "en": "Lake Tanganyika",
+   "ja": "タンガニーカ湖"
+  },
+  "Q5513": {
+   "en": "Lake Baikal",
+   "ja": "バイカル湖"
+  },
+  "Q5525": {
+   "en": "Great Bear Lake",
+   "ja": "グレートベア湖"
+  },
+  "Q5532": {
+   "en": "Lake Malawi",
+   "ja": "マラウイ湖"
+  },
+  "Q5539": {
+   "en": "Great Slave Lake",
+   "ja": "グレートスレーブ湖"
+  },
+  "Q5605": {
+   "en": "Vistula Lagoon",
+   "ja": "ヴィスワ潟"
+  },
+  "Q5622": {
+   "en": "Neman",
+   "ja": "ネマン川"
+  },
+  "Q5955": {
+   "en": "Altai Mountains",
+   "ja": "アルタイ山脈"
+  },
+  "Q6383": {
+   "en": "Lake Balaton",
+   "ja": "バラトン湖"
+  },
+  "Q6403": {
+   "en": "Lake Geneva",
+   "ja": "レマン湖"
+  },
+  "Q6414": {
+   "en": "Lake Garda",
+   "ja": "ガルダ湖"
+  },
+  "Q6514": {
+   "en": "Dardanelles",
+   "ja": "ダーダネルス海峡"
+  },
+  "Q6583": {
+   "en": "Sahara",
+   "ja": "サハラ砂漠"
+  },
+  "Q6862": {
+   "en": "Amur River",
+   "ja": "アムール川"
+  },
+  "Q7296": {
+   "en": "Mount Kilimanjaro",
+   "ja": "キリマンジャロ"
+  },
+  "Q7343": {
+   "en": "Great Barrier Reef",
+   "ja": "グレートバリアリーフ"
+  },
+  "Q7348": {
+   "en": "Indus River",
+   "ja": "インダス川"
+  },
+  "Q7354": {
+   "en": "Southern Ocean",
+   "ja": "南極海"
+  },
+  "Q7355": {
+   "en": "Yellow River",
+   "ja": "黄河"
+  },
+  "Q7835": {
+   "en": "Crimea",
+   "ja": "クリミア半島"
+  },
+  "Q7988": {
+   "en": "Laptev Sea",
+   "ja": "ラプテフ海"
+  },
+  "Q8168": {
+   "en": "Pechora",
+   "ja": "ペチョラ川"
+  },
+  "Q8175": {
+   "en": "Usa",
+   "ja": "ウサ川"
+  },
+  "Q8187": {
+   "en": "Northern Dvina",
+   "ja": "北ドヴィナ川"
+  },
+  "Q8197": {
+   "en": "Daugava",
+   "ja": "ダウガヴァ川"
+  },
+  "Q8212": {
+   "en": "Pinega",
+   "ja": "ピネガ川"
+  },
+  "Q8319": {
+   "en": "Arkansas River",
+   "ja": "アーカンザス川"
+  },
+  "Q8321": {
+   "en": "Illinois River",
+   "ja": "イリノイ川"
+  },
+  "Q8493": {
+   "en": "Amu Darya",
+   "ja": "アムダリヤ川"
+  },
+  "Q8510": {
+   "en": "Helmand River",
+   "ja": "ヘルマンド川"
+  },
+  "Q8542": {
+   "en": "Panj River",
+   "ja": "パンジ川"
+  },
+  "Q8550": {
+   "en": "Pamir River",
+   "ja": "パミール川"
+  },
+  "Q8642": {
+   "en": "Kankakee River",
+   "ja": "カンカキー川"
+  },
+  "Q10965": {
+   "en": "Ebro",
+   "ja": "エブロ川"
+  },
+  "Q12431": {
+   "en": "Pyrenees",
+   "ja": "ピレネー山脈"
+  },
+  "Q12630": {
+   "en": "Gulf of Mexico",
+   "ja": "メキシコ湾"
+  },
+  "Q12707": {
+   "en": "Great Plains",
+   "ja": "グレートプレーンズ"
+  },
+  "Q12837": {
+   "en": "Iberian Peninsula",
+   "ja": "イベリア半島"
+  },
+  "Q13696": {
+   "en": "Adige",
+   "ja": "アディジェ川"
+  },
+  "Q13712": {
+   "en": "Tiber",
+   "ja": "テヴェレ川"
+  },
+  "Q13770": {
+   "en": "Helan Mountains",
+   "ja": "賀蘭山脈"
+  },
+  "Q13924": {
+   "en": "Adriatic Sea",
+   "ja": "アドリア海"
+  },
+  "Q14081": {
+   "en": "Chimborazo",
+   "ja": "チンボラソ"
+  },
+  "Q14294": {
+   "en": "Tagus River",
+   "ja": "タホ川"
+  },
+  "Q14305": {
+   "en": "Guadiana",
+   "ja": "グアディアナ川"
+  },
+  "Q14309": {
+   "en": "Guadalquivir",
+   "ja": "グアダルキビール川"
+  },
+  "Q14366": {
+   "en": "Ticino",
+   "ja": "ティチーノ川"
+  },
+  "Q14369": {
+   "en": "Inn",
+   "ja": "イン川"
+  },
+  "Q14372": {
+   "en": "Doubs",
+   "ja": "ドゥー川"
+  },
+  "Q14383": {
+   "en": "Sava",
+   "ja": "サヴァ川"
+  },
+  "Q14554": {
+   "en": "Minho River",
+   "ja": "ミーニョ川"
+  },
+  "Q14668": {
+   "en": "Monte Rosa Massif",
+   "ja": "モンテ・ローザ"
+  },
+  "Q14686": {
+   "en": "Gulf of Finland",
+   "ja": "フィンランド湾"
+  },
+  "Q14764": {
+   "en": "Esla",
+   "ja": "エルサ川"
+  },
+  "Q15127": {
+   "en": "Finsteraarhorn",
+   "ja": "フィンシュターアールホルン"
+  },
+  "Q15243": {
+   "en": "Volkhov",
+   "ja": "ヴォルホフ川"
+  },
+  "Q15288": {
+   "en": "Lake Ladoga",
+   "ja": "ラドガ湖"
+  },
+  "Q15523": {
+   "en": "Lake Como",
+   "ja": "コモ湖"
+  },
+  "Q18278": {
+   "en": "Uruguay River",
+   "ja": "ウルグアイ川"
+  },
+  "Q18451": {
+   "en": "Ariège",
+   "ja": "アリエージュ川"
+  },
+  "Q18758": {
+   "en": "Malay Peninsula",
+   "ja": "マレー半島"
+  },
+  "Q19253": {
+   "en": "Lake Peipus",
+   "ja": "ペイプシ湖"
+  },
+  "Q19270": {
+   "en": "Celebes Sea",
+   "ja": "セレベス海"
+  },
+  "Q19682": {
+   "en": "River Severn",
+   "ja": "セヴァーン川"
+  },
+  "Q19686": {
+   "en": "River Thames",
+   "ja": "テムズ川"
+  },
+  "Q19714": {
+   "en": "River Trent",
+   "ja": "トレント川"
+  },
+  "Q19742": {
+   "en": "Yarlung Tsangpo Grand Canyon",
+   "ja": "雅鲁蔵布大峡谷"
+  },
+  "Q21195": {
+   "en": "Scandinavia",
+   "ja": "スカンディナヴィア"
+  },
+  "Q23145": {
+   "en": "Segre",
+   "ja": "セグラ川"
+  },
+  "Q23406": {
+   "en": "Red Sea",
+   "ja": "紅海"
+  },
+  "Q23522": {
+   "en": "Balkans",
+   "ja": "バルカン半島"
+  },
+  "Q23550": {
+   "en": "Velikaya",
+   "ja": "ヴェリーカヤ川"
+  },
+  "Q23883": {
+   "en": "Dead Sea",
+   "ja": "死海"
+  },
+  "Q26068": {
+   "en": "Vitim",
+   "ja": "ヴィティム川"
+  },
+  "Q26076": {
+   "en": "Irrawaddy River",
+   "ja": "エーヤワディー川"
+  },
+  "Q26080": {
+   "en": "Wadden Sea",
+   "ja": "ワッデン海"
+  },
+  "Q26361": {
+   "en": "Podkamennaya Tunguska",
+   "ja": "ポドカメンナヤ・ツングースカ川"
+  },
+  "Q26374": {
+   "en": "Kotuy",
+   "ja": "コトゥイ川"
+  },
+  "Q26422": {
+   "en": "Salween River",
+   "ja": "サルウィン川"
+  },
+  "Q26428": {
+   "en": "Nizhnyaya Tunguska",
+   "ja": "ニジニャヤ・ツングースカ川"
+  },
+  "Q26433": {
+   "en": "Vilyuy",
+   "ja": "ヴィリュイ川"
+  },
+  "Q26439": {
+   "en": "Argun River",
+   "ja": "アルグン川"
+  },
+  "Q26544": {
+   "en": "La Soufrière",
+   "ja": "スフリエール山"
+  },
+  "Q26777": {
+   "en": "Sierra Nevada",
+   "ja": "シエラネバダ山脈"
+  },
+  "Q26955": {
+   "en": "Sierra Nevada",
+   "ja": "シエラネバダ山脈"
+  },
+  "Q27026": {
+   "en": "Central Valley",
+   "ja": "セントラル・バレー"
+  },
+  "Q27035": {
+   "en": "Grijalva River",
+   "ja": "グリハルバ川"
+  },
+  "Q27036": {
+   "en": "Sierra Madre de Chiapas",
+   "ja": "シエラマドレ"
+  },
+  "Q27092": {
+   "en": "Sea of Japan",
+   "ja": "日本海"
+  },
+  "Q27538": {
+   "en": "Susquehanna River",
+   "ja": "サスケハナ川"
+  },
+  "Q27611": {
+   "en": "Central America",
+   "ja": "中央アメリカ"
+  },
+  "Q29412": {
+   "en": "Niger Delta",
+   "ja": "ニジェール・デルタ"
+  },
+  "Q31379": {
+   "en": "La Grande River",
+   "ja": "ラグランデ川"
+  },
+  "Q31945": {
+   "en": "Arabian Peninsula",
+   "ja": "アラビア半島"
+  },
+  "Q32793": {
+   "en": "Guadalupe Peak"
+  },
+  "Q33254": {
+   "en": "Tasman Sea",
+   "ja": "タスマン海"
+  },
+  "Q33629": {
+   "en": "Kara Sea",
+   "ja": "カラ海"
+  },
+  "Q33910": {
+   "en": "Uluru",
+   "ja": "ウルル"
+  },
+  "Q34575": {
+   "en": "Aegean Sea",
+   "ja": "エーゲ海"
+  },
+  "Q34589": {
+   "en": "Euphrates",
+   "ja": "ユーフラテス川"
+  },
+  "Q34640": {
+   "en": "English Channel",
+   "ja": "イギリス海峡"
+  },
+  "Q34675": {
+   "en": "Persian Gulf",
+   "ja": "ペルシア湾"
+  },
+  "Q34709": {
+   "en": "Qaidam Basin",
+   "ja": "ツァイダム盆地"
+  },
+  "Q35000": {
+   "en": "Sea of Azov",
+   "ja": "アゾフ海"
+  },
+  "Q35342": {
+   "en": "Titicaca",
+   "ja": "チチカカ湖"
+  },
+  "Q35367": {
+   "en": "Sea of Marmara",
+   "ja": "マルマラ海"
+  },
+  "Q35591": {
+   "en": "Tigris",
+   "ja": "チグリス川"
+  },
+  "Q35600": {
+   "en": "Ural Mountains",
+   "ja": "ウラル山脈"
+  },
+  "Q35827": {
+   "en": "Río de la Plata",
+   "ja": "ラプラタ川"
+  },
+  "Q35958": {
+   "en": "Bosporus Strait",
+   "ja": "ボスポラス海峡"
+  },
+  "Q36124": {
+   "en": "Strait of Gibraltar",
+   "ja": "ジブラルタル海峡"
+  },
+  "Q37040": {
+   "en": "Baffin Bay",
+   "ja": "バフィン湾"
+  },
+  "Q37056": {
+   "en": "Taymyr Peninsula",
+   "ja": "タイミル半島"
+  },
+  "Q37495": {
+   "en": "Ionian Sea",
+   "ja": "イオニア海"
+  },
+  "Q37660": {
+   "en": "South China Sea",
+   "ja": "南シナ海"
+  },
+  "Q37960": {
+   "en": "Yellow Sea",
+   "ja": "黄海"
+  },
+  "Q38684": {
+   "en": "Bay of Bengal",
+   "ja": "ベンガル湾"
+  },
+  "Q38882": {
+   "en": "Tyrrhenian Sea",
+   "ja": "ティレニア海"
+  },
+  "Q38954": {
+   "en": "Teide",
+   "ja": "テイデ山"
+  },
+  "Q39231": {
+   "en": "Mount Fuji",
+   "ja": "富士山",
+   "kana": [
+    "ふじさん"
+   ]
+  },
+  "Q39739": {
+   "en": "Aconcagua",
+   "ja": "アコンカグア"
+  },
+  "Q40059": {
+   "en": "Jordan River",
+   "ja": "ヨルダン川"
+  },
+  "Q40556": {
+   "en": "Horn of Africa",
+   "ja": "アフリカの角"
+  },
+  "Q40758": {
+   "en": "Damavand",
+   "ja": "ダマーヴァンド山"
+  },
+  "Q40855": {
+   "en": "Dnieper",
+   "ja": "ドニエプル川"
+  },
+  "Q41179": {
+   "en": "Mekong River",
+   "ja": "メコン川"
+  },
+  "Q41413": {
+   "en": "Ismoil Somoni Peak",
+   "ja": "イスモイル・ソモニ峰"
+  },
+  "Q41430": {
+   "en": "Gulf of Guinea",
+   "ja": "ギニア湾"
+  },
+  "Q41573": {
+   "en": "Bay of Biscay",
+   "ja": "ビスケー湾"
+  },
+  "Q41602": {
+   "en": "Sea of Okhotsk",
+   "ja": "オホーツク海"
+  },
+  "Q41735": {
+   "en": "Irish Sea",
+   "ja": "アイリッシュ海"
+  },
+  "Q41837": {
+   "en": "Gulf of Aden",
+   "ja": "アデン湾"
+  },
+  "Q41983": {
+   "en": "Marne",
+   "ja": "マルヌ川"
+  },
+  "Q41986": {
+   "en": "Meuse",
+   "ja": "マース川"
+  },
+  "Q42070": {
+   "en": "Gobi Desert",
+   "ja": "ゴビ砂漠"
+  },
+  "Q42191": {
+   "en": "Issyk-Kul",
+   "ja": "イシク・クル"
+  },
+  "Q42820": {
+   "en": "Ligurian Sea",
+   "ja": "リグリア海"
+  },
+  "Q43105": {
+   "en": "Mount Elbrus",
+   "ja": "エルブルス山"
+  },
+  "Q43106": {
+   "en": "Zambezi River",
+   "ja": "ザンベジ川"
+  },
+  "Q43512": {
+   "en": "K2",
+   "ja": "K2"
+  },
+  "Q43849": {
+   "en": "Otago Peninsula",
+   "ja": "オタゴ半島"
+  },
+  "Q43990": {
+   "en": "Caniapiscau River"
+  },
+  "Q44133": {
+   "en": "White Sea",
+   "ja": "白海"
+  },
+  "Q44163": {
+   "en": "Koksoak River",
+   "ja": "コクソアク川"
+  },
+  "Q44725": {
+   "en": "Bering Sea",
+   "ja": "ベーリング海"
+  },
+  "Q45341": {
+   "en": "East China Sea",
+   "ja": "東シナ海"
+  },
+  "Q45403": {
+   "en": "Brahmaputra River",
+   "ja": "ブラマプトラ川"
+  },
+  "Q45823": {
+   "en": "Barents Sea",
+   "ja": "バレンツ海"
+  },
+  "Q46841": {
+   "en": "Lena River",
+   "ja": "レナ川"
+  },
+  "Q47136": {
+   "en": "Laguna de Bay",
+   "ja": "バエ湖"
+  },
+  "Q47141": {
+   "en": "Atacama Desert",
+   "ja": "アタカマ砂漠"
+  },
+  "Q47490": {
+   "en": "Doyle's Delight",
+   "ja": "ドイルス・ディライト山"
+  },
+  "Q47530": {
+   "en": "Bight of Benin",
+   "ja": "ベニン湾"
+  },
+  "Q47545": {
+   "en": "Norwegian Sea",
+   "ja": "ノルウェー海"
+  },
+  "Q47632": {
+   "en": "Andaman Sea",
+   "ja": "アンダマン海"
+  },
+  "Q47700": {
+   "en": "Kalahari Desert",
+   "ja": "カラハリ砂漠"
+  },
+  "Q47940": {
+   "en": "Bălănești Hill"
+  },
+  "Q48359": {
+   "en": "Strait of Malacca",
+   "ja": "マラッカ海峡"
+  },
+  "Q48365": {
+   "en": "Strait of Magellan",
+   "ja": "マゼラン海峡"
+  },
+  "Q49364": {
+   "en": "Java Sea",
+   "ja": "ジャワ海"
+  },
+  "Q49544": {
+   "en": "Xingu River",
+   "ja": "シングー川"
+  },
+  "Q49650": {
+   "en": "Loch Ness",
+   "ja": "ネス湖"
+  },
+  "Q52052": {
+   "en": "Korea Strait",
+   "ja": "対馬海峡"
+  },
+  "Q52060": {
+   "en": "East Korea Bay",
+   "ja": "東朝鮮湾"
+  },
+  "Q55498": {
+   "en": "Yalu River",
+   "ja": "鴨緑江"
+  },
+  "Q55499": {
+   "en": "Tumen River",
+   "ja": "豆満江"
+  },
+  "Q55500": {
+   "en": "Han River",
+   "ja": "漢江"
+  },
+  "Q55501": {
+   "en": "Nakdong River",
+   "ja": "洛東江"
+  },
+  "Q58705": {
+   "en": "Arabian Sea",
+   "ja": "アラビア海"
+  },
+  "Q59446": {
+   "en": "Moose River",
+   "ja": "ムース川"
+  },
+  "Q59464": {
+   "en": "Mattagami River",
+   "ja": "マタガミ川"
+  },
+  "Q59480": {
+   "en": "Missinaibi River",
+   "ja": "ミシナイビ川"
+  },
+  "Q60010": {
+   "en": "Kenai Peninsula",
+   "ja": "キナイ半島"
+  },
+  "Q60064": {
+   "en": "Alaska Peninsula",
+   "ja": "アラスカ半島"
+  },
+  "Q60065": {
+   "en": "Susitna River",
+   "ja": "スーシトナ川"
+  },
+  "Q60067": {
+   "en": "Kuskokwim River",
+   "ja": "カスコクウィム川"
+  },
+  "Q60140": {
+   "en": "Indian subcontinent",
+   "ja": "インド亜大陸"
+  },
+  "Q60967": {
+   "en": "Mount Kinabalu",
+   "ja": "キナバル山"
+  },
+  "Q60974": {
+   "en": "Ottawa River",
+   "ja": "オタワ川"
+  },
+  "Q61304": {
+   "en": "Bay of Campeche",
+   "ja": "カンペチェ湾"
+  },
+  "Q62467": {
+   "en": "Coma Pedrosa",
+   "ja": "コマ・ペドローザ"
+  },
+  "Q65383": {
+   "en": "Vychegda",
+   "ja": "ヴィチェグダ川"
+  },
+  "Q68467": {
+   "en": "Lake Champlain",
+   "ja": "シャンプレーン湖"
+  },
+  "Q71996": {
+   "en": "Harricana River",
+   "ja": "ハリカーナ川"
+  },
+  "Q72075": {
+   "en": "Thlewiaza River"
+  },
+  "Q72079": {
+   "en": "Ekwan River"
+  },
+  "Q72154": {
+   "en": "Amundsen Sea",
+   "ja": "アムンゼン海"
+  },
+  "Q72303": {
+   "en": "Mount Ararat",
+   "ja": "アララト山"
+  },
+  "Q72673": {
+   "en": "Hayes River",
+   "ja": "ヘイズ川"
+  },
+  "Q74214": {
+   "en": "Cerro El Pital",
+   "ja": "エル・ピタル山"
+  },
+  "Q75745": {
+   "en": "Selenga",
+   "ja": "セレンガ川"
+  },
+  "Q76034": {
+   "en": "Canadian Shield",
+   "ja": "カナダ楯状地"
+  },
+  "Q76122": {
+   "en": "Salar de Uyuni",
+   "ja": "ウユニ塩原"
+  },
+  "Q76309": {
+   "en": "Mount Pelée",
+   "ja": "プレー山"
+  },
+  "Q78707": {
+   "en": "Yenisei",
+   "ja": "エニセイ川"
+  },
+  "Q78861": {
+   "en": "Yana",
+   "ja": "ヤナ川"
+  },
+  "Q78879": {
+   "en": "Kolyma",
+   "ja": "コリマ川"
+  },
+  "Q78898": {
+   "en": "Onega",
+   "ja": "オネガ川"
+  },
+  "Q79082": {
+   "en": "Kama",
+   "ja": "カマ川"
+  },
+  "Q79106": {
+   "en": "Mezen",
+   "ja": "メゼニ川"
+  },
+  "Q79948": {
+   "en": "Gulf of Oman",
+   "ja": "オマーン湾"
+  },
+  "Q80240": {
+   "en": "Ural River",
+   "ja": "ウラル川"
+  },
+  "Q80350": {
+   "en": "Winisk River",
+   "ja": "ウィニスク川"
+  },
+  "Q81136": {
+   "en": "Northwest Passage",
+   "ja": "北西航路"
+  },
+  "Q81150": {
+   "en": "Uvs Lake",
+   "ja": "ウヴス・ヌール"
+  },
+  "Q81213": {
+   "en": "Gerlachovský štít",
+   "ja": "ゲルラホウスキー山"
+  },
+  "Q81239": {
+   "en": "Lake Assal",
+   "ja": "アッサル湖"
+  },
+  "Q81507": {
+   "en": "Nadym",
+   "ja": "ナディム川"
+  },
+  "Q81528": {
+   "en": "Pur",
+   "ja": "プル川"
+  },
+  "Q81555": {
+   "en": "Taz",
+   "ja": "タズ川"
+  },
+  "Q81591": {
+   "en": "Great Rift Valley",
+   "ja": "大地溝帯"
+  },
+  "Q81611": {
+   "en": "Gulf of Aqaba",
+   "ja": "アカバ湾"
+  },
+  "Q81626": {
+   "en": "Pyasina",
+   "ja": "ピャシナ川"
+  },
+  "Q82019": {
+   "en": "Kanchenjunga",
+   "ja": "カンチェンジュンガ"
+  },
+  "Q82175": {
+   "en": "Khatanga",
+   "ja": "ハタンガ川"
+  },
+  "Q82187": {
+   "en": "Anabar",
+   "ja": "アナバル川"
+  },
+  "Q82207": {
+   "en": "Indigirka",
+   "ja": "インディギルカ川"
+  },
+  "Q82228": {
+   "en": "Alazeya",
+   "ja": "アラゼヤ川"
+  },
+  "Q82308": {
+   "en": "Kuban",
+   "ja": "クバン川"
+  },
+  "Q82613": {
+   "en": "Krakatoa",
+   "ja": "クラカタウ"
+  },
+  "Q82812": {
+   "en": "Sukhona",
+   "ja": "スホナ川"
+  },
+  "Q82931": {
+   "en": "Coral Sea",
+   "ja": "珊瑚海"
+  },
+  "Q83318": {
+   "en": "Bab-el-Mandeb",
+   "ja": "バブ・エル・マンデブ海峡"
+  },
+  "Q83659": {
+   "en": "Mount Ida",
+   "ja": "イディ山"
+  },
+  "Q83857": {
+   "en": "Great Hungarian Plain",
+   "ja": "ハンガリー大平原"
+  },
+  "Q84127": {
+   "en": "Ungava Peninsula",
+   "ja": "アンガヴァ半島"
+  },
+  "Q93332": {
+   "en": "Appalachian Mountains",
+   "ja": "アパラチア山脈"
+  },
+  "Q93360": {
+   "en": "Bío Bío River",
+   "ja": "ビオビオ川"
+  },
+  "Q104437": {
+   "en": "Yukon River",
+   "ja": "ユーコン川"
+  },
+  "Q104662": {
+   "en": "Øresund",
+   "ja": "エーレスンド海峡"
+  },
+  "Q104674": {
+   "en": "Ben Nevis",
+   "ja": "ベン・ネヴィス山"
+  },
+  "Q106540": {
+   "en": "Rwenzori Mountains",
+   "ja": "ルウェンゾリ山地"
+  },
+  "Q107635": {
+   "en": "Baekdu Mountain",
+   "ja": "白頭山"
+  },
+  "Q110802": {
+   "en": "Strait of Tartary",
+   "ja": "間宮海峡",
+   "kana": [
+    "まみやかいきょう"
+   ]
+  },
+  "Q112568": {
+   "en": "Mount Hua",
+   "ja": "華山"
+  },
+  "Q115456": {
+   "en": "Shilka",
+   "ja": "シルカ川"
+  },
+  "Q116675": {
+   "en": "Mount Tenakourou"
+  },
+  "Q116685": {
+   "en": "Lake Tana",
+   "ja": "タナ湖"
+  },
+  "Q117526": {
+   "en": "Juruá River",
+   "ja": "ジュルア川"
+  },
+  "Q117615": {
+   "en": "Mamoré River",
+   "ja": "マモレ川"
+  },
+  "Q118251": {
+   "en": "Madeira River",
+   "ja": "マデイラ川"
+  },
+  "Q118574": {
+   "en": "Altiplano",
+   "ja": "アルティプラーノ"
+  },
+  "Q118771": {
+   "en": "Rio Negro",
+   "ja": "ネグロ川"
+  },
+  "Q118841": {
+   "en": "Grand Canyon",
+   "ja": "グランド・キャニオン"
+  },
+  "Q118850": {
+   "en": "Chao Phraya River",
+   "ja": "チャオプラヤー川"
+  },
+  "Q118899": {
+   "en": "Brazilian Highlands",
+   "ja": "ブラジル高原"
+  },
+  "Q120306": {
+   "en": "Mount Logan",
+   "ja": "ローガン山"
+  },
+  "Q120314": {
+   "en": "Mount Wutai",
+   "ja": "五台山"
+  },
+  "Q121424": {
+   "en": "Bahr al Jabal"
+  },
+  "Q122184": {
+   "en": "Lake Nipigon",
+   "ja": "ニピゴン湖"
+  },
+  "Q122574": {
+   "en": "Gulf of Bothnia",
+   "ja": "ボスニア湾"
+  },
+  "Q123782": {
+   "en": "Fansipan",
+   "ja": "ファンシーパン山"
+  },
+  "Q124653": {
+   "en": "Tobol",
+   "ja": "トボル川"
+  },
+  "Q124978": {
+   "en": "Lake Kyoga",
+   "ja": "キオガ湖"
+  },
+  "Q125211": {
+   "en": "Lake Edward",
+   "ja": "エドワード湖"
+  },
+  "Q125309": {
+   "en": "Lake Chad",
+   "ja": "チャド湖"
+  },
+  "Q125888": {
+   "en": "Lake Albert",
+   "ja": "アルバート湖"
+  },
+  "Q125912": {
+   "en": "Lake Kivu",
+   "ja": "キブ湖"
+  },
+  "Q126307": {
+   "en": "Lake Van",
+   "ja": "ヴァン湖"
+  },
+  "Q126822": {
+   "en": "Olt River",
+   "ja": "オルト川"
+  },
+  "Q126982": {
+   "en": "Sea of Galilee",
+   "ja": "ガリラヤ湖"
+  },
+  "Q127031": {
+   "en": "Taiwan Strait",
+   "ja": "台湾海峡"
+  },
+  "Q127469": {
+   "en": "Lake Wakatipu",
+   "ja": "ワカティプ湖"
+  },
+  "Q127892": {
+   "en": "Paraná River",
+   "ja": "パラナ川"
+  },
+  "Q128102": {
+   "en": "Irtysh",
+   "ja": "エルティシ川"
+  },
+  "Q128350": {
+   "en": "Lukuga River",
+   "ja": "ルクガ川"
+  },
+  "Q128500": {
+   "en": "Tarbagatai Mountains",
+   "ja": "タルバガタイ山脈"
+  },
+  "Q128841": {
+   "en": "Sakurajima",
+   "ja": "桜島"
+  },
+  "Q128880": {
+   "en": "Arafura Sea",
+   "ja": "アラフラ海"
+  },
+  "Q130018": {
+   "ja": "デナリ"
+  },
+  "Q130135": {
+   "en": "Atlas Mountains",
+   "ja": "アトラス山脈"
+  },
+  "Q130217": {
+   "en": "Mount Bogong"
+  },
+  "Q130736": {
+   "en": "Nanga Parbat",
+   "ja": "ナンガ・パルバット"
+  },
+  "Q130892": {
+   "en": "South Platte River",
+   "ja": "南プラット川"
+  },
+  "Q130978": {
+   "en": "Yucatan Peninsula",
+   "ja": "ユカタン半島"
+  },
+  "Q131071": {
+   "en": "Willamette River",
+   "ja": "ウィラメット川"
+  },
+  "Q131210": {
+   "en": "Dniester",
+   "ja": "ドニエストル川"
+  },
+  "Q131217": {
+   "en": "Gulf of Thailand",
+   "ja": "タイランド湾"
+  },
+  "Q131230": {
+   "en": "Mauna Kea",
+   "ja": "マウナ・ケア山"
+  },
+  "Q131274": {
+   "en": "Beaufort Sea",
+   "ja": "ボーフォート海"
+  },
+  "Q131377": {
+   "en": "Namib",
+   "ja": "ナミブ砂漠"
+  },
+  "Q131418": {
+   "en": "Timor Sea",
+   "ja": "ティモール海"
+  },
+  "Q131574": {
+   "en": "Vltava",
+   "ja": "ヴルタヴァ川"
+  },
+  "Q131716": {
+   "en": "Kattegat",
+   "ja": "カテガット海峡"
+  },
+  "Q131792": {
+   "en": "Orinoco River",
+   "ja": "オリノコ川"
+  },
+  "Q132726": {
+   "en": "Yamuna",
+   "ja": "ヤムナー川"
+  },
+  "Q132811": {
+   "en": "Gulf of California",
+   "ja": "カリフォルニア湾"
+  },
+  "Q132868": {
+   "en": "Greenland Sea",
+   "ja": "グリーンランド海"
+  },
+  "Q132956": {
+   "en": "Taklamakan",
+   "ja": "タクラマカン砂漠"
+  },
+  "Q133476": {
+   "en": "Kamchatka River",
+   "ja": "カムチャツカ川"
+  },
+  "Q134485": {
+   "en": "Lake Balkhash",
+   "ja": "バルハシ湖"
+  },
+  "Q134750": {
+   "en": "St. Lawrence River",
+   "ja": "セイント・ローレンス川"
+  },
+  "Q135477": {
+   "en": "Chari River",
+   "ja": "シャリ川"
+  },
+  "Q138491": {
+   "en": "Jubba River",
+   "ja": "ジュバ川"
+  },
+  "Q138637": {
+   "en": "Lake Izabal",
+   "ja": "イサバル湖"
+  },
+  "Q138708": {
+   "en": "Gulf of Martaban",
+   "ja": "マルダバン湾"
+  },
+  "Q140084": {
+   "en": "Hvannadalshnúkur",
+   "ja": "クヴァンナダルスフニュークル"
+  },
+  "Q140290": {
+   "en": "Bay of Plenty",
+   "ja": "プレンティ湾"
+  },
+  "Q140712": {
+   "en": "Lake Tai",
+   "ja": "太湖"
+  },
+  "Q141501": {
+   "en": "Llanos",
+   "ja": "リャノ"
+  },
+  "Q141513": {
+   "en": "Danakil Desert",
+   "ja": "ダナキル砂漠"
+  },
+  "Q141727": {
+   "en": "Marguerite Bay",
+   "ja": "マルグリット湾"
+  },
+  "Q142148": {
+   "en": "São Francisco River",
+   "ja": "サン・フランシスコ川"
+  },
+  "Q142604": {
+   "en": "Beni River",
+   "ja": "ベニ川"
+  },
+  "Q143008": {
+   "en": "Tavan Bogd",
+   "ja": "タワン・ボグド山"
+  },
+  "Q143014": {
+   "en": "Cordillera Oriental",
+   "ja": "オリエンタル山脈 (コロンビア)"
+  },
+  "Q143650": {
+   "en": "Drake Passage",
+   "ja": "ドレーク海峡"
+  },
+  "Q143762": {
+   "en": "Delaware River",
+   "ja": "デラウェア川"
+  },
+  "Q144040": {
+   "en": "Sierra Madre Oriental",
+   "ja": "東シエラマドレ山脈"
+  },
+  "Q145165": {
+   "en": "Great Victoria Desert",
+   "ja": "グレートビクトリア砂漠"
+  },
+  "Q147304": {
+   "en": "North China Plain",
+   "ja": "華北平原"
+  },
+  "Q147557": {
+   "en": "Snaefell",
+   "ja": "スネーフェル"
+  },
+  "Q147826": {
+   "en": "Zard Kuh",
+   "ja": "ザルド山"
+  },
+  "Q148521": {
+   "en": "Illimani",
+   "ja": "イリマニ"
+  },
+  "Q150370": {
+   "en": "Flores Sea",
+   "ja": "フローレス海"
+  },
+  "Q151559": {
+   "en": "Gaspé Peninsula",
+   "ja": "ガスペ半島"
+  },
+  "Q151858": {
+   "en": "Luapula River",
+   "ja": "ルアプラ川"
+  },
+  "Q151985": {
+   "en": "Ardennes",
+   "ja": "アルデンヌ"
+  },
+  "Q152058": {
+   "en": "Denmark Strait",
+   "ja": "デンマーク海峡"
+  },
+  "Q152131": {
+   "en": "Sudetes",
+   "ja": "ズデーテン山地"
+  },
+  "Q152294": {
+   "en": "Mount Nyangani",
+   "ja": "ンヤンガニ山"
+  },
+  "Q155197": {
+   "en": "Central Siberian Plateau",
+   "ja": "中央シベリア高原"
+  },
+  "Q155322": {
+   "en": "Sikhote-Alin",
+   "ja": "シホテアリニ山脈"
+  },
+  "Q155721": {
+   "en": "Brocken",
+   "ja": "ブロッケン山"
+  },
+  "Q156032": {
+   "en": "Red River",
+   "ja": "レッド川"
+  },
+  "Q156054": {
+   "en": "Tocantins River",
+   "ja": "トカンチンス川"
+  },
+  "Q156116": {
+   "en": "Prydz Bay",
+   "ja": "プリズ湾"
+  },
+  "Q156123": {
+   "en": "Lützow-Holm Bay",
+   "ja": "リュツォー＝ホルム湾"
+  },
+  "Q156271": {
+   "en": "Prince of Wales Strait",
+   "ja": "プリンスオブウェールズ海峡"
+  },
+  "Q156557": {
+   "en": "Kura River",
+   "ja": "クラ川"
+  },
+  "Q156684": {
+   "en": "Alaska Range",
+   "ja": "アラスカ山脈"
+  },
+  "Q157042": {
+   "en": "Pripyat River",
+   "ja": "プリピャチ川"
+  },
+  "Q157603": {
+   "ja": "パンタナル"
+  },
+  "Q158526": {
+   "en": "Monte Titano",
+   "ja": "ティターノ山"
+  },
+  "Q159183": {
+   "en": "Philippine Sea",
+   "ja": "フィリピン海"
+  },
+  "Q159252": {
+   "en": "Chukchi Sea",
+   "ja": "チュクチ海"
+  },
+  "Q159860": {
+   "en": "Vaalserberg",
+   "ja": "ファールス山"
+  },
+  "Q160194": {
+   "en": "Sulu Sea",
+   "ja": "スールー海"
+  },
+  "Q160636": {
+   "en": "Rio Grande",
+   "ja": "リオ・グランデ川"
+  },
+  "Q160819": {
+   "en": "Gambia River",
+   "ja": "ガンビア川"
+  },
+  "Q161750": {
+   "en": "Pamir Mountains",
+   "ja": "パミール高原"
+  },
+  "Q162737": {
+   "en": "Angara",
+   "ja": "アンガラ川"
+  },
+  "Q162843": {
+   "en": "Negev",
+   "ja": "ネゲヴ"
+  },
+  "Q163434": {
+   "en": "East Siberian Sea",
+   "ja": "東シベリア海"
+  },
+  "Q163758": {
+   "en": "Vinson Massif",
+   "ja": "ヴィンソン・マシフ"
+  },
+  "Q163855": {
+   "en": "Lake Torrens",
+   "ja": "トレンズ湖"
+  },
+  "Q164466": {
+   "en": "Ross Sea",
+   "ja": "ロス海"
+  },
+  "Q164993": {
+   "en": "Kabompo River",
+   "ja": "カボンポ川"
+  },
+  "Q165100": {
+   "en": "Mozambique Channel",
+   "ja": "モザンビーク海峡"
+  },
+  "Q165440": {
+   "en": "Dhaulagiri",
+   "ja": "ダウラギリ"
+  },
+  "Q165608": {
+   "en": "Kola Peninsula",
+   "ja": "コラ半島"
+  },
+  "Q166162": {
+   "en": "Lake Onega",
+   "ja": "オネガ湖"
+  },
+  "Q166755": {
+   "en": "Blue Ridge Mountains",
+   "ja": "ブルーリッジ山脈"
+  },
+  "Q166966": {
+   "en": "Shatt al-Arab",
+   "ja": "シャットゥルアラブ川"
+  },
+  "Q167021": {
+   "en": "Zagros Mountains",
+   "ja": "ザグロス山脈"
+  },
+  "Q167118": {
+   "en": "Stewart River",
+   "ja": "スチュワート川"
+  },
+  "Q168277": {
+   "en": "Gulf of Suez",
+   "ja": "スエズ湾"
+  },
+  "Q168714": {
+   "en": "Tambora",
+   "ja": "タンボラ山"
+  },
+  "Q169132": {
+   "en": "Punjab",
+   "ja": "パンジャーブ"
+  },
+  "Q169274": {
+   "en": "Sargasso Sea",
+   "ja": "サルガッソ海"
+  },
+  "Q169523": {
+   "en": "Gulf of Saint Lawrence",
+   "ja": "セントローレンス湾"
+  },
+  "Q169962": {
+   "en": "Lake Tahoe",
+   "ja": "タホ湖"
+  },
+  "Q169966": {
+   "en": "Deccan Plateau",
+   "ja": "デカン高原"
+  },
+  "Q170383": {
+   "en": "Aïr Mountains",
+   "ja": "アイル山地"
+  },
+  "Q170427": {
+   "en": "Balkan Mountains",
+   "ja": "バルカン山脈"
+  },
+  "Q171009": {
+   "en": "Drava",
+   "ja": "ドラーヴァ川"
+  },
+  "Q171436": {
+   "en": "Uele",
+   "ja": "ウエレ川"
+  },
+  "Q171510": {
+   "en": "Banda Sea",
+   "ja": "バンダ海"
+  },
+  "Q171649": {
+   "en": "Ubangi River",
+   "ja": "ウバンギ川"
+  },
+  "Q171675": {
+   "en": "Sutlej",
+   "ja": "サトレジ川"
+  },
+  "Q171840": {
+   "en": "Japurá River",
+   "ja": "ジャプラー川"
+  },
+  "Q171846": {
+   "en": "Bass Strait",
+   "ja": "バス海峡"
+  },
+  "Q171847": {
+   "en": "Araguaia River",
+   "ja": "アラグアイア川"
+  },
+  "Q172070": {
+   "en": "Mount Kenya",
+   "ja": "ケニア山"
+  },
+  "Q172089": {
+   "en": "Oka",
+   "ja": "オカ川"
+  },
+  "Q172556": {
+   "en": "Taurus mountains",
+   "ja": "トロス山脈"
+  },
+  "Q172691": {
+   "en": "Thar Desert",
+   "ja": "タール砂漠"
+  },
+  "Q172702": {
+   "en": "Karakum Desert",
+   "ja": "カラクム砂漠"
+  },
+  "Q173017": {
+   "en": "Limpopo River",
+   "ja": "リンポポ川"
+  },
+  "Q173343": {
+   "en": "Weddell Sea",
+   "ja": "ウェッデル海"
+  },
+  "Q173596": {
+   "en": "Vänern",
+   "ja": "ヴェーネルン湖"
+  },
+  "Q173862": {
+   "en": "Lake Nicaragua",
+   "ja": "ニカラグア湖"
+  },
+  "Q174731": {
+   "en": "Gulf of Riga",
+   "ja": "リガ湾"
+  },
+  "Q176598": {
+   "en": "Flaming Gorge Reservoir"
+  },
+  "Q177452": {
+   "en": "Tone River",
+   "ja": "利根川",
+   "kana": [
+    "とねがわ"
+   ]
+  },
+  "Q178167": {
+   "en": "Mount Kosciuszko",
+   "ja": "コジオスコ"
+  },
+  "Q178396": {
+   "en": "Mana River",
+   "ja": "マナ川"
+  },
+  "Q178543": {
+   "en": "Baja California peninsula",
+   "ja": "バハ・カリフォルニア半島"
+  },
+  "Q178611": {
+   "en": "Jura Mountains",
+   "ja": "ジュラ山脈"
+  },
+  "Q178741": {
+   "en": "Great Salt Lake",
+   "ja": "グレートソルト湖"
+  },
+  "Q179188": {
+   "en": "Torres Strait",
+   "ja": "トレス海峡"
+  },
+  "Q179251": {
+   "en": "Morava",
+   "ja": "モラヴァ川"
+  },
+  "Q179444": {
+   "en": "Potomac River",
+   "ja": "ポトマック川"
+  },
+  "Q179505": {
+   "en": "Island Lake",
+   "ja": "アイランド湖"
+  },
+  "Q179528": {
+   "en": "Nile Delta",
+   "ja": "ナイル川デルタ"
+  },
+  "Q179734": {
+   "en": "Vatnajökull",
+   "ja": "ヴァトナヨークトル氷河"
+  },
+  "Q179751": {
+   "en": "Aras River",
+   "ja": "アラス川"
+  },
+  "Q179842": {
+   "en": "Tibetan Plateau",
+   "ja": "チベット高原"
+  },
+  "Q180509": {
+   "en": "Petenwell Lake"
+  },
+  "Q180531": {
+   "en": "Gulf of Alaska",
+   "ja": "アラスカ湾"
+  },
+  "Q180558": {
+   "en": "Bafing River",
+   "ja": "バフィン川"
+  },
+  "Q180844": {
+   "en": "Gulf of Carpentaria",
+   "ja": "カーペンタリア湾"
+  },
+  "Q181475": {
+   "en": "Orange River",
+   "ja": "オレンジ川"
+  },
+  "Q181482": {
+   "en": "Darling River",
+   "ja": "ダーリング川"
+  },
+  "Q181528": {
+   "en": "Libyan Desert",
+   "ja": "リビア砂漠"
+  },
+  "Q181857": {
+   "en": "Bay of Fundy",
+   "ja": "ファンディ湾"
+  },
+  "Q181932": {
+   "en": "Lake Sevan",
+   "ja": "セヴァン湖"
+  },
+  "Q181969": {
+   "en": "Bohai Sea",
+   "ja": "渤海"
+  },
+  "Q182137": {
+   "en": "Lake Maracaibo",
+   "ja": "マラカイボ湖"
+  },
+  "Q182139": {
+   "en": "Isthmus of Panama",
+   "ja": "パナマ地峡"
+  },
+  "Q182343": {
+   "en": "Niagara River",
+   "ja": "ナイアガラ川"
+  },
+  "Q182445": {
+   "en": "Prut",
+   "ja": "プルト川"
+  },
+  "Q182719": {
+   "en": "Lake Turkana",
+   "ja": "トゥルカナ湖"
+  },
+  "Q182796": {
+   "en": "Lake Nasser",
+   "ja": "ナセル湖"
+  },
+  "Q182942": {
+   "en": "Cuando River",
+   "ja": "クアンド川"
+  },
+  "Q183078": {
+   "en": "Murray River",
+   "ja": "マレー川"
+  },
+  "Q183295": {
+   "en": "Drakensberg",
+   "ja": "ドラケンスバーグ山脈"
+  },
+  "Q183360": {
+   "en": "Lake Toba",
+   "ja": "トバ湖"
+  },
+  "Q183455": {
+   "en": "Bellingshausen Sea",
+   "ja": "ベリングスハウゼン海"
+  },
+  "Q184189": {
+   "en": "Labrador Sea",
+   "ja": "ラブラドル海"
+  },
+  "Q184364": {
+   "en": "Kyzyl Kum",
+   "ja": "キジルクム砂漠"
+  },
+  "Q184382": {
+   "en": "pampa",
+   "ja": "パンパ"
+  },
+  "Q184429": {
+   "en": "Danube Delta",
+   "ja": "ドナウ・デルタ"
+  },
+  "Q184492": {
+   "en": "Mälaren",
+   "ja": "メーラレン湖"
+  },
+  "Q185291": {
+   "en": "Molucca Sea",
+   "ja": "モルッカ海"
+  },
+  "Q185605": {
+   "en": "Antarctic Peninsula",
+   "ja": "南極半島"
+  },
+  "Q185839": {
+   "en": "Markha",
+   "ja": "マルハ川"
+  },
+  "Q186299": {
+   "en": "Palk Strait",
+   "ja": "ポーク海峡"
+  },
+  "Q186541": {
+   "en": "Kasai River",
+   "ja": "カサイ川"
+  },
+  "Q186547": {
+   "en": "Scandinavian Mountains",
+   "ja": "スカンディナヴィア山脈"
+  },
+  "Q186733": {
+   "en": "Great Australian Bight",
+   "ja": "グレートオーストラリア湾"
+  },
+  "Q186901": {
+   "en": "Drina",
+   "ja": "ドリナ川"
+  },
+  "Q186910": {
+   "en": "Mogollon Rim",
+   "ja": "モゴヨンリム"
+  },
+  "Q187274": {
+   "en": "Gulf of Sidra",
+   "ja": "シドラ湾"
+  },
+  "Q187315": {
+   "en": "Mount Tahan",
+   "ja": "タハン山"
+  },
+  "Q187843": {
+   "en": "Vosges Mountains",
+   "ja": "ヴォージュ山脈"
+  },
+  "Q187871": {
+   "en": "Kunlun Mountains",
+   "ja": "崑崙山脈"
+  },
+  "Q188195": {
+   "en": "Vättern",
+   "ja": "ヴェッテルン湖"
+  },
+  "Q188203": {
+   "en": "Bristol Channel",
+   "ja": "ブリストル海峡"
+  },
+  "Q188773": {
+   "en": "Okavango River",
+   "ja": "オカヴァンゴ川"
+  },
+  "Q188940": {
+   "en": "Southern Bug",
+   "ja": "南ブーフ川"
+  },
+  "Q188982": {
+   "en": "Mount Erebus",
+   "ja": "エレバス山"
+  },
+  "Q189262": {
+   "en": "Davis Strait",
+   "ja": "デービス海峡"
+  },
+  "Q189429": {
+   "en": "Sonoran Desert",
+   "ja": "ソノラ砂漠"
+  },
+  "Q189915": {
+   "en": "Dinaric Alps",
+   "ja": "ディナル・アルプス山脈"
+  },
+  "Q190048": {
+   "en": "Tassili n'Ajjer",
+   "ja": "タッシリ・ナジェール"
+  },
+  "Q190309": {
+   "en": "North Island Volcanic Plateau",
+   "ja": "北島火山高原"
+  },
+  "Q190562": {
+   "en": "Mount Cameroon",
+   "ja": "カメルーン山"
+  },
+  "Q190695": {
+   "en": "Massif Central",
+   "ja": "中央高地"
+  },
+  "Q191238": {
+   "en": "Donets",
+   "ja": "ドネツ川"
+  },
+  "Q191314": {
+   "en": "Godavari River",
+   "ja": "ゴーダーヴァリ川"
+  },
+  "Q191524": {
+   "en": "Ishim",
+   "ja": "エシム川"
+  },
+  "Q191566": {
+   "en": "West Siberian Plain",
+   "ja": "西シベリア平原"
+  },
+  "Q191829": {
+   "en": "Magdalena River",
+   "ja": "マグダレナ川"
+  },
+  "Q191832": {
+   "en": "Aldan",
+   "ja": "アルダン川"
+  },
+  "Q192157": {
+   "en": "Belaya",
+   "ja": "ベラヤ川"
+  },
+  "Q192215": {
+   "en": "Khövsgöl Lake",
+   "ja": "フブスグル湖",
+   "kana": [
+    "フブスグル・ノール"
+   ]
+  },
+  "Q192305": {
+   "en": "Indo-Gangetic Plain",
+   "ja": "ヒンドスタン平野"
+  },
+  "Q192415": {
+   "en": "Volta River",
+   "ja": "ヴォルタ川"
+  },
+  "Q192495": {
+   "en": "Vyatka",
+   "ja": "ヴャトカ川"
+  },
+  "Q192583": {
+   "en": "Great Dividing Range",
+   "ja": "グレートディヴァイディング山脈"
+  },
+  "Q192770": {
+   "en": "Saimaa",
+   "ja": "サイマー湖"
+  },
+  "Q192820": {
+   "en": "River Shannon",
+   "ja": "シャノン川"
+  },
+  "Q193149": {
+   "en": "Sea of Crete",
+   "ja": "クレタ海"
+  },
+  "Q193260": {
+   "en": "Yucatán Channel",
+   "ja": "ユカタン海峡"
+  },
+  "Q193465": {
+   "en": "Savu Sea",
+   "ja": "サヴ海"
+  },
+  "Q193499": {
+   "en": "Krishna River",
+   "ja": "クリシュナ川",
+   "kana": [
+    "クリシュナがわ"
+   ]
+  },
+  "Q193737": {
+   "en": "Tennessee River",
+   "ja": "テネシー川"
+  },
+  "Q194057": {
+   "en": "Mount Rainier",
+   "ja": "レーニア山"
+  },
+  "Q194477": {
+   "en": "Makassar Strait",
+   "ja": "マカッサル海峡"
+  },
+  "Q196183": {
+   "en": "Wabash River",
+   "ja": "ウォバッシュ川"
+  },
+  "Q197189": {
+   "en": "Zhang River",
+   "ja": "漳河"
+  },
+  "Q199408": {
+   "en": "Alboran Sea",
+   "ja": "アルボラン海"
+  },
+  "Q199436": {
+   "en": "Bismarck Sea",
+   "ja": "ビスマルク海"
+  },
+  "Q199479": {
+   "en": "Solomon Sea",
+   "ja": "ソロモン海"
+  },
+  "Q199551": {
+   "en": "Urmia Lake",
+   "ja": "オルーミーイェ湖"
+  },
+  "Q199903": {
+   "en": "Lake Taupō",
+   "ja": "タウポ湖"
+  },
+  "Q199938": {
+   "en": "Tonle Sap",
+   "ja": "トンレサップ"
+  },
+  "Q200174": {
+   "en": "Marañón River",
+   "ja": "マラニョン川"
+  },
+  "Q200239": {
+   "en": "Lake Biwa",
+   "ja": "琵琶湖",
+   "hiragana": [
+    "びわこ"
+   ]
+  },
+  "Q200712": {
+   "en": "Balearic Sea",
+   "ja": "バレアレス海"
+  },
+  "Q200935": {
+   "en": "Huascarán",
+   "ja": "ワスカラン"
+  },
+  "Q200952": {
+   "en": "Ucayali River",
+   "ja": "ウカヤリ川"
+  },
+  "Q201294": {
+   "en": "Qinghai Lake",
+   "ja": "青海湖"
+  },
+  "Q201582": {
+   "en": "Pindus",
+   "ja": "ピンドス山脈"
+  },
+  "Q201678": {
+   "en": "Yablonoi Mountains",
+   "ja": "ヤブロノヴイ山脈"
+  },
+  "Q201679": {
+   "en": "Lake Volta",
+   "ja": "ヴォルタ湖"
+  },
+  "Q201823": {
+   "en": "Warta",
+   "ja": "ヴァルタ川"
+  },
+  "Q201843": {
+   "en": "Khanka",
+   "ja": "ハンカ湖"
+  },
+  "Q202019": {
+   "en": "Rainy Lake",
+   "ja": "レイニー湖"
+  },
+  "Q202796": {
+   "en": "Desna",
+   "ja": "デスナ川"
+  },
+  "Q202905": {
+   "en": "Lake Okeechobee",
+   "ja": "オキーチョビー湖"
+  },
+  "Q203137": {
+   "en": "Lake Inari",
+   "ja": "イナリ湖"
+  },
+  "Q203353": {
+   "en": "Pico Almanzor",
+   "ja": "アルマンソール峰"
+  },
+  "Q203462": {
+   "en": "Ilmen",
+   "ja": "イリメニ湖"
+  },
+  "Q203536": {
+   "en": "Tsimlyansk Reservoir",
+   "ja": "チムリャンスク湖"
+  },
+  "Q203568": {
+   "en": "Mount Aragats",
+   "ja": "アラガツ山"
+  },
+  "Q203811": {
+   "en": "Lake Skadar",
+   "ja": "シュコダル湖"
+  },
+  "Q203942": {
+   "en": "Galdhøpiggen",
+   "ja": "ガルフピッゲン"
+  },
+  "Q204347": {
+   "en": "Maritsa",
+   "ja": "マリツァ川"
+  },
+  "Q204703": {
+   "en": "Scotia Sea",
+   "ja": "スコシア海"
+  },
+  "Q204806": {
+   "en": "Benue River",
+   "ja": "ベヌエ川"
+  },
+  "Q204987": {
+   "en": "Storavan"
+  },
+  "Q205428": {
+   "en": "Semliki River",
+   "ja": "セムリキ川"
+  },
+  "Q205655": {
+   "en": "Singapore Strait",
+   "ja": "シンガポール海峡"
+  },
+  "Q206650": {
+   "en": "Southern Alps / Kā Tiritiri o te Moana",
+   "ja": "南アルプス山脈"
+  },
+  "Q206694": {
+   "en": "Onon River",
+   "ja": "オノン川"
+  },
+  "Q206850": {
+   "en": "Red River",
+   "ja": "紅河"
+  },
+  "Q206942": {
+   "en": "Lough Neagh",
+   "ja": "ネイ湖"
+  },
+  "Q207132": {
+   "en": "Terich Mir",
+   "ja": "ティリチミール"
+  },
+  "Q207284": {
+   "en": "Mount Ruapehu",
+   "ja": "ルアペフ山"
+  },
+  "Q207690": {
+   "en": "Poyang Lake",
+   "ja": "鄱陽湖"
+  },
+  "Q207692": {
+   "en": "Wuyi Mountains",
+   "ja": "武夷山"
+  },
+  "Q207702": {
+   "en": "Hudson Strait",
+   "ja": "ハドソン海峡"
+  },
+  "Q207777": {
+   "en": "Ussuri",
+   "ja": "ウスリー川"
+  },
+  "Q207903": {
+   "en": "Neris",
+   "ja": "ネリス川"
+  },
+  "Q208054": {
+   "en": "La Pérouse Strait",
+   "ja": "宗谷海峡"
+  },
+  "Q208076": {
+   "en": "Cantabrian Mountains",
+   "ja": "カンタブリア山脈"
+  },
+  "Q208081": {
+   "en": "Aneto",
+   "ja": "アネト山"
+  },
+  "Q208174": {
+   "en": "Dordogne",
+   "ja": "ドルドーニュ川"
+  },
+  "Q208347": {
+   "en": "Gran Chaco",
+   "ja": "グランチャコ"
+  },
+  "Q208495": {
+   "en": "Sognefjord",
+   "ja": "ソグネ・フィヨルド"
+  },
+  "Q208807": {
+   "en": "Guiana Highlands",
+   "ja": "ギアナ高地"
+  },
+  "Q209031": {
+   "en": "Narva",
+   "ja": "ナルヴァ川"
+  },
+  "Q209341": {
+   "en": "Musala",
+   "ja": "ムサラ山"
+  },
+  "Q209528": {
+   "en": "Mulhacén",
+   "ja": "ムラセン山"
+  },
+  "Q209530": {
+   "en": "Vaal River",
+   "ja": "バール川"
+  },
+  "Q209540": {
+   "en": "Scioto River",
+   "ja": "サイオト川"
+  },
+  "Q209891": {
+   "en": "Sura",
+   "ja": "スラ川"
+  },
+  "Q210118": {
+   "en": "Gulf of Lion",
+   "ja": "リオン湾"
+  },
+  "Q210180": {
+   "en": "Benara",
+   "ja": "ベナラ山"
+  },
+  "Q210220": {
+   "en": "Zeya",
+   "ja": "ゼヤ川"
+  },
+  "Q210252": {
+   "en": "Klyuchevskaya Sopka",
+   "ja": "クリュチェフスカヤ山"
+  },
+  "Q210326": {
+   "en": "Songhua River",
+   "ja": "松花江"
+  },
+  "Q210855": {
+   "en": "Seram Sea",
+   "ja": "セラム海"
+  },
+  "Q211425": {
+   "en": "Hjälmaren",
+   "ja": "イェルマレン湖"
+  },
+  "Q211516": {
+   "en": "Võrtsjärv",
+   "ja": "ヴォルツ湖"
+  },
+  "Q211616": {
+   "en": "Korab"
+  },
+  "Q211823": {
+   "en": "Lake Tuz",
+   "ja": "トゥズ湖"
+  },
+  "Q211839": {
+   "en": "Simpson Desert",
+   "ja": "シンプソン砂漠"
+  },
+  "Q212083": {
+   "en": "Halmahera Sea",
+   "ja": "ハルマヘラ海"
+  },
+  "Q212209": {
+   "en": "Mjøsa",
+   "ja": "ミョーサ湖"
+  },
+  "Q212428": {
+   "en": "Gulf of Tonkin",
+   "ja": "トンキン湾"
+  },
+  "Q212836": {
+   "en": "Durmitor",
+   "ja": "ドゥルミトル"
+  },
+  "Q213067": {
+   "en": "Svir",
+   "ja": "スヴィリ川"
+  },
+  "Q213237": {
+   "en": "Valdes Peninsula",
+   "ja": "バルデス半島"
+  },
+  "Q213576": {
+   "en": "Huai River",
+   "ja": "淮河"
+  },
+  "Q213704": {
+   "en": "Pico Bolívar",
+   "ja": "ボリバル山"
+  },
+  "Q213769": {
+   "en": "Päijänne",
+   "ja": "パイエンネ湖"
+  },
+  "Q213782": {
+   "en": "Putumayo River",
+   "ja": "プトゥマヨ川"
+  },
+  "Q213840": {
+   "en": "Cuanza River",
+   "ja": "クアンザ川"
+  },
+  "Q213967": {
+   "en": "Yonne",
+   "ja": "ヨンヌ川"
+  },
+  "Q213975": {
+   "en": "Drin",
+   "ja": "ドリン川"
+  },
+  "Q214011": {
+   "en": "Kebnekaise",
+   "ja": "ケブネカイセ"
+  },
+  "Q214284": {
+   "en": "Stanovoy Range",
+   "ja": "スタノヴォイ山脈"
+  },
+  "Q214535": {
+   "en": "Glomma",
+   "ja": "グロンマ川"
+  },
+  "Q214768": {
+   "en": "Chulym",
+   "ja": "チュリム川"
+  },
+  "Q214779": {
+   "en": "Kemijoki",
+   "ja": "ケミ川"
+  },
+  "Q214874": {
+   "en": "Jhelum River",
+   "ja": "ジェルム川"
+  },
+  "Q214916": {
+   "en": "Llullaillaco",
+   "ja": "ユーヤイヤコ"
+  },
+  "Q215138": {
+   "en": "Mount Fitz Roy",
+   "ja": "フィッツ・ロイ"
+  },
+  "Q215653": {
+   "en": "Tarn",
+   "ja": "タルン川"
+  },
+  "Q215818": {
+   "en": "Torneträsk",
+   "ja": "トルネ湖"
+  },
+  "Q215917": {
+   "en": "Verkhoyansk Range",
+   "ja": "ベルホヤンスク山脈"
+  },
+  "Q216035": {
+   "en": "Halti",
+   "ja": "ハルティ"
+  },
+  "Q216083": {
+   "en": "Dongting Lake",
+   "ja": "洞庭湖"
+  },
+  "Q216171": {
+   "en": "Waal",
+   "ja": "ワール川"
+  },
+  "Q216593": {
+   "en": "Lesser Caucasus",
+   "ja": "小コーカサス山脈"
+  },
+  "Q216621": {
+   "en": "Lake Zaysan",
+   "ja": "ザイサン湖"
+  },
+  "Q216622": {
+   "en": "Tarim Basin",
+   "ja": "タリム盆地"
+  },
+  "Q216627": {
+   "en": "Dalälven",
+   "ja": "ダール川"
+  },
+  "Q216868": {
+   "en": "Chesapeake Bay",
+   "ja": "チェサピーク湾"
+  },
+  "Q216875": {
+   "en": "Chenab River",
+   "ja": "シェナブ川"
+  },
+  "Q216941": {
+   "en": "Xi River",
+   "ja": "西江"
+  },
+  "Q217109": {
+   "en": "Teletskoe",
+   "ja": "テレツコイェ湖"
+  },
+  "Q217142": {
+   "en": "Snowdon",
+   "ja": "スノードン山"
+  },
+  "Q217202": {
+   "en": "Southern Carpathians",
+   "ja": "トランシルヴァニアアルプス山脈"
+  },
+  "Q217430": {
+   "en": "Siljan",
+   "ja": "シリヤン"
+  },
+  "Q217457": {
+   "en": "Shkhara",
+   "ja": "シュハラ山"
+  },
+  "Q217466": {
+   "en": "Sakarya River",
+   "ja": "サカリヤ川"
+  },
+  "Q217487": {
+   "en": "Shark Bay",
+   "ja": "シャーク湾"
+  },
+  "Q217818": {
+   "en": "IJssel",
+   "ja": "アイセル川"
+  },
+  "Q217954": {
+   "en": "Tsna",
+   "ja": "ツナ川"
+  },
+  "Q219986": {
+   "en": "Gangkhar Puensum",
+   "ja": "ガンカー・プンスム"
+  },
+  "Q220503": {
+   "en": "Assiniboine River",
+   "ja": "アシニボイン川"
+  },
+  "Q220839": {
+   "en": "Luvua River",
+   "ja": "ルブア川"
+  },
+  "Q221666": {
+   "en": "Mount Stanley",
+   "ja": "スタンリー山"
+  },
+  "Q223810": {
+   "en": "James Bay",
+   "ja": "ジェームズ湾"
+  },
+  "Q224872": {
+   "en": "Lake Winnipesaukee",
+   "ja": "ウィニペソーキ湖"
+  },
+  "Q225004": {
+   "en": "Boknafjord"
+  },
+  "Q229107": {
+   "en": "Mount Kailash",
+   "ja": "カイラス山"
+  },
+  "Q229269": {
+   "en": "Rub' al Khali",
+   "ja": "ルブアルハリ砂漠"
+  },
+  "Q231312": {
+   "en": "Seto Inland Sea",
+   "ja": "瀬戸内海"
+  },
+  "Q232264": {
+   "en": "San Francisco Bay",
+   "ja": "サンフランシスコ湾"
+  },
+  "Q232912": {
+   "en": "Florida Strait",
+   "ja": "フロリダ海峡"
+  },
+  "Q233071": {
+   "en": "Khantayskoye Lake"
+  },
+  "Q233351": {
+   "en": "Nevado del Ruiz",
+   "ja": "ネバドデルルイス火山"
+  },
+  "Q233627": {
+   "en": "Lake Manasarovar",
+   "ja": "マナサロワール湖"
+  },
+  "Q233770": {
+   "en": "Cape York Peninsula",
+   "ja": "ヨーク岬半島"
+  },
+  "Q233836": {
+   "en": "Ojos del Salado",
+   "ja": "オホス・デル・サラード"
+  },
+  "Q234004": {
+   "en": "Narmada",
+   "ja": "ナルマダー川"
+  },
+  "Q235062": {
+   "en": "Galeras",
+   "ja": "ガレラス山"
+  },
+  "Q235539": {
+   "en": "Mount Whitney",
+   "ja": "ホイットニー山"
+  },
+  "Q237901": {
+   "en": "Tarim River",
+   "ja": "タリム川"
+  },
+  "Q238147": {
+   "en": "Citlaltepetl",
+   "ja": "オリサバ山"
+  },
+  "Q239379": {
+   "en": "Garabogazköl",
+   "ja": "カラポガスゴル湾"
+  },
+  "Q239485": {
+   "en": "Phou Bia",
+   "ja": "ビア山"
+  },
+  "Q239883": {
+   "en": "Sangha",
+   "ja": "サンガ川"
+  },
+  "Q240398": {
+   "en": "Kovdozero"
+  },
+  "Q240753": {
+   "en": "Leyte Gulf",
+   "ja": "レイテ湾"
+  },
+  "Q242326": {
+   "en": "Bohol Sea",
+   "ja": "ボホール海"
+  },
+  "Q243125": {
+   "en": "Lincoln Sea",
+   "ja": "リンカーン海"
+  },
+  "Q244451": {
+   "en": "Amazon basin",
+   "ja": "アマゾン盆地"
+  },
+  "Q247952": {
+   "en": "Mount Batu"
+  },
+  "Q250257": {
+   "en": "Lac la Ronge"
+  },
+  "Q250937": {
+   "en": "Black Hills",
+   "ja": "ブラックヒルズ"
+  },
+  "Q252204": {
+   "en": "Eagle Mountain"
+  },
+  "Q252362": {
+   "en": "Cerro Chirripó",
+   "ja": "チリポ山"
+  },
+  "Q252472": {
+   "en": "Oti River",
+   "ja": "オティ川"
+  },
+  "Q257416": {
+   "en": "Sarygamysh Lake",
+   "ja": "サリカミシュ湖"
+  },
+  "Q265997": {
+   "en": "Imandra",
+   "ja": "イマンドラ湖"
+  },
+  "Q267679": {
+   "en": "Lake Kossou"
+  },
+  "Q268532": {
+   "en": "Flathead River",
+   "ja": "フラットヘッド川"
+  },
+  "Q269710": {
+   "en": "Fraser River",
+   "ja": "フレーザー川"
+  },
+  "Q270467": {
+   "en": "Bermejo",
+   "ja": "ベルメホ川"
+  },
+  "Q270569": {
+   "en": "Pilcomayo River",
+   "ja": "ピルコマジョ川"
+  },
+  "Q270627": {
+   "en": "Colorado River",
+   "ja": "コロラド川"
+  },
+  "Q270655": {
+   "en": "Salado River",
+   "ja": "サラド川"
+  },
+  "Q270717": {
+   "en": "Babine River"
+  },
+  "Q271025": {
+   "en": "Nechako River",
+   "ja": "ネチャコ川"
+  },
+  "Q271286": {
+   "en": "Åsnen"
+  },
+  "Q271294": {
+   "en": "Sichuan Basin",
+   "ja": "四川盆地"
+  },
+  "Q271435": {
+   "en": "Vindhya Range",
+   "ja": "ヴィンディヤ山脈"
+  },
+  "Q271521": {
+   "en": "Tsugaru Strait",
+   "ja": "津軽海峡"
+  },
+  "Q271700": {
+   "en": "Noshaq",
+   "ja": "ノシャック"
+  },
+  "Q272463": {
+   "en": "Lake Athabasca",
+   "ja": "アサバスカ湖"
+  },
+  "Q272514": {
+   "en": "Dasht-e Kavir",
+   "ja": "カヴィール砂漠"
+  },
+  "Q272521": {
+   "en": "Ténéré desert",
+   "ja": "テネレ"
+  },
+  "Q272577": {
+   "en": "Gibson Desert",
+   "ja": "ギブソン砂漠"
+  },
+  "Q272593": {
+   "en": "Nevado Sajama",
+   "ja": "サハマ山"
+  },
+  "Q273456": {
+   "en": "Omo River",
+   "ja": "オモ川"
+  },
+  "Q275435": {
+   "en": "Ras Dashen",
+   "ja": "ラス・ダシャン山"
+  },
+  "Q275491": {
+   "en": "Rif",
+   "ja": "リーフ地方"
+  },
+  "Q275662": {
+   "en": "Mount Hood",
+   "ja": "フッド山"
+  },
+  "Q276776": {
+   "en": "South Aral Sea",
+   "ja": "南アラル海"
+  },
+  "Q277014": {
+   "en": "Bali Sea",
+   "ja": "バリ海"
+  },
+  "Q277441": {
+   "en": "Mount Wilhelm",
+   "ja": "ウィルヘルム山"
+  },
+  "Q277576": {
+   "en": "Putorana Plateau",
+   "ja": "プトラナ台地"
+  },
+  "Q279579": {
+   "en": "Trondheimsfjord",
+   "ja": "トロンハイム・フィヨルド"
+  },
+  "Q280135": {
+   "en": "Arrow Lakes",
+   "ja": "アロー湖"
+  },
+  "Q280231": {
+   "en": "Etosha Pan",
+   "ja": "エトーシャ塩湖"
+  },
+  "Q280696": {
+   "en": "Finlay River",
+   "ja": "フィンレイ川"
+  },
+  "Q280771": {
+   "en": "Aydar Lake",
+   "ja": "アイダール湖"
+  },
+  "Q281638": {
+   "en": "Wrigley Gulf",
+   "ja": "リグレー湾"
+  },
+  "Q281730": {
+   "en": "Ronne Entrance"
+  },
+  "Q281737": {
+   "en": "Sulzberger Bay",
+   "ja": "スルツバーガー湾"
+  },
+  "Q281808": {
+   "en": "Vincennes Bay",
+   "ja": "ヴァンセンヌ湾"
+  },
+  "Q283622": {
+   "en": "Atrek River",
+   "ja": "アトレク川"
+  },
+  "Q283784": {
+   "en": "Ogilvie Mountains"
+  },
+  "Q283793": {
+   "en": "Teslin Lake"
+  },
+  "Q284226": {
+   "en": "Taihang Mountains",
+   "ja": "太行山脈"
+  },
+  "Q284495": {
+   "en": "Teslin River",
+   "ja": "テスリン川"
+  },
+  "Q284603": {
+   "en": "Porcupine River",
+   "ja": "ポーキュパン川"
+  },
+  "Q285137": {
+   "en": "Dong River",
+   "ja": "東江"
+  },
+  "Q286476": {
+   "en": "Cerro Marahuaca"
+  },
+  "Q286703": {
+   "en": "English River",
+   "ja": "イングリッシュ川"
+  },
+  "Q288695": {
+   "en": "Oka",
+   "ja": "オカ川"
+  },
+  "Q289460": {
+   "en": "Bani River",
+   "ja": "バニ川"
+  },
+  "Q291233": {
+   "en": "Churchill River",
+   "ja": "チャーチル川"
+  },
+  "Q293713": {
+   "en": "Greater Khingan",
+   "ja": "大興安嶺山脈"
+  },
+  "Q293730": {
+   "en": "Loess Plateau",
+   "ja": "黄土高原"
+  },
+  "Q293988": {
+   "en": "Save River",
+   "ja": "サヴェ川"
+  },
+  "Q304933": {
+   "en": "Lake Abaya",
+   "ja": "アバヤ湖"
+  },
+  "Q306194": {
+   "en": "Lake Abbe",
+   "ja": "アッベ湖"
+  },
+  "Q307143": {
+   "en": "Grand Erg Oriental"
+  },
+  "Q309104": {
+   "en": "Tibesti Mountains",
+   "ja": "ティベスティ山地"
+  },
+  "Q310342": {
+   "en": "Jebel Akhdar",
+   "ja": "アフダル山地"
+  },
+  "Q310547": {
+   "en": "Lake Alakol",
+   "ja": "アラコル湖"
+  },
+  "Q311217": {
+   "en": "Schweriner See",
+   "ja": "シュヴェリーン湖"
+  },
+  "Q311330": {
+   "en": "Qurnat as Sawda'",
+   "ja": "クルナ・アッサウダー山"
+  },
+  "Q312770": {
+   "en": "Domuyo",
+   "ja": "ドムジョ山"
+  },
+  "Q313637": {
+   "en": "Gatun Lake",
+   "ja": "ガトゥン湖"
+  },
+  "Q315110": {
+   "en": "Hohe Acht",
+   "ja": "ホーエ・アハト"
+  },
+  "Q316401": {
+   "en": "Feldberg"
+  },
+  "Q317006": {
+   "en": "Bay of Mecklenburg",
+   "ja": "メクレンブルク湾"
+  },
+  "Q317277": {
+   "en": "Øyeren",
+   "ja": "オイェレン湖"
+  },
+  "Q317407": {
+   "en": "Kinbasket Lake",
+   "ja": "キンバスケット湖"
+  },
+  "Q317899": {
+   "en": "Ravi River",
+   "ja": "ラーヴィー川"
+  },
+  "Q318350": {
+   "en": "Lake Chapala",
+   "ja": "チャパラ湖"
+  },
+  "Q319288": {
+   "en": "Ethiopian Highlands",
+   "ja": "エチオピア高原"
+  },
+  "Q319492": {
+   "en": "Aberdeen Lake",
+   "ja": "アバディーン湖"
+  },
+  "Q319590": {
+   "en": "Beas River",
+   "ja": "ビアース川"
+  },
+  "Q319671": {
+   "en": "Transantarctic Mountains",
+   "ja": "南極横断山脈"
+  },
+  "Q320649": {
+   "en": "Cunene River",
+   "ja": "クネネ川"
+  },
+  "Q321534": {
+   "en": "Lake Abitibi",
+   "ja": "アビティビ湖"
+  },
+  "Q322356": {
+   "en": "Kra Isthmus",
+   "ja": "クラ地峡"
+  },
+  "Q322824": {
+   "en": "Signal de Botrange"
+  },
+  "Q323760": {
+   "en": "Gulf of Gabès",
+   "ja": "ガベス湾"
+  },
+  "Q326896": {
+   "en": "Great Sandy Desert",
+   "ja": "グレートサンディ砂漠"
+  },
+  "Q326917": {
+   "en": "Liaodong Peninsula",
+   "ja": "遼東半島"
+  },
+  "Q328072": {
+   "en": "Köpet Dag",
+   "ja": "コペトダグ山脈"
+  },
+  "Q328396": {
+   "en": "Mahakam River",
+   "ja": "マハカム川"
+  },
+  "Q331162": {
+   "en": "Tana River",
+   "ja": "タナ川"
+  },
+  "Q332762": {
+   "en": "Jengish Chokusu",
+   "ja": "ポベーダ山"
+  },
+  "Q335575": {
+   "en": "Sacramento River",
+   "ja": "サクラメント川"
+  },
+  "Q336749": {
+   "en": "Doddabetta",
+   "ja": "ドッダベッタ"
+  },
+  "Q336969": {
+   "en": "Absheron peninsula",
+   "ja": "アブシェロン半島"
+  },
+  "Q338316": {
+   "en": "Pisco River"
+  },
+  "Q339162": {
+   "en": "Syrian Desert",
+   "ja": "シリア砂漠"
+  },
+  "Q341983": {
+   "en": "Gjeravica",
+   "ja": "ジェラヴィツァ"
+  },
+  "Q357546": {
+   "en": "Adirondack Mountains",
+   "ja": "アディロンダック山地"
+  },
+  "Q358755": {
+   "en": "Mount Takahe",
+   "ja": "タカヘ山"
+  },
+  "Q359194": {
+   "en": "Admiralty Mountains"
+  },
+  "Q359338": {
+   "en": "Pik Aborigen"
+  },
+  "Q366813": {
+   "en": "Lake Gordon"
+  },
+  "Q366985": {
+   "en": "Lake Simcoe",
+   "ja": "シムコー湖"
+  },
+  "Q369923": {
+   "en": "Lake Beyşehir",
+   "ja": "ベイシェヒル湖"
+  },
+  "Q370750": {
+   "en": "Savannah River",
+   "ja": "サヴァンナ川"
+  },
+  "Q370807": {
+   "en": "Rockefeller Plateau",
+   "ja": "ロックフェラー高原"
+  },
+  "Q372490": {
+   "en": "Buna",
+   "ja": "Bojana川"
+  },
+  "Q374772": {
+   "en": "Yellowstone River",
+   "ja": "イエローストーン川"
+  },
+  "Q375029": {
+   "en": "Rybinsk Reservoir",
+   "ja": "ルイビンスク人造湖"
+  },
+  "Q375816": {
+   "en": "Caatinga",
+   "ja": "カーチンガ"
+  },
+  "Q377264": {
+   "en": "Ligurian Apennines"
+  },
+  "Q379648": {
+   "en": "Connecticut River",
+   "ja": "コネティカット川"
+  },
+  "Q380249": {
+   "en": "Adycha River",
+   "ja": "アディチャ川"
+  },
+  "Q381050": {
+   "en": "Nullabor Plain",
+   "ja": "ナラボー平原"
+  },
+  "Q384323": {
+   "en": "Uummannaq fjord",
+   "ja": "ウマナック・フィヨルド"
+  },
+  "Q385342": {
+   "en": "Desaguadero River",
+   "ja": "デサグアデーロ川"
+  },
+  "Q385753": {
+   "en": "Punta La Marmora",
+   "ja": "マルモラ山"
+  },
+  "Q386331": {
+   "en": "Grande River",
+   "ja": "リオグランデ川"
+  },
+  "Q390226": {
+   "en": "Australian Alps",
+   "ja": "オーストラリアアルプス山脈"
+  },
+  "Q391411": {
+   "en": "Gatineau River",
+   "ja": "ガティノー川"
+  },
+  "Q392161": {
+   "en": "Saguenay River",
+   "ja": "サグネ川"
+  },
+  "Q392250": {
+   "en": "Isthmus of Tehuantepec",
+   "ja": "テワンテペク地峡"
+  },
+  "Q392623": {
+   "en": "Samar Sea",
+   "ja": "サマール海"
+  },
+  "Q393769": {
+   "en": "Tanana River",
+   "ja": "タナナ川"
+  },
+  "Q399604": {
+   "en": "Lake Diefenbaker"
+  },
+  "Q401815": {
+   "en": "Columbia Plateau",
+   "ja": "コロンビア川台地"
+  },
+  "Q403053": {
+   "en": "Ahuriri River"
+  },
+  "Q404600": {
+   "en": "Lesser Khingan",
+   "ja": "小興安嶺山脈"
+  },
+  "Q412045": {
+   "en": "Ayan"
+  },
+  "Q419614": {
+   "en": "Akkajaure",
+   "ja": "アッカ湖"
+  },
+  "Q421658": {
+   "en": "Aksu River",
+   "ja": "アクス川"
+  },
+  "Q422835": {
+   "en": "Tronador"
+  },
+  "Q426453": {
+   "en": "Scoresby Sound",
+   "ja": "スコアズビー湾"
+  },
+  "Q426516": {
+   "en": "Indalsälven",
+   "ja": "インダルス川"
+  },
+  "Q426977": {
+   "en": "Piedmont",
+   "ja": "ピードモント台地"
+  },
+  "Q434188": {
+   "en": "Altamaha River",
+   "ja": "アルタマハ川"
+  },
+  "Q451522": {
+   "en": "Lake Havasu",
+   "ja": "ハヴァス湖"
+  },
+  "Q452088": {
+   "en": "Amadjuak Lake",
+   "ja": "アマジュアク湖"
+  },
+  "Q455153": {
+   "en": "Lake Apopka"
+  },
+  "Q464909": {
+   "en": "Nubian Desert",
+   "ja": "ヌビア砂漠"
+  },
+  "Q464945": {
+   "en": "Poopó Lake",
+   "ja": "ポオポ湖"
+  },
+  "Q465037": {
+   "en": "Storuman Lake",
+   "ja": "ストゥールマン湖"
+  },
+  "Q465055": {
+   "en": "Eastern Ghats",
+   "ja": "東ガーツ山脈"
+  },
+  "Q470049": {
+   "en": "American Highland"
+  },
+  "Q472816": {
+   "en": "Juruena River",
+   "ja": "ジュルエナ川"
+  },
+  "Q474408": {
+   "en": "Lake Oahe"
+  },
+  "Q474602": {
+   "en": "Gallegos River"
+  },
+  "Q474708": {
+   "en": "Visayan Sea",
+   "ja": "ヴィサヤン海"
+  },
+  "Q476317": {
+   "en": "Tugela River",
+   "ja": "トゥゲラ川"
+  },
+  "Q476721": {
+   "en": "Vishera",
+   "ja": "ヴィシェラ川"
+  },
+  "Q482274": {
+   "en": "Adamawa Plateau",
+   "ja": "アダマワ高地"
+  },
+  "Q482644": {
+   "en": "Seoraksan",
+   "ja": "雪嶽山"
+  },
+  "Q483134": {
+   "en": "Korean Peninsula",
+   "ja": "朝鮮半島"
+  },
+  "Q483159": {
+   "en": "Syr Darya",
+   "ja": "シルダリヤ川"
+  },
+  "Q483824": {
+   "en": "Gulf of Anadyr",
+   "ja": "アナディリ湾"
+  },
+  "Q484725": {
+   "en": "Alborz",
+   "ja": "アルボルズ山脈"
+  },
+  "Q485550": {
+   "en": "Anamudi",
+   "ja": "アナミュディ山"
+  },
+  "Q486324": {
+   "en": "Ferghana Valley",
+   "ja": "フェルガナ盆地"
+  },
+  "Q487953": {
+   "en": "Lake Kwania",
+   "ja": "クワニア湖"
+  },
+  "Q488266": {
+   "en": "Yamal Peninsula",
+   "ja": "ヤマル半島"
+  },
+  "Q490358": {
+   "en": "Exploits River",
+   "ja": "エクスプロイッツ川"
+  },
+  "Q491660": {
+   "en": "Anderson River",
+   "ja": "アンダーソン川 (ノースウエスト準州)"
+  },
+  "Q492787": {
+   "en": "Des Moines River",
+   "ja": "デ・モイン川"
+  },
+  "Q494645": {
+   "en": "Hallasan",
+   "ja": "漢拏山"
+  },
+  "Q498069": {
+   "en": "Te Manga",
+   "ja": "テ・マンガ山"
+  },
+  "Q498371": {
+   "en": "Nahuel Huapi Lake",
+   "ja": "ナウエル・ウアピ湖"
+  },
+  "Q499797": {
+   "en": "Trinity River",
+   "ja": "トリニティ川"
+  },
+  "Q500275": {
+   "en": "Yushan Main Peak",
+   "ja": "玉山"
+  },
+  "Q501253": {
+   "en": "Hai River",
+   "ja": "海河"
+  },
+  "Q503301": {
+   "en": "Salton Sea",
+   "ja": "ソルトン湖"
+  },
+  "Q503368": {
+   "en": "Carrauntoohil",
+   "ja": "キャラントゥール山"
+  },
+  "Q503433": {
+   "en": "Jbel Toubkal",
+   "ja": "ツブカル山"
+  },
+  "Q503842": {
+   "en": "Lake General Carrera/Buenos Aires",
+   "ja": "ヘネラル・カレーラ湖"
+  },
+  "Q504433": {
+   "en": "Lake Mweru",
+   "ja": "ムウェル湖"
+  },
+  "Q504991": {
+   "en": "Suur Munamägi",
+   "ja": "スールムナマギ"
+  },
+  "Q506955": {
+   "en": "Pangani River",
+   "ja": "パンガニ川"
+  },
+  "Q507179": {
+   "en": "Mount Cereme",
+   "ja": "セレメ山"
+  },
+  "Q508582": {
+   "en": "Courantyne River",
+   "ja": "コーランタイン川"
+  },
+  "Q509321": {
+   "en": "Davis Sea",
+   "ja": "デービス海"
+  },
+  "Q509983": {
+   "en": "Caledon River",
+   "ja": "カレドン川"
+  },
+  "Q511067": {
+   "en": "Vasyugan",
+   "ja": "ヴァシュガン川"
+  },
+  "Q512465": {
+   "en": "Mont Orohena",
+   "ja": "オロヘナ山"
+  },
+  "Q514864": {
+   "en": "Fuerte River",
+   "ja": "フエルテ川"
+  },
+  "Q515059": {
+   "en": "Mount Magazine",
+   "ja": "マガジン山"
+  },
+  "Q517787": {
+   "en": "Merrimack River",
+   "ja": "メリマック川"
+  },
+  "Q518319": {
+   "en": "Glubokoe"
+  },
+  "Q519263": {
+   "en": "Pontic Mountains",
+   "ja": "ポントス山脈"
+  },
+  "Q522586": {
+   "en": "Mount Olympus",
+   "ja": "オリンポス山"
+  },
+  "Q524471": {
+   "en": "Murray Hill, Christmas Island",
+   "ja": "マーレー・ヒル"
+  },
+  "Q524954": {
+   "en": "Mount Taftan",
+   "ja": "タフターン山"
+  },
+  "Q525281": {
+   "en": "Mount Saint Catherine",
+   "ja": "セント・キャサリン山"
+  },
+  "Q525364": {
+   "en": "Lauwersmeer"
+  },
+  "Q526440": {
+   "en": "Great Bitter Lake",
+   "ja": "グレートビター湖"
+  },
+  "Q527521": {
+   "en": "Palyavaam",
+   "ja": "パリャヴァーム川"
+  },
+  "Q532543": {
+   "en": "Katherine River",
+   "ja": "キャサリン川"
+  },
+  "Q533041": {
+   "en": "Makgadikgadi Pans",
+   "ja": "マカディカディ塩湖"
+  },
+  "Q534290": {
+   "en": "Murray–Darling basin",
+   "ja": "マレー・ダーリング盆地"
+  },
+  "Q537374": {
+   "en": "Hulun Lake",
+   "ja": "フルン湖"
+  },
+  "Q537695": {
+   "en": "Taal Lake",
+   "ja": "タール湖"
+  },
+  "Q539772": {
+   "en": "Phnom Aural",
+   "ja": "アオラル山"
+  },
+  "Q540520": {
+   "en": "Meron",
+   "ja": "メロン山"
+  },
+  "Q540956": {
+   "en": "Aruwimi River",
+   "ja": "イトゥリ川"
+  },
+  "Q541800": {
+   "en": "Jabal Ram"
+  },
+  "Q542539": {
+   "en": "Mahi River",
+   "ja": "マーヒー川"
+  },
+  "Q544914": {
+   "en": "Laccadive Sea",
+   "ja": "ラッカディブ海"
+  },
+  "Q545559": {
+   "en": "Pyhäjärvi",
+   "ja": "ピュハ湖"
+  },
+  "Q545808": {
+   "en": "Cagayan River",
+   "ja": "カガヤン川"
+  },
+  "Q546661": {
+   "en": "Lac Minto"
+  },
+  "Q546793": {
+   "en": "Molopo River",
+   "ja": "モロポ川"
+  },
+  "Q558643": {
+   "en": "Alabama River",
+   "ja": "アラバマ川"
+  },
+  "Q559661": {
+   "en": "Liao River",
+   "ja": "遼河"
+  },
+  "Q559784": {
+   "en": "Serra do Mar",
+   "ja": "セーハ・ド・マール"
+  },
+  "Q560198": {
+   "en": "Mongolian Plateau",
+   "ja": "モンゴル高原"
+  },
+  "Q560549": {
+   "en": "North European Plain",
+   "ja": "北ヨーロッパ平野"
+  },
+  "Q571123": {
+   "en": "Cheboksary Reservoir"
+  },
+  "Q572801": {
+   "en": "Mount Washington",
+   "ja": "ワシントン山"
+  },
+  "Q574853": {
+   "en": "Anti-Atlas",
+   "ja": "アンティアトラス山脈"
+  },
+  "Q575240": {
+   "en": "Kolyma Lowland",
+   "ja": "コリマ低地"
+  },
+  "Q575516": {
+   "en": "Turan Depression",
+   "ja": "トゥラン低地"
+  },
+  "Q575679": {
+   "en": "Lake Alaotra",
+   "ja": "アラオトラ湖"
+  },
+  "Q575695": {
+   "en": "Digul River",
+   "ja": "ディグル川"
+  },
+  "Q576184": {
+   "en": "Uncompahgre Peak"
+  },
+  "Q576337": {
+   "en": "Vorma",
+   "ja": "ヴォルマ川"
+  },
+  "Q577148": {
+   "en": "Lake Manyara",
+   "ja": "マニャラ湖"
+  },
+  "Q578862": {
+   "en": "Pico Cristóbal Colón",
+   "ja": "クリストバル・コロン山"
+  },
+  "Q580019": {
+   "en": "Oulujärvi",
+   "ja": "オウル湖"
+  },
+  "Q582321": {
+   "en": "Mearim River"
+  },
+  "Q583044": {
+   "en": "Papaloapan River",
+   "ja": "パパロアパン川"
+  },
+  "Q583565": {
+   "en": "River Derwent",
+   "ja": "ダーウェント川"
+  },
+  "Q584201": {
+   "en": "Lake Amadeus",
+   "ja": "アマデウス湖"
+  },
+  "Q584279": {
+   "en": "High Atlas",
+   "ja": "高アトラス"
+  },
+  "Q584588": {
+   "en": "Monterey Bay",
+   "ja": "モントレー湾"
+  },
+  "Q586733": {
+   "en": "Yom River",
+   "ja": "ヨム川"
+  },
+  "Q587189": {
+   "en": "Puig Major",
+   "ja": "プッジ・マジョー"
+  },
+  "Q587808": {
+   "en": "Witwatersrand",
+   "ja": "ウィットウォーターズランド"
+  },
+  "Q588242": {
+   "en": "Tura",
+   "ja": "トゥラ川"
+  },
+  "Q589546": {
+   "en": "Pico da Bandeira",
+   "ja": "ピコ・ダ・バンデイラ"
+  },
+  "Q589911": {
+   "en": "Essequibo River",
+   "ja": "エセキボ川"
+  },
+  "Q590533": {
+   "en": "Caroní River",
+   "ja": "カロニ川"
+  },
+  "Q590903": {
+   "en": "Lake Wairarapa",
+   "ja": "ワイララパ湖"
+  },
+  "Q592383": {
+   "en": "Ping River",
+   "ja": "ピン川"
+  },
+  "Q593197": {
+   "en": "Dome A",
+   "ja": "ドームA"
+  },
+  "Q594387": {
+   "en": "Mount Baker",
+   "ja": "ベーカー山"
+  },
+  "Q594834": {
+   "en": "Sibuyan Sea",
+   "ja": "シブヤン海"
+  },
+  "Q594885": {
+   "en": "Mount Jamanota",
+   "ja": "ジャマノタ山"
+  },
+  "Q595037": {
+   "en": "Ouémé River",
+   "ja": "ウエメ川"
+  },
+  "Q596106": {
+   "en": "Sabine River",
+   "ja": "サビン川"
+  },
+  "Q596120": {
+   "en": "Mogami River",
+   "ja": "最上川",
+   "kana": [
+    "もがみがわ"
+   ]
+  },
+  "Q597753": {
+   "en": "Canadian River",
+   "ja": "カナディアン川"
+  },
+  "Q599529": {
+   "en": "Pontic-Caspian steppe",
+   "ja": "ポントス・ステップ"
+  },
+  "Q601853": {
+   "en": "Salmon River",
+   "ja": "サーモン川"
+  },
+  "Q602925": {
+   "en": "Kazakh Steppe",
+   "ja": "カザフステップ"
+  },
+  "Q604329": {
+   "en": "Yunnan-Guizhou Plateau",
+   "ja": "雲貴高原"
+  },
+  "Q604492": {
+   "en": "Bali Strait",
+   "ja": "バリ海峡"
+  },
+  "Q604846": {
+   "en": "Western Plateau",
+   "ja": "西部高原"
+  },
+  "Q607546": {
+   "en": "Saint John River",
+   "ja": "セントジョン川"
+  },
+  "Q607976": {
+   "en": "Paranapanema River"
+  },
+  "Q608133": {
+   "en": "Lough Ree"
+  },
+  "Q608494": {
+   "en": "Talgar peak",
+   "ja": "タルガル山"
+  },
+  "Q609560": {
+   "en": "Mataura River"
+  },
+  "Q609625": {
+   "en": "Palar River",
+   "ja": "パーラール川"
+  },
+  "Q611206": {
+   "en": "Bosten Lake",
+   "ja": "ボステン湖"
+  },
+  "Q611388": {
+   "en": "Huallaga River",
+   "ja": "ワジャガ川"
+  },
+  "Q612112": {
+   "en": "Penzhina",
+   "ja": "ペンジナ川"
+  },
+  "Q615328": {
+   "en": "Hongshui River",
+   "ja": "紅水河"
+  },
+  "Q615337": {
+   "en": "Mount Mitchell",
+   "ja": "ミッチェル山"
+  },
+  "Q615662": {
+   "en": "Komoé River",
+   "ja": "コモエ川"
+  },
+  "Q616559": {
+   "en": "Wrangell Mountains",
+   "ja": "ランゲル山地"
+  },
+  "Q617511": {
+   "en": "Sněžka",
+   "ja": "スニェシュカ山"
+  },
+  "Q617750": {
+   "en": "Aparima River"
+  },
+  "Q618361": {
+   "en": "Olavtoppen",
+   "ja": "オラフ峰"
+  },
+  "Q619802": {
+   "en": "Bodélé Depression",
+   "ja": "ボデレ低地"
+  },
+  "Q620493": {
+   "en": "Tannu-Ola mountains",
+   "ja": "タンドゥ山脈"
+  },
+  "Q620860": {
+   "en": "Mount Unzen",
+   "ja": "雲仙岳"
+  },
+  "Q622811": {
+   "en": "Gulf of Mannar",
+   "ja": "マンナール湾"
+  },
+  "Q624170": {
+   "en": "Eastern Desert",
+   "ja": "東部砂漠"
+  },
+  "Q624223": {
+   "en": "Lufira River",
+   "ja": "ルフィラ川"
+  },
+  "Q625425": {
+   "en": "Arakan Mountains",
+   "ja": "アラカン山脈"
+  },
+  "Q626907": {
+   "en": "Lake Frome"
+  },
+  "Q627508": {
+   "en": "Hoverla",
+   "ja": "ホヴェールラ山"
+  },
+  "Q628327": {
+   "en": "Lake Rakshastal",
+   "ja": "ラークシャスタール湖"
+  },
+  "Q629354": {
+   "en": "Storsjön",
+   "ja": "ストゥール湖"
+  },
+  "Q630331": {
+   "en": "Gaoyou Lake",
+   "ja": "高郵湖"
+  },
+  "Q631189": {
+   "en": "Kama Reservoir",
+   "ja": "カマ湖"
+  },
+  "Q631282": {
+   "en": "Prince William Sound",
+   "ja": "プリンス・ウィリアム湾"
+  },
+  "Q631714": {
+   "en": "Ayakum Lake"
+  },
+  "Q633771": {
+   "en": "Owen Stanley Range",
+   "ja": "オーエンスタンレー山脈"
+  },
+  "Q635179": {
+   "en": "Mount Afadja",
+   "ja": "アファジャ山"
+  },
+  "Q635292": {
+   "en": "Baoulé"
+  },
+  "Q635545": {
+   "en": "Suriname River",
+   "ja": "スリナム川"
+  },
+  "Q636540": {
+   "en": "Corno Grande",
+   "ja": "コルノ・グランデ"
+  },
+  "Q638127": {
+   "en": "Arctic Red River",
+   "ja": "アークティックレッド川"
+  },
+  "Q638735": {
+   "en": "Wairoa River"
+  },
+  "Q638776": {
+   "en": "Wairoa River"
+  },
+  "Q639399": {
+   "en": "Shelikhov Gulf",
+   "ja": "シェリホフ湾"
+  },
+  "Q640366": {
+   "en": "Haliacmon",
+   "ja": "アリアクモン川"
+  },
+  "Q643780": {
+   "en": "Monongahela River",
+   "ja": "モノンガヒラ川"
+  },
+  "Q644145": {
+   "en": "Koryak Mountains"
+  },
+  "Q645012": {
+   "en": "Gulf of Panama",
+   "ja": "パナマ湾"
+  },
+  "Q645191": {
+   "en": "Logone River",
+   "ja": "ロゴーヌ川"
+  },
+  "Q645901": {
+   "en": "Lake Manitoba",
+   "ja": "マニトバ湖"
+  },
+  "Q649051": {
+   "en": "Barisan Mountains",
+   "ja": "バリサン山脈"
+  },
+  "Q649162": {
+   "en": "Shimbiris",
+   "ja": "シンビリス山"
+  },
+  "Q649354": {
+   "en": "Martin Peninsula",
+   "ja": "マーティン半島"
+  },
+  "Q651162": {
+   "en": "Lake Mweru Wantipa",
+   "ja": "ムウェル・ワンティパ湖"
+  },
+  "Q651195": {
+   "en": "Naryn River",
+   "ja": "ナルイン川"
+  },
+  "Q651294": {
+   "en": "Namtso",
+   "ja": "ナムツォ"
+  },
+  "Q651903": {
+   "en": "Baram River",
+   "ja": "バラム川"
+  },
+  "Q653152": {
+   "en": "Lake Pedder"
+  },
+  "Q654010": {
+   "en": "Gulf of Khambhat",
+   "ja": "カンバート湾"
+  },
+  "Q654515": {
+   "en": "Lake Mead",
+   "ja": "ミード湖"
+  },
+  "Q654947": {
+   "en": "Allegheny Plateau",
+   "ja": "アルゲイニー台地"
+  },
+  "Q655251": {
+   "en": "Meta River",
+   "ja": "メタ川"
+  },
+  "Q655754": {
+   "en": "Platte River",
+   "ja": "プラット川"
+  },
+  "Q656985": {
+   "en": "Great Artesian Basin",
+   "ja": "グレートアーテジアン盆地"
+  },
+  "Q657225": {
+   "en": "Mount Elbert",
+   "ja": "エルバート山"
+  },
+  "Q659225": {
+   "en": "Lake St. Joseph"
+  },
+  "Q659377": {
+   "en": "Tangra Yumco",
+   "ja": "タンラ・ユムツォ"
+  },
+  "Q659546": {
+   "en": "Vienne",
+   "ja": "ヴィエンヌ川"
+  },
+  "Q660304": {
+   "en": "Pacific Coast Ranges",
+   "ja": "太平洋岸山脈"
+  },
+  "Q662811": {
+   "en": "Lake Chew Bahir"
+  },
+  "Q664874": {
+   "en": "Clark Fork",
+   "ja": "クラーク・フォーク川"
+  },
+  "Q665000": {
+   "en": "Grauspitz",
+   "ja": "グラウシュピッツ"
+  },
+  "Q667507": {
+   "en": "Lake Powell",
+   "ja": "パウエル湖"
+  },
+  "Q667529": {
+   "en": "Blue Mountains",
+   "ja": "ブルーマウンテン山脈 (オーストラリア)"
+  },
+  "Q668883": {
+   "en": "Kayrakkum Reservoir",
+   "ja": "カイラックム貯水池"
+  },
+  "Q671712": {
+   "en": "Selwyn Lake",
+   "ja": "セルウィン湖"
+  },
+  "Q671890": {
+   "en": "Tvertsa",
+   "ja": "トヴェルツァ川"
+  },
+  "Q671989": {
+   "en": "Gusinoye Lake"
+  },
+  "Q673169": {
+   "en": "Lake Bangweulu",
+   "ja": "バングウェウル湖"
+  },
+  "Q673287": {
+   "en": "Three Gorges",
+   "ja": "三峡"
+  },
+  "Q673908": {
+   "en": "Republican River",
+   "ja": "レパブリカン川"
+  },
+  "Q674262": {
+   "en": "Tanami Desert",
+   "ja": "タナミ砂漠"
+  },
+  "Q675028": {
+   "en": "Dora Baltea",
+   "ja": "ドーラ・バルテア川"
+  },
+  "Q675467": {
+   "en": "Dalai Nur",
+   "ja": "ダライ・ノール"
+  },
+  "Q682334": {
+   "en": "Altyn-Tagh",
+   "ja": "アルチン山脈"
+  },
+  "Q683100": {
+   "en": "Lake Mai-Ndombe",
+   "ja": "マインドンベ湖"
+  },
+  "Q683923": {
+   "en": "Chersky Range",
+   "ja": "チェルスキー山脈"
+  },
+  "Q685166": {
+   "en": "Kuwohi",
+   "ja": "クリングマンズ・ドーム"
+  },
+  "Q686021": {
+   "en": "Allegheny River",
+   "ja": "アリゲイニー川"
+  },
+  "Q686362": {
+   "en": "Sierra Morena",
+   "ja": "シエラ・モレナ山脈"
+  },
+  "Q688645": {
+   "en": "Mount Rogers",
+   "ja": "ロジャーズ山"
+  },
+  "Q689106": {
+   "en": "Møllehøj",
+   "ja": "モレホイ"
+  },
+  "Q691151": {
+   "en": "Noto Peninsula",
+   "ja": "能登半島"
+  },
+  "Q691791": {
+   "en": "French River",
+   "ja": "フレンチ川"
+  },
+  "Q691945": {
+   "en": "Fury and Hecla Strait",
+   "ja": "フュリーアンドヘクラ海峡"
+  },
+  "Q693429": {
+   "en": "Wuzhi Mountain",
+   "ja": "五指山 (海南省)"
+  },
+  "Q695602": {
+   "en": "Blackwood River"
+  },
+  "Q695947": {
+   "en": "Ingoda",
+   "ja": "インゴダ川"
+  },
+  "Q696445": {
+   "en": "Tyrifjorden",
+   "ja": "ティーリフィヨレン"
+  },
+  "Q700024": {
+   "en": "Hangzhou Bay",
+   "ja": "杭州湾"
+  },
+  "Q709323": {
+   "en": "Topozero"
+  },
+  "Q713020": {
+   "en": "Ou River",
+   "ja": "甌江"
+  },
+  "Q713836": {
+   "en": "Mount Iwate",
+   "ja": "岩手山"
+  },
+  "Q715143": {
+   "en": "Poronay",
+   "ja": "幌内川"
+  },
+  "Q715373": {
+   "en": "Muling River",
+   "ja": "穆棱河"
+  },
+  "Q715484": {
+   "en": "Sakhalin Gulf",
+   "ja": "サハリン湾"
+  },
+  "Q715788": {
+   "en": "Buir Lake",
+   "ja": "ブイル湖"
+  },
+  "Q719436": {
+   "en": "Kazan River",
+   "ja": "カザン川"
+  },
+  "Q719538": {
+   "en": "Kasba Lake",
+   "ja": "カスバ湖"
+  },
+  "Q723864": {
+   "en": "Katun",
+   "ja": "カトゥニ川"
+  },
+  "Q724367": {
+   "en": "Belukha Mountain",
+   "ja": "ベルーハ山"
+  },
+  "Q725591": {
+   "en": "Mount Bazardüzü",
+   "ja": "バザルデュジ山"
+  },
+  "Q726986": {
+   "en": "Mamberamo River",
+   "ja": "マンベラモ川"
+  },
+  "Q729269": {
+   "en": "Min River",
+   "ja": "岷江"
+  },
+  "Q729974": {
+   "en": "Utah Lake",
+   "ja": "ユタ湖"
+  },
+  "Q730673": {
+   "en": "Asir Mountains",
+   "ja": "アスィール山脈"
+  },
+  "Q731175": {
+   "en": "Cayuga Lake",
+   "ja": "ケイユーガ湖"
+  },
+  "Q731761": {
+   "en": "Lake Kulunda"
+  },
+  "Q732199": {
+   "en": "Lake Gaston"
+  },
+  "Q732790": {
+   "en": "Kwango River",
+   "ja": "クワンゴ川"
+  },
+  "Q732838": {
+   "en": "Mount Elgon",
+   "ja": "エルゴン山"
+  },
+  "Q733132": {
+   "en": "Thabana Ntlenyana",
+   "ja": "タバナントレニャナ山"
+  },
+  "Q733206": {
+   "en": "Nonacho Lake"
+  },
+  "Q733842": {
+   "en": "Suntar-Khayata Range",
+   "ja": "スンタルハヤタ山脈"
+  },
+  "Q736047": {
+   "en": "Dinara",
+   "ja": "ディナラ"
+  },
+  "Q736707": {
+   "en": "Lake Saint Clair",
+   "ja": "セイント・クレア湖"
+  },
+  "Q737789": {
+   "en": "Caspian Depression",
+   "ja": "カスピ海沿岸低地"
+  },
+  "Q737859": {
+   "en": "Mount Karisimbi",
+   "ja": "カリシンビ山"
+  },
+  "Q738357": {
+   "en": "Copiapó River",
+   "ja": "コピアポ川"
+  },
+  "Q738746": {
+   "en": "Slættaratindur",
+   "ja": "スラッタラティンドル山"
+  },
+  "Q738808": {
+   "en": "Delaware Bay",
+   "ja": "デラウェア湾"
+  },
+  "Q738986": {
+   "en": "Seym",
+   "ja": "セイム川"
+  },
+  "Q739484": {
+   "en": "Pico da Neblina",
+   "ja": "ネブリナ山"
+  },
+  "Q739751": {
+   "en": "Fly River",
+   "ja": "フライ川"
+  },
+  "Q743160": {
+   "en": "Roper River",
+   "ja": "ローパー川"
+  },
+  "Q743261": {
+   "en": "Yungas",
+   "ja": "ユンガス"
+  },
+  "Q745231": {
+   "en": "Peak Pobeda, Sakha"
+  },
+  "Q745846": {
+   "en": "Flinders Ranges",
+   "ja": "フリンダーズ山脈"
+  },
+  "Q745937": {
+   "en": "Kuybyshev Reservoir",
+   "ja": "クイビシェフ湖"
+  },
+  "Q745945": {
+   "en": "Gulf of Ob",
+   "ja": "オビ湾"
+  },
+  "Q746274": {
+   "en": "Mount Alvernia",
+   "ja": "アルバーニア山"
+  },
+  "Q746524": {
+   "en": "Moldoveanu Peak",
+   "ja": "モルドベアヌ山"
+  },
+  "Q746779": {
+   "en": "Ruvuma River",
+   "ja": "ルブマ川"
+  },
+  "Q747182": {
+   "en": "Mount Ossa",
+   "ja": "オッサ山"
+  },
+  "Q747618": {
+   "en": "Kékes",
+   "ja": "ケーケシュ山"
+  },
+  "Q747843": {
+   "en": "Khangai Mountains",
+   "ja": "ハンガイ山脈"
+  },
+  "Q748355": {
+   "en": "Mount Shasta",
+   "ja": "シャスタ山"
+  },
+  "Q748435": {
+   "en": "Khentii Mountains",
+   "ja": "ヘンティー山脈"
+  },
+  "Q749205": {
+   "en": "An Nafud",
+   "ja": "ネフド砂漠"
+  },
+  "Q750021": {
+   "en": "Ogooué River",
+   "ja": "オゴウェ川"
+  },
+  "Q750763": {
+   "en": "Inútil Bay",
+   "ja": "バイア・イヌティル"
+  },
+  "Q750945": {
+   "en": "Tuscarawas River"
+  },
+  "Q751347": {
+   "en": "San Joaquin River",
+   "ja": "サン・ワーキン川"
+  },
+  "Q752674": {
+   "en": "Tapajós River",
+   "ja": "タパジョース川"
+  },
+  "Q753765": {
+   "en": "Lomami River",
+   "ja": "ロマミ川"
+  },
+  "Q753898": {
+   "en": "Argentino Lake",
+   "ja": "アルヘンティーノ湖"
+  },
+  "Q754718": {
+   "en": "Durance",
+   "ja": "デュランス川"
+  },
+  "Q755015": {
+   "en": "Cahora Bassa Reservoir",
+   "ja": "カオラ・バッサ"
+  },
+  "Q755509": {
+   "en": "Atherton Tableland",
+   "ja": "アサートン高原"
+  },
+  "Q756091": {
+   "en": "Chusovaya",
+   "ja": "チュソヴァヤ川"
+  },
+  "Q756106": {
+   "en": "Manicouagan Reservoir",
+   "ja": "マニクアガン湖"
+  },
+  "Q756244": {
+   "en": "Tupungato Volcano",
+   "ja": "トゥプンガート山"
+  },
+  "Q756832": {
+   "en": "Atlantic coastal plain",
+   "ja": "大西洋海岸平野"
+  },
+  "Q758574": {
+   "en": "Aucanquilcha",
+   "ja": "アウカンキルチャ"
+  },
+  "Q760819": {
+   "en": "Mount Popomanaseu",
+   "ja": "ポポマナセウ山"
+  },
+  "Q761535": {
+   "en": "Pyramid Lake",
+   "ja": "ピラミッド湖"
+  },
+  "Q761784": {
+   "en": "Gulf of Urabá"
+  },
+  "Q763064": {
+   "en": "Coromandel Peninsula",
+   "ja": "コロマンデル半島"
+  },
+  "Q765874": {
+   "en": "Maya Mountains",
+   "ja": "マヤ山脈"
+  },
+  "Q766931": {
+   "en": "Taygonos"
+  },
+  "Q767128": {
+   "en": "Dasht-e Lut",
+   "ja": "ルート砂漠"
+  },
+  "Q768409": {
+   "en": "Dombai-Ulgen",
+   "ja": "ドムバイ＝ウリゲン"
+  },
+  "Q768463": {
+   "en": "Tebulosmta"
+  },
+  "Q769525": {
+   "en": "Mount Bintumani",
+   "ja": "ビントゥマニ山"
+  },
+  "Q769856": {
+   "en": "Bahr Aouk River",
+   "ja": "アウカレ川"
+  },
+  "Q770141": {
+   "en": "Kainji Lake",
+   "ja": "カインジ湖"
+  },
+  "Q773033": {
+   "en": "Jing River",
+   "ja": "ケイ河"
+  },
+  "Q776071": {
+   "en": "Yaque del Norte River",
+   "ja": "ヤケ・デル・ノルテ川"
+  },
+  "Q776155": {
+   "en": "Paranaíba River",
+   "ja": "パラナイバ川"
+  },
+  "Q776345": {
+   "en": "Bié Plateau"
+  },
+  "Q776873": {
+   "en": "Kaskaskia River",
+   "ja": "カスカスキア川"
+  },
+  "Q777416": {
+   "en": "Aursund",
+   "ja": "アウルスン湖"
+  },
+  "Q777434": {
+   "en": "Mount Arlan"
+  },
+  "Q777794": {
+   "en": "Ausangate",
+   "ja": "アウサンガテ"
+  },
+  "Q777999": {
+   "en": "Chambeshi River",
+   "ja": "チャンベシ川"
+  },
+  "Q778597": {
+   "en": "Puy de Sancy",
+   "ja": "ピュイ＝ド＝サンスィ山"
+  },
+  "Q779468": {
+   "en": "Votkinsk Reservoir"
+  },
+  "Q782845": {
+   "en": "Awash River",
+   "ja": "アワッシュ川"
+  },
+  "Q783742": {
+   "en": "Pico Duarte",
+   "ja": "ピコ・ドゥアルテ"
+  },
+  "Q783916": {
+   "en": "Moma River",
+   "ja": "モマ川"
+  },
+  "Q784189": {
+   "en": "Sulaiman Mountains",
+   "ja": "スライマーン山脈"
+  },
+  "Q786792": {
+   "en": "Azov Upland"
+  },
+  "Q789056": {
+   "en": "Bakoy River",
+   "ja": "バコイ川"
+  },
+  "Q789969": {
+   "en": "Bandama River",
+   "ja": "バンダマ川"
+  },
+  "Q791642": {
+   "en": "Awatere River"
+  },
+  "Q793085": {
+   "en": "Aylmer Lake"
+  },
+  "Q794263": {
+   "en": "Azuero Peninsula",
+   "ja": "アスエロ半島"
+  },
+  "Q794684": {
+   "en": "Aýrybaba",
+   "ja": "アイリババ山"
+  },
+  "Q795608": {
+   "en": "Gulf of Honduras",
+   "ja": "ホンジュラス湾"
+  },
+  "Q798339": {
+   "en": "Back River",
+   "ja": "バック川"
+  },
+  "Q803725": {
+   "en": "Antongil Bay",
+   "ja": "アントンジル湾"
+  },
+  "Q804330": {
+   "en": "Cordillera Blanca",
+   "ja": "ブランカ山脈"
+  },
+  "Q806836": {
+   "en": "Banks Peninsula",
+   "ja": "バンクス半島"
+  },
+  "Q807788": {
+   "en": "Barbeau Peak",
+   "ja": "バーボー・ピーク"
+  },
+  "Q809666": {
+   "en": "Barwon River"
+  },
+  "Q810805": {
+   "en": "Kiluhiqtuq",
+   "ja": "バサースト湾 (カナダ)"
+  },
+  "Q811064": {
+   "en": "Batura Sar",
+   "ja": "バトゥーラ・サール"
+  },
+  "Q811142": {
+   "en": "Jos Plateau",
+   "ja": "ジョス高原"
+  },
+  "Q811672": {
+   "en": "Baunt"
+  },
+  "Q812997": {
+   "en": "Bear Lake",
+   "ja": "ベアー湖"
+  },
+  "Q813008": {
+   "en": "Bear River",
+   "ja": "ベア川"
+  },
+  "Q814113": {
+   "en": "Beerenberg",
+   "ja": "ベーレンベルク山"
+  },
+  "Q814633": {
+   "en": "Bei River",
+   "ja": "北江"
+  },
+  "Q815831": {
+   "en": "Strait of Belle Isle",
+   "ja": "ベルアイル海峡"
+  },
+  "Q818467": {
+   "en": "Volcán Tajumulco",
+   "ja": "タフムルコ山"
+  },
+  "Q819979": {
+   "en": "Mount Olympus",
+   "ja": "オリンポス山"
+  },
+  "Q821911": {
+   "en": "Sobat River",
+   "ja": "ソバト川"
+  },
+  "Q822326": {
+   "en": "Mount Tahat",
+   "ja": "タハト山"
+  },
+  "Q825347": {
+   "en": "Colima",
+   "ja": "コリマ山"
+  },
+  "Q825709": {
+   "en": "Gunnbjørn Fjeld",
+   "ja": "ギュンビョルン山"
+  },
+  "Q826464": {
+   "en": "Llanquihue Lake",
+   "ja": "ジャンキウェ湖"
+  },
+  "Q827728": {
+   "en": "Mount Kerinci",
+   "ja": "クリンチ山"
+  },
+  "Q831383": {
+   "en": "Maya",
+   "ja": "マヤ川"
+  },
+  "Q831884": {
+   "en": "Xiang River",
+   "ja": "湘江"
+  },
+  "Q834880": {
+   "en": "Chattooga River",
+   "ja": "チャトゥーガ川"
+  },
+  "Q835789": {
+   "en": "Chagan Lake",
+   "ja": "査干湖"
+  },
+  "Q836812": {
+   "en": "Lualaba River",
+   "ja": "ルアラバ川"
+  },
+  "Q836930": {
+   "en": "Buller River",
+   "ja": "ブラー川"
+  },
+  "Q837201": {
+   "en": "Vakh",
+   "ja": "ヴァフ川"
+  },
+  "Q837325": {
+   "en": "Cape Chelyuskin",
+   "ja": "チェリュスキン岬"
+  },
+  "Q837723": {
+   "en": "Maglić",
+   "ja": "マグリッチ"
+  },
+  "Q837876": {
+   "en": "Songhua Lake",
+   "ja": "松花湖"
+  },
+  "Q837965": {
+   "en": "Mount Tianzhu"
+  },
+  "Q838080": {
+   "en": "Lake Natron",
+   "ja": "ナトロン湖"
+  },
+  "Q838143": {
+   "en": "Gila River",
+   "ja": "ヒラ川"
+  },
+  "Q839287": {
+   "en": "Nansi Lake",
+   "ja": "微山湖"
+  },
+  "Q840735": {
+   "en": "Mount Redoubt",
+   "ja": "リダウト山"
+  },
+  "Q841359": {
+   "en": "Kapuas River",
+   "ja": "カプアス川"
+  },
+  "Q841550": {
+   "en": "Ofanto",
+   "ja": "オファント川"
+  },
+  "Q842139": {
+   "en": "Annamite Range",
+   "ja": "アンナン山脈"
+  },
+  "Q843903": {
+   "en": "Tagant",
+   "ja": "タガント州"
+  },
+  "Q844917": {
+   "en": "Gulf of Kutch",
+   "ja": "カッチ湾"
+  },
+  "Q845217": {
+   "en": "Foxe Basin",
+   "ja": "フォックス湾"
+  },
+  "Q845239": {
+   "en": "Soufrière Hills",
+   "ja": "スーフリエール・ヒルズ"
+  },
+  "Q845520": {
+   "en": "Kalix River",
+   "ja": "カリクス川"
+  },
+  "Q845868": {
+   "en": "Taymyr",
+   "ja": "タイミル湖"
+  },
+  "Q845876": {
+   "en": "Lake of the Woods",
+   "ja": "ウッズ湖"
+  },
+  "Q845880": {
+   "en": "Hornavan"
+  },
+  "Q845891": {
+   "en": "Pielinen",
+   "ja": "ピエリネン湖"
+  },
+  "Q846063": {
+   "en": "Kafue River",
+   "ja": "カフエ川"
+  },
+  "Q847323": {
+   "en": "Rinjani",
+   "ja": "リンジャニ山"
+  },
+  "Q847641": {
+   "en": "Wei River",
+   "ja": "渭水"
+  },
+  "Q847844": {
+   "en": "Liu River",
+   "ja": "柳江"
+  },
+  "Q847864": {
+   "en": "Ngoring Lake",
+   "ja": "鄂陵湖"
+  },
+  "Q848308": {
+   "en": "Sepik",
+   "ja": "セピック川"
+  },
+  "Q849129": {
+   "en": "Mount Richard-Molard",
+   "ja": "ニンバ山"
+  },
+  "Q849480": {
+   "en": "Napo River",
+   "ja": "ナポ川"
+  },
+  "Q849539": {
+   "en": "Tietê River",
+   "ja": "ティエテー川"
+  },
+  "Q849693": {
+   "en": "Madre de Dios River",
+   "ja": "マドレ・デ・ディオス川"
+  },
+  "Q850051": {
+   "en": "Taranaki Maunga",
+   "ja": "タラナキ山"
+  },
+  "Q850245": {
+   "en": "Fouta Djallon",
+   "ja": "フータ・ジャロン"
+  },
+  "Q851368": {
+   "en": "Oconee River"
+  },
+  "Q853315": {
+   "en": "Apure River",
+   "ja": "アプレ川"
+  },
+  "Q853332": {
+   "en": "Cauca River",
+   "ja": "カウカ川"
+  },
+  "Q854999": {
+   "en": "Bhima River",
+   "ja": "ビーマ川"
+  },
+  "Q855658": {
+   "en": "Chihuahuan Desert",
+   "ja": "チワワ砂漠"
+  },
+  "Q858306": {
+   "en": "Shandong Peninsula",
+   "ja": "山東半島"
+  },
+  "Q859018": {},
+  "Q859461": {
+   "en": "Big Trout Lake"
+  },
+  "Q859686": {
+   "en": "Bighorn River",
+   "ja": "ビッグホーン川"
+  },
+  "Q859934": {
+   "en": "Biya",
+   "ja": "ビヤ川"
+  },
+  "Q860113": {
+   "en": "Bikin",
+   "ja": "ビキン川"
+  },
+  "Q860146": {
+   "en": "Bikku Bitti",
+   "ja": "ビクー・ビティ"
+  },
+  "Q863497": {
+   "en": "Gunung Binaiya",
+   "ja": "ビナイヤ山"
+  },
+  "Q863681": {
+   "en": "Kawarau River",
+   "ja": "カワラウ川"
+  },
+  "Q863798": {
+   "en": "Qinling",
+   "ja": "秦嶺山脈"
+  },
+  "Q867460": {
+   "en": "Long Island Sound",
+   "ja": "ロングアイランド湾"
+  },
+  "Q868103": {
+   "en": "Coatzacoalcos River",
+   "ja": "コアツァコアルコス川"
+  },
+  "Q868663": {
+   "en": "Concepción Lake",
+   "ja": "コンセプシオン湖"
+  },
+  "Q870063": {
+   "en": "Hkakabo Razi",
+   "ja": "カカボラジ山"
+  },
+  "Q870069": {
+   "en": "Chindwin River",
+   "ja": "チンドウィン川"
+  },
+  "Q874816": {
+   "en": "Khorat Plateau",
+   "ja": "コーラート台地"
+  },
+  "Q875573": {
+   "en": "Han River",
+   "ja": "漢江"
+  },
+  "Q875712": {
+   "en": "Leizhou Peninsula",
+   "ja": "雷州半島"
+  },
+  "Q876280": {
+   "en": "Lagoa Mirim",
+   "ja": "メリン湖"
+  },
+  "Q876470": {
+   "en": "Gulf of Maine",
+   "ja": "メイン湾"
+  },
+  "Q876857": {
+   "en": "Yalong River",
+   "ja": "雅礱江"
+  },
+  "Q879014": {
+   "en": "Bitterroot Range"
+  },
+  "Q880358": {
+   "en": "Black Lake",
+   "ja": "ブラック湖 (サスカチュワン州)"
+  },
+  "Q880529": {
+   "en": "Black Rock Desert",
+   "ja": "ブラックロック砂漠"
+  },
+  "Q882739": {
+   "en": "Blue Nile",
+   "ja": "青ナイル川"
+  },
+  "Q885798": {
+   "en": "Blue Mountain Peak",
+   "ja": "ブルー・マウンテン峰"
+  },
+  "Q886010": {
+   "en": "Bluenose Lake"
+  },
+  "Q886772": {
+   "en": "Marrah Mountains",
+   "ja": "マッラ山脈"
+  },
+  "Q891521": {
+   "en": "Bolmen"
+  },
+  "Q893152": {
+   "en": "Boothia Peninsula",
+   "ja": "ブーシア半島"
+  },
+  "Q893279": {
+   "en": "Bureinsky Ridge",
+   "ja": "ブレヤ山脈"
+  },
+  "Q893312": {
+   "en": "Borah Peak"
+  },
+  "Q894703": {
+   "en": "Botev Peak",
+   "ja": "ボテフ峰"
+  },
+  "Q896063": {
+   "en": "Boysen Reservoir"
+  },
+  "Q896551": {
+   "en": "Lake Bracciano",
+   "ja": "ブラッチャーノ湖"
+  },
+  "Q897834": {
+   "en": "Brandberg",
+   "ja": "ブランドバーグ山"
+  },
+  "Q898839": {
+   "en": "Bransfield Strait",
+   "ja": "ブランスフィールド海峡"
+  },
+  "Q898989": {
+   "en": "Bras d'Or Lake",
+   "ja": "ブラスダー湖"
+  },
+  "Q899803": {
+   "en": "Bratsk Reservoir",
+   "ja": "ブラーツクダム"
+  },
+  "Q899815": {
+   "en": "Sankuru River",
+   "ja": "サンクル川"
+  },
+  "Q903306": {
+   "en": "Brazos River",
+   "ja": "ブラゾス川"
+  },
+  "Q906924": {
+   "en": "Dnieper Upland",
+   "ja": "ドニプロ高地"
+  },
+  "Q908356": {
+   "en": "Matochkin Strait",
+   "ja": "マトチキン海峡"
+  },
+  "Q908591": {
+   "en": "Kennedy Channel",
+   "ja": "ケネディー海峡"
+  },
+  "Q908741": {
+   "en": "Luzon Strait",
+   "ja": "ルソン海峡"
+  },
+  "Q909073": {
+   "en": "Caledonian Canal",
+   "ja": "カレドニアン運河"
+  },
+  "Q909457": {
+   "en": "Kureyka",
+   "ja": "クレイカ川"
+  },
+  "Q913193": {
+   "en": "Murat River",
+   "ja": "ムラト川"
+  },
+  "Q913329": {
+   "en": "Ustyurt Plateau",
+   "ja": "ウスチュルト台地"
+  },
+  "Q913801": {
+   "en": "Lukenie River",
+   "ja": "ルケニエ川"
+  },
+  "Q915250": {
+   "en": "Chaunskaya Bay",
+   "ja": "チャウンスカヤ湾"
+  },
+  "Q916349": {
+   "en": "Guaporé River",
+   "ja": "グアポレ川"
+  },
+  "Q916997": {
+   "en": "Karoo",
+   "ja": "カルー"
+  },
+  "Q917094": {
+   "en": "Contwoyto Lake"
+  },
+  "Q917385": {
+   "en": "Lake Benmore"
+  },
+  "Q917872": {
+   "en": "Bristol Bay",
+   "ja": "ブリストル湾"
+  },
+  "Q918349": {
+   "en": "Lough Derg",
+   "ja": "ダーグ湖"
+  },
+  "Q918713": {
+   "en": "Viedma Lake",
+   "ja": "ビエドマ湖"
+  },
+  "Q918867": {
+   "en": "Kanawha River",
+   "ja": "カナワ川"
+  },
+  "Q919520": {
+   "en": "Gulf of Boothia",
+   "ja": "ブーシア湾"
+  },
+  "Q920070": {
+   "en": "Coast Mountains",
+   "ja": "コースト山脈"
+  },
+  "Q920267": {
+   "en": "Kheta",
+   "ja": "ヘタ川"
+  },
+  "Q921081": {
+   "en": "Tekapo River",
+   "ja": "テカポ川"
+  },
+  "Q921949": {
+   "en": "Broad River"
+  },
+  "Q923693": {
+   "en": "Yellowstone Lake"
+  },
+  "Q924312": {
+   "en": "Mount Sidley",
+   "ja": "シドリー山"
+  },
+  "Q925688": {
+   "en": "Uludağ",
+   "ja": "ウルダー"
+  },
+  "Q925906": {
+   "ja": "コロラド高原"
+  },
+  "Q926100": {
+   "en": "Brokopondo Reservoir",
+   "ja": "ブロコポンド貯水池"
+  },
+  "Q928681": {
+   "en": "Mount Pico",
+   "ja": "ピコ山"
+  },
+  "Q929910": {
+   "en": "Brooks Range",
+   "ja": "ブルックス山脈"
+  },
+  "Q930182": {
+   "en": "Kieng-Kyuel"
+  },
+  "Q930366": {
+   "en": "Cordillera del Paine",
+   "ja": "パイネ国立公園"
+  },
+  "Q931210": {
+   "en": "Cordillera de Mérida",
+   "ja": "メリダ山脈"
+  },
+  "Q931708": {
+   "en": "Lake Tengiz",
+   "ja": "テンギス湖"
+  },
+  "Q932289": {
+   "en": "Congo Basin",
+   "ja": "コンゴ盆地"
+  },
+  "Q933176": {
+   "en": "San Juan River",
+   "ja": "サン・フアン川 (アルゼンチン)"
+  },
+  "Q934455": {
+   "en": "Ebola River",
+   "ja": "エボラ川"
+  },
+  "Q934638": {
+   "en": "Lake Winnipegosis",
+   "ja": "ウィニペゴシス湖"
+  },
+  "Q934857": {
+   "en": "Elgygytgyn Lake",
+   "ja": "エリギギトギン湖"
+  },
+  "Q936023": {
+   "en": "Rufiji River",
+   "ja": "ルフィジ川"
+  },
+  "Q936688": {
+   "en": "Mincio",
+   "ja": "ミンチョ川"
+  },
+  "Q938327": {
+   "en": "Cumberland Sound",
+   "ja": "カンバーランド湾"
+  },
+  "Q939398": {
+   "en": "Dângrêk Mountains",
+   "ja": "ダンレク山地"
+  },
+  "Q939604": {
+   "en": "Yamdrok Lake",
+   "ja": "ヤムドク湖"
+  },
+  "Q939905": {
+   "en": "Khatanga Gulf",
+   "ja": "ハタンガ湾"
+  },
+  "Q939958": {
+   "en": "Tonle Sap River"
+  },
+  "Q940091": {
+   "en": "Pomahaka River"
+  },
+  "Q940402": {
+   "en": "Finnmarksvidda",
+   "ja": "フィンマルク高原"
+  },
+  "Q940488": {
+   "en": "St. Marys River",
+   "ja": "セイント・メアリーズ川"
+  },
+  "Q943234": {
+   "en": "Kotzebue Sound",
+   "ja": "コッツビュー・サウンド"
+  },
+  "Q945023": {
+   "en": "Cree Lake",
+   "ja": "クリー湖"
+  },
+  "Q946035": {
+   "en": "Coropuna",
+   "ja": "コロプナ山"
+  },
+  "Q946653": {
+   "en": "Mbam River",
+   "ja": "ムバム川"
+  },
+  "Q947447": {
+   "en": "Mont Forel",
+   "ja": "フォレル山"
+  },
+  "Q947477": {
+   "en": "Madison River",
+   "ja": "マディソン川"
+  },
+  "Q948298": {
+   "en": "Kinyeti",
+   "ja": "キヌエティ山"
+  },
+  "Q949183": {
+   "en": "Tungabhadra River",
+   "ja": "トゥンガバドラー川"
+  },
+  "Q952429": {
+   "en": "Green River",
+   "ja": "グリーン川"
+  },
+  "Q952823": {
+   "en": "New River",
+   "ja": "ニュー川"
+  },
+  "Q952975": {
+   "en": "Gorky Reservoir",
+   "ja": "ゴーリキー貯水池"
+  },
+  "Q953140": {
+   "en": "Beloye Lake",
+   "ja": "ベロエ湖"
+  },
+  "Q953206": {
+   "en": "Uddjaure"
+  },
+  "Q955354": {
+   "en": "Chubut River",
+   "ja": "チュブ川"
+  },
+  "Q956201": {
+   "en": "Lesser Slave Lake",
+   "ja": "レッサースレイブ湖"
+  },
+  "Q958928": {
+   "en": "Lac Seul"
+  },
+  "Q959127": {
+   "en": "Massachusetts Bay",
+   "ja": "マサチューセッツ湾"
+  },
+  "Q962462": {
+   "en": "Mount Buller"
+  },
+  "Q962856": {
+   "en": "Midžor",
+   "ja": "ミジュル峰"
+  },
+  "Q965436": {
+   "en": "Iliamna Lake"
+  },
+  "Q965973": {
+   "en": "Lake Gairdner"
+  },
+  "Q966943": {
+   "en": "Great Basin",
+   "ja": "グレートベースン"
+  },
+  "Q967775": {
+   "en": "Williston Lake",
+   "ja": "ウィリストン湖"
+  },
+  "Q968640": {
+   "en": "Klamath River",
+   "ja": "クラマス川"
+  },
+  "Q968728": {
+   "en": "Achit Lake",
+   "ja": "アチット・ヌール"
+  },
+  "Q971586": {
+   "en": "Seward Peninsula",
+   "ja": "スワード半島"
+  },
+  "Q974630": {
+   "en": "Bytantay",
+   "ja": "ビタンタイ川"
+  },
+  "Q976055": {
+   "en": "Chappal Waddi",
+   "ja": "チャパル・ワッディ山"
+  },
+  "Q976458": {
+   "en": "Min River",
+   "ja": "閩江"
+  },
+  "Q978496": {
+   "en": "Wisconsin River",
+   "ja": "ウィスコンシン川"
+  },
+  "Q978800": {
+   "en": "Üüreg Lake",
+   "ja": "ウウレグ・ヌール"
+  },
+  "Q979315": {
+   "en": "Euphrates Lake",
+   "ja": "ユーフラテス湖"
+  },
+  "Q979518": {
+   "en": "Barito River",
+   "ja": "バリト川"
+  },
+  "Q979922": {
+   "en": "Lake St. John",
+   "ja": "サンジャン湖"
+  },
+  "Q993417": {
+   "en": "Buurgplaatz",
+   "ja": "ブルクプラッツ"
+  },
+  "Q999031": {
+   "en": "Bight of Biafra",
+   "ja": "ボニー湾"
+  },
+  "Q999060": {
+   "en": "Tayabas Bay",
+   "ja": "タヤバス湾"
+  },
+  "Q1001294": {
+   "en": "Antarctic Plateau",
+   "ja": "南極高原"
+  },
+  "Q1003282": {
+   "en": "Bukit Pagon",
+   "ja": "パゴン山"
+  },
+  "Q1004067": {
+   "en": "Frobisher Bay",
+   "ja": "フロビッシャー湾"
+  },
+  "Q1010056": {
+   "en": "Lake Bunyonyi",
+   "ja": "ブニョニ湖"
+  },
+  "Q1010448": {
+   "en": "Burdekin River",
+   "ja": "バーデキン川"
+  },
+  "Q1016767": {
+   "en": "Burnett River",
+   "ja": "バーネット川"
+  },
+  "Q1016839": {
+   "en": "Burnside River"
+  },
+  "Q1028218": {
+   "en": "Cambrian Mountains",
+   "ja": "カンブリア山地"
+  },
+  "Q1029702": {
+   "en": "Sierra Madre del Sur",
+   "ja": "南シエラマドレ山脈"
+  },
+  "Q1031793": {
+   "en": "Chilean Central Valley",
+   "ja": "チリ中央峡谷"
+  },
+  "Q1032254": {
+   "en": "Pangong Tso",
+   "ja": "パンゴン湖"
+  },
+  "Q1032440": {
+   "en": "Jezercë",
+   "ja": "マヤ・イェゼルツァ"
+  },
+  "Q1032768": {
+   "en": "Canandaigua Lake",
+   "ja": "カナデーグア湖"
+  },
+  "Q1032812": {
+   "en": "Mountain of Smoke",
+   "ja": "ジャバル・アド・ドゥハーン"
+  },
+  "Q1033302": {
+   "en": "Caniapiscau Reservoir"
+  },
+  "Q1034421": {
+   "en": "Cape Fear River"
+  },
+  "Q1036267": {
+   "en": "Uchiura Bay",
+   "ja": "内浦湾"
+  },
+  "Q1037396": {
+   "en": "Bogda Peak",
+   "ja": "ボゴダ峰"
+  },
+  "Q1038418": {
+   "en": "Jinsha River",
+   "ja": "金沙江"
+  },
+  "Q1045185": {
+   "en": "Jialing River",
+   "ja": "嘉陵江"
+  },
+  "Q1045888": {
+   "en": "Puncak Jaya",
+   "ja": "プンチャック・ジャヤ"
+  },
+  "Q1046685": {
+   "en": "Gan River",
+   "ja": "贛江"
+  },
+  "Q1047206": {
+   "en": "Lake Kariba",
+   "ja": "カリバ湖"
+  },
+  "Q1048219": {
+   "en": "Waikato River",
+   "ja": "ワイカト川"
+  },
+  "Q1048225": {
+   "en": "Villarrica Volcano",
+   "ja": "ビジャリカ山"
+  },
+  "Q1048696": {
+   "en": "Waiau River",
+   "ja": "ワイアウ川"
+  },
+  "Q1050238": {
+   "en": "Namcha Barwa",
+   "ja": "ナムチャバルワ"
+  },
+  "Q1051621": {
+   "en": "Lake Upemba",
+   "ja": "ウペンバ湖"
+  },
+  "Q1052530": {
+   "en": "Cedar River",
+   "ja": "シーダー川"
+  },
+  "Q1052532": {
+   "en": "Cedar Lake",
+   "ja": "シーダー湖"
+  },
+  "Q1052758": {
+   "en": "Llano Estacado",
+   "ja": "リャノ・エスタカード"
+  },
+  "Q1052867": {
+   "en": "Mekong Delta",
+   "ja": "メコンデルタ"
+  },
+  "Q1053435": {
+   "en": "Mount Katmai",
+   "ja": "カトマイ山"
+  },
+  "Q1053967": {
+   "en": "Yong River",
+   "ja": "ヨウ江"
+  },
+  "Q1054325": {
+   "en": "St. Clair River",
+   "ja": "セイント・クレア川"
+  },
+  "Q1055837": {
+   "en": "Cerro Catedral",
+   "ja": "カテドラル山"
+  },
+  "Q1055875": {
+   "en": "Cerro Las Minas",
+   "ja": "ミナス山"
+  },
+  "Q1055965": {
+   "en": "Cerro Tres Kandú",
+   "ja": "ペロー山"
+  },
+  "Q1056103": {
+   "en": "El Cerro del Aripo",
+   "ja": "アリポ山"
+  },
+  "Q1056751": {
+   "en": "McMurdo Sound",
+   "ja": "マクマード入江"
+  },
+  "Q1057961": {
+   "en": "Ceyhan River",
+   "ja": "ジェイハン川"
+  },
+  "Q1059228": {
+   "en": "Kwilu River",
+   "ja": "クウィル川"
+  },
+  "Q1060631": {
+   "en": "Chambal River",
+   "ja": "チャンバル川"
+  },
+  "Q1060962": {
+   "en": "Lake Chamo",
+   "ja": "チャモ湖"
+  },
+  "Q1061148": {
+   "en": "Mount Champaquí",
+   "ja": "チャンパキ山"
+  },
+  "Q1061515": {
+   "en": "Ishikari River",
+   "ja": "石狩川",
+   "kana": [
+    "いしかりがわ"
+   ]
+  },
+  "Q1062495": {
+   "en": "Chao Lake",
+   "ja": "巣湖"
+  },
+  "Q1063190": {
+   "en": "Yuan River",
+   "ja": "沅江"
+  },
+  "Q1064229": {
+   "en": "Mount Usborne",
+   "ja": "アスボーン山"
+  },
+  "Q1065265": {
+   "en": "Vym",
+   "ja": "ヴィミ川"
+  },
+  "Q1066779": {
+   "en": "Koka Reservoir"
+  },
+  "Q1067917": {
+   "en": "Haruj",
+   "ja": "ハルジュ"
+  },
+  "Q1068860": {
+   "en": "Cheekha Dar",
+   "ja": "シェーハ・ダー山"
+  },
+  "Q1071554": {
+   "en": "Chi River",
+   "ja": "チー川"
+  },
+  "Q1072879": {
+   "en": "Qilian Mountains",
+   "ja": "祁連山脈"
+  },
+  "Q1074063": {
+   "en": "Lake Mackay",
+   "ja": "マッカイ湖"
+  },
+  "Q1074381": {
+   "en": "Chinko River",
+   "ja": "シンコ川"
+  },
+  "Q1074898": {
+   "en": "Chara",
+   "ja": "チャラ川"
+  },
+  "Q1074914": {
+   "en": "Uchur River",
+   "ja": "ウチュル川"
+  },
+  "Q1075393": {
+   "en": "Dadu River",
+   "ja": "大渡河"
+  },
+  "Q1075679": {
+   "en": "Qiongzhou Strait",
+   "ja": "瓊州海峡"
+  },
+  "Q1089367": {
+   "en": "Chugach Mountains",
+   "ja": "チュガッチ山地"
+  },
+  "Q1089891": {
+   "en": "Churchill Lake"
+  },
+  "Q1092160": {
+   "en": "Tordoki Yani",
+   "ja": "タルドキ・ヤーニ"
+  },
+  "Q1101640": {
+   "en": "Clinton-Colden Lake",
+   "ja": "クリントン＝コールデン湖"
+  },
+  "Q1104735": {
+   "en": "Cobourg Peninsula",
+   "ja": "コバーグ半島"
+  },
+  "Q1106820": {
+   "en": "Wami River"
+  },
+  "Q1108073": {
+   "en": "Ilirgytgkin"
+  },
+  "Q1108335": {
+   "en": "Chukochye Lake"
+  },
+  "Q1108926": {
+   "en": "Katanga Plateau",
+   "ja": "カタンガ高原"
+  },
+  "Q1109058": {
+   "en": "Mount Nyenchen Tanglha",
+   "ja": "ニェンチェンタンラ山"
+  },
+  "Q1109799": {
+   "en": "Dyupkun"
+  },
+  "Q1110298": {
+   "en": "Arakhley"
+  },
+  "Q1111329": {
+   "en": "Oloy River",
+   "ja": "オロイ川"
+  },
+  "Q1112158": {
+   "en": "Kapchagay Reservoir",
+   "ja": "カプチャガイ貯水池"
+  },
+  "Q1112333": {
+   "en": "Kungasalakh"
+  },
+  "Q1112986": {
+   "en": "Colville Lake",
+   "ja": "コルビル湖"
+  },
+  "Q1113020": {
+   "en": "Colville River",
+   "ja": "コルビル川 (アラスカ州)"
+  },
+  "Q1115201": {
+   "en": "Lake Chelan",
+   "ja": "シェラン湖"
+  },
+  "Q1115650": {
+   "en": "Ubinskoye"
+  },
+  "Q1115810": {
+   "en": "Kronotskoye Lake",
+   "ja": "クロノツキー湖"
+  },
+  "Q1120394": {
+   "en": "Kokora"
+  },
+  "Q1120933": {
+   "en": "Kibali"
+  },
+  "Q1124584": {
+   "en": "Sierra Madre Occidental",
+   "ja": "シエラ・マドレ・オクシデンタル"
+  },
+  "Q1125601": {
+   "en": "Khyargas Nuur",
+   "ja": "ヒャルガス湖"
+  },
+  "Q1126906": {
+   "en": "Central Russian Upland",
+   "ja": "中央ロシア高地"
+  },
+  "Q1129218": {
+   "en": "Balsas River",
+   "ja": "バルサス川"
+  },
+  "Q1129590": {
+   "en": "Cook Inlet",
+   "ja": "クック湾"
+  },
+  "Q1130713": {
+   "en": "Kem River",
+   "ja": "ケミ川"
+  },
+  "Q1131444": {
+   "en": "Copper River",
+   "ja": "カッパー川"
+  },
+  "Q1131514": {
+   "en": "Coppermine River",
+   "ja": "コッパーマイン川"
+  },
+  "Q1131680": {
+   "en": "Xar Moron River",
+   "ja": "シラムレン川"
+  },
+  "Q1132211": {
+   "en": "Nettilling Lake",
+   "ja": "ネチリング湖"
+  },
+  "Q1132302": {
+   "en": "Cordillera Real"
+  },
+  "Q1134446": {
+   "en": "Reindeer Lake",
+   "ja": "レインディア湖"
+  },
+  "Q1134899": {
+   "en": "Maputo Bay",
+   "ja": "マプト湾"
+  },
+  "Q1135227": {
+   "en": "Disko Bay",
+   "ja": "ディスコ湾"
+  },
+  "Q1135336": {
+   "en": "M’Clure Strait",
+   "ja": "マクルアー海峡"
+  },
+  "Q1136502": {
+   "en": "Minnesota River",
+   "ja": "ミネソタ川"
+  },
+  "Q1137387": {
+   "en": "Swan River",
+   "ja": "スワン川"
+  },
+  "Q1138427": {
+   "en": "Selemdzha River",
+   "ja": "セレムジャ川"
+  },
+  "Q1138929": {
+   "en": "Gulf of Guayaquil",
+   "ja": "グアヤキル湾"
+  },
+  "Q1139110": {
+   "en": "Ellsworth Mountains",
+   "ja": "エルスワース山脈"
+  },
+  "Q1139404": {
+   "en": "Msta",
+   "ja": "ムスタ川"
+  },
+  "Q1139466": {
+   "en": "Cree River",
+   "ja": "クリー川"
+  },
+  "Q1139679": {
+   "en": "Usumacinta River",
+   "ja": "ウスマシンタ川"
+  },
+  "Q1140075": {
+   "en": "Doi Inthanon",
+   "ja": "ドイ・インタノン山"
+  },
+  "Q1140471": {
+   "en": "Lake Te Anau",
+   "ja": "テ・アナウ湖"
+  },
+  "Q1140642": {
+   "en": "Mount Catherine",
+   "ja": "カテリーナ山"
+  },
+  "Q1141758": {
+   "en": "Uda Bay",
+   "ja": "ウダ湾"
+  },
+  "Q1142554": {
+   "en": "Crêt de la Neige",
+   "ja": "クレ・ド・ラ・ネージュ"
+  },
+  "Q1142817": {
+   "en": "Mount Narodnaya",
+   "ja": "ナロードナヤ山"
+  },
+  "Q1142842": {
+   "en": "Omolon",
+   "ja": "オモロン川"
+  },
+  "Q1143026": {
+   "ja": "グランデ山地"
+  },
+  "Q1143331": {
+   "en": "Cuito River",
+   "ja": "クイト川"
+  },
+  "Q1143656": {
+   "en": "Cumberland Plateau",
+   "ja": "カンバーランド高原"
+  },
+  "Q1143718": {
+   "en": "Cumberland River",
+   "ja": "カンバーランド川"
+  },
+  "Q1143852": {
+   "en": "Lek",
+   "ja": "レック川"
+  },
+  "Q1143935": {
+   "en": "Rukwa Lake",
+   "ja": "ルクワ湖"
+  },
+  "Q1144905": {
+   "en": "Lake Pihkva",
+   "ja": "ピヒクバ湖"
+  },
+  "Q1145416": {
+   "en": "Satpura Range",
+   "ja": "サトプラ山脈"
+  },
+  "Q1145743": {
+   "en": "Pico Turquino",
+   "ja": "トゥルキーノ山"
+  },
+  "Q1146327": {
+   "en": "Pidurutalagala",
+   "ja": "ピドゥルタラーガラ山"
+  },
+  "Q1146608": {
+   "en": "Moulouya River",
+   "ja": "ムルヤ川"
+  },
+  "Q1146770": {
+   "en": "Cuyuni River",
+   "ja": "クユニ川"
+  },
+  "Q1147118": {
+   "en": "Sheksna",
+   "ja": "シェクスナ川"
+  },
+  "Q1147144": {
+   "en": "Maromokotro",
+   "ja": "マロモコトロ山"
+  },
+  "Q1147814": {
+   "en": "Silisili",
+   "ja": "シリシリ山"
+  },
+  "Q1149171": {
+   "en": "Kola",
+   "ja": "コラ川"
+  },
+  "Q1149827": {
+   "en": "Dmitry Laptev Strait",
+   "ja": "ドミトリー・ラプテフ海峡"
+  },
+  "Q1151727": {
+   "en": "Yongding River",
+   "ja": "永定河"
+  },
+  "Q1152132": {
+   "en": "Yin Mountains",
+   "ja": "陰山山脈"
+  },
+  "Q1152327": {
+   "en": "Robeson Channel",
+   "ja": "ロブスン海峡"
+  },
+  "Q1152951": {
+   "en": "Nederrijn",
+   "ja": "ネーデルライン川"
+  },
+  "Q1154778": {
+   "en": "Fen River",
+   "ja": "汾河"
+  },
+  "Q1156557": {
+   "en": "Dabie Mountains",
+   "ja": "大別山脈"
+  },
+  "Q1156656": {
+   "en": "Junggar Basin",
+   "ja": "ジュンガル盆地"
+  },
+  "Q1158071": {
+   "en": "Dalou Mountains"
+  },
+  "Q1158664": {
+   "en": "Dąbie Lake"
+  },
+  "Q1161258": {
+   "en": "Mount Robson",
+   "ja": "ロブソン山"
+  },
+  "Q1161673": {
+   "en": "Salinas River",
+   "ja": "サリナス川 (カリフォルニア州)"
+  },
+  "Q1162365": {
+   "en": "Salado River",
+   "ja": "サラド川"
+  },
+  "Q1162389": {
+   "en": "Guárico River",
+   "ja": "グアリコ川"
+  },
+  "Q1163759": {
+   "en": "Ganges Delta",
+   "ja": "ガンジスデルタ"
+  },
+  "Q1165761": {
+   "en": "Branco River",
+   "ja": "ブランコ川"
+  },
+  "Q1165951": {
+   "en": "Ungava Bay",
+   "ja": "アンガヴァ湾"
+  },
+  "Q1166530": {
+   "en": "Darnley Bay",
+   "ja": "ダーンリー湾"
+  },
+  "Q1179020": {},
+  "Q1183037": {
+   "en": "Taquari River"
+  },
+  "Q1191116": {
+   "en": "Voronya",
+   "ja": "ヴォロニヤ川"
+  },
+  "Q1191219": {
+   "en": "Mount Ngerchelchuus",
+   "ja": "ゲルチェレチュース山"
+  },
+  "Q1192384": {
+   "en": "Lake Manapouri",
+   "ja": "マナポウリ湖"
+  },
+  "Q1192621": {
+   "en": "Lake Rotorua / Te Rotorua nui ā Kahumatamomoe",
+   "ja": "ロトルア湖"
+  },
+  "Q1192728": {
+   "en": "Lake Wānaka",
+   "ja": "ワナカ湖"
+  },
+  "Q1192771": {
+   "en": "Tuo River",
+   "ja": "沱江"
+  },
+  "Q1193523": {
+   "en": "Luan River",
+   "ja": "灤河"
+  },
+  "Q1194022": {
+   "en": "Lake Tekapo",
+   "ja": "テカポ湖"
+  },
+  "Q1194112": {
+   "en": "Mae Klong",
+   "ja": "メークローン川"
+  },
+  "Q1195285": {
+   "en": "Nanling Mountains",
+   "ja": "南嶺山脈"
+  },
+  "Q1226878": {
+   "en": "Lata Mountain",
+   "ja": "ラタ山"
+  },
+  "Q1231779": {
+   "en": "Dixon Entrance",
+   "ja": "ディクソン海峡"
+  },
+  "Q1231996": {
+   "en": "Dja River",
+   "ja": "ジャー川"
+  },
+  "Q1232136": {
+   "en": "Jebel ech Chambi",
+   "ja": "シャンビ山"
+  },
+  "Q1233362": {
+   "en": "Point Lake"
+  },
+  "Q1239004": {
+   "en": "Humphreys Peak",
+   "ja": "ハンフリーズ ピーク"
+  },
+  "Q1239783": {
+   "en": "Severn River",
+   "ja": "セバーン川"
+  },
+  "Q1241570": {
+   "en": "Donjek River"
+  },
+  "Q1241991": {
+   "en": "Albany River",
+   "ja": "オールバニー川"
+  },
+  "Q1245603": {
+   "en": "Kolyma Mountains",
+   "ja": "コリマ山脈"
+  },
+  "Q1247231": {
+   "en": "Oneida Lake",
+   "ja": "オナイダ湖"
+  },
+  "Q1250532": {
+   "en": "Sanaga",
+   "ja": "サナガ川"
+  },
+  "Q1253855": {
+   "en": "King Edward VII Land",
+   "ja": "エドワード7世半島"
+  },
+  "Q1254743": {
+   "en": "Gulf of Papua",
+   "ja": "パプア湾"
+  },
+  "Q1256528": {
+   "en": "Black Volta",
+   "ja": "黒ヴォルタ"
+  },
+  "Q1259006": {
+   "en": "Mount Kamen",
+   "ja": "カーメン山"
+  },
+  "Q1259188": {
+   "en": "White Volta",
+   "ja": "白ヴォルタ"
+  },
+  "Q1261515": {
+   "en": "Iriri River",
+   "ja": "イリリ川"
+  },
+  "Q1261892": {
+   "en": "Jabal Sawda",
+   "ja": "サウダ山"
+  },
+  "Q1261909": {
+   "en": "Jabal Yibir"
+  },
+  "Q1261915": {
+   "en": "Jebel Shams",
+   "ja": "シャムス山"
+  },
+  "Q1261935": {
+   "en": "Jabal an Nabi Shu'ayb",
+   "ja": "ナビー・シュアイブ山"
+  },
+  "Q1262967": {
+   "en": "Dubawnt Lake"
+  },
+  "Q1264793": {
+   "en": "Dulgalakh River",
+   "ja": "ドゥルガラフ川"
+  },
+  "Q1266978": {
+   "en": "Ozhogina River",
+   "ja": "オジョギナ川"
+  },
+  "Q1267413": {
+   "en": "Georgian Bay",
+   "ja": "ジョージア湾"
+  },
+  "Q1270436": {
+   "en": "Lake Débo"
+  },
+  "Q1271947": {
+   "en": "Lake Monowai",
+   "ja": "モノワイ湖"
+  },
+  "Q1275436": {
+   "en": "Grand Lake",
+   "ja": "グランド湖"
+  },
+  "Q1277365": {
+   "en": "Indus River Delta",
+   "ja": "インダス川デルタ"
+  },
+  "Q1288223": {
+   "en": "Mangoky River"
+  },
+  "Q1288341": {
+   "en": "Miranda River"
+  },
+  "Q1291135": {
+   "en": "Lake Eyasi",
+   "ja": "エヤシ湖"
+  },
+  "Q1293972": {
+   "en": "Luza",
+   "ja": "ルザ川"
+  },
+  "Q1294308": {
+   "en": "Edwards Plateau",
+   "ja": "エドワーズ高原"
+  },
+  "Q1295629": {
+   "en": "Suda",
+   "ja": "スダ川"
+  },
+  "Q1298202": {
+   "en": "Mount Balbi",
+   "ja": "バルビ山"
+  },
+  "Q1299817": {
+   "en": "Lake Marqaköl",
+   "ja": "マルカコル湖"
+  },
+  "Q1301834": {
+   "en": "Mount Scenery",
+   "ja": "シーナリー山"
+  },
+  "Q1303872": {
+   "en": "Lake Dunstan"
+  },
+  "Q1309664": {
+   "en": "Goose Lake",
+   "ja": "グース湖"
+  },
+  "Q1315765": {
+   "en": "Vygozero",
+   "ja": "ヴィゴゼロ湖"
+  },
+  "Q1317383": {
+   "en": "Longs Peak",
+   "ja": "ロングスピーク"
+  },
+  "Q1320568": {
+   "en": "Red Lake",
+   "ja": "レッド湖 (ミネソタ州)"
+  },
+  "Q1321316": {
+   "en": "Lachlan River",
+   "ja": "ラクラン川"
+  },
+  "Q1321468": {
+   "en": "Ozarks",
+   "ja": "オザーク高原"
+  },
+  "Q1321671": {
+   "en": "Luangwa River",
+   "ja": "ルアングワ川"
+  },
+  "Q1322521": {
+   "en": "Gyala Peri",
+   "ja": "ギャラペリ"
+  },
+  "Q1323267": {
+   "en": "Khar-Us Lake",
+   "ja": "ハル・ウス・ヌール"
+  },
+  "Q1323629": {
+   "en": "Gulf St. Vincent",
+   "ja": "セントビンセント湾"
+  },
+  "Q1324212": {
+   "en": "Lake Tumba",
+   "ja": "トゥンバ湖"
+  },
+  "Q1324437": {
+   "en": "Femund"
+  },
+  "Q1328159": {
+   "en": "Lac Payne"
+  },
+  "Q1328351": {
+   "en": "Tehek Lake"
+  },
+  "Q1328483": {
+   "en": "Keller Lake"
+  },
+  "Q1328792": {
+   "en": "Cabonga Reservoir"
+  },
+  "Q1329423": {
+   "en": "Baskatong Reservoir"
+  },
+  "Q1330203": {
+   "en": "Dozois Reservoir"
+  },
+  "Q1330376": {
+   "en": "Mount Bartle Frere"
+  },
+  "Q1331750": {
+   "en": "Lake Pontchartrain",
+   "ja": "ポンチャートレイン湖"
+  },
+  "Q1333432": {
+   "en": "Skaneateles Lake",
+   "ja": "スカネアトレス湖"
+  },
+  "Q1333747": {
+   "en": "Holston River",
+   "ja": "ホルストン川"
+  },
+  "Q1334148": {
+   "en": "Lake Eğirdir",
+   "ja": "エーリディル湖"
+  },
+  "Q1334522": {
+   "en": "Betwa River",
+   "ja": "ベトワ川"
+  },
+  "Q1335725": {
+   "en": "Keuka Lake",
+   "ja": "キューカ湖"
+  },
+  "Q1337951": {
+   "en": "Emlembe"
+  },
+  "Q1338198": {
+   "en": "Yenisei Gulf",
+   "ja": "エニセイ湾"
+  },
+  "Q1339170": {
+   "en": "Owasco Lake",
+   "ja": "オワスコ湖"
+  },
+  "Q1341908": {
+   "en": "Tuloma",
+   "ja": "トゥロマ川"
+  },
+  "Q1342950": {
+   "en": "Engozero"
+  },
+  "Q1343275": {
+   "en": "Lake Louise"
+  },
+  "Q1343339": {
+   "en": "Ennedi Plateau",
+   "ja": "エネディ台地"
+  },
+  "Q1345130": {
+   "en": "Koitere"
+  },
+  "Q1345896": {
+   "en": "Mohawk River",
+   "ja": "モホーク川"
+  },
+  "Q1346148": {
+   "en": "Motagua River",
+   "ja": "モタグァ川"
+  },
+  "Q1347142": {
+   "en": "Tyung",
+   "ja": "チュング川"
+  },
+  "Q1347148": {
+   "en": "North Siberian Lowland"
+  },
+  "Q1347588": {
+   "en": "Lake Pukaki",
+   "ja": "プカキ湖"
+  },
+  "Q1349516": {
+   "en": "Lake Ōhau",
+   "ja": "オハウ湖"
+  },
+  "Q1349924": {
+   "en": "Ventuari River",
+   "ja": "ベントゥアリ川"
+  },
+  "Q1350167": {
+   "en": "Strzelecki Desert",
+   "ja": "ストルゼレスキ砂漠"
+  },
+  "Q1352266": {
+   "en": "Melville Peninsula",
+   "ja": "メルヴィル半島"
+  },
+  "Q1352298": {
+   "en": "Røssvatnet"
+  },
+  "Q1353678": {
+   "en": "Monte Binga",
+   "ja": "ビンガ山"
+  },
+  "Q1356561": {
+   "en": "Pecos River",
+   "ja": "ペコス川"
+  },
+  "Q1356838": {
+   "en": "Lake Nipissing",
+   "ja": "ニピシング湖"
+  },
+  "Q1359850": {
+   "en": "Betpak-Dala"
+  },
+  "Q1361278": {
+   "en": "Humboldt River",
+   "ja": "ハンボルト川"
+  },
+  "Q1361458": {
+   "en": "Mount Bates",
+   "ja": "ベイツ山"
+  },
+  "Q1363972": {
+   "en": "Atrato River",
+   "ja": "アトラト川"
+  },
+  "Q1364584": {
+   "en": "River Ness",
+   "ja": "ネス川"
+  },
+  "Q1366974": {
+   "en": "Lough Allen"
+  },
+  "Q1367141": {
+   "en": "Sierra Blanca"
+  },
+  "Q1367638": {
+   "en": "Kansas River",
+   "ja": "カンザス川"
+  },
+  "Q1369002": {
+   "en": "Maroni",
+   "ja": "マロニ川"
+  },
+  "Q1376373": {
+   "en": "Volcán Wolf",
+   "ja": "ウォルフ火山"
+  },
+  "Q1391737": {
+   "en": "Baker Lake",
+   "ja": "ベイカー湖"
+  },
+  "Q1394226": {
+   "en": "Cape Cà Mau",
+   "ja": "カマウ岬"
+  },
+  "Q1399312": {
+   "en": "Feather River",
+   "ja": "フェザー川"
+  },
+  "Q1400022": {
+   "en": "Winnipeg River",
+   "ja": "ウィニペグ川"
+  },
+  "Q1404973": {
+   "en": "Siling Lake",
+   "ja": "シリン湖"
+  },
+  "Q1408929": {
+   "en": "Kathiawar",
+   "ja": "カーティヤワール半島"
+  },
+  "Q1413605": {
+   "en": "Great Kei River",
+   "ja": "グレイト・ケイ川"
+  },
+  "Q1414064": {
+   "en": "Volga Upland",
+   "ja": "プリヴォールシスク丘陵"
+  },
+  "Q1415043": {
+   "en": "Nicoya Peninsula",
+   "ja": "ニコヤ半島"
+  },
+  "Q1415428": {
+   "en": "Monte Cinto",
+   "ja": "サント山"
+  },
+  "Q1416209": {
+   "en": "Segozero"
+  },
+  "Q1416521": {
+   "en": "Xiliao River",
+   "ja": "西遼河"
+  },
+  "Q1418174": {
+   "en": "Son River",
+   "ja": "ソーン川"
+  },
+  "Q1419084": {
+   "en": "Parnaíba River",
+   "ja": "パルナイーバ川"
+  },
+  "Q1419222": {
+   "en": "Newtontoppen",
+   "ja": "ニュートン峰"
+  },
+  "Q1419861": {
+   "en": "Tsiribihina River",
+   "ja": "ツィリビヒナ川"
+  },
+  "Q1421409": {
+   "en": "Fitzroy River",
+   "ja": "フィッツロイ川"
+  },
+  "Q1421418": {
+   "en": "Fitzroy River",
+   "ja": "フィッツロイ川"
+  },
+  "Q1422726": {
+   "en": "Al Hajar Mountains",
+   "ja": "ハジャル山地"
+  },
+  "Q1425346": {
+   "en": "Nizhnekamsk Reservoir"
+  },
+  "Q1425651": {
+   "en": "Kyiv Reservoir",
+   "ja": "キーウ貯水池"
+  },
+  "Q1427364": {
+   "en": "Flathead Lake",
+   "ja": "フラットヘッド湖"
+  },
+  "Q1429556": {
+   "en": "Sredinny Range",
+   "ja": "スレジンヌイ山脈"
+  },
+  "Q1431174": {
+   "en": "Unzha",
+   "ja": "ウンジャ川"
+  },
+  "Q1431323": {
+   "en": "Kennebec River",
+   "ja": "ケネベック川"
+  },
+  "Q1431500": {
+   "en": "Kremenchuk Reservoir",
+   "ja": "クレメンチューク貯水池"
+  },
+  "Q1431507": {
+   "en": "Volga Delta",
+   "ja": "ヴォルガ・デルタ"
+  },
+  "Q1431535": {
+   "en": "Saratov Reservoir"
+  },
+  "Q1433137": {
+   "en": "Moyen Atlas",
+   "ja": "中央アトラス"
+  },
+  "Q1436100": {
+   "en": "Aripuanã River"
+  },
+  "Q1439530": {
+   "en": "Mount Odin",
+   "ja": "オーディン山"
+  },
+  "Q1440192": {
+   "en": "Fox River",
+   "ja": "フォックス川 (イリノイ川支流)"
+  },
+  "Q1440216": {
+   "en": "Foxe Peninsula",
+   "ja": "フォックス半島"
+  },
+  "Q1440634": {
+   "en": "Lake Hāwea",
+   "ja": "ハウェア湖"
+  },
+  "Q1441345": {
+   "en": "Albemarle Sound",
+   "ja": "アルベマール湾"
+  },
+  "Q1445991": {
+   "en": "Khar Lake",
+   "ja": "ハル・ヌール"
+  },
+  "Q1454300": {
+   "en": "Mount Hombori",
+   "ja": "オンボリ山"
+  },
+  "Q1455933": {
+   "en": "Mun River",
+   "ja": "ムーン川"
+  },
+  "Q1457158": {
+   "en": "Hall Basin",
+   "ja": "ホール湾"
+  },
+  "Q1457581": {
+   "en": "Três Marias Dam"
+  },
+  "Q1457996": {
+   "en": "Tumuk Humak Mountains",
+   "ja": "トゥムクマケ山地"
+  },
+  "Q1458051": {
+   "en": "Lake Mistassini"
+  },
+  "Q1458409": {
+   "en": "Pyaozero"
+  },
+  "Q1459954": {
+   "en": "San Matías Gulf",
+   "ja": "サンマチアス湾"
+  },
+  "Q1460034": {
+   "en": "Lama"
+  },
+  "Q1460079": {
+   "en": "Umbozero",
+   "ja": "ウムボゼロ湖"
+  },
+  "Q1462530": {
+   "en": "Gilf Kebir"
+  },
+  "Q1463552": {
+   "en": "Kubenskoe",
+   "ja": "クベンスコエ湖"
+  },
+  "Q1464606": {
+   "en": "Karas Mountains",
+   "ja": "グレートカラスベルグ山脈"
+  },
+  "Q1464758": {
+   "en": "Lake Enriquillo",
+   "ja": "エンリキージョ湖"
+  },
+  "Q1465138": {
+   "en": "Lake Barlee",
+   "ja": "バーリー湖"
+  },
+  "Q1468689": {
+   "en": "Coco River",
+   "ja": "ココ川"
+  },
+  "Q1469728": {
+   "en": "Lake  Valencia",
+   "ja": "バレンシア湖"
+  },
+  "Q1470027": {
+   "en": "Front Range",
+   "ja": "フロントレンジ"
+  },
+  "Q1470945": {
+   "en": "Limay River",
+   "ja": "リマイ川"
+  },
+  "Q1471254": {
+   "en": "Réservoir Pipmuacan"
+  },
+  "Q1471391": {
+   "en": "Pico de São Tomé",
+   "ja": "サントメ山"
+  },
+  "Q1472009": {
+   "en": "Neuquén River",
+   "ja": "ネウケン川"
+  },
+  "Q1472376": {
+   "en": "Karkheh River",
+   "ja": "キャルハ川"
+  },
+  "Q1474782": {
+   "en": "Uda",
+   "ja": "ウダ川"
+  },
+  "Q1475441": {
+   "en": "MacDonnell Ranges",
+   "ja": "マクドネル山脈"
+  },
+  "Q1476428": {
+   "en": "Lake Clark"
+  },
+  "Q1477854": {
+   "en": "Xinfengjiang Reservoir"
+  },
+  "Q1478180": {
+   "en": "Tell Atlas",
+   "ja": "テルアトラス山脈"
+  },
+  "Q1478409": {
+   "en": "Queen Alexandra Range",
+   "ja": "アレクサンドラ王妃山脈"
+  },
+  "Q1478566": {
+   "en": "Santa Cruz River",
+   "ja": "サンタクルス川"
+  },
+  "Q1479284": {
+   "en": "Uglich Reservoir"
+  },
+  "Q1479580": {
+   "en": "Sartang River",
+   "ja": "サルタン川"
+  },
+  "Q1481864": {
+   "en": "Tai Mo Shan",
+   "ja": "大帽山"
+  },
+  "Q1490262": {
+   "en": "Whangaehu River",
+   "ja": "フアンガエフ川"
+  },
+  "Q1493200": {
+   "en": "Lake Traverse",
+   "ja": "トラヴァース湖"
+  },
+  "Q1493617": {
+   "en": "Gannett Peak",
+   "ja": "ガネット・ピーク"
+  },
+  "Q1494524": {
+   "en": "Garry Lake"
+  },
+  "Q1496993": {
+   "en": "Lac Bienville"
+  },
+  "Q1500146": {
+   "en": "Mount Nirvana",
+   "ja": "ニルヴァーナ山"
+  },
+  "Q1500709": {
+   "en": "Volgograd Reservoir"
+  },
+  "Q1501766": {
+   "en": "Lebombo Mountains",
+   "ja": "レボンボマウンテンズ"
+  },
+  "Q1503116": {
+   "en": "Geographe Bay"
+  },
+  "Q1507546": {
+   "en": "Gulf of Tomini",
+   "ja": "トミニ湾"
+  },
+  "Q1510326": {
+   "en": "Waihou River",
+   "ja": "ワイハウ川"
+  },
+  "Q1510928": {
+   "en": "Kane Basin",
+   "ja": "ケーン海盆"
+  },
+  "Q1511554": {
+   "en": "Lempa River",
+   "ja": "レンパ川"
+  },
+  "Q1513944": {
+   "en": "Mount Tomanivi",
+   "ja": "トマニビ山"
+  },
+  "Q1514176": {
+   "en": "Mount Yamantau",
+   "ja": "ヤマンタウ山"
+  },
+  "Q1514307": {
+   "en": "Nueltin Lake"
+  },
+  "Q1514665": {
+   "en": "Ishpatina Ridge"
+  },
+  "Q1514693": {
+   "en": "Malagarasi River",
+   "ja": "マラガラシ川"
+  },
+  "Q1515792": {
+   "en": "Wu River",
+   "ja": "烏江"
+  },
+  "Q1516443": {
+   "en": "Lac La Martre"
+  },
+  "Q1516857": {
+   "en": "Mount Namuli"
+  },
+  "Q1517159": {
+   "en": "Hadhramaut",
+   "ja": "ハドラマウト"
+  },
+  "Q1517182": {
+   "en": "Mont Agel",
+   "ja": "アジェル山"
+  },
+  "Q1518007": {
+   "en": "Mahaweli River",
+   "ja": "マハウェリ川"
+  },
+  "Q1518286": {
+   "en": "Pico Basilé",
+   "ja": "バジーレ山"
+  },
+  "Q1519602": {
+   "en": "Grande River",
+   "ja": "グランデ川 (ボリビア)"
+  },
+  "Q1520376": {
+   "en": "Torre Cerredo",
+   "ja": "トーレ・セレード"
+  },
+  "Q1520405": {
+   "en": "Kao",
+   "ja": "カオ島"
+  },
+  "Q1520726": {
+   "en": "Yadkin River",
+   "ja": "ヤドキン川"
+  },
+  "Q1520855": {
+   "en": "Mount Blackburn",
+   "ja": "ブラックバーン山"
+  },
+  "Q1520895": {
+   "en": "Lake Chany"
+  },
+  "Q1521286": {
+   "en": "Taitailei",
+   "ja": "タイタオ半島"
+  },
+  "Q1528035": {
+   "en": "Mississippi River Delta",
+   "ja": "ミシシッピ川三角地帯"
+  },
+  "Q1529669": {
+   "en": "White River",
+   "ja": "ホワイト川"
+  },
+  "Q1533889": {
+   "en": "Gods River",
+   "ja": "ゴッズ川"
+  },
+  "Q1533897": {
+   "en": "Gods Lake",
+   "ja": "ゴッズ湖"
+  },
+  "Q1534419": {
+   "en": "Lake Claire",
+   "ja": "クレア湖"
+  },
+  "Q1535066": {
+   "en": "South Nahanni River",
+   "ja": "サウスナハニ川"
+  },
+  "Q1535123": {
+   "en": "Waimakariri River",
+   "ja": "ワイマカリリ川"
+  },
+  "Q1535541": {
+   "en": "Pyasino",
+   "ja": "ピャシノ湖"
+  },
+  "Q1535828": {
+   "en": "Sassandra River",
+   "ja": "ササンドラ川"
+  },
+  "Q1536292": {
+   "en": "San Jorge Gulf",
+   "ja": "サンホルヘ湾"
+  },
+  "Q1536317": {
+   "en": "Davao Gulf",
+   "ja": "ダバオ湾"
+  },
+  "Q1536356": {
+   "en": "Gulf of Penas",
+   "ja": "ペナス湾"
+  },
+  "Q1536880": {
+   "en": "Kondoma",
+   "ja": "コンドマ川"
+  },
+  "Q1537020": {
+   "en": "Grand Erg Occidental"
+  },
+  "Q1537157": {
+   "en": "Mount Gongga",
+   "ja": "ミニヤコンカ"
+  },
+  "Q1537198": {
+   "en": "Nun"
+  },
+  "Q1538623": {
+   "en": "Lüliang Mountains",
+   "ja": "呂梁山脈"
+  },
+  "Q1539726": {
+   "en": "Smallwood Reservoir"
+  },
+  "Q1539961": {
+   "en": "Tatamailau",
+   "ja": "タタマイラウ山"
+  },
+  "Q1540063": {
+   "en": "Victoria River",
+   "ja": "ヴィクトリア川"
+  },
+  "Q1540136": {
+   "en": "Gouin Reservoir"
+  },
+  "Q1540436": {
+   "en": "Kakhovka Reservoir",
+   "ja": "カホフカ貯水池"
+  },
+  "Q1542459": {
+   "en": "Mount Tabwemasana",
+   "ja": "タブウェマサナ山"
+  },
+  "Q1542594": {
+   "en": "Novosibirsk Reservoir",
+   "ja": "ノヴォシビルスク貯水湖"
+  },
+  "Q1542610": {
+   "en": "James River",
+   "ja": "ジェームズ川"
+  },
+  "Q1542855": {
+   "en": "Grand River",
+   "ja": "グランド川 (オンタリオ州)"
+  },
+  "Q1542859": {
+   "en": "Grand River"
+  },
+  "Q1542874": {
+   "en": "San Juan River",
+   "ja": "サン・フアン川"
+  },
+  "Q1542964": {
+   "en": "Khao Luang"
+  },
+  "Q1544156": {
+   "en": "Deseado River",
+   "ja": "デセアド川"
+  },
+  "Q1544340": {
+   "en": "Mount Fairweather",
+   "ja": "フェアウェザー山"
+  },
+  "Q1544388": {
+   "en": "Wasatch Range",
+   "ja": "ワサッチ山脈"
+  },
+  "Q1544834": {
+   "en": "Kentucky River",
+   "ja": "ケンタッキー川"
+  },
+  "Q1545452": {
+   "en": "Piton des Neiges",
+   "ja": "ピトン・デ・ネージュ"
+  },
+  "Q1546553": {
+   "en": "Koyukuk River"
+  },
+  "Q1546823": {
+   "en": "Napaktulik Lake"
+  },
+  "Q1547446": {
+   "en": "Mount Humboldt",
+   "ja": "フンボルト山"
+  },
+  "Q1547452": {
+   "en": "Gros Morne",
+   "ja": "グロス・モーン山"
+  },
+  "Q1547693": {
+   "en": "Groundhog River"
+  },
+  "Q1548386": {
+   "en": "Great Salt Lake Desert",
+   "ja": "グレートソルトレイク砂漠"
+  },
+  "Q1549215": {
+   "en": "Julianatop",
+   "ja": "ジュリアナトップ山"
+  },
+  "Q1550455": {
+   "en": "Goldsmith Channel"
+  },
+  "Q1550766": {
+   "en": "Shackleton Range",
+   "ja": "シャクルトン山脈"
+  },
+  "Q1552706": {
+   "en": "Seneca Lake",
+   "ja": "セネカ湖"
+  },
+  "Q1553790": {
+   "en": "Miramichi River",
+   "ja": "ミラミシ川"
+  },
+  "Q1555073": {
+   "en": "Buntu Rantekambola",
+   "ja": "ランテコムボラ山"
+  },
+  "Q1557099": {
+   "en": "Momskiy Khrebet"
+  },
+  "Q1557811": {
+   "en": "Gwayi River"
+  },
+  "Q1559088": {
+   "en": "Mackenzie River"
+  },
+  "Q1560829": {
+   "en": "Ulugh Muztagh"
+  },
+  "Q1567872": {
+   "en": "Troglav",
+   "ja": "トログラヴ"
+  },
+  "Q1569192": {
+   "en": "Sagavanirktok River"
+  },
+  "Q1569231": {
+   "en": "Nanpan River",
+   "ja": "南盤江"
+  },
+  "Q1570683": {
+   "en": "Mount Halcon",
+   "ja": "ハルコン山"
+  },
+  "Q1572208": {
+   "en": "Otgontenger",
+   "ja": "オトゴンテンゲル山"
+  },
+  "Q1573394": {
+   "en": "Hamersley Range"
+  },
+  "Q1573762": {
+   "en": "Mount Paget",
+   "ja": "パジット山"
+  },
+  "Q1579060": {
+   "en": "Morne Seychellois",
+   "ja": "モルヌ・セシェロワ"
+  },
+  "Q1584933": {
+   "en": "Roanoke River",
+   "ja": "ロアノーク川"
+  },
+  "Q1585051": {
+   "en": "Hardangervidda",
+   "ja": "ハダンゲルヴィッダ"
+  },
+  "Q1585737": {
+   "en": "Black Elk Peak"
+  },
+  "Q1589175": {
+   "en": "Jackson Lake",
+   "ja": "ジャクソン湖"
+  },
+  "Q1592911": {
+   "en": "Hecate Strait",
+   "ja": "ヘキト海峡"
+  },
+  "Q1595409": {
+   "en": "Muskingum River",
+   "ja": "マスキンガム川"
+  },
+  "Q1600016": {
+   "en": "Mille Lacs Lake",
+   "ja": "ミル・ラクス湖"
+  },
+  "Q1606564": {
+   "en": "Wholdaia Lake"
+  },
+  "Q1610446": {
+   "en": "Lobaye River"
+  },
+  "Q1616285": {
+   "en": "Mount Jackson"
+  },
+  "Q1618810": {
+   "en": "Peacock Sound",
+   "ja": "ピーコック海峡"
+  },
+  "Q1619907": {
+   "en": "Osage River",
+   "ja": "オーセージ川"
+  },
+  "Q1628389": {
+   "en": "Mont Jacques-Cartier"
+  },
+  "Q1630256": {
+   "en": "Tathlina Lake",
+   "ja": "タスリナ湖"
+  },
+  "Q1630635": {
+   "en": "Popigay River",
+   "ja": "ポピガイ川"
+  },
+  "Q1631233": {
+   "en": "Hottah Lake"
+  },
+  "Q1632195": {
+   "en": "Lake Pend Oreille"
+  },
+  "Q1632248": {
+   "en": "Surigao Strait",
+   "ja": "スリガオ海峡"
+  },
+  "Q1633809": {
+   "en": "Golden Hinde",
+   "ja": "ゴールデン・ハインド (山)"
+  },
+  "Q1633955": {
+   "en": "Lerma River",
+   "ja": "レルマ川"
+  },
+  "Q1634424": {
+   "en": "Amistad Reservoir"
+  },
+  "Q1634873": {
+   "en": "Ondozero"
+  },
+  "Q1635229": {
+   "en": "Lake Murray",
+   "ja": "マレー湖 (パプアニューギニア)"
+  },
+  "Q1635550": {
+   "en": "Pyhäjärvi"
+  },
+  "Q1638191": {
+   "en": "Kumpupintil Lake",
+   "ja": "ディサポイントメント湖"
+  },
+  "Q1638242": {
+   "en": "Trout Lake"
+  },
+  "Q1638549": {
+   "en": "Morne Diablotins",
+   "ja": "ディアブロティン山"
+  },
+  "Q1640500": {
+   "en": "Wollaston Lake",
+   "ja": "ウォラストン湖"
+  },
+  "Q1640519": {
+   "en": "Lake Tharthar",
+   "ja": "サルサール湖"
+  },
+  "Q1641126": {
+   "en": "Kaçkar Dağı"
+  },
+  "Q1641485": {
+   "en": "Prince Charles Mountains",
+   "ja": "プリンス・チャールズ山地"
+  },
+  "Q1642538": {
+   "en": "King's Peak"
+  },
+  "Q1644776": {
+   "en": "Culuene River"
+  },
+  "Q1649074": {
+   "en": "Mount Heha",
+   "ja": "ヘハ山"
+  },
+  "Q1650057": {
+   "en": "Ivindo River",
+   "ja": "イヴィンド川"
+  },
+  "Q1660903": {
+   "en": "Inangahua River"
+  },
+  "Q1661830": {
+   "en": "Indravati River",
+   "ja": "インドラヴァティ川"
+  },
+  "Q1670841": {
+   "en": "Ordos Desert",
+   "ja": "オルドス地方"
+  },
+  "Q1675657": {
+   "en": "Ivanhoe River"
+  },
+  "Q1676050": {
+   "en": "Ivankovo Reservoir",
+   "ja": "イヴァンコヴォ貯水湖"
+  },
+  "Q1699782": {
+   "en": "John Day River",
+   "ja": "ジョン・デイ川"
+  },
+  "Q1699973": {
+   "en": "Wiyâshâkimî Lake"
+  },
+  "Q1700320": {
+   "en": "Kerr Lake"
+  },
+  "Q1703405": {
+   "en": "Jones Sound",
+   "ja": "ジョーンズ海峡"
+  },
+  "Q1706655": {
+   "en": "Joseph Bonaparte Gulf",
+   "ja": "ジョセフ・ボナパルト湾"
+  },
+  "Q1718336": {
+   "en": "Mount Obama",
+   "ja": "オバマ山"
+  },
+  "Q1718641": {
+   "en": "Karamea River"
+  },
+  "Q1724008": {
+   "en": "Purari River"
+  },
+  "Q1725372": {
+   "en": "Tongariro River"
+  },
+  "Q1726738": {
+   "en": "Chixoy River",
+   "ja": "チクソイ川"
+  },
+  "Q1737059": {
+   "en": "Mount Waddington",
+   "ja": "ワディントン山"
+  },
+  "Q1737137": {
+   "en": "Kaunas Reservoir"
+  },
+  "Q1737731": {
+   "en": "Keele Peak",
+   "ja": "キール・ピーク"
+  },
+  "Q1738491": {
+   "en": "Kemijärvi"
+  },
+  "Q1739672": {
+   "en": "Pearl River",
+   "ja": "パール川 (ミシシッピ州・ルイジアナ州)"
+  },
+  "Q1739872": {
+   "en": "Lake Keta"
+  },
+  "Q1740661": {
+   "en": "Khomas Highland"
+  },
+  "Q1744263": {
+   "en": "Klamath Mountains",
+   "ja": "クラマス山脈"
+  },
+  "Q1752870": {
+   "en": "Volcán Tacaná",
+   "ja": "タカナ山"
+  },
+  "Q1753121": {
+   "en": "Vestfjorden",
+   "ja": "ベストフィヨルデン (ノルウェー)"
+  },
+  "Q1753509": {
+   "en": "Mount Agou",
+   "ja": "アグー山"
+  },
+  "Q1753730": {
+   "en": "Emba Soira",
+   "ja": "ソイラ山"
+  },
+  "Q1753873": {
+   "en": "Mexican Plateau",
+   "ja": "メキシコ高原"
+  },
+  "Q1755015": {
+   "en": "North Platte River",
+   "ja": "ノース・プラット川"
+  },
+  "Q1757394": {
+   "en": "Doce River",
+   "ja": "ドセ谷"
+  },
+  "Q1757739": {
+   "en": "Lake Argyle",
+   "ja": "アーガイル湖"
+  },
+  "Q1760356": {
+   "en": "Stora Lulevatten"
+  },
+  "Q1760800": {
+   "en": "Pit River",
+   "ja": "ピット川"
+  },
+  "Q1760978": {
+   "en": "Piton de la Petite Rivière Noire",
+   "ja": "ラ・プティ・リヴィエール・ノワール山"
+  },
+  "Q1769804": {
+   "en": "Oksskolten",
+   "ja": "オクスコルテン山"
+  },
+  "Q1774474": {
+   "en": "Lake Bolshoye Morskoye"
+  },
+  "Q1774501": {
+   "en": "Nerpichye"
+  },
+  "Q1774690": {
+   "en": "Chalbi Desert",
+   "ja": "チャルビ砂漠"
+  },
+  "Q1776556": {
+   "en": "Kluane Lake"
+  },
+  "Q1777782": {
+   "en": "Snåsavatnet"
+  },
+  "Q1778017": {
+   "en": "Kobuk River",
+   "ja": "コバック川"
+  },
+  "Q1781219": {
+   "en": "Rokel River"
+  },
+  "Q1781597": {
+   "en": "Kotto River",
+   "ja": "コット川"
+  },
+  "Q1781818": {
+   "en": "Sebago Lake"
+  },
+  "Q1783725": {
+   "en": "Pahang River",
+   "ja": "パハン川"
+  },
+  "Q1784612": {
+   "en": "Selennyakh River",
+   "ja": "セレニヤフ川"
+  },
+  "Q1786498": {
+   "en": "Lake Vivi",
+   "ja": "ヴィヴィ湖"
+  },
+  "Q1786720": {
+   "en": "Krasnoyarsk Reservoir"
+  },
+  "Q1786723": {
+   "en": "Krasnoye Lake"
+  },
+  "Q1788401": {
+   "en": "Mount Meharry",
+   "ja": "メハリー山"
+  },
+  "Q1793276": {
+   "en": "Lake Istokpoga"
+  },
+  "Q1796011": {
+   "en": "Queen Charlotte Strait",
+   "ja": "クイーン・シャーロット海峡"
+  },
+  "Q1796029": {
+   "en": "Queen Maud Mountains",
+   "ja": "クイーンモード山脈"
+  },
+  "Q1799381": {
+   "en": "Lake Labaz"
+  },
+  "Q1799611": {
+   "en": "Lac Sakami"
+  },
+  "Q1800398": {
+   "en": "Ranco Lake",
+   "ja": "ランコ湖"
+  },
+  "Q1800404": {
+   "en": "Rupanco Lake"
+  },
+  "Q1800933": {
+   "en": "Lake George"
+  },
+  "Q1800945": {
+   "en": "Lake Hartwell",
+   "ja": "ハートウェル湖"
+  },
+  "Q1800949": {
+   "en": "Lake Hauroko",
+   "ja": "ハウロコ湖"
+  },
+  "Q1801005": {
+   "en": "Lake Meredith"
+  },
+  "Q1801012": {
+   "en": "Lake Mohave",
+   "ja": "モハーベ湖"
+  },
+  "Q1801067": {
+   "en": "Lake Rotoiti",
+   "ja": "ロトイチ湖 (タスマン地方)"
+  },
+  "Q1801077": {
+   "en": "Lake Sakakawea",
+   "ja": "サカカウェア湖"
+  },
+  "Q1801110": {
+   "en": "Lake Winnebago",
+   "ja": "ウィネベーゴ湖"
+  },
+  "Q1804765": {
+   "en": "Tel River"
+  },
+  "Q1807196": {
+   "en": "Alaska North Slope",
+   "ja": "アラスカ北極圏"
+  },
+  "Q1808438": {
+   "en": "Chulyshman",
+   "ja": "チュリシュマン川"
+  },
+  "Q1809877": {
+   "en": "Richelieu River",
+   "ja": "リシュリュー川"
+  },
+  "Q1810329": {
+   "en": "Wahiba Sands"
+  },
+  "Q1811114": {
+   "en": "Mount Gimie",
+   "ja": "ジミー山"
+  },
+  "Q1812063": {
+   "en": "Leech Lake",
+   "ja": "リーチ湖"
+  },
+  "Q1813795": {
+   "en": "White River",
+   "ja": "ホワイト川"
+  },
+  "Q1815535": {
+   "en": "Spruce Knob"
+  },
+  "Q1815821": {
+   "en": "Mount Darwin",
+   "ja": "ダーウィン山"
+  },
+  "Q1817102": {
+   "en": "Mackenzie Mountains",
+   "ja": "マッケンジー山脈"
+  },
+  "Q1839756": {
+   "en": "Torngat Mountains",
+   "ja": "トーンガット山脈"
+  },
+  "Q1848950": {
+   "en": "Rogue River",
+   "ja": "ローグ川 (オレゴン州)"
+  },
+  "Q1854502": {
+   "en": "Mount Hillaby",
+   "ja": "ヒラビー山"
+  },
+  "Q1858056": {
+   "en": "Katahdin",
+   "ja": "カタディン山"
+  },
+  "Q1858227": {
+   "en": "Mount Marcy",
+   "ja": "マーシー山"
+  },
+  "Q1859076": {
+   "en": "Mingachevir reservoir",
+   "ja": "ミンゲチェヴィル貯水池"
+  },
+  "Q1861088": {
+   "en": "Great Ruaha River",
+   "ja": "グレートルアハ川"
+  },
+  "Q1868580": {
+   "en": "Lokka Reservoir"
+  },
+  "Q1868712": {
+   "en": "Loma Mountains",
+   "ja": "ロマ山地"
+  },
+  "Q1877507": {
+   "en": "Lungwebungu River",
+   "ja": "ルングウェブング川"
+  },
+  "Q1878522": {
+   "en": "Taz Peninsula"
+  },
+  "Q1881042": {
+   "en": "Chota Nagpur Plateau",
+   "ja": "チョタナグプル高原"
+  },
+  "Q1883683": {
+   "en": "Mafadi",
+   "ja": "マファディ山"
+  },
+  "Q1888211": {
+   "en": "Southern Indian Lake",
+   "ja": "サザンインディアン湖"
+  },
+  "Q1888261": {
+   "en": "Yathkyed Lake"
+  },
+  "Q1888921": {
+   "en": "Sandy Lake"
+  },
+  "Q1889886": {
+   "en": "Yaqui River",
+   "ja": "ヤキ川"
+  },
+  "Q1892251": {
+   "en": "Marais des Cygnes River"
+  },
+  "Q1898305": {
+   "en": "Saharan Atlas",
+   "ja": "サハラ・アトラス山脈"
+  },
+  "Q1898456": {
+   "en": "Pelly River",
+   "ja": "ペリー川"
+  },
+  "Q1908889": {
+   "en": "Mato Grosso Plateau"
+  },
+  "Q1922260": {
+   "en": "Black River",
+   "ja": "ダー川"
+  },
+  "Q1929197": {
+   "en": "Mount Kirkpatrick",
+   "ja": "カークパトリック山"
+  },
+  "Q1936166": {
+   "en": "Wilsons Promontory",
+   "ja": "ウィルソンズ岬"
+  },
+  "Q1939518": {
+   "en": "Mitchell River",
+   "ja": "ミッチェル川"
+  },
+  "Q1940419": {
+   "en": "Whanganui River",
+   "ja": "ワンガヌイ川"
+  },
+  "Q1945432": {
+   "en": "Mont Panié",
+   "ja": "パニエ山"
+  },
+  "Q1945447": {
+   "en": "Mont Ross",
+   "ja": "ロス山"
+  },
+  "Q1950101": {
+   "en": "Motueka River"
+  },
+  "Q1950531": {
+   "en": "Mount Igikpak"
+  },
+  "Q1950593": {
+   "en": "Mount Mantalingajan",
+   "ja": "マンタリンガハン山"
+  },
+  "Q1950606": {
+   "en": "Mount Minto"
+  },
+  "Q1950800": {
+   "en": "Mount Vsevidof",
+   "ja": "ブセビドフ山"
+  },
+  "Q1950830": {
+   "en": "Mount Zeil"
+  },
+  "Q1950836": {
+   "en": "Mount Wuteve"
+  },
+  "Q1951029": {
+   "en": "Mousa Ali",
+   "ja": "ムーサ・アリ山"
+  },
+  "Q1951561": {
+   "en": "Mtorwi"
+  },
+  "Q1953957": {
+   "en": "Mus-Khaya",
+   "ja": "ムスハヤ山"
+  },
+  "Q1969324": {
+   "en": "Virihaure"
+  },
+  "Q1971319": {
+   "en": "Peak la Selle",
+   "ja": "ラ・セル山"
+  },
+  "Q1971856": {
+   "en": "Sea of the Hebrides",
+   "ja": "ヘブリディーズ海"
+  },
+  "Q1972978": {
+   "en": "Upper Klamath Lake",
+   "ja": "アッパークラマス湖"
+  },
+  "Q1973182": {
+   "en": "Ust-Ilimsk Reservoir"
+  },
+  "Q1973692": {
+   "en": "Norton Sound",
+   "ja": "ノートン湾"
+  },
+  "Q1974744": {
+   "en": "Amundsen Gulf",
+   "ja": "アムンゼン湾"
+  },
+  "Q1974954": {
+   "en": "Western Sayan",
+   "ja": "西サヤン山脈"
+  },
+  "Q2000567": {
+   "en": "North Channel",
+   "ja": "ノース海峡"
+  },
+  "Q2001150": {
+   "en": "Ouham River",
+   "ja": "ウハム川"
+  },
+  "Q2005708": {
+   "en": "O'Higgins/San Martín Lake",
+   "ja": "オイギンス湖"
+  },
+  "Q2007598": {
+   "en": "Dome F",
+   "ja": "ドームふじ基地"
+  },
+  "Q2007652": {
+   "en": "Lake Milh",
+   "ja": "ミル湖"
+  },
+  "Q2016601": {
+   "en": "Bol'shezemel'skaya Tundra"
+  },
+  "Q2028742": {
+   "en": "Ord River",
+   "ja": "オード川"
+  },
+  "Q2033236": {
+   "en": "Pamlico Sound",
+   "ja": "パムリコ湾"
+  },
+  "Q2033279": {
+   "en": "Waitaki River",
+   "ja": "ワイタキ川"
+  },
+  "Q2033447": {
+   "en": "Ouachita Mountains",
+   "ja": "ウォシタ山地"
+  },
+  "Q2039551": {
+   "en": "Lake Sasykkol",
+   "ja": "サスイクコリ湖"
+  },
+  "Q2060432": {
+   "en": "Baía de São Marcos"
+  },
+  "Q2062890": {
+   "en": "Queen Mary's Peak",
+   "ja": "クィーン・メアリー・ピーク"
+  },
+  "Q2062939": {
+   "en": "Karatau Mountains",
+   "ja": "カラタウ山脈"
+  },
+  "Q2064454": {
+   "en": "Ramu",
+   "ja": "ラム川"
+  },
+  "Q2064799": {
+   "en": "El Djouf"
+  },
+  "Q2065167": {
+   "en": "Vilyuy Reservoir"
+  },
+  "Q2078034": {
+   "en": "Grand Teton",
+   "ja": "グランド・ティトン"
+  },
+  "Q2088454": {
+   "en": "Registan Desert",
+   "ja": "レギスタン砂漠"
+  },
+  "Q2091859": {
+   "en": "Piako River"
+  },
+  "Q2092228": {
+   "en": "Monte San Valentin",
+   "ja": "サン・バレンティン山"
+  },
+  "Q2092378": {
+   "en": "Cerro Mogotón",
+   "ja": "モゴトン山"
+  },
+  "Q2092438": {
+   "en": "Sokoto River",
+   "ja": "ソコト川"
+  },
+  "Q2092571": {
+   "en": "Stikine River",
+   "ja": "スティキーン川"
+  },
+  "Q2092607": {
+   "en": "Roman-Kosh",
+   "ja": "ロマンコシ山"
+  },
+  "Q2096856": {
+   "en": "Pongola River",
+   "ja": "ポンゴラ川"
+  },
+  "Q2097444": {
+   "en": "Storfjorden",
+   "ja": "ストールフィヨルド"
+  },
+  "Q2097617": {
+   "en": "Salish Sea",
+   "ja": "セイリッシュ海"
+  },
+  "Q2102394": {
+   "en": "Saser Kangri",
+   "ja": "サセルカンリⅡ峰"
+  },
+  "Q2105296": {
+   "en": "Porttipahta Reservoir"
+  },
+  "Q2116752": {
+   "en": "Cheyenne River",
+   "ja": "シャイアン川"
+  },
+  "Q2117684": {
+   "en": "Pukaki River",
+   "ja": "プカキ川"
+  },
+  "Q2117755": {
+   "en": "Marico River",
+   "ja": "マリコ川"
+  },
+  "Q2118899": {
+   "en": "Purog Kangri"
+  },
+  "Q2120979": {
+   "en": "Wilhelmina Mountains"
+  },
+  "Q2121241": {
+   "en": "Santa River",
+   "ja": "サンタ川"
+  },
+  "Q2128582": {
+   "en": "Rainy River",
+   "ja": "レイニー川"
+  },
+  "Q2128994": {
+   "en": "Rakaia River"
+  },
+  "Q2130963": {
+   "en": "Rangitaiki River",
+   "ja": "ランギタイキ川"
+  },
+  "Q2130977": {
+   "en": "Rangitata River"
+  },
+  "Q2140102": {
+   "en": "Kirthar Mountains",
+   "ja": "キルタル山脈"
+  },
+  "Q2143805": {
+   "en": "Thompson River",
+   "ja": "トンプソン川"
+  },
+  "Q2154955": {
+   "en": "Pico do Jabre"
+  },
+  "Q2155503": {
+   "en": "River Oich"
+  },
+  "Q2173757": {
+   "en": "Parbati River",
+   "ja": "パールバティ"
+  },
+  "Q2179011": {
+   "en": "Réservoir La Grande 3"
+  },
+  "Q2179140": {
+   "en": "Moctezuma River",
+   "ja": "モクテスマ川"
+  },
+  "Q2207501": {
+   "en": "Trombetas River"
+  },
+  "Q2211837": {
+   "en": "Saginaw Bay",
+   "ja": "サギノー湾"
+  },
+  "Q2223479": {
+   "en": "Santee River",
+   "ja": "サンティー川"
+  },
+  "Q2224845": {},
+  "Q2271725": {
+   "en": "Asahi-dake",
+   "ja": "旭岳",
+   "kana": [
+    "あさひだけ"
+   ]
+  },
+  "Q2272405": {
+   "en": "Gulf of Tehuantepec",
+   "ja": "テワンテペク湾"
+  },
+  "Q2276894": {
+   "en": "Shangani River"
+  },
+  "Q2279579": {
+   "en": "Shire River",
+   "ja": "シーレ川"
+  },
+  "Q2291822": {
+   "en": "Skeena River",
+   "ja": "スキーナ川"
+  },
+  "Q2297877": {
+   "en": "Tombigbee River",
+   "ja": "トムビッグビー川"
+  },
+  "Q2298744": {
+   "en": "Lena Delta",
+   "ja": "レナ・デルタ"
+  },
+  "Q2299655": {
+   "en": "Suwannee River",
+   "ja": "スワニー川"
+  },
+  "Q2307145": {
+   "en": "Taieri River"
+  },
+  "Q2313261": {
+   "en": "Sprague River"
+  },
+  "Q2324718": {
+   "en": "Taritatu",
+   "ja": "タリタウ川"
+  },
+  "Q2326240": {
+   "en": "Kronotsky Gulf"
+  },
+  "Q2328243": {
+   "en": "Gulf of Corcovado",
+   "ja": "コルコバド湾"
+  },
+  "Q2328821": {
+   "en": "Pedra da Mina",
+   "ja": "ペドラ・ダ・ミーナ山"
+  },
+  "Q2331044": {
+   "en": "Stanislaus River",
+   "ja": "スタニスラウス川"
+  },
+  "Q2333457": {
+   "en": "Osa Peninsula",
+   "ja": "オーサ半島"
+  },
+  "Q2336534": {
+   "en": "Melville Bay",
+   "ja": "メルヴィル湾"
+  },
+  "Q2338605": {
+   "en": "Kaduna River",
+   "ja": "カドゥナ川"
+  },
+  "Q2341287": {
+   "en": "Ying River",
+   "ja": "潁河"
+  },
+  "Q2356478": {
+   "en": "Dasht-e Margo",
+   "ja": "マーゴ砂漠"
+  },
+  "Q2363133": {
+   "en": "Yana Bay"
+  },
+  "Q2383371": {
+   "en": "Tidighin"
+  },
+  "Q2391874": {
+   "en": "Karaginsky Gulf",
+   "ja": "カラギンスキー湾"
+  },
+  "Q2412334": {
+   "en": "Meade River"
+  },
+  "Q2416760": {
+   "en": "Thelon River",
+   "ja": "セロン川"
+  },
+  "Q2422162": {
+   "en": "Mont Ngaoui",
+   "ja": "ンガウィ山"
+  },
+  "Q2423275": {
+   "en": "Ibicuí River",
+   "ja": "イビクイ川"
+  },
+  "Q2426550": {
+   "en": "Airag Lake",
+   "ja": "アイラグ・ヌール"
+  },
+  "Q2439795": {
+   "en": "Cardiel Lake"
+  },
+  "Q2450069": {
+   "en": "Kamchatka Bay",
+   "ja": "カムチャツカ湾"
+  },
+  "Q2452912": {
+   "en": "Maputo River",
+   "ja": "マプト川"
+  },
+  "Q2453582": {
+   "en": "Trinity Lake",
+   "ja": "トリニティ湖"
+  },
+  "Q2454806": {
+   "en": "Kushmurun"
+  },
+  "Q2459279": {
+   "en": "Tugaloo River",
+   "ja": "トゥガルー川"
+  },
+  "Q2459408": {
+   "en": "Tukituki River"
+  },
+  "Q2464613": {
+   "en": "Cape Zhelaniya",
+   "ja": "ジェラニエ岬"
+  },
+  "Q2465863": {
+   "en": "Onilahy River"
+  },
+  "Q2476728": {
+   "en": "Ozhogino Lake"
+  },
+  "Q2496852": {
+   "en": "Bluff Knoll",
+   "ja": "ブラフノール"
+  },
+  "Q2539134": {
+   "en": "Wager Bay",
+   "ja": "ウェイガー湾"
+  },
+  "Q2539972": {
+   "en": "Lake Habbaniyah",
+   "ja": "ハバニヤー湖"
+  },
+  "Q2540733": {
+   "en": "Wairau River"
+  },
+  "Q2550799": {
+   "en": "Bellevue de l'Inini",
+   "ja": "ベルヴューデリーニニ山"
+  },
+  "Q2565098": {
+   "en": "Queen Charlotte Sound",
+   "ja": "クィーンシャーロット海峡 (カナダ)"
+  },
+  "Q2565430": {
+   "en": "Dulce River",
+   "ja": "ドゥルセ川"
+  },
+  "Q2566649": {
+   "en": "Wheeler Peak",
+   "ja": "ホイーラー・ピーク (ネバダ州)"
+  },
+  "Q2568708": {
+   "en": "Milna",
+   "ja": "新知岳"
+  },
+  "Q2570858": {
+   "en": "Telmen Lake"
+  },
+  "Q2576979": {
+   "en": "Zeya Reservoir"
+  },
+  "Q2587598": {
+   "en": "Teke"
+  },
+  "Q2597340": {
+   "en": "Chin Hills",
+   "ja": "チン丘陵"
+  },
+  "Q2611819": {
+   "en": "Carcarañá River"
+  },
+  "Q2618598": {
+   "en": "Una River"
+  },
+  "Q2619442": {
+   "en": "Tumnin"
+  },
+  "Q2635327": {
+   "en": "Tshuapa River",
+   "ja": "ツアパ川"
+  },
+  "Q2639171": {
+   "en": "Brahmani River",
+   "ja": "ブラーフマニー川"
+  },
+  "Q2639916": {
+   "en": "Mogotoyevo Lake"
+  },
+  "Q2640299": {
+   "en": "Lake Sartlan"
+  },
+  "Q2642276": {
+   "en": "Lake Kuchuk"
+  },
+  "Q2645279": {
+   "en": "Litani"
+  },
+  "Q2646673": {
+   "en": "Bear Peninsula",
+   "ja": "ベア半島"
+  },
+  "Q2646682": {
+   "en": "Fletcher Peninsula"
+  },
+  "Q2646770": {
+   "en": "Canisteo Peninsula",
+   "ja": "カニステオ半島"
+  },
+  "Q2646966": {
+   "en": "King Peninsula"
+  },
+  "Q2648857": {
+   "en": "Ritacuba Blanco",
+   "ja": "リタクバ・ブランコ"
+  },
+  "Q2659831": {
+   "en": "Äyke"
+  },
+  "Q2661731": {
+   "en": "Alima",
+   "ja": "アリマ川"
+  },
+  "Q2666968": {
+   "en": "Mount Victoria"
+  },
+  "Q2668029": {
+   "en": "Lake Hammar",
+   "ja": "ハンマール湖"
+  },
+  "Q2669549": {
+   "en": "Yu River",
+   "ja": "鬱江"
+  },
+  "Q2670262": {
+   "en": "Jari River"
+  },
+  "Q2680567": {
+   "en": "Kemp Peninsula"
+  },
+  "Q2680627": {
+   "en": "Smith Peninsula"
+  },
+  "Q2680905": {
+   "en": "Mawson Peninsula"
+  },
+  "Q2681634": {
+   "en": "Riiser-Larsen Peninsula"
+  },
+  "Q2696459": {
+   "en": "Mowdok tiang"
+  },
+  "Q2714342": {
+   "en": "Cerro de Punta",
+   "ja": "プンタ山"
+  },
+  "Q2717631": {
+   "en": "Ivaí River"
+  },
+  "Q2721959": {
+   "en": "Dood Tsagaan Lake"
+  },
+  "Q2721984": {
+   "en": "Sangiin Dalai Lake",
+   "ja": "サンギンダライ湖"
+  },
+  "Q2722327": {
+   "en": "Étang Saumâtre",
+   "ja": "ソマートル池"
+  },
+  "Q2722701": {
+   "en": "Banas River",
+   "ja": "バナス"
+  },
+  "Q2736616": {
+   "en": "Asahan River",
+   "ja": "アサハン川"
+  },
+  "Q2738652": {
+   "en": "Fimi River",
+   "ja": "フィミ川"
+  },
+  "Q2740752": {
+   "en": "Borborema Plateau",
+   "ja": "ボルボレマ高原"
+  },
+  "Q2742774": {
+   "en": "Jequitinhonha River",
+   "ja": "ジェキティニョニャ川"
+  },
+  "Q2744214": {
+   "en": "Mount Ishizuchi",
+   "ja": "石鎚山",
+   "kana": [
+    "いしづちさん"
+   ]
+  },
+  "Q2745932": {
+   "en": "Wind River",
+   "ja": "ウィンド川"
+  },
+  "Q2750140": {
+   "en": "Kagera River",
+   "ja": "カゲラ川"
+  },
+  "Q2752709": {
+   "en": "Kabalebo River"
+  },
+  "Q2781219": {
+   "en": "Kentucky Lake"
+  },
+  "Q2829107": {
+   "en": "Akobo River"
+  },
+  "Q2831049": {
+   "en": "George VI Sound"
+  },
+  "Q2839193": {
+   "en": "Tercero River",
+   "ja": "リオ・テルセオ"
+  },
+  "Q2883844": {
+   "en": "Sous River",
+   "ja": "スース川"
+  },
+  "Q2892300": {
+   "en": "Bayou Lafourche",
+   "ja": "バイユー・ラフォーシュ"
+  },
+  "Q2895205": {
+   "en": "Ahmar Mountains"
+  },
+  "Q2913098": {
+   "en": "Pensacola Mountains",
+   "ja": "ペンサコーラ山脈"
+  },
+  "Q2946767": {
+   "en": "Cerro Nube Flane"
+  },
+  "Q2961771": {
+   "en": "New Guinea Highlands",
+   "ja": "ニューギニア高地"
+  },
+  "Q2977103": {
+   "en": "Mount Tate",
+   "ja": "立山",
+   "kana": [
+    "たてやま"
+   ],
+   "hiragana": [
+    "たてやま"
+   ]
+  },
+  "Q2982888": {
+   "en": "Sarykopa"
+  },
+  "Q2992976": {
+   "en": "Congaree River",
+   "ja": "コンガリー川"
+  },
+  "Q2996806": {
+   "en": "Bustakh"
+  },
+  "Q3003173": {
+   "en": "Crocus Hill",
+   "ja": "クロッカス・ヒル"
+  },
+  "Q3005470": {
+   "en": "Crown Mountain"
+  },
+  "Q3011855": {
+   "en": "Lucala River"
+  },
+  "Q3022142": {
+   "en": "Demirkazık Peak"
+  },
+  "Q3042661": {
+   "en": "Franklin D. Roosevelt Lake",
+   "ja": "ルーズベルト湖"
+  },
+  "Q3044073": {
+   "en": "Sapitwa"
+  },
+  "Q3044581": {
+   "en": "Pico Paraná"
+  },
+  "Q3045552": {
+   "en": "Dome C",
+   "ja": "ドームC"
+  },
+  "Q3048266": {
+   "en": "Inkisi River",
+   "ja": "インキシ川"
+  },
+  "Q3048862": {
+   "en": "Eel River",
+   "ja": "イール川 (カリフォルニア州)"
+  },
+  "Q3051597": {
+   "en": "Morne de la Grande Montagne",
+   "ja": "モルヌ・デ・ラ・グランデ・モンターニュ"
+  },
+  "Q3055081": {
+   "en": "Morne du Vitet",
+   "ja": "モメ・ドゥ・ヴィティト山"
+  },
+  "Q3056157": {
+   "en": "Erg Chech"
+  },
+  "Q3056158": {
+   "en": "Erg Iguidi",
+   "ja": "イギディ砂漠"
+  },
+  "Q3070397": {
+   "en": "Mount Anglem / Hananui",
+   "ja": "アングレム山"
+  },
+  "Q3087412": {
+   "en": "Santiago River",
+   "ja": "サンチアゴ川 (アマゾン川)"
+  },
+  "Q3109835": {
+   "en": "Naga Hills",
+   "ja": "ナガ丘陵"
+  },
+  "Q3113296": {
+   "en": "Mont Nabemba",
+   "ja": "ナベンバ山"
+  },
+  "Q3113637": {
+   "en": "Big Rideau Lake"
+  },
+  "Q3117703": {
+   "en": "Takuan Group",
+   "ja": "タクアン山"
+  },
+  "Q3130973": {
+   "en": "Rio das Mortes"
+  },
+  "Q3132789": {
+   "en": "Wainganga River",
+   "ja": "ワインガンガ川"
+  },
+  "Q3134829": {
+   "en": "Ngounie River",
+   "ja": "ングニエ川"
+  },
+  "Q3143042": {
+   "en": "Dena",
+   "ja": "デナー山"
+  },
+  "Q3179125": {
+   "en": "Pibor River"
+  },
+  "Q3182012": {
+   "en": "Khasi Hills",
+   "ja": "カーシ丘陵"
+  },
+  "Q3182712": {
+   "en": "Kaladan River",
+   "ja": "カラダン川"
+  },
+  "Q3210770": {
+   "en": "Mont Bengoué"
+  },
+  "Q3214697": {
+   "en": "Aishihik Lake"
+  },
+  "Q3214793": {
+   "en": "Lake Carnegie"
+  },
+  "Q3214801": {
+   "en": "Chesuncook Lake"
+  },
+  "Q3214886": {
+   "en": "Lac Fontana"
+  },
+  "Q3214923": {
+   "en": "Hebgen Lake"
+  },
+  "Q3214981": {
+   "en": "Lake Kissimmee"
+  },
+  "Q3215037": {
+   "en": "Malheur Lake",
+   "ja": "マルヒュア湖"
+  },
+  "Q3215071": {
+   "en": "Lake Mulwala"
+  },
+  "Q3215078": {
+   "en": "Lake Musters"
+  },
+  "Q3215083": {
+   "en": "Lac Naococane"
+  },
+  "Q3215139": {
+   "en": "Lac Plétipi"
+  },
+  "Q3215164": {
+   "en": "Lake Rossignol"
+  },
+  "Q3215207": {
+   "en": "Sobach'ye Ozero"
+  },
+  "Q3215219": {
+   "en": "Lake Seminole"
+  },
+  "Q3215230": {
+   "en": "Lake Texoma"
+  },
+  "Q3215567": {
+   "en": "Lago Tucuruí"
+  },
+  "Q3215670": {
+   "en": "Lac des Mille Lacs"
+  },
+  "Q3215749": {
+   "en": "Lago La Plata"
+  },
+  "Q3215856": {
+   "en": "Chiputneticook Lakes",
+   "ja": "チプトネティクック湖"
+  },
+  "Q3216533": {
+   "en": "Lalla-Khedidja",
+   "ja": "ララ・ケディジャ"
+  },
+  "Q3233971": {
+   "en": "Dampier Strait",
+   "ja": "ダンピア海峡 (インドネシア)"
+  },
+  "Q3234165": {
+   "en": "Sobradinho Reservoir",
+   "ja": "ソブラジーニョ湖"
+  },
+  "Q3236437": {
+   "en": "Tumbes River",
+   "ja": "トゥンベス川"
+  },
+  "Q3246200": {
+   "en": "Musandam Peninsula",
+   "ja": "ムサンダム半島"
+  },
+  "Q3258735": {
+   "en": "Lokoro River"
+  },
+  "Q3264588": {
+   "en": "Lua"
+  },
+  "Q3276492": {
+   "en": "Rincón del Bonete Lake",
+   "ja": "リンコン・デル・ボネテ湖"
+  },
+  "Q3285958": {
+   "en": "Maningory River"
+  },
+  "Q3295796": {
+   "en": "Lake Lanier"
+  },
+  "Q3307186": {
+   "en": "Meta Incognita Peninsula",
+   "ja": "メタ・インカグニータ半島"
+  },
+  "Q3309948": {
+   "en": "Kajbagar"
+  },
+  "Q3312383": {
+   "en": "Gamtoos River"
+  },
+  "Q3320633": {
+   "en": "Mongala River",
+   "ja": "モンガラ川"
+  },
+  "Q3321683": {
+   "en": "Baldy Mountain"
+  },
+  "Q3321738": {
+   "en": "Mount Chamberlin"
+  },
+  "Q3321762": {
+   "en": "Mount Cleveland"
+  },
+  "Q3321804": {
+   "en": "Mount Caubvick"
+  },
+  "Q3321842": {
+   "en": "Mount Fridtjof Nansen"
+  },
+  "Q3321901": {
+   "en": "Mount Kaplan",
+   "ja": "カプラン山"
+  },
+  "Q3321953": {
+   "en": "Mont Mohi"
+  },
+  "Q3322001": {
+   "en": "Mount Oku",
+   "ja": "オク山"
+  },
+  "Q3322098": {
+   "en": "Mount San Lorenzo"
+  },
+  "Q3322162": {
+   "en": "Mont Tremblant"
+  },
+  "Q3326866": {
+   "en": "Murzuq Desert"
+  },
+  "Q3358037": {
+   "en": "North Aral Sea",
+   "ja": "北アラル海"
+  },
+  "Q3364408": {
+   "en": "San Gorgonio Mountain",
+   "ja": "サン・ゴーグニオ山"
+  },
+  "Q3376469": {
+   "en": "Isachsen Mountain"
+  },
+  "Q3382297": {
+   "en": "Crazy Peak"
+  },
+  "Q3394888": {
+   "en": "San Martin River"
+  },
+  "Q3453117": {
+   "en": "Ruki"
+  },
+  "Q3458705": {
+   "en": "Mira River"
+  },
+  "Q3491681": {
+   "en": "The Bluff",
+   "ja": "ザ・ブラフ"
+  },
+  "Q3492008": {
+   "en": "Blue Hills",
+   "ja": "ブルーヒルズ"
+  },
+  "Q3494060": {
+   "en": "Big Bend",
+   "ja": "ビッグベンド"
+  },
+  "Q3502754": {
+   "en": "Lake Gummare"
+  },
+  "Q3511603": {
+   "en": "Serebryansk Reservoir"
+  },
+  "Q3512918": {
+   "en": "Hailar River",
+   "ja": "ハイラル川"
+  },
+  "Q3513709": {
+   "en": "Tademaït"
+  },
+  "Q3518981": {
+   "en": "Teshekpuk Lake"
+  },
+  "Q3533921": {
+   "en": "Guru Shikhar",
+   "ja": "グル・シカル"
+  },
+  "Q3536528": {
+   "en": "Krishna Raja Sagara",
+   "ja": "クリシュナラージャサーガラ・ダム"
+  },
+  "Q3544493": {
+   "en": "Executive Committee Range",
+   "ja": "エグゼクティブ・コミッティー山脈"
+  },
+  "Q3548164": {
+   "en": "Mount Ulysses"
+  },
+  "Q3561541": {
+   "en": "Wheeler Lake",
+   "ja": "ウィーラー湖"
+  },
+  "Q3561592": {
+   "en": "Busani"
+  },
+  "Q3565914": {
+   "en": "Gorkoye (Chernokurynskoye)"
+  },
+  "Q3565995": {
+   "en": "Tandovo"
+  },
+  "Q3566268": {
+   "en": "Leushinsky Tuman"
+  },
+  "Q3595688": {
+   "en": "Kodachadri"
+  },
+  "Q3621380": {
+   "en": "Acarai Mountains"
+  },
+  "Q3623001": {
+   "en": "Yukon Plateau"
+  },
+  "Q3633526": {
+   "en": "Mania River",
+   "ja": "マニア川"
+  },
+  "Q3642203": {
+   "en": "Gourits River"
+  },
+  "Q3642884": {
+   "en": "Seweweekspoortpiek"
+  },
+  "Q3643149": {
+   "en": "Gamka River"
+  },
+  "Q3643513": {
+   "en": "Compassberg"
+  },
+  "Q3647352": {
+   "en": "Cojedes River"
+  },
+  "Q3647391": {
+   "en": "Jabal Arkanu"
+  },
+  "Q3658589": {
+   "en": "Caribou Mountains",
+   "ja": "カリブー山脈"
+  },
+  "Q3705234": {
+   "en": "Irrawaddy Delta",
+   "ja": "イラワジ・デルタ"
+  },
+  "Q3718531": {
+   "en": "Kukhtuy"
+  },
+  "Q3721036": {
+   "en": "Pico El Yunque"
+  },
+  "Q3775198": {
+   "en": "Chaco Austral"
+  },
+  "Q3815319": {
+   "en": "Cumberland Peninsula",
+   "ja": "カンバーランド半島"
+  },
+  "Q3817471": {
+   "en": "Picacho del Diablo"
+  },
+  "Q3820265": {
+   "en": "Chaco Boreal"
+  },
+  "Q3845122": {
+   "en": "Srepok River"
+  },
+  "Q3861086": {
+   "en": "Prince Albert Mountains",
+   "ja": "プリンス・アルバート山脈"
+  },
+  "Q3861688": {
+   "en": "Mount Lister"
+  },
+  "Q3861886": {
+   "en": "Qiajivik Mountain"
+  },
+  "Q3862020": {
+   "en": "Mount Sir Sandford"
+  },
+  "Q3862123": {
+   "en": "Monte Viglio"
+  },
+  "Q3887576": {
+   "en": "Outlook Peak",
+   "ja": "アウトルック・ピーク"
+  },
+  "Q4062402": {
+   "en": "Nganglong Mountains"
+  },
+  "Q4092295": {
+   "en": "Bolshoe Eravnoe"
+  },
+  "Q4092460": {
+   "en": "Bolshoye Topolnoye"
+  },
+  "Q4092898": {
+   "en": "Bolshoy Uvat"
+  },
+  "Q4115817": {
+   "en": "Jabal al-Lawz"
+  },
+  "Q4115846": {
+   "en": "Djebel Chélia"
+  },
+  "Q4128895": {
+   "en": "Gyaring Lake",
+   "ja": "ギャリン湖"
+  },
+  "Q4151226": {
+   "en": "Guanting Shuiku"
+  },
+  "Q4169149": {
+   "en": "Seno Otway",
+   "ja": "セノ・オトウェイ"
+  },
+  "Q4198953": {
+   "en": "Ik"
+  },
+  "Q4228232": {
+   "en": "Kolozero"
+  },
+  "Q4230794": {
+   "en": "Konzhakovsky Kamen"
+  },
+  "Q4235571": {
+   "en": "Kostroma Reservoir",
+   "ja": "コストロマ貯水池"
+  },
+  "Q4244492": {
+   "en": "Siletiteniz"
+  },
+  "Q4262256": {
+   "en": "Lynx Lake"
+  },
+  "Q4275770": {
+   "en": "Mackenzie Bay",
+   "ja": "マッケンジー湾"
+  },
+  "Q4309904": {
+   "en": "Lake Marion"
+  },
+  "Q4362531": {
+   "en": "Pik BAM"
+  },
+  "Q4371020": {
+   "en": "Pyagin Peninsula"
+  },
+  "Q4373293": {
+   "en": "Portnyagino Lake"
+  },
+  "Q4380977": {
+   "en": "Mount Lamlam",
+   "ja": "ラムラム山"
+  },
+  "Q4406902": {
+   "en": "Samotlor Lake"
+  },
+  "Q4421491": {
+   "en": "Skalisty Golets"
+  },
+  "Q4428523": {
+   "en": "Soluntakh"
+  },
+  "Q4442785": {
+   "en": "Gora Stokap",
+   "ja": "西単冠山"
+  },
+  "Q4461133": {},
+  "Q4468440": {
+   "en": "White Mountain Peak",
+   "ja": "ホワイトマウンテンピーク"
+  },
+  "Q4492006": {
+   "en": "Fort Peck Lake",
+   "ja": "フォート・ペック湖"
+  },
+  "Q4492616": {
+   "en": "Fraser Plateau"
+  },
+  "Q4502055": {
+   "en": "Khuvkhoitun"
+  },
+  "Q4521100": {
+   "en": "Mount Yonaha",
+   "ja": "与那覇岳",
+   "kana": [
+    "よなはだけ"
+   ]
+  },
+  "Q4529522": {
+   "en": "Ebeyty"
+  },
+  "Q4529821": {
+   "en": "Mount Eddy"
+  },
+  "Q4529916": {
+   "en": "Ford Ranges",
+   "ja": "フォード山脈"
+  },
+  "Q4537513": {
+   "en": "Yam-Alin",
+   "ja": "ヤム＝アリニ山脈"
+  },
+  "Q4538999": {
+   "en": "Yarroto Pervoe"
+  },
+  "Q4539001": {
+   "en": "Yarroto Vtoroe"
+  },
+  "Q4539674": {
+   "en": "Yakhtur"
+  },
+  "Q4699515": {
+   "en": "Ajajú River"
+  },
+  "Q4701734": {
+   "en": "Aksai Chin Lake",
+   "ja": "アクサイチン湖"
+  },
+  "Q4754193": {
+   "en": "Anderson Summit"
+  },
+  "Q4761833": {
+   "en": "Ang Laren Lake"
+  },
+  "Q4770458": {
+   "en": "Aïna River",
+   "ja": "アイナ川"
+  },
+  "Q4778813": {
+   "en": "Aoukar Depression"
+  },
+  "Q4786422": {
+   "en": "Licungo River",
+   "ja": "リクンゴ川"
+  },
+  "Q4786963": {
+   "en": "Gongola River"
+  },
+  "Q4786970": {
+   "en": "Hadejia River",
+   "ja": "アデジャ川"
+  },
+  "Q4787012": {
+   "en": "Ogun River"
+  },
+  "Q4788899": {
+   "en": "Kangen River"
+  },
+  "Q4794486": {
+   "en": "Cordillera Oriental",
+   "ja": "オリエンタル山脈 (ペルー)"
+  },
+  "Q4809051": {
+   "en": "Lake Buyo",
+   "ja": "ブヨ湖"
+  },
+  "Q4813094": {
+   "en": "Atengo River"
+  },
+  "Q4814791": {
+   "en": "White Nile",
+   "ja": "白ナイル川"
+  },
+  "Q4848613": {
+   "en": "Baird Inlet"
+  },
+  "Q4848635": {
+   "en": "Bairiga",
+   "ja": "ルオニイ"
+  },
+  "Q4863367": {
+   "en": "Barren Grounds"
+  },
+  "Q4873719": {
+   "en": "Bavispe River"
+  },
+  "Q4876800": {
+   "en": "Beartown Mountain"
+  },
+  "Q4957685": {
+   "en": "Brantley Lake"
+  },
+  "Q4967120": {
+   "en": "Falcon International Reservoir",
+   "ja": "ファルコン湖"
+  },
+  "Q4991540": {
+   "en": "Serengeti",
+   "ja": "セレンゲティ"
+  },
+  "Q5015210": {
+   "en": "Caballo Lake"
+  },
+  "Q5034204": {
+   "en": "Canyon Ferry Lake",
+   "ja": "キャニオン・フェリー湖"
+  },
+  "Q5049166": {
+   "en": "Cass Lake",
+   "ja": "カス湖"
+  },
+  "Q5061389": {
+   "en": "Central Makran Range"
+  },
+  "Q5072889": {
+   "en": "Chapada do Araripe",
+   "ja": "アラリペ台地"
+  },
+  "Q5096447": {
+   "en": "Chico River"
+  },
+  "Q5138059": {
+   "en": "Coari River"
+  },
+  "Q5147805": {
+   "en": "Alto de Coloane",
+   "ja": "疊石塘山"
+  },
+  "Q5158618": {
+   "en": "Conchas Lake"
+  },
+  "Q5167806": {
+   "en": "Cooper River",
+   "ja": "クーパー川"
+  },
+  "Q5170043": {
+   "en": "Cordova Bay"
+  },
+  "Q5179786": {
+   "en": "Cowpasture River"
+  },
+  "Q5189745": {
+   "en": "Cruach nam Miseag"
+  },
+  "Q5191296": {
+   "en": "Crystal Mountain"
+  },
+  "Q5207299": {
+   "en": "Ba River",
+   "ja": "ダラン川"
+  },
+  "Q5214284": {
+   "en": "Dan River"
+  },
+  "Q5267436": {
+   "en": "Devils Paw"
+  },
+  "Q5295998": {
+   "en": "Dongping Lake",
+   "ja": "東平湖"
+  },
+  "Q5299851": {
+   "en": "Double Mountain Fork Brazos River"
+  },
+  "Q5306381": {
+   "en": "Napier Mountains"
+  },
+  "Q5333028": {
+   "en": "Tasiujaq",
+   "ja": "イクリプス海峡"
+  },
+  "Q5359306": {
+   "en": "Elephant Butte Reservoir"
+  },
+  "Q5366081": {
+   "en": "Daling River",
+   "ja": "大凌河"
+  },
+  "Q5377995": {
+   "en": "England Peak"
+  },
+  "Q5403409": {
+   "en": "Cerro San Miguel"
+  },
+  "Q5460053": {
+   "en": "Flood Range",
+   "ja": "フラッド山脈"
+  },
+  "Q5491299": {
+   "en": "Franklin Bay"
+  },
+  "Q5529425": {
+   "en": "Ge Lake"
+  },
+  "Q5530346": {
+   "en": "Geladaindong Peak",
+   "ja": "ゴラタントン山"
+  },
+  "Q5575508": {
+   "en": "Gobind Sagar"
+  },
+  "Q5605258": {
+   "en": "Viscount Melville Sound",
+   "ja": "バイカウントメルビル海峡"
+  },
+  "Q5616476": {
+   "en": "Guinea Highlands",
+   "ja": "ギニア高地"
+  },
+  "Q5619693": {
+   "en": "Guozha Lake"
+  },
+  "Q5623127": {
+   "en": "Ing. Generoso Campilongo Reservoir"
+  },
+  "Q5644542": {
+   "en": "Hamgyong Mountains"
+  },
+  "Q5659764": {
+   "en": "Harney Lake",
+   "ja": "ハーニー湖"
+  },
+  "Q5687603": {
+   "en": "Kūh-e Hezār"
+  },
+  "Q5761832": {
+   "en": "Serra do Cachimbo"
+  },
+  "Q5830417": {},
+  "Q5830486": {
+   "en": "Guri Reservoir"
+  },
+  "Q5881339": {
+   "en": "Hollick-Kenyon Plateau"
+  },
+  "Q5895614": {
+   "en": "Hong Lake",
+   "ja": "洪湖 (湖)"
+  },
+  "Q5919800": {
+   "en": "Pic Paradis",
+   "ja": "ピク・パラディ"
+  },
+  "Q5922600": {
+   "en": "Howson Peak"
+  },
+  "Q5991460": {
+   "en": "Igan River"
+  },
+  "Q6095187": {
+   "en": "Ituxi River"
+  },
+  "Q6111566": {
+   "en": "Scott Mountains",
+   "ja": "スコット山脈"
+  },
+  "Q6132621": {
+   "en": "Nam Ngum Dam",
+   "ja": "ナムグムダム"
+  },
+  "Q6203420": {
+   "en": "Jiuling Mountains"
+  },
+  "Q6357023": {
+   "en": "Mount Sage",
+   "ja": "セージ山"
+  },
+  "Q6362901": {
+   "en": "Kangto"
+  },
+  "Q6380446": {
+   "en": "Kayan River",
+   "ja": "カヤン川"
+  },
+  "Q6389671": {
+   "en": "Kennedy Peak"
+  },
+  "Q6421145": {
+   "en": "Town Hill",
+   "ja": "タウン・ヒル"
+  },
+  "Q6452541": {
+   "en": "Kyrkjeskipet Peak"
+  },
+  "Q6468085": {
+   "en": "Lac Île-à-la-Crosse"
+  },
+  "Q6474916": {
+   "en": "Lake Barkley"
+  },
+  "Q6474964": {
+   "en": "Lac Bermen"
+  },
+  "Q6475111": {
+   "en": "Lake Burrendong"
+  },
+  "Q6475174": {
+   "en": "Lake Carey"
+  },
+  "Q6475894": {
+   "en": "Lake Francis Case",
+   "ja": "フランシス・ケース湖"
+  },
+  "Q6476029": {
+   "en": "Lake Granby"
+  },
+  "Q6476463": {
+   "en": "Lac Kipawa"
+  },
+  "Q6476851": {
+   "en": "Lake McConaughy",
+   "ja": "マッコーニイ湖"
+  },
+  "Q6476999": {
+   "en": "Lake Moultrie"
+  },
+  "Q6477034": {
+   "en": "Lake Murray",
+   "ja": "マレー湖"
+  },
+  "Q6477152": {
+   "en": "Lake Novillo"
+  },
+  "Q6477226": {
+   "en": "Lake Oroville"
+  },
+  "Q6477446": {
+   "en": "Lake Puma Yumco"
+  },
+  "Q6477455": {
+   "en": "Lac Péribonka"
+  },
+  "Q6477865": {
+   "en": "Lake Strom Thurmond",
+   "ja": "クラークスヒル湖"
+  },
+  "Q6478379": {
+   "en": "Lake Walcott"
+  },
+  "Q6478519": {
+   "en": "Lake Winnibigoshish"
+  },
+  "Q6543624": {
+   "en": "Liddon Gulf",
+   "ja": "リドン湾"
+  },
+  "Q6578056": {
+   "en": "Mount Selvili"
+  },
+  "Q6654097": {
+   "en": "Liushi Shan"
+  },
+  "Q6667090": {
+   "en": "Logan Martin Lake"
+  },
+  "Q6668076": {
+   "en": "Loi Leng"
+  },
+  "Q6673852": {
+   "en": "Longgan Lake"
+  },
+  "Q6692903": {
+   "en": "Lac Low"
+  },
+  "Q6703023": {
+   "en": "Lumaqangdong Co"
+  },
+  "Q6704603": {
+   "en": "Luoma Lake"
+  },
+  "Q6735274": {
+   "en": "Maicuru River"
+  },
+  "Q6748803": {
+   "en": "Manganui River"
+  },
+  "Q6772137": {
+   "en": "Marmion Lake"
+  },
+  "Q6798636": {
+   "en": "Mazong Mountain"
+  },
+  "Q6844402": {
+   "en": "Miguel Alemán Lake"
+  },
+  "Q6859416": {
+   "en": "Millerton Lake",
+   "ja": "ミラートン湖"
+  },
+  "Q6868864": {
+   "en": "Minnitaki Lake"
+  },
+  "Q6886521": {
+   "en": "Moawhango River"
+  },
+  "Q6897936": {
+   "en": "Monalanong Hill"
+  },
+  "Q6914192": {
+   "en": "Morro da Boa Vista"
+  },
+  "Q6919585": {
+   "en": "Mount Baldy"
+  },
+  "Q6920348": {
+   "en": "Mount Dalrymple"
+  },
+  "Q6920797": {
+   "en": "Mount Frank Rae"
+  },
+  "Q6922253": {
+   "en": "Mount Moresby"
+  },
+  "Q6922678": {
+   "en": "Mount Peale"
+  },
+  "Q6923490": {
+   "en": "Mount Satima"
+  },
+  "Q6924042": {
+   "en": "Tapuae-o-Uenuku"
+  },
+  "Q6947477": {
+   "en": "Myinmoletkat Taung"
+  },
+  "Q6950349": {
+   "en": "Mönkh Khairkhan"
+  },
+  "Q6961571": {
+   "en": "Namekagon River",
+   "ja": "ネームケーゴン川"
+  },
+  "Q7022474": {
+   "en": "Ngoc Linh",
+   "ja": "ゴクリン山"
+  },
+  "Q7054368": {
+   "en": "North Caribou Lake"
+  },
+  "Q7099902": {
+   "en": "Orari River"
+  },
+  "Q7107531": {
+   "en": "Ossokmanuan Reservoir"
+  },
+  "Q7144767": {
+   "en": "Pathfinder Reservoir"
+  },
+  "Q7188265": {
+   "en": "Phu Soi Dao"
+  },
+  "Q7191016": {
+   "en": "Pico Naiguatá"
+  },
+  "Q7230362": {
+   "en": "Porpoise Bay",
+   "ja": "ポーポイズ湾 (南極大陸)"
+  },
+  "Q7237856": {
+   "en": "Prairie Dog Town Fork Red River"
+  },
+  "Q7243787": {
+   "en": "Prince Albert Sound",
+   "ja": "プリンスアルバート湾"
+  },
+  "Q7294662": {
+   "en": "Ras Koh Hills",
+   "ja": "Ras Koh丘陵"
+  },
+  "Q7303773": {
+   "en": "Red Bluff Reservoir",
+   "ja": "レッド・ブラフ貯水池"
+  },
+  "Q7324843": {
+   "en": "Richard Collinson Inlet",
+   "ja": "リチャード・コリンソン湾"
+  },
+  "Q7330278": {
+   "en": "Toledo Bend Reservoir"
+  },
+  "Q7332083": {
+   "en": "Smith Mountain Lake",
+   "ja": "スミス・マウンテン・ダム"
+  },
+  "Q7332268": {
+   "en": "Stanley Reservoir"
+  },
+  "Q7333077": {
+   "en": "Walter F. George Lake"
+  },
+  "Q7334058": {
+   "en": "Rikkavesi"
+  },
+  "Q7348501": {
+   "en": "Sturgeon Lake"
+  },
+  "Q7358147": {
+   "en": "Lake Ballard"
+  },
+  "Q7359166": {
+   "en": "Scott Lake"
+  },
+  "Q7359179": {
+   "en": "Tobin Lake"
+  },
+  "Q7359539": {
+   "en": "Umfreville Lake"
+  },
+  "Q7365612": {
+   "en": "Rong River"
+  },
+  "Q7371097": {
+   "en": "Round Mountain"
+  },
+  "Q7374197": {
+   "en": "Liangzi Lake"
+  },
+  "Q7374641": {
+   "en": "Ulansuhai Nur",
+   "ja": "烏梁素海"
+  },
+  "Q7374652": {
+   "en": "Shijiu Lake"
+  },
+  "Q7375301": {
+   "en": "Split Lake"
+  },
+  "Q7375688": {
+   "en": "Ruakituri River"
+  },
+  "Q7384983": {
+   "en": "Rye Patch Reservoir"
+  },
+  "Q7396563": {
+   "en": "Sacajawea Peak"
+  },
+  "Q7404420": {
+   "en": "Salher"
+  },
+  "Q7405538": {
+   "en": "Salmon River Mountains"
+  },
+  "Q7415162": {
+   "en": "San Pedro y San Pablo River"
+  },
+  "Q7418705": {
+   "en": "Sankh River"
+  },
+  "Q7446846": {
+   "en": "Cape Datu, Borneo"
+  },
+  "Q7448930": {
+   "en": "Selwyn Mountains"
+  },
+  "Q7450889": {
+   "en": "Seno Skyring"
+  },
+  "Q7455221": {
+   "en": "Serra da Ibiapaba",
+   "ja": "イビアパパ山"
+  },
+  "Q7540328": {
+   "en": "Slide Mountain",
+   "ja": "スライド山"
+  },
+  "Q7545320": {
+   "en": "Smith Sound"
+  },
+  "Q7590407": {
+   "en": "St. Marys River"
+  },
+  "Q7680307": {
+   "en": "Talos Dome"
+  },
+  "Q7798675": {
+   "en": "Thudaka Peak"
+  },
+  "Q7821148": {
+   "en": "Tongtian River",
+   "ja": "通天河"
+  },
+  "Q7835655": {
+   "en": "Trapper Peak"
+  },
+  "Q7847152": {
+   "en": "Truchas Peak"
+  },
+  "Q7853674": {
+   "en": "Turakina River"
+  },
+  "Q7885257": {
+   "en": "Unini River",
+   "ja": "ウニニ川"
+  },
+  "Q7921060": {
+   "en": "Verde River"
+  },
+  "Q7942747": {
+   "en": "Baliem River"
+  },
+  "Q7960628": {
+   "en": "Waitoa River"
+  },
+  "Q8040226": {
+   "en": "Wynniatt Bay"
+  },
+  "Q8055142": {
+   "en": "Cuilco River"
+  },
+  "Q8060822": {
+   "en": "Yukon Flats"
+  },
+  "Q8075313": {
+   "en": "Zuo River",
+   "ja": "左江"
+  },
+  "Q8344261": {
+   "en": "Cerro Tres Picos"
+  },
+  "Q8463325": {
+   "en": "Cordillera Occidental",
+   "ja": "オクシデンタル山脈 (ペルー)"
+  },
+  "Q8519545": {
+   "en": "Junipero Serra Peak"
+  },
+  "Q8524981": {
+   "en": "Mount Osborn"
+  },
+  "Q8536063": {
+   "en": "Lunpo Gangri",
+   "ja": "ランポーガンリ"
+  },
+  "Q8536271": {
+   "en": "Mount Saramati",
+   "ja": "サラマティ山"
+  },
+  "Q8540007": {
+   "en": "Mount Kuju",
+   "ja": "久住山"
+  },
+  "Q8540195": {
+   "en": "Mount Dimlang"
+  },
+  "Q8665483": {
+   "en": "Black River",
+   "ja": "ブラック川"
+  },
+  "Q8775297": {
+   "en": "Buendía Reservoir"
+  },
+  "Q8775340": {
+   "en": "García Sola Reservoir",
+   "ja": "ガルシーア・ソラ貯水池"
+  },
+  "Q8878462": {
+   "en": "Lake Neale"
+  },
+  "Q9177711": {
+   "en": "Borohoro Mountains",
+   "ja": "ボロホロ山脈"
+  },
+  "Q9299577": {
+   "en": "Nhamundá River"
+  },
+  "Q9383203": {
+   "en": "Xau",
+   "ja": "サウ湖"
+  },
+  "Q10264912": {
+   "en": "Amazon Delta",
+   "ja": "アマゾン・デルタ"
+  },
+  "Q10269944": {
+   "en": "Zhalauly"
+  },
+  "Q10315644": {},
+  "Q10315670": {
+   "en": "Itaipu Reservoir"
+  },
+  "Q10362010": {
+   "en": "Indaiá River"
+  },
+  "Q10362057": {
+   "en": "Itiquira River"
+  },
+  "Q10362725": {
+   "en": "Verde River"
+  },
+  "Q10856094": {
+   "en": "Namhan River",
+   "ja": "南漢江"
+  },
+  "Q10902731": {
+   "en": "Beidagang Reservoir",
+   "ja": "北大港湿原"
+  },
+  "Q10906051": {
+   "en": "Huiten Nur"
+  },
+  "Q10990705": {
+   "en": "Olifants River"
+  },
+  "Q10995968": {
+   "en": "Kaptai Lake",
+   "ja": "カプタイ湖"
+  },
+  "Q11075233": {
+   "en": "Daiyun Shan"
+  },
+  "Q11087306": {
+   "en": "Ngangzê Co"
+  },
+  "Q11124334": {
+   "en": "Lake Wuchang"
+  },
+  "Q11143225": {
+   "en": "Quan River"
+  },
+  "Q11202446": {
+   "en": "Chico River"
+  },
+  "Q11681443": {
+   "en": "embalse de Orellana"
+  },
+  "Q11748964": {},
+  "Q11786221": {
+   "en": "Mount Ord"
+  },
+  "Q11878874": {
+   "en": "Upper Lough Erne"
+  },
+  "Q11929547": {
+   "en": "Kabbaldurga"
+  },
+  "Q11948856": {},
+  "Q12018576": {
+   "en": "Geren Cuo"
+  },
+  "Q12282935": {
+   "en": "Keele River",
+   "ja": "キール川"
+  },
+  "Q12341531": {
+   "en": "Whitefish Bay"
+  },
+  "Q12547114": {
+   "en": "Imantau"
+  },
+  "Q12958300": {
+   "en": "Mananantanana"
+  },
+  "Q13171265": {
+   "en": "Gora Manas"
+  },
+  "Q13359982": {
+   "en": "Daly River",
+   "ja": "デイリー川"
+  },
+  "Q13360737": {
+   "en": "Koli",
+   "ja": "コリ"
+  },
+  "Q13639872": {
+   "en": "Jones Mountains"
+  },
+  "Q14314106": {
+   "en": "Western Desert",
+   "ja": "西部砂漠 (エジプト)"
+  },
+  "Q14638138": {
+   "en": "Ogoki Reservoir"
+  },
+  "Q14638483": {
+   "en": "Long Lake"
+  },
+  "Q14683954": {
+   "en": "Shasta Lake",
+   "ja": "シャスタ湖"
+  },
+  "Q14707960": {
+   "en": "Haw River"
+  },
+  "Q14922567": {
+   "en": "Hurunui River"
+  },
+  "Q14951222": {
+   "en": "Fishers Peak"
+  },
+  "Q15056776": {
+   "en": "Hunsberge"
+  },
+  "Q15120698": {
+   "en": "Monts Bagzane",
+   "ja": "バグザーヌ山脈"
+  },
+  "Q15241934": {
+   "en": "Laurentian Upland",
+   "ja": "ローレンシャン高原"
+  },
+  "Q15262256": {
+   "en": "Ngaruroro River"
+  },
+  "Q15436784": {
+   "en": "Randijaure"
+  },
+  "Q15824957": {
+   "en": "Lac Chavigny"
+  },
+  "Q15890775": {
+   "en": "Nemor River",
+   "ja": "訥謨爾河"
+  },
+  "Q15907862": {
+   "en": "Wuding River"
+  },
+  "Q16252127": {
+   "en": "Atoyac River"
+  },
+  "Q16508570": {
+   "en": "Toktogul Reservoir",
+   "ja": "トクトグル貯水ダム"
+  },
+  "Q16821611": {
+   "en": "Mogalakwena River"
+  },
+  "Q16936775": {
+   "en": "Aqqikkol Hu"
+  },
+  "Q17347103": {
+   "en": "Lake Cowan"
+  },
+  "Q17635322": {
+   "en": "Mont Yapeitso"
+  },
+  "Q18340305": {
+   "en": "Gandak"
+  },
+  "Q18346196": {
+   "en": "Gregory Range"
+  },
+  "Q19459387": {
+   "en": "Kangju Kangri"
+  },
+  "Q19744727": {
+   "en": "Mountain Umsini"
+  },
+  "Q19819696": {
+   "en": "Isinga"
+  },
+  "Q19972176": {
+   "en": "Mbakaou Reservoir",
+   "ja": "ムバカウ湖"
+  },
+  "Q20155858": {},
+  "Q20190966": {},
+  "Q20191405": {
+   "en": "Shāh Fōlādī"
+  },
+  "Q21052208": {},
+  "Q21472459": {
+   "en": "Mount Seelig"
+  },
+  "Q21485532": {
+   "en": "Faure Peak"
+  },
+  "Q21519918": {
+   "en": "Karakol Peak",
+   "ja": "カラコル峰"
+  },
+  "Q21584061": {},
+  "Q21737779": {
+   "en": "Sikaram"
+  },
+  "Q21792454": {},
+  "Q21801008": {
+   "en": "Laguna Huatunas"
+  },
+  "Q21828387": {
+   "en": "Laguna Iberá"
+  },
+  "Q21837060": {},
+  "Q21842470": {
+   "en": "Embalse Ezequiel Ramos Mexía"
+  },
+  "Q21842912": {
+   "en": "Lake Colhué Huapi"
+  },
+  "Q21882542": {
+   "en": "Lake Wells"
+  },
+  "Q21885237": {
+   "en": "Saint Mary Peak"
+  },
+  "Q21886613": {
+   "en": "Lake Moore"
+  },
+  "Q21890550": {
+   "en": "Lake Everard"
+  },
+  "Q21890573": {
+   "en": "Lake Eyre North"
+  },
+  "Q21890578": {
+   "en": "Lake Eyre South"
+  },
+  "Q21891300": {
+   "en": "Lake Goongarrie"
+  },
+  "Q21894249": {
+   "en": "Black Mountain"
+  },
+  "Q21900255": {
+   "en": "River Tamar"
+  },
+  "Q21914849": {
+   "en": "Buckland Tableland"
+  },
+  "Q21916465": {
+   "en": "Cone Peak"
+  },
+  "Q21916518": {
+   "en": "Consuelo Peak"
+  },
+  "Q21917251": {
+   "en": "Barrington Tops"
+  },
+  "Q21960566": {
+   "en": "Lake Hume"
+  },
+  "Q21961599": {},
+  "Q22024948": {
+   "en": "Lagoa do Erepecur"
+  },
+  "Q22024985": {
+   "en": "Serra do Espinho"
+  },
+  "Q22027674": {
+   "en": "Serra Branca"
+  },
+  "Q22029420": {
+   "en": "Lago Grande"
+  },
+  "Q22041906": {
+   "en": "Serra Geral"
+  },
+  "Q22048129": {
+   "en": "Serra do Barbado"
+  },
+  "Q22048562": {
+   "en": "Lagoa dos Bois"
+  },
+  "Q22051739": {
+   "en": "Ribeira River"
+  },
+  "Q22071997": {
+   "en": "Serra da Mantiquiera"
+  },
+  "Q22072124": {
+   "en": "Água Vermelha Reservoir"
+  },
+  "Q22072127": {
+   "en": "Barra Bonita Reservoir"
+  },
+  "Q22072128": {
+   "en": "Bariri Reservoir"
+  },
+  "Q22074156": {
+   "en": "Contas River"
+  },
+  "Q22423345": {
+   "en": "Eskimo Lakes"
+  },
+  "Q22449163": {},
+  "Q22507743": {
+   "en": "Fraser River",
+   "ja": "フレーザー川 (ニューファンドランド・ラブラドール州)"
+  },
+  "Q22510041": {
+   "en": "Bamingui"
+  },
+  "Q22529966": {
+   "en": "Columbia Kootenay Mountain"
+  },
+  "Q22555212": {
+   "en": "Koukourou"
+  },
+  "Q22610852": {
+   "en": "Whitefish Lake"
+  },
+  "Q22617464": {
+   "en": "Lac Awapakamich"
+  },
+  "Q23014768": {
+   "en": "Kerey"
+  },
+  "Q23306705": {
+   "en": "Cerro de Los Inocentes"
+  },
+  "Q23651555": {
+   "en": "Cerro Cantillana"
+  },
+  "Q23685928": {
+   "en": "Cerro Maine Hanarí"
+  },
+  "Q23696492": {
+   "en": "Alto del Buey"
+  },
+  "Q23782559": {
+   "en": "Hamada de Tinrhert"
+  },
+  "Q23814924": {
+   "en": "Garet el Djenoun"
+  },
+  "Q23821373": {
+   "en": "Böhmerwald"
+  },
+  "Q23836082": {
+   "en": "Ahag"
+  },
+  "Q23938824": {
+   "en": "Rosetta Branch"
+  },
+  "Q23939923": {
+   "en": "Ramlo"
+  },
+  "Q23945221": {
+   "en": "Sahel"
+  },
+  "Q24001512": {
+   "en": "El Teleno"
+  },
+  "Q24026551": {},
+  "Q24028774": {},
+  "Q24032213": {},
+  "Q24611627": {
+   "en": "Lac Onangué"
+  },
+  "Q24821596": {
+   "en": "Mountain Abong Abong"
+  },
+  "Q24841936": {
+   "en": "Buku Saolat"
+  },
+  "Q24843788": {},
+  "Q24847854": {
+   "en": "Bukit Raya"
+  },
+  "Q24872503": {
+   "en": "Mount Merapi West Java"
+  },
+  "Q25018639": {
+   "en": "Fuyul Sojol"
+  },
+  "Q26783773": {},
+  "Q26787455": {},
+  "Q26794321": {},
+  "Q26813923": {},
+  "Q26875277": {
+   "en": "Kūh-e Fāreghān"
+  },
+  "Q26907338": {
+   "en": "Kūh-e Ḩājjī Ebrāhīm"
+  },
+  "Q26914610": {
+   "en": "Kūh-e Garīn"
+  },
+  "Q26975903": {
+   "en": "Kūh-e Nāy Band"
+  },
+  "Q27288676": {
+   "en": "Jirisan"
+  },
+  "Q27489229": {},
+  "Q27496722": {
+   "en": "Jabal Bin Ghunaymah"
+  },
+  "Q27515019": {},
+  "Q27519827": {
+   "en": "Adrar Bou Nasser"
+  },
+  "Q27617163": {},
+  "Q27696359": {
+   "en": "Shan Plateau"
+  },
+  "Q27779096": {
+   "en": "Cerro Viejo"
+  },
+  "Q27782811": {
+   "en": "Cerro Picacho La Laguna"
+  },
+  "Q27783532": {
+   "en": "Cerro Mohinora"
+  },
+  "Q27784509": {
+   "en": "Cerro El Jabali"
+  },
+  "Q27785012": {
+   "en": "Cerro Grande"
+  },
+  "Q27822359": {
+   "en": "Cerro San Rafael"
+  },
+  "Q27855886": {},
+  "Q28750379": {
+   "en": "Barsakelmes Lake"
+  },
+  "Q28794266": {
+   "en": "Aktag"
+  },
+  "Q28794387": {},
+  "Q28794395": {},
+  "Q28798322": {
+   "en": "Danjiangkou Reservoir",
+   "ja": "丹江口ダム"
+  },
+  "Q28809720": {
+   "en": "Manchurian Plain"
+  },
+  "Q28818890": {
+   "en": "Maotou Shan"
+  },
+  "Q28946068": {
+   "en": "Hongtu Zhang"
+  },
+  "Q29613993": {
+   "en": "Daba Shan"
+  },
+  "Q29620877": {
+   "en": "Huanggangliang"
+  },
+  "Q29620880": {
+   "en": "Huanggangshan"
+  },
+  "Q29976941": {
+   "en": "Jebel Oda"
+  },
+  "Q29988571": {
+   "en": "Duliu River"
+  },
+  "Q29990458": {
+   "en": "Wujia River"
+  },
+  "Q30890769": {
+   "en": "Koni Peninsula"
+  },
+  "Q31845278": {},
+  "Q31845317": {},
+  "Q31845950": {},
+  "Q31857611": {
+   "en": "Auob River"
+  },
+  "Q32213252": {
+   "en": "Grey River"
+  },
+  "Q32232090": {
+   "en": "Aoukalé"
+  },
+  "Q34955065": {
+   "en": "Yanisyoki"
+  },
+  "Q35246109": {
+   "en": "Rusizi"
+  },
+  "Q35283964": {
+   "en": "San Juan"
+  },
+  "Q35287082": {
+   "en": "San Pedro"
+  },
+  "Q35311383": {
+   "en": "Rungwa River"
+  },
+  "Q35350820": {
+   "en": "Katanga"
+  },
+  "Q35411574": {
+   "en": "Luwegu River",
+   "ja": "ルウェグ川"
+  },
+  "Q41566866": {
+   "en": "Ubol Ratana Reservoir"
+  },
+  "Q42749941": {
+   "en": "Baoulé River"
+  },
+  "Q48955716": {
+   "en": "Verkhnyaya Taymyra"
+  },
+  "Q55577225": {
+   "en": "Bunga River"
+  },
+  "Q60852769": {
+   "en": "Tambo River"
+  },
+  "Q95994331": {
+   "en": "Sefid River"
+  },
+  "Q106333833": {
+   "en": "Linyanti"
+  },
+  "Q131548893": {
+   "en": "Pembuang river"
+  }
+ }
+}

@@ -266,3 +266,135 @@ export interface ChizuGroup {
   /** The codes of the places in it, in order. */
   codes: string[];
 }
+
+/**
+ * What a named physical feature is: a kind of sea (`ocean`, `sea`, `gulf`, `bay`, `strait`, `channel`, `sound`,
+ * `fjord`, `inlet`, `lagoon`, `reef`), of lake (`lake`, `reservoir`), a `river`, a landform (`desert`,
+ * `range`, `plateau`, `plain`, `peninsula`, `cape`, `basin`, `delta`, `valley`, `wetland`, `tundra`, `isthmus`,
+ * `depression`, `lowland`, `gorge`, `foothills`) or a `peak`. Natural Earth's own classes, named as one word.
+ *
+ * @example
+ * ```ts
+ * import { loadFeatures } from "@johnmorrisdotca/chizu/load";
+ * import type { ChizuFeatureKind } from "@johnmorrisdotca/chizu";
+ *
+ * const layer = (await loadFeatures("divisions-jp"))!;
+ * const kinds: ChizuFeatureKind[] = [...new Set(layer.features.filter((one) => one.group === "marine").map((one) => one.kind))];
+ * console.log(kinds.sort().join(" "));
+ * // bay ocean sea strait
+ * ```
+ */
+export type ChizuFeatureKind =
+  | "ocean"
+  | "sea"
+  | "gulf"
+  | "bay"
+  | "strait"
+  | "channel"
+  | "sound"
+  | "fjord"
+  | "inlet"
+  | "lagoon"
+  | "reef"
+  | "lake"
+  | "reservoir"
+  | "river"
+  | "desert"
+  | "range"
+  | "plateau"
+  | "plain"
+  | "peninsula"
+  | "cape"
+  | "basin"
+  | "delta"
+  | "valley"
+  | "wetland"
+  | "tundra"
+  | "isthmus"
+  | "depression"
+  | "lowland"
+  | "gorge"
+  | "foothills"
+  | "peak";
+
+/**
+ * The five groups the features come in, each from one of Natural Earth's physical files, in the order they are drawn:
+ * `marine` (oceans, seas, bays, straits), under the land; `landforms` (deserts, ranges, plains), drawn only when
+ * chosen; `lakes`; `rivers`; and `peaks`.
+ *
+ * @example
+ * ```ts
+ * import { CHIZU_FEATURE_GROUPS, type ChizuFeatureGroup } from "@johnmorrisdotca/chizu";
+ *
+ * const first: ChizuFeatureGroup = CHIZU_FEATURE_GROUPS[0];
+ * console.log(first, CHIZU_FEATURE_GROUPS.length);
+ * // marine 5
+ * ```
+ */
+export type ChizuFeatureGroup = "marine" | "landforms" | "lakes" | "rivers" | "peaks";
+
+/**
+ * One named physical feature on a map's canvas: a sea, a lake, a river, a landform or a peak. It has the fields a
+ * region has that the engine reads (`code`, `path`, `bbox`, `centroid`, `neighbors`, `group`, the names), so
+ * `featureMap` makes a layer a map of its own and every function of the engine (framing, quizzes, pasted names,
+ * callouts) works on features as it works on regions.
+ *
+ * @example
+ * ```ts
+ * import { loadFeatures } from "@johnmorrisdotca/chizu/load";
+ * import type { ChizuFeature } from "@johnmorrisdotca/chizu";
+ *
+ * const layer = (await loadFeatures("divisions-jp"))!;
+ * const biwa: ChizuFeature = layer.features.find((one) => one.nameJa === "琵琶湖")!;
+ * console.log(biwa.code, biwa.kind, biwa.name, biwa.reading);
+ * // Q200239 lake Lake Biwa びわこ
+ * ```
+ */
+export interface ChizuFeature {
+  /** Its stable id: its Wikidata item (`Q200239`, Lake Biwa) where it has one, else Natural Earth's own (`ne-…`, `ne-river-…`). */
+  code: string;
+  kind: ChizuFeatureKind;
+  group: ChizuFeatureGroup;
+  /** Its English name: Natural Earth's for a sea, a landform or a peak, Wikidata's label for a lake or a river. */
+  name: string;
+  /** Its Japanese name: Natural Earth's (`name_ja`) where it has one, else Wikidata's label. Absent where neither has one. */
+  nameJa?: string;
+  /** How `nameJa` is read, in kana, where it is known: see docs/features.md in the repository for where each comes from. */
+  reading?: string;
+  /** Natural Earth's rank: 0 for an ocean, up to 10 for a small lake or a short river, for the scale it may be shown at. */
+  rank: number;
+  /** A peak's height, in metres. */
+  elevation?: number;
+  /** Its shape on the map's canvas: closed rings (`M x,y L … Z`) for an area, open lines (`M x,y L …`) for a river, empty for a peak. */
+  path: string;
+  /** The box round it on the canvas: left, top, right, bottom. */
+  bbox: [number, number, number, number];
+  /** Where its name goes: the point inside an area farthest from its edges, a point half way along a river, a peak itself. */
+  centroid: [number, number];
+  /** The angle a river's name is written at, in degrees clockwise, to run along it there; absent for 0. */
+  angle?: number;
+  /** The codes of the water features it touches on this map: a sea's neighbouring seas, a river's tributaries and the lakes it runs through. */
+  neighbors: string[];
+}
+
+/**
+ * The named features of one map, drawn on that map's canvas: what `loadFeatures(mapId)` gives, and what `drawChizu`
+ * and `mountChizu` take as `featureLayer`.
+ *
+ * @example
+ * ```ts
+ * import { loadFeatures } from "@johnmorrisdotca/chizu/load";
+ * import type { ChizuFeatureLayer } from "@johnmorrisdotca/chizu";
+ *
+ * const layer: ChizuFeatureLayer = (await loadFeatures("world"))!;
+ * console.log(layer.map, layer.features.some((one) => one.name === "Caspian Sea"));
+ * // world true
+ * ```
+ */
+export interface ChizuFeatureLayer {
+  /** The id of the map whose canvas the features are drawn on. */
+  map: string;
+  /** Where the shapes and names come from, in a line. */
+  source: string;
+  features: ChizuFeature[];
+}
