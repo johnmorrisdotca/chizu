@@ -634,7 +634,7 @@ function buildJapan(rawFeatures, countryNames) {
  */
 function JAPAN_INSETS(lineAt) {
   return [
-    { code: "13", box: { x: 700, y: 900, width: 280, height: 150 }, outlyingBelow: lineAt(140, JAPAN_OUTLYING.tokyoSouthOf), magnify: true },
+    { code: "13", box: { x: 695, y: 930, width: 235, height: 130 }, outlyingBelow: lineAt(140, JAPAN_OUTLYING.tokyoSouthOf), magnify: true },
     { code: "46", box: { x: 495, y: 10, width: 120, height: 230 }, outlyingBelow: lineAt(130, JAPAN_OUTLYING.kagoshimaSouthOf), magnify: true },
     { code: "47", box: { x: 10, y: 10, width: 475, height: 230 } },
   ];
