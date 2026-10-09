@@ -202,13 +202,16 @@ export function codeFor(view, kind) {
   const lines = [];
   const imports = [];
   let mapExpression;
+  const loaders = [];
   if (source === "world") {
     imports.push(`import WORLD from "@johnmorrisdotca/chizu/world";`);
     mapExpression = "WORLD";
   } else {
-    imports.push(`import { ${source === "country" ? "loadCountry" : "loadDivisions"} } from "@johnmorrisdotca/chizu/load";`);
+    loaders.push(source === "country" ? "loadCountry" : "loadDivisions");
     mapExpression = "map";
   }
+  if (view.features) loaders.push("loadFeatures");
+  if (loaders.length) imports.push(`import { ${loaders.join(", ")} } from "@johnmorrisdotca/chizu/load";`);
   const engine = [];
   if (view.part) engine.push("groupBox", "groupTones");
   if (kind === "mount") imports.push(`import { mountChizu } from "@johnmorrisdotca/chizu/mount";`);
@@ -217,6 +220,7 @@ export function codeFor(view, kind) {
   lines.push(...imports, "");
   if (source !== "world") lines.push(`const map = await ${source === "country" ? "loadCountry" : "loadDivisions"}(${JSON.stringify(code)});`);
   if (view.part) lines.push(`const part = ${JSON.stringify(view.part.codes)};`);
+  if (view.features && kind === "draw") lines.push(`const layer = await loadFeatures(${JSON.stringify(view.mapId ?? (source === "world" ? "world" : `${source === "country" ? "country" : "divisions"}-${code}`))});`);
   const tones = Object.keys(view.tones ?? {}).length ? JSON.stringify(view.tones) : null;
   const toneExpression = view.part ? (tones ? `{ ...groupTones(${mapExpression}, part), ...${tones} }` : `groupTones(${mapExpression}, part)`) : tones;
   const options = [];
@@ -224,6 +228,7 @@ export function codeFor(view, kind) {
   options.push(`language: ${JSON.stringify(view.language)}`);
   if (toneExpression) options.push(`tones: ${toneExpression}`);
   if (view.callouts) options.push(`callouts: ${JSON.stringify(view.callouts)}`);
+  if (view.features) options.push(`features: ${JSON.stringify(view.features)}`, `featureLayer: ${kind === "mount" ? "loadFeatures" : "layer"}`);
   if (kind === "draw" && view.part) options.push(`box: groupBox(${mapExpression}, part, 4 / 3)`);
   if (kind === "draw") options.push("style: true");
   if (kind === "mount") {

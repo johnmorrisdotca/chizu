@@ -4,9 +4,9 @@
 // figures; and the code that draws the map as it is. Every name in English and Japanese. The working parts that need
 // no page are in tools.js; the words are in words.js.
 import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
-import { findQuestion, groupMap, groupTones, nameOf, regionGroups, seededRandom, unprojectPoint } from "./dist/index.js";
+import { featureKindName, findFeatures, findQuestion, groupMap, groupTones, nameOf, regionGroups, seededRandom, unprojectPoint } from "./dist/index.js";
 import { drawChizu } from "./dist/draw-entry.js";
-import { loadCountry, loadDivisions, loadWorldDetail } from "./dist/load-entry.js";
+import { loadCountry, loadDivisions, loadFeatures, loadWorldDetail } from "./dist/load-entry.js";
 import { mountChizu } from "./dist/mount-entry.js";
 import world from "./dist/world-entry.js";
 import {
@@ -29,7 +29,11 @@ import { WORDS } from "./words.js";
 
 const params = new URLSearchParams(location.search);
 const MODES = ["explore", "quiz", "callouts", "colour"];
-const STYLES = ["choose", "type", "kana", "find"];
+const STYLES = ["choose", "type", "kana", "find", "water"];
+/** What the Features switch draws: nothing, the water, or everything named. */
+const FEATURE_MODES = ["off", "water", "all"];
+const FEATURE_CHOICES = { off: [], water: ["water"], all: ["all"] };
+const WATER = new Set(["marine", "lakes", "rivers"]);
 const ROUND = 10;
 /** The deepest zoom step a quiz question is shown at. */
 const QUIZ_DEEPEST = 6;
@@ -67,6 +71,9 @@ const state = {
   mapKey: params.get("map") ?? "divisions:jp",
   partKey: params.get("part"),
   mode: MODES.includes(params.get("mode")) ? params.get("mode") : "explore",
+  features: FEATURE_MODES.includes(params.get("features")) ? params.get("features") : "off",
+  /** The named features of the map shown, once fetched: null before, and for a map with none. */
+  layer: null,
   map: world,
   part: null,
   selected: null,
@@ -118,6 +125,13 @@ function remember(changes) {
 }
 
 const regionOf = (code) => state.map.regions.find((entry) => entry.code === code);
+/** A feature of the map shown, by its code. */
+const featureOf = (code) => state.layer?.features.find((entry) => entry.code === code);
+/** A region or a feature, by its code: the two never share one. */
+const placeOf = (code) => regionOf(code) ?? featureOf(code);
+const isWaterQuiz = () => state.mode === "quiz" && state.quiz.style === "water";
+/** What the mounted map is told of the features: the switch's choice, or in a water round the water with no names on it, since a name would be the answer. */
+const featureOptions = () => (isWaterQuiz() ? { features: ["water"], featureLabels: false } : { features: FEATURE_CHOICES[state.features], featureLabels: true });
 /** The places in view: the part's, or the whole map's. */
 /** The places in view, by name: the part's, or the whole map's, leaving out a piece the map draws but does not name. */
 const inPart = () => (state.part ? state.map.regions.filter((region) => state.part.codes.includes(region.code)) : state.map.regions).filter((region) => !region.unnamed);
@@ -198,6 +212,8 @@ async function chooseMap(key, partKey = null) {
   }
   state.mapKey = key;
   state.map = await loadMap(key);
+  state.layer = null;
+  await ensureLayer();
   state.part = findPart(state.map, partKey);
   state.selected = null;
   host.dataset.map = state.map.id;
@@ -232,8 +248,17 @@ const partTones = () => (state.part ? groupTones(state.map, state.part.codes) : 
 
 function setTones(tones, extra = {}) {
   state.tones = tones;
-  mount.set({ tones, ...extra });
+  mount.set({ tones, ...featureOptions(), ...extra });
   renderCode();
+}
+
+/** The features of the map shown, fetched the first time they are wanted (the switch is on, a list is shown, a round of water is asked). */
+async function ensureLayer() {
+  if (state.layer && state.layer.map === state.map.id) return state.layer;
+  const id = state.map.id;
+  const layer = await loadFeatures(id);
+  if (state.map.id === id) state.layer = layer;
+  return state.layer;
 }
 
 /** Colour the map for the mode it is in. The quiz colours its own. */
@@ -258,7 +283,7 @@ const groupIn = (region) => (language.lang === "ja" ? (region.groupJa ?? region.
  */
 function renderInfo() {
   const info = $("info");
-  const region = state.selected ? regionOf(state.selected) : null;
+  const region = state.selected ? placeOf(state.selected) : null;
   const line = (props, text) => el("p", { ...props, text });
   const row = (label, ...chips) => el("div", { class: "info-row" }, label ? el("span", { class: "fam-label", text: label }) : null, ...chips);
   if (!region) {
@@ -275,6 +300,10 @@ function renderInfo() {
         } } })),
       ),
     );
+    return;
+  }
+  if (!regionOf(region.code)) {
+    renderFeatureInfo(region);
     return;
   }
   const japanese = region.nameShortJa ?? region.nameJa ?? region.name;
@@ -294,6 +323,64 @@ function renderInfo() {
       ? row(say("touches"), ...region.neighbors.filter((code) => regionOf(code) && !regionOf(code).unnamed).map((code) => el("button", { type: "button", class: "fam-chip", "data-code": code, text: nameIn(regionOf(code)), on: { click: () => choosePlace(code) } })))
       : row(null, el("span", { class: "fam-muted", text: say("noNeighbours") })),
   );
+}
+
+/** The card for a chosen sea, lake, river, landform or peak: its names, its kind and reading, and the water it touches. */
+function renderFeatureInfo(feature) {
+  const info = $("info");
+  const japanese = feature.nameJa ?? feature.name;
+  const reading = feature.reading && feature.reading !== japanese ? feature.reading : null;
+  const meta = [
+    el("span", { "data-testid": "info-kind", text: featureKindName(feature.kind, language.lang) }),
+    reading ? el("span", { lang: "ja", "data-testid": "info-reading", text: reading }) : null,
+    feature.elevation !== undefined ? el("span", { text: say("elevation", feature.elevation) }) : null,
+    el("span", { class: "fam-code", text: feature.code }),
+  ].filter(Boolean);
+  const near = feature.neighbors.map(featureOf).filter(Boolean);
+  info.replaceChildren(
+    el("p", { class: "info-name", "data-testid": "info-name", text: say("infoName", feature.name, japanese) }),
+    el("p", { class: "fam-muted info-meta" }, ...meta.flatMap((part, index) => (index === 0 ? [part] : [" · ", part]))),
+    near.length > 0
+      ? el("div", { class: "info-row" }, el("span", { class: "fam-label", text: say("touches") }), ...near.map((other) => el("button", { type: "button", class: "fam-chip", "data-code": other.code, text: nameIn(other), on: { click: () => choosePlace(other.code) } })))
+      : el("div", { class: "info-row" }),
+  );
+}
+
+/** The features of the map, or those a search finds, in a list whose height never changes; and their downloads. */
+function renderFeatures() {
+  const tbody = document.querySelector("#feature-list tbody");
+  const all = state.layer?.features ?? [];
+  const typed = $("feature-find").value;
+  const rows = typed.trim() === "" ? all : findFeatures(all, typed, { limit: 50 });
+  $("feature-count").textContent = all.length === 0 ? say("featureNone") : say("featureCount", rows.length, all.length);
+  tbody.replaceChildren(
+    ...rows.map((feature) =>
+      el(
+        "tr",
+        { "data-code": feature.code, "aria-selected": String(feature.code === state.selected), tabindex: "0", on: { click: () => choosePlace(feature.code), keydown: (event) => event.key === "Enter" && choosePlace(feature.code) } },
+        el("td", { text: feature.name }),
+        el("td", { lang: "ja", text: feature.nameJa ?? "" }),
+        el("td", { lang: "ja", text: feature.reading ?? "" }),
+        el("td", { text: featureKindName(feature.kind, language.lang) }),
+      ),
+    ),
+  );
+  const columns = [
+    { key: "code", label: "code" },
+    { key: "kind", label: "kind" },
+    { key: "group", label: "group" },
+    { key: "name", label: "name" },
+    { key: "nameJa", label: "nameJa" },
+    { key: "reading", label: "reading" },
+    { key: "rank", label: "rank" },
+    { key: "elevation", label: "elevation" },
+  ];
+  const title = `${language.lang === "ja" ? (state.map.nameJa ?? state.map.name) : state.map.name} · ${say("featuresTitle")}`;
+  downloadRow($("feature-files"), "download-features", say("downloadFeatures"), [
+    { format: "csv", type: "text/csv", name: viewName("features"), make: () => toCsv(columns, state.layer?.features ?? []) },
+    { format: "json", type: "application/json", name: viewName("features"), make: () => toJson(columns, state.layer?.features ?? [], { map: state.map.id, source: state.layer?.source ?? null }) },
+    { format: "txt", type: "text/plain", name: viewName("features"), make: () => toText(title, columns, state.layer?.features ?? []) },
+  ]);
 }
 
 function renderNames() {
@@ -323,6 +410,7 @@ function choosePlace(code) {
   mount.select(code);
   renderInfo();
   renderNames();
+  renderFeatures();
 }
 
 // ---- downloads -----------------------------------------------------------------------------------------------
@@ -440,18 +528,22 @@ const bestKey = () => `chizu.best.${state.map.id}.${state.part?.key ?? "all"}.${
 
 /** The places a round may ask about: the part's, and for readings only those whose names have kanji. */
 function quizPool() {
+  // Water big enough to press on the whole map: a lake a pixel across is not a question, on a phone.
+  const pressable = (feature) => Math.max(feature.bbox[2] - feature.bbox[0], feature.bbox[3] - feature.bbox[1]) >= Math.max(state.map.width, state.map.height) * 0.02;
+  if (state.quiz.style === "water") return (state.layer?.features ?? []).filter((feature) => WATER.has(feature.group) && pressable(feature)).map((feature) => feature.code);
   const regions = inPart();
   return (state.quiz.style === "kana" ? regions.filter(hasKanjiReading) : regions).map((region) => region.code);
 }
 
-function startRound() {
+async function startRound() {
   const quiz = state.quiz;
+  if (quiz.style === "water") await ensureLayer();
   const pool = quizPool();
   quiz.order = pool.length >= 4 ? roundOrder(pool, ROUND, seededRandom(quiz.seed)) : [];
   quiz.index = 0;
   quiz.results = [];
   quiz.streak = { current: 0, best: Number(keep.get(bestKey())) || 0 };
-  quiz.note = pool.length >= 4 ? null : state.quiz.style === "kana" && inPart().length >= 4 ? say("kanaNeeds") : say("quizNeeds");
+  quiz.note = pool.length >= 4 ? null : state.quiz.style === "water" ? say("waterNeeds") : state.quiz.style === "kana" && inPart().length >= 4 ? say("kanaNeeds") : say("quizNeeds");
   remember({ seed: quiz.seed, style: quiz.style });
   $("quiz-summary").hidden = true;
   askQuestion();
@@ -470,7 +562,7 @@ function askQuestion() {
   const random = seededRandom(quiz.seed * 7919 + quiz.index);
   const pool = quizPool();
   quiz.question = quiz.style === "choose" ? findQuestion(groupMap(state.map, pool), target, random) : { target, choices: [], answerIndex: -1 };
-  if (quiz.style === "find") {
+  if (quiz.style === "find" || quiz.style === "water") {
     // The place is not lit: finding it is the question. The map shows the part whole, and a press answers.
     setTones(partTones(), { selected: null, selectable: true, fit: false, callouts: undefined });
     showPart();
@@ -495,7 +587,8 @@ const shownName = (region) => region.nameShortJa ?? region.nameJa ?? region.name
 function questionText() {
   const quiz = state.quiz;
   const what = state.map.kind === "world" ? say("whatCountry") : say("whatRegion");
-  const region = regionOf(quiz.question.target);
+  const region = placeOf(quiz.question.target);
+  if (quiz.style === "water") return say("questionWater", nameIn(region), featureKindName(region.kind, language.lang));
   if (quiz.style === "type") return say("questionType", what);
   if (quiz.style === "kana") return say("questionKana", shownName(region));
   if (quiz.style === "find") return say("questionFind", nameIn(region));
@@ -556,13 +649,24 @@ function chooseStyle(style) {
   startRound();
 }
 
+function chooseFeatures(value) {
+  state.features = value;
+  remember({ features: value === "off" ? null : value });
+  settings();
+  ensureLayer().then(() => {
+    mount.set(featureOptions());
+    renderFeatures();
+    renderCode();
+  });
+}
+
 /** Judge an answer: `code` is the place chosen or pressed (or null for a typed one), `said` the words given. */
 function answer(code, said, verdict = null) {
   const quiz = state.quiz;
   if (quiz.answered || quiz.question === null) return;
   quiz.answered = true;
   const target = quiz.question.target;
-  const region = regionOf(target);
+  const region = placeOf(target);
   const result = verdict ?? (code === target ? "right" : "wrong");
   quiz.streak = nextStreak(quiz.streak, result === "right");
   if (quiz.streak.best > (Number(keep.get(bestKey())) || 0)) keep.set(bestKey(), String(quiz.streak.best));
@@ -570,7 +674,7 @@ function answer(code, said, verdict = null) {
   const tones = { ...partTones(), [target]: "correct" };
   if (result === "wrong" && code && code !== target) tones[code] = "wrong";
   setTones(tones, { selected: null, selectable: false });
-  if (quiz.style === "find") mount.show(code && code !== target ? [target, code] : [target]);
+  if (quiz.style === "find" || quiz.style === "water") mount.show(code && code !== target ? [target, code] : [target]);
   const panel = $("question");
   const right = quiz.style === "kana" ? `${shownName(region)}（${region.reading}）` : nameIn(region);
   panel.textContent = result === "right" ? say("right") + right : result === "shown" ? say("shown", right) : say("wrong", right) + (said ? say("youSaid", said) : "");
@@ -795,7 +899,8 @@ function colourExample() {
 function renderCode() {
   if (!mount) return;
   const shownTones = Object.fromEntries(Object.entries(state.tones).filter(([code, tone]) => !(state.part && tone === "faint" && !state.part.codes.includes(code))));
-  const view = { mapKey: state.mapKey, language: language.lang, tones: shownTones, callouts: state.mode === "callouts" ? calloutRequest() : null, part: state.part ? { codes: state.part.codes } : null };
+  const features = featureOptions().features;
+  const view = { mapKey: state.mapKey, mapId: state.map.id, language: language.lang, tones: shownTones, callouts: state.mode === "callouts" ? calloutRequest() : null, part: state.part ? { codes: state.part.codes } : null, features: features.length ? features : null };
   seg($("code-kind"), ["mount", "draw"], state.codeKind, (value) => {
     state.codeKind = value;
     renderCode();
@@ -824,6 +929,7 @@ async function copyText(text, button) {
 // ---- the page --------------------------------------------------------------------------------------------
 function settings() {
   seg($("modes"), MODES, state.mode, (value) => chooseMode(value), (value) => say("modes")[value]);
+  seg($("features"), FEATURE_MODES, state.features, chooseFeatures, (value) => say("featureModes")[value]);
   seg($("polish"), [false, true], state.polish, (value) => {
     state.polish = value;
     remember({ polish: value ? "on" : null });
@@ -870,6 +976,7 @@ function refreshAll() {
   mount?.set({ language: language.lang });
   renderInfo();
   renderNames();
+  renderFeatures();
   renderExploreDownloads();
   if (mount && state.mode === "quiz") renderQuestion();
   if (mount && state.mode === "callouts") applyCallouts();
@@ -883,6 +990,7 @@ function refreshAll() {
 $("map").addEventListener("change", (event) => chooseMap(event.target.value));
 $("part").addEventListener("change", (event) => choosePart(event.target.value));
 $("filter").addEventListener("input", renderNames);
+$("feature-find").addEventListener("input", renderFeatures);
 $("next").addEventListener("click", () => nextQuestion());
 $("typed").addEventListener("submit", checkTyped);
 $("skip").addEventListener("click", () => answer(null, "", "shown"));
@@ -905,20 +1013,27 @@ if (state.mapKey.startsWith("continent:")) {
   state.mapKey = "world";
 }
 state.map = await loadMap(state.mapKey);
+await ensureLayer();
 state.part = findPart(state.map, state.partKey);
 mount = mountChizu(host, {
   map: state.map,
   language: language.lang,
   // From 4× in, the world is drawn from the finer 1:50m outlines, fetched the first time they are wanted.
   detail: loadWorldDetail,
+  // Each map's seas, lakes and rivers, fetched the first time they are drawn.
+  featureLayer: loadFeatures,
+  ...featureOptions(),
   onSelect: (code) => {
     if (state.mode === "quiz") {
-      if (state.quiz.style === "find" && code !== null && !state.quiz.answered) answer(code, nameIn(regionOf(code)));
+      // Finding a place, a press on the sea is not an answer; finding the water, a press on the land is a wrong one.
+      if (state.quiz.style === "find" && code !== null && regionOf(code) && !state.quiz.answered) answer(code, nameIn(regionOf(code)));
+      if (state.quiz.style === "water" && code !== null && placeOf(code) && !state.quiz.answered) answer(code, nameIn(placeOf(code)));
       return;
     }
     state.selected = code;
     renderInfo();
     renderNames();
+    renderFeatures();
   },
 });
 host.dataset.map = state.map.id;

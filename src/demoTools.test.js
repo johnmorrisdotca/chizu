@@ -110,4 +110,16 @@ describe("the code for the view", () => {
     expect(draw).toContain('callouts: {"codes":["JP"]}');
     expect(draw).toContain("style: true");
   });
+
+  it("draws the features the switch has on, from their own file", () => {
+    const mount = codeFor({ mapKey: "divisions:jp", mapId: "divisions-jp", language: "en", tones: {}, callouts: null, part: null, features: ["water"] }, "mount");
+    expect(mount).toContain('import { loadDivisions, loadFeatures } from "@johnmorrisdotca/chizu/load";');
+    expect(mount).toContain('features: ["water"]');
+    expect(mount).toContain("featureLayer: loadFeatures");
+    const draw = codeFor({ mapKey: "world", mapId: "world", language: "en", tones: {}, callouts: null, part: null, features: ["all"] }, "draw");
+    expect(draw).toContain('import { loadFeatures } from "@johnmorrisdotca/chizu/load";');
+    expect(draw).toContain('const layer = await loadFeatures("world");');
+    expect(draw).toContain("featureLayer: layer");
+    expect(codeFor({ mapKey: "world", language: "en", tones: {}, callouts: null, part: null }, "mount")).not.toContain("loadFeatures");
+  });
 });

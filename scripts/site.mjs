@@ -16,6 +16,8 @@ const uses = [
   `const q = findQuestion(WORLD, "FR", seededRandom(7))  // { target: "FR", choices: ["BE", "FR", "DE", "CH"], answerIndex: 1 }`,
   `const japan = await loadDivisions("jp")  // the 47 prefectures, named and read (東京都, とうきょうと), ISO codes JP-01 to JP-47`,
   `const africa = groupMap(WORLD, CHIZU_CONTINENTS.find((c) => c.code === "AF").codes)  // a continent, for a quiz or callouts within it`,
+  `const water = await loadFeatures("divisions-jp")  // Japan's seas, lakes and rivers on its own canvas: 瀬戸内海 (せとないかい), Lake Biwa`,
+  `drawChizu(WORLD, { features: ["water"], featureLayer: await loadFeatures("world"), tones: { Q5484: "selected" } })  // the world's water, the Caspian lit`,
   `projectPoint(WORLD, 139.69, 35.69)  // [x, y] of Tokyo on the world's canvas, to pin a member there`,
   `mountChizu(element, { map: WORLD, onSelect: (code) => … })  // a map to drag, zoom and press, by touch, mouse and keyboard`,
 ];
@@ -29,7 +31,7 @@ const page = `<!doctype html>
     ${familyHead({
       id,
       title: "Chizu · maps of Japan, the world and its countries, in English and Japanese",
-      description: "Japan's 47 prefectures, the world, its continents and 32 countries' regions: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.",
+      description: "Japan's 47 prefectures, the world, its continents and 32 countries' regions, with their seas, lakes, rivers and mountains: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.",
       ogTitle: "Chizu maps",
       ogDescription: "Japan's prefectures, the world and 32 countries' regions: quizzes, callout sheets and coloured maps, in English and Japanese.",
     })}
@@ -48,6 +50,7 @@ const page = `<!doctype html>
         <span class="fam-label" data-say="part"></span>
         <select class="fam-field" id="part" data-testid="part" data-say-label="part"></select>
       </div>
+      ${row("features", "features", ["Draw the map's named water (its seas, bays and straits, lakes and rivers), or everything named on it, deserts, mountain ranges and peaks too. Off, the map is as it always was. Each map's features are a file of their own, fetched the first time you turn them on.", "地図に、名前のある水（海、湾、海峡、湖、川）を描くか、砂漠、山脈、山もふくめて名前のあるものをすべて描きます。「なし」なら、いつもの地図のままです。地形は地図ごとに別のファイルで、はじめて表示するときに読み込みます。"])}
       ${row("modes", "mode", ["Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.", "地図を見てなまえを調べる、クイズで遊ぶ、番号つきの目印をつける、自分の数値で色を塗る、のどれかを選びます。"])}
       <div class="table fam-felt" id="board" data-testid="board"></div>
       <section class="settings" id="panel-explore" data-testid="panel-explore" aria-labelledby="explore-title">
@@ -60,10 +63,18 @@ const page = `<!doctype html>
         <div class="fam-table-box"><table id="names" data-testid="names"><thead><tr><th data-say="colCode"></th><th data-say="colIso"></th><th data-say="colEnglish"></th><th data-say="colJapanese"></th><th data-say="colReading"></th><th data-say="colGroup"></th></tr></thead><tbody></tbody></table></div>
         <div id="explore-map-files"></div>
         <div id="explore-list-files"></div>
+        <h3 class="sub-title" data-say="featuresTitle"></h3>
+        <div class="setup fam-row" data-help-en="Type part of the name of a sea, a lake, a river, a mountain range or a peak, in English, in Japanese or in kana. Press a row to see it on the map." data-help-ja="海、湖、川、山脈、山のなまえの一部を、英語、日本語、かなのどれかで入力してください。行を押すと、地図に表示します。">
+          <span class="fam-label" data-say="featureFind"></span>
+          <input class="fam-field" id="feature-find" data-testid="feature-find" type="search" autocomplete="off" data-say-placeholder="featureFindPlaceholder" data-say-label="featureFind" />
+        </div>
+        <p class="fam-muted feature-count" id="feature-count" data-testid="feature-count" aria-live="polite"></p>
+        <div class="fam-table-box feature-box"><table id="feature-list" data-testid="feature-list"><thead><tr><th data-say="colEnglish"></th><th data-say="colJapanese"></th><th data-say="colReading"></th><th data-say="colKind"></th></tr></thead><tbody></tbody></table></div>
+        <div id="feature-files"></div>
       </section>
       <section class="settings" id="panel-quiz" data-testid="panel-quiz" aria-labelledby="quiz-title" hidden>
         <h2 id="quiz-title" data-say="quizTitle"></h2>
-        ${row("styles", "style", ["Pick the lit place's name from four look-alikes, type its name in English or Japanese, type the reading of its name in kana, or find a named place on the map. Ten questions a round, made from a seed: share the link and a friend gets the same ten.", "光っている場所のなまえを似たなまえ4つから選ぶ、英語か日本語でなまえを入力する、なまえの読みをかなで入力する、なまえを見て地図でさがす、のどれかを選びます。1回は10問で、問題はリンクに入っている番号で決まります。リンクを送れば、友だちにも同じ10問が出ます。"])}
+        ${row("styles", "style", ["Pick the lit place's name from four look-alikes, type its name in English or Japanese, type the reading of its name in kana, find a named place on the map, or find a named sea, lake or river. Ten questions a round, made from a seed: share the link and a friend gets the same ten.", "光っている場所のなまえを似たなまえ4つから選ぶ、英語か日本語でなまえを入力する、なまえの読みをかなで入力する、なまえを見て地図でさがす、海や湖や川を地図でさがす、のどれかを選びます。1回は10問で、問題はリンクに入っている番号で決まります。リンクを送れば、友だちにも同じ10問が出ます。"])}
         <div class="fam-row quiz-chips">
           <span class="fam-chip" id="progress" data-testid="progress"></span>
           <span class="fam-chip" id="score" data-testid="score"></span>
