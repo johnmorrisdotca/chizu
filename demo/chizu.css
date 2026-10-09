@@ -49,3 +49,29 @@ select.fam-field { min-width: min(100%, 22rem); }
   #board { padding: 10px 10px 8px; }
   .settings .fam-label { min-width: 100%; }
 }
+
+/* The part of a map, the quiz's chips and typed answers, the round's results, the coloured map and the code. */
+#part { min-width: min(100%, 22rem); }
+.quiz-chips { gap: 6px; }
+.quiz-chips .fam-chip:empty { display: none; }
+#streak[data-lit="true"] { background: color-mix(in srgb, var(--good) 22%, transparent); }
+.typed { gap: 8px; }
+.typed .fam-field { flex: 1 1 14rem; min-width: 0; max-width: 24rem; font-size: 1.05rem; }
+.summary { display: grid; gap: 10px; padding: 12px; border: 1px solid var(--rule); border-radius: 12px; }
+.summary-text { font-weight: 700; }
+.results { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.results th, .results td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.results tr[data-result="right"] td:last-child { color: var(--good); font-weight: 600; }
+.results tr[data-result="wrong"] td:last-child { color: var(--bad); font-weight: 600; }
+.share .fam-field { flex: 1 1 16rem; min-width: 0; font-family: var(--mono); font-size: .8rem; }
+.downloads { gap: 6px; }
+.downloads .fam-button { min-width: 56px; font-size: .8rem; }
+.figures { display: grid; gap: 8px; }
+#figures { width: 100%; max-width: 40rem; }
+.colour-status p { margin: 0; }
+.colour-legend { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: 4px 14px; font-size: .9rem; }
+.colour-legend li { display: flex; gap: 8px; align-items: center; }
+.colour-legend .swatch { width: 1.1em; height: 1.1em; border-radius: 3px; border: 1px solid var(--rule); flex: none; }
+.snippet { margin: 0; padding: 12px; border-radius: 10px; background: color-mix(in srgb, var(--ink) 6%, transparent); overflow-x: auto; max-width: 100%; font-size: .8rem; line-height: 1.45; }
+.snippet code { font-family: var(--mono); white-space: pre; }
+#names td.fam-code { font-family: var(--mono); }

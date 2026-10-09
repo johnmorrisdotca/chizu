@@ -26,7 +26,7 @@ const crossings = (list) => {
 };
 
 test("twenty countries are numbered on the world, each with a legend line, no two circles touching and no two leaders crossing", async ({ page }) => {
-  const errors = await open(page, "?mode=callouts");
+  const errors = await open(page, "?mode=callouts&map=world");
   const list = await spots(page);
   expect(list).toHaveLength(20);
   await expect(page.locator(`${at("legend")} li`)).toHaveCount(20);
@@ -54,7 +54,7 @@ test("the numbers keep clear of the buttons in the map's corner", async ({ page 
 });
 
 test("zooming places the numbers again for what the window shows, and a country out of the window loses its number", async ({ page }) => {
-  await open(page, "?mode=callouts");
+  await open(page, "?mode=callouts&map=world");
   expect(await spots(page)).toHaveLength(20);
   await page.locator(`${at("board")} [data-action="zoom-in"]`).click();
   await page.locator(`${at("board")} [data-action="zoom-in"]`).click();

@@ -14,7 +14,8 @@ const uses = [
   `drawChizu(WORLD, { tones: { JP: "selected" }, language: "ja" })  // the world as SVG text, Japan lit, names in Japanese`,
   `const spots = layoutCallouts(WORLD, { codes: ["JP", "BR", "EG", "AU"], radiusRatio: 0.02 })  // numbered circles in open water, leaders that never cross`,
   `const q = findQuestion(WORLD, "FR", seededRandom(7))  // { target: "FR", choices: ["BE", "FR", "DE", "CH"], answerIndex: 1 }`,
-  `const france = await loadDivisions("fr")  // its 96 départements, one file, fetched when asked for`,
+  `const japan = await loadDivisions("jp")  // the 47 prefectures, named and read (東京都, とうきょうと), ISO codes JP-01 to JP-47`,
+  `const africa = groupMap(WORLD, CHIZU_CONTINENTS.find((c) => c.code === "AF").codes)  // a continent, for a quiz or callouts within it`,
   `projectPoint(WORLD, 139.69, 35.69)  // [x, y] of Tokyo on the world's canvas, to pin a member there`,
   `mountChizu(element, { map: WORLD, onSelect: (code) => … })  // a map to drag, zoom and press, by touch, mouse and keyboard`,
 ];
@@ -27,10 +28,10 @@ const page = `<!doctype html>
   <head>
     ${familyHead({
       id,
-      title: "Chizu · maps of the world and its countries, in English and Japanese",
-      description: "Pan and zoom a map of the world, play a which-country-is-this quiz, and see numbered callouts placed in open water with leader lines that never cross. Natural Earth outlines, names in English and Japanese. Free and open source.",
+      title: "Chizu · maps of Japan, the world and its countries, in English and Japanese",
+      description: "Japan's 47 prefectures, the world, its continents and 32 countries' regions: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.",
       ogTitle: "Chizu maps",
-      ogDescription: "The world and 31 countries' regions, a geography quiz and a callout placer, in English and Japanese.",
+      ogDescription: "Japan's prefectures, the world and 32 countries' regions: quizzes, callout sheets and coloured maps, in English and Japanese.",
     })}
     <link rel="icon" href="${ICON}" />
     <link rel="stylesheet" href="family.css" />
@@ -43,7 +44,11 @@ const page = `<!doctype html>
         <span class="fam-label" data-say="map"></span>
         <select class="fam-field" id="map" data-testid="map" data-say-label="map"></select>
       </div>
-      ${row("modes", "mode", ["Explore the map and read the names, play the which-one-is-this quiz, or see numbered callouts placed on it.", "地図を見てなまえを調べる、「これはどこ？」クイズをする、番号つきの引き出し線を見る、から選びます。"])}
+      <div class="setup fam-row" id="part-row" data-help-en="Look at one part of the map: a continent or a subregion of the world, or one of a country's own regions, such as Japan's Kanto. The quiz, the numbers and the colours keep to it." data-help-ja="地図の一部だけを見ます。世界なら大陸や地域、国なら日本の関東地方のような地方です。クイズ、番号、色分けもその範囲だけになります。">
+        <span class="fam-label" data-say="part"></span>
+        <select class="fam-field" id="part" data-testid="part" data-say-label="part"></select>
+      </div>
+      ${row("modes", "mode", ["Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.", "地図を見てなまえを調べる、クイズをする、番号つきの目印を置く、自分の数値で色を塗る、から選びます。"])}
       <div class="table fam-felt" id="board" data-testid="board"></div>
       <section class="settings" id="panel-explore" data-testid="panel-explore" aria-labelledby="explore-title">
         <h2 id="explore-title" data-say="exploreTitle"></h2>
@@ -52,15 +57,42 @@ const page = `<!doctype html>
           <span class="fam-label" data-say="filter"></span>
           <input class="fam-field" id="filter" data-testid="filter" type="search" autocomplete="off" data-say-placeholder="filterPlaceholder" data-say-label="filter" />
         </div>
-        <div class="fam-table-box"><table id="names" data-testid="names"><thead><tr><th data-say="colCode"></th><th data-say="colEnglish"></th><th data-say="colJapanese"></th><th data-say="colReading"></th></tr></thead><tbody></tbody></table></div>
+        <div class="fam-table-box"><table id="names" data-testid="names"><thead><tr><th data-say="colCode"></th><th data-say="colIso"></th><th data-say="colEnglish"></th><th data-say="colJapanese"></th><th data-say="colReading"></th><th data-say="colGroup"></th></tr></thead><tbody></tbody></table></div>
+        <div id="explore-map-files"></div>
+        <div id="explore-list-files"></div>
       </section>
       <section class="settings" id="panel-quiz" data-testid="panel-quiz" aria-labelledby="quiz-title" hidden>
         <h2 id="quiz-title" data-say="quizTitle"></h2>
+        ${row("styles", "style", ["Pick the lit place's name from four look-alikes, type its name in English or Japanese, type the reading of its name in kana, or find a named place on the map. Ten questions a round, made from a seed: share the link and a friend gets the same ten.", "光っている場所のなまえを似た4つから選ぶ、英語か日本語でなまえを入力する、なまえの読みをかなで入力する、なまえを見て地図でさがす、から選びます。1回10問で、シードから作るので、リンクを送れば友だちにも同じ10問が出ます。"])}
+        <div class="fam-row quiz-chips">
+          <span class="fam-chip" id="progress" data-testid="progress"></span>
+          <span class="fam-chip" id="score" data-testid="score"></span>
+          <span class="fam-chip" id="streak" data-testid="streak"></span>
+          <span class="fam-chip" id="best" data-testid="best"></span>
+        </div>
         <p id="question" data-testid="question" aria-live="polite"></p>
         <div class="choices" id="choices" data-testid="choices" role="group" data-say-label="choices"></div>
-        <div class="setup fam-row" data-help-en="Ask another question once you have answered this one. The same seed always asks the same questions; the chip counts what you got right." data-help-ja="答えたあと、つぎの問題に進みます。同じシードからは、いつも同じ問題が出ます。チップには正解の数が出ます。">
+        <form class="typed fam-row" id="typed" data-testid="typed" hidden>
+          <input class="fam-field" id="answer" data-testid="answer" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-say-label="answer" />
+          <button type="submit" class="fam-button" data-primary="true" id="check" data-testid="check" data-say="check"></button>
+          <button type="button" class="fam-button" id="skip" data-testid="skip" data-say="skip"></button>
+        </form>
+        <div class="fam-row">
           <button type="button" class="fam-button" id="next" data-testid="next" data-say="next"></button>
-          <span class="fam-chip" id="score" data-testid="score"></span>
+        </div>
+        <div class="summary" id="quiz-summary" data-testid="quiz-summary" hidden>
+          <p class="summary-text" id="summary-text" data-testid="summary-text"></p>
+          <div class="fam-table-box"><table class="results" id="summary-table" data-testid="summary-table"></table></div>
+          <div id="summary-files"></div>
+          <p data-say="shareText"></p>
+          <div class="fam-row share">
+            <input class="fam-field" id="share-link" data-testid="share-link" readonly data-say-label="share" />
+            <button type="button" class="fam-button" id="copy-link" data-testid="copy-link" data-copy data-say="copy"></button>
+          </div>
+          <div class="fam-row">
+            <button type="button" class="fam-button" data-primary="true" id="new-round" data-testid="new-round" data-say="newRound"></button>
+            <button type="button" class="fam-button" id="again" data-testid="again" data-say="again"></button>
+          </div>
         </div>
       </section>
       <section class="settings" id="panel-callouts" data-testid="panel-callouts" aria-labelledby="callouts-title" hidden>
@@ -69,6 +101,31 @@ const page = `<!doctype html>
         ${row("polish", "polish", ["Off is the quick walk, fast enough to redraw on every move. On finishes with the slow pass a printed sheet gets: no two leaders closer than a circle's width, none through another number. It can take a few seconds.", "「なし」は速い配置で、動かすたびに描き直せます。「あり」は印刷用の仕上げで、引き出し線どうしを円の幅より近づけず、他の番号を通らないようにします。数秒かかることがあります。"])}
         ${row("numbering", "numbering", ["Number the regions in the order of the list, or as they run across the map from west to east.", "番号を、一覧の順につけるか、地図の西から東へ並ぶ順につけます。"])}
         <ol class="legend" id="legend" data-testid="legend"></ol>
+        <div id="callout-sheet-files"></div>
+        <div id="callout-list-files"></div>
+      </section>
+      <section class="settings" id="panel-colour" data-testid="panel-colour" aria-labelledby="colour-title" hidden>
+        <h2 id="colour-title" data-say="colourTitle"></h2>
+        ${row("colour-by", "colourBy", ["Shade the places from figures you paste, in five steps from the lowest to the highest, or give each of the map's parts a colour of its own.", "貼りつけた数値で、小さいものから大きいものまで5段階に塗るか、地図の地方ごとに色を分けます。"])}
+        <div class="figures" id="figures-row">
+          <p data-say="colourText"></p>
+          <textarea class="fam-field" id="figures" data-testid="figures" rows="6" data-mono="true" data-say-label="colourData" data-say-placeholder="colourPlaceholder" spellcheck="false"></textarea>
+          <div class="fam-row">
+            <button type="button" class="fam-button" id="colour-example" data-testid="colour-example" data-say="colourExample"></button>
+            <span class="fam-muted" data-say="colourExampleNote"></span>
+          </div>
+        </div>
+        <div class="colour-status" id="colour-status" aria-live="polite"></div>
+        <ul class="colour-legend" id="colour-legend" data-testid="colour-legend"></ul>
+        <div id="colour-map-files"></div>
+        <div id="colour-data-files"></div>
+      </section>
+      <section class="settings code" aria-labelledby="code-title">
+        <h2 id="code-title" data-say="codeTitle"></h2>
+        <p data-say="codeText"></p>
+        <div class="fam-seg" role="group" id="code-kind" data-testid="code-kind"></div>
+        <pre class="snippet"><code id="code" data-testid="code"></code></pre>
+        <div class="fam-row"><button type="button" class="fam-button" id="copy-code" data-testid="copy-code" data-copy data-say="copy"></button></div>
       </section>
       ${familyUnreviewed({ id })}
       <section class="more" aria-labelledby="more-title">

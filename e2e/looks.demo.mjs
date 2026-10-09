@@ -4,10 +4,10 @@ import { expect, test } from "@playwright/test";
 
 import { at, noSidewaysScroll, open, svg } from "./demo.mjs";
 
-const MODES = ["explore", "quiz", "callouts"];
+const MODES = ["explore", "quiz", "callouts", "colour"];
 
 test("the map keeps one steady box in every mode, and a choice or an answer never moves it", async ({ page }, testInfo) => {
-  await open(page, "?seed=3");
+  await open(page, "?seed=3&map=world");
   const measure = (selector) => page.locator(selector).evaluate((node) => { const r = node.getBoundingClientRect(); return { x: r.x + scrollX, y: r.y + scrollY, width: r.width, height: r.height }; });
   const before = await measure(`${at("board")} .czm-stage`);
   for (const mode of MODES) {
@@ -51,7 +51,7 @@ for (const mode of MODES) {
 }
 
 test("in Japanese the page, the map and the quiz speak Japanese, and nothing sticks out of the page", async ({ page }) => {
-  await open(page, "?mode=quiz&seed=5&lang=ja");
+  await open(page, "?mode=quiz&seed=5&lang=ja&map=world");
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   await expect(page.locator(`${at("board")} [data-action="zoom-in"]`)).toHaveAttribute("aria-label", "拡大");
   await expect(svg(page)).toHaveAttribute("aria-label", "世界の地図");

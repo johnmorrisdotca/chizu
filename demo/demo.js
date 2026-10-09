@@ -1,124 +1,41 @@
-// The demo page's own script: a map to pan and zoom (the package's own `mountChizu`), the which-one-is-this quiz built
-// from the engine's `findQuestion`, the callout placer, and every name in English and Japanese. The page itself only
-// chooses a map and a mode and hands them on.
-import { CHIZU_COUNTRIES } from "./dist/names-entry.js";
-import { findQuestion, nameOf, seededRandom, shuffled, unprojectPoint } from "./dist/index.js";
+// The demo page's own script: a map to pan and zoom (the package's own `mountChizu`), Japan's prefectures first; any
+// part of a map (a continent, a subregion, Japan's Kanto) to look at, number or quiz on; quizzes of four kinds made
+// from a seed, so a link asks the same questions; numbered callout sheets to download; a map coloured from pasted
+// figures; and the code that draws the map as it is. Every name in English and Japanese. The working parts that need
+// no page are in tools.js; the words are in words.js.
+import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
+import { findQuestion, groupMap, groupTones, nameOf, regionGroups, seededRandom, unprojectPoint } from "./dist/index.js";
+import { drawChizu } from "./dist/draw-entry.js";
 import { loadCountry, loadDivisions } from "./dist/load-entry.js";
 import { mountChizu } from "./dist/mount-entry.js";
 import world from "./dist/world-entry.js";
-
-// The page's own words, in the two languages it speaks. Set as text, never as HTML.
-const WORDS = {
-  en: {
-    pageApi: "API reference",
-    pitch: "A map of the world to drag and zoom, a which-country-is-this quiz, and numbered callouts placed in open water with leader lines that never cross. The outlines are Natural Earth's, and every name is in English and Japanese.",
-    name: "Chizu (地図) is Japanese for “map”, the everyday word, as in 世界地図, a map of the world.",
-    nameLink: "About the name",
-    map: "Map",
-    mode: "Mode",
-    modes: { explore: "Explore", quiz: "Quiz", callouts: "Callouts" },
-    groupWorld: "The world",
-    groupDivisions: "Regions of a country",
-    groupCountry: "A country on its own",
-    world: "The whole world",
-    regionsOf: (name, plural) => `${name}: ${plural.toLowerCase()}`,
-    exploreTitle: "Names and places",
-    filter: "Find",
-    filterPlaceholder: "Part of a name",
-    colCode: "Code",
-    colEnglish: "English",
-    colJapanese: "日本語",
-    colReading: "Reading",
-    nothingChosen: "Press a place on the map, or a row below.",
-    infoName: (en, ja) => `${en} · ${ja}`,
-    group: "Group",
-    touches: "Touches",
-    noNeighbours: "Touches no other place on this map.",
-    centre: (lat, lon) => `Centre at ${lat} ${lon}`,
-    north: "N",
-    south: "S",
-    east: "E",
-    west: "W",
-    quizTitle: "Which one is this?",
-    question: (what) => `Which ${what} is lit on the map?`,
-    whatCountry: "country",
-    whatRegion: "region",
-    choices: "The choices",
-    next: "Next question",
-    right: "Right! ",
-    wrong: (name) => `Not quite: it is ${name}. `,
-    score: (right, asked) => `${right} of ${asked}`,
-    quizNeeds: "The quiz needs a map with several places on it: choose the world, or the regions of a country.",
-    calloutsTitle: "Numbered callouts in open water",
-    calloutsText: "Each number sits in the sea, no two leader lines cross, and a line crosses as little other land as it can. Drag or zoom the map and they are placed again for what you see.",
-    polish: "Tidy",
-    numbering: "Numbers",
-    off: "Off",
-    on: "On",
-    numberingOptions: { given: "As listed", "west-to-east": "West to east" },
-    legendNote: (n) => `${n} numbered`,
-    moreTitle: "Using it",
-    moreText: "The map above is the package itself: the world and its names, the framing, the drawing and the callout placer. Each line below is all it takes.",
-    foot: "The outlines are Natural Earth's (public domain) and are fetched from this page's own folder: nothing leaves your browser.",
-  },
-  ja: {
-    pageApi: "API（英語）",
-    pitch: "ドラッグして拡大縮小できる世界地図、「これはどこ？」クイズ、海の上に置かれて引き出し線が交差しない番号つきの目印。輪郭はNatural Earthのもので、どのなまえも英語と日本語です。",
-    name: "「地図」（ちず）は、地図を表すふだんのことばです。「世界地図」のように使います。",
-    nameLink: "名前について（英語）",
-    map: "地図",
-    mode: "モード",
-    modes: { explore: "調べる", quiz: "クイズ", callouts: "目印の番号" },
-    groupWorld: "世界",
-    groupDivisions: "国の地方",
-    groupCountry: "一つの国だけ",
-    world: "世界全体",
-    regionsOf: (name) => `${name}の地方`,
-    exploreTitle: "なまえと場所",
-    filter: "さがす",
-    filterPlaceholder: "なまえの一部",
-    colCode: "コード",
-    colEnglish: "English",
-    colJapanese: "日本語",
-    colReading: "読み",
-    nothingChosen: "地図の場所か、下の行を押してください。",
-    infoName: (en, ja) => `${ja} · ${en}`,
-    group: "グループ",
-    touches: "となり",
-    noNeighbours: "この地図には、となりあう場所がありません。",
-    centre: (lat, lon) => `中心は${lat} ${lon}`,
-    north: "北緯",
-    south: "南緯",
-    east: "東経",
-    west: "西経",
-    quizTitle: "これはどこ？",
-    question: (what) => `地図で光っている${what}はどれでしょう？`,
-    whatCountry: "国",
-    whatRegion: "地方",
-    choices: "選択肢",
-    next: "つぎの問題",
-    right: "正解です！ ",
-    wrong: (name) => `ざんねん。答えは${name}です。 `,
-    score: (right, asked) => `${asked}問中${right}問`,
-    quizNeeds: "クイズには、場所がいくつもある地図が必要です。世界か、国の地方を選んでください。",
-    calloutsTitle: "海の上の番号つき目印",
-    calloutsText: "番号は海の上に置かれ、引き出し線は交差せず、他の陸地をなるべく横切りません。地図を動かしたり拡大したりすると、見えている範囲に合わせて置きなおします。",
-    polish: "仕上げ",
-    numbering: "番号",
-    off: "なし",
-    on: "あり",
-    numberingOptions: { given: "一覧の順", "west-to-east": "西から東" },
-    legendNote: (n) => `${n}件に番号`,
-    moreTitle: "使い方",
-    moreText: "上の地図は、このパッケージそのもの（世界とそのなまえ、枠の取り方、描画、目印の配置）で動いています。下の各行がそれぞれ必要なコードのすべてです。",
-    foot: "輪郭はNatural Earth（パブリックドメイン）のもので、このページと同じ場所から読み込みます。あなたのブラウザーの外には何も送られません。",
-  },
-};
+import {
+  codeFor,
+  fileName,
+  figureSteps,
+  figureText,
+  foldAnswer,
+  hasKanjiReading,
+  isNameOf,
+  isReadingOf,
+  nextStreak,
+  parseFigures,
+  roundOrder,
+  toCsv,
+  toJson,
+  toText,
+} from "./tools.js";
+import { WORDS } from "./words.js";
 
 const params = new URLSearchParams(location.search);
-const MODES = ["explore", "quiz", "callouts"];
+const MODES = ["explore", "quiz", "callouts", "colour"];
+const STYLES = ["choose", "type", "kana", "find"];
+const ROUND = 10;
 /** Twenty countries a school atlas names, for the world's callouts. */
 const TWENTY = ["JP", "CN", "KR", "IN", "AU", "NZ", "US", "CA", "MX", "BR", "AR", "GB", "FR", "DE", "IT", "ES", "RU", "EG", "ZA", "KE"];
+/** The colours a coloured map is shaded in, light and dark, and the colours of the parts of a map: tones the drawing does not have, given here. */
+const STEP_COLOURS = { light: ["#e6f0e8", "#bcd9c5", "#88bd9f", "#4f9a73", "#2c6a4c"], dark: ["#26352b", "#2f5a41", "#3f8460", "#6db58c", "#b4e3c6"] };
+const GROUP_COLOURS = { light: ["#f2c6a0", "#a9cbe8", "#c9e2a6", "#e9b7cf", "#f3e19a", "#b8b2e3", "#9fd8cf", "#e3b9a3", "#d0d0c0", "#cfe0f0"], dark: ["#7a4e2e", "#2d5375", "#4d6a2c", "#73405a", "#776a26", "#4a4380", "#2c6b62", "#6e4734", "#55554a", "#3d5266"] };
 
 const language = familyLanguage({ id: "chizu", words: WORDS, onChange: () => refreshAll() });
 const say = (key, ...args) => {
@@ -127,21 +44,51 @@ const say = (key, ...args) => {
 };
 const nameIn = (region) => nameOf(region, language.lang);
 
+const keep = {
+  get(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  },
+  set(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      /* A browser that keeps nothing: the best streak lasts the visit. */
+    }
+  },
+};
+
 const state = {
-  mapKey: params.get("map") ?? "world",
+  mapKey: params.get("map") ?? "divisions:jp",
+  partKey: params.get("part"),
   mode: MODES.includes(params.get("mode")) ? params.get("mode") : "explore",
   map: world,
+  part: null,
   selected: null,
+  tones: {},
   polish: params.get("polish") === "on",
   numbering: params.get("numbering") === "west-to-east" ? "west-to-east" : "given",
-  seed: Number(params.get("seed")) > 0 ? Number(params.get("seed")) : 1,
-  question: null,
-  asked: 0,
-  right: 0,
-  answered: false,
+  colourBy: params.get("colour") === "groups" ? "groups" : "figures",
+  figures: { rows: [], missing: [], noNumber: [], lines: 0 },
+  quiz: {
+    style: STYLES.includes(params.get("style")) ? params.get("style") : "choose",
+    seed: Number(params.get("seed")) > 0 ? Math.floor(Number(params.get("seed"))) : 1,
+    order: [],
+    index: 0,
+    question: null,
+    answered: false,
+    results: [],
+    streak: { current: 0, best: 0 },
+    note: null,
+  },
+  codeKind: "mount",
 };
 
 const host = document.getElementById("board");
+const $ = (id) => document.getElementById(id);
 let mount = null;
 
 const el = (tag, props = {}, ...children) => {
@@ -149,70 +96,154 @@ const el = (tag, props = {}, ...children) => {
   for (const [key, value] of Object.entries(props)) {
     if (key === "text") node.textContent = value;
     else if (key === "on") for (const [event, handler] of Object.entries(value)) node.addEventListener(event, handler);
-    else if (value !== undefined && value !== null) node.setAttribute(key, String(value));
+    else if (value !== undefined && value !== null && value !== false) node.setAttribute(key, value === true ? "" : String(value));
   }
-  node.append(...children);
+  node.append(...children.filter((child) => child !== null && child !== undefined));
   return node;
 };
 
 function seg(parent, items, chosen, choose, labelOf) {
-  parent.replaceChildren(
-    ...items.map((item) => {
-      const button = el("button", { type: "button", "data-value": item, "aria-pressed": String(item === chosen), text: labelOf(item) });
-      button.addEventListener("click", () => choose(item));
-      return button;
-    }),
-  );
+  parent.replaceChildren(...items.map((item) => el("button", { type: "button", "data-value": String(item), "aria-pressed": String(item === chosen), text: labelOf(item), on: { click: () => choose(item) } })));
 }
 
-// ---- the map chooser ---------------------------------------------------------------------------------------
+function remember(changes) {
+  const query = new URLSearchParams(location.search);
+  for (const [key, value] of Object.entries(changes)) {
+    if (value === null || value === undefined || value === "") query.delete(key);
+    else query.set(key, String(value));
+  }
+  history.replaceState(history.state, "", `${location.pathname}?${query.toString()}${location.hash}`);
+}
+
+const regionOf = (code) => state.map.regions.find((entry) => entry.code === code);
+/** The places in view: the part's, or the whole map's. */
+const inPart = () => (state.part ? state.map.regions.filter((region) => state.part.codes.includes(region.code)) : state.map.regions);
+const dark = () => document.documentElement.dataset.theme === "dark" || (document.documentElement.dataset.theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+
+// ---- the map and its part ------------------------------------------------------------------------------------
+function mapLabel(country) {
+  return language.lang === "ja" ? `${nameOf(country, "ja")}（${country.name}）` : `${country.name} (${nameOf(country, "ja")})`;
+}
+
 function populateMaps() {
-  const select = document.getElementById("map");
+  const select = $("map");
   const byName = (a, b) => nameIn(a).localeCompare(nameIn(b), language.lang);
-  const withDivisions = CHIZU_COUNTRIES.filter((country) => country.hasDivisions).sort(byName);
+  const withDivisions = CHIZU_COUNTRIES.filter((country) => country.hasDivisions && country.code !== "JP").sort(byName);
   const everyone = [...CHIZU_COUNTRIES].sort(byName);
-  const option = (value, text) => el("option", { value, text, ...(value === state.mapKey ? { selected: "" } : {}) });
+  const continents = CHIZU_CONTINENTS.filter((continent) => continent.codes.filter((code) => world.regions.some((region) => region.code === code)).length > 1);
+  const option = (value, text) => el("option", { value, text });
   select.replaceChildren(
+    el("optgroup", { label: say("groupJapan") }, option("divisions:jp", say("japanPrefectures"))),
     el("optgroup", { label: say("groupWorld") }, option("world", say("world"))),
-    el("optgroup", { label: say("groupDivisions") }, ...withDivisions.map((country) => option(`divisions:${country.code.toLowerCase()}`, language.lang === "ja" ? `${nameOf(country, "ja")}（${country.name}）` : `${country.name} (${nameOf(country, "ja")})`))),
-    el("optgroup", { label: say("groupCountry") }, ...everyone.map((country) => option(`country:${country.code.toLowerCase()}`, language.lang === "ja" ? `${nameOf(country, "ja")}（${country.name}）` : `${country.name} (${nameOf(country, "ja")})`))),
+    el("optgroup", { label: say("groupContinents") }, ...continents.map((continent) => option(`continent:${continent.code}`, language.lang === "ja" ? continent.nameJa : continent.name))),
+    el("optgroup", { label: say("groupDivisions") }, ...withDivisions.map((country) => option(`divisions:${country.code.toLowerCase()}`, mapLabel(country)))),
+    el("optgroup", { label: say("groupCountry") }, ...everyone.map((country) => option(`country:${country.code.toLowerCase()}`, mapLabel(country)))),
   );
-  select.value = state.mapKey;
+  select.value = state.mapKey === "world" && state.part?.kind === "continent" ? `continent:${state.part.key}` : state.mapKey;
+}
+
+/** The parts a map may be cut to: the continents and subregions on the world, a country's own groups on its regions. */
+function partsOf(map) {
+  const present = (codes) => codes.filter((code) => map.regions.some((region) => region.code === code));
+  if (map.kind === "world") {
+    const continents = CHIZU_CONTINENTS.map((one) => ({ key: one.code, kind: "continent", name: one.name, nameJa: one.nameJa, codes: present(one.codes) })).filter((one) => one.codes.length > 1);
+    const subregions = CHIZU_SUBREGIONS.map((one) => ({ key: one.code, kind: "subregion", name: one.name, nameJa: one.nameJa, codes: present(one.codes) })).filter((one) => one.codes.length > 1);
+    return [...continents, ...subregions];
+  }
+  if (map.kind === "divisions") {
+    const groups = regionGroups(map);
+    return groups.length > 1 ? groups.map((group) => ({ key: group.code, kind: "group", name: group.name, nameJa: group.nameJa, codes: group.codes })) : [];
+  }
+  return [];
+}
+
+function populateParts() {
+  const parts = partsOf(state.map);
+  const row = $("part-row");
+  row.hidden = parts.length === 0;
+  const select = $("part");
+  const label = (part) => (language.lang === "ja" ? (part.nameJa ?? part.name) : part.name);
+  const option = (part) => el("option", { value: part.key, text: `${label(part)} (${part.codes.length})` });
+  const byKind = (kind) => parts.filter((part) => part.kind === kind);
+  select.replaceChildren(
+    el("option", { value: "", text: say("whole") }),
+    ...(state.map.kind === "world"
+      ? [el("optgroup", { label: say("partContinents") }, ...byKind("continent").map(option)), el("optgroup", { label: say("partSubregions") }, ...byKind("subregion").map(option))]
+      : [el("optgroup", { label: say("partGroups") }, ...byKind("group").map(option))]),
+  );
+  select.value = state.part?.key ?? "";
 }
 
 async function loadMap(key) {
-  if (key === "world") return world;
+  if (key === "world" || key.startsWith("continent:")) return world;
   const [kind, code] = key.split(":");
   const map = kind === "divisions" ? await loadDivisions(code) : kind === "country" ? await loadCountry(code) : null;
   return map ?? world;
 }
 
-async function chooseMap(key) {
+async function chooseMap(key, partKey = null) {
+  if (key.startsWith("continent:")) {
+    partKey = key.slice("continent:".length);
+    key = "world";
+  }
   state.mapKey = key;
   state.map = await loadMap(key);
+  state.part = partsOf(state.map).find((part) => part.key === partKey) ?? null;
   state.selected = null;
-  state.question = null;
   host.dataset.map = state.map.id;
   mount.setMap(state.map);
-  const query = new URLSearchParams(location.search);
-  query.set("map", key);
-  history.replaceState(history.state, "", `${location.pathname}?${query.toString()}${location.hash}`);
+  remember({ map: key, part: state.part?.key ?? null });
   refreshAll();
-  if (state.mode === "quiz") nextQuestion();
+  showPart();
+  if (state.mode === "quiz") startRound();
+  else paint();
+}
+
+function choosePart(key) {
+  state.part = partsOf(state.map).find((part) => part.key === key) ?? null;
+  state.selected = null;
+  remember({ part: state.part?.key ?? null });
+  populateMaps();
+  showPart();
+  renderNames();
+  renderInfo();
+  if (state.mode === "quiz") startRound();
+  else paint();
+}
+
+/** Frame the part, or the whole map. */
+function showPart() {
+  if (state.part) mount.show(state.part.codes);
+  else mount.reset();
+}
+
+/** The tones that fade everything outside the part. */
+const partTones = () => (state.part ? groupTones(state.map, state.part.codes) : {});
+
+function setTones(tones, extra = {}) {
+  state.tones = tones;
+  mount.set({ tones, ...extra });
+  renderCode();
+}
+
+/** Colour the map for the mode it is in. The quiz colours its own. */
+function paint() {
+  if (state.mode === "explore") setTones(partTones(), { callouts: undefined, selectable: true, selected: state.selected });
+  else if (state.mode === "callouts") setTones(partTones(), { selected: null, selectable: false });
+  else if (state.mode === "colour") setTones({ ...partTones(), ...colourTones() }, { callouts: undefined, selected: null, selectable: false });
 }
 
 // ---- explore: the card for the chosen place, and the table of names --------------------------------------
 function coordinateText(lat, lon) {
-  const ns = lat >= 0 ? say("north") : say("south");
-  const ew = lon >= 0 ? say("east") : say("west");
-  const a = `${ns}${Math.abs(lat).toFixed(1)}°`;
-  const b = `${ew}${Math.abs(lon).toFixed(1)}°`;
-  return language.lang === "ja" ? say("centre", a, b) : say("centre", `${Math.abs(lat).toFixed(1)}°${lat >= 0 ? "N" : "S"}`, `${Math.abs(lon).toFixed(1)}°${lon >= 0 ? "E" : "W"}`);
+  if (language.lang === "ja") return say("centre", `${lat >= 0 ? say("north") : say("south")}${Math.abs(lat).toFixed(1)}°`, `${lon >= 0 ? say("east") : say("west")}${Math.abs(lon).toFixed(1)}°`);
+  return say("centre", `${Math.abs(lat).toFixed(1)}°${lat >= 0 ? "N" : "S"}`, `${Math.abs(lon).toFixed(1)}°${lon >= 0 ? "E" : "W"}`);
 }
 
+const groupIn = (region) => (language.lang === "ja" ? (region.groupJa ?? region.group) : region.group);
+
 function renderInfo() {
-  const info = document.getElementById("info");
-  const region = state.selected ? state.map.regions.find((entry) => entry.code === state.selected) : null;
+  const info = $("info");
+  const region = state.selected ? regionOf(state.selected) : null;
   if (!region) {
     info.replaceChildren(el("p", { class: "fam-muted", text: say("nothingChosen") }));
     return;
@@ -221,36 +252,39 @@ function renderInfo() {
   const reading = region.reading && region.reading !== japanese ? region.reading : null;
   const [x, y] = region.centroid;
   const lonlat = state.map.kind === "world" ? unprojectPoint(state.map, x, y) : null;
-  const rows = [
+  info.replaceChildren(
     el("p", { class: "info-name", "data-testid": "info-name", text: say("infoName", region.name, japanese) }),
-    reading ? el("p", { class: "fam-muted", "data-testid": "info-reading", text: reading }) : null,
-    el("p", { class: "fam-muted", text: `${say("group")}: ${region.group}` }),
+    reading ? el("p", { class: "fam-muted", lang: "ja", "data-testid": "info-reading", text: reading }) : null,
+    region.iso ? el("p", { class: "fam-muted", "data-testid": "info-iso", text: `${say("isoCode")}: ${region.iso}` }) : null,
+    el("p", { class: "fam-muted", "data-testid": "info-group", text: `${say("group")}: ${groupIn(region)}` }),
     lonlat ? el("p", { class: "fam-muted", text: coordinateText(lonlat[1], lonlat[0]) }) : null,
     region.neighbors.length > 0
       ? el(
           "div",
           { class: "fam-row" },
           el("span", { class: "fam-label", text: say("touches") }),
-          ...region.neighbors.map((code) => {
-            const other = state.map.regions.find((entry) => entry.code === code);
-            return el("button", { type: "button", class: "fam-chip", "data-code": code, text: other ? nameIn(other) : code, on: { click: () => choosePlace(code) } });
-          }),
+          ...region.neighbors.map((code) => el("button", { type: "button", class: "fam-chip", "data-code": code, text: regionOf(code) ? nameIn(regionOf(code)) : code, on: { click: () => choosePlace(code) } })),
         )
       : el("p", { class: "fam-muted", text: say("noNeighbours") }),
-  ];
-  info.replaceChildren(...rows.filter(Boolean));
+  );
 }
 
 function renderNames() {
   const tbody = document.querySelector("#names tbody");
-  const needle = document.getElementById("filter").value.trim().toLowerCase();
-  const rows = state.map.regions.filter((region) => needle === "" || [region.name, region.nameJa, region.nameShortJa, region.reading, region.code].some((text) => (text ?? "").toLowerCase().includes(needle)));
+  const needle = foldAnswer($("filter").value);
+  const rows = inPart().filter((region) => needle === "" || [region.name, region.nameJa, region.nameShortJa, region.reading, region.code, region.iso].some((text) => foldAnswer(text ?? "").includes(needle)));
   tbody.replaceChildren(
     ...rows.map((region) => {
-      const tr = el("tr", { "data-code": region.code, "aria-selected": String(region.code === state.selected), tabindex: "0" }, el("td", { class: "fam-code", text: region.code }), el("td", { text: region.name }), el("td", { lang: "ja", text: region.nameShortJa ? `${region.nameShortJa}（${region.nameJa}）` : (region.nameJa ?? "") }), el("td", { lang: "ja", text: region.reading ?? "" }));
-      const choose = () => choosePlace(region.code);
-      tr.addEventListener("click", choose);
-      tr.addEventListener("keydown", (event) => event.key === "Enter" && choose());
+      const tr = el(
+        "tr",
+        { "data-code": region.code, "aria-selected": String(region.code === state.selected), tabindex: "0", on: { click: () => choosePlace(region.code), keydown: (event) => event.key === "Enter" && choosePlace(region.code) } },
+        el("td", { class: "fam-code", text: region.code }),
+        el("td", { class: "fam-code", text: region.iso ?? "" }),
+        el("td", { text: region.name }),
+        el("td", { lang: "ja", text: region.nameShortJa ? `${region.nameShortJa}（${region.nameJa}）` : (region.nameJa ?? "") }),
+        el("td", { lang: "ja", text: region.reading ?? "" }),
+        el("td", { text: groupIn(region) }),
+      );
       return tr;
     }),
   );
@@ -264,140 +298,590 @@ function choosePlace(code) {
   renderNames();
 }
 
+// ---- downloads -----------------------------------------------------------------------------------------------
+/** Hand the reader a file: text, or a Blob. */
+function save(name, type, body) {
+  const blob = body instanceof Blob ? body : new Blob([body], { type: `${type};charset=utf-8` });
+  const url = URL.createObjectURL(blob);
+  const link = el("a", { href: url, download: name });
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/** The colours the map needs beyond the drawing's own, as CSS: the steps of a coloured map and the colours of its parts. */
+function extraStyle(theme) {
+  const steps = STEP_COLOURS[theme].map((colour, index) => `.chizu .cz-tone-step${index + 1} .cz-land { fill: ${colour}; }`);
+  const groups = GROUP_COLOURS[theme].map((colour, index) => `.chizu .cz-tone-group${index + 1} .cz-land { fill: ${colour}; }`);
+  return [...steps, ...groups].join("\n");
+}
+
+/** The map as it is drawn now, as a standalone SVG in the light look: the window, the tones, any callouts, with the style inside. */
+function currentSvg({ callouts = null, labels = false } = {}) {
+  const box = mount.view().box;
+  const svg = drawChizu(state.map, { box, tones: state.tones, language: language.lang, style: true, labels, ...(callouts ? { callouts } : {}) });
+  const width = 1200;
+  const height = Math.round((width * box.height) / box.width);
+  return svg.replace("<svg ", `<svg width="${width}" height="${height}" data-theme="light" `).replace("</style>", `\n${extraStyle("light")}</style>`);
+}
+
+/** A standalone SVG made a PNG, twice its size, through a canvas: nothing leaves the page. */
+async function svgToPng(svg) {
+  const width = Number(svg.match(/ width="(\d+)"/)[1]);
+  const height = Number(svg.match(/ height="(\d+)"/)[1]);
+  const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
+  try {
+    const image = new Image();
+    image.decoding = "sync";
+    await new Promise((resolve, reject) => {
+      image.onload = resolve;
+      image.onerror = reject;
+      image.src = url;
+    });
+    const canvas = document.createElement("canvas");
+    canvas.width = width * 2;
+    canvas.height = height * 2;
+    const context = canvas.getContext("2d");
+    context.scale(2, 2);
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+    return await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+/** A row of buttons, one for each kind of file a thing can be downloaded as. */
+function downloadRow(container, testid, label, files) {
+  container.replaceChildren(
+    el(
+      "div",
+      { class: "downloads fam-row", "data-testid": testid },
+      el("span", { class: "fam-label", text: label }),
+      ...files.map((file) =>
+        el("button", {
+          type: "button",
+          class: "fam-button",
+          "data-format": file.format,
+          "data-testid": `${testid}-${file.format}`,
+          text: file.format.toUpperCase(),
+          on: {
+            click: async () => {
+              const body = await file.make();
+              save(`${file.name}.${file.format}`, file.type, body);
+            },
+          },
+        }),
+      ),
+    ),
+  );
+}
+
+/** The table of places in view: code, ISO code, names, reading and part, for a file. */
+function placeTable() {
+  const columns = [
+    { key: "code", label: "code" },
+    { key: "iso", label: "iso" },
+    { key: "name", label: "name" },
+    { key: "nameJa", label: "nameJa" },
+    { key: "reading", label: "reading" },
+    { key: "group", label: "group" },
+    { key: "groupJa", label: "groupJa" },
+  ];
+  return { columns, rows: inPart() };
+}
+
+const viewName = (...more) => fileName("chizu", state.map.id, state.part?.name, ...more);
+
+function renderExploreDownloads() {
+  downloadRow($("explore-map-files"), "download-map", say("downloadMap"), [
+    { format: "svg", type: "image/svg+xml", name: viewName("map"), make: () => currentSvg({ labels: true }) },
+    { format: "png", type: "image/png", name: viewName("map"), make: () => svgToPng(currentSvg({ labels: true })) },
+  ]);
+  const title = `${language.lang === "ja" ? (state.map.nameJa ?? state.map.name) : state.map.name}${state.part ? ` · ${language.lang === "ja" ? (state.part.nameJa ?? state.part.name) : state.part.name}` : ""}`;
+  downloadRow($("explore-list-files"), "download-list", say("downloadList"), [
+    { format: "csv", type: "text/csv", name: viewName("places"), make: () => toCsv(placeTable().columns, placeTable().rows) },
+    { format: "json", type: "application/json", name: viewName("places"), make: () => toJson(placeTable().columns, placeTable().rows, { map: state.map.id, part: state.part?.key ?? null }) },
+    { format: "txt", type: "text/plain", name: viewName("places"), make: () => toText(title, placeTable().columns, placeTable().rows) },
+  ]);
+}
+
 // ---- the quiz ----------------------------------------------------------------------------------------------
-function nextQuestion() {
-  const map = state.map;
-  const panel = document.getElementById("question");
-  const choices = document.getElementById("choices");
-  if (map.regions.length < 4) {
-    state.question = null;
-    panel.textContent = say("quizNeeds");
-    choices.replaceChildren();
-    mount.set({ tones: {}, selected: null, selectable: false });
+const bestKey = () => `chizu.best.${state.map.id}.${state.part?.key ?? "all"}.${state.quiz.style}`;
+
+/** The places a round may ask about: the part's, and for readings only those whose names have kanji. */
+function quizPool() {
+  const regions = inPart();
+  return (state.quiz.style === "kana" ? regions.filter(hasKanjiReading) : regions).map((region) => region.code);
+}
+
+function startRound() {
+  const quiz = state.quiz;
+  const pool = quizPool();
+  quiz.order = pool.length >= 4 ? roundOrder(pool, ROUND, seededRandom(quiz.seed)) : [];
+  quiz.index = 0;
+  quiz.results = [];
+  quiz.streak = { current: 0, best: Number(keep.get(bestKey())) || 0 };
+  quiz.note = pool.length >= 4 ? null : state.quiz.style === "kana" && inPart().length >= 4 ? say("kanaNeeds") : say("quizNeeds");
+  remember({ seed: quiz.seed, style: quiz.style });
+  $("quiz-summary").hidden = true;
+  askQuestion();
+}
+
+function askQuestion() {
+  const quiz = state.quiz;
+  quiz.answered = false;
+  quiz.question = null;
+  if (quiz.note !== null || quiz.index >= quiz.order.length) {
+    setTones(partTones(), { selected: null, selectable: false, callouts: undefined });
+    renderQuestion();
     return;
   }
-  // The question and its place are made from the seed: the same seed asks the same questions.
-  const random = seededRandom(state.seed * 7919 + state.asked);
-  const target = shuffled(map.regions, random)[0].code;
-  state.question = findQuestion(map, target, random);
-  state.answered = false;
-  // The place is lit by a tone, never "chosen": a chosen place would be read out, and that is the answer.
-  mount.set({ tones: { [target]: "selected" }, selected: null, selectable: false });
-  mount.show([target]);
+  const target = quiz.order[quiz.index];
+  const random = seededRandom(quiz.seed * 7919 + quiz.index);
+  const pool = quizPool();
+  quiz.question = quiz.style === "choose" ? findQuestion(groupMap(state.map, pool), target, random) : { target, choices: [], answerIndex: -1 };
+  if (quiz.style === "find") {
+    // The place is not lit: finding it is the question. The map shows the part whole, and a press answers.
+    setTones(partTones(), { selected: null, selectable: true, fit: false, callouts: undefined });
+    showPart();
+  } else {
+    // The place is lit by a tone, never "chosen": a chosen place would be read out, and that is the answer.
+    setTones({ ...partTones(), [target]: "selected" }, { selected: null, selectable: false, callouts: undefined });
+    mount.show([target]);
+  }
   renderQuestion();
+  if (quiz.style === "type" || quiz.style === "kana") {
+    const input = $("answer");
+    input.value = "";
+    if (document.activeElement?.closest?.("#panel-quiz")) input.focus();
+  }
+}
+
+const shownName = (region) => region.nameShortJa ?? region.nameJa ?? region.name;
+
+function questionText() {
+  const quiz = state.quiz;
+  const what = state.map.kind === "world" ? say("whatCountry") : say("whatRegion");
+  const region = regionOf(quiz.question.target);
+  if (quiz.style === "type") return say("questionType", what);
+  if (quiz.style === "kana") return say("questionKana", shownName(region));
+  if (quiz.style === "find") return say("questionFind", nameIn(region));
+  return say("question", what);
 }
 
 function renderQuestion() {
-  const panel = document.getElementById("question");
-  const choices = document.getElementById("choices");
+  const quiz = state.quiz;
+  const panel = $("question");
+  const choices = $("choices");
+  const typed = $("typed");
+  seg($("styles"), STYLES, quiz.style, chooseStyle, (value) => say("styles")[value]);
+  $("score").textContent = say("score", quiz.results.filter((result) => result.result === "right").length, quiz.results.length);
+  $("streak").textContent = say("streak", quiz.streak.current);
+  $("streak").dataset.lit = String(quiz.streak.current >= 3);
+  $("best").textContent = say("best", quiz.streak.best);
+  $("progress").textContent = quiz.order.length ? say("round", Math.min(quiz.answered ? quiz.index : quiz.index + 1, quiz.order.length), quiz.order.length) : "";
+  if (quiz.note !== null) {
+    panel.textContent = quiz.note;
+    delete panel.dataset.result;
+    choices.replaceChildren();
+    typed.hidden = true;
+    $("next").hidden = true;
+    return;
+  }
+  if (quiz.question === null) {
+    choices.replaceChildren();
+    typed.hidden = true;
+    $("next").hidden = true;
+    renderSummary();
+    return;
+  }
+  if (!quiz.answered) {
+    panel.textContent = questionText();
+    delete panel.dataset.result;
+  }
   const map = state.map;
-  if (state.question === null) return;
-  const what = map.kind === "world" ? say("whatCountry") : say("whatRegion");
-  const answered = state.answered;
-  if (!answered) panel.textContent = say("question", what);
   choices.replaceChildren(
-    ...state.question.choices.map((code) => {
-      const region = map.regions.find((entry) => entry.code === code);
-      const reading = language.lang === "ja" && region.reading && region.reading !== (region.nameShortJa ?? region.nameJa) ? ` (${region.reading})` : "";
-      return el("button", { type: "button", class: "fam-button", "data-code": code, "data-testid": `choice-${code}`, ...(answered ? { disabled: "" } : {}), text: nameIn(region) + reading, on: { click: () => answer(code) } });
+    ...quiz.question.choices.map((code) => {
+      const region = regionOf(code);
+      const reading = language.lang === "ja" && region.reading && region.reading !== shownName(region) ? ` (${region.reading})` : "";
+      return el("button", { type: "button", class: "fam-button", "data-code": code, "data-testid": `choice-${code}`, disabled: quiz.answered, text: nameIn(region) + reading, on: { click: () => answer(code, nameIn(region)) } });
     }),
   );
-  document.getElementById("next").disabled = !answered;
-  document.getElementById("score").textContent = say("score", state.right, state.asked);
+  typed.hidden = !(quiz.style === "type" || quiz.style === "kana");
+  $("answer").setAttribute("lang", quiz.style === "kana" ? "ja" : language.lang);
+  $("answer").placeholder = quiz.style === "kana" ? say("answerKanaPlaceholder") : say("answerPlaceholder");
+  $("answer").disabled = quiz.answered;
+  $("check").disabled = quiz.answered;
+  $("skip").disabled = quiz.answered;
+  $("next").hidden = false;
+  $("next").disabled = !quiz.answered;
+  void map;
 }
 
-function answer(code) {
-  if (state.answered || state.question === null) return;
-  state.answered = true;
-  state.asked += 1;
-  const target = state.question.target;
-  const correct = code === target;
-  if (correct) state.right += 1;
-  const tones = { [target]: "correct" };
-  if (!correct) tones[code] = "wrong";
-  mount.set({ tones, selected: null });
-  const region = state.map.regions.find((entry) => entry.code === target);
-  document.getElementById("question").textContent = (correct ? say("right") : say("wrong", nameIn(region))) + nameIn(region);
-  document.getElementById("question").dataset.result = correct ? "right" : "wrong";
+function chooseStyle(style) {
+  state.quiz.style = style;
+  startRound();
+}
+
+/** Judge an answer: `code` is the place chosen or pressed (or null for a typed one), `said` the words given. */
+function answer(code, said, verdict = null) {
+  const quiz = state.quiz;
+  if (quiz.answered || quiz.question === null) return;
+  quiz.answered = true;
+  const target = quiz.question.target;
+  const region = regionOf(target);
+  const result = verdict ?? (code === target ? "right" : "wrong");
+  quiz.streak = nextStreak(quiz.streak, result === "right");
+  if (quiz.streak.best > (Number(keep.get(bestKey())) || 0)) keep.set(bestKey(), String(quiz.streak.best));
+  quiz.results.push({ n: quiz.index + 1, code: target, iso: region.iso ?? "", place: nameIn(region), reading: region.reading ?? "", given: said, result });
+  const tones = { ...partTones(), [target]: "correct" };
+  if (result === "wrong" && code && code !== target) tones[code] = "wrong";
+  setTones(tones, { selected: null, selectable: false });
+  if (quiz.style === "find") mount.show(code && code !== target ? [target, code] : [target]);
+  const panel = $("question");
+  const right = quiz.style === "kana" ? `${shownName(region)}（${region.reading}）` : nameIn(region);
+  panel.textContent = result === "right" ? say("right") + right : result === "shown" ? say("shown", right) : say("wrong", right) + (said ? say("youSaid", said) : "");
+  panel.dataset.result = result;
+  quiz.index += 1;
   renderQuestion();
+  if (quiz.index >= quiz.order.length) renderSummary();
+  $("next").focus({ preventScroll: true });
+}
+
+function checkTyped(event) {
+  event?.preventDefault();
+  const quiz = state.quiz;
+  if (quiz.answered || quiz.question === null) return;
+  const typed = $("answer").value.trim();
+  if (typed === "") return;
+  const region = regionOf(quiz.question.target);
+  const right = quiz.style === "kana" ? isReadingOf(typed, region) : isNameOf(typed, region);
+  answer(null, typed, right ? "right" : "wrong");
+}
+
+function nextQuestion() {
+  if (state.quiz.index >= state.quiz.order.length) {
+    renderSummary();
+    return;
+  }
+  askQuestion();
+}
+
+const resultColumns = () => [
+  { key: "n", label: say("colQuestion") },
+  { key: "code", label: "code" },
+  { key: "iso", label: "iso" },
+  { key: "place", label: say("colPlace") },
+  { key: "reading", label: say("colReading") },
+  { key: "given", label: say("colGiven") },
+  { key: "resultText", label: say("colResult") },
+];
+
+function shareLink() {
+  const query = new URLSearchParams({ map: state.mapKey, mode: "quiz", style: state.quiz.style, seed: String(state.quiz.seed), lang: language.lang });
+  if (state.part) query.set("part", state.part.key);
+  return `${location.origin}${location.pathname}?${query.toString()}`;
+}
+
+function renderSummary() {
+  const quiz = state.quiz;
+  const summary = $("quiz-summary");
+  const done = quiz.order.length > 0 && quiz.results.length >= quiz.order.length;
+  summary.hidden = !done;
+  if (!done) return;
+  $("next").hidden = true;
+  const rightCount = quiz.results.filter((result) => result.result === "right").length;
+  $("summary-text").textContent = say("roundDone", rightCount, quiz.results.length, quiz.streak.best);
+  const words = { right: say("resultRight"), wrong: say("resultWrong"), shown: say("resultShown") };
+  const rows = quiz.results.map((result) => ({ ...result, resultText: words[result.result] }));
+  $("summary-table").replaceChildren(
+    el("thead", {}, el("tr", {}, ...resultColumns().map((column) => el("th", { text: column.label })))),
+    el("tbody", {}, ...rows.map((row) => el("tr", { "data-result": row.result }, ...resultColumns().map((column) => el("td", { text: String(row[column.key] ?? "") }))))),
+  );
+  const title = `${say("roundTable")} · ${state.map.name} · seed ${quiz.seed}`;
+  downloadRow($("summary-files"), "download-results", say("download"), [
+    { format: "csv", type: "text/csv", name: viewName("quiz", String(quiz.seed)), make: () => toCsv(resultColumns(), rows) },
+    { format: "json", type: "application/json", name: viewName("quiz", String(quiz.seed)), make: () => toJson(resultColumns(), rows, { map: state.map.id, part: state.part?.key ?? null, style: quiz.style, seed: quiz.seed, link: shareLink() }) },
+    { format: "txt", type: "text/plain", name: viewName("quiz", String(quiz.seed)), make: () => toText(`${title}\n${$("summary-text").textContent}\n${shareLink()}`, resultColumns(), rows) },
+  ]);
+  $("share-link").value = shareLink();
 }
 
 // ---- callouts ----------------------------------------------------------------------------------------------
 function calloutCodes() {
-  const map = state.map;
-  if (map.kind === "world") return TWENTY.filter((code) => map.regions.some((region) => region.code === code));
-  if (map.regions.length <= 30) return map.regions.map((region) => region.code);
+  const regions = inPart();
+  if (state.map.kind === "world" && !state.part) return TWENTY.filter((code) => regionOf(code));
+  if (regions.length <= 30) return regions.map((region) => region.code);
   const area = (region) => (region.bbox[2] - region.bbox[0]) * (region.bbox[3] - region.bbox[1]);
-  return [...map.regions].sort((a, b) => area(b) - area(a)).slice(0, 30).map((region) => region.code);
+  return [...regions].sort((a, b) => area(b) - area(a)).slice(0, 30).map((region) => region.code);
+}
+
+function calloutRequest() {
+  const codes = calloutCodes();
+  // The world is a thousand units across and holds twenty numbers, and a country may hold thirty: smaller circles than one with sixteen.
+  const radiusRatio = state.map.kind === "world" && !state.part ? 0.016 : Math.max(0.014, 0.03 * Math.sqrt(Math.min(1, 16 / codes.length)));
+  return { codes, polish: state.polish, numbering: state.numbering, radiusRatio: Math.round(radiusRatio * 10000) / 10000 };
+}
+
+function orderedCallouts() {
+  const codes = calloutCodes();
+  return state.numbering === "west-to-east" ? [...codes].sort((a, b) => regionOf(a).centroid[0] - regionOf(b).centroid[0] || regionOf(a).centroid[1] - regionOf(b).centroid[1]) : codes;
 }
 
 function applyCallouts() {
   if (state.mode !== "callouts") {
     mount.set({ callouts: undefined });
+    renderCode();
     return;
   }
-  const codes = calloutCodes();
-  // The world is a thousand units across and holds twenty numbers, and a country may hold thirty: smaller circles than one with sixteen.
-  mount.set({ callouts: { codes, polish: state.polish, numbering: state.numbering, radiusRatio: state.map.kind === "world" ? 0.016 : Math.max(0.014, 0.03 * Math.sqrt(Math.min(1, 16 / codes.length))) } });
-  const legend = document.getElementById("legend");
-  const ordered = state.numbering === "west-to-east" ? [...codes].sort((a, b) => regionOf(a).centroid[0] - regionOf(b).centroid[0] || regionOf(a).centroid[1] - regionOf(b).centroid[1]) : codes;
-  legend.replaceChildren(...ordered.map((code) => el("li", { "data-code": code, text: nameIn(regionOf(code)) })));
+  mount.set({ callouts: calloutRequest() });
+  $("legend").replaceChildren(...orderedCallouts().map((code) => el("li", { "data-code": code, text: nameIn(regionOf(code)) })));
+  renderCode();
+  const legendRows = () => orderedCallouts().map((code, index) => ({ number: index + 1, code, iso: regionOf(code).iso ?? "", name: regionOf(code).name, nameJa: regionOf(code).nameJa ?? "", reading: regionOf(code).reading ?? "" }));
+  const columns = [
+    { key: "number", label: "number" },
+    { key: "code", label: "code" },
+    { key: "iso", label: "iso" },
+    { key: "name", label: "name" },
+    { key: "nameJa", label: "nameJa" },
+    { key: "reading", label: "reading" },
+  ];
+  downloadRow($("callout-sheet-files"), "download-sheet", say("downloadSheet"), [
+    { format: "svg", type: "image/svg+xml", name: viewName("callouts"), make: () => calloutSheet() },
+    { format: "png", type: "image/png", name: viewName("callouts"), make: () => svgToPng(calloutSheet()) },
+  ]);
+  downloadRow($("callout-list-files"), "download-legend", say("downloadLegend"), [
+    { format: "csv", type: "text/csv", name: viewName("callouts"), make: () => toCsv(columns, legendRows()) },
+    { format: "json", type: "application/json", name: viewName("callouts"), make: () => toJson(columns, legendRows(), { map: state.map.id }) },
+    { format: "txt", type: "text/plain", name: viewName("callouts"), make: () => toText(state.map.name, columns, legendRows()) },
+  ]);
 }
-const regionOf = (code) => state.map.regions.find((entry) => entry.code === code);
+
+/** A sheet to print: the map with its numbered callouts, and under it the numbered list, as one SVG. */
+function calloutSheet() {
+  const map = currentSvg({ callouts: calloutRequest() });
+  const width = Number(map.match(/ width="(\d+)"/)[1]);
+  const height = Number(map.match(/ height="(\d+)"/)[1]);
+  const names = orderedCallouts().map((code) => nameIn(regionOf(code)));
+  const columns = 3;
+  const line = 30;
+  const rows = Math.ceil(names.length / columns);
+  const legendHeight = rows * line + 40;
+  const escape = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const items = names.map((name, index) => `<text x="${24 + (index % columns) * (width / columns)}" y="${height + 34 + Math.floor(index / columns) * line}" font-size="18" font-family="system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif" fill="#1f2320"><tspan font-weight="700">${index + 1}</tspan>  ${escape(name)}</text>`);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height + legendHeight}" viewBox="0 0 ${width} ${height + legendHeight}"><rect width="100%" height="100%" fill="#ffffff"/>${map.replace("<svg ", '<svg x="0" y="0" ')}${items.join("")}</svg>`;
+}
+
+// ---- colour ------------------------------------------------------------------------------------------------
+/** A place's words to its code: its code, its ISO code, or any of its names, in the part in view. */
+function findPlace(words) {
+  const folded = foldAnswer(words);
+  if (folded === "") return null;
+  const region = inPart().find((one) => [one.code, one.iso].some((code) => code && foldAnswer(code) === folded)) ?? inPart().find((one) => isNameOf(words, one));
+  return region?.code ?? null;
+}
+
+function readFigures() {
+  const text = $("figures").value;
+  state.figures = { ...parseFigures(text, findPlace), lines: text.split(/\r?\n/).filter((line) => line.trim() !== "").length };
+  remember({ colour: state.colourBy === "groups" ? "groups" : null });
+  renderColour();
+  paint();
+}
+
+function colourTones() {
+  if (state.colourBy === "groups") {
+    const groups = regionGroups({ regions: inPart() });
+    const tones = {};
+    groups.forEach((group, index) => group.codes.forEach((code) => (tones[code] = `group${(index % GROUP_COLOURS.light.length) + 1}`)));
+    return tones;
+  }
+  const { stepOf } = figureSteps(state.figures.rows);
+  const tones = {};
+  for (const [code, step] of stepOf) tones[code] = `step${step}`;
+  return tones;
+}
+
+function renderColour() {
+  seg($("colour-by"), ["figures", "groups"], state.colourBy, (value) => {
+    state.colourBy = value;
+    remember({ colour: value === "groups" ? "groups" : null });
+    renderColour();
+    paint();
+  }, (value) => say("colourModes")[value]);
+  $("figures-row").hidden = state.colourBy !== "figures";
+  const status = $("colour-status");
+  const legend = $("colour-legend");
+  const theme = dark() ? "dark" : "light";
+  if (state.colourBy === "groups") {
+    const groups = regionGroups({ regions: inPart() });
+    status.replaceChildren();
+    legend.replaceChildren(...groups.map((group, index) => el("li", { "data-group": group.code }, el("span", { class: "swatch", style: `background:${GROUP_COLOURS[theme][index % GROUP_COLOURS[theme].length]}` }), el("span", { text: `${language.lang === "ja" ? (group.nameJa ?? group.name) : group.name} (${group.codes.length})` }))));
+  } else {
+    const { rows, missing, noNumber, lines } = state.figures;
+    const { steps } = figureSteps(rows);
+    status.replaceChildren(
+      el("p", { "data-testid": "colour-count", text: lines === 0 ? say("colourEmpty") : say("colourCount", rows.length, lines) }),
+      missing.length ? el("p", { class: "fam-error", "data-testid": "colour-missing", text: say("colourMissing", missing.join(", ")) }) : null,
+      noNumber.length ? el("p", { class: "fam-error", text: say("colourBadNumber", noNumber.join(", ")) }) : null,
+    );
+    legend.replaceChildren(...steps.map((step) => el("li", { "data-step": String(step.step) }, el("span", { class: "swatch", style: `background:${STEP_COLOURS[theme][step.step - 1]}` }), el("span", { text: `${say("colourStep", figureText(step.from, language.lang), figureText(step.to, language.lang))} (${step.count})` }))));
+  }
+  const { stepOf } = figureSteps(state.figures.rows);
+  const figureRows = () => state.figures.rows.map((row) => ({ code: row.code, iso: regionOf(row.code)?.iso ?? "", name: regionOf(row.code)?.name ?? "", nameJa: regionOf(row.code)?.nameJa ?? "", value: row.value, step: stepOf.get(row.code) }));
+  const columns = [
+    { key: "code", label: "code" },
+    { key: "iso", label: "iso" },
+    { key: "name", label: "name" },
+    { key: "nameJa", label: "nameJa" },
+    { key: "value", label: "value" },
+    { key: "step", label: "step" },
+  ];
+  downloadRow($("colour-map-files"), "download-coloured", say("downloadColoured"), [
+    { format: "svg", type: "image/svg+xml", name: viewName("coloured"), make: () => currentSvg() },
+    { format: "png", type: "image/png", name: viewName("coloured"), make: () => svgToPng(currentSvg()) },
+  ]);
+  downloadRow($("colour-data-files"), "download-figures", say("downloadFigures"), [
+    { format: "csv", type: "text/csv", name: viewName("figures"), make: () => toCsv(columns, figureRows()) },
+    { format: "json", type: "application/json", name: viewName("figures"), make: () => toJson(columns, figureRows(), { map: state.map.id }) },
+    { format: "txt", type: "text/plain", name: viewName("figures"), make: () => toText(state.map.name, columns, figureRows()) },
+  ]);
+}
+
+/** The example: how many places each place touches on this map, which the map itself knows. */
+function colourExample() {
+  $("figures").value = inPart()
+    .map((region) => `${region.iso ?? region.code}, ${region.neighbors.filter((code) => inPart().some((other) => other.code === code)).length}`)
+    .join("\n");
+  readFigures();
+}
+
+// ---- the code for this view ------------------------------------------------------------------------------
+function renderCode() {
+  if (!mount) return;
+  const shownTones = Object.fromEntries(Object.entries(state.tones).filter(([code, tone]) => !(state.part && tone === "faint" && !state.part.codes.includes(code))));
+  const view = { mapKey: state.mapKey, language: language.lang, tones: shownTones, callouts: state.mode === "callouts" ? calloutRequest() : null, part: state.part ? { codes: state.part.codes } : null };
+  seg($("code-kind"), ["mount", "draw"], state.codeKind, (value) => {
+    state.codeKind = value;
+    renderCode();
+  }, (value) => say(value === "mount" ? "codeMount" : "codeDraw"));
+  $("code").textContent = codeFor(view, state.codeKind);
+}
+
+async function copyText(text, button) {
+  let copied = false;
+  try {
+    await navigator.clipboard.writeText(text);
+    copied = true;
+  } catch {
+    // A page without the clipboard's permission copies the old way, from a field it selects.
+    const field = el("textarea", { readonly: true, style: "position:fixed;opacity:0;left:0;top:0" });
+    field.value = text;
+    document.body.append(field);
+    field.select();
+    copied = document.execCommand?.("copy") ?? false;
+    field.remove();
+  }
+  button.textContent = copied ? say("copied") : say("copy");
+  setTimeout(() => (button.textContent = say("copy")), 1600);
+}
 
 // ---- the page --------------------------------------------------------------------------------------------
 function settings() {
-  seg(document.getElementById("modes"), MODES, state.mode, (value) => chooseMode(value), (value) => say("modes")[value]);
-  seg(document.getElementById("polish"), [false, true], state.polish, (value) => { state.polish = value; settings(); applyCallouts(); }, (value) => say(value ? "on" : "off"));
-  seg(document.getElementById("numbering"), ["given", "west-to-east"], state.numbering, (value) => { state.numbering = value; settings(); applyCallouts(); }, (value) => say("numberingOptions")[value]);
+  seg($("modes"), MODES, state.mode, (value) => chooseMode(value), (value) => say("modes")[value]);
+  seg($("polish"), [false, true], state.polish, (value) => {
+    state.polish = value;
+    remember({ polish: value ? "on" : null });
+    settings();
+    applyCallouts();
+  }, (value) => say(value ? "on" : "off"));
+  seg($("numbering"), ["given", "west-to-east"], state.numbering, (value) => {
+    state.numbering = value;
+    remember({ numbering: value === "west-to-east" ? value : null });
+    settings();
+    applyCallouts();
+  }, (value) => say("numberingOptions")[value]);
 }
 
 function chooseMode(mode) {
   state.mode = mode;
-  for (const name of MODES) document.getElementById(`panel-${name}`).hidden = name !== mode;
-  const query = new URLSearchParams(location.search);
-  query.set("mode", mode);
-  history.replaceState(history.state, "", `${location.pathname}?${query.toString()}${location.hash}`);
+  for (const name of MODES) $(`panel-${name}`).hidden = name !== mode;
+  remember({ mode: mode === "explore" ? null : mode });
+  mount.set({ fit: true });
   if (mode === "quiz") {
-    mount.set({ callouts: undefined, selectable: false });
-    if (state.question === null) nextQuestion();
-    else {
-      mount.set({ tones: { [state.question.target]: "selected" }, selected: null });
-      mount.show([state.question.target]);
-    }
+    mount.set({ callouts: undefined });
+    startRound();
   } else if (mode === "callouts") {
     state.selected = null;
-    mount.set({ tones: {}, selected: null, selectable: false });
+    paint();
     applyCallouts();
+  } else if (mode === "colour") {
+    state.selected = null;
+    renderColour();
+    paint();
   } else {
-    mount.set({ tones: {}, callouts: undefined, selectable: true, selected: state.selected });
+    paint();
     renderInfo();
   }
   settings();
-  renderQuestion();
+  renderCode();
 }
 
 function refreshAll() {
   language.say();
   populateMaps();
+  populateParts();
   settings();
   mount?.set({ language: language.lang });
   renderInfo();
   renderNames();
-  renderQuestion();
-  applyCallouts();
-  if (state.mode === "quiz" && state.question === null && mount) nextQuestion();
+  renderExploreDownloads();
+  if (mount && state.mode === "quiz") renderQuestion();
+  if (mount && state.mode === "callouts") applyCallouts();
+  if (mount && state.mode === "colour") renderColour();
+  if (mount) {
+    for (const button of document.querySelectorAll("[data-copy]")) button.textContent = say("copy");
+  }
+  renderCode();
 }
 
-document.getElementById("map").addEventListener("change", (event) => chooseMap(event.target.value));
-document.getElementById("filter").addEventListener("input", renderNames);
-document.getElementById("next").addEventListener("click", () => nextQuestion());
+$("map").addEventListener("change", (event) => chooseMap(event.target.value));
+$("part").addEventListener("change", (event) => choosePart(event.target.value));
+$("filter").addEventListener("input", renderNames);
+$("next").addEventListener("click", () => nextQuestion());
+$("typed").addEventListener("submit", checkTyped);
+$("skip").addEventListener("click", () => answer(null, "", "shown"));
+$("new-round").addEventListener("click", () => {
+  state.quiz.seed = 1 + Math.floor(Math.random() * 999999);
+  startRound();
+});
+$("again").addEventListener("click", () => startRound());
+$("copy-link").addEventListener("click", (event) => copyText($("share-link").value, event.currentTarget));
+$("copy-code").addEventListener("click", (event) => copyText($("code").textContent, event.currentTarget));
+$("figures").addEventListener("input", readFigures);
+$("colour-example").addEventListener("click", colourExample);
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => state.mode === "colour" && renderColour());
 
+// The colours of a coloured map and of the parts, light and dark, for the map on the page.
+document.head.append(el("style", { text: `${extraStyle("light")}\n@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) ${extraStyle("dark").replace(/\n/g, `\n:root:not([data-theme="light"]) `)} }\n:root[data-theme="dark"] ${extraStyle("dark").replace(/\n/g, `\n:root[data-theme="dark"] `)}` }));
+
+if (state.mapKey.startsWith("continent:")) {
+  state.partKey = state.mapKey.slice("continent:".length);
+  state.mapKey = "world";
+}
 state.map = await loadMap(state.mapKey);
+state.part = partsOf(state.map).find((part) => part.key === state.partKey) ?? null;
 mount = mountChizu(host, {
   map: state.map,
   language: language.lang,
   onSelect: (code) => {
+    if (state.mode === "quiz") {
+      if (state.quiz.style === "find" && code !== null && !state.quiz.answered) answer(code, nameIn(regionOf(code)));
+      return;
+    }
     state.selected = code;
     renderInfo();
     renderNames();
@@ -405,7 +889,8 @@ mount = mountChizu(host, {
 });
 host.dataset.map = state.map.id;
 refreshAll();
+showPart();
 chooseMode(state.mode);
-// An address may name the place to start on: ?select=JP.
-if (state.mode === "explore" && state.map.regions.some((region) => region.code === params.get("select"))) choosePlace(params.get("select"));
+// An address may name the place to start on: ?select=13.
+if (state.mode === "explore" && regionOf(params.get("select"))) choosePlace(params.get("select"));
 host.dataset.ready = "true";
