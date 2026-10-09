@@ -26,9 +26,29 @@ import { distanceToRing, pointInRing, segmentMeetsRing, type MapRing } from "./o
 
 type Point = readonly [number, number];
 
-/** How close two leaders may come, in radii. */
+/**
+ * How close two leaders may come, in radii.
+ *
+ * @example
+ * ```ts
+ * import { POLISH_CLOSE_RADII } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(POLISH_CLOSE_RADII);
+ * // 1
+ * ```
+ */
 export const POLISH_CLOSE_RADII = 1;
-/** How far a leader keeps from the middle of another number's circle, in radii: past the ring, with air. */
+/**
+ * How far a leader keeps from the middle of another number's circle, in radii: past the ring, with air.
+ *
+ * @example
+ * ```ts
+ * import { POLISH_CIRCLE_CLEAR_RADII } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(POLISH_CIRCLE_CLEAR_RADII);
+ * // 1.2
+ * ```
+ */
 export const POLISH_CIRCLE_CLEAR_RADII = 1.2;
 /** How far inside its region a leader's start sits, in radii, where the region is big enough. */
 const START_INSET_RADII = 0.6;
@@ -440,6 +460,15 @@ function seeded(seed: number): () => number {
  * pairs that cross, and pairs closer than a radius - or than they start, where
  * two regions start closer than that - counting a line through another
  * number's circle as close too.
+ *
+ * @example
+ * ```ts
+ * import { calloutFaults } from "@johnmorrisdotca/chizu";
+ *
+ * // Two leaders that cross: from (0,0) to a circle at (10,10), and from (10,0) to one at (0,10).
+ * console.log(calloutFaults([{ x: 0, y: 0, hx: 10, hy: 10 }, { x: 10, y: 0, hx: 0, hy: 10 }], 1));
+ * // { crossings: 1, close: 0 }
+ * ```
  */
 export function calloutFaults(
   spots: ReadonlyArray<{ x: number; y: number; hx: number; hy: number }>,

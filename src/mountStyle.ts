@@ -4,6 +4,14 @@ import { CHIZU_STYLE } from "./style.ts";
  * THE STYLE a mounted map wears, beside the drawing's own (`CHIZU_STYLE`): the frame the map sits in, the zoom buttons
  * over its corner and the line a screen reader is told what was chosen on. Custom properties on `.chizu-map`
  * (`--czm-ink`, `--czm-surface`, `--czm-rule`, `--czm-accent`) with the page's light and dark.
+ *
+ * @example
+ * ```ts
+ * import { CHIZU_MAP_STYLE } from "@johnmorrisdotca/chizu/mount";
+ *
+ * console.log(CHIZU_MAP_STYLE.includes(".chizu-map"));
+ * // true
+ * ```
  */
 export const CHIZU_MAP_STYLE = `${CHIZU_STYLE}
 .chizu-map {

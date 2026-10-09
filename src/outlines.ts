@@ -15,7 +15,18 @@ import type { ChizuInset, ChizuMap } from "./types.ts";
  * Small enough to ask the coastline itself.
  */
 
-/** One closed outline: a region's mainland, or one of its islands. */
+/**
+ * One closed outline: a region's mainland, or one of its islands.
+ *
+ * @example
+ * ```ts
+ * import { parseMapRings, type MapRing } from "@johnmorrisdotca/chizu";
+ *
+ * const [ring]: MapRing[] = parseMapRings("M0,0L10,0L10,5L0,5Z");
+ * console.log(ring!.minX, ring!.minY, ring!.maxX, ring!.maxY);
+ * // 0 0 10 5
+ * ```
+ */
 export type MapRing = {
   /** The ring as the path draws it, so a part of a region can be redrawn on its own. */
   d: string;
@@ -26,7 +37,18 @@ export type MapRing = {
   maxY: number;
 };
 
-/** The rings of one region's path, in the order it draws them, each with its own box. */
+/**
+ * The rings of one region's path, in the order it draws them, each with its own box.
+ *
+ * @example
+ * ```ts
+ * import { parseMapRings } from "@johnmorrisdotca/chizu";
+ *
+ * // Two islands: two rings, each with its own box.
+ * console.log(parseMapRings("M0,0L10,0L10,10Z M20,20L30,20L30,30Z").map((ring) => [ring.minX, ring.maxX]));
+ * // [ [ 0, 10 ], [ 20, 30 ] ]
+ * ```
+ */
 export function parseMapRings(path: string, transform?: InsetTransform | null): MapRing[] {
   const rings: MapRing[] = [];
   for (const part of path.split(/(?=M)/)) {
@@ -51,7 +73,18 @@ export function parseMapRings(path: string, transform?: InsetTransform | null): 
   return rings;
 }
 
-/** Whether a point is inside a ring, by the crossing rule. */
+/**
+ * Whether a point is inside a ring, by the crossing rule.
+ *
+ * @example
+ * ```ts
+ * import { parseMapRings, pointInRing } from "@johnmorrisdotca/chizu";
+ *
+ * const [square] = parseMapRings("M0,0L10,0L10,10L0,10Z");
+ * console.log(pointInRing(5, 5, square!), pointInRing(15, 5, square!));
+ * // true false
+ * ```
+ */
 export function pointInRing(x: number, y: number, ring: MapRing): boolean {
   if (x < ring.minX || x > ring.maxX || y < ring.minY || y > ring.maxY) return false;
   const points = ring.points;
@@ -66,7 +99,18 @@ export function pointInRing(x: number, y: number, ring: MapRing): boolean {
   return within;
 }
 
-/** How far a point is from a ring's outline, ignoring which side of it the point is on. */
+/**
+ * How far a point is from a ring's outline, ignoring which side of it the point is on.
+ *
+ * @example
+ * ```ts
+ * import { distanceToRing, parseMapRings } from "@johnmorrisdotca/chizu";
+ *
+ * const [square] = parseMapRings("M0,0L10,0L10,10L0,10Z");
+ * console.log(distanceToRing(13, 5, square!), distanceToRing(5, 5, square!));
+ * // 3 5
+ * ```
+ */
 export function distanceToRing(x: number, y: number, ring: MapRing): number {
   const points = ring.points;
   let best = Infinity;
@@ -83,7 +127,18 @@ export function distanceToRing(x: number, y: number, ring: MapRing): number {
   return best;
 }
 
-/** Whether a circle of this radius at this point touches the land inside a ring. */
+/**
+ * Whether a circle of this radius at this point touches the land inside a ring.
+ *
+ * @example
+ * ```ts
+ * import { circleMeetsRing, parseMapRings } from "@johnmorrisdotca/chizu";
+ *
+ * const [square] = parseMapRings("M0,0L10,0L10,10L0,10Z");
+ * console.log(circleMeetsRing(13, 5, 2, square!), circleMeetsRing(13, 5, 4, square!));
+ * // false true
+ * ```
+ */
 export function circleMeetsRing(x: number, y: number, radius: number, ring: MapRing): boolean {
   return seaAround(x, y, radius, ring) < radius;
 }
@@ -93,6 +148,15 @@ export function circleMeetsRing(x: number, y: number, radius: number, ring: MapR
  * further than `reach` - a place far from every coast only has to be known to
  * be far, and walking six thousand points to find out how far is the bill this
  * runs up on every draw.
+ *
+ * @example
+ * ```ts
+ * import { parseMapRings, seaAround } from "@johnmorrisdotca/chizu";
+ *
+ * const [square] = parseMapRings("M0,0L10,0L10,10L0,10Z");
+ * console.log(seaAround(16, 5, 10, square!));
+ * // 6
+ * ```
  */
 export function seaAround(x: number, y: number, reach: number, ring: MapRing): number {
   if (x + reach < ring.minX || x - reach > ring.maxX || y + reach < ring.minY || y - reach > ring.maxY) return reach;
@@ -100,7 +164,18 @@ export function seaAround(x: number, y: number, reach: number, ring: MapRing): n
   return Math.min(reach, distanceToRing(x, y, ring));
 }
 
-/** Whether a straight line from one point to another passes over the land inside a ring. */
+/**
+ * Whether a straight line from one point to another passes over the land inside a ring.
+ *
+ * @example
+ * ```ts
+ * import { parseMapRings, segmentMeetsRing } from "@johnmorrisdotca/chizu";
+ *
+ * const [square] = parseMapRings("M0,0L10,0L10,10L0,10Z");
+ * console.log(segmentMeetsRing(-5, 5, 15, 5, square!), segmentMeetsRing(-5, 20, 15, 20, square!));
+ * // true false
+ * ```
+ */
 export function segmentMeetsRing(
   ax: number,
   ay: number,
@@ -141,6 +216,18 @@ export function segmentMeetsRing(
  * it, as a share of the mainland's own longer side - so a near island comes
  * along and a far one is left out of the picture, which is where the map itself
  * now draws it anyway.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { mainlandBounds, mapOutlines } from "@johnmorrisdotca/chizu";
+ *
+ * const index = WORLD.regions.findIndex((region) => region.code === "FR");
+ * // France on the world reaches French Guiana; its mainland does not.
+ * const mainland = mainlandBounds(mapOutlines(WORLD)[index]!.rings)!;
+ * console.log(mainland[3] - mainland[1] < WORLD.regions[index]!.bbox[3] - WORLD.regions[index]!.bbox[1]);
+ * // true
+ * ```
  */
 export function mainlandBounds(
   rings: readonly MapRing[],
@@ -182,6 +269,15 @@ export function mainlandBounds(
  * found by quartering the ring's box and keeping the best square, which is a
  * few hundred steps and exact enough for a circle's leader. A ring so thin that
  * no sample lands inside it - a sandbar - falls back to the ring's own middle.
+ *
+ * @example
+ * ```ts
+ * import { landAnchor, parseMapRings } from "@johnmorrisdotca/chizu";
+ *
+ * // The point deepest in the land of the widest ring.
+ * console.log(landAnchor(parseMapRings("M0,0L20,0L20,10L0,10Z")));
+ * // [ 5, 5 ]
+ * ```
  */
 export function landAnchor(rings: readonly MapRing[]): [number, number] | null {
   let widest: MapRing | null = null;
@@ -223,9 +319,34 @@ export function landAnchor(rings: readonly MapRing[]): [number, number] | null {
  * their own chain rather than in the sea off the mainland - is two: the region
  * where it is, and the islands in their frame. Both carry the same region, so
  * whichever piece is clicked is the same place.
+ *
+ * @example
+ * ```ts
+ * import { loadDivisions } from "@johnmorrisdotca/chizu/load";
+ * import { insetFor, mapRegionPieces, type MapPiece } from "@johnmorrisdotca/chizu";
+ *
+ * const japan = (await loadDivisions("jp"))!;
+ * const tokyo = japan.regions.find((region) => region.code === "13")!;
+ * const pieces: MapPiece[] = mapRegionPieces(tokyo, insetFor(japan, "13"));
+ * console.log(pieces.map((piece) => (piece.transform ? "in its box" : "in place")).join(", "));
+ * // in place, in its box
+ * ```
  */
 export type MapPiece = { d: string; transform: InsetTransform | null };
 
+/**
+ *
+ * @example
+ * ```ts
+ * import { loadDivisions } from "@johnmorrisdotca/chizu/load";
+ * import { insetFor, mapRegionPieces } from "@johnmorrisdotca/chizu";
+ *
+ * const us = (await loadDivisions("us"))!;
+ * const alaska = us.regions.find((region) => region.code === "AK")!;
+ * console.log(mapRegionPieces(alaska, insetFor(us, "AK")).length, mapRegionPieces(alaska, null)[0]!.transform);
+ * // 1 null
+ * ```
+ */
 export function mapRegionPieces(
   region: { path: string; bbox: readonly [number, number, number, number] },
   inset: ChizuInset | null,
@@ -256,6 +377,16 @@ export function mapRegionPieces(
  *
  * Kept against the map itself, so a page that redraws on every pick parses its paths once. Canada's are 76,000 points
  * and cost 16ms to walk, a third of a frame, on a keystroke.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { mapOutlines, type MapOutline } from "@johnmorrisdotca/chizu";
+ *
+ * const japan: MapOutline = mapOutlines(WORLD)[WORLD.regions.findIndex((region) => region.code === "JP")]!;
+ * console.log(japan.rings.length > 1, japan.anchor !== null);
+ * // true true
+ * ```
  */
 export type MapOutline = {
   rings: MapRing[];
@@ -265,7 +396,19 @@ export type MapOutline = {
 
 const outlineCache = new WeakMap<object, MapOutline[]>();
 
-/** The outlines of every region of a map, in the map's order, with a point on each one's land. */
+/**
+ * The outlines of every region of a map, in the map's order, with a point on each one's land.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { mapOutlines } from "@johnmorrisdotca/chizu";
+ *
+ * const outlines = mapOutlines(WORLD);
+ * console.log(outlines.length === WORLD.regions.length, mapOutlines(WORLD) === outlines);
+ * // true true
+ * ```
+ */
 export function mapOutlines(map: Pick<ChizuMap, "regions" | "insets">): MapOutline[] {
   const known = outlineCache.get(map);
   if (known) return known;
@@ -299,6 +442,19 @@ function ringPath(points: readonly number[]): string {
   return `M${parts.join("L")}Z`;
 }
 
+/**
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { mapOutlines, shiftedOutlines } from "@johnmorrisdotca/chizu";
+ *
+ * // The world's outlines one turn of the earth to the east, for the copy drawn beside it.
+ * const shifted = shiftedOutlines(mapOutlines(WORLD), WORLD.width);
+ * console.log(Math.round(shifted[0]!.rings[0]!.minX - mapOutlines(WORLD)[0]!.rings[0]!.minX));
+ * // 1000
+ * ```
+ */
 export function shiftedOutlines(outlines: readonly MapOutline[], by: number): MapOutline[] {
   if (by === 0) return outlines as MapOutline[];
   const held = shiftCache.get(outlines) ?? new Map<number, MapOutline[]>();

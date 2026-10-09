@@ -5,7 +5,18 @@ import { chizuSay, nameOf, type ChizuLanguage } from "./strings.ts";
 import type { ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapAcross, wrapOffsets } from "./wrap.ts";
 
-/** What a mounted map is told. Everything but `map` may be changed later with `set`. */
+/**
+ * What a mounted map is told. Everything but `map` may be changed later with `set`.
+ *
+ * @example
+ * ```ts no-run
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { mountChizu, type ChizuMountOptions } from "@johnmorrisdotca/chizu/mount";
+ *
+ * const options: ChizuMountOptions = { map: WORLD, language: "ja", selected: "JP", onSelect: (code) => console.log(code) };
+ * mountChizu(document.querySelector<HTMLElement>("#map")!, options);
+ * ```
+ */
 export type ChizuMountOptions = {
   /** The map to show: `WORLD`, a country's own, or a country's regions. */
   map: ChizuMap;
@@ -33,9 +44,33 @@ export type ChizuMountOptions = {
   onView?: (view: ChizuView) => void;
 };
 
-/** Where a mounted map is looking. */
+/**
+ * Where a mounted map is looking.
+ *
+ * @example
+ * ```ts no-run
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { mountChizu, type ChizuView } from "@johnmorrisdotca/chizu/mount";
+ *
+ * const mount = mountChizu(document.querySelector<HTMLElement>("#map")!, { map: WORLD });
+ * const view: ChizuView = mount.view();
+ * console.log(view.zoom, view.box);
+ * ```
+ */
 export type ChizuView = { zoom: MapZoom; centre: { x: number; y: number }; box: MapBox };
 
+/**
+ *
+ * @example
+ * ```ts no-run
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { mountChizu, type ChizuMount } from "@johnmorrisdotca/chizu/mount";
+ *
+ * const mount: ChizuMount = mountChizu(document.querySelector<HTMLElement>("#map")!, { map: WORLD });
+ * mount.select("FR");
+ * mount.destroy();
+ * ```
+ */
 export type ChizuMount = {
   /** Change any of the options but `map`, and redraw. */
   set(patch: Partial<Omit<ChizuMountOptions, "map">>): void;
@@ -55,7 +90,17 @@ export type ChizuMount = {
   destroy(): void;
 };
 
-/** Put the style in the page once: in the document's head, or in the shadow root the host is in. */
+/**
+ * Put the style in the page once: in the document's head, or in the shadow root the host is in.
+ *
+ * @example
+ * ```ts no-run
+ * import { ensureChizuMapStyle } from "@johnmorrisdotca/chizu/mount";
+ *
+ * // Put the mounted map's stylesheet in the page (or the shadow root) once, before drawing into it yourself.
+ * ensureChizuMapStyle(document.body);
+ * ```
+ */
 export function ensureChizuMapStyle(host: Element): void {
   const root = host.getRootNode();
   const target: Node = root instanceof ShadowRoot ? root : host.ownerDocument.head;
@@ -76,6 +121,18 @@ const KEY_STEP = 0.12;
  * zoom in five steps, a press to choose a region, the arrow keys and plus and minus. The world wraps: it pans east and
  * west without stopping. Every part of it is the package's own drawing (`drawChizu`) in the page's own DOM, with no shadow
  * DOM and nothing the page's style cannot reach.
+ *
+ * @example
+ * ```ts no-run
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { mountChizu } from "@johnmorrisdotca/chizu/mount";
+ *
+ * const mount = mountChizu(document.querySelector<HTMLElement>("#map")!, {
+ *   map: WORLD,
+ *   onSelect: (code) => console.log("chosen", code),
+ * });
+ * mount.show(["JP", "KR"]);
+ * ```
  */
 export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): ChizuMount {
   ensureChizuMapStyle(host);

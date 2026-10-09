@@ -8,6 +8,14 @@ import { shuffled, type Random } from "./random.ts";
  * land neighbours first, then its group (the continent, or the larger part of the country), then whatever is nearest.
  * It also keeps a "find it" board legible, since the choices are places on one map and clustered ones stay readable.
  * The rule is the same wherever the map is: Japan's prefectures, Brazil's states, the countries of the world.
+ *
+ * @example
+ * ```ts
+ * import { DISTRACTOR_SCORES } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(DISTRACTOR_SCORES);
+ * // { neighbor: 100, group: 60, proximity: 40 }
+ * ```
  */
 export const DISTRACTOR_SCORES = {
   neighbor: 100,
@@ -15,7 +23,19 @@ export const DISTRACTOR_SCORES = {
   proximity: 40,
 } as const;
 
-/** The parts of a place this scoring reads, so a map of your own places needs no more than these. */
+/**
+ * The parts of a place this scoring reads, so a map of your own places needs no more than these.
+ *
+ * @example
+ * ```ts
+ * import { distractorScore, type Scorable } from "@johnmorrisdotca/chizu";
+ *
+ * const north: Scorable = { code: "N", group: "Island", centroid: [10, 10], neighbors: ["S"] };
+ * const south: Scorable = { code: "S", group: "Island", centroid: [10, 60], neighbors: ["N"] };
+ * console.log(distractorScore(north, south, 100) > 100);
+ * // true
+ * ```
+ */
 export type Scorable = {
   /** A code, text or a number: a map of your own places may key them by either, and neighbours are compared as text. */
   code: string | number;
@@ -28,6 +48,17 @@ export type Scorable = {
  * How tempting `candidate` is as a wrong answer for `target`, from 0 up to 200: 100 for a land neighbour, 60 for
  * the same group, and up to 40 for being close, measured against `diagonal`, the corner-to-corner length of the map
  * (each map is drawn on a canvas of its own, so a distance only means something relative to it).
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { distractorScore, mapDiagonal } from "@johnmorrisdotca/chizu";
+ *
+ * const get = (code: string) => WORLD.regions.find((region) => region.code === code)!;
+ * const diagonal = mapDiagonal(WORLD);
+ * console.log(distractorScore(get("DE"), get("FR"), diagonal) > distractorScore(get("DE"), get("BR"), diagonal));
+ * // true
+ * ```
  */
 export function distractorScore(target: Scorable, candidate: Scorable, diagonal: number): number {
   let score = 0;
@@ -39,11 +70,33 @@ export function distractorScore(target: Scorable, candidate: Scorable, diagonal:
   return score + Math.round(DISTRACTOR_SCORES.proximity * closeness);
 }
 
-/** The corner-to-corner length of a map's canvas, which proximity is measured against. */
+/**
+ * The corner-to-corner length of a map's canvas, which proximity is measured against.
+ *
+ * @example
+ * ```ts
+ * import { mapDiagonal } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(mapDiagonal({ width: 300, height: 400 }));
+ * // 500
+ * ```
+ */
 export function mapDiagonal(map: Pick<ChizuMap, "width" | "height">): number {
   return Math.hypot(map.width, map.height);
 }
 
+/**
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { pickDistractors, seededRandom, type DistractorOptions } from "@johnmorrisdotca/chizu";
+ *
+ * const options: DistractorOptions = { count: 5, random: seededRandom(1) };
+ * console.log(pickDistractors(WORLD, "BR", options).length);
+ * // 5
+ * ```
+ */
 export type DistractorOptions = {
   /** How many wrong answers. Default 3. */
   count?: number;
@@ -62,6 +115,15 @@ export type DistractorOptions = {
  * The wrong answers to "which one is this?": the codes of `count` places, drawn from the most tempting ones for the
  * target, never the target itself. With `random` the pool is shuffled and cut, so the same target is asked with
  * different company; without it the answer is simply the best `count`, the same every time.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { pickDistractors } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(pickDistractors(WORLD, "DE", { count: 3 }));
+ * // [ 'LU', 'NL', 'AT' ]
+ * ```
  */
 export function pickDistractors(map: Pick<ChizuMap, "width" | "height" | "regions">, targetCode: string | number, options: DistractorOptions = {}): string[] {
   const count = options.count ?? 3;

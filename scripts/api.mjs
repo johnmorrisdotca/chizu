@@ -22,7 +22,7 @@ const clip = (text, most = 420) => {
   return one.length > most ? `${one.slice(0, most - 1)}…` : one;
 };
 
-/** Every entry point with its exports: [{ entry, name, exports: [{ name, kind, signature, doc }] }]. */
+/** Every entry point with its exports: [{ entry, name, exports: [{ name, kind, signature, doc, examples, where }] }]. `examples` are the bodies of its `@example` tags, `where` its declaration's file and line. */
 export function apiOf() {
   const entries = Object.entries(pkg.exports).filter(([key, entry]) => !key.includes("*") && typeof entry === "object" && String(entry.default).startsWith("./dist/")).map(([key, entry]) => ({ key, name: key === "." ? pkg.name : `${pkg.name}/${key.slice(2)}`, file: ["ts", "tsx"].map((ext) => sourceOf(entry).replace(/\.ts$/, `.${ext}`)).find((file) => ts.sys.fileExists(file)) }));
   const config = ts.getParsedCommandLineOfConfigFile(join(root, "tsconfig.json"), {}, { ...ts.sys, onUnRecoverableConfigFileDiagnostic: () => {} });
@@ -34,6 +34,11 @@ export function apiOf() {
       const target = symbol.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(symbol) : symbol;
       const declaration = target.declarations?.[0];
       const doc = ts.displayPartsToString(target.getDocumentationComment(checker)).trim();
+      const examples = target
+        .getJsDocTags(checker)
+        .filter((tag) => tag.name === "example")
+        .map((tag) => ts.displayPartsToString(tag.text).trim());
+      const where = declaration ? { file: declaration.getSourceFile().fileName.slice(root.length + 1), line: declaration.getSourceFile().getLineAndCharacterOfPosition(declaration.getStart()).line + 1 } : null;
       let kind = "const";
       let signature = "";
       if (target.flags & ts.SymbolFlags.Function) {
@@ -47,7 +52,7 @@ export function apiOf() {
       } else if (target.flags & ts.SymbolFlags.Module) {
         kind = "namespace";
         signature = `import { ${symbol.name} } from "${pkg.name}"; // or everything in it from "${pkg.name}/${symbol.name}"`;
-        return { name: symbol.name, kind, signature, doc: `Everything the ${pkg.name}/${symbol.name} entry point exports, as one namespace.` };
+        return { name: symbol.name, kind, signature, doc: `Everything the ${pkg.name}/${symbol.name} entry point exports, as one namespace.`, examples, where };
       } else {
         const type = checker.getTypeOfSymbolAtLocation(target, declaration);
         const calls = type.getCallSignatures();
@@ -56,7 +61,7 @@ export function apiOf() {
           signature = clip(`${symbol.name}: ${checker.typeToString(type, declaration, ts.TypeFormatFlags.NoTruncation)}`);
         } else signature = clip(`${symbol.name}: ${checker.typeToString(type, declaration, ts.TypeFormatFlags.NoTruncation)}`);
       }
-      return { name: symbol.name, kind, signature: kind === "function" ? clip(signature, 600) : signature, doc };
+      return { name: symbol.name, kind, signature: kind === "function" ? clip(signature, 600) : signature, doc, examples, where };
     });
     exports.sort((a, b) => a.name.localeCompare(b.name, "en"));
     return { entry: key, name, exports };
@@ -88,6 +93,7 @@ export function apiBody(api = apiOf()) {
           <h3><span class="fam-badge">${one.kind}</span> ${escape(one.name)}</h3>
           <pre>${escape(one.signature)}</pre>
           ${one.doc === "" ? "" : prose(one.doc)}
+          ${one.examples.map((example) => `<p class="api-example">Example</p>\n${prose(example)}`).join("\n")}
         </article>`,
           )
           .join("\n")}
@@ -122,6 +128,7 @@ export const API_CSS = `/* The API reference page: made by scripts/api.mjs. */
 .api-entry p { margin: 0; line-height: 1.5; max-width: 72ch; overflow-wrap: anywhere; }
 .api-entry p.api-names { max-width: none; }
 .api-entry pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.api-entry p.api-example { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, inherit); }
 `;
 
 /** The whole page, api.html: the family's header and footer around the reference. `name` is the package's name as written, `icon` its data: URI. */

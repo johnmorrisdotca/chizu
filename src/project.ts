@@ -24,6 +24,16 @@ function wrapLongitude(lon: number): number {
  * cannot be reversed from here. On the world a point just east of the seam is at the far left of the canvas and one just
  * west of it at the far right, and the canvas repeats either side, so a page that pans past the edge adds or takes away
  * `width` (`wrapAcross`).
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { projectPoint } from "@johnmorrisdotca/chizu";
+ *
+ * const tokyo = projectPoint(WORLD, 139.69, 35.69)!;
+ * console.log(tokyo.map((value) => value.toFixed(1)).join(", "));
+ * // 457.5, 212.5
+ * ```
  */
 export function projectPoint(map: Pick<ChizuMap, "projection">, lon: number, lat: number): [number, number] | null {
   const p = map.projection;
@@ -47,7 +57,19 @@ export function projectPoint(map: Pick<ChizuMap, "projection">, lon: number, lat
   return null;
 }
 
-/** The longitude and latitude (in degrees) of a point on the map's canvas, as `[lon, lat]`; `null` where `projectPoint` is. */
+/**
+ * The longitude and latitude (in degrees) of a point on the map's canvas, as `[lon, lat]`; `null` where `projectPoint` is.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { projectPoint, unprojectPoint } from "@johnmorrisdotca/chizu";
+ *
+ * const [x, y] = projectPoint(WORLD, 2.35, 48.86)!;
+ * console.log(unprojectPoint(WORLD, x, y)!.map((value) => value.toFixed(2)).join(", "));
+ * // 2.35, 48.86
+ * ```
+ */
 export function unprojectPoint(map: Pick<ChizuMap, "projection">, x: number, y: number): [number, number] | null {
   const p = map.projection;
   if (p.kind === "miller") {

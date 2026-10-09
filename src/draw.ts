@@ -7,7 +7,19 @@ import { CHIZU_STYLE } from "./style.ts";
 import type { ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapOffsets } from "./wrap.ts";
 
-/** What a drawing shows beyond the map itself. Every part is optional: a map alone is its land on its sea. */
+/**
+ * What a drawing shows beyond the map itself. Every part is optional: a map alone is its land on its sea.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { drawChizu, type ChizuDrawOptions } from "@johnmorrisdotca/chizu/draw";
+ *
+ * const options: ChizuDrawOptions = { language: "ja", tones: { JP: "selected" }, style: true };
+ * console.log(drawChizu(WORLD, options).includes('data-tone="selected"'));
+ * // true
+ * ```
+ */
 export type ChizuDrawOptions = {
   /** The window to show: a part of the map, as `focusBox`, `zoomBox` or `regionBox` frame it. Default: the whole map. */
   box?: MapBox;
@@ -43,6 +55,17 @@ const LABEL_RATIO = 0.016;
  * Each region is a `<g class="cz-region" data-code="…">` holding a `<path class="cz-land">` for each piece (an inset's
  * region is one piece moved into its box). On a map that wraps, a window that overhangs the cut draws the land again
  * on the other side.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { drawChizu } from "@johnmorrisdotca/chizu/draw";
+ * import { focusBox } from "@johnmorrisdotca/chizu";
+ *
+ * const svg = drawChizu(WORLD, { box: focusBox(WORLD, ["JP"]), tones: { JP: "selected" }, labels: ["JP"], language: "ja" });
+ * console.log(svg.startsWith("<svg"), svg.includes("<title>日本</title>"));
+ * // true true
+ * ```
  */
 export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string {
   const language = options.language ?? "en";

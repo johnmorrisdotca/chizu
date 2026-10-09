@@ -139,7 +139,8 @@ describe("the README's promises", () => {
   });
 
   it("lists every region with no ISO 3166-2 code, with the reason the build script gives", () => {
-    const maps = section("Maps");
+    const maps = readFileSync("docs/iso-codes.md", "utf8");
+    expect(section("Maps")).toContain("docs/iso-codes.md");
     const missing = Object.entries(ISO_JOIN).filter(([, join]) => join.iso === null);
     expect(maps).toContain(`These ${missing.length} of the`);
     for (const [key, join] of missing) {
@@ -212,4 +213,33 @@ describe("what the repository must not hold", () => {
       for (const match of text.matchAll(/UmaKuma/g)) expect(text.startsWith("UmaKuma, a Japanese study app by the same author", match.index), file).toBe(true);
     }
   });
+});
+
+describe("the API's examples", () => {
+  /* Every export says how it is used, in a block `pnpm test:readme` type-checks and runs and whose printed lines it compares. */
+  it("give every export of every entry point an @example with a TypeScript block", async () => {
+    const { apiOf } = await import("../scripts/api.mjs");
+    const missing = [];
+    for (const entry of apiOf()) {
+      for (const one of entry.exports) {
+        if (!one.examples.some((example) => /^```ts\b/m.test(example))) missing.push(`${entry.name} ${one.name} (${one.where?.file}:${one.where?.line})`);
+      }
+    }
+    expect(missing).toEqual([]);
+  }, 60000);
+
+  it("say what each example prints, unless it needs a page", async () => {
+    const { apiOf } = await import("../scripts/api.mjs");
+    const silent = [];
+    for (const entry of apiOf()) {
+      for (const one of entry.exports) {
+        for (const example of one.examples) {
+          const fence = example.match(/^```(\S+)([^\n]*)\n([\s\S]*?)\n```$/m);
+          if (!fence || fence[2].includes("no-run")) continue;
+          if (!fence[3].trimEnd().split("\n").at(-1).startsWith("// ")) silent.push(`${entry.name} ${one.name}`);
+        }
+      }
+    }
+    expect(silent).toEqual([]);
+  }, 60000);
 });

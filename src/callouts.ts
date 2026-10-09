@@ -37,11 +37,32 @@ import type { MapBox } from "./types.ts";
  * because they are tap targets, and a printed sheet asks for these instead.
  */
 
-/** How a map places its numbered handles: on each region, or in the space around it. */
+/**
+ * How a map places its numbered handles: on each region, or in the space around it.
+ *
+ * @example
+ * ```ts
+ * import { HANDLE_LAYOUTS } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(Object.values(HANDLE_LAYOUTS).join(" "));
+ * // beside around
+ * ```
+ */
 export const HANDLE_LAYOUTS = {
   beside: "beside",
   around: "around",
 } as const;
+/**
+ *
+ * @example
+ * ```ts
+ * import type { HandleLayout } from "@johnmorrisdotca/chizu";
+ *
+ * const layout: HandleLayout = "around";
+ * console.log(layout);
+ * // around
+ * ```
+ */
 export type HandleLayout = (typeof HANDLE_LAYOUTS)[keyof typeof HANDLE_LAYOUTS];
 
 const NO_KEEP_OUT: CalloutKeepOut = { bottom: 0, right: 0 };
@@ -146,6 +167,15 @@ function landCrossed(
  * would leave an inland one nowhere to go. Then the arrangement is walked
  * downhill - each circle offered a better place, each crossing pair offered
  * each other's - until nothing improves.
+ *
+ * @example
+ * ```ts
+ * import { placeCallouts } from "@johnmorrisdotca/chizu";
+ *
+ * const spots = placeCallouts([{ item: "a", centroid: [40, 50] }, { item: "b", centroid: [60, 50] }], 4, { x: 0, y: 0, width: 100, height: 100 });
+ * console.log(spots.map((spot) => spot.item).join(" "));
+ * // a b
+ * ```
  */
 export function placeCallouts<T>(
   entries: ReadonlyArray<{ item: T; centroid: readonly [number, number] }>,

@@ -7,6 +7,17 @@ import type { ChizuRegion } from "./types.ts";
  * deliberately forgiving in the ways a paste is messy and strict everywhere else: case and surrounding space never
  * matter, a name may be the English, the Japanese, the short Japanese or the reading, and a line that matches nothing is
  * reported rather than dropped. It is never fuzzy: "Tokyo" must not quietly become Tochigi.
+ *
+ * @example
+ * ```ts
+ * import { loadDivisions } from "@johnmorrisdotca/chizu/load";
+ * import { placesFromText, type MatchOptions } from "@johnmorrisdotca/chizu";
+ *
+ * const japan = (await loadDivisions("jp"))!;
+ * const options: MatchOptions = { optionalEnding: /[県府都道]$/u };
+ * console.log(placesFromText("東京\n大阪\n北海道", japan.regions, options).codes);
+ * // [ '13', '27', '1' ]
+ * ```
  */
 
 export type MatchOptions = {
@@ -27,7 +38,17 @@ function namesOf(region: Named, optionalEnding: RegExp | undefined): string[] {
   return optionalEnding ? names.flatMap((name) => [name, name.replace(optionalEnding, "")]).filter(Boolean) : names;
 }
 
-/** A paste split into its lines, on the separators a pasted list actually uses. */
+/**
+ * A paste split into its lines, on the separators a pasted list actually uses.
+ *
+ * @example
+ * ```ts
+ * import { splitPastedPlaces } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(splitPastedPlaces("Japan, France\n  Brazil;Egypt\t"));
+ * // [ 'Japan', 'France', 'Brazil', 'Egypt' ]
+ * ```
+ */
 export function splitPastedPlaces(text: string): string[] {
   return text
     .split(/[\n,、，;；・]+/u)
@@ -35,6 +56,18 @@ export function splitPastedPlaces(text: string): string[] {
     .filter(Boolean);
 }
 
+/**
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { placesFromText, type PastedPlaces } from "@johnmorrisdotca/chizu";
+ *
+ * const found: PastedPlaces = placesFromText("Japan\nAtlantis", WORLD.regions);
+ * console.log(found.codes, found.missing);
+ * // [ 'JP' ] [ 'Atlantis' ]
+ * ```
+ */
 export type PastedPlaces = {
   /** The region codes found, in the order they were written, each once. */
   codes: string[];
@@ -45,6 +78,15 @@ export type PastedPlaces = {
 /**
  * The regions a paste names. Order is the paste's, because somebody who wrote them in lesson order meant that order. A
  * name written twice adds the place once.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { placesFromText } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(placesFromText("Japan, フランス\nBrazil, Narnia", WORLD.regions));
+ * // { codes: [ 'JP', 'FR', 'BR' ], missing: [ 'Narnia' ] }
+ * ```
  */
 export function placesFromText(text: string, regions: readonly Named[], options: MatchOptions = {}): PastedPlaces {
   const byName = new Map<string, string>();

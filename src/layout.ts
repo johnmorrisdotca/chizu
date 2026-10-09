@@ -6,7 +6,19 @@ import { mapOutlines, shiftedOutlines } from "./outlines.ts";
 import type { ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapIntoBox, wrapOffsets } from "./wrap.ts";
 
-/** One numbered circle placed in open water, and the leader line that joins it to its region. */
+/**
+ * One numbered circle placed in open water, and the leader line that joins it to its region.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { layoutCallouts, type CalloutSpot } from "@johnmorrisdotca/chizu";
+ *
+ * const [first]: CalloutSpot[] = layoutCallouts(WORLD, { codes: ["JP"] });
+ * console.log(first!.code, first!.number);
+ * // JP 1
+ * ```
+ */
 export type CalloutSpot = {
   /** The region it names. */
   code: string;
@@ -20,6 +32,18 @@ export type CalloutSpot = {
   radius: number;
 };
 
+/**
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { layoutCallouts, type CalloutRequest } from "@johnmorrisdotca/chizu";
+ *
+ * const request: CalloutRequest = { codes: ["BR", "AR", "CL"], numbering: "west-to-east" };
+ * console.log(layoutCallouts(WORLD, request).map((spot) => `${spot.number} ${spot.code}`).join(", "));
+ * // 1 CL, 2 AR, 3 BR
+ * ```
+ */
 export type CalloutRequest = {
   /** The regions to number. A region the window does not show is not numbered. */
   codes: readonly string[];
@@ -39,7 +63,17 @@ export type CalloutRequest = {
   numbering?: "given" | "west-to-east";
 };
 
-/** The share of the window's width a circle's radius is, unless asked otherwise. */
+/**
+ * The share of the window's width a circle's radius is, unless asked otherwise.
+ *
+ * @example
+ * ```ts
+ * import { CALLOUT_RADIUS_RATIO } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(CALLOUT_RADIUS_RATIO);
+ * // 0.03
+ * ```
+ */
 export const CALLOUT_RADIUS_RATIO = 0.03;
 
 /**
@@ -52,6 +86,16 @@ export const CALLOUT_RADIUS_RATIO = 0.03;
  *
  * On a map that wraps, a window that overhangs the cut shows land twice, so both copies keep the circles out, and a
  * region is numbered where the window shows it.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { layoutCallouts } from "@johnmorrisdotca/chizu";
+ *
+ * const spots = layoutCallouts(WORLD, { codes: ["JP", "BR", "EG", "AU"], radiusRatio: 0.02 });
+ * console.log(spots.map((spot) => `${spot.number} ${spot.code}`).join(", "));
+ * // 1 JP, 2 BR, 3 EG, 4 AU
+ * ```
  */
 export function layoutCallouts(map: Pick<ChizuMap, "regions" | "insets" | "width" | "height" | "wraps">, request: CalloutRequest): CalloutSpot[] {
   const box = request.box ?? wholeMapBox(map);

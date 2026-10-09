@@ -10,7 +10,17 @@ import type { MapBox } from "./types.ts";
  * is the same for every circle on it.
  */
 
-/** How far in from the frame's edge the outermost circle's centre sits, in radii. */
+/**
+ * How far in from the frame's edge the outermost circle's centre sits, in radii.
+ *
+ * @example
+ * ```ts
+ * import { CALLOUT_INSET } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(CALLOUT_INSET);
+ * // 1.6
+ * ```
+ */
 export const CALLOUT_INSET = 1.6;
 
 /** The sea kept between a circle's edge and the land, in radii. */
@@ -23,6 +33,14 @@ const CALLOUT_SEA = 0.3;
  *
  * A sheet whose numbers sat on the coast read as numbers on the land: they need
  * to be well away from the shore, so the sea a circle has is weighed, up to this.
+ *
+ * @example
+ * ```ts
+ * import { CALLOUT_ROOMY } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(CALLOUT_ROOMY);
+ * // 2
+ * ```
  */
 export const CALLOUT_ROOMY = 2;
 /**
@@ -37,10 +55,31 @@ const SEARCH_STEP = 0.5;
  * The lengths of frame kept clear at the bottom-right corner, in the map's
  * units: up the right edge before the corner and along the bottom edge after
  * it, which is where the credit line is drawn.
+ *
+ * @example
+ * ```ts
+ * import { calloutSpaces, type CalloutKeepOut } from "@johnmorrisdotca/chizu";
+ *
+ * const keepOut: CalloutKeepOut = { bottom: 20, right: 20 };
+ * const spaces = calloutSpaces(4, { x: 0, y: 0, width: 100, height: 100 }, keepOut, []);
+ * console.log(spaces.every((place) => place.x < 80 || place.y < 80));
+ * // true
+ * ```
  */
 export type CalloutKeepOut = { bottom: number; right: number };
 
-/** A box, which is what a leader is kept off and what the credit's corner is. */
+/**
+ * A box, which is what a leader is kept off and what the credit's corner is.
+ *
+ * @example
+ * ```ts
+ * import { segmentCrossesBox, type CalloutObstacle } from "@johnmorrisdotca/chizu";
+ *
+ * const credit: CalloutObstacle = { minX: 80, minY: 90, maxX: 100, maxY: 100 };
+ * console.log(segmentCrossesBox([70, 95], [99, 95], credit));
+ * // true
+ * ```
+ */
 export type CalloutObstacle = { minX: number; minY: number; maxX: number; maxY: number };
 
 /**
@@ -51,10 +90,30 @@ export type CalloutObstacle = { minX: number; minY: number; maxX: number; maxY: 
  * A leader is only measured against the boxes around those rings, because
  * "cross minimal number of states" is a count of places rather than a question
  * about a coastline, and the leaders are costed thousands of times a draw.
+ *
+ * @example
+ * ```ts
+ * import { calloutSpaces, parseMapRings, type CalloutLand } from "@johnmorrisdotca/chizu";
+ *
+ * const island: CalloutLand = { rings: parseMapRings("M30,30L70,30L70,70L30,70Z") };
+ * const spaces = calloutSpaces(4, { x: 0, y: 0, width: 100, height: 100 }, { bottom: 0, right: 0 }, [island]);
+ * console.log(spaces.every((place) => !(place.x > 34 && place.x < 66 && place.y > 34 && place.y < 66)));
+ * // true
+ * ```
  */
 export type CalloutLand = { rings: readonly MapRing[] };
 
-/** Whether two leaders cross. Touching at an end is not crossing. */
+/**
+ * Whether two leaders cross. Touching at an end is not crossing.
+ *
+ * @example
+ * ```ts
+ * import { segmentsCross } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(segmentsCross([0, 0], [10, 10], [0, 10], [10, 0]), segmentsCross([0, 0], [10, 0], [0, 5], [10, 5]));
+ * // true false
+ * ```
+ */
 export function segmentsCross(
   a: readonly [number, number],
   b: readonly [number, number],
@@ -82,6 +141,14 @@ function pointToSegment(point: readonly [number, number], a: readonly [number, n
 /**
  * How close two leaders come, where they do not cross: the nearest any point
  * of one gets to the other. Zero when they cross.
+ *
+ * @example
+ * ```ts
+ * import { segmentsGap } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(segmentsGap([0, 0], [10, 0], [0, 5], [10, 5]));
+ * // 5
+ * ```
  */
 export function segmentsGap(
   a: readonly [number, number],
@@ -100,7 +167,18 @@ function circleMeetsBox(point: readonly [number, number], radius: number, box: C
   return Math.hypot(point[0] - x, point[1] - y) < radius;
 }
 
-/** Whether a straight leader from `a` to `b` passes through this box. */
+/**
+ * Whether a straight leader from `a` to `b` passes through this box.
+ *
+ * @example
+ * ```ts
+ * import { segmentCrossesBox } from "@johnmorrisdotca/chizu";
+ *
+ * const box = { minX: 10, minY: 10, maxX: 20, maxY: 20 };
+ * console.log(segmentCrossesBox([0, 15], [30, 15], box), segmentCrossesBox([0, 0], [30, 0], box));
+ * // true false
+ * ```
+ */
 export function segmentCrossesBox(
   a: readonly [number, number],
   b: readonly [number, number],
@@ -140,6 +218,15 @@ export function segmentCrossesBox(
  * The row and column are carried rather than recovered, so asking whether a
  * place is too near a circle already put down is a look at the handful of
  * cells around it instead of a walk through every circle on the map.
+ *
+ * @example
+ * ```ts
+ * import { calloutSpaces, type CalloutPlace } from "@johnmorrisdotca/chizu";
+ *
+ * const [first]: CalloutPlace[] = calloutSpaces(4, { x: 0, y: 0, width: 100, height: 100 }, { bottom: 0, right: 0 }, []);
+ * console.log(typeof first!.x, typeof first!.sea);
+ * // number number
+ * ```
  */
 export type CalloutPlace = {
   x: number;
@@ -157,6 +244,15 @@ export type CalloutPlace = {
  * A frame with no room at all - a map zoomed until the land fills it - gets
  * the grid unfiltered rather than nothing, because a number on land is still
  * better than a number that is not drawn.
+ *
+ * @example
+ * ```ts
+ * import { calloutSpaces } from "@johnmorrisdotca/chizu";
+ *
+ * // An empty sea 100 across: every place on the grid is open water.
+ * console.log(calloutSpaces(4, { x: 0, y: 0, width: 100, height: 100 }, { bottom: 0, right: 0 }, []).length > 20);
+ * // true
+ * ```
  */
 export function calloutSpaces(
   radius: number,
@@ -167,7 +263,18 @@ export function calloutSpaces(
   return calloutGrid(radius, box, keepOut, land).places;
 }
 
-/** The same places, with the grid they were found on. */
+/**
+ * The same places, with the grid they were found on.
+ *
+ * @example
+ * ```ts
+ * import { calloutGrid } from "@johnmorrisdotca/chizu";
+ *
+ * const grid = calloutGrid(4, { x: 0, y: 0, width: 100, height: 100 }, { bottom: 0, right: 0 }, []);
+ * console.log(grid.cols > 0, grid.step > 0, grid.places.length > 0);
+ * // true true true
+ * ```
+ */
 export function calloutGrid(
   radius: number,
   box: MapBox,

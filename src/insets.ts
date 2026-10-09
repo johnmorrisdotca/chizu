@@ -13,17 +13,49 @@ import type { ChizuInset, ChizuMap, MapBox } from "./types.ts";
  * The boxes are chosen against the data rather than by eye: a test checks that no other region's bounds reach into one.
  */
 
-/** The inset a region is drawn in, or null when it is drawn where it is. */
+/**
+ * The inset a region is drawn in, or null when it is drawn where it is.
+ *
+ * @example
+ * ```ts
+ * import { loadDivisions } from "@johnmorrisdotca/chizu/load";
+ * import { insetFor } from "@johnmorrisdotca/chizu";
+ *
+ * const us = (await loadDivisions("us"))!;
+ * console.log(insetFor(us, "AK")?.box, insetFor(us, "TX"));
+ * // { x: 20, y: 610, width: 360, height: 120 } null
+ * ```
+ */
 export function insetFor(map: Pick<ChizuMap, "insets">, code: string | number): ChizuInset | null {
   return map.insets.find((inset) => String(inset.code) === String(code)) ?? null;
 }
 
-/** What to do to a region's own geometry to seat it in its box: a scale, and a move. */
+/**
+ * What to do to a region's own geometry to seat it in its box: a scale, and a move.
+ *
+ * @example
+ * ```ts
+ * import { insetTransformAttribute, type InsetTransform } from "@johnmorrisdotca/chizu";
+ *
+ * const move: InsetTransform = { scale: 0.5, x: 20, y: 610 };
+ * console.log(insetTransformAttribute(move));
+ * // translate(20 610) scale(0.5)
+ * ```
+ */
 export type InsetTransform = { scale: number; x: number; y: number };
 
 /**
  * What to do to a region's own geometry to seat it in its box: shrink it to fit if it is too big, centre it in the
  * frame, and leave it at its own size unless the box says it may be magnified.
+ *
+ * @example
+ * ```ts
+ * import { insetTransform } from "@johnmorrisdotca/chizu";
+ *
+ * // A region 400 wide seated in a box 200 wide is halved and centred.
+ * console.log(insetTransform([0, 0, 400, 100], { x: 10, y: 10, width: 200, height: 100 }));
+ * // { scale: 0.5, x: 10, y: 35 }
+ * ```
  */
 export function insetTransform(bbox: readonly [number, number, number, number], box: MapBox, magnify = false): InsetTransform {
   const width = Math.max(bbox[2] - bbox[0], 0.001);
@@ -37,12 +69,32 @@ export function insetTransform(bbox: readonly [number, number, number, number], 
   };
 }
 
-/** The same move, applied to a point: a centroid, so a handle follows its region. */
+/**
+ * The same move, applied to a point: a centroid, so a handle follows its region.
+ *
+ * @example
+ * ```ts
+ * import { applyInsetTransform } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(applyInsetTransform([100, 40], { scale: 0.5, x: 10, y: 20 }));
+ * // [ 60, 40 ]
+ * ```
+ */
 export function applyInsetTransform(point: readonly [number, number], transform: InsetTransform): [number, number] {
   return [point[0] * transform.scale + transform.x, point[1] * transform.scale + transform.y];
 }
 
-/** The SVG `transform` attribute the move is written as. */
+/**
+ * The SVG `transform` attribute the move is written as.
+ *
+ * @example
+ * ```ts
+ * import { insetTransformAttribute } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(insetTransformAttribute({ scale: 0.25, x: 400, y: 640 }));
+ * // translate(400 640) scale(0.25)
+ * ```
+ */
 export function insetTransformAttribute(transform: InsetTransform): string {
   return `translate(${transform.x} ${transform.y}) scale(${transform.scale})`;
 }

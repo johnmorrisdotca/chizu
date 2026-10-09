@@ -9,6 +9,15 @@
  *
  * A region may be given a tone (`drawChizu`'s `tones` option): `selected`, `correct`, `wrong`, `hint`, `muted` or `faint`
  * are looked after here, and any other name `x` is the class `cz-tone-x` for the page to colour.
+ *
+ * @example
+ * ```ts
+ * import { CHIZU_STYLE } from "@johnmorrisdotca/chizu/draw";
+ *
+ * // The drawing's colours as CSS, to put in a page once (drawChizu's `style: true` puts it inside the SVG instead).
+ * console.log(CHIZU_STYLE.includes("--cz-sea"));
+ * // true
+ * ```
  */
 export const CHIZU_STYLE = `
 .chizu {

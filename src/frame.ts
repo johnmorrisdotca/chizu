@@ -11,7 +11,18 @@ import { mapWrapsAround } from "./wrap.ts";
  * A "window" is a `MapBox`, and `boxToViewBox` writes one as an SVG `viewBox`.
  */
 
-/** A window as an SVG `viewBox` attribute. */
+/**
+ * A window as an SVG `viewBox` attribute.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { boxToViewBox, focusBox } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(boxToViewBox({ x: 10, y: 20.5, width: 300, height: 200 }));
+ * // 10 20.5 300 200
+ * ```
+ */
 export function boxToViewBox(box: MapBox): string {
   return `${box.x} ${box.y} ${box.width} ${box.height}`;
 }
@@ -21,7 +32,18 @@ const MIN_FOCUS_SPAN_RATIO = 0.22;
 
 type Frameable = Pick<ChizuMap, "width" | "height" | "regions" | "insets" | "wraps">;
 
-/** The whole canvas as a window. */
+/**
+ * The whole canvas as a window.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { wholeMapBox } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(wholeMapBox(WORLD));
+ * // { x: 0, y: 0, width: 1000, height: 489 }
+ * ```
+ */
 export function wholeMapBox(map: Pick<ChizuMap, "width" | "height">): MapBox {
   return { x: 0, y: 0, width: map.width, height: map.height };
 }
@@ -29,7 +51,18 @@ export function wholeMapBox(map: Pick<ChizuMap, "width" | "height">): MapBox {
 const matching = (map: Pick<ChizuMap, "regions">, codes: ReadonlyArray<string | number>) =>
   map.regions.filter((region) => codes.some((code) => String(code) === String(region.code)));
 
-/** The window that frames these regions, or the whole map when none are given. */
+/**
+ * The window that frames these regions, or the whole map when none are given.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { boxToViewBox, focusBox } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(boxToViewBox(focusBox(WORLD, ["DE", "PL"])).split(" ").map((n) => Math.round(Number(n))).join(" "));
+ * // 1 50 220 220
+ * ```
+ */
 export function focusBox(map: Frameable, codes: ReadonlyArray<string | number>): MapBox {
   const whole = wholeMapBox(map);
   const framed = matching(map, codes);
@@ -57,7 +90,18 @@ export function focusBox(map: Frameable, codes: ReadonlyArray<string | number>):
   };
 }
 
-/** True when the box shows the whole map rather than a zoomed-in window. */
+/**
+ * True when the box shows the whole map rather than a zoomed-in window.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { boxIsWholeMap, focusBox, wholeMapBox } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(boxIsWholeMap(WORLD, wholeMapBox(WORLD)), boxIsWholeMap(WORLD, focusBox(WORLD, ["JP"])));
+ * // true false
+ * ```
+ */
 export function boxIsWholeMap(map: Pick<ChizuMap, "width" | "height">, box: MapBox): boolean {
   return box.width >= map.width && box.height >= map.height;
 }
@@ -66,17 +110,56 @@ export function boxIsWholeMap(map: Pick<ChizuMap, "width" | "height">, box: MapB
  * How far in the map is drawn, as steps rather than a free zoom. A free zoom would offer a hundred framings of which a
  * few are useful: the steps are those, plus the whole map to come back to. Five, because at three a country on the
  * world is a dozen pixels across and the small ones of Europe and the Caribbean stay unpickable.
+ *
+ * @example
+ * ```ts
+ * import { MAP_ZOOM_LEVELS } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(MAP_ZOOM_LEVELS.join(" "));
+ * // 1 2 3 4 5
+ * ```
  */
 export const MAP_ZOOM_LEVELS = [1, 2, 3, 4, 5] as const;
 
+/**
+ *
+ * @example
+ * ```ts
+ * import { stepMapZoom, type MapZoom } from "@johnmorrisdotca/chizu";
+ *
+ * const zoom: MapZoom = 2;
+ * console.log(stepMapZoom(zoom, 1));
+ * // 3
+ * ```
+ */
 export type MapZoom = (typeof MAP_ZOOM_LEVELS)[number];
 
-/** Whether a number is one of the zoom steps. */
+/**
+ * Whether a number is one of the zoom steps.
+ *
+ * @example
+ * ```ts
+ * import { isMapZoom } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(isMapZoom(3), isMapZoom(2.5), isMapZoom(6));
+ * // true false false
+ * ```
+ */
 export function isMapZoom(value: number): value is MapZoom {
   return (MAP_ZOOM_LEVELS as readonly number[]).includes(value);
 }
 
-/** One step in or out, clamped: the ends stay put rather than wrapping. */
+/**
+ * One step in or out, clamped: the ends stay put rather than wrapping.
+ *
+ * @example
+ * ```ts
+ * import { stepMapZoom } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(stepMapZoom(1, 1), stepMapZoom(5, 1), stepMapZoom(1, -1));
+ * // 2 5 1
+ * ```
+ */
 export function stepMapZoom(zoom: MapZoom, by: 1 | -1): MapZoom {
   const at = MAP_ZOOM_LEVELS.indexOf(zoom);
   return MAP_ZOOM_LEVELS[Math.min(MAP_ZOOM_LEVELS.length - 1, Math.max(0, at + by))]!;
@@ -90,6 +173,15 @@ export function stepMapZoom(zoom: MapZoom, by: 1 | -1): MapZoom {
  * used. On a map that wraps, east and west never stop, so only north and south are held. `clamp` is off for a fit: a
  * region opened from its address asked for that region in the middle, and a clamp that pushes the window back onto the
  * map puts it somewhere else.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { zoomBox } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(zoomBox(WORLD, 2, { x: 500, y: 200 }));
+ * // { x: 250, y: 77.75, width: 500, height: 244.5 }
+ * ```
  */
 export function zoomBox(map: Frameable, zoom: MapZoom, centre: { x: number; y: number }, clamp = true): MapBox {
   const whole = wholeMapBox(map);
@@ -116,7 +208,17 @@ export function zoomBox(map: Frameable, zoom: MapZoom, centre: { x: number; y: n
   };
 }
 
-/** Where a box is looking, which is what a zoom step keeps hold of. */
+/**
+ * Where a box is looking, which is what a zoom step keeps hold of.
+ *
+ * @example
+ * ```ts
+ * import { boxCentre } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(boxCentre({ x: 100, y: 50, width: 200, height: 100 }));
+ * // { x: 200, y: 100 }
+ * ```
+ */
 export function boxCentre(box: MapBox): { x: number; y: number } {
   return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
 }
@@ -132,6 +234,16 @@ const FIT_MARGIN_RATIO = 0.15;
  * region is its box and not its true position out at sea. The room is a share of each side, and a set that cannot fit
  * closer with the margin gets one more try at the bare shape before it is shown at 1×: the margin is what makes a fit
  * comfortable, not what makes it a fit.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { zoomToFit } from "@johnmorrisdotca/chizu";
+ *
+ * const fit = zoomToFit(WORLD, ["GB", "IE"]);
+ * console.log(fit.zoom, Math.round(fit.centre.x), Math.round(fit.centre.y));
+ * // 5 58 148
+ * ```
  */
 export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>): { zoom: MapZoom; centre: { x: number; y: number } } {
   const whole = wholeMapBox(map);
@@ -161,6 +273,15 @@ export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>)
 /**
  * What choosing one place computes: zoom in to fit it, whatever zoom the reader was already at. `null` for a code the
  * map does not hold, so a caller can tell "nothing to focus" from "fit the whole thing", which `zoomToFit` cannot.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { focusRegionFit } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(focusRegionFit(WORLD, "JP")?.zoom, focusRegionFit(WORLD, "XX"));
+ * // 5 null
+ * ```
  */
 export function focusRegionFit(map: Frameable, code: string | number | null): { zoom: MapZoom; centre: { x: number; y: number } } | null {
   if (code === null) return null;
@@ -172,6 +293,17 @@ export function focusRegionFit(map: Frameable, code: string | number | null): { 
  * The middle of a region, for zooming to whatever somebody just chose: where it is *drawn*, not where it is. Okinawa
  * is drawn in a box in the Sea of Japan and Alaska in one below the lower forty-eight, so centring on their true
  * positions would take the reader to open sea; Tokyo, whose far islands are boxed, is centred on the Tokyo left in place.
+ *
+ * @example
+ * ```ts
+ * import { loadDivisions } from "@johnmorrisdotca/chizu/load";
+ * import { regionCentre } from "@johnmorrisdotca/chizu";
+ *
+ * const japan = (await loadDivisions("jp"))!;
+ * // Okinawa is drawn in a box, so its centre is the box's.
+ * console.log(regionCentre(japan, "47"));
+ * // { x: 247.5, y: 125 }
+ * ```
  */
 export function regionCentre(map: Frameable, code: string | number | null): { x: number; y: number } | null {
   if (code === null) return null;
@@ -194,6 +326,16 @@ const SHAPE_MARGIN_RATIO = 0.1;
  * rest of the frame with whatever is next to it. With both right the region fills the side that limits it, and the
  * room left over falls on the other side, where it does what the room was for: the neighbours show in outline, so it
  * is a place rather than a blob. Framed where it is drawn, so a region in an inset is framed there.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { boxToViewBox, regionBox } from "@johnmorrisdotca/chizu";
+ *
+ * const box = regionBox(WORLD, "IT", 4 / 3);
+ * console.log((box.width / box.height).toFixed(3));
+ * // 1.333
+ * ```
  */
 export function regionBox(map: Frameable, code: string | number, aspect = 1): MapBox {
   const region = map.regions.find((entry) => String(entry.code) === String(code));
@@ -220,6 +362,17 @@ const GLYPH_MARGIN_RATIO = 0.06;
 /**
  * A square window on one region's own outline, for drawing it as an icon: every shape gets the same box and fills it,
  * so a small region is as legible in a list as a large one.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { shapeGlyphBox } from "@johnmorrisdotca/chizu";
+ *
+ * const chile = WORLD.regions.find((region) => region.code === "CL")!;
+ * const box = shapeGlyphBox(chile.bbox);
+ * console.log(box.width === box.height);
+ * // true
+ * ```
  */
 export function shapeGlyphBox(bbox: readonly [number, number, number, number]): MapBox {
   const [minX, minY, maxX, maxY] = bbox;

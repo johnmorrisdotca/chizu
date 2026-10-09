@@ -4,9 +4,28 @@ import type { ChizuRegion } from "./types.ts";
  * THE WORDS chizu says itself, in English and Japanese: what a screen reader hears of a drawing, and the labels on a
  * mounted map's buttons. Plain data, so a page can read them, replace a few or add a language of its own beside these
  * two. `{name}` in a line is a value filled in.
+ *
+ * @example
+ * ```ts
+ * import { nameOf, type ChizuLanguage } from "@johnmorrisdotca/chizu";
+ *
+ * const language: ChizuLanguage = "ja";
+ * console.log(nameOf({ name: "Japan", nameJa: "日本" }, language));
+ * // 日本
+ * ```
  */
 export type ChizuLanguage = "en" | "ja";
 
+/**
+ *
+ * @example
+ * ```ts
+ * import { CHIZU_STRINGS } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(Object.keys(CHIZU_STRINGS).join(" "), CHIZU_STRINGS.en.zoomIn, CHIZU_STRINGS.ja.zoomIn);
+ * // en ja Zoom in 拡大
+ * ```
+ */
 export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
   en: {
     map: "Map of {name}",
@@ -40,12 +59,34 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
   },
 };
 
-/** A language this package has words for, from a tag such as `ja-JP` or `en`: Japanese for any `ja`, English otherwise. */
+/**
+ * A language this package has words for, from a tag such as `ja-JP` or `en`: Japanese for any `ja`, English otherwise.
+ *
+ * @example
+ * ```ts
+ * import { chizuLanguageOf } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(chizuLanguageOf("ja-JP"), chizuLanguageOf("fr"), chizuLanguageOf(undefined));
+ * // ja en en
+ * ```
+ */
 export function chizuLanguageOf(tag: string | undefined | null): ChizuLanguage {
   return String(tag ?? "").toLowerCase().startsWith("ja") ? "ja" : "en";
 }
 
-/** A line of the board's words with its `{name}` values filled in. */
+/**
+ * A line of the board's words with its `{name}` values filled in.
+ *
+ * @example
+ * ```ts
+ * import { chizuSay } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(chizuSay("en", "map", { name: "Japan" }));
+ * console.log(chizuSay("ja", "map", { name: "日本" }));
+ * // Map of Japan
+ * // 日本の地図
+ * ```
+ */
 export function chizuSay(language: ChizuLanguage, key: string, values: Record<string, string | number> = {}): string {
   const line = CHIZU_STRINGS[language][key] ?? CHIZU_STRINGS.en[key] ?? key;
   return line.replace(/\{(\w+)\}/g, (whole, name: string) => (name in values ? String(values[name]) : whole));
@@ -54,6 +95,16 @@ export function chizuSay(language: ChizuLanguage, key: string, values: Record<st
 /**
  * What a region is called in a language: the English name, or in Japanese the everyday short name where there is one
  * (アメリカ), else the full Japanese name, else the English.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { nameOf } from "@johnmorrisdotca/chizu";
+ *
+ * const us = WORLD.regions.find((region) => region.code === "US")!;
+ * console.log(nameOf(us, "en"), nameOf(us, "ja"));
+ * // United States アメリカ
+ * ```
  */
 export function nameOf(region: Pick<ChizuRegion, "name" | "nameJa" | "nameShortJa">, language: ChizuLanguage): string {
   return language === "ja" ? (region.nameShortJa ?? region.nameJa ?? region.name) : region.name;
