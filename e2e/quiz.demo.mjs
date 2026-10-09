@@ -149,7 +149,7 @@ test("a round is ten questions; at the end it shows the results, a link that ask
 
 test("in Japanese the question, the choices and the verdict are Japanese", async ({ page }) => {
   await open(page, "?map=world&mode=quiz&seed=3&lang=ja");
-  await expect(page.locator(at("question"))).toHaveText("地図で光っている国はどれでしょう？");
+  await expect(page.locator(at("question"))).toHaveText("地図で光っている国はどこでしょう？");
   const target = await lit(page);
   await page.locator(at(`choice-${target}`)).click();
   await expect(page.locator(at("question"))).toContainText("正解です！");

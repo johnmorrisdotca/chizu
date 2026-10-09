@@ -659,7 +659,7 @@ export const JAPAN_GROUPS = [
  */
 export const REGION_GROUPS = {
   CA: {
-    names: { Atlantic: "大西洋沿岸州", Central: "中部カナダ", Prairies: "平原州", "West Coast": "西海岸", North: "北部準州" },
+    names: { Atlantic: "大西洋沿岸諸州", Central: "中部カナダ", Prairies: "プレーリー諸州", "West Coast": "西海岸", North: "北部地域" },
     members: { NL: "Atlantic", PE: "Atlantic", NS: "Atlantic", NB: "Atlantic", QC: "Central", ON: "Central", MB: "Prairies", SK: "Prairies", AB: "Prairies", BC: "West Coast", YT: "North", NT: "North", NU: "North" },
   },
   US: {

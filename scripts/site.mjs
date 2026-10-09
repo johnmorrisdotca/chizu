@@ -40,7 +40,7 @@ const page = `<!doctype html>
   <body>
     <main>
       ${familyHeader({ id, links: [{ href: "api.html", say: "pageApi" }] })}
-      <div class="setup fam-row" data-help-en="Choose the map: the whole world, the regions of one country (its provinces, states or départements), or one country on its own. Each country is a file of its own, fetched when you ask for it." data-help-ja="地図を選びます。世界全体、一つの国の地方（州、県、道など）、または一つの国だけ、のどれかです。国ごとに別のファイルで、選んだときに読み込みます。">
+      <div class="setup fam-row" data-help-en="Choose the map: the whole world, the regions of one country (its provinces, states or départements), or one country on its own. Each country is a file of its own, fetched when you ask for it." data-help-ja="地図を選びます。世界全体、一つの国の地方（州や県など）、または一つの国だけ、のどれかです。国ごとに別のファイルで、選んだときに読み込みます。">
         <span class="fam-label" data-say="map"></span>
         <select class="fam-field" id="map" data-testid="map" data-say-label="map"></select>
       </div>
@@ -48,7 +48,7 @@ const page = `<!doctype html>
         <span class="fam-label" data-say="part"></span>
         <select class="fam-field" id="part" data-testid="part" data-say-label="part"></select>
       </div>
-      ${row("modes", "mode", ["Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.", "地図を見てなまえを調べる、クイズをする、番号つきの目印を置く、自分の数値で色を塗る、から選びます。"])}
+      ${row("modes", "mode", ["Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.", "地図を見てなまえを調べる、クイズで遊ぶ、番号つきの目印をつける、自分の数値で色を塗る、のどれかを選びます。"])}
       <div class="table fam-felt" id="board" data-testid="board"></div>
       <section class="settings" id="panel-explore" data-testid="panel-explore" aria-labelledby="explore-title">
         <h2 id="explore-title" data-say="exploreTitle"></h2>
@@ -63,7 +63,7 @@ const page = `<!doctype html>
       </section>
       <section class="settings" id="panel-quiz" data-testid="panel-quiz" aria-labelledby="quiz-title" hidden>
         <h2 id="quiz-title" data-say="quizTitle"></h2>
-        ${row("styles", "style", ["Pick the lit place's name from four look-alikes, type its name in English or Japanese, type the reading of its name in kana, or find a named place on the map. Ten questions a round, made from a seed: share the link and a friend gets the same ten.", "光っている場所のなまえを似た4つから選ぶ、英語か日本語でなまえを入力する、なまえの読みをかなで入力する、なまえを見て地図でさがす、から選びます。1回10問で、シードから作るので、リンクを送れば友だちにも同じ10問が出ます。"])}
+        ${row("styles", "style", ["Pick the lit place's name from four look-alikes, type its name in English or Japanese, type the reading of its name in kana, or find a named place on the map. Ten questions a round, made from a seed: share the link and a friend gets the same ten.", "光っている場所のなまえを似たなまえ4つから選ぶ、英語か日本語でなまえを入力する、なまえの読みをかなで入力する、なまえを見て地図でさがす、のどれかを選びます。1回は10問で、問題はリンクに入っている番号で決まります。リンクを送れば、友だちにも同じ10問が出ます。"])}
         <div class="fam-row quiz-chips">
           <span class="fam-chip" id="progress" data-testid="progress"></span>
           <span class="fam-chip" id="score" data-testid="score"></span>
@@ -106,7 +106,7 @@ const page = `<!doctype html>
       </section>
       <section class="settings" id="panel-colour" data-testid="panel-colour" aria-labelledby="colour-title" hidden>
         <h2 id="colour-title" data-say="colourTitle"></h2>
-        ${row("colour-by", "colourBy", ["Shade the places from figures you paste, in five steps from the lowest to the highest, or give each of the map's parts a colour of its own.", "貼りつけた数値で、小さいものから大きいものまで5段階に塗るか、地図の地方ごとに色を分けます。"])}
+        ${row("colour-by", "colourBy", ["Shade the places from figures you paste, in five steps from the lowest to the highest, or give each of the map's parts a colour of its own.", "貼りつけた数値で、小さいものから大きいものまで5段階に塗るか、地図のグループ（大陸や地方など）ごとに色を分けます。"])}
         <div class="figures" id="figures-row">
           <p data-say="colourText"></p>
           <textarea class="fam-field" id="figures" data-testid="figures" rows="6" data-mono="true" data-say-label="colourData" data-say-placeholder="colourPlaceholder" spellcheck="false"></textarea>

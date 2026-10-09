@@ -24,7 +24,7 @@ test("a prefecture is named in both languages, read in kana, and given its ISO c
   await expect(page.locator(`${at("info")} button[data-code="11"]`)).toHaveText("Saitama");
   await open(page, "?select=47&lang=ja");
   await expect(page.locator(at("info-name"))).toHaveText("沖縄県 · Okinawa");
-  await expect(page.locator(at("info-group"))).toHaveText("地方: 九州地方");
+  await expect(page.locator(at("info-group"))).toHaveText("グループ: 九州地方");
   await expect(page.locator(at("info"))).toContainText("となりあう場所がありません");
 });
 
