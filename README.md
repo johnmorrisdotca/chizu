@@ -859,7 +859,7 @@ Please follow the [code of conduct](./CODE_OF_CONDUCT.md). A way to make the cal
 
 ## Changes
 
-See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.0.2, adds no code: it is this README in full, with pictures of the maps, examples that are run on every change, and an Accessibility section.
+See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.1.0, adds Japan's 47 prefectures, ISO 3166-2 codes on every region, names from kuni, continents and any grouping as a map, zoom to 10×, and a demo with quizzes, colour by figures and downloads.
 
 ## Licence
 

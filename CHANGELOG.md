@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-09
+
 Nothing exported has been removed or renamed, and no type has lost a field. Names have changed, because they now come from kuni 国: every change is listed below.
 
 ### Added
