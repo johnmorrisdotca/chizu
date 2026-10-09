@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-10-09
+
 ### Added
 
 - **A colour for each region.** `drawChizu` and `mountChizu` take `colors`, a colour by region code (`{ JP: "#2f6b4f", GB: "#8a3b3b" }`), for two or more places that must be told apart. A hex colour, a CSS colour name, `rgb()`, `hsl()` or `var(--name)` is the land's fill (over its tone's); any other text is ignored, so nothing from an address or a form can end the attribute. A region with a colour carries `data-color` and `--cz-color`; a map drawn without `colors` is byte for byte as before. `isChizuColour(text)` in `/draw` says whether a value will be drawn. See docs/colours.md, which also says how to show or hide the capitals' marks (the `capitals` feature, off until chosen).

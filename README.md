@@ -808,7 +808,7 @@ Please follow the [code of conduct](./CODE_OF_CONDUCT.md). A way to make the cal
 
 ## Changes
 
-See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.2.0, adds named seas, lakes, rivers, landforms, peaks and capitals as layers you can search, select, quiz and download, and takes names and facts from kuni 1.1.0.
+See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.3.0, adds a colour for each place (`colors`), and the demo downloads every list as a Markdown table and as SQL too.
 
 ## Licence
 
