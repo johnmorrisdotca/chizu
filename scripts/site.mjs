@@ -50,7 +50,7 @@ const page = `<!doctype html>
         <span class="fam-label" data-say="part"></span>
         <select class="fam-field" id="part" data-testid="part" data-say-label="part"></select>
       </div>
-      ${row("features", "features", ["Draw the map's named water (its seas, bays and straits, lakes and rivers), or everything named on it, deserts, mountain ranges and peaks too. Off, the map is as it always was. Each map's features are a file of their own, fetched the first time you turn them on.", "地図に、名前のある水（海、湾、海峡、湖、川）を描くか、砂漠、山脈、山もふくめて名前のあるものをすべて描きます。「なし」なら、いつもの地図のままです。地形は地図ごとに別のファイルで、はじめて表示するときに読み込みます。"])}
+      ${row("features", "features", ["Draw the map's named water (its seas, bays and straits, lakes and rivers), its capitals (a country's capital, and on a map of its regions each region's seat), or everything named on it, deserts, mountain ranges and peaks too. Off, the map is as it always was. Each map's features are a file of their own, fetched the first time you turn them on.", "地図に、名前のある水（海、湾、海峡、湖、川）を重ねて描きます。「首都」にすると、国の首都と、地方の地図では各地方の中心地（日本では県庁所在地）を描きます。「すべて」にすると、砂漠、山脈、山など、名前のあるものをすべて描きます。「なし」なら、いつもの地図のままです。描くものは地図ごとに別のファイルで、はじめて表示するときに読み込みます。"])}
       ${row("modes", "mode", ["Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.", "地図を見てなまえを調べる、クイズで遊ぶ、番号つきの目印をつける、自分の数値で色を塗る、のどれかを選びます。"])}
       <div class="table fam-felt" id="board" data-testid="board"></div>
       <section class="settings" id="panel-explore" data-testid="panel-explore" aria-labelledby="explore-title">
@@ -64,7 +64,7 @@ const page = `<!doctype html>
         <div id="explore-map-files"></div>
         <div id="explore-list-files"></div>
         <h3 class="sub-title" data-say="featuresTitle"></h3>
-        <div class="setup fam-row" data-help-en="Type part of the name of a sea, a lake, a river, a mountain range or a peak, in English, in Japanese or in kana. Press a row to see it on the map." data-help-ja="海、湖、川、山脈、山のなまえの一部を、英語、日本語、かなのどれかで入力してください。行を押すと、地図に表示します。">
+        <div class="setup fam-row" data-help-en="Type part of the name of a sea, a lake, a river, a mountain range or a peak, in English, in Japanese or in kana. Press a row to see it on the map." data-help-ja="海、湖、川、山脈、山などのなまえの一部を、英語、日本語、かなのどれかで入力すると、下の一覧がしぼりこまれます。行を押すと、地図に表示します。">
           <span class="fam-label" data-say="featureFind"></span>
           <input class="fam-field" id="feature-find" data-testid="feature-find" type="search" autocomplete="off" data-say-placeholder="featureFindPlaceholder" data-say-label="featureFind" />
         </div>

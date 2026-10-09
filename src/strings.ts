@@ -101,7 +101,7 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
     "kind.fjord": "フィヨルド",
     "kind.inlet": "入り江",
     "kind.lagoon": "潟湖",
-    "kind.reef": "礁",
+    "kind.reef": "サンゴ礁",
     "kind.lake": "湖",
     "kind.reservoir": "貯水池",
     "kind.river": "川",

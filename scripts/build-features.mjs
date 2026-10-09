@@ -59,6 +59,18 @@ export function featureReading(nameJa, item) {
   return null;
 }
 
+/**
+ * A landform's kind, from Natural Earth's class but for its two loose ones: "Pen/cape" is a cape only where the name
+ * says so (Cape Zhelaniya, Wilsons Promontory), and a peninsula otherwise (Scandinavia, the Indian subcontinent); and a
+ * feature named a peninsula is one, whatever its class (Natural Earth files the Iberian Peninsula as a plateau).
+ */
+function landformKind(kind, p) {
+  const names = `${p.name} ${p.name_en ?? ""} ${p.name_ja ?? ""}`;
+  if (/peninsula|\bpen\.|península|半島/iu.test(names)) return "peninsula";
+  if (kind === "peninsula" && /\bcape\b|\bcabo\b|\bcap\b|promontory|\bpoint\b|岬/iu.test(names)) return "cape";
+  return kind;
+}
+
 /** Natural Earth's English names are sometimes in capitals (KYÜSHÜ, SAHARA): written as a name is written. */
 const titleCase = (name) => (name === name.toUpperCase() ? name.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (_, gap, letter) => gap + letter.toUpperCase()) : name);
 
@@ -115,7 +127,7 @@ export async function featureSources(options = {}) {
       }
       byCode.set(code, {
         code,
-        kind: kind === "peninsula" && !/pen(insula|\.)|半島/iu.test(`${p.name} ${p.name_ja ?? ""}`) ? "cape" : kind,
+        kind: landformKind(kind, p),
         group,
         name,
         nameJa,

@@ -123,6 +123,7 @@ function fold(text: string): string {
     .normalize("NFKC")
     .toLowerCase()
     .replace(/[ァ-ヶ]/gu, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60))
+    .replace(/ゔ/gu, "ぶ")
     .replace(/[\s・･'’.,()（）-]/gu, "");
 }
 

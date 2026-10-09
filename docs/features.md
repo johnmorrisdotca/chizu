@@ -53,14 +53,14 @@ these, and most of their names have no Japanese.
 
 | Map | Seas | Lakes | Rivers | Landforms | Peaks | Capitals | Japanese name | Reading | Size (gzipped) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| world | 50 | 24 | 47 | 25 | 22 | 173 | 340 of 341 | 335 of 341 | 203 kB (65 kB) |
+| world | 50 | 24 | 47 | 25 | 22 | 173 | 340 of 341 | 339 of 341 | 203 kB (66 kB) |
 | divisions-jp | 10 | 1 | 3 | 1 | 8 | 47 | 70 of 70 | 70 of 70 | 29 kB (10 kB) |
 | country-jp | 10 | 1 | 3 | 1 | 8 | 1 | 24 of 24 | 24 of 24 | 19 kB (8 kB) |
 | divisions-us | 18 | 64 | 100 | 40 | 39 | 49 | 290 of 310 | 279 of 310 | 227 kB (78 kB) |
 | divisions-gb | 7 | 4 | 5 | 2 | 2 | 150 | 162 of 170 | 161 of 170 | 56 kB (16 kB) |
 | divisions-fr | 7 | 1 | 16 | 6 | 4 | 92 | 122 of 126 | 121 of 126 | 58 kB (19 kB) |
 | divisions-de | 4 | 3 | 8 | 5 | 5 | 15 | 39 of 40 | 39 of 40 | 37 kB (14 kB) |
-| divisions-cn | 9 | 48 | 99 | 36 | 40 | 31 | 217 of 263 | 90 of 263 | 166 kB (58 kB) |
+| divisions-cn | 9 | 48 | 99 | 36 | 40 | 31 | 217 of 263 | 92 of 263 | 166 kB (58 kB) |
 | divisions-ca | 50 | 70 | 75 | 27 | 29 | 13 | 242 of 264 | 235 of 264 | 261 kB (91 kB) |
 | divisions-ru | 36 | 46 | 100 | 40 | 37 | 82 | 318 of 341 | 306 of 341 | 249 kB (85 kB) |
 

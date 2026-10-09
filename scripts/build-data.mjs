@@ -612,7 +612,7 @@ function japanGroups() {
   const bare = (name) => name.replace(/ region$/u, "").replace(/地方$/u, "");
   for (const region of set) {
     const others = (region.otherNames ?? []).flatMap((other) => [other.en, other.ja].filter(Boolean));
-    const aliases = [...new Set([...others.flatMap((name) => [name, bare(name)]), bare(region.name.ja)])];
+    const aliases = [...new Set([...others.flatMap((name) => [bare(name), name]), bare(region.name.ja)])];
     const fields = { group: bare(region.name.en), groupJa: region.name.ja, ...(others.length > 0 ? { groupAliases: aliases } : {}) };
     for (const iso of region.members) byIso.set(iso, fields);
   }

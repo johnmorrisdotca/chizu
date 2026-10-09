@@ -31,7 +31,7 @@ open a *Fix a translation* issue with the string's name. `{name}` and the other 
 | `kind.fjord` | Fjord | フィヨルド |
 | `kind.inlet` | Inlet | 入り江 |
 | `kind.lagoon` | Lagoon | 潟湖 |
-| `kind.reef` | Reef | 礁 |
+| `kind.reef` | Reef | サンゴ礁 |
 | `kind.lake` | Lake | 湖 |
 | `kind.reservoir` | Reservoir | 貯水池 |
 | `kind.river` | River | 川 |
