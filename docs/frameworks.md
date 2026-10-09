@@ -1,6 +1,6 @@
 # Chizu in a framework
 
-A map is drawn by one call that takes an element and hands back an object with `destroy()`, so every framework does the same three things: make the element, mount into it when the page has it, and destroy the mount when the page lets it go. The package has no tag and no framework code of its own.
+A map is drawn by one call that takes an element and hands back an object with `destroy()`, so every framework does the same three things: make the element, mount into it when the page has it, and destroy the mount when the page lets it go. The new element entry also registers map, locator and quiz tags; the [embed guide](embeds.md) and builder show their framework forms. The mounted-map recipes below remain available for host code that needs full control.
 
 ## React
 

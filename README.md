@@ -143,6 +143,8 @@ Each picture is the real map, drawn by the package and taken from [the demo](htt
 </tr>
 </table>
 
+[Build a map, locator or quiz embed](https://johnmorrisdotca.github.io/chizu/builder.html). The [embed guide](docs/embeds.md) covers attributes, properties, iframe parameters and event messages.
+
 ## Use it in your project
 
 Chizu is five things, each usable without the others: **the engine** (framing, zoom, insets, callouts, distractors, pasted names; plain functions over plain data), **the maps** (the world, a country alone, a country's regions: data, one file each), **the drawing** (SVG text), **the page** (a mounted map) and **the names** (every country in both languages, with no outlines). The table under [API](#api) says which entry holds which.
@@ -194,6 +196,29 @@ Each country's map is its own file and its own dynamic import (`@johnmorrisdotca
 ### In a framework
 
 A map is drawn by one call that takes an element and hands back an object with `destroy()`: make the element, mount into it when the page has it, and destroy the mount when the page lets it go. [docs/frameworks.md](./docs/frameworks.md) has it in React, Vue, Svelte and Angular.
+
+Register a tag once and use it directly in React 19:
+
+```jsx
+import "@johnmorrisdotca/chizu/element/define";
+export function Japan() { return <chizu-map region="divisions-jp" highlight="JP-13" />; }
+```
+
+Vue needs `isCustomElement: tag => tag.startsWith("chizu-")` in its template compiler options:
+
+```vue
+<script setup>
+import "@johnmorrisdotca/chizu/element/define";
+</script>
+<template><chizu-map region="world" /></template>
+```
+
+```svelte
+<script>
+  import "@johnmorrisdotca/chizu/element/define";
+</script>
+<chizu-quiz region="world" seed="7"></chizu-quiz>
+```
 
 ## Examples
 
@@ -446,13 +471,15 @@ The **32 countries with regions** are Argentina, Australia, Austria, Belgium, Br
 
 ### The canvas and the codes
 
-A map's canvas is `0 0 width height`, `viewBox` says so, and a region's `path` is `M x,y L x,y … Z` with one piece for each part (an island is a piece), to two decimals. A region's `code` is its ISO 3166-1 alpha-2 code on the world, and on a country's regions the code Natural Earth gives (a postal code, the ISO 3166-2 part, or a number), or the prefecture number in Japan. On a country's regions, `iso` is the full ISO 3166-2 code (`CA-ON`), the one kuni has: see [ISO codes](#iso-codes) below. `neighbors` lists the regions that share a border point with it. `group` is the continent on the world and the larger part of the country on a map of regions, and is what quiz distractors use.
+The [map data guide](docs/map-data.md) explains the canvas, paths, place codes and neighbour lists.
 
 ### ISO codes
 
 Every region of a country carries `iso`, its ISO 3166-2 code from kuni, the current one where Natural Earth's is out of date (Paris is `FR-75C`, Silesia `PL-24`); where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in (County Dublin's four councils are all `IE-D`). Norway's counties, drawn as they were before 2020, carry the codes of the counties of 2024 they lie in. 7 of the 1,342 regions have no code: a county split since (Northamptonshire), a territory with none (Jervis Bay), and a few more. [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) says how each code is chosen and lists every one with the reason.
 
 A region that is exactly one ISO subdivision takes kuni's names, so a map and a form name a place alike. The rest keep Natural Earth's names, and no two regions of one map share a name in either language. [docs/names.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/names.md) lists every name the map prints that is not kuni's, with the reason.
+
+The [ISO joins](docs/iso-codes.md) list the codes and exceptions; [map names](docs/names.md) list every name kept apart from kuni's, with its reason. The [map data guide](docs/map-data.md#iso-codes) preserves the worked detail.
 
 ## Framing a map
 
@@ -574,6 +601,8 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 | Entry | What it holds |
 | --- | --- |
 | `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
+| `@johnmorrisdotca/chizu/element` | `ChizuMapElement`, `ChizuLocator`, `ChizuQuiz`, `defineMap`, `defineLocator`, `defineQuiz`, `loadElementMap`, `readMapData`, `CHIZU_ELEMENT_OPTION_KEYS`; `ChizuElementOptions` |
+| `@johnmorrisdotca/chizu/element/define` | registers `<chizu-map>`, `<chizu-locator>` and `<chizu-quiz>` |
 | `@johnmorrisdotca/chizu/draw` | `drawChizu`, `CHIZU_STYLE` |
 | `@johnmorrisdotca/chizu/mount` | `mountChizu`, `ensureChizuMapStyle`, `CHIZU_MAP_STYLE` |
 | `@johnmorrisdotca/chizu/names` | `CHIZU_COUNTRIES`, `CHIZU_SOURCE`, `countryByCode`, `countriesFromText` |
@@ -708,6 +737,8 @@ src/
 ├── style.ts            the drawing's colours
 ├── draw.ts             a map as SVG text
 ├── drawFeatures.ts     the features in a drawing, and their names
+├── element.ts          browser elements for maps, locators and quizzes
+├── element-define.ts   register the three elements
 ├── mount.ts            a map in a page
 ├── mountStyle.ts       the page's colours
 ├── random.ts           the seeded stream
@@ -784,14 +815,14 @@ Chizu is one of twenty-eight packages, each made for the same site, each at
 
 **Geography & data**
 
-- [address-plus](https://github.com/johnmorrisdotca/address-plus) (アドレスプラス): parse and format addresses in the United States, Canada and Japan. [Demo](https://johnmorrisdotca.github.io/address-plus/).
+- [address-plus](https://github.com/johnmorrisdotca/address-plus) (アドレスプラス): parse and format addresses in the United States, Canada, Japan, Australia and the United Kingdom. [Demo](https://johnmorrisdotca.github.io/address-plus/).
 - [Chizu](https://github.com/johnmorrisdotca/chizu) (地図): maps of the world and of countries' regions, in English and Japanese, with a quiz and callouts. [Demo](https://johnmorrisdotca.github.io/chizu/).
 - [Hata](https://github.com/johnmorrisdotca/hata) (旗): country and regional flags as SVG, at their true proportions and keyed by ISO code. [Demo](https://johnmorrisdotca.github.io/hata/).
 - [Kuni](https://github.com/johnmorrisdotca/kuni) (国): countries and their regions, with ISO codes and names in English and Japanese. [Demo](https://johnmorrisdotca.github.io/kuni/).
 
 **Developer tools**
 
-- [REST in Pieces](https://github.com/spxis/rest-in-pieces) (レスト・イン・ピーシズ): seeded test data and REST APIs for frontend development, with latency and error drills. [Demo](https://spxis.github.io/rest-in-pieces/).
+- [REST in Pieces](https://github.com/spxis/rest-in-pieces) (レスト・イン・ピーシーズ): seeded test data and REST APIs for frontend development, with latency and error drills. [Demo](https://spxis.github.io/rest-in-pieces/).
 
 
 **This package is Chizu.** The demos of all twenty-eight share one header and footer, so each links the rest.

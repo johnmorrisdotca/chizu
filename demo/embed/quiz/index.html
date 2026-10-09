@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light dark"><title>Chizu · quiz</title>
+<style>html,body{margin:0;width:100%;height:100%;background:transparent;overflow:hidden}body{display:flex;align-items:center;justify-content:center;padding:8px;box-sizing:border-box}</style></head><body><script type="module">
+import { ChizuQuiz } from "../../dist/element.js";
+import "../../dist/element-define.js";
+import { validatedAttributes } from "../../embed-options.js";
+const query = new URLSearchParams(location.search.length > 1 ? location.search : location.hash.slice(1));
+const element = document.createElement("chizu-quiz");
+for (const [name,value] of validatedAttributes(query,ChizuQuiz.observedAttributes)) element.setAttribute(name,value);
+if (query.get("lang") === "ja") document.documentElement.lang = "ja";
+for (const type of ["chizu-load","chizu-error","chizu-select","chizu-view","chizu-locate","chizu-answer"]) element.addEventListener(type,event=>{if(parent!==window)parent.postMessage({type:event.type,detail:JSON.parse(JSON.stringify(event.detail))},"*");});
+document.body.append(element);
+</script></body></html>
