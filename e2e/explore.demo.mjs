@@ -155,6 +155,8 @@ test("the world goes round: dragged past its edge it draws the land again on the
   await open(page, "?map=world");
   const stage = page.locator(`${at("board")} .czm-stage`);
   await expect(page.locator(`${at("board")} .cz-land-copy`)).toHaveCount(1);
+  // The map in view, on a phone too, where the rows above it push it down the page.
+  await stage.scrollIntoViewIfNeeded();
   const box = await stage.boundingBox();
   // Whole-world view: drag a quarter of the way across to the left, so the window moves east and overhangs the seam.
   await page.mouse.move(box.x + box.width * 0.7, box.y + box.height / 2);
@@ -183,10 +185,24 @@ test("the world goes round: dragged past its edge it draws the land again on the
 test("Ctrl and the wheel zoom the map, and the wheel alone leaves the page to scroll", async ({ page }) => {
   await open(page, "?map=world");
   const stage = page.locator(`${at("board")} .czm-stage`);
+  await stage.scrollIntoViewIfNeeded();
   const box = await stage.boundingBox();
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-  await page.mouse.wheel(0, -200);
+  // Down the page: on a phone the map starts low on it, and the scroll brings it up.
+  await page.mouse.wheel(0, 200);
   await expect(stage).toHaveAttribute("data-zoom", "1");
+  // The wheel alone scrolled the page: once it has come to rest, the pointer goes back over the map.
+  await page.waitForFunction(() => window.scrollY > 0);
+  let after = await stage.boundingBox();
+  await expect
+    .poll(async () => {
+      const now = await stage.boundingBox();
+      const still = now.y === after.y;
+      after = now;
+      return still;
+    })
+    .toBe(true);
+  await page.mouse.move(after.x + after.width / 2, after.y + after.height / 2);
   await page.keyboard.down("Control");
   await page.mouse.wheel(0, -200);
   await page.keyboard.up("Control");
