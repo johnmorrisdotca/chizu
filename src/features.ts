@@ -9,17 +9,17 @@ import type { ChizuFeature, ChizuFeatureGroup, ChizuFeatureKind, ChizuFeatureLay
  */
 
 /**
- * The five groups, in the order they are drawn: seas under the land, then landforms, lakes, rivers and peaks on it.
+ * The six groups, in the order they are drawn: seas under the land, then landforms, lakes, rivers, peaks and capitals on it.
  *
  * @example
  * ```ts
  * import { CHIZU_FEATURE_GROUPS } from "@johnmorrisdotca/chizu";
  *
  * console.log(CHIZU_FEATURE_GROUPS.join(" "));
- * // marine landforms lakes rivers peaks
+ * // marine landforms lakes rivers peaks capitals
  * ```
  */
-export const CHIZU_FEATURE_GROUPS: readonly ChizuFeatureGroup[] = ["marine", "landforms", "lakes", "rivers", "peaks"];
+export const CHIZU_FEATURE_GROUPS: readonly ChizuFeatureGroup[] = ["marine", "landforms", "lakes", "rivers", "peaks", "capitals"];
 
 /**
  * The kinds in each group.
@@ -38,11 +38,12 @@ export const CHIZU_FEATURE_KINDS: Readonly<Record<ChizuFeatureGroup, readonly Ch
   lakes: ["lake", "reservoir"],
   rivers: ["river"],
   peaks: ["peak"],
+  capitals: ["capital", "seat"],
 };
 
 /**
  * What to show of a layer: `water` (seas, lakes and rivers), `all`, a group (`marine`, `landforms`, `lakes`, `rivers`,
- * `peaks`) or a single kind (`strait`, `reservoir`).
+ * `peaks`, `capitals`) or a single kind (`strait`, `reservoir`, `capital`).
  *
  * @example
  * ```ts
@@ -140,7 +141,7 @@ function fold(text: string): string {
  * console.log(findFeatures(world.features, "caspian")[0]?.nameJa, findFeatures(world.features, "びわ").length);
  * console.log(findFeatures(world.features, "ナイル").map((one) => one.name));
  * // カスピ海 0
- * // [ 'Nile' ]
+ * // [ 'Nile', 'White Nile', 'Blue Nile' ]
  * ```
  */
 export function findFeatures<T extends Pick<ChizuFeature, "code" | "name" | "nameJa" | "reading" | "rank">>(features: readonly T[], typed: string, options: { limit?: number } = {}): T[] {

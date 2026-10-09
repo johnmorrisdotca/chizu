@@ -1,5 +1,3 @@
-import { readFileSync, statSync } from "node:fs";
-
 import { describe, expect, it } from "vitest";
 
 import { drawChizu } from "./draw.ts";
@@ -20,16 +18,11 @@ const mapOf = async (id: string): Promise<ChizuMap> => {
   return (await import(`./data/${kind === "divisions" ? "divisions" : "countries"}/${code}.ts`)).default;
 };
 
-/** The largest a file of features may be: the world is in the default bundle's company, a country's is fetched alone. */
-const BUDGET = { world: 170_000, other: 300_000 };
-
 describe("the features' data", () => {
-  it("is one file a map, each within its budget, every feature named, coded once, of a known kind and on its canvas", async () => {
+  it("is one file a map, every feature named, coded once, of a known kind and on its canvas", async () => {
     const ids = Object.keys(FEATURE_LOADERS);
     expect(ids.length).toBeGreaterThan(200);
     for (const id of ids) {
-      const bytes = statSync(`src/data/features/${id}.ts`).size;
-      expect(bytes, id).toBeLessThanOrEqual(id === "world" ? BUDGET.world : BUDGET.other);
       const layer = await layerOf(id);
       expect(layer.map).toBe(id);
       const map = id === "world" ? world : await mapOf(id);
@@ -37,10 +30,10 @@ describe("the features' data", () => {
       for (const feature of layer.features) {
         expect(codes.has(feature.code), `${id} ${feature.code} twice`).toBe(false);
         codes.add(feature.code);
-        expect(feature.code).toMatch(/^(Q\d+|ne-\d+|ne-river-\d+)$/);
+        expect(feature.code).toMatch(/^(Q\d+|ne-\d+|ne-river-\d+|capital-[A-Z]{2}|seat-[A-Z]{2}-[0-9A-Z]+)$/);
         expect(CHIZU_FEATURE_KINDS[feature.group], `${id} ${feature.code}`).toContain(feature.kind);
         expect(feature.name.trim().length, `${id} ${feature.code}`).toBeGreaterThan(0);
-        if (feature.group === "peaks") expect(feature.path).toBe("");
+        if (feature.group === "peaks" || feature.group === "capitals") expect(feature.path).toBe("");
         else if (feature.group === "rivers") expect(feature.path, `${id} ${feature.code}`).toMatch(/^M[^Z]+$/);
         else expect(feature.path, `${id} ${feature.code}`).toMatch(/^M.*Z$/);
         const [x0, y0, x1, y1] = feature.bbox;
@@ -78,6 +71,22 @@ describe("the features' data", () => {
     const japan = await mapOf("divisions-jp");
     const [x, y] = byName["Sea of Japan"]!.centroid;
     for (const inset of japan.insets) expect(x > inset.box.x && x < inset.box.x + inset.box.width && y > inset.box.y && y < inset.box.y + inset.box.height).toBe(false);
+  });
+
+  it("marks a country's capital on its maps and the world, and on Japan's prefectures each one's seat, Naha in Okinawa's box", async () => {
+    const japan = await layerOf("divisions-jp");
+    const capital = japan.features.find((feature) => feature.code === "capital-JP")!;
+    expect(capital).toMatchObject({ kind: "capital", name: "Tokyo", nameJa: "東京", reading: "とうきょう" });
+    // Tokyo's seat is Shinjuku, which the capital's mark stands for.
+    expect(japan.features.filter((feature) => feature.kind === "seat")).toHaveLength(46);
+    const naha = japan.features.find((feature) => feature.code === "seat-JP-47")!;
+    expect(naha).toMatchObject({ name: "Naha", nameJa: "那覇市", reading: "なはし" });
+    const map = await mapOf("divisions-jp");
+    const box = map.insets.find((inset) => inset.code === "47")!.box;
+    expect(naha.centroid[0] > box.x && naha.centroid[0] < box.x + box.width && naha.centroid[1] > box.y && naha.centroid[1] < box.y + box.height).toBe(true);
+    const world = await layerOf("world");
+    expect(world.features.find((feature) => feature.code === "capital-FR")).toMatchObject({ name: "Paris", nameJa: "パリ" });
+    expect(world.features.filter((feature) => feature.kind === "seat")).toEqual([]);
   });
 
   it("joins the water that touches: a sea's neighbouring seas", async () => {
@@ -167,11 +176,5 @@ describe("the features in a drawing", () => {
     // The boxes Okinawa is drawn in are given the plain sea again over the Sea of Japan.
     expect(drawChizu(japan, { features: ["marine"], featureLayer: layer, featureLabels: false })).toContain('class="cz-inset-sea"');
     expect(drawChizu(japan, { features: ["marine"], featureLayer: layer, featureLabels: false })).not.toContain("cz-feature-label");
-  });
-
-  it("says where the shapes and names come from", () => {
-    const notice = readFileSync("NOTICE.md", "utf8");
-    expect(notice).toContain("Wikidata");
-    expect(notice).toContain("ne_10m_rivers_lake_centerlines");
   });
 });

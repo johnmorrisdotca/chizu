@@ -12,43 +12,9 @@ A country is printed with kuni's short English name where kuni has one (Bosnia, 
 | GB | kuni's full English name | kuni's short form is “UK”, an abbreviation; the map prints United Kingdom |
 | GB | イギリス, kuni's Japanese name | kuni's short Japanese form is 英国, the written abbreviation; イギリス is the everyday name |
 
-## Names written here until kuni has a short form
+## Names chizu 1.1.0 wrote, which kuni now has
 
-| Code | English | Japanese | Reading | Why |
-| --- | --- | --- | --- | --- |
-| CD | DR Congo | コンゴ民主共和国 | こんごみんしゅきょうわこく | kuni 1.0.0 (CLDR) writes “Congo - Kinshasa” and コンゴ民主共和国(キンシャサ), names that tell the two Congos apart in a list, and has no short form |
-| CG | Republic of the Congo | コンゴ共和国 | こんごきょうわこく | kuni 1.0.0 (CLDR) writes “Congo - Brazzaville” and コンゴ共和国(ブラザビル), names that tell the two Congos apart in a list, and has no short form |
-| MM | kuni's | ミャンマー | ミャンマー | kuni 1.0.0 (CLDR) writes ミャンマー (ビルマ) with the old name in brackets, and has no short Japanese form |
-| CC | kuni's | ココス諸島 | ここすしょとう | kuni 1.0.0 (CLDR) writes ココス(キーリング)諸島 with the second name in brackets; its short English form is Cocos Islands, and this is that name in Japanese |
-
-## Continents
-
-Continents are kuni's, which are UN M49's by way of CLDR, but for these three, where kuni 1.0.0 departs from M49 and Chizu keeps M49's until a kuni that follows it is pinned:
-
-| Code | Chizu | Why |
-| --- | --- | --- |
-| RU | Europe | UN M49 places Russia in Eastern Europe; kuni 1.0.0 has Asia |
-| CY | Asia | UN M49 places Cyprus in Western Asia; kuni 1.0.0 has Europe |
-| TL | Asia | UN M49 places Timor-Leste in South-eastern Asia; kuni 1.0.0 has Oceania |
-
-## Regions where kuni's name is not used
-
-A region that is exactly one ISO subdivision takes kuni's names, but for these, where kuni 1.0.0's name is wrong or reads worse on a map and Natural Earth's is kept:
-
-| ISO code | Kept | Why |
-| --- | --- | --- |
-| GB-PTE | English | kuni 1.0.0 writes Peterborough as “Peter” |
-| NZ-MBH | English | kuni 1.0.0 writes Marlborough as “Marl” |
-| TW-CYQ | English and Japanese | kuni 1.0.0 swaps Chiayi County (TW-CYQ) and Chiayi City (TW-CYI) |
-| TW-CYI | English and Japanese | kuni 1.0.0 swaps Chiayi County (TW-CYQ) and Chiayi City (TW-CYI) |
-| CO-DC | English | kuni 1.0.0 calls Bogotá “Capital District”, which names no place on a map |
-| PH-COM | English and Japanese | kuni 1.0.0 has the name Davao de Oro gave up in 2019, Compostela Valley |
-| RU-BU | English | kuni 1.0.0 (CLDR) writes the adjective, “Buryat”, for the Republic of Buryatia |
-| RU-CE | English | kuni 1.0.0 (CLDR) writes the adjective, “Chechen”, for the Chechen Republic |
-| RU-CU | English | kuni 1.0.0 (CLDR) writes the adjective, “Chuvash”, for the Chuvash Republic |
-| RU-UD | English | kuni 1.0.0 (CLDR) writes the adjective, “Udmurt”, for the Udmurt Republic |
-| RU-KB | English | kuni 1.0.0 (CLDR) writes the adjective, “Kabardino-Balkar”, for Kabardino-Balkaria |
-| VN-CT | English | kuni 1.0.0 writes Cần Thơ without its marks, unlike every other province of Vietnam |
+kuni 1.1.0 took over every name, continent and correction chizu 1.1.0 kept here, and chizu now prints kuni's: the short names DR Congo, Congo (the Republic of the Congo, which chizu 1.1.0 printed as “Republic of the Congo”), ミャンマー and ココス諸島 (`DISPLAY_NAMES` is empty); the continents of UN M49, so Russia is in Europe and Cyprus and Timor-Leste in Asia, and with them South Georgia in South America, Heard Island in Oceania and the British Indian Ocean Territory in Africa (`CONTINENT_OVERRIDES` is empty); and the names of Peterborough, Marlborough, Chiayi County and Chiayi City, Bogotá, Davao de Oro, Buryatia, Chechnya, Chuvashia, Udmurtia, Kabardino-Balkaria and Cần Thơ (`KUNI_NAMES_KEPT_FROM_NATURAL_EARTH` is empty). Kuni's readings are of a country's full name, so the readings of three short names are written here (`SHORT_NAME_READINGS`): コンゴ民主共和国 こんごみんしゅきょうわこく, コンゴ共和国 こんごきょうわこく, ココス諸島 ここすしょとう.
 
 ## Names written for this package
 
@@ -69,10 +35,10 @@ Where two regions of one map would share a name, or a region is not the ISO subd
 | IE:WD_2 | Waterford City | ウォーターフォード市 |
 | IE:TA | North Tipperary | ノース・ティペラリー |
 | IE:TA_2 | South Tipperary | サウス・ティペラリー |
-| TW:CYQ | Chiayi County | Natural Earth's |
-| TW:CYI | Chiayi City | Natural Earth's |
 | PH:SUN | Surigao del Norte | 北スリガオ州 |
 
 ## Other names
 
-Japan's Kinki region (近畿地方) is its official name, and the one the map prints; Kansai (関西), the name it goes by in speech, is carried in `groupAliases`, so a search or a part named in an address finds it by either.
+Japan's eight regions are kuni's grouping `jp-regions-8`. Kinki (近畿地方) is its official name, and the one the map prints; Kansai (関西地方, 関西), the name it goes by in speech, is kuni's other name for it and is carried in `groupAliases`, so a search or a part named in an address finds it by either.
+
+The names of the seas, lakes, rivers, landforms, peaks and capitals are Natural Earth's, Wikidata's and kuni's: [features.md](features.md) says which is whose.

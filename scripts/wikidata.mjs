@@ -16,6 +16,8 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import process from "node:process";
+import { setTimeout as pause } from "node:timers/promises";
+import { URLSearchParams } from "node:url";
 
 import { geoDistance } from "d3-geo";
 
@@ -32,7 +34,6 @@ const EARTH_KM = 6371;
 /** Wikidata's classes for a river and its kin, which a river item is an instance of. */
 const RIVER_CLASSES = ["Q4022", "Q55659167", "Q47521", "Q1437299", "Q159675", "Q12284", "Q573344"];
 
-const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function sparql(query) {
   for (let attempt = 1; ; attempt += 1) {

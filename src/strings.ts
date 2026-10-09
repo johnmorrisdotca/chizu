@@ -73,6 +73,8 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
     "kind.gorge": "Gorge",
     "kind.foothills": "Foothills",
     "kind.peak": "Peak",
+    "kind.capital": "Capital",
+    "kind.seat": "Seat of government",
   },
   ja: {
     map: "{name}の地図",
@@ -120,6 +122,8 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
     "kind.gorge": "峡谷",
     "kind.foothills": "山麓",
     "kind.peak": "山",
+    "kind.capital": "首都",
+    "kind.seat": "行政の中心地",
   },
 };
 

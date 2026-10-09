@@ -29,7 +29,10 @@ describe("the continents and subregions", () => {
       expect(entry.reading?.length, entry.code).toBeGreaterThan(0);
     }
     expect(continent("AS").nameJa).toBe("アジア");
-    expect(continent("AN").codes).toEqual(["GS", "HM"]);
+    // kuni 1.1.0 follows UN M49, which puts South Georgia in South America and Heard Island in Oceania: Antarctica, which
+    // the maps leave off, holds none of the countries drawn.
+    expect(continent("AN").codes).toEqual([]);
+    expect([continent("SA").codes.includes("GS"), continent("OC").codes.includes("HM"), continent("AF").codes.includes("IO")]).toEqual([true, true, true]);
   });
 
   it("put every country kuni places in a subregion in that one subregion only", () => {

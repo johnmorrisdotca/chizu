@@ -188,6 +188,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
     layerOf("lakes") +
     layerOf("rivers") +
     layerOf("peaks") +
+    layerOf("capitals") +
     frames +
     labels +
     named +

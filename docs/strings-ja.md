@@ -52,3 +52,5 @@ open a *Fix a translation* issue with the string's name. `{name}` and the other 
 | `kind.gorge` | Gorge | 峡谷 |
 | `kind.foothills` | Foothills | 山麓 |
 | `kind.peak` | Peak | 山 |
+| `kind.capital` | Capital | 首都 |
+| `kind.seat` | Seat of government | 行政の中心地 |

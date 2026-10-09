@@ -114,11 +114,10 @@ describe("the world", () => {
     expect(get("GB").nameShortJa).toBeUndefined();
   });
 
-  it("keeps Russia in Europe and Cyprus and Timor-Leste in Asia, as UN M49 does, where kuni 1.0.0 does not", () => {
-    for (const [code, entry] of Object.entries(CONTINENT_OVERRIDES)) {
-      const country = CHIZU_COUNTRIES.find((one) => one.code === code)!;
-      expect(country.group, code).toBe({ EU: "Europe", AS: "Asia" }[entry.continent]);
-    }
+  it("puts Russia in Europe and Cyprus and Timor-Leste in Asia, as UN M49 and kuni 1.1.0 do, with no continent of its own", () => {
+    const groupOf = (code: string) => CHIZU_COUNTRIES.find((one) => one.code === code)!.group;
+    expect([groupOf("RU"), groupOf("CY"), groupOf("TL")]).toEqual(["Europe", "Asia", "Asia"]);
+    expect(CONTINENT_OVERRIDES).toEqual({});
   });
 
   it("is grouped by continent, in the order a directory reads them", () => {

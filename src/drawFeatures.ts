@@ -42,6 +42,13 @@ export function featureShapes(features: readonly ChizuFeature[], group: ChizuFea
         return `${open}<path class="cz-river-hit" d="${feature.path}"/><path class="cz-river" d="${feature.path}" stroke-width="${riverWidth(feature.rank)}"/></g>`;
       }
       if (group === "peaks") return `${open}<path class="cz-peak" d="${peakMark(feature.centroid[0], feature.centroid[1], peak)}"/></g>`;
+      if (group === "capitals") {
+        // A capital is a ring round a dot, a region's seat a dot: sized from the window, like a peak.
+        const [x, y] = feature.centroid;
+        const r = peak * (feature.kind === "capital" ? 0.42 : 0.3);
+        const ring = feature.kind === "capital" ? `<circle class="cz-capital-ring" cx="${num(x)}" cy="${num(y)}" r="${num(r * 1.7)}"/>` : "";
+        return `${open}${ring}<circle class="cz-capital" cx="${num(x)}" cy="${num(y)}" r="${num(r)}"/></g>`;
+      }
       const shape = group === "marine" ? "cz-marine-area" : group === "lakes" ? "cz-lake" : "cz-landform-area";
       return `${open}<path class="${shape}" d="${feature.path}"/></g>`;
     })
@@ -51,7 +58,7 @@ export function featureShapes(features: readonly ChizuFeature[], group: ChizuFea
 /** The share of the window's width a feature's name is printed at, by its group and rank. */
 function labelRatio(feature: ChizuFeature): number {
   if (feature.group === "marine") return feature.rank <= 0 ? 0.021 : feature.rank <= 1 ? 0.016 : feature.rank <= 3 ? 0.014 : 0.012;
-  if (feature.group === "peaks") return 0.011;
+  if (feature.group === "peaks" || feature.group === "capitals") return feature.kind === "seat" ? 0.01 : 0.011;
   return feature.rank <= 2 ? 0.014 : 0.012;
 }
 
@@ -74,7 +81,8 @@ export function featureLabels(features: readonly ChizuFeature[], box: MapBox, of
     const span = (feature.group === "rivers" ? Math.hypot(bx1 - bx0, by1 - by0) * 0.9 : (bx1 - bx0) * 1.2) || Infinity;
     // A name too long for its feature is printed smaller, down to three-fifths of its size, and left off past that.
     const full = box.width * labelRatio(feature);
-    const fit = feature.group === "peaks" || toned ? 1 : Math.min(1, span / (name.length * full * (ja ? 1 : 0.56)));
+    const point = feature.group === "peaks" || feature.group === "capitals";
+    const fit = point || toned ? 1 : Math.min(1, span / (name.length * full * (ja ? 1 : 0.56)));
     if (fit < 0.6) continue;
     const size = full * fit;
     const wide = name.length * size * (ja ? 1 : 0.56);
@@ -86,12 +94,12 @@ export function featureLabels(features: readonly ChizuFeature[], box: MapBox, of
       const radians = (angle * Math.PI) / 180;
       const halfW = (Math.abs(Math.cos(radians)) * wide + Math.abs(Math.sin(radians)) * size) / 2;
       const halfH = (Math.abs(Math.sin(radians)) * wide + Math.abs(Math.cos(radians)) * size) / 2;
-      const peak = feature.group === "peaks";
+      const peak = point;
       const at = peak ? { x: x + size * 0.9, y } : { x, y };
       const rect = peak ? { x0: at.x, y0: y - size / 2, x1: at.x + wide, y1: y + size / 2 } : { x0: x - halfW, y0: y - halfH, x1: x + halfW, y1: y + halfH };
       if (!toned && placed.some((other) => rect.x0 < other.x1 && rect.x1 > other.x0 && rect.y0 < other.y1 && rect.y1 > other.y0)) continue;
       placed.push(rect);
-      const kind = feature.group === "marine" ? "cz-water-label cz-sea-label" : feature.group === "lakes" || feature.group === "rivers" ? "cz-water-label" : feature.group === "peaks" ? "cz-peak-label" : "cz-landform-label";
+      const kind = feature.group === "marine" ? "cz-water-label cz-sea-label" : feature.group === "lakes" || feature.group === "rivers" ? "cz-water-label" : feature.group === "peaks" ? "cz-peak-label" : feature.group === "capitals" ? "cz-capital-label" : "cz-landform-label";
       const turn = angle ? ` transform="rotate(${angle} ${num(at.x)} ${num(at.y)})"` : "";
       parts.push(`<text class="cz-feature-label ${kind}" x="${num(at.x)}" y="${num(at.y)}" font-size="${num(size)}" data-code="${escape(feature.code)}"${turn}>${escape(name)}</text>`);
     }

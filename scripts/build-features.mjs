@@ -12,7 +12,10 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { geoArea, geoBounds, geoPath } from "d3-geo";
+import { countries as kuniCountries } from "@johnmorrisdotca/kuni";
+import { facts as kuniFacts } from "@johnmorrisdotca/kuni/facts";
+import { loadSubdivisionFacts } from "@johnmorrisdotca/kuni/subdivision-facts";
+import { geoArea, geoBounds, geoDistance, geoPath } from "d3-geo";
 
 import { COUNTRY_RANKS, ENDING_READINGS, FEATURE_FILES, FEATURE_GROUPS, FEATURE_READINGS, LEADING_READINGS, MOST, SMALLEST, TOLERANCE, WORLD_RANKS } from "./features-config.mjs";
 import { lowerProperties, root, source } from "./natural-earth.mjs";
@@ -26,7 +29,7 @@ const round = (value) => Math.round(value * 10 ** PRECISION) / 10 ** PRECISION;
 const toHiragana = (text) => text.replace(/[ァ-ヶ]/gu, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60));
 const KANA = /^[\p{Script=Katakana}\p{Script=Hiragana}ー]+$/u;
 /** A name with its middle dots, spaces and bracketed asides taken out. */
-const bare = (name) => name.replace(/\s*[(（][^)）]*[)）]\s*/gu, "").replace(/[・･\s]/gu, "");
+const bare = (name) => name.replace(/\s*[(（][^)）]*[)）]\s*/gu, "").replace(/[・･＝=\s]/gu, "");
 
 /**
  * How a Japanese name is read, and where the reading came from: a name in kana is its own reading; Wikidata's name in
@@ -79,12 +82,13 @@ function rightWay(polygon) {
  * Every feature any map may draw, as plain geography: one entry a feature, the parts Natural Earth draws apart (the
  * North and South Pacific, a river's several lines) joined under the Wikidata item they share.
  */
-export async function featureSources() {
+export async function featureSources(options = {}) {
   const wikidata = JSON.parse(readFileSync(join(root, "scripts", "data-wikidata.json"), "utf8"));
-  const stats = { japanese: { naturalEarth: 0, wikidata: 0, none: 0 }, readings: { kana: 0, wikidata: 0, table: 0, rule: 0, none: 0 }, rivers: { matched: 0, unmatched: 0 } };
+  const stats = { japanese: { naturalEarth: 0, wikidata: 0, kuni: 0, none: 0 }, readings: { kana: 0, wikidata: 0, table: 0, rule: 0, none: 0 }, rivers: { matched: 0, unmatched: 0 } };
   const byCode = new Map();
   for (const group of FEATURE_GROUPS) {
     const spec = FEATURE_FILES[group];
+    if (!spec) continue;
     const collection = await source(spec.file);
     for (const feature of collection.features) {
       const p = lowerProperties(feature);
@@ -124,18 +128,91 @@ export async function featureSources() {
       });
     }
   }
+  for (const capital of await capitals(options.divisions ?? [])) byCode.set(capital.code, capital);
   const all = [...byCode.values()];
   for (const one of all) {
     stats.japanese[one.fromJa] += 1;
     const read = featureReading(one.nameJa, one.item);
     one.reading = read?.reading ?? null;
     if (one.nameJa) stats.readings[read?.from ?? "none"] += 1;
-    one.geo = one.group === "rivers" ? { type: "MultiLineString", coordinates: one.parts } : one.group === "peaks" ? { type: "Point", coordinates: one.point } : { type: "MultiPolygon", coordinates: one.parts };
+    one.geo = one.group === "rivers" ? { type: "MultiLineString", coordinates: one.parts } : one.point ? { type: "Point", coordinates: one.point } : { type: "MultiPolygon", coordinates: one.parts };
     one.bounds = geoBounds(one.geo);
     delete one.parts;
     delete one.item;
   }
   return { features: all, stats, wikidata: { retrieved: wikidata.retrieved } };
+}
+
+/**
+ * The capitals, from kuni 国 (its /facts and /subdivision-facts, which are Wikidata's): each country's capital, and the
+ * seat of each region of the countries that have a map of their regions (`divisions`, their alpha-2 codes). A seat in
+ * the same place as its country's capital (Tokyo's, in Shinjuku) is left to the capital's mark.
+ */
+async function capitals(divisions) {
+  const out = [];
+  const national = new Map();
+  for (const country of kuniCountries()) {
+    const point = kuniFacts(country.alpha2)?.capitalPoint;
+    if (!point || !country.capital?.en) continue;
+    national.set(country.alpha2, [point.lon, point.lat]);
+    out.push({ code: `capital-${country.alpha2}`, kind: "capital", group: "capitals", name: country.capital.en, nameJa: country.capital.ja || null, fromJa: country.capital.ja ? "kuni" : "none", item: null, rank: 0, country: country.alpha2, point: [point.lon, point.lat], parts: [] });
+  }
+  for (const code of [...divisions].sort()) {
+    for (const seat of (await loadSubdivisionFacts(code)) ?? []) {
+      if (!seat.capital?.en || !seat.capitalPoint) continue;
+      const point = [seat.capitalPoint.lon, seat.capitalPoint.lat];
+      const capital = national.get(code);
+      if (capital && geoDistance(capital, point) * 6371 < 15) continue;
+      out.push({
+        code: `seat-${seat.code}`,
+        kind: "seat",
+        group: "capitals",
+        name: seat.capital.en,
+        nameJa: seat.capital.ja ?? null,
+        fromJa: seat.capital.ja ? "kuni" : "none",
+        item: seat.capital.reading ? { kana: [seat.capital.reading] } : null,
+        rank: 5,
+        country: code,
+        subdivision: seat.code,
+        point,
+        parts: [],
+      });
+    }
+  }
+  return out;
+}
+
+/**
+ * Where a point on a region's land is drawn on a map that draws some of its regions in boxes: carried into the box that
+ * holds the region's pieces round it, as `mapRegionPieces` carries them; where it is otherwise. Null for a region drawn
+ * whole in a box of its own (Alaska, Hawaii), which is drawn in a projection of its own the point was not.
+ */
+function placedOnMap(map, region, at) {
+  const insets = map.insets.filter((inset) => String(inset.code) === String(region.code));
+  if (insets.length === 0) return at;
+  if (insets.some((one) => one.outlyingBelow === undefined && one.within === undefined)) return null;
+  let rest = piecesOf(region.path).map((piece) => piece.points);
+  for (const one of insets) {
+    const box = (ring) => [Math.min(...ring.map((p) => p[0])), Math.min(...ring.map((p) => p[1])), Math.max(...ring.map((p) => p[0])), Math.max(...ring.map((p) => p[1]))];
+    const takes = (ring) => {
+      const [x0, y0, x1, y1] = box(ring);
+      return one.within !== undefined ? x0 >= one.within.x && x1 <= one.within.x + one.within.width && y0 >= one.within.y && y1 <= one.within.y + one.within.height : y0 >= one.outlyingBelow;
+    };
+    const taken = rest.filter(takes);
+    rest = rest.filter((ring) => !takes(ring));
+    const holds = one.within !== undefined ? at[0] >= one.within.x && at[0] <= one.within.x + one.within.width && at[1] >= one.within.y && at[1] <= one.within.y + one.within.height : at[1] >= one.outlyingBelow;
+    if (taken.length === 0 || !holds) continue;
+    const boxes = taken.map(box);
+    const bounds = [Math.min(...boxes.map((b) => b[0])), Math.min(...boxes.map((b) => b[1])), Math.max(...boxes.map((b) => b[2])), Math.max(...boxes.map((b) => b[3]))];
+    const width = Math.max(bounds[2] - bounds[0], 0.001);
+    const height = Math.max(bounds[3] - bounds[1], 0.001);
+    const fits = Math.min(one.box.width / width, one.box.height / height);
+    const scale = one.magnify ? fits : Math.min(1, fits);
+    const dx = one.box.x + (one.box.width - width * scale) / 2 - bounds[0] * scale;
+    const dy = one.box.y + (one.box.height - height * scale) / 2 - bounds[1] * scale;
+    return [at[0] * scale + dx, at[1] * scale + dy];
+  }
+  return at;
 }
 
 // ---- On a canvas ------------------------------------------------------------------------------------------------
@@ -428,12 +505,25 @@ export function featuresOn(map, projection, sources, options = {}) {
   const side = Math.max(map.width, map.height);
   const reach = side * 0.015;
   const kept = [];
+  const country = options.country ?? null;
+  const onWorld = new Set(map.regions.map((region) => region.code));
+  const regionByIso = new Map(map.regions.filter((region) => region.iso).map((region) => [region.iso, region]));
   for (const one of sources.features) {
+    if (one.group === "capitals") {
+      // The world's capitals on the world; a country's own capital on its maps, and on its regions' map the seats of its regions.
+      const ours = world ? one.kind === "capital" && onWorld.has(one.country) : one.country === country && (one.kind === "capital" || regionByIso.has(one.subdivision));
+      if (!ours) continue;
+      const raw = projection(one.geo.coordinates);
+      const at = raw && one.kind === "seat" ? placedOnMap(map, regionByIso.get(one.subdivision), raw) : raw;
+      if (!at || at[0] < 0 || at[1] < 0 || at[0] > map.width || at[1] > map.height) continue;
+      kept.push({ one, pieces: [], size: 0, label: [round(at[0]), round(at[1])], bbox: [round(at[0]), round(at[1]), round(at[0]), round(at[1])] });
+      continue;
+    }
     if (one.rank > ranks[one.group]) continue;
     if (!world && !boundsMeet(one.bounds, shown)) continue;
     if (one.group === "peaks") {
       const at = projection(one.geo.coordinates);
-      if (!at || at[0] < 0 || at[1] < 0 || at[0] > map.width || at[1] > map.height || !land.at(at[0], at[1])) continue;
+      if (!at || at[0] < 0 || at[1] < 0 || at[0] > map.width || at[1] > map.height || (!world && !land.at(at[0], at[1]))) continue;
       if (avoid.some((box) => at[0] > box.x && at[0] < box.x + box.width && at[1] > box.y && at[1] < box.y + box.height)) continue;
       kept.push({ one, pieces: [], size: 0, label: [round(at[0]), round(at[1])], bbox: [round(at[0]), round(at[1]), round(at[0]), round(at[1])] });
       continue;
@@ -480,7 +570,7 @@ export function featuresOn(map, projection, sources, options = {}) {
       ...(one.nameJa ? { nameJa: one.nameJa } : {}),
       ...(one.reading ? { reading: one.reading } : {}),
       rank: one.rank,
-      ...(one.elevation !== undefined ? { elevation: one.elevation } : {}),
+      ...(one.elevation !== undefined && one.elevation !== null ? { elevation: one.elevation } : {}),
       path: pathOf(entry.pieces, one.group !== "rivers"),
       bbox: entry.bbox,
       centroid: entry.label,

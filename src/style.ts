@@ -70,6 +70,9 @@ export const CHIZU_STYLE = `
 .chizu .cz-river-hit { fill: none; stroke: transparent; stroke-width: 12px; vector-effect: non-scaling-stroke; pointer-events: stroke; }
 .chizu .cz-landform-area { fill: none; stroke: none; pointer-events: none; }
 .chizu .cz-peak { fill: var(--cz-feature-line); stroke: var(--cz-halo); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.chizu .cz-capital { fill: var(--cz-ink); stroke: var(--cz-halo); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.chizu .cz-capital-ring { fill: var(--cz-halo); stroke: var(--cz-ink); stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
+.chizu .cz-feature[data-tone] .cz-capital { fill: var(--cz-feature-selected); }
 .chizu .cz-feature[data-interactive="true"] { cursor: pointer; }
 .chizu .cz-feature[data-interactive="true"]:hover .cz-marine-area, .chizu .cz-feature[data-interactive="true"]:hover .cz-lake { filter: brightness(.93); }
 .chizu .cz-feature[data-interactive="true"]:hover .cz-river { stroke: var(--cz-feature-selected); }
@@ -87,4 +90,5 @@ export const CHIZU_STYLE = `
 .chizu .cz-sea-label { stroke: var(--cz-marine); stroke-opacity: .8; }
 .chizu .cz-landform-label { font-weight: 600; fill: var(--cz-feature-line); letter-spacing: .12em; text-transform: uppercase; }
 .chizu .cz-peak-label { font-weight: 500; fill: var(--cz-feature-line); text-anchor: start; }
+.chizu .cz-capital-label { font-weight: 600; fill: var(--cz-ink); text-anchor: start; }
 `;

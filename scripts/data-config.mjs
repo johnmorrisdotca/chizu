@@ -449,7 +449,7 @@ export const DIVISION_CONFIGS = [
  * version: the package itself imports nothing of kuni's, and a newer kuni changes chizu's names only when this pin
  * and the data are moved together.
  */
-export const KUNI = { package: "@johnmorrisdotca/kuni", version: "1.0.0" };
+export const KUNI = { package: "@johnmorrisdotca/kuni", version: "1.1.0" };
 
 /** kuni's continents, by the English names chizu's `group` has always used. */
 export const CONTINENT_NAMES = { AF: "Africa", AN: "Antarctica", AS: "Asia", EU: "Europe", NA: "North America", OC: "Oceania", SA: "South America" };
@@ -474,44 +474,17 @@ export const SHORT_ENGLISH_NOT_FOR_MAPS = {
 };
 
 /*
- * Names kuni 1.0.0 writes for a list rather than a map, with no short form to use instead: the name the map prints
- * (`name`, and `nameShortJa` with its `reading`), and why. Kept here until kuni has short forms for them.
+ * Names kuni writes for a list rather than a map, with no short form to use instead: the name the map prints (`name`,
+ * and `nameShortJa` with its `reading`), and why. Empty since kuni 1.1.0, which gives DR Congo, Congo, ミャンマー and
+ * ココス諸島 as short names; kept for the next such name, which goes to kuni once it is written here.
  */
-export const DISPLAY_NAMES = {
-  CD: {
-    name: "DR Congo",
-    nameShortJa: "コンゴ民主共和国",
-    reading: "こんごみんしゅきょうわこく",
-    why: "kuni 1.0.0 (CLDR) writes “Congo - Kinshasa” and コンゴ民主共和国(キンシャサ), names that tell the two Congos apart in a list, and has no short form",
-  },
-  CG: {
-    name: "Republic of the Congo",
-    nameShortJa: "コンゴ共和国",
-    reading: "こんごきょうわこく",
-    why: "kuni 1.0.0 (CLDR) writes “Congo - Brazzaville” and コンゴ共和国(ブラザビル), names that tell the two Congos apart in a list, and has no short form",
-  },
-  MM: {
-    nameShortJa: "ミャンマー",
-    reading: "ミャンマー",
-    why: "kuni 1.0.0 (CLDR) writes ミャンマー (ビルマ) with the old name in brackets, and has no short Japanese form",
-  },
-  CC: {
-    nameShortJa: "ココス諸島",
-    reading: "ここすしょとう",
-    why: "kuni 1.0.0 (CLDR) writes ココス(キーリング)諸島 with the second name in brackets; its short English form is Cocos Islands, and this is that name in Japanese",
-  },
-};
+export const DISPLAY_NAMES = {};
 
 /*
- * CONTINENTS kuni 1.0.0 places where UN M49 does not, kept where M49 and Chizu 1.0 put them until a kuni that follows
- * M49 can be pinned (kuni 1.1.0 is to): Russia in Europe (M49's Eastern Europe, and where a Japanese school teaches
- * it), Cyprus in Asia (Western Asia), Timor-Leste in Asia (South-eastern Asia).
+ * CONTINENTS kuni places where UN M49 does not. Empty since kuni 1.1.0, which follows M49 (Russia in Europe, Cyprus and
+ * Timor-Leste in Asia); kept for the next disagreement, with its reason.
  */
-export const CONTINENT_OVERRIDES = {
-  RU: { continent: "EU", why: "UN M49 places Russia in Eastern Europe; kuni 1.0.0 has Asia" },
-  CY: { continent: "AS", why: "UN M49 places Cyprus in Western Asia; kuni 1.0.0 has Europe" },
-  TL: { continent: "AS", why: "UN M49 places Timor-Leste in South-eastern Asia; kuni 1.0.0 has Oceania" },
-};
+export const CONTINENT_OVERRIDES = {};
 
 /** How the names of continents and subregions that kuni writes with kanji are read. */
 export const GROUP_READINGS = {
@@ -538,6 +511,9 @@ export const GROUP_READINGS = {
 
 export const SHORT_NAME_READINGS = {
   香港: "ほんこん",
+  コンゴ民主共和国: "こんごみんしゅきょうわこく",
+  コンゴ共和国: "こんごきょうわこく",
+  ココス諸島: "ここすしょとう",
 };
 
 /*
@@ -617,27 +593,25 @@ export const ISO_JOIN = {
   "AU:X02~": { iso: null, why: "Jervis Bay Territory has no ISO 3166-2 code of its own" },
   "GB:NTH": { iso: null, why: "Northamptonshire was split in 2021 into North (GB-NNH) and West Northamptonshire (GB-WNH)" },
   "NO:X01~": { iso: null, why: "Bouvet Island is a country code of its own in ISO 3166-1 (BV), with no subdivision code" },
+  // Norway's counties as Natural Earth draws them, from before the 2020 reform, in the counties of 2024 they lie in.
   ...Object.fromEntries(
     [
-      ["01", "Østfold", "Viken (NO-30)"],
-      ["02", "Akershus", "Viken (NO-30)"],
-      ["06", "Buskerud", "Viken (NO-30)"],
-      ["04", "Hedmark", "Innlandet (NO-34)"],
-      ["05", "Oppland", "Innlandet (NO-34)"],
-      ["07", "Vestfold", "Vestfold og Telemark (NO-38)"],
-      ["08", "Telemark", "Vestfold og Telemark (NO-38)"],
-      ["09", "Aust-Agder", "Agder (NO-42)"],
-      ["10", "Vest-Agder", "Agder (NO-42)"],
-      ["12", "Hordaland", "Vestland (NO-46)"],
-      ["14", "Sogn og Fjordane", "Vestland (NO-46)"],
-      ["16", "Sør-Trøndelag", "Trøndelag (NO-50)"],
-      ["17", "Nord-Trøndelag", "Trøndelag (NO-50)"],
-      ["19", "Troms", "Troms og Finnmark (NO-54)"],
-      ["20", "Finnmark", "Troms og Finnmark (NO-54)"],
-    ].map(([code, name, into]) => [
-      `NO:${code}`,
-      { iso: null, why: `${name}, a county before Norway's 2020 reform; kuni ${"1.0.0"} has the counties of 2020 to 2023, where it is part of ${into}, and not yet the codes of 2024` },
-    ]),
+      ["01", "Østfold", "NO-31", "Østfold (NO-31), restored in 2024"],
+      ["02", "Akershus", "NO-32", "Akershus (NO-32), restored in 2024 with Jevnaker and Lunner"],
+      ["06", "Buskerud", "NO-33", "Buskerud (NO-33), restored in 2024 without Svelvik and Jevnaker"],
+      ["04", "Hedmark", "NO-34", "Innlandet (NO-34), Hedmark and Oppland joined in 2020"],
+      ["05", "Oppland", "NO-34", "Innlandet (NO-34), Hedmark and Oppland joined in 2020"],
+      ["07", "Vestfold", "NO-39", "Vestfold (NO-39), restored in 2024"],
+      ["08", "Telemark", "NO-40", "Telemark (NO-40), restored in 2024"],
+      ["09", "Aust-Agder", "NO-42", "Agder (NO-42), Aust- and Vest-Agder joined in 2020"],
+      ["10", "Vest-Agder", "NO-42", "Agder (NO-42), Aust- and Vest-Agder joined in 2020"],
+      ["12", "Hordaland", "NO-46", "Vestland (NO-46), Hordaland and Sogn og Fjordane joined in 2020"],
+      ["14", "Sogn og Fjordane", "NO-46", "Vestland (NO-46), Hordaland and Sogn og Fjordane joined in 2020"],
+      ["16", "Sør-Trøndelag", "NO-50", "Trøndelag (NO-50), Sør- and Nord-Trøndelag joined in 2018"],
+      ["17", "Nord-Trøndelag", "NO-50", "Trøndelag (NO-50), Sør- and Nord-Trøndelag joined in 2018"],
+      ["19", "Troms", "NO-55", "Troms (NO-55), restored in 2024"],
+      ["20", "Finnmark", "NO-56", "Finnmark (NO-56), restored in 2024"],
+    ].map(([code, name, iso, now]) => [`NO:${code}`, { iso, why: `${name}, a county before Norway's 2020 reform, which lies in ${now}` }]),
   ),
   "PH:MAG": { iso: null, why: "Maguindanao was split in 2022 into Maguindanao del Norte (PH-MGN) and del Sur (PH-MGS)" },
   "PH:MNL": { iso: null, why: "Mandaluyong, a city of Metro Manila (PH-00), which ISO 3166-2 does not code on its own" },
@@ -647,23 +621,11 @@ export const ISO_JOIN = {
 
 /*
  * NAMES FROM KUNI. A region that is exactly one ISO subdivision takes its names from kuni, so a map and a form
- * name a place alike. These are the few where kuni 1.0.0's name is wrong or tells two places apart worse than
- * Natural Earth's, and Natural Earth's is kept (`en`, `ja`: which of the two), with the reason.
+ * name a place alike. Where kuni's name is wrong or tells two places apart worse than Natural Earth's, Natural Earth's
+ * is kept here (`en`, `ja`: which of the two), with the reason. Empty since kuni 1.1.0, which corrected the twelve
+ * chizu 1.1.0 kept (Peterborough, Marlborough, Chiayi, Bogotá, Davao de Oro, five Russian republics and Cần Thơ).
  */
-export const KUNI_NAMES_KEPT_FROM_NATURAL_EARTH = {
-  "GB-PTE": { en: true, why: "kuni 1.0.0 writes Peterborough as “Peter”" },
-  "NZ-MBH": { en: true, why: "kuni 1.0.0 writes Marlborough as “Marl”" },
-  "TW-CYQ": { en: true, ja: true, why: "kuni 1.0.0 swaps Chiayi County (TW-CYQ) and Chiayi City (TW-CYI)" },
-  "TW-CYI": { en: true, ja: true, why: "kuni 1.0.0 swaps Chiayi County (TW-CYQ) and Chiayi City (TW-CYI)" },
-  "CO-DC": { en: true, why: "kuni 1.0.0 calls Bogotá “Capital District”, which names no place on a map" },
-  "PH-COM": { en: true, ja: true, why: "kuni 1.0.0 has the name Davao de Oro gave up in 2019, Compostela Valley" },
-  "RU-BU": { en: true, why: "kuni 1.0.0 (CLDR) writes the adjective, “Buryat”, for the Republic of Buryatia" },
-  "RU-CE": { en: true, why: "kuni 1.0.0 (CLDR) writes the adjective, “Chechen”, for the Chechen Republic" },
-  "RU-CU": { en: true, why: "kuni 1.0.0 (CLDR) writes the adjective, “Chuvash”, for the Chuvash Republic" },
-  "RU-UD": { en: true, why: "kuni 1.0.0 (CLDR) writes the adjective, “Udmurt”, for the Udmurt Republic" },
-  "RU-KB": { en: true, why: "kuni 1.0.0 (CLDR) writes the adjective, “Kabardino-Balkar”, for Kabardino-Balkaria" },
-  "VN-CT": { en: true, why: "kuni 1.0.0 writes Cần Thơ without its marks, unlike every other province of Vietnam" },
-};
+export const KUNI_NAMES_KEPT_FROM_NATURAL_EARTH = {};
 
 /*
  * NAMES WRITTEN HERE, where two regions of one map would otherwise share a name (a quiz cannot ask for “Cork” when
@@ -685,29 +647,19 @@ export const NAME_FIXES = {
   "IE:WD_2": { name: "Waterford City", nameJa: "ウォーターフォード市" },
   "IE:TA": { name: "North Tipperary", nameJa: "ノース・ティペラリー" },
   "IE:TA_2": { name: "South Tipperary", nameJa: "サウス・ティペラリー" },
-  "TW:CYQ": { name: "Chiayi County" },
-  "TW:CYI": { name: "Chiayi City" },
   "PH:SUN": { name: "Surigao del Norte", nameJa: "北スリガオ州" },
 };
 
 /*
  * JAPAN'S PREFECTURES, from Natural Earth's admin-1 file like every other country's regions, named from kuni.
  *
- * The eight regions (地方) a Japanese school teaches, by prefecture number, for `group`: the look-alikes a quiz
- * offers come from the same region first. Okinawa is counted in Kyushu, as the eight-region division counts it.
- * Kinki (近畿) is the region's official name; Kansai (関西), the name it goes by in speech, is carried beside it in
- * `groupAliases`, so a search or an answer finds it by either.
+ * The eight regions (地方) a Japanese school teaches are kuni's grouping `jp-regions-8`, read at build time for
+ * `group`: the look-alikes a quiz offers come from the same region first, and Okinawa is counted in Kyushu, as the
+ * eight-region division counts it. A region's `group` is kuni's English name without its " region" (Kinki), its
+ * `groupJa` kuni's Japanese (近畿地方), and its `groupAliases` the other names kuni gives it (Kansai region, 関西地方),
+ * each with and without its 地方 or region, and its own name without 地方 (近畿), so a search finds it by any.
  */
-export const JAPAN_GROUPS = [
-  ["Hokkaido", "北海道地方", 1, 1],
-  ["Tohoku", "東北地方", 2, 7],
-  ["Kanto", "関東地方", 8, 14],
-  ["Chubu", "中部地方", 15, 23],
-  ["Kinki", "近畿地方", 24, 30, ["Kansai", "関西地方", "関西", "近畿"]],
-  ["Chugoku", "中国地方", 31, 35],
-  ["Shikoku", "四国地方", 36, 39],
-  ["Kyushu", "九州地方", 40, 47],
-];
+export const JAPAN_GROUPING = "jp-regions-8";
 
 /*
  * The larger parts of a country that its regions are grouped in, in English and Japanese, where Natural Earth's own

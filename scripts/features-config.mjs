@@ -70,7 +70,7 @@ export const FEATURE_FILES = {
 };
 
 /** The groups a caller turns on, in the order they are drawn: seas under the land, the rest on it. */
-export const FEATURE_GROUPS = ["marine", "landforms", "lakes", "rivers", "peaks"];
+export const FEATURE_GROUPS = ["marine", "landforms", "lakes", "rivers", "peaks", "capitals"];
 
 /*
  * HOW FAR DOWN THE RANKS EACH MAP GOES. Natural Earth ranks every feature (`scalerank`, 0 the Pacific, 9 or 10 a
@@ -85,7 +85,7 @@ export const COUNTRY_RANKS = { marine: 9, lakes: 9, rivers: 10, landforms: 7, pe
  */
 export const SMALLEST = { area: 6, line: 14 };
 /** At most this many of a group on one map, the highest ranked first, so a country of ten thousand lakes stays a file a page can fetch. */
-export const MOST = { marine: 50, lakes: 70, rivers: 100, landforms: 40, peaks: 40 };
+export const MOST = { marine: 50, lakes: 70, rivers: 100, landforms: 40, peaks: 40, capitals: 300 };
 /**
  * How far a line may stray from the original when it is simplified, in units of the canvas (1,000 across). A sea's
  * edge is mostly under the land it meets and a landform is drawn only when it is chosen, so both are simplified harder
@@ -136,6 +136,9 @@ export const ENDING_READINGS = [
   ["峠", "とうげ"],
   ["岬", "みさき"],
   ["礁", "しょう"],
+  ["市", "し"],
+  ["区", "く"],
+  ["郡", "ぐん"],
   ["潟", "かた"],
 ];
 
@@ -205,6 +208,12 @@ export const FEATURE_READINGS = {
   豆満江: "とまんこう",
   松花江: "しょうかこう",
   淮河: "わいが",
+  東京: "とうきょう",
+  北京: "ぺきん",
+  平壌: "ぴょんやん",
+  台北: "たいぺい",
+  山口市: "やまぐちし",
+  "ワシントンD.C.": "わしんとんでぃーしー",
 };
 
 /*

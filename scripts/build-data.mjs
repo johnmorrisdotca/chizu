@@ -21,6 +21,7 @@ import { dirname, join } from "node:path";
 import process from "node:process";
 
 import { CONTINENTS as KUNI_CONTINENTS, continentName, countries as kuniCountries, country as kuniCountry, subregionName } from "@johnmorrisdotca/kuni";
+import { groupings as kuniGroupings } from "@johnmorrisdotca/kuni/groupings";
 import { subdivision as kuniSubdivision } from "@johnmorrisdotca/kuni/subdivisions";
 import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoDistance, geoMercator, geoPath, geoProjection } from "d3-geo";
 
@@ -30,7 +31,7 @@ import {
   DIVISION_CONFIGS,
   EXCLUDED,
   ISO_JOIN,
-  JAPAN_GROUPS,
+  JAPAN_GROUPING,
   JAPAN_OUTLYING,
   KANJI_READINGS,
   KUNI,
@@ -171,7 +172,7 @@ function writeFeatures(path, map, features) {
     path,
     `/*
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.
- * The named features of ${map.name} (${map.id}): ${count("marine")} seas, ${count("lakes")} lakes, ${count("rivers")} rivers, ${count("landforms")} landforms, ${count("peaks")} peaks.
+ * The named features of ${map.name} (${map.id}): ${count("marine")} seas, ${count("lakes")} lakes, ${count("rivers")} rivers, ${count("landforms")} landforms, ${count("peaks")} peaks, ${count("capitals")} capitals and seats.
  * Natural Earth is in the public domain (naturalearthdata.com); Wikidata's names are CC0. See NOTICE.md.
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
@@ -600,6 +601,28 @@ function withAmamiInKagoshima(features) {
   });
 }
 
+/**
+ * Japan's eight regions, from kuni's grouping (JAPAN_GROUPING in data-config.mjs): for each prefecture's ISO code, its
+ * `group`, `groupJa` and `groupAliases`.
+ */
+function japanGroups() {
+  const set = kuniGroupings({ kind: "subdivision" }).filter((one) => one.sets?.includes(JAPAN_GROUPING));
+  if (set.length !== 8) throw new Error(`kuni's ${JAPAN_GROUPING} has ${set.length} regions, not 8`);
+  const byIso = new Map();
+  const bare = (name) => name.replace(/ region$/u, "").replace(/地方$/u, "");
+  for (const region of set) {
+    const others = (region.otherNames ?? []).flatMap((other) => [other.en, other.ja].filter(Boolean));
+    const aliases = [...new Set([...others.flatMap((name) => [name, bare(name)]), bare(region.name.ja)])];
+    const fields = { group: bare(region.name.en), groupJa: region.name.ja, ...(others.length > 0 ? { groupAliases: aliases } : {}) };
+    for (const iso of region.members) byIso.set(iso, fields);
+  }
+  return (iso) => {
+    const fields = byIso.get(iso);
+    if (!fields) throw new Error(`${iso} is in none of kuni's ${JAPAN_GROUPING}`);
+    return fields;
+  };
+}
+
 /** A prefecture's pieces whose northern edge is south of a latitude: the outlying islands that go in a box. */
 const northernEdge = (polygon) => Math.max(...polygon[0].map(([, lat]) => lat));
 
@@ -632,7 +655,7 @@ function buildJapan(rawFeatures, countryNames) {
   const lineAt = (lon, lat) => round(projection([lon, lat])[1]);
   const near = neighboursBySharedPoints(features, (feature) => feature.properties.__code);
   const isos = isoCodes("JP", features);
-  const japanGroup = (code) => JAPAN_GROUPS.find(([, , first, last]) => Number(code) >= first && Number(code) <= last);
+  const japanGroup = japanGroups();
   const regions = features.map((feature, index) => {
     const p = feature.properties;
     const known = kuniSubdivision(isos[index].iso);
@@ -643,9 +666,7 @@ function buildJapan(rawFeatures, countryNames) {
       name: known.name.en,
       nameJa: known.name.ja,
       reading: known.reading,
-      group: japanGroup(p.__code)[0],
-      groupJa: japanGroup(p.__code)[1],
-      ...(japanGroup(p.__code)[4] ? { groupAliases: japanGroup(p.__code)[4] } : {}),
+      ...japanGroup(isos[index].iso),
       type: p.type_en.toLowerCase(),
       path: "",
       neighbors: near[index],
@@ -795,11 +816,12 @@ async function main() {
   }
   loaders.divisions.sort();
 
-  const sources = await featureSources();
+  const sources = await featureSources({ divisions: [...divisionCodes] });
   loaders.features = [];
   for (const map of allMaps) {
     const avoid = map.insets.map((inset) => inset.box);
-    const features = featuresOn(map, projections.get(map.id), sources, { world: map.id === "world", avoid });
+    const country = map.id === "world" ? null : (map.kind === "country" ? map.regions[0].code : map.id.slice("divisions-".length).toUpperCase());
+    const features = featuresOn(map, projections.get(map.id), sources, { world: map.id === "world", avoid, country });
     if (features.length === 0) continue;
     writeFeatures(join(out, "features", `${map.id}.ts`), map, features);
     loaders.features.push(map.id);

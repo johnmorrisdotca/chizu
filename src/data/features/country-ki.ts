@@ -1,6 +1,6 @@
 /*
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run `pnpm data` to make it again.
- * The named features of Kiribati (country-ki): 1 seas, 0 lakes, 0 rivers, 0 landforms, 0 peaks.
+ * The named features of Kiribati (country-ki): 1 seas, 0 lakes, 0 rivers, 0 landforms, 0 peaks, 0 capitals and seats.
  * Natural Earth is in the public domain (naturalearthdata.com); Wikidata's names are CC0. See NOTICE.md.
  */
 import type { ChizuFeatureLayer } from "../../types.ts";

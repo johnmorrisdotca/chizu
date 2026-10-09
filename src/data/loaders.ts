@@ -288,7 +288,7 @@ export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   vn: () => import("./divisions/vn.ts"),
 };
 
-/** The named physical features drawn on 262 maps (seas, lakes, rivers, landforms, peaks), by the map's id. */
+/** The named physical features drawn on 268 maps (seas, lakes, rivers, landforms, peaks), by the map's id. */
 export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuFeatureLayer }>>> = {
   "country-ad": () => import("./features/country-ad.ts"),
   "country-ae": () => import("./features/country-ae.ts"),
@@ -412,6 +412,7 @@ export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: C
   "country-la": () => import("./features/country-la.ts"),
   "country-lb": () => import("./features/country-lb.ts"),
   "country-lc": () => import("./features/country-lc.ts"),
+  "country-li": () => import("./features/country-li.ts"),
   "country-lk": () => import("./features/country-lk.ts"),
   "country-lr": () => import("./features/country-lr.ts"),
   "country-ls": () => import("./features/country-ls.ts"),
@@ -425,6 +426,7 @@ export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: C
   "country-me": () => import("./features/country-me.ts"),
   "country-mf": () => import("./features/country-mf.ts"),
   "country-mg": () => import("./features/country-mg.ts"),
+  "country-mh": () => import("./features/country-mh.ts"),
   "country-mk": () => import("./features/country-mk.ts"),
   "country-ml": () => import("./features/country-ml.ts"),
   "country-mm": () => import("./features/country-mm.ts"),
@@ -448,6 +450,8 @@ export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: C
   "country-nl": () => import("./features/country-nl.ts"),
   "country-no": () => import("./features/country-no.ts"),
   "country-np": () => import("./features/country-np.ts"),
+  "country-nr": () => import("./features/country-nr.ts"),
+  "country-nu": () => import("./features/country-nu.ts"),
   "country-nz": () => import("./features/country-nz.ts"),
   "country-om": () => import("./features/country-om.ts"),
   "country-pa": () => import("./features/country-pa.ts"),
@@ -475,6 +479,7 @@ export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: C
   "country-sd": () => import("./features/country-sd.ts"),
   "country-se": () => import("./features/country-se.ts"),
   "country-sg": () => import("./features/country-sg.ts"),
+  "country-sh": () => import("./features/country-sh.ts"),
   "country-si": () => import("./features/country-si.ts"),
   "country-sk": () => import("./features/country-sk.ts"),
   "country-sl": () => import("./features/country-sl.ts"),
@@ -485,6 +490,7 @@ export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: C
   "country-ss": () => import("./features/country-ss.ts"),
   "country-st": () => import("./features/country-st.ts"),
   "country-sv": () => import("./features/country-sv.ts"),
+  "country-sx": () => import("./features/country-sx.ts"),
   "country-sy": () => import("./features/country-sy.ts"),
   "country-sz": () => import("./features/country-sz.ts"),
   "country-tc": () => import("./features/country-tc.ts"),

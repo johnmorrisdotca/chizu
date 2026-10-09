@@ -271,7 +271,8 @@ export interface ChizuGroup {
  * What a named physical feature is: a kind of sea (`ocean`, `sea`, `gulf`, `bay`, `strait`, `channel`, `sound`,
  * `fjord`, `inlet`, `lagoon`, `reef`), of lake (`lake`, `reservoir`), a `river`, a landform (`desert`,
  * `range`, `plateau`, `plain`, `peninsula`, `cape`, `basin`, `delta`, `valley`, `wetland`, `tundra`, `isthmus`,
- * `depression`, `lowland`, `gorge`, `foothills`) or a `peak`. Natural Earth's own classes, named as one word.
+ * `depression`, `lowland`, `gorge`, `foothills`), a `peak`, or a country's `capital` or a region's `seat`. Natural
+ * Earth's own classes, named as one word, and kuni's capitals.
  *
  * @example
  * ```ts
@@ -315,12 +316,14 @@ export type ChizuFeatureKind =
   | "lowland"
   | "gorge"
   | "foothills"
-  | "peak";
+  | "peak"
+  | "capital"
+  | "seat";
 
 /**
- * The five groups the features come in, each from one of Natural Earth's physical files, in the order they are drawn:
- * `marine` (oceans, seas, bays, straits), under the land; `landforms` (deserts, ranges, plains), drawn only when
- * chosen; `lakes`; `rivers`; and `peaks`.
+ * The six groups the features come in, in the order they are drawn: from Natural Earth's physical files, `marine`
+ * (oceans, seas, bays, straits), under the land, `landforms` (deserts, ranges, plains), drawn only when chosen,
+ * `lakes`, `rivers` and `peaks`; and from kuni 国, `capitals` (a country's capital, its regions' seats).
  *
  * @example
  * ```ts
@@ -328,10 +331,10 @@ export type ChizuFeatureKind =
  *
  * const first: ChizuFeatureGroup = CHIZU_FEATURE_GROUPS[0];
  * console.log(first, CHIZU_FEATURE_GROUPS.length);
- * // marine 5
+ * // marine 6
  * ```
  */
-export type ChizuFeatureGroup = "marine" | "landforms" | "lakes" | "rivers" | "peaks";
+export type ChizuFeatureGroup = "marine" | "landforms" | "lakes" | "rivers" | "peaks" | "capitals";
 
 /**
  * One named physical feature on a map's canvas: a sea, a lake, a river, a landform or a peak. It has the fields a
