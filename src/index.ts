@@ -5,7 +5,7 @@
  * `@johnmorrisdotca/chizu/world`, `/countries/<code>` and `/divisions/<code>`; the drawing is `/draw`, the
  * pan-and-zoom map in a page is `/mount`, and the names of every country are `/names`.
  */
-export type { Bounds, ChizuCountry, ChizuInset, ChizuMap, ChizuPlace, ChizuProjection, ChizuRegion, MapBox } from "./types.ts";
+export type { Bounds, ChizuCountry, ChizuGroup, ChizuInset, ChizuMap, ChizuPlace, ChizuProjection, ChizuRegion, MapBox } from "./types.ts";
 export {
   MAP_ZOOM_LEVELS,
   boxCentre,
@@ -52,6 +52,7 @@ export type { CalloutRequest, CalloutSpot } from "./layout.ts";
 export { DISTRACTOR_SCORES, distractorScore, mapDiagonal, pickDistractors } from "./distractors.ts";
 export type { DistractorOptions, Scorable } from "./distractors.ts";
 export { findQuestion } from "./quiz.ts";
+export { groupBox, groupMap, groupTones, regionGroups } from "./groups.ts";
 export type { FindQuestion } from "./quiz.ts";
 export { placesFromText, splitPastedPlaces } from "./fromText.ts";
 export type { MatchOptions, PastedPlaces } from "./fromText.ts";

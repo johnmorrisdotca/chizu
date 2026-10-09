@@ -459,6 +459,29 @@ export const CONTINENT_NAMES = { AF: "Africa", AN: "Antarctica", AS: "Asia", EU:
  */
 export const SHORT_NAMES_NOT_EVERYDAY = new Set(["GB"]);
 
+/** How the names of continents and subregions that kuni writes with kanji are read. */
+export const GROUP_READINGS = {
+  南極: "なんきょく",
+  北アメリカ大陸: "きたあめりかたいりく",
+  南アメリカ: "みなみあめりか",
+  北アメリカ: "きたあめりか",
+  西アフリカ: "にしあふりか",
+  東アフリカ: "ひがしあふりか",
+  北アフリカ: "きたあふりか",
+  中部アフリカ: "ちゅうぶあふりか",
+  南部アフリカ: "なんぶあふりか",
+  中央アメリカ: "ちゅうおうあめりか",
+  東アジア: "ひがしあじあ",
+  南アジア: "みなみあじあ",
+  東南アジア: "とうなんあじあ",
+  中央アジア: "ちゅうおうあじあ",
+  西アジア: "にしあじあ",
+  南ヨーロッパ: "みなみよーろっぱ",
+  東ヨーロッパ: "ひがしよーろっぱ",
+  北ヨーロッパ: "きたよーろっぱ",
+  西ヨーロッパ: "にしよーろっぱ",
+};
+
 export const SHORT_NAME_READINGS = {
   香港: "ほんこん",
 };
@@ -618,15 +641,31 @@ export const NAME_FIXES = {
  * offers come from the same region first. Okinawa is counted in Kyushu, as the eight-region division counts it.
  */
 export const JAPAN_GROUPS = [
-  ["Hokkaido", 1, 1],
-  ["Tohoku", 2, 7],
-  ["Kanto", 8, 14],
-  ["Chubu", 15, 23],
-  ["Kansai", 24, 30],
-  ["Chugoku", 31, 35],
-  ["Shikoku", 36, 39],
-  ["Kyushu", 40, 47],
+  ["Hokkaido", "北海道地方", 1, 1],
+  ["Tohoku", "東北地方", 2, 7],
+  ["Kanto", "関東地方", 8, 14],
+  ["Chubu", "中部地方", 15, 23],
+  ["Kinki", "近畿地方", 24, 30],
+  ["Chugoku", "中国地方", 31, 35],
+  ["Shikoku", "四国地方", 36, 39],
+  ["Kyushu", "九州地方", 40, 47],
 ];
+
+/*
+ * The larger parts of a country that its regions are grouped in, in English and Japanese, where Natural Earth's own
+ * grouping is not the one people use. Canada's five regions, as Statistics Canada and every Canadian atlas name them,
+ * in place of Natural Earth's three; the United States' four Census regions, which are Natural Earth's own, given
+ * their Japanese names. By the region's chizu code.
+ */
+export const REGION_GROUPS = {
+  CA: {
+    names: { Atlantic: "大西洋沿岸州", Central: "中部カナダ", Prairies: "平原州", "West Coast": "西海岸", North: "北部準州" },
+    members: { NL: "Atlantic", PE: "Atlantic", NS: "Atlantic", NB: "Atlantic", QC: "Central", ON: "Central", MB: "Prairies", SK: "Prairies", AB: "Prairies", BC: "West Coast", YT: "North", NT: "North", NU: "North" },
+  },
+  US: {
+    names: { Northeast: "北東部", Midwest: "中西部", South: "南部", West: "西部" },
+  },
+};
 
 /*
  * Natural Earth 5.1.2 draws the Amami Islands (Amami Ōshima, Kikai, Tokunoshima, Okinoerabu, Yoron) inside Okinawa;

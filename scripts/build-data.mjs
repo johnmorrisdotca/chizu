@@ -23,7 +23,7 @@ import { dirname, join, resolve } from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
-import { country as kuniCountry } from "@johnmorrisdotca/kuni";
+import { CONTINENTS as KUNI_CONTINENTS, continentName, countries as kuniCountries, country as kuniCountry, subregionName } from "@johnmorrisdotca/kuni";
 import { subdivision as kuniSubdivision } from "@johnmorrisdotca/kuni/subdivisions";
 import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoDistance, geoMercator, geoPath, geoProjection } from "d3-geo";
 
@@ -40,7 +40,9 @@ import {
   KUNI_NAMES_KEPT_FROM_NATURAL_EARTH,
   NAME_FIXES,
   NATURAL_EARTH,
+  REGION_GROUPS,
   SHORT_NAME_READINGS,
+  GROUP_READINGS,
   SHORT_NAMES_NOT_EVERYDAY,
 } from "./data-config.mjs";
 
@@ -155,7 +157,7 @@ function regionOf(draw, feature, fields) {
 const literal = (value) => JSON.stringify(value);
 
 /** A data module: one map, exported as the default. */
-function writeMap(path, header, map) {
+function writeMap(path, header, map, doc = "") {
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(
     path,
@@ -166,7 +168,7 @@ function writeMap(path, header, map) {
  */
 import type { ChizuMap } from "${"../".repeat(path.slice(out.length + 1).split("/").length)}types.ts";
 
-const map: ChizuMap = ${literal(map)};
+${doc}const map: ChizuMap = ${literal(map)};
 
 export default map;
 `,
@@ -240,6 +242,7 @@ function identityOf(properties, code) {
   const known = kuniCountry(code);
   return {
     group: known ? CONTINENT_NAMES[known.continent] : properties.CONTINENT,
+    ...(known ? { groupJa: continentName(known.continent, "ja") } : {}),
     iso3: known ? known.alpha3 : properties.ISO_A3_EH && properties.ISO_A3_EH !== "-99" ? properties.ISO_A3_EH : properties.ADM0_A3,
   };
 }
@@ -436,6 +439,16 @@ function withRegionCodes(config, rawFeatures) {
   });
 }
 
+/** The larger part of the country a region is in, in English and, where it is known, Japanese: REGION_GROUPS's where it has the country, Natural Earth's otherwise. */
+function groupOf(config, feature) {
+  const groups = REGION_GROUPS[config.code];
+  const group = groups?.members?.[feature.properties.__code] ?? config.regionFn(feature);
+  if (groups?.members && !groups.members[feature.properties.__code]) throw new Error(`${config.code}:${feature.properties.__code} has no group in REGION_GROUPS`);
+  const groupJa = groups?.names[group];
+  if (groups && !groupJa) throw new Error(`${config.code}: no Japanese name for the group ${group}`);
+  return { group, ...(groupJa ? { groupJa } : {}) };
+}
+
 /** The fields a region of a country's map carries before its outline: its codes, names, larger part and kind. */
 function regionFields(config, feature, iso, shared) {
   const p = feature.properties;
@@ -443,7 +456,7 @@ function regionFields(config, feature, iso, shared) {
     code: p.__code,
     ...(iso ? { iso } : {}),
     ...regionNames(config.code, feature, iso, shared),
-    group: config.regionFn(feature),
+    ...groupOf(config, feature),
     ...(p.type_en ? { type: p.type_en.toLowerCase() } : {}),
     path: "",
   };
@@ -575,7 +588,7 @@ function buildJapan(rawFeatures, countryNames) {
   const lineAt = (lon, lat) => round(projection([lon, lat])[1]);
   const near = neighboursBySharedPoints(features, (feature) => feature.properties.__code);
   const isos = isoCodes("JP", features);
-  const groupOf = (code) => JAPAN_GROUPS.find(([, first, last]) => Number(code) >= first && Number(code) <= last)[0];
+  const japanGroup = (code) => JAPAN_GROUPS.find(([, , first, last]) => Number(code) >= first && Number(code) <= last);
   const regions = features.map((feature, index) => {
     const p = feature.properties;
     const known = kuniSubdivision(isos[index].iso);
@@ -586,7 +599,8 @@ function buildJapan(rawFeatures, countryNames) {
       name: known.name.en,
       nameJa: known.name.ja,
       reading: known.reading,
-      group: groupOf(p.__code),
+      group: japanGroup(p.__code)[0],
+      groupJa: japanGroup(p.__code)[1],
       type: p.type_en.toLowerCase(),
       path: "",
       neighbors: near[index],
@@ -640,7 +654,24 @@ async function main() {
   mkdirSync(out, { recursive: true });
 
   const world = buildWorld(worldSource);
-  writeMap(join(out, "world.ts"), `The world: ${world.regions.length} countries, ${world.source}.`, world);
+  writeMap(
+    join(out, "world.ts"),
+    `The world: ${world.regions.length} countries, ${world.source}.`,
+    world,
+    `/**
+ * The world, every country a region, on one canvas ${world.width} wide that wraps round.
+ *
+ * @example
+ * \`\`\`ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ *
+ * const japan = WORLD.regions.find((region) => region.code === "JP")!;
+ * console.log(WORLD.regions.length, WORLD.viewBox, japan.nameJa, japan.groupJa);
+ * // ${world.regions.length} ${world.viewBox} 日本 アジア
+ * \`\`\`
+ */
+`,
+  );
   const onWorld = new Set(world.regions.map((r) => r.code));
 
   const countries = countriesFrom(countriesSource);
@@ -684,6 +715,30 @@ async function main() {
   loaders.divisions.sort();
 
   table.sort((a, b) => a.code.localeCompare(b.code));
+  const inTable = new Set(table.map((entry) => entry.code));
+  const groupsTable = (kind) => {
+    const codes = kind === "continent" ? [...KUNI_CONTINENTS] : [...new Set(kuniCountries().map((one) => one.subregion).filter(Boolean))].sort();
+    return codes.map((code) => {
+      const nameJa = kind === "continent" ? continentName(code, "ja") : subregionName(code, "ja");
+      const reading = kanaReading(nameJa) ?? GROUP_READINGS[nameJa];
+      if (!reading) throw new Error(`no reading for ${nameJa}: add it to GROUP_READINGS`);
+      return {
+        code,
+        kind,
+        name: kind === "continent" ? continentName(code, "en") : subregionName(code, "en"),
+        nameJa,
+        reading,
+        // A continent's members are the table's own (the three places kuni does not have are placed by Natural Earth's continent), a subregion's are kuni's.
+        codes:
+          kind === "continent"
+            ? table.filter((entry) => entry.group === CONTINENT_NAMES[code]).map((entry) => entry.code)
+            : kuniCountries()
+                .filter((one) => one.subregion === code && inTable.has(one.alpha2))
+                .map((one) => one.alpha2)
+                .sort(),
+      };
+    });
+  };
   writeFileSync(
     join(out, "countries.ts"),
     `/*
@@ -692,11 +747,61 @@ async function main() {
  * Japanese, which continent it is in, and which of the maps has it. The names, readings, continents and three-letter
  * codes are kuni's (${KUNI.package} ${KUNI.version}), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
  */
-import type { ChizuCountry } from "../types.ts";
+import type { ChizuCountry, ChizuGroup } from "../types.ts";
 
+/**
+ * Every country, with its names in English and Japanese, its reading, its continent and which maps have it.
+ *
+ * @example
+ * \`\`\`ts
+ * import { CHIZU_COUNTRIES } from "@johnmorrisdotca/chizu/names";
+ *
+ * const asia = CHIZU_COUNTRIES.filter((country) => country.group === "Asia");
+ * console.log(CHIZU_COUNTRIES.length, asia.length, asia.find((country) => country.code === "KR")?.nameJa);
+ * // ${table.length} ${table.filter((entry) => entry.group === "Asia").length} 韓国
+ * \`\`\`
+ */
 export const CHIZU_COUNTRIES: readonly ChizuCountry[] = ${literal(table)};
 
-/** Where the data came from. */
+/**
+ * The seven continents, as kuni has them (UN M49 by way of CLDR): the Americas are two, and Central America and the
+ * Caribbean are in North America. Each with the countries of this table in it; every country is in exactly one.
+ *
+ * @example
+ * \`\`\`ts
+ * import { CHIZU_CONTINENTS } from "@johnmorrisdotca/chizu/names";
+ *
+ * console.log(CHIZU_CONTINENTS.map((continent) => \`\${continent.code} \${continent.nameJa} \${continent.codes.length}\`).join(", "));
+ * // ${groupsTable("continent").map((group) => `${group.code} ${group.nameJa} ${group.codes.length}`).join(", ")}
+ * \`\`\`
+ */
+export const CHIZU_CONTINENTS: readonly ChizuGroup[] = ${literal(groupsTable("continent"))};
+
+/**
+ * The twenty-two subregions of UN M49, as kuni has them, each with the countries of this table in it.
+ *
+ * @example
+ * \`\`\`ts
+ * import { CHIZU_SUBREGIONS } from "@johnmorrisdotca/chizu/names";
+ *
+ * const southeast = CHIZU_SUBREGIONS.find((group) => group.name === "Southeast Asia")!;
+ * console.log(CHIZU_SUBREGIONS.length, southeast.code, southeast.nameJa, southeast.codes.length);
+ * // ${groupsTable("subregion").length} 035 東南アジア ${groupsTable("subregion").find((group) => group.code === "035").codes.length}
+ * \`\`\`
+ */
+export const CHIZU_SUBREGIONS: readonly ChizuGroup[] = ${literal(groupsTable("subregion"))};
+
+/**
+ * Where the data came from: Natural Earth's release and files, and the version of kuni the names were read from.
+ *
+ * @example
+ * \`\`\`ts
+ * import { CHIZU_SOURCE } from "@johnmorrisdotca/chizu/names";
+ *
+ * console.log(CHIZU_SOURCE.name, CHIZU_SOURCE.version, CHIZU_SOURCE.licence, "·", CHIZU_SOURCE.names.name, CHIZU_SOURCE.names.version);
+ * // Natural Earth ${NATURAL_EARTH.version} Public domain · kuni ${KUNI.version}
+ * \`\`\`
+ */
 export const CHIZU_SOURCE = ${literal({
       name: "Natural Earth",
       version: NATURAL_EARTH.version,

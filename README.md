@@ -477,7 +477,7 @@ The codes are ISO 3166-1 alpha-2, in lower case in a file's name (`fr`), and Nat
 
 The **32 countries with regions** are Argentina, Australia, Austria, Belgium, Brazil, Canada, Chile, China, Colombia, France, Germany, Ireland, Italy, Japan, Malaysia, Mexico, the Netherlands, New Zealand, Norway, Peru, the Philippines, Poland, Russia, South Korea, Spain, Sweden, Switzerland, Taiwan, Thailand, the United Kingdom, the United States and Vietnam.
 
-**Japan.** The 47 prefectures are numbered as Japan numbers them, `"1"` (Hokkaidō) to `"47"` (Okinawa), with `iso` the ISO 3166-2 code (`JP-01`); `group` is the region a Japanese school teaches (Hokkaido, Tohoku, Kanto, Chubu, Kansai, Chugoku, Shikoku, Kyushu, with Okinawa in Kyushu); `type` is `prefecture`, `metropolis` (Tokyo), `urban prefecture` (Kyoto, Osaka) or `circuit` (Hokkaido); the names in both languages and the readings (`reading`, とうきょうと) are kuni's. The mainland is drawn in Mercator 1,000 across, from Rebun to Yakushima and down the Izu Islands to Torishima. Okinawa is drawn in a box at the top left, in the Sea of Japan, at nearly its own scale; Kagoshima's islands south of Yakushima (the Tokara and Amami Islands, which Natural Earth draws inside Okinawa and the build gives back to Kagoshima) in a box beside it, which is where they lie, north-east of Okinawa; and Tokyo's islands south of Torishima (Ogasawara, the Volcano Islands and Minamitorishima) in a box at the bottom right. The rest of each prefecture stays where it is.
+**Japan.** The 47 prefectures are numbered as Japan numbers them, `"1"` (Hokkaidō) to `"47"` (Okinawa), with `iso` the ISO 3166-2 code (`JP-01`); `group` is the region a Japanese school teaches (Hokkaido, Tohoku, Kanto, Chubu, Kinki, Chugoku, Shikoku, Kyushu, with Okinawa in Kyushu); `type` is `prefecture`, `metropolis` (Tokyo), `urban prefecture` (Kyoto, Osaka) or `circuit` (Hokkaido); the names in both languages and the readings (`reading`, とうきょうと) are kuni's. The mainland is drawn in Mercator 1,000 across, from Rebun to Yakushima and down the Izu Islands to Torishima. Okinawa is drawn in a box at the top left, in the Sea of Japan, at nearly its own scale; Kagoshima's islands south of Yakushima (the Tokara and Amami Islands, which Natural Earth draws inside Okinawa and the build gives back to Kagoshima) in a box beside it, which is where they lie, north-east of Okinawa; and Tokyo's islands south of Torishima (Ogasawara, the Volcano Islands and Minamitorishima) in a box at the bottom right. The rest of each prefecture stays where it is.
 
 **What a country alone leaves out.** A country is drawn with its largest piece and every piece within 9° of it, so France is the mainland and Corsica, not French Guiana, Réunion and the Pacific (they are on the world map). The United States is the lower forty-eight and Alaska.
 
@@ -491,32 +491,7 @@ A map's canvas is `0 0 width height`, `viewBox` says so, and a region's `path` i
 
 Every region of a country carries `iso`, its ISO 3166-2 code, unless ISO 3166-2 has no code for the region Natural Earth draws. The code is Natural Earth's when kuni 1.0.0 has it, and otherwise the one `ISO_JOIN` in `scripts/data-config.mjs` gives: Paris is `FR-75C` since 2019, Poland's voivodeships are numbered since 2018 (`PL-24`, Silesia), Mexico City is `MX-CMX`, New Taipei `TW-NWT`. Where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in: County Dublin's four councils are all `IE-D`, Cork City and the county council are both `IE-CO`, a district of Northern Ireland from before 2015 has the code of the district it is part of now (Derry and Strabane, `GB-DRS`). Crimea and Sevastopol, which Natural Earth draws in Russia, have the codes ISO 3166-2 gives them, `UA-43` and `UA-40`. Tests hold every region to a code or a line in that table, and every code two regions share to a line saying why.
 
-These 22 of the 1,342 regions have no code:
-
-| Country | `code` | Region | Why it has no ISO 3166-2 code |
-| --- | --- | --- | --- |
-| AU | `X02~` | Jervis Bay Territory | Jervis Bay Territory has no ISO 3166-2 code of its own |
-| GB | `NTH` | Northamptonshire | Northamptonshire was split in 2021 into North (GB-NNH) and West Northamptonshire (GB-WNH) |
-| NO | `X01~` | Bouvet Island | Bouvet Island is a country code of its own in ISO 3166-1 (BV), with no subdivision code |
-| NO | `01` | Østfold | Østfold, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Viken (NO-30), and not yet the codes of 2024 |
-| NO | `02` | Akershus | Akershus, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Viken (NO-30), and not yet the codes of 2024 |
-| NO | `06` | Buskerud | Buskerud, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Viken (NO-30), and not yet the codes of 2024 |
-| NO | `04` | Hedmark | Hedmark, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Innlandet (NO-34), and not yet the codes of 2024 |
-| NO | `05` | Oppland | Oppland, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Innlandet (NO-34), and not yet the codes of 2024 |
-| NO | `07` | Vestfold | Vestfold, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Vestfold og Telemark (NO-38), and not yet the codes of 2024 |
-| NO | `08` | Telemark | Telemark, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Vestfold og Telemark (NO-38), and not yet the codes of 2024 |
-| NO | `09` | Aust-Agder | Aust-Agder, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Agder (NO-42), and not yet the codes of 2024 |
-| NO | `10` | Vest-Agder | Vest-Agder, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Agder (NO-42), and not yet the codes of 2024 |
-| NO | `12` | Hordaland | Hordaland, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Vestland (NO-46), and not yet the codes of 2024 |
-| NO | `14` | Sogn og Fjordane | Sogn og Fjordane, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Vestland (NO-46), and not yet the codes of 2024 |
-| NO | `16` | Sør-Trøndelag | Sør-Trøndelag, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Trøndelag (NO-50), and not yet the codes of 2024 |
-| NO | `17` | Nord-Trøndelag | Nord-Trøndelag, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Trøndelag (NO-50), and not yet the codes of 2024 |
-| NO | `19` | Troms | Troms, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Troms og Finnmark (NO-54), and not yet the codes of 2024 |
-| NO | `20` | Finnmark | Finnmark, a county before Norway's 2020 reform; kuni 1.0.0 has the counties of 2020 to 2023, where it is part of Troms og Finnmark (NO-54), and not yet the codes of 2024 |
-| PH | `MAG` | Maguindanao | Maguindanao was split in 2022 into Maguindanao del Norte (PH-MGN) and del Sur (PH-MGS) |
-| PH | `MNL` | Mandaluyong | Mandaluyong, a city of Metro Manila (PH-00), which ISO 3166-2 does not code on its own |
-| PH | `SUN` | Surigao del Norte | Surigao del Norte as it was before 2006, with the Dinagat Islands (now PH-DIN) in it |
-| RU | `X01~` | X01~ | a piece of the Yamal coast, 38 km², that Natural Earth draws without a name or a code |
+22 of the 1,342 regions have no code: Norway's counties from before 2020, which kuni 1.0.0 does not have the 2024 codes for, a county split since (Northamptonshire), a territory with none (Jervis Bay), and a few more. [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) lists every one with the reason.
 
 A region that is exactly one ISO subdivision takes kuni's names, so a map and a form name a place alike; Natural Earth's are kept where kuni 1.0.0's are wrong (it writes Peterborough as "Peter" and swaps Chiayi City and County) or read worse on a map (CLDR's "Chechen" for the Chechen Republic). The rest keep Natural Earth's names, and no two regions of one map share a name in either language.
 
@@ -573,6 +548,29 @@ findQuestion(WORLD, "FR", seededRandom(7));    // the target and its choices in 
 ```
 
 A wrong answer is scored 100 for a land neighbour, 60 for sharing a group and up to 40 for being close (`distractorScore`), so the choices are places a person could take it for. With a `random` stream the best few are shuffled and cut so the same country is not asked with the same company every time; without one the answer is simply the best `count`. `among` limits the places that may be offered.
+
+## Continents and other groups
+
+A group of places is a list of codes, and four functions show any of them: a continent, a UN M49 subregion, the eight regions of Japan, Canada's five, the four Census regions of the United States, or a list a page names itself (the G7, the countries a class has studied). `groupMap` cuts a map down to the group, so a quiz asks African look-alikes for an African country and callouts number only the group; `groupBox` frames it, each member on its mainland, so France's overseas departments do not stretch Europe's window to South America; `groupTones` fades the rest of the map round it.
+
+```ts
+import WORLD from "@johnmorrisdotca/chizu/world";
+import { CHIZU_CONTINENTS } from "@johnmorrisdotca/chizu/names";
+import { drawChizu } from "@johnmorrisdotca/chizu/draw";
+import { findQuestion, groupBox, groupMap, groupTones, layoutCallouts, seededRandom } from "@johnmorrisdotca/chizu";
+
+const africa = CHIZU_CONTINENTS.find((continent) => continent.code === "AF")!;
+const box = groupBox(WORLD, africa.codes, 4 / 3);
+const svg = drawChizu(WORLD, { box, tones: groupTones(WORLD, africa.codes), callouts: ["EG", "KE", "NG", "ZA"] });
+const question = findQuestion(groupMap(WORLD, africa.codes), "KE", seededRandom(1))!;
+console.log(africa.nameJa, svg.length > 0, question.choices.every((code) => africa.codes.includes(code)));
+```
+
+```text
+アフリカ true true
+```
+
+**The continents** (`CHIZU_CONTINENTS` in `/names`) are kuni's seven, from UN M49 by way of CLDR: Africa, Antarctica, Asia, Europe, North America (with Central America and the Caribbean), Oceania and South America, each with its English and Japanese names, its reading and its countries. Every one of the 238 countries is in exactly one; Antarctica holds South Georgia and Heard Island, since Antarctica itself, like the French Southern Lands, is not drawn. A country's `group` is its continent's English name and `groupJa` its Japanese. **The subregions** (`CHIZU_SUBREGIONS`) are the twenty-two of UN M49 (Eastern Asia, Western Europe, the Caribbean…), kuni's too. **A map's own groups** are `regionGroups(map)`: the continents on the world, the eight regions on Japan's prefectures (北海道地方 to 九州地方, Okinawa in Kyushu), Canada's Atlantic, Central, Prairies, West Coast and North, and the Census regions of the United States, each named in English and Japanese. Named groupings beyond these (the EU, ASEAN, the G7) are kuni's to keep, with their dates and sources; until it has one, pass its codes.
 
 ## Pasted names
 
@@ -765,6 +763,7 @@ src/
 ├── layout.ts           layoutCallouts over a whole map
 ├── distractors.ts      the wrong answers
 ├── quiz.ts             a question and its choices
+├── groups.ts           continents and other groups: cut, framed, toned
 ├── fromText.ts         pasted names to places
 ├── countries.ts        the table of countries, looked up
 ├── project.ts          longitude and latitude on a canvas

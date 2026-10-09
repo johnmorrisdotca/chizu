@@ -308,7 +308,7 @@ describe("Japan's prefectures", () => {
   it("groups them in the eight regions a Japanese school teaches", async () => {
     const groups = new Map<string, number>();
     for (const region of (await japan()).regions) groups.set(region.group, (groups.get(region.group) ?? 0) + 1);
-    expect(Object.fromEntries(groups)).toEqual({ Hokkaido: 1, Tohoku: 6, Kanto: 7, Chubu: 9, Kansai: 7, Chugoku: 5, Shikoku: 4, Kyushu: 8 });
+    expect(Object.fromEntries(groups)).toEqual({ Hokkaido: 1, Tohoku: 6, Kanto: 7, Chubu: 9, Kinki: 7, Chugoku: 5, Shikoku: 4, Kyushu: 8 });
   });
 
   it("knows which prefectures touch, and that Hokkaido and Okinawa touch none", async () => {
