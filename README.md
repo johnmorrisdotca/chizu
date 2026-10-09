@@ -18,7 +18,7 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
 <td align="center" valign="top">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-desk-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-desk-light.webp" alt="The demo on a desk, in English, in Callouts mode: the page header with the language chooser, five cloth patches and the Help switch, the choice of map (the whole world), part and mode, the world on green felt with twenty countries numbered by white circles in the sea and a thin leader line from each circle to its country, and the start of the explanation under the map" width="600">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-desk-light.webp" alt="The demo on a desk, in English, in Callouts mode: the page header with the language chooser, five cloth patches and the Help switch, the choice of map (the whole world), part, features and mode, the world on green felt with twenty countries numbered by white circles in the sea and a thin leader line from each circle to its country, and the start of the explanation under the map" width="600">
 </picture>
 <br><em>The demo on a desk: the world with twenty countries numbered.</em>
 </td>
@@ -120,9 +120,9 @@ Each picture is the real map, drawn by the package and taken from [the demo](htt
 <td align="center" valign="top" width="50%">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/country-phone-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/country-phone-light.webp" alt="Japan alone on a phone, from the 1:50m outlines: the four main islands and the islands south-west of them on a pale blue sea, large plus, minus and home buttons in the corner, the zoom level 1× and the words Nothing chosen under the map" width="240">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/country-phone-light.webp" alt="Japan alone on a phone, from the 1:50m outlines, with its water drawn: the four main islands on a pale blue sea, the Sea of Japan, the Pacific and the straits named in blue italics, Lake Biwa and three rivers in blue, the zoom buttons in the corner and the words Nothing chosen under the map" width="240">
 </picture>
-<br><em><strong>One country alone.</strong> Each of 238 countries is a map of its own, with its own canvas.</em>
+<br><em><strong>One country alone</strong>, with its seas, lakes and rivers turned on. Each of 238 countries is a map of its own.</em>
 </td>
 </tr>
 <tr>

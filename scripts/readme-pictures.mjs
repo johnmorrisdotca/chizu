@@ -46,7 +46,7 @@ await takePictures({
     { subject: "insets", views: ["desk"], url: address("mode=explore&map=divisions:us"), ready: READY, target: board },
     // Japan's 47 prefectures, each of the eight regions a Japanese school teaches in a colour of its own.
     { subject: "japan", views: ["desk"], url: address("mode=colour&colour=groups"), ready: READY, target: board },
-    // One country alone, from the 1:50m outlines.
-    { subject: "country", views: ["phone"], url: address("mode=explore&map=country:jp"), ready: READY, target: board },
+    // One country alone, from the 1:50m outlines, with its seas, lake and rivers drawn and named.
+    { subject: "country", views: ["phone"], url: address("mode=explore&map=country:jp&features=water"), ready: `${READY} .cz-feature-label`, target: board },
   ],
 });
