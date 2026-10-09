@@ -31,6 +31,40 @@ export function insetFor(map: Pick<ChizuMap, "insets">, code: string | number): 
 }
 
 /**
+ * Every box a region is drawn in, in the map's order: none for most, one for Alaska, three for Okinawa (its main
+ * islands, the Sakishima Islands and the Daito Islands, each in a box of its own) and three for Tokyo's far islands.
+ *
+ * @example
+ * ```ts
+ * import { loadDivisions } from "@johnmorrisdotca/chizu/load";
+ * import { insetsFor } from "@johnmorrisdotca/chizu";
+ *
+ * const japan = (await loadDivisions("jp"))!;
+ * console.log(insetsFor(japan, "47").length, insetsFor(japan, "13").length, insetsFor(japan, "1").length);
+ * // 3 3 0
+ * ```
+ */
+export function insetsFor(map: Pick<ChizuMap, "insets">, code: string | number): ChizuInset[] {
+  return map.insets.filter((inset) => String(inset.code) === String(code));
+}
+
+/**
+ * Whether a box holds its region whole, rather than only some of its pieces (`outlyingBelow`, `within`).
+ *
+ * @example
+ * ```ts
+ * import { insetHoldsWhole } from "@johnmorrisdotca/chizu";
+ *
+ * const box = { x: 0, y: 0, width: 10, height: 10 };
+ * console.log(insetHoldsWhole({ code: "AK", box }), insetHoldsWhole({ code: "46", box, outlyingBelow: 900 }));
+ * // true false
+ * ```
+ */
+export function insetHoldsWhole(inset: ChizuInset): boolean {
+  return inset.outlyingBelow === undefined && inset.within === undefined;
+}
+
+/**
  * What to do to a region's own geometry to seat it in its box: a scale, and a move.
  *
  * @example

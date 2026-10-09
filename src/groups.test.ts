@@ -73,11 +73,11 @@ describe("a group's map", () => {
 });
 
 describe("framing a group", () => {
-  it("frames Europe on the mainlands, not on France's overseas departments", () => {
-    const box = groupBox(world, continent("EU").codes);
+  it("frames Western Europe on the mainlands, not on France's overseas departments", () => {
+    const box = groupBox(world, CHIZU_SUBREGIONS.find((entry) => entry.code === "155")!.codes);
     const france = world.regions.find((region) => region.code === "FR")!;
     // France on the world reaches South America (French Guiana); Europe's window does not.
-    expect(france.bbox[3] - france.bbox[1]).toBeGreaterThan(box.height / 2);
+    expect(france.bbox[3]).toBeGreaterThan(box.y + box.height);
     const brazil = world.regions.find((region) => region.code === "BR")!;
     expect(box.y + box.height).toBeLessThan(brazil.bbox[1]);
   });

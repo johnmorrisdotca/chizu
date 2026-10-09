@@ -23,7 +23,7 @@ export {
   zoomToFit,
 } from "./frame.ts";
 export type { MapZoom } from "./frame.ts";
-export { applyInsetTransform, insetFor, insetTransform, insetTransformAttribute } from "./insets.ts";
+export { applyInsetTransform, insetFor, insetHoldsWhole, insetsFor, insetTransform, insetTransformAttribute } from "./insets.ts";
 export type { InsetTransform } from "./insets.ts";
 export { mapWrapsAround, nearestWrappedBox, wrapAcross, wrapIntoBox, wrapOffsets } from "./wrap.ts";
 export {

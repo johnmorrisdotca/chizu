@@ -1,4 +1,4 @@
-import { insetFor } from "./insets.ts";
+import { insetHoldsWhole, insetsFor } from "./insets.ts";
 import { drawnBounds } from "./outlines.ts";
 import type { ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround } from "./wrap.ts";
@@ -250,8 +250,9 @@ const FIT_MARGIN_RATIO = 0.15;
 export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>): { zoom: MapZoom; centre: { x: number; y: number } } {
   const whole = wholeMapBox(map);
   const drawn = matching(map, codes).map((region) => {
-    const seated = insetFor(map, region.code);
-    if (seated && seated.outlyingBelow === undefined) return [seated.box.x, seated.box.y, seated.box.x + seated.box.width, seated.box.y + seated.box.height];
+    const seated = insetsFor(map, region.code);
+    const whole = seated.find(insetHoldsWhole);
+    if (whole) return [whole.box.x, whole.box.y, whole.box.x + whole.box.width, whole.box.y + whole.box.height];
     return drawnBounds(region, seated);
   });
   if (drawn.length === 0) return { zoom: MAP_ZOOM_LEVELS[0], centre: boxCentre(whole) };
@@ -302,15 +303,16 @@ export function focusRegionFit(map: Frameable, code: string | number | null): { 
  * import { regionCentre } from "@johnmorrisdotca/chizu";
  *
  * const japan = (await loadDivisions("jp"))!;
- * // Okinawa is drawn in a box, so its centre is the box's.
+ * // Okinawa is drawn in boxes, so its centre is where its main islands are drawn, in the first.
  * console.log(regionCentre(japan, "47"));
- * // { x: 247.5, y: 125 }
+ * // { x: 315, y: 560 }
  * ```
  */
 export function regionCentre(map: Frameable, code: string | number | null): { x: number; y: number } | null {
   if (code === null) return null;
-  const seated = insetFor(map, code);
-  if (seated && seated.outlyingBelow === undefined) return boxCentre(seated.box);
+  const seated = insetsFor(map, code);
+  const whole = seated.find(insetHoldsWhole);
+  if (whole) return boxCentre(whole.box);
   const region = map.regions.find((entry) => String(entry.code) === String(code));
   if (!region) return null;
   const [minX, minY, maxX, maxY] = drawnBounds(region, seated);
@@ -343,7 +345,7 @@ export function regionBox(map: Frameable, code: string | number, aspect = 1): Ma
   const region = map.regions.find((entry) => String(entry.code) === String(code));
   if (!region) return wholeMapBox(map);
 
-  const [minX, minY, maxX, maxY] = drawnBounds(region, insetFor(map, code));
+  const [minX, minY, maxX, maxY] = drawnBounds(region, insetsFor(map, code));
   const source = { minX, minY, maxX, maxY };
 
   const spanX = Math.max(source.maxX - source.minX, 0.001);

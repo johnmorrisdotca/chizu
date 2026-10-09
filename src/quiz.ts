@@ -40,7 +40,8 @@ export type FindQuestion = {
  */
 export function findQuestion(map: Pick<ChizuMap, "width" | "height" | "regions">, targetCode: string | number, random: Random, options: Omit<DistractorOptions, "random"> = {}): FindQuestion | null {
   const target = map.regions.find((region) => String(region.code) === String(targetCode));
-  if (!target) return null;
+  // A piece drawn with no name is not a place to ask about.
+  if (!target || (target as { unnamed?: boolean }).unnamed) return null;
   const wrong = pickDistractors(map, targetCode, { ...options, random });
   const choices = shuffled([target.code, ...wrong], random);
   return { target: target.code, choices, answerIndex: choices.indexOf(target.code) };

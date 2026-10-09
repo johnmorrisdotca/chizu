@@ -349,26 +349,32 @@ export type MapPiece = { d: string; transform: InsetTransform | null };
  */
 export function mapRegionPieces(
   region: { path: string; bbox: readonly [number, number, number, number] },
-  inset: ChizuInset | null,
+  inset: ChizuInset | readonly ChizuInset[] | null,
 ): MapPiece[] {
-  if (!inset) return [{ d: region.path, transform: null }];
-  if (inset.outlyingBelow === undefined) {
-    return [{ d: region.path, transform: insetTransform(region.bbox, inset.box, inset.magnify) }];
+  const insets = inset === null ? [] : Array.isArray(inset) ? (inset as readonly ChizuInset[]) : [inset as ChizuInset];
+  if (insets.length === 0) return [{ d: region.path, transform: null }];
+  const whole = insets.find((one) => one.outlyingBelow === undefined && one.within === undefined);
+  if (whole) return [{ d: region.path, transform: insetTransform(region.bbox, whole.box, whole.magnify) }];
+  let rest = parseMapRings(region.path);
+  const boxed: MapPiece[] = [];
+  for (const one of insets) {
+    const takes = (ring: MapRing) =>
+      one.within !== undefined
+        ? ring.minX >= one.within.x && ring.maxX <= one.within.x + one.within.width && ring.minY >= one.within.y && ring.maxY <= one.within.y + one.within.height
+        : ring.minY >= one.outlyingBelow!;
+    const taken = rest.filter(takes);
+    rest = rest.filter((ring) => !takes(ring));
+    if (taken.length === 0) continue;
+    const bounds = [
+      Math.min(...taken.map((ring) => ring.minX)),
+      Math.min(...taken.map((ring) => ring.minY)),
+      Math.max(...taken.map((ring) => ring.maxX)),
+      Math.max(...taken.map((ring) => ring.maxY)),
+    ] as const;
+    boxed.push({ d: taken.map((ring) => ring.d).join(""), transform: insetTransform(bounds, one.box, one.magnify) });
   }
-  const rings = parseMapRings(region.path);
-  const outlying = rings.filter((ring) => ring.minY >= inset.outlyingBelow!);
-  const rest = rings.filter((ring) => ring.minY < inset.outlyingBelow!);
-  if (outlying.length === 0 || rest.length === 0) return [{ d: region.path, transform: null }];
-  const bounds = [
-    Math.min(...outlying.map((ring) => ring.minX)),
-    Math.min(...outlying.map((ring) => ring.minY)),
-    Math.max(...outlying.map((ring) => ring.maxX)),
-    Math.max(...outlying.map((ring) => ring.maxY)),
-  ] as const;
-  return [
-    { d: rest.map((ring) => ring.d).join(""), transform: null },
-    { d: outlying.map((ring) => ring.d).join(""), transform: insetTransform(bounds, inset.box, inset.magnify) },
-  ];
+  if (boxed.length === 0) return [{ d: region.path, transform: null }];
+  return rest.length > 0 ? [{ d: rest.map((ring) => ring.d).join(""), transform: null }, ...boxed] : boxed;
 }
 
 /**
@@ -412,9 +418,8 @@ const outlineCache = new WeakMap<object, MapOutline[]>();
 export function mapOutlines(map: Pick<ChizuMap, "regions" | "insets">): MapOutline[] {
   const known = outlineCache.get(map);
   if (known) return known;
-  const byCode = new Map(map.insets.map((inset) => [String(inset.code), inset]));
   const outlines = map.regions.map((region) => {
-    const rings = mapRegionPieces(region, byCode.get(String(region.code)) ?? null).flatMap((piece) => parseMapRings(piece.d, piece.transform));
+    const rings = mapRegionPieces(region, map.insets.filter((inset) => String(inset.code) === String(region.code))).flatMap((piece) => parseMapRings(piece.d, piece.transform));
     return { rings, anchor: landAnchor(rings) };
   });
   outlineCache.set(map, outlines);
@@ -489,16 +494,14 @@ export function shiftedOutlines(outlines: readonly MapOutline[], by: number): Ma
  */
 export function drawnBounds(
   region: { path: string; bbox: readonly [number, number, number, number] },
-  inset: ChizuInset | null,
+  inset: ChizuInset | readonly ChizuInset[] | null,
 ): [number, number, number, number] {
   const [x0, y0, x1, y1] = region.bbox;
-  if (!inset) return [x0, y0, x1, y1];
   const pieces = mapRegionPieces(region, inset);
-  const inPlace = inset.outlyingBelow === undefined ? [] : pieces.filter((piece) => piece.transform === null);
-  if (inPlace.length === 0) {
-    const transform = insetTransform(region.bbox, inset.box, inset.magnify);
-    return [x0 * transform.scale + transform.x, y0 * transform.scale + transform.y, x1 * transform.scale + transform.x, y1 * transform.scale + transform.y];
-  }
-  const rings = inPlace.flatMap((piece) => parseMapRings(piece.d));
+  if (pieces.length === 1 && pieces[0]!.transform === null) return [x0, y0, x1, y1];
+  // The part left in place when there is one; otherwise the first box, which holds the region's main part.
+  const inPlace = pieces.filter((piece) => piece.transform === null);
+  const framed = inPlace.length > 0 ? inPlace : [pieces[0]!];
+  const rings = framed.flatMap((piece) => parseMapRings(piece.d, piece.transform));
   return [Math.min(...rings.map((ring) => ring.minX)), Math.min(...rings.map((ring) => ring.minY)), Math.max(...rings.map((ring) => ring.maxX)), Math.max(...rings.map((ring) => ring.maxY))];
 }

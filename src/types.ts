@@ -72,6 +72,14 @@ export interface ChizuRegion {
   group: string;
   /** `group` in Japanese, where it is known: the continent on the world (アジア), the region on Japan's map (関東地方), the Census region on the United States' (南部). */
   groupJa?: string;
+  /**
+   * True for a piece of land the map draws but does not name: the one is a 38 km² piece of the Yamal coast Natural
+   * Earth gives no name or code. It is drawn, so the coast has no hole, but `findQuestion` and `pickDistractors` never
+   * ask about it or offer it, `regionGroups` leaves it out, and a page leaves it out of its lists.
+   */
+  unnamed?: boolean;
+  /** Other names `group` goes by, in either language, where it has them: Kansai and 関西 for Japan's Kinki (近畿地方). */
+  groupAliases?: string[];
   /** What kind of division it is, as Natural Earth names it, lower case: `province`, `state`, `prefecture`. */
   type?: string;
   /** The three-letter code, on the world and on a country's own map. */
@@ -98,7 +106,7 @@ export interface ChizuRegion {
  * // Kagoshima stays where it is; only its islands south of Yakushima go in the box.
  * const kagoshima: ChizuInset = japan.insets.find((inset) => inset.code === "46")!;
  * console.log(kagoshima.box, kagoshima.outlyingBelow !== undefined);
- * // { x: 495, y: 10, width: 120, height: 230 } true
+ * // { x: 300, y: 160, width: 110, height: 230 } true
  * ```
  */
 export interface ChizuInset {
@@ -108,6 +116,13 @@ export interface ChizuInset {
   box: MapBox;
   /** Only the region's outlying islands go in the box: the pieces that begin below this line on the canvas. The rest stays where it is. */
   outlyingBelow?: number;
+  /**
+   * Only the pieces of the region that lie wholly inside this part of the canvas go in the box, where the projection
+   * put them. A region may have several boxes this way, each holding the islands of its own part of the sea: Okinawa
+   * is its main islands in one, the Sakishima Islands in another and the Daito Islands in a third, so each is drawn at
+   * a size it can be seen at. A piece no box takes stays where it is.
+   */
+  within?: MapBox;
   /** Whether the box may make what it holds bigger than life. Off, a region is only ever shrunk to fit. */
   magnify?: boolean;
 }
@@ -246,6 +261,8 @@ export interface ChizuGroup {
   nameJa?: string;
   /** How `nameJa` is read, in kana. */
   reading?: string;
+  /** Other names it goes by, in either language: Kansai and 関西 for Kinki. */
+  aliases?: string[];
   /** The codes of the places in it, in order. */
   codes: string[];
 }

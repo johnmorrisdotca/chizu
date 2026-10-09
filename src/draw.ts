@@ -4,7 +4,7 @@ import { layoutCallouts, type CalloutRequest } from "./layout.ts";
 import { mapOutlines, mapRegionPieces } from "./outlines.ts";
 import { chizuSay, nameOf, type ChizuLanguage } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
-import type { ChizuMap, MapBox } from "./types.ts";
+import type { ChizuInset, ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapOffsets } from "./wrap.ts";
 
 /**
@@ -73,12 +73,13 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
   const outlines = mapOutlines(map);
   const offsets = mapWrapsAround(map) ? wrapOffsets(box, map.width) : [0];
   const interactive = options.interactive === true;
-  const insetOf = new Map(map.insets.map((inset) => [String(inset.code), inset]));
+  const insetOf = new Map<string, ChizuInset[]>();
+  for (const inset of map.insets) insetOf.set(String(inset.code), [...(insetOf.get(String(inset.code)) ?? []), inset]);
 
   const regionGroup = (index: number) => {
     const region = map.regions[index]!;
     const tone = options.tones?.[region.code];
-    const pieces = mapRegionPieces(region, insetOf.get(region.code) ?? null);
+    const pieces = mapRegionPieces(region, insetOf.get(String(region.code)) ?? null);
     const attributes = `class="cz-region${tone ? ` cz-tone-${escape(tone)}` : ""}" data-code="${escape(region.code)}"${tone ? ` data-tone="${escape(tone)}"` : ""}${interactive ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(nameOf(region, language))}"` : ""}`;
     const paths = pieces.map((piece) => `<path class="cz-land" d="${piece.d}"${piece.transform ? ` transform="${insetTransformAttribute(piece.transform)}"` : ""}/>`).join("");
     return `<g ${attributes}><title>${escape(nameOf(region, language))}</title>${paths}</g>`;

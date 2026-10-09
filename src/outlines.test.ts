@@ -9,6 +9,7 @@ import {
   landAnchor,
   mainlandBounds,
   mapOutlines,
+  drawnBounds,
   mapRegionPieces,
   parseMapRings,
   pointInRing,
@@ -256,5 +257,34 @@ describe("the same outlines, one canvas east", () => {
   it("keeps what it has already shifted", () => {
     const at = outline();
     expect(shiftedOutlines(at, 1000)).toBe(shiftedOutlines(at, 1000));
+  });
+});
+
+describe("a region drawn in several boxes, each taking the islands of its own part of the sea", () => {
+  const islands = "M0 0L20 0L20 20L0 20Z" + "M400 400L410 400L410 410L400 410Z" + "M800 0L805 0L805 5L800 5Z";
+  const region = { code: "Y", name: "Y", group: "g", path: islands, bbox: [0, 0, 805, 410] as [number, number, number, number], centroid: [10, 10] as [number, number], neighbors: [] };
+  const boxes: ChizuInset[] = [
+    { code: "Y", box: { x: 100, y: 100, width: 100, height: 100 }, within: { x: -10, y: -10, width: 50, height: 50 }, magnify: true },
+    { code: "Y", box: { x: 300, y: 100, width: 40, height: 40 }, within: { x: 390, y: 390, width: 30, height: 30 }, magnify: true },
+  ];
+
+  it("puts each part in its own box at its own scale, and leaves what no box takes where it is", () => {
+    const pieces = mapRegionPieces(region, boxes);
+    expect(pieces.map((piece) => piece.transform === null)).toEqual([true, false, false]);
+    expect(parseMapRings(pieces[0]!.d).map((ring) => ring.minX)).toEqual([800]);
+    expect(pieces[1]!.transform!.scale).toBe(5);
+    expect(pieces[2]!.transform!.scale).toBe(4);
+    for (const [index, piece] of pieces.slice(1).entries()) {
+      for (const ring of parseMapRings(piece.d, piece.transform)) {
+        expect(ring.minX).toBeGreaterThanOrEqual(boxes[index]!.box.x - 0.01);
+        expect(ring.maxX).toBeLessThanOrEqual(boxes[index]!.box.x + boxes[index]!.box.width + 0.01);
+      }
+    }
+  });
+
+  it("is framed on the part left in place, or on its first box when every piece is boxed", () => {
+    expect(drawnBounds(region, boxes)).toEqual([800, 0, 805, 5]);
+    const all = [...boxes, { code: "Y", box: { x: 500, y: 100, width: 10, height: 10 }, within: { x: 790, y: -10, width: 30, height: 30 } }];
+    expect(drawnBounds(region, all)).toEqual([100, 100, 200, 200]);
   });
 });

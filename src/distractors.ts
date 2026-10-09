@@ -132,7 +132,7 @@ export function pickDistractors(map: Pick<ChizuMap, "width" | "height" | "region
   const allowed = options.among === undefined ? null : new Set(options.among.map(String));
   const diagonal = mapDiagonal(map);
   const ranked = map.regions
-    .filter((region) => region !== target && (allowed === null || allowed.has(String(region.code))))
+    .filter((region) => region !== target && !(region as { unnamed?: boolean }).unnamed && (allowed === null || allowed.has(String(region.code))))
     .map((region, order) => ({ code: region.code, order, score: distractorScore(target, region, diagonal) }))
     .sort((a, b) => b.score - a.score || a.order - b.order);
   const pool = ranked.slice(0, Math.max(count, options.pool ?? count + 3));

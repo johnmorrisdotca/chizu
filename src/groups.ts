@@ -1,4 +1,4 @@
-import { insetFor } from "./insets.ts";
+import { insetsFor } from "./insets.ts";
 import { drawnBounds, mainlandBounds, mapOutlines } from "./outlines.ts";
 import type { ChizuGroup, ChizuMap, MapBox } from "./types.ts";
 
@@ -24,15 +24,16 @@ type Groupable = Pick<ChizuMap, "regions">;
  *
  * const groups = regionGroups(WORLD);
  * console.log(groups.map((group) => `${group.name} ${group.codes.length}`).join(", "));
- * // Asia 45, Europe 39, Africa 50, North America 18, South America 13, Oceania 8
+ * // Asia 46, Europe 39, Africa 50, North America 18, South America 13, Oceania 7
  * ```
  */
 export function regionGroups(map: Pick<ChizuMap, "regions">): ChizuGroup[] {
   const groups = new Map<string, ChizuGroup>();
   for (const region of map.regions) {
+    if (region.unnamed) continue;
     let group = groups.get(region.group);
     if (!group) {
-      group = { code: region.group, kind: "region", name: region.group, ...(region.groupJa ? { nameJa: region.groupJa } : {}), codes: [] };
+      group = { code: region.group, kind: "region", name: region.group, ...(region.groupJa ? { nameJa: region.groupJa } : {}), ...(region.groupAliases ? { aliases: [...region.groupAliases] } : {}), codes: [] };
       groups.set(region.group, group);
     }
     group.codes.push(String(region.code));
@@ -100,8 +101,8 @@ export function groupBox(map: ChizuMap, codes: ReadonlyArray<string | number>, a
   const boxes: [number, number, number, number][] = [];
   map.regions.forEach((region, index) => {
     if (!wanted.has(String(region.code))) return;
-    const inset = insetFor(map, region.code);
-    const box = inset ? drawnBounds(region, inset) : mainlandBounds(outlines[index]!.rings, 1);
+    const insets = insetsFor(map, region.code);
+    const box = insets.length > 0 ? drawnBounds(region, insets) : mainlandBounds(outlines[index]!.rings, 1);
     if (box) boxes.push(box);
   });
   if (boxes.length === 0) return { x: 0, y: 0, width: map.width, height: map.height };
