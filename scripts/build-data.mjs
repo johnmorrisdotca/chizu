@@ -44,6 +44,9 @@ import {
   SHORT_NAME_READINGS,
   GROUP_READINGS,
   SHORT_NAMES_NOT_EVERYDAY,
+  SHORT_ENGLISH_NOT_FOR_MAPS,
+  DISPLAY_NAMES,
+  CONTINENT_OVERRIDES,
 } from "./data-config.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -231,18 +234,21 @@ function namesOf(properties, code) {
     if (!reading) throw new Error(`${code}: no reading for ${nameJa}; add it to KANJI_READINGS`);
     return { name: properties.NAME, nameJa, reading };
   }
-  const short = SHORT_NAMES_NOT_EVERYDAY.has(code) ? undefined : known.shortName?.ja;
-  const reading = short ? (kanaReading(short) ?? SHORT_NAME_READINGS[short]) : (known.reading ?? kanaReading(known.name.ja));
+  const display = DISPLAY_NAMES[code] ?? {};
+  const short = display.nameShortJa ?? (SHORT_NAMES_NOT_EVERYDAY.has(code) ? undefined : known.shortName?.ja);
+  const reading = display.reading ?? (short ? (kanaReading(short) ?? SHORT_NAME_READINGS[short]) : (known.reading ?? kanaReading(known.name.ja)));
   if (!reading) throw new Error(`${code}: no reading for ${short ?? known.name.ja}; add it to SHORT_NAME_READINGS`);
-  return { name: known.name.en, nameJa: known.name.ja, ...(short ? { nameShortJa: short } : {}), reading };
+  const name = display.name ?? (known.shortName?.en && !SHORT_ENGLISH_NOT_FOR_MAPS[code] ? known.shortName.en : known.name.en);
+  return { name, nameJa: known.name.ja, ...(short ? { nameShortJa: short } : {}), reading };
 }
 
 /** A country's continent and three-letter code: kuni's, or Natural Earth's for the three places kuni does not have. */
 function identityOf(properties, code) {
   const known = kuniCountry(code);
+  const continent = CONTINENT_OVERRIDES[code]?.continent ?? known?.continent;
   return {
-    group: known ? CONTINENT_NAMES[known.continent] : properties.CONTINENT,
-    ...(known ? { groupJa: continentName(known.continent, "ja") } : {}),
+    group: known ? CONTINENT_NAMES[continent] : properties.CONTINENT,
+    ...(known ? { groupJa: continentName(continent, "ja") } : {}),
     iso3: known ? known.alpha3 : properties.ISO_A3_EH && properties.ISO_A3_EH !== "-99" ? properties.ISO_A3_EH : properties.ADM0_A3,
   };
 }
@@ -282,7 +288,7 @@ function regionNames(country, feature, iso, shared) {
   const fix = NAME_FIXES[`${country}:${p.__code}`];
   if (fix?.name) name = fix.name;
   if (fix?.nameJa) nameJa = fix.nameJa;
-  return { name, ...(nameJa ? { nameJa } : {}) };
+  return { name, ...(nameJa ? { nameJa } : {}), ...(fix?.unnamed ? { unnamed: true } : {}) };
 }
 
 /** Each region's ISO code, and whether another region of the same map carries it too. */
@@ -611,7 +617,7 @@ function buildJapan(rawFeatures, countryNames) {
   const projection = geoMercator().fitWidth(width, { type: "FeatureCollection", features: mainland });
   const draw = geoPath(projection);
   const height = Math.ceil(draw.bounds({ type: "FeatureCollection", features: mainland })[1][1]);
-  /* The line below which a prefecture's pieces are its outlying islands, on the canvas: a piece is outlying when its top is below it. */
+  /* The line below which a prefecture's pieces are its outlying islands, on the canvas: a piece is outlying when its top is below it; and a rectangle of longitude and latitude on the canvas, for a box that takes the islands inside it. */
   const lineAt = (lon, lat) => round(projection([lon, lat])[1]);
   const near = neighboursBySharedPoints(features, (feature) => feature.properties.__code);
   const isos = isoCodes("JP", features);
@@ -628,6 +634,7 @@ function buildJapan(rawFeatures, countryNames) {
       reading: known.reading,
       group: japanGroup(p.__code)[0],
       groupJa: japanGroup(p.__code)[1],
+      ...(japanGroup(p.__code)[4] ? { groupAliases: japanGroup(p.__code)[4] } : {}),
       type: p.type_en.toLowerCase(),
       path: "",
       neighbors: near[index],
@@ -647,23 +654,35 @@ function buildJapan(rawFeatures, countryNames) {
     height,
     wraps: false,
     projection: { kind: "other", description: `d3-geo geoMercator, fitted to the mainland ${width} across (scale ${keepScale(projection.scale())}, translate ${keepTranslate(tx)},${keepTranslate(ty)})` },
-    insets: JAPAN_INSETS(lineAt),
-    source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, the Amami Islands given back to Kagoshima; Okinawa, Kagoshima's islands south of Yakushima and Tokyo's south of Torishima drawn in boxes`,
+    insets: JAPAN_INSETS(lineAt, (lon0, lat0, lon1, lat1) => {
+      const [x0, y1] = projection([lon0, lat0]).map(round);
+      const [x1, y0] = projection([lon1, lat1]).map(round);
+      return { x: x0, y: y0, width: round(x1 - x0), height: round(y1 - y0) };
+    }),
+    source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, the Amami Islands given back to Kagoshima; Okinawa, Kagoshima's islands south of Yakushima and Tokyo's south of Torishima drawn in boxes, each holding its own part of the sea`,
     regions,
   };
 }
 
 /**
- * Where Japan's boxes sit, from the lines that split Kagoshima's and Tokyo's outlying islands off. Okinawa and the
- * Amami Islands top left, in the Sea of Japan, where a Japanese atlas puts them, Okinawa at nearly its own scale
- * and Amami east of it, as it lies; Tokyo's far islands bottom right, south-east of the Izu Islands, as they lie.
- * Chosen against the data: a test checks that no other region reaches into a box.
+ * Where Japan's boxes sit. In the Sea of Japan, where a Japanese atlas puts them, each where it lies from the others:
+ * Okinawa's main islands large in the middle, the Sakishima Islands south-west of them, Kagoshima's islands south of
+ * Yakushima (the Tokara and Amami Islands) north-east, and the Daito Islands east; at the bottom right
+ * Tokyo's Ogasawara Islands (Chichijima, Hahajima) large, and beside them Nishinoshima and the Volcano Islands, and
+ * Minamitorishima, 1,800 km out. Each box holds
+ * the islands of its own part of the sea (`within`, a rectangle of longitude and latitude on the canvas), magnified
+ * to fill it, so Okinawa's main island is a shape and not a speck. Chosen against the data: a test checks that no
+ * other region reaches into a box.
  */
-function JAPAN_INSETS(lineAt) {
+function JAPAN_INSETS(lineAt, area) {
   return [
-    { code: "13", box: { x: 695, y: 930, width: 235, height: 130 }, outlyingBelow: lineAt(140, JAPAN_OUTLYING.tokyoSouthOf), magnify: true },
-    { code: "46", box: { x: 495, y: 10, width: 120, height: 230 }, outlyingBelow: lineAt(130, JAPAN_OUTLYING.kagoshimaSouthOf), magnify: true },
-    { code: "47", box: { x: 10, y: 10, width: 475, height: 230 } },
+    { code: "13", box: { x: 790, y: 880, width: 40, height: 200 }, within: area(141.9, 26.4, 142.5, 27.9), magnify: true },
+    { code: "13", box: { x: 840, y: 880, width: 40, height: 140 }, within: area(140.6, 24, 141.7, 27.5), magnify: true },
+    { code: "13", box: { x: 840, y: 1035, width: 35, height: 35 }, within: area(153.5, 24, 154.5, 24.7), magnify: true },
+    { code: "46", box: { x: 300, y: 160, width: 110, height: 230 }, outlyingBelow: lineAt(130, JAPAN_OUTLYING.kagoshimaSouthOf), magnify: true },
+    { code: "47", box: { x: 200, y: 420, width: 230, height: 280 }, within: area(126.5, 25.9, 128.6, 28.1), magnify: true },
+    { code: "47", box: { x: 20, y: 570, width: 170, height: 125 }, within: area(122.5, 24, 125.7, 26.1), magnify: true },
+    { code: "47", box: { x: 440, y: 450, width: 40, height: 50 }, within: area(130.9, 24.3, 131.6, 26.1), magnify: true },
   ];
 }
 

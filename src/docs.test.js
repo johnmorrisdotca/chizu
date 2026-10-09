@@ -5,7 +5,7 @@ import process from "node:process";
 
 import { describe, expect, it } from "vitest";
 
-import { ISO_JOIN } from "../scripts/data-config.mjs";
+import { CONTINENT_OVERRIDES, DISPLAY_NAMES, ISO_JOIN, KUNI_NAMES_KEPT_FROM_NATURAL_EARTH, NAME_FIXES, SHORT_ENGLISH_NOT_FOR_MAPS } from "../scripts/data-config.mjs";
 import { CHIZU_COUNTRIES, CHIZU_SOURCE } from "./data/countries.ts";
 import { DIVISIONS_LOADERS } from "./data/loaders.ts";
 import world from "./data/world.ts";
@@ -136,6 +136,22 @@ describe("the README's promises", () => {
     expect(maps).toContain("**32 countries with regions**");
     for (const country of CHIZU_COUNTRIES.filter((one) => one.hasDivisions)) expect(maps, country.code).toContain(country.name.replace(" of America", ""));
     expect(Object.keys(DIVISIONS_LOADERS)).toHaveLength(32);
+  });
+
+  it("lists every name the map prints that is not kuni's, with the reason, so that kuni can take each over", () => {
+    const names = readFileSync("docs/names.md", "utf8");
+    expect(section("Maps")).toContain("docs/names.md");
+    for (const [code, why] of Object.entries(SHORT_ENGLISH_NOT_FOR_MAPS)) expect(names, code).toContain(`| ${code} | kuni's full English name | ${why} |`);
+    for (const [code, entry] of Object.entries(DISPLAY_NAMES)) expect(names, code).toContain(entry.why);
+    for (const [code, entry] of Object.entries(CONTINENT_OVERRIDES)) {
+      expect(names, code).toContain(`| ${code} |`);
+      expect(names, code).toContain(entry.why);
+    }
+    for (const [iso, entry] of Object.entries(KUNI_NAMES_KEPT_FROM_NATURAL_EARTH)) {
+      expect(names, iso).toContain(`| ${iso} |`);
+      expect(names, iso).toContain(entry.why);
+    }
+    for (const key of Object.keys(NAME_FIXES)) expect(names, key).toContain(`| ${key} |`);
   });
 
   it("lists every region with no ISO 3166-2 code, with the reason the build script gives", () => {

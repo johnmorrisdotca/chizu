@@ -119,7 +119,10 @@ function remember(changes) {
 
 const regionOf = (code) => state.map.regions.find((entry) => entry.code === code);
 /** The places in view: the part's, or the whole map's. */
-const inPart = () => (state.part ? state.map.regions.filter((region) => state.part.codes.includes(region.code)) : state.map.regions);
+/** The places in view, by name: the part's, or the whole map's, leaving out a piece the map draws but does not name. */
+const inPart = () => (state.part ? state.map.regions.filter((region) => state.part.codes.includes(region.code)) : state.map.regions).filter((region) => !region.unnamed);
+/** The part of this map a key names: its code, or any of its names in either language (Kansai finds Kinki). */
+const findPart = (map, key) => (key ? (partsOf(map).find((part) => part.key === key) ?? partsOf(map).find((part) => [part.name, part.nameJa, ...(part.aliases ?? [])].some((name) => name && foldAnswer(name) === foldAnswer(key)))) : null) ?? null;
 const dark = () => document.documentElement.dataset.theme === "dark" || (document.documentElement.dataset.theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
 
 // ---- the map and its part ------------------------------------------------------------------------------------
@@ -154,7 +157,7 @@ function partsOf(map) {
   }
   if (map.kind === "divisions") {
     const groups = regionGroups(map);
-    return groups.length > 1 ? groups.map((group) => ({ key: group.code, kind: "group", name: group.name, nameJa: group.nameJa, codes: group.codes })) : [];
+    return groups.length > 1 ? groups.map((group) => ({ key: group.code, kind: "group", name: group.name, nameJa: group.nameJa, aliases: group.aliases, codes: group.codes })) : [];
   }
   return [];
 }
@@ -165,7 +168,12 @@ function populateParts() {
   row.hidden = parts.length === 0;
   const select = $("part");
   const label = (part) => (language.lang === "ja" ? (part.nameJa ?? part.name) : part.name);
-  const option = (part) => el("option", { value: part.key, text: `${label(part)} (${part.codes.length})` });
+  // A part with another name says it too: Kinki (Kansai), 近畿地方（関西）.
+  const also = (part) => {
+    const other = part.aliases?.find((name) => (language.lang === "ja" ? /\p{Script=Han}/u.test(name) && !name.endsWith("地方") : !/\p{Script=Han}/u.test(name)));
+    return other ? (language.lang === "ja" ? `（${other}）` : ` (${other})`) : "";
+  };
+  const option = (part) => el("option", { value: part.key, text: `${label(part)}${also(part)} (${part.codes.length})` });
   const byKind = (kind) => parts.filter((part) => part.kind === kind);
   select.replaceChildren(
     el("option", { value: "", text: say("whole") }),
@@ -190,7 +198,7 @@ async function chooseMap(key, partKey = null) {
   }
   state.mapKey = key;
   state.map = await loadMap(key);
-  state.part = partsOf(state.map).find((part) => part.key === partKey) ?? null;
+  state.part = findPart(state.map, partKey);
   state.selected = null;
   host.dataset.map = state.map.id;
   mount.setMap(state.map);
@@ -202,7 +210,7 @@ async function chooseMap(key, partKey = null) {
 }
 
 function choosePart(key) {
-  state.part = partsOf(state.map).find((part) => part.key === key) ?? null;
+  state.part = findPart(state.map, key);
   state.selected = null;
   remember({ part: state.part?.key ?? null });
   populateMaps();
@@ -243,40 +251,55 @@ function coordinateText(lat, lon) {
 
 const groupIn = (region) => (language.lang === "ja" ? (region.groupJa ?? region.group) : region.group);
 
+/**
+ * The card for the chosen place, in one box whose height never changes: a name line, a line of what is known about it
+ * (its reading, ISO code, part and centre), and a row of the places it touches, which scrolls sideways. With nothing
+ * chosen the same three lines say what the map holds, how to choose, and the map's parts to press.
+ */
 function renderInfo() {
   const info = $("info");
   const region = state.selected ? regionOf(state.selected) : null;
+  const line = (props, text) => el("p", { ...props, text });
+  const row = (label, ...chips) => el("div", { class: "info-row" }, label ? el("span", { class: "fam-label", text: label }) : null, ...chips);
   if (!region) {
-    info.replaceChildren(el("p", { class: "fam-muted", text: say("nothingChosen") }));
+    const title = language.lang === "ja" ? (state.map.nameJa ?? state.map.name) : state.map.name;
+    const parts = partsOf(state.map).filter((part) => part.kind !== "subregion");
+    info.replaceChildren(
+      line({ class: "info-name", "data-testid": "info-name" }, say("infoMap", title, inPart().length, state.map.kind === "world" ? say("whatCountries") : say("whatPlaces"))),
+      line({ class: "fam-muted info-meta" }, say("nothingChosen")),
+      row(
+        parts.length ? say("part") : null,
+        ...parts.map((part) => el("button", { type: "button", class: "fam-chip", "data-part": part.key, "aria-pressed": String(state.part?.key === part.key), text: language.lang === "ja" ? (part.nameJa ?? part.name) : part.name, on: { click: () => {
+          $("part").value = state.part?.key === part.key ? "" : part.key;
+          choosePart($("part").value);
+        } } })),
+      ),
+    );
     return;
   }
   const japanese = region.nameShortJa ?? region.nameJa ?? region.name;
   const reading = region.reading && region.reading !== japanese ? region.reading : null;
   const [x, y] = region.centroid;
   const lonlat = state.map.kind === "world" ? unprojectPoint(state.map, x, y) : null;
+  const meta = [
+    reading ? el("span", { lang: "ja", "data-testid": "info-reading", text: reading }) : null,
+    region.iso ? el("span", { "data-testid": "info-iso", text: `${say("isoCode")}: ${region.iso}` }) : null,
+    el("span", { "data-testid": "info-group", text: `${say("group")}: ${groupIn(region)}` }),
+    lonlat ? el("span", { text: coordinateText(lonlat[1], lonlat[0]) }) : null,
+  ].filter(Boolean);
   info.replaceChildren(
-    ...[
-      el("p", { class: "info-name", "data-testid": "info-name", text: say("infoName", region.name, japanese) }),
-      reading ? el("p", { class: "fam-muted", lang: "ja", "data-testid": "info-reading", text: reading }) : null,
-      region.iso ? el("p", { class: "fam-muted", "data-testid": "info-iso", text: `${say("isoCode")}: ${region.iso}` }) : null,
-      el("p", { class: "fam-muted", "data-testid": "info-group", text: `${say("group")}: ${groupIn(region)}` }),
-      lonlat ? el("p", { class: "fam-muted", text: coordinateText(lonlat[1], lonlat[0]) }) : null,
-      region.neighbors.length > 0
-        ? el(
-            "div",
-            { class: "fam-row" },
-            el("span", { class: "fam-label", text: say("touches") }),
-            ...region.neighbors.map((code) => el("button", { type: "button", class: "fam-chip", "data-code": code, text: regionOf(code) ? nameIn(regionOf(code)) : code, on: { click: () => choosePlace(code) } })),
-          )
-        : el("p", { class: "fam-muted", text: say("noNeighbours") }),
-    ].filter(Boolean),
+    line({ class: "info-name", "data-testid": "info-name" }, say("infoName", region.name, japanese)),
+    el("p", { class: "fam-muted info-meta" }, ...meta.flatMap((part, index) => (index === 0 ? [part] : [" · ", part]))),
+    region.neighbors.length > 0
+      ? row(say("touches"), ...region.neighbors.filter((code) => regionOf(code) && !regionOf(code).unnamed).map((code) => el("button", { type: "button", class: "fam-chip", "data-code": code, text: nameIn(regionOf(code)), on: { click: () => choosePlace(code) } })))
+      : row(null, el("span", { class: "fam-muted", text: say("noNeighbours") })),
   );
 }
 
 function renderNames() {
   const tbody = document.querySelector("#names tbody");
   const needle = foldAnswer($("filter").value);
-  const rows = inPart().filter((region) => needle === "" || [region.name, region.nameJa, region.nameShortJa, region.reading, region.code, region.iso].some((text) => foldAnswer(text ?? "").includes(needle)));
+  const rows = inPart().filter((region) => needle === "" || [region.name, region.nameJa, region.nameShortJa, region.reading, region.code, region.iso, region.group, region.groupJa, ...(region.groupAliases ?? [])].some((text) => foldAnswer(text ?? "").includes(needle)));
   tbody.replaceChildren(
     ...rows.map((region) => {
       const tr = el(
@@ -882,7 +905,7 @@ if (state.mapKey.startsWith("continent:")) {
   state.mapKey = "world";
 }
 state.map = await loadMap(state.mapKey);
-state.part = partsOf(state.map).find((part) => part.key === state.partKey) ?? null;
+state.part = findPart(state.map, state.partKey);
 mount = mountChizu(host, {
   map: state.map,
   language: language.lang,

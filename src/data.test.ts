@@ -2,12 +2,16 @@ import { country as kuniCountry } from "@johnmorrisdotca/kuni";
 import { subdivision as kuniSubdivision } from "@johnmorrisdotca/kuni/subdivisions";
 import { describe, expect, it } from "vitest";
 
-import { ISO_JOIN, KUNI } from "../scripts/data-config.mjs";
+import { CONTINENT_OVERRIDES, DISPLAY_NAMES, ISO_JOIN, KUNI, SHORT_ENGLISH_NOT_FOR_MAPS } from "../scripts/data-config.mjs";
 
 import { CHIZU_COUNTRIES, CHIZU_SOURCE } from "./data/countries.ts";
 import { COUNTRY_LOADERS, DIVISIONS_LOADERS } from "./data/loaders.ts";
 import world from "./data/world.ts";
-import { mapOutlines } from "./outlines.ts";
+import { pickDistractors } from "./distractors.ts";
+import { regionGroups } from "./groups.ts";
+import { mapOutlines, mapRegionPieces, parseMapRings } from "./outlines.ts";
+import { findQuestion } from "./quiz.ts";
+import { seededRandom } from "./random.ts";
 import type { ChizuMap } from "./types.ts";
 
 /**
@@ -110,6 +114,13 @@ describe("the world", () => {
     expect(get("GB").nameShortJa).toBeUndefined();
   });
 
+  it("keeps Russia in Europe and Cyprus and Timor-Leste in Asia, as UN M49 does, where kuni 1.0.0 does not", () => {
+    for (const [code, entry] of Object.entries(CONTINENT_OVERRIDES)) {
+      const country = CHIZU_COUNTRIES.find((one) => one.code === code)!;
+      expect(country.group, code).toBe({ EU: "Europe", AS: "Asia" }[entry.continent]);
+    }
+  });
+
   it("is grouped by continent, in the order a directory reads them", () => {
     const groups = [...new Set(world.regions.map((region) => region.group))];
     expect(groups).toEqual(["Asia", "Europe", "Africa", "North America", "South America", "Oceania"]);
@@ -142,11 +153,20 @@ describe("the table of countries", () => {
         unknown.push(country.code);
         continue;
       }
-      expect([country.name, country.nameJa, country.iso3], country.code).toEqual([known.name.en, known.name.ja, known.alpha3]);
-      if (country.nameShortJa !== undefined) expect(country.nameShortJa, country.code).toBe(known.shortName?.ja);
+      // The map prints kuni's short English name where it has one, but for the abbreviations and the names written here, each with its reason.
+      const display = DISPLAY_NAMES[country.code];
+      const printed = display?.name ?? (known.shortName?.en && !SHORT_ENGLISH_NOT_FOR_MAPS[country.code] ? known.shortName.en : known.name.en);
+      expect([country.name, country.nameJa, country.iso3], country.code).toEqual([printed, known.name.ja, known.alpha3]);
+      if (country.nameShortJa !== undefined) expect(country.nameShortJa, country.code).toBe(display?.nameShortJa ?? known.shortName?.ja);
       expect(country.reading, country.code).toBeTruthy();
     }
     expect(unknown.sort()).toEqual(["ATC", "IOA", "KAS"]);
+    // No name on a map carries a bracket or CLDR's " - " or "SAR".
+    for (const country of CHIZU_COUNTRIES) {
+      expect(country.name, country.code).not.toMatch(/ - |SAR|[(（]/u);
+      expect(country.nameShortJa ?? country.nameJa, country.code).not.toMatch(/[(（]/u);
+    }
+    for (const entry of Object.values(DISPLAY_NAMES)) expect(entry.why.length).toBeGreaterThan(20);
     expect(CHIZU_SOURCE.names).toEqual({ name: "kuni", package: KUNI.package, version: KUNI.version, licence: expect.stringContaining("MIT") });
   });
 
@@ -329,24 +349,52 @@ describe("Japan's prefectures", () => {
     // Amami Ōshima, Kikai, Tokunoshima, Okinoerabu and Yoron, and the Tokara Islands, in the box; Kyushu's part and Yakushima out of it.
     expect(rings.filter((ring) => inBox(ring, kagoshima.box)).length).toBeGreaterThanOrEqual(11);
     expect(rings.filter((ring) => !inBox(ring, kagoshima.box)).length).toBeGreaterThanOrEqual(5);
-    expect(map.insets.map((inset) => inset.code).sort()).toEqual(["13", "46", "47"]);
+    expect(map.insets.map((inset) => inset.code).sort()).toEqual(["13", "13", "13", "46", "47", "47", "47"]);
   });
 
-  it("draws all of Okinawa in its box, and Tokyo's far islands in theirs", async () => {
+  /* Okinawa is three boxes (its main islands, the Sakishima Islands, the Daito Islands) and Tokyo's far islands three more, each holding its own islands at a size they can be seen at. */
+  it("draws every piece of Okinawa in one of its boxes, and Tokyo's far islands in theirs, each box filled by what it holds", async () => {
     const map = await japan();
-    const outlines = mapOutlines(map);
     for (const code of ["47", "13"]) {
-      const inset = map.insets.find((entry) => entry.code === code)!;
-      const rings = outlines[map.regions.findIndex((region) => region.code === code)]!.rings;
-      const boxed = rings.filter((ring) => ring.minX >= inset.box.x - 1 && ring.maxX <= inset.box.x + inset.box.width + 1 && ring.minY >= inset.box.y - 1);
-      if (code === "47") expect(boxed.length).toBe(rings.length);
-      else expect(boxed.length).toBeGreaterThanOrEqual(10);
+      const region = map.regions.find((entry) => entry.code === code)!;
+      const boxes = map.insets.filter((inset) => inset.code === code);
+      const pieces = mapRegionPieces(region, boxes);
+      const boxed = pieces.filter((piece) => piece.transform !== null);
+      expect(boxed, code).toHaveLength(3);
+      if (code === "47") expect(pieces.every((piece) => piece.transform !== null)).toBe(true);
+      else expect(pieces.filter((piece) => piece.transform === null)).toHaveLength(1);
+      boxed.forEach((piece, index) => {
+        const rings = parseMapRings(piece.d, piece.transform);
+        const box = boxes[index]!.box;
+        const width = Math.max(...rings.map((ring) => ring.maxX)) - Math.min(...rings.map((ring) => ring.minX));
+        const height = Math.max(...rings.map((ring) => ring.maxY)) - Math.min(...rings.map((ring) => ring.minY));
+        // What a box holds fills it on one side at least: a box no bigger than its contents need.
+        expect(Math.max(width / box.width, height / box.height), `${code} box ${index}`).toBeGreaterThan(0.9);
+      });
     }
+    // Okinawa's main island is a shape, not a speck: over a hundred units tall on a canvas a thousand across.
+    const okinawa = mapRegionPieces(map.regions.find((entry) => entry.code === "47")!, map.insets.filter((inset) => inset.code === "47"))[0]!;
+    const tallest = Math.max(...parseMapRings(okinawa.d, okinawa.transform).map((ring) => ring.maxY - ring.minY));
+    expect(tallest).toBeGreaterThan(100);
   });
 
   it("is about the size of the other countries' maps", async () => {
     const bytes = JSON.stringify(await japan()).length;
     expect(bytes).toBeGreaterThan(100_000);
     expect(bytes).toBeLessThan(400_000);
+  });
+});
+
+describe("a piece drawn but not named", () => {
+  /* Natural Earth draws a 38 km² piece of the Yamal coast with no name or code: it stays in the drawing, so the coast has no hole, and is never asked about. */
+  it("is drawn, but never asked about, offered as a look-alike, or counted in a group", async () => {
+    const russia = (await DIVISIONS_LOADERS.ru!()).default;
+    const piece = russia.regions.find((region) => region.code === "X01~")!;
+    expect(piece.unnamed).toBe(true);
+    expect(piece.path.length).toBeGreaterThan(10);
+    expect(findQuestion(russia, "X01~", seededRandom(1))).toBeNull();
+    for (const region of russia.regions) expect(pickDistractors(russia, region.code, { count: 5 }), region.code).not.toContain("X01~");
+    expect(regionGroups(russia).flatMap((group) => group.codes)).not.toContain("X01~");
+    expect(russia.regions.filter((region) => region.unnamed)).toHaveLength(1);
   });
 });

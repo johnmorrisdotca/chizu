@@ -459,6 +459,55 @@ export const CONTINENT_NAMES = { AF: "Africa", AN: "Antarctica", AS: "Asia", EU:
  */
 export const SHORT_NAMES_NOT_EVERYDAY = new Set(["GB"]);
 
+/*
+ * THE NAME A MAP PRINTS. A country is printed with kuni's short English name where kuni has one (Bosnia, Hong Kong,
+ * Myanmar, Palestine), but for these two, whose short forms are abbreviations rather than names a map prints.
+ */
+export const SHORT_ENGLISH_NOT_FOR_MAPS = {
+  US: "kuni's short form is “US”, an abbreviation; the map prints United States",
+  GB: "kuni's short form is “UK”, an abbreviation; the map prints United Kingdom",
+};
+
+/*
+ * Names kuni 1.0.0 writes for a list rather than a map, with no short form to use instead: the name the map prints
+ * (`name`, and `nameShortJa` with its `reading`), and why. Kept here until kuni has short forms for them.
+ */
+export const DISPLAY_NAMES = {
+  CD: {
+    name: "DR Congo",
+    nameShortJa: "コンゴ民主共和国",
+    reading: "こんごみんしゅきょうわこく",
+    why: "kuni 1.0.0 (CLDR) writes “Congo - Kinshasa” and コンゴ民主共和国(キンシャサ), names that tell the two Congos apart in a list, and has no short form",
+  },
+  CG: {
+    name: "Republic of the Congo",
+    nameShortJa: "コンゴ共和国",
+    reading: "こんごきょうわこく",
+    why: "kuni 1.0.0 (CLDR) writes “Congo - Brazzaville” and コンゴ共和国(ブラザビル), names that tell the two Congos apart in a list, and has no short form",
+  },
+  MM: {
+    nameShortJa: "ミャンマー",
+    reading: "ミャンマー",
+    why: "kuni 1.0.0 (CLDR) writes ミャンマー (ビルマ) with the old name in brackets, and has no short Japanese form",
+  },
+  CC: {
+    nameShortJa: "ココス諸島",
+    reading: "ここすしょとう",
+    why: "kuni 1.0.0 (CLDR) writes ココス(キーリング)諸島 with the second name in brackets; its short English form is Cocos Islands, and this is that name in Japanese",
+  },
+};
+
+/*
+ * CONTINENTS kuni 1.0.0 places where UN M49 does not, kept where M49 and Chizu 1.0 put them until a kuni that follows
+ * M49 can be pinned (kuni 1.1.0 is to): Russia in Europe (M49's Eastern Europe, and where a Japanese school teaches
+ * it), Cyprus in Asia (Western Asia), Timor-Leste in Asia (South-eastern Asia).
+ */
+export const CONTINENT_OVERRIDES = {
+  RU: { continent: "EU", why: "UN M49 places Russia in Eastern Europe; kuni 1.0.0 has Asia" },
+  CY: { continent: "AS", why: "UN M49 places Cyprus in Western Asia; kuni 1.0.0 has Europe" },
+  TL: { continent: "AS", why: "UN M49 places Timor-Leste in South-eastern Asia; kuni 1.0.0 has Oceania" },
+};
+
 /** How the names of continents and subregions that kuni writes with kanji are read. */
 export const GROUP_READINGS = {
   南極: "なんきょく",
@@ -616,6 +665,8 @@ export const KUNI_NAMES_KEPT_FROM_NATURAL_EARTH = {
  * there are two) or where the region is not the ISO subdivision kuni names. Keyed like ISO_JOIN.
  */
 export const NAME_FIXES = {
+  // Drawn, so the coast has no hole, but not named: no quiz asks about it and no list shows it (`unnamed`).
+  "RU:X01~": { name: "Unnamed piece of the Yamal coast", unnamed: true },
   // County Dublin's four councils and the county councils that share a code with a city: kuni names Ireland's counties 州.
   "IE:D": { name: "Dublin City", nameJa: "ダブリン市" },
   "IE:D_3": { nameJa: "フィンガル" },
@@ -639,13 +690,15 @@ export const NAME_FIXES = {
  *
  * The eight regions (地方) a Japanese school teaches, by prefecture number, for `group`: the look-alikes a quiz
  * offers come from the same region first. Okinawa is counted in Kyushu, as the eight-region division counts it.
+ * Kinki (近畿) is the region's official name; Kansai (関西), the name it goes by in speech, is carried beside it in
+ * `groupAliases`, so a search or an answer finds it by either.
  */
 export const JAPAN_GROUPS = [
   ["Hokkaido", "北海道地方", 1, 1],
   ["Tohoku", "東北地方", 2, 7],
   ["Kanto", "関東地方", 8, 14],
   ["Chubu", "中部地方", 15, 23],
-  ["Kinki", "近畿地方", 24, 30],
+  ["Kinki", "近畿地方", 24, 30, ["Kansai", "関西地方", "関西", "近畿"]],
   ["Chugoku", "中国地方", 31, 35],
   ["Shikoku", "四国地方", 36, 39],
   ["Kyushu", "九州地方", 40, 47],

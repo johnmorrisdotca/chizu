@@ -8,7 +8,7 @@ test("the demo opens on Japan's 47 prefectures, with Okinawa and the far islands
   const errors = await open(page);
   await expect(svg(page)).toHaveAttribute("data-map", "divisions-jp");
   await expect(page.locator(`${at("board")} .cz-region`)).toHaveCount(47);
-  await expect(page.locator(`${at("board")} .cz-inset`)).toHaveCount(3);
+  await expect(page.locator(`${at("board")} .cz-inset`)).toHaveCount(7);
   await expect(page.locator("#names tbody tr")).toHaveCount(47);
   await expect(page.locator(at("map"))).toHaveValue("divisions:jp");
   await noSidewaysScroll(page);
@@ -47,7 +47,7 @@ test("the table finds a prefecture by its name, its reading in either kana, or i
 test("a part of Japan is one of its eight regions: the map frames it and fades the rest, and the list keeps to it", async ({ page }) => {
   await open(page);
   const options = await page.locator(`${at("part")} option`).allTextContents();
-  expect(options).toEqual(["All of it", "Hokkaido (1)", "Tohoku (6)", "Kanto (7)", "Chubu (9)", "Kinki (7)", "Chugoku (5)", "Shikoku (4)", "Kyushu (8)"]);
+  expect(options).toEqual(["All of it", "Hokkaido (1)", "Tohoku (6)", "Kanto (7)", "Chubu (9)", "Kinki (Kansai) (7)", "Chugoku (5)", "Shikoku (4)", "Kyushu (8)"]);
   await page.locator(at("part")).selectOption("Kanto");
   await expect(page.locator("#names tbody tr")).toHaveCount(7);
   await expect(region(page, "13")).not.toHaveClass(/cz-tone-faint/);
@@ -57,4 +57,33 @@ test("a part of Japan is one of its eight regions: the map frames it and fades t
   // A quiz of the part asks only about it.
   await page.locator(`${at("modes")} button[data-value="quiz"]`).click();
   for (const code of await page.locator(`${at("choices")} button`).evaluateAll((all) => all.map((button) => button.dataset.code))) expect(["8", "9", "10", "11", "12", "13", "14"]).toContain(code);
+});
+
+test("the place card keeps one height, chosen or not, and its parts and neighbours are a row of chips", async ({ page }) => {
+  await open(page);
+  const card = page.locator(at("info"));
+  const before = (await card.boundingBox()).height;
+  await expect(page.locator(at("info-name"))).toHaveText("Japan: 47 places");
+  // With nothing chosen, the map's parts are there to press.
+  await page.locator(`${at("info")} button[data-part="Kanto"]`).click();
+  await expect(page.locator(at("part"))).toHaveValue("Kanto");
+  await expect(page.locator("#names tbody tr")).toHaveCount(7);
+  await page.locator("#names tbody tr[data-code='13']").click();
+  await expect(page.locator(at("info-name"))).toHaveText("Tokyo · 東京都");
+  expect(Math.abs((await card.boundingBox()).height - before)).toBeLessThan(0.5);
+  const chip = page.locator(`${at("info")} button[data-code="11"]`);
+  await expect(chip).toBeVisible();
+  await page.locator("#names tbody tr[data-code='14']").click();
+  expect(Math.abs((await card.boundingBox()).height - before)).toBeLessThan(0.5);
+});
+
+test("Kinki is found by its other name, Kansai or 関西, in the list and in an address", async ({ page }) => {
+  await open(page, "?part=Kansai");
+  await expect(page.locator(at("part"))).toHaveValue("Kinki");
+  await expect(page.locator(`${at("part")} option[value="Kinki"]`)).toHaveText("Kinki (Kansai) (7)");
+  await open(page);
+  await page.locator(at("filter")).fill("関西");
+  await expect(page.locator("#names tbody tr")).toHaveCount(7);
+  await page.locator(at("filter")).fill("kansai");
+  await expect(page.locator("#names tbody tr")).toHaveCount(7);
 });
