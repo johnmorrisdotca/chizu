@@ -31,8 +31,8 @@ const params = new URLSearchParams(location.search);
 const MODES = ["explore", "quiz", "callouts", "colour"];
 const STYLES = ["choose", "type", "kana", "find", "water"];
 /** What the Features switch draws: nothing, the water, or everything named. */
-const FEATURE_MODES = ["off", "water", "all"];
-const FEATURE_CHOICES = { off: [], water: ["water"], all: ["all"] };
+const FEATURE_MODES = ["off", "water", "capitals", "all"];
+const FEATURE_CHOICES = { off: [], water: ["water"], capitals: ["capitals"], all: ["all"] };
 const WATER = new Set(["marine", "lakes", "rivers"]);
 const ROUND = 10;
 /** The deepest zoom step a quiz question is shown at. */

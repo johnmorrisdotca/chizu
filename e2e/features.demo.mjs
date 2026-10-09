@@ -18,12 +18,20 @@ async function pointOnFeature(page, code) {
     let best = null;
     for (const path of group.querySelectorAll("path")) {
       const box = path.getBoundingClientRect();
-      for (let i = 1; i < 30; i += 1) {
-        for (let j = 1; j < 30; j += 1) {
-          const x = box.left + (box.width * i) / 30;
-          const y = box.top + (box.height * j) / 30;
+      const candidates = [];
+      for (let i = 1; i < 30; i += 1) for (let j = 1; j < 30; j += 1) candidates.push([box.left + (box.width * i) / 30, box.top + (box.height * j) / 30]);
+      // A river is a line: points along it, too, since a grid over its box may never land on it.
+      const length = path.getTotalLength();
+      const ctm = path.getScreenCTM();
+      for (let k = 1; k < 200; k += 1) {
+        const at = path.getPointAtLength((length * k) / 200);
+        const screen = new window.DOMPoint(at.x, at.y).matrixTransform(ctm);
+        candidates.push([screen.x, screen.y]);
+      }
+      for (const [x, y] of candidates) {
+        {
           // Inside the map, on the screen, and clear of the zoom buttons in its bottom-right corner.
-          if (x < stage.left + 4 || x > stage.right - 4 || y < stage.top + 4 || y > Math.min(stage.bottom, innerHeight) - 4 || (x > stage.right - 64 && y > stage.bottom - 180)) continue;
+          if (x < stage.left + 4 || x > stage.right - 4 || y < stage.top + 4 || y > Math.min(stage.bottom, window.innerHeight) - 4 || (x > stage.right - 64 && y > stage.bottom - 180)) continue;
           if (!hits(x, y)) continue;
           // The point with the most of the feature round it, so a finger's tap lands on it too.
           let room = 0;
@@ -40,7 +48,9 @@ async function press(page, code, testInfo) {
   await page.locator(`${at("board")} .czm-stage`).scrollIntoViewIfNeeded();
   const point = await pointOnFeature(page, code);
   expect(point, `a point on ${code}`).not.toBeNull();
-  if (testInfo.project.use.hasTouch === true) await page.touchscreen.tap(point.x, point.y);
+  // A river a few pixels wide is pressed with the mouse: WebKit moves a finger's tap to the nearest thing it thinks is meant.
+  const line = (await feature(page, code).getAttribute("data-group")) === "rivers";
+  if (testInfo.project.use.hasTouch === true && !line) await page.touchscreen.tap(point.x, point.y);
   else await page.mouse.click(point.x, point.y);
 }
 
@@ -109,14 +119,20 @@ test("in Japanese the features are named and read in Japanese", async ({ page })
 });
 
 test("the water quiz names a sea, a lake or a river, draws the water with no names on it, and a press answers", async ({ page }, testInfo) => {
-  const errors = await open(page, "?map=world&mode=quiz&style=water&seed=4");
-  await expect(page.locator(at("question"))).toContainText("Press it on the map");
-  await expect(page.locator(`${at("board")} .cz-feature[data-group="marine"]`).first()).toBeAttached();
+  // A round whose first question is a sea, which a finger can press on a phone's whole world.
+  let errors = [];
+  let code = null;
+  for (let seed = 1; seed <= 20 && code === null; seed += 1) {
+    errors = await open(page, `?map=world&mode=quiz&style=water&seed=${seed}`);
+    await expect(page.locator(at("question"))).toContainText("Press it on the map");
+    const name = /^Where is (.+) \(/.exec(await page.locator(at("question")).textContent())[1];
+    const asked = await page.locator(`${at("board")} .cz-feature`).evaluateAll((groups, wanted) => groups.find((group) => group.querySelector("title")?.textContent === wanted), name);
+    expect(asked, name).not.toBeUndefined();
+    const found = await page.locator(`${at("board")} .cz-feature`).evaluateAll((groups, wanted) => groups.find((group) => group.querySelector("title")?.textContent === wanted)?.dataset, name);
+    if (found.group === "marine") code = found.code;
+  }
+  expect(code).not.toBeNull();
   await expect(page.locator(`${at("board")} .cz-feature-label`)).toHaveCount(0);
-  const question = await page.locator(at("question")).textContent();
-  const name = /^Where is (.+) \(/.exec(question)[1];
-  const code = await page.locator(`${at("board")} .cz-feature`).evaluateAll((groups, wanted) => groups.find((group) => group.querySelector("title")?.textContent === wanted)?.dataset.code, name);
-  expect(code, name).toBeTruthy();
   await press(page, code, testInfo);
   await expect(page.locator(at("question"))).toHaveAttribute("data-result", "right");
   await expect(feature(page, code)).toHaveAttribute("data-tone", "correct");
@@ -148,4 +164,14 @@ test("the world's water is drawn at every zoom with lines the same width on the 
   await expect(page.locator(`${at("board")} .czm-stage`)).toHaveAttribute("data-zoom", "2");
   await expect(page.locator(`${at("board")} .cz-feature[data-group="rivers"]`).first()).toBeAttached();
   await noSidewaysScroll(page);
+});
+
+test("the capitals switch marks a country's capital and its regions' seats, and Naha is drawn in Okinawa's box", async ({ page }, testInfo) => {
+  await open(page, "?map=divisions:jp");
+  await tap(page, `${at("features")} button[data-value="capitals"]`, testInfo);
+  await expect(feature(page, "capital-JP")).toHaveAttribute("data-kind", "capital");
+  await expect(page.locator(`${at("board")} .cz-feature[data-kind="seat"]`)).toHaveCount(46);
+  await expect(page.locator(`${at("board")} .cz-feature[data-group="marine"]`)).toHaveCount(0);
+  const [naha, box] = await Promise.all([feature(page, "seat-JP-47").boundingBox(), page.locator(`${at("board")} .cz-inset[data-code="47"]`).first().boundingBox()]);
+  expect(naha.x >= box.x && naha.x + naha.width <= box.x + box.width && naha.y >= box.y && naha.y + naha.height <= box.y + box.height).toBe(true);
 });
