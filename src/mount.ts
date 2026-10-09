@@ -1,8 +1,9 @@
 import { drawChizu, type ChizuDrawOptions } from "./draw.ts";
+import type { ChizuFeatureChoice } from "./features.ts";
 import { boxCentre, focusRegionFit, MAP_ZOOM_LEVELS, stepMapZoom, wholeMapBox, zoomBox, zoomToFit, type MapZoom } from "./frame.ts";
 import { CHIZU_MAP_STYLE } from "./mountStyle.ts";
 import { chizuSay, nameOf, type ChizuLanguage } from "./strings.ts";
-import type { ChizuMap, MapBox } from "./types.ts";
+import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapAcross, wrapOffsets } from "./wrap.ts";
 
 /**
@@ -51,6 +52,16 @@ export type ChizuMountOptions = {
   detailFrom?: MapZoom;
   /** The view changed: after a zoom, and when a drag ends. */
   onView?: (view: ChizuView) => void;
+  /** Which named features to draw (`drawChizu`'s `features`): `["water"]`, `["all"]`, a group or a kind. Default none. */
+  features?: readonly ChizuFeatureChoice[];
+  /**
+   * The map's named features: a layer (`loadFeatures(map.id)`), or `loadFeatures` itself, which is called with each
+   * map's id the first time its features are wanted, so a page that changes maps fetches each map's once. A feature can
+   * then be pressed, chosen (`select`, `selected`) and shown (`show`) by its code, as a region is.
+   */
+  featureLayer?: ChizuFeatureLayer | null | ((mapId: string) => Promise<ChizuFeatureLayer | null>);
+  /** Print the features' names. Default true. */
+  featureLabels?: boolean;
 };
 
 /**
@@ -95,6 +106,8 @@ export type ChizuMount = {
   reset(): void;
   /** Where the map is looking now. */
   view(): ChizuView;
+  /** The features of the map shown now, once they are here; null before, and for a map with none. */
+  featureLayer(): ChizuFeatureLayer | null;
   /** Take it out of the page. */
   destroy(): void;
 };
@@ -204,7 +217,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       b.title = chizuSay(lang, key);
     }
     level.textContent = chizuSay(lang, "zoomLevel", { n: zoom });
-    const chosen = options.selected ? map.regions.find((region) => region.code === options.selected) : undefined;
+    const chosen = options.selected ? frameable().regions.find((region) => region.code === options.selected) : undefined;
     says.textContent = chosen ? chizuSay(lang, "selected", { name: nameOf(chosen, lang) }) : chizuSay(lang, "none");
     zoomIn.b.disabled = zoom >= MAP_ZOOM_LEVELS[MAP_ZOOM_LEVELS.length - 1]!;
     zoomOut.b.disabled = zoom <= MAP_ZOOM_LEVELS[0]!;
@@ -234,6 +247,47 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     return map;
   }
 
+  /** Each map's features, by its id, once fetched; and the chosen feature that waits for them to frame it. */
+  const layers = new Map<string, ChizuFeatureLayer | null>();
+  const asking = new Set<string>();
+  let waitingToFrame: string | null = null;
+  function layer(): ChizuFeatureLayer | null {
+    const wanted = options.featureLayer;
+    if (!wanted) return null;
+    if (typeof wanted !== "function") return wanted.map === map.id ? wanted : null;
+    const id = map.id;
+    if (layers.has(id)) return layers.get(id) ?? null;
+    const needed = (options.features?.length ?? 0) > 0 || waitingToFrame !== null;
+    if (needed && !asking.has(id)) {
+      asking.add(id);
+      wanted(id).then(
+        (loaded) => {
+          asking.delete(id);
+          layers.set(id, loaded && loaded.map === id ? loaded : null);
+          if (map.id !== id) return;
+          if (waitingToFrame !== null && options.selected === waitingToFrame) {
+            const fit = focusRegionFit(frameable(), waitingToFrame);
+            waitingToFrame = null;
+            if (fit) {
+              zoom = fit.zoom;
+              centre = fit.centre;
+              clampNext = false;
+            }
+            changed();
+          }
+          draw();
+        },
+        () => asking.delete(id),
+      );
+    }
+    return null;
+  }
+  /** The map with its features among its regions, for framing, choosing and naming: a feature's code is never a region's. */
+  function frameable(): ChizuMap {
+    const loaded = layer();
+    return loaded ? { ...map, regions: [...map.regions, ...loaded.features] } : map;
+  }
+
   /** The corner the buttons sit in, in the map's own units, so that numbered callouts keep out from under them. */
   function callouts(window_: MapBox): ChizuDrawOptions["callouts"] {
     const wanted = options.callouts;
@@ -250,7 +304,16 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     const window_ = box();
     drawnOffsets = (mapWrapsAround(map) ? wrapOffsets(window_, map.width) : [0]).join(",");
     const drawing = shown();
-    stage.innerHTML = drawChizu(drawing, { box: window_, language: language(), tones: tones(), callouts: callouts(window_), labels: options.labels, interactive: true });
+    const features = layer();
+    stage.innerHTML = drawChizu(drawing, {
+      box: window_,
+      language: language(),
+      tones: tones(),
+      callouts: callouts(window_),
+      labels: options.labels,
+      interactive: true,
+      ...(features ? { features: options.features ?? [], featureLayer: { ...features, map: drawing.id }, featureLabels: options.featureLabels } : {}),
+    });
     stage.dataset.detail = String(drawing !== map);
     stage.style.aspectRatio = `${map.width} / ${map.height}`;
     stage.dataset.map = map.id;
@@ -308,6 +371,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     setMap(next) {
       map = next;
       options = { ...options, map: next, selected: null };
+      waitingToFrame = null;
       zoom = 1;
       centre = boxCentre(wholeMapBox(map));
       clampNext = true;
@@ -316,7 +380,11 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     },
     select(code) {
       options = { ...options, selected: code };
-      const fit = (options.fit ?? true) && code !== null ? focusRegionFit(map, code) : null;
+      const where = frameable();
+      const fit = (options.fit ?? true) && code !== null ? focusRegionFit(where, code) : null;
+      // A feature's code, before the features are here: framed when they come.
+      waitingToFrame = code !== null && !fit && (options.fit ?? true) && !map.regions.some((region) => region.code === code) && typeof options.featureLayer === "function" ? code : null;
+      if (waitingToFrame !== null) layer();
       if (fit) {
         zoom = fit.zoom;
         centre = fit.centre;
@@ -326,15 +394,16 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       changed();
     },
     show(codes) {
-      const rows = map.regions.filter((region) => codes.includes(region.code));
+      const where = frameable();
+      const rows = where.regions.filter((region) => codes.includes(region.code));
       if (rows.length === 1) {
-        const fit = focusRegionFit(map, rows[0]!.code);
+        const fit = focusRegionFit(where, rows[0]!.code);
         if (fit) {
           zoom = fit.zoom;
           centre = fit.centre;
         }
       } else if (rows.length > 1) {
-        const fit = zoomToFit(map, rows.map((region) => region.code));
+        const fit = zoomToFit(where, rows.map((region) => region.code));
         zoom = fit.zoom;
         centre = fit.centre;
       }
@@ -353,6 +422,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       changed();
     },
     view,
+    featureLayer: () => layer(),
     destroy() {
       stage.remove();
       says.remove();
@@ -484,7 +554,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   stage.addEventListener("keydown", key);
 
   if (options.selected) {
-    const fit = (options.fit ?? true) ? focusRegionFit(map, options.selected) : null;
+    const fit = (options.fit ?? true) ? focusRegionFit(frameable(), options.selected) : null;
     if (fit) {
       zoom = fit.zoom;
       centre = fit.centre;

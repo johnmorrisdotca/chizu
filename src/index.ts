@@ -5,7 +5,7 @@
  * `@johnmorrisdotca/chizu/world`, `/countries/<code>` and `/divisions/<code>`; the drawing is `/draw`, the
  * pan-and-zoom map in a page is `/mount`, and the names of every country are `/names`.
  */
-export type { Bounds, ChizuCountry, ChizuGroup, ChizuInset, ChizuMap, ChizuPlace, ChizuProjection, ChizuRegion, MapBox } from "./types.ts";
+export type { Bounds, ChizuCountry, ChizuFeature, ChizuFeatureGroup, ChizuFeatureKind, ChizuFeatureLayer, ChizuGroup, ChizuInset, ChizuMap, ChizuPlace, ChizuProjection, ChizuRegion, MapBox } from "./types.ts";
 export {
   MAP_ZOOM_LEVELS,
   boxCentre,
@@ -53,11 +53,13 @@ export { DISTRACTOR_SCORES, distractorScore, mapDiagonal, pickDistractors } from
 export type { DistractorOptions, Scorable } from "./distractors.ts";
 export { findQuestion } from "./quiz.ts";
 export { groupBox, groupMap, groupTones, regionGroups } from "./groups.ts";
+export { CHIZU_FEATURE_GROUPS, CHIZU_FEATURE_KINDS, featureChosen, featureMap, featuresShown, findFeatures } from "./features.ts";
+export type { ChizuFeatureChoice } from "./features.ts";
 export type { FindQuestion } from "./quiz.ts";
 export { placesFromText, splitPastedPlaces } from "./fromText.ts";
 export type { MatchOptions, PastedPlaces } from "./fromText.ts";
 export { projectPoint, unprojectPoint } from "./project.ts";
-export { CHIZU_STRINGS, chizuLanguageOf, chizuSay, nameOf } from "./strings.ts";
+export { CHIZU_STRINGS, chizuLanguageOf, chizuSay, featureKindName, nameOf } from "./strings.ts";
 export type { ChizuLanguage } from "./strings.ts";
 export { seededRandom, shuffled } from "./random.ts";
 export type { Random } from "./random.ts";

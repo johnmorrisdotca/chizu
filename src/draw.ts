@@ -1,10 +1,12 @@
+import { featureLabels, featureShapes } from "./drawFeatures.ts";
+import { featuresShown, type ChizuFeatureChoice } from "./features.ts";
 import { wholeMapBox } from "./frame.ts";
 import { insetTransformAttribute } from "./insets.ts";
 import { layoutCallouts, type CalloutRequest } from "./layout.ts";
 import { mapOutlines, mapRegionPieces } from "./outlines.ts";
 import { chizuSay, nameOf, type ChizuLanguage } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
-import type { ChizuInset, ChizuMap, MapBox } from "./types.ts";
+import type { ChizuFeature, ChizuFeatureGroup, ChizuFeatureLayer, ChizuInset, ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapOffsets } from "./wrap.ts";
 
 /**
@@ -39,6 +41,17 @@ export type ChizuDrawOptions = {
   label?: string;
   /** Put `CHIZU_STYLE` inside, so the drawing stands alone as an image. */
   style?: boolean;
+  /**
+   * Which named features to draw from `featureLayer`: `water` (seas, lakes and rivers), `all`, a group (`marine`,
+   * `landforms`, `lakes`, `rivers`, `peaks`) or a kind (`strait`). Default none, so a map without them is drawn as it
+   * always was. A feature takes a tone by its code in `tones`, like a region, and may be numbered in `callouts`; a
+   * feature given a tone is drawn whether or not its group is chosen.
+   */
+  features?: readonly ChizuFeatureChoice[];
+  /** The map's named features: `loadFeatures(map.id)`. Drawn only when its `map` is this map's id. */
+  featureLayer?: ChizuFeatureLayer | null;
+  /** Print the features' names. Default true. */
+  featureLabels?: boolean;
 };
 
 const escape = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -73,12 +86,26 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
   const outlines = mapOutlines(map);
   const offsets = mapWrapsAround(map) ? wrapOffsets(box, map.width) : [0];
   const interactive = options.interactive === true;
+  const tones = options.tones ?? {};
+  // The features chosen, and any other that is given a tone: a sea chosen from a list is drawn though its group is off.
+  const shown: ChizuFeature[] =
+    options.featureLayer && options.featureLayer.map === map.id
+      ? (() => {
+          const chosen = new Set(featuresShown(options.featureLayer, options.features ?? []));
+          return options.featureLayer.features.filter((feature) => chosen.has(feature) || tones[feature.code] !== undefined);
+        })()
+      : [];
+  const layerOf = (group: ChizuFeatureGroup) => {
+    if (!shown.some((feature) => feature.group === group)) return "";
+    const shapes = featureShapes(shown, group, box, { language, tones, interactive });
+    return offsets.map((offset) => `<g class="cz-features" data-group="${group}"${offset === 0 ? "" : ` transform="translate(${num(offset)} 0)"`}>${shapes}</g>`).join("");
+  };
   const insetOf = new Map<string, ChizuInset[]>();
   for (const inset of map.insets) insetOf.set(String(inset.code), [...(insetOf.get(String(inset.code)) ?? []), inset]);
 
   const regionGroup = (index: number) => {
     const region = map.regions[index]!;
-    const tone = options.tones?.[region.code];
+    const tone = tones[region.code];
     const pieces = mapRegionPieces(region, insetOf.get(String(region.code)) ?? null);
     const attributes = `class="cz-region${tone ? ` cz-tone-${escape(tone)}` : ""}" data-code="${escape(region.code)}"${tone ? ` data-tone="${escape(tone)}"` : ""}${interactive ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(nameOf(region, language))}"` : ""}`;
     const paths = pieces.map((piece) => `<path class="cz-land" d="${piece.d}"${piece.transform ? ` transform="${insetTransformAttribute(piece.transform)}"` : ""}/>`).join("");
@@ -119,10 +146,10 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
   let callouts = "";
   if (options.callouts) {
     const request = Array.isArray(options.callouts) ? { codes: options.callouts as readonly string[] } : (options.callouts as Omit<CalloutRequest, "box">);
-    const spots = layoutCallouts(map, { ...request, box });
+    const spots = layoutCallouts(map, { features: shown, ...request, box });
     callouts = `<g class="cz-callouts">${spots
       .map((spot) => {
-        const region = map.regions.find((entry) => entry.code === spot.code)!;
+        const region = map.regions.find((entry) => entry.code === spot.code) ?? shown.find((entry) => entry.code === spot.code) ?? { name: spot.code };
         const dx = spot.circle[0] - spot.start[0];
         const dy = spot.circle[1] - spot.start[1];
         const length = Math.hypot(dx, dy) || 1;
@@ -145,13 +172,25 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
 
   const label = options.label ?? chizuSay(language, "map", { name: language === "ja" ? (map.nameJa ?? map.name) : map.name });
   const style = options.style ? `<style>${CHIZU_STYLE}</style>` : "";
+  // A sea is drawn where it is, so the boxes a map draws its far islands in are given the plain sea again over it.
+  const boxSea = shown.some((feature) => feature.group === "marine")
+    ? map.insets.map((inset) => `<rect class="cz-inset-sea" x="${num(inset.box.x)}" y="${num(inset.box.y)}" width="${num(inset.box.width)}" height="${num(inset.box.height)}"/>`).join("")
+    : "";
+  const named = shown.length > 0 && options.featureLabels !== false ? featureLabels(shown, box, offsets, { language, tones }) : "";
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" class="chizu" viewBox="${num(box.x)} ${num(box.y)} ${num(box.width)} ${num(box.height)}" role="${interactive ? "group" : "img"}" aria-label="${escape(label)}" data-map="${escape(map.id)}">` +
     style +
     `<rect class="cz-sea" x="${num(box.x)}" y="${num(box.y)}" width="${num(box.width)}" height="${num(box.height)}"/>` +
+    layerOf("marine") +
+    boxSea +
     copies +
+    layerOf("landforms") +
+    layerOf("lakes") +
+    layerOf("rivers") +
+    layerOf("peaks") +
     frames +
     labels +
+    named +
     callouts +
     `</svg>`
   );

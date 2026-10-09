@@ -3,7 +3,7 @@ import type { CalloutKeepOut, CalloutLand } from "./calloutSpace.ts";
 import { wholeMapBox } from "./frame.ts";
 import { orderByPosition } from "./handles.ts";
 import { mapOutlines, shiftedOutlines } from "./outlines.ts";
-import type { ChizuMap, MapBox } from "./types.ts";
+import type { ChizuFeature, ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapIntoBox, wrapOffsets } from "./wrap.ts";
 
 /**
@@ -61,6 +61,12 @@ export type CalloutRequest = {
   keepOut?: CalloutKeepOut;
   /** `given` numbers the regions in the order they were asked for; `west-to-east` numbers them as they run across the map. Default `given`. */
   numbering?: "given" | "west-to-east";
+  /**
+   * Named features that may be numbered too (a layer's `features`, or `featuresShown` of it): a code in `codes` that is
+   * not a region's is looked for here, and its leader starts where its name goes, in the sea for a sea, on the line for
+   * a river. The land the circles keep off is still the map's own.
+   */
+  features?: readonly Pick<ChizuFeature, "code" | "centroid">[];
 };
 
 /**
@@ -108,8 +114,9 @@ export function layoutCallouts(map: Pick<ChizuMap, "regions" | "insets" | "width
   const entries: Array<{ item: { code: string; order: number }; centroid: [number, number] }> = [];
   for (const { code, order } of wanted) {
     const at = map.regions.findIndex((region) => String(region.code) === code);
-    if (at < 0) continue;
-    const anchor = outlines[at]!.anchor ?? map.regions[at]!.centroid;
+    const feature = at < 0 ? request.features?.find((one) => one.code === code) : undefined;
+    if (at < 0 && !feature) continue;
+    const anchor = feature ? feature.centroid : (outlines[at]!.anchor ?? map.regions[at]!.centroid);
     const x = mapWrapsAround(map) ? wrapIntoBox(anchor[0], box, map.width) : anchor[0] >= box.x && anchor[0] <= box.x + box.width ? anchor[0] : null;
     if (x === null || anchor[1] < box.y || anchor[1] > box.y + box.height) continue;
     // `x` is the copy of the canvas the window shows, which on a wrapped map is not always the one the anchor is stored in.

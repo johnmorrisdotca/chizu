@@ -1,4 +1,4 @@
-import type { ChizuRegion } from "./types.ts";
+import type { ChizuFeatureKind, ChizuRegion } from "./types.ts";
 
 /**
  * THE WORDS chizu says itself, in English and Japanese: what a screen reader hears of a drawing, and the labels on a
@@ -41,6 +41,38 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
     keys: "Drag to move, the plus and minus buttons zoom (or Ctrl and the wheel), arrow keys move, plus and minus zoom, 0 shows the whole map.",
     callout: "Number {n}: {name}",
     inset: "{name}, drawn in a box of its own",
+    feature: "{name}, {kind}",
+    "kind.ocean": "Ocean",
+    "kind.sea": "Sea",
+    "kind.gulf": "Gulf",
+    "kind.bay": "Bay",
+    "kind.strait": "Strait",
+    "kind.channel": "Channel",
+    "kind.sound": "Sound",
+    "kind.fjord": "Fjord",
+    "kind.inlet": "Inlet",
+    "kind.lagoon": "Lagoon",
+    "kind.reef": "Reef",
+    "kind.lake": "Lake",
+    "kind.reservoir": "Reservoir",
+    "kind.river": "River",
+    "kind.desert": "Desert",
+    "kind.range": "Mountain range",
+    "kind.plateau": "Plateau",
+    "kind.plain": "Plain",
+    "kind.peninsula": "Peninsula",
+    "kind.cape": "Cape",
+    "kind.basin": "Basin",
+    "kind.delta": "Delta",
+    "kind.valley": "Valley",
+    "kind.wetland": "Wetland",
+    "kind.tundra": "Tundra",
+    "kind.isthmus": "Isthmus",
+    "kind.depression": "Depression",
+    "kind.lowland": "Lowland",
+    "kind.gorge": "Gorge",
+    "kind.foothills": "Foothills",
+    "kind.peak": "Peak",
   },
   ja: {
     map: "{name}の地図",
@@ -56,6 +88,38 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
     keys: "ドラッグで動かし、プラスとマイナスのボタン（またはCtrlを押しながらホイール）で拡大縮小、矢印キーで動かし、プラスとマイナスのキーで拡大縮小、0で全体を表示します。",
     callout: "{n}番：{name}",
     inset: "{name}、別枠に描いています",
+    feature: "{name}（{kind}）",
+    "kind.ocean": "大洋",
+    "kind.sea": "海",
+    "kind.gulf": "湾",
+    "kind.bay": "湾",
+    "kind.strait": "海峡",
+    "kind.channel": "海峡",
+    "kind.sound": "湾",
+    "kind.fjord": "フィヨルド",
+    "kind.inlet": "入り江",
+    "kind.lagoon": "潟湖",
+    "kind.reef": "礁",
+    "kind.lake": "湖",
+    "kind.reservoir": "貯水池",
+    "kind.river": "川",
+    "kind.desert": "砂漠",
+    "kind.range": "山脈",
+    "kind.plateau": "高原",
+    "kind.plain": "平野",
+    "kind.peninsula": "半島",
+    "kind.cape": "岬",
+    "kind.basin": "盆地",
+    "kind.delta": "三角州",
+    "kind.valley": "谷",
+    "kind.wetland": "湿地",
+    "kind.tundra": "ツンドラ",
+    "kind.isthmus": "地峡",
+    "kind.depression": "くぼ地",
+    "kind.lowland": "低地",
+    "kind.gorge": "峡谷",
+    "kind.foothills": "山麓",
+    "kind.peak": "山",
   },
 };
 
@@ -108,4 +172,20 @@ export function chizuSay(language: ChizuLanguage, key: string, values: Record<st
  */
 export function nameOf(region: Pick<ChizuRegion, "name" | "nameJa" | "nameShortJa">, language: ChizuLanguage): string {
   return language === "ja" ? (region.nameShortJa ?? region.nameJa ?? region.name) : region.name;
+}
+
+/**
+ * What a kind of feature is called, in a language: `Sea` and 海, `Mountain range` and 山脈. From `CHIZU_STRINGS`
+ * (`kind.sea`), so a page can replace one.
+ *
+ * @example
+ * ```ts
+ * import { featureKindName } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(featureKindName("strait", "en"), featureKindName("strait", "ja"), featureKindName("range", "ja"));
+ * // Strait 海峡 山脈
+ * ```
+ */
+export function featureKindName(kind: ChizuFeatureKind, language: ChizuLanguage): string {
+  return chizuSay(language, `kind.${kind}`);
 }

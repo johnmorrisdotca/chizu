@@ -3,8 +3,8 @@
  * départements. Each is a dynamic import of a file of its own, so a bundler makes a chunk for each and a page fetches
  * only the ones it draws.
  */
-import { COUNTRY_LOADERS, DIVISIONS_LOADERS, WORLD_DETAIL_LOADER } from "./data/loaders.ts";
-import type { ChizuMap } from "./types.ts";
+import { COUNTRY_LOADERS, DIVISIONS_LOADERS, FEATURE_LOADERS, WORLD_DETAIL_LOADER } from "./data/loaders.ts";
+import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 
 /**
  * Every country that has a map of its own, by code, upper or lower case.
@@ -86,4 +86,39 @@ export async function loadDivisions(code: string): Promise<ChizuMap | null> {
  */
 export async function loadWorldDetail(): Promise<ChizuMap> {
   return (await WORLD_DETAIL_LOADER()).default;
+}
+
+/**
+ * The ids of every map that has named features of its own: the world, and each country alone or by its regions whose
+ * canvas holds a sea, a lake, a river, a landform or a peak big enough to see.
+ *
+ * @example
+ * ```ts
+ * import { FEATURE_MAPS } from "@johnmorrisdotca/chizu/load";
+ *
+ * console.log(FEATURE_MAPS.includes("world"), FEATURE_MAPS.includes("divisions-jp"), FEATURE_MAPS.includes("country-jp"));
+ * // true true true
+ * ```
+ */
+export const FEATURE_MAPS: readonly string[] = Object.keys(FEATURE_LOADERS);
+
+/**
+ * The named features of a map (its seas, lakes, rivers, landforms and peaks), drawn on its own canvas, by the map or its
+ * id: a file of its own, fetched only when asked for. `null` for a map that has none. Pass it to `drawChizu` and
+ * `mountChizu` as `featureLayer`, with `features: ["water"]` (or any group or kind) to draw them; `mountChizu` also
+ * takes this function itself, and fetches each map's layer the first time it is shown.
+ *
+ * @example
+ * ```ts
+ * import { loadFeatures } from "@johnmorrisdotca/chizu/load";
+ *
+ * const japan = (await loadFeatures("divisions-jp"))!;
+ * const seto = japan.features.find((one) => one.nameJa === "瀬戸内海")!;
+ * console.log(japan.map, seto.name, seto.kind, seto.reading, await loadFeatures("divisions-xx"));
+ * // divisions-jp Seto Inland Sea sea せとないかい null
+ * ```
+ */
+export async function loadFeatures(map: string | Pick<ChizuMap, "id">): Promise<ChizuFeatureLayer | null> {
+  const load = FEATURE_LOADERS[typeof map === "string" ? map : map.id];
+  return load ? (await load()).default : null;
 }
