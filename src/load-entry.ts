@@ -3,7 +3,7 @@
  * départements. Each is a dynamic import of a file of its own, so a bundler makes a chunk for each and a page fetches
  * only the ones it draws.
  */
-import { COUNTRY_LOADERS, DIVISIONS_LOADERS } from "./data/loaders.ts";
+import { COUNTRY_LOADERS, DIVISIONS_LOADERS, WORLD_DETAIL_LOADER } from "./data/loaders.ts";
 import type { ChizuMap } from "./types.ts";
 
 /**
@@ -65,4 +65,25 @@ export async function loadCountry(code: string): Promise<ChizuMap | null> {
 export async function loadDivisions(code: string): Promise<ChizuMap | null> {
   const load = DIVISIONS_LOADERS[code.toLowerCase()];
   return load ? (await load()).default : null;
+}
+
+/**
+ * The world drawn finer: the same 173 countries on the same canvas, in the same projection, from Natural Earth's
+ * 1:50m outlines rather than its 1:110m ones, about 1.3 MB. For `mountChizu`'s `detail`, which draws it from the
+ * fourth zoom step in, where the coarse coasts would look angular; everything else (framing, quizzes, callouts) keeps
+ * to the world itself, whose codes, names and neighbours it shares.
+ *
+ * @example
+ * ```ts
+ * import { loadWorldDetail } from "@johnmorrisdotca/chizu/load";
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ *
+ * const detail = await loadWorldDetail();
+ * const japan = (map: typeof WORLD) => map.regions.find((region) => region.code === "JP")!.path.length;
+ * console.log(detail.id, japan(detail) > japan(WORLD) * 3);
+ * // world-detail true
+ * ```
+ */
+export async function loadWorldDetail(): Promise<ChizuMap> {
+  return (await WORLD_DETAIL_LOADER()).default;
 }

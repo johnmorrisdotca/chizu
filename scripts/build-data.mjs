@@ -301,6 +301,9 @@ function millerRaw(lambda, phi) {
 }
 millerRaw.invert = (x, y) => [x, 2.5 * Math.atan(Math.exp(0.8 * y)) - 0.625 * Math.PI];
 
+/** The projection the world was fitted with, which its finer drawing is made with too. */
+let worldProjection = null;
+
 function buildWorld(collection) {
   const features = countriesFrom(collection);
   const all = { type: "FeatureCollection", features };
@@ -321,6 +324,7 @@ function buildWorld(collection) {
   // In the order a directory reads them: by continent, then by English name.
   regions.sort((a, b) => CONTINENTS.indexOf(a.group) - CONTINENTS.indexOf(b.group) || a.name.localeCompare(b.name, "en"));
   const [tx, ty] = projection.translate();
+  worldProjection = projection;
   return {
     id: "world",
     kind: "world",
@@ -335,6 +339,29 @@ function buildWorld(collection) {
     projection: { kind: "miller", centre: CENTRE_LONGITUDE, scale: keepScale(projection.scale()), translate: [keepTranslate(tx), keepTranslate(ty)] },
     insets: [],
     source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, 1:110m, Miller cylindrical centred on ${CENTRE_LONGITUDE}°E`,
+    regions,
+  };
+}
+
+/**
+ * The world again, the same countries on the same canvas in the same projection, drawn from the 1:50m countries: what
+ * a page draws when it is zoomed in far enough that the 1:110m coasts look angular (`mountChizu`'s `detail`). Only the
+ * outlines and the boxes round them are finer; the codes, names, groups and neighbours are the world's own, so a tone
+ * or a choice made on one is the same on the other.
+ */
+function buildWorldDetail(collection, world) {
+  const byCode = new Map(countriesFrom(collection).map((feature) => [feature.properties.__code, feature]));
+  const draw = geoPath(worldProjection);
+  const regions = world.regions.map((region) => {
+    const feature = byCode.get(region.code);
+    if (!feature) throw new Error(`the 1:50m countries have no ${region.code}`);
+    const { path, bbox, centroid } = regionOf(draw, feature, { name: region.name });
+    return { ...region, path, bbox, centroid };
+  });
+  return {
+    ...world,
+    id: "world-detail",
+    source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, 1:50m, on the world's canvas: the same Miller cylindrical centred on ${CENTRE_LONGITUDE}°E`,
     regions,
   };
 }
@@ -673,6 +700,26 @@ async function main() {
 `,
   );
   const onWorld = new Set(world.regions.map((r) => r.code));
+  const worldDetail = buildWorldDetail(countriesSource, world);
+  writeMap(
+    join(out, "world-detail.ts"),
+    `The world drawn finer, for a page zoomed in: ${worldDetail.regions.length} countries, ${worldDetail.source}.`,
+    worldDetail,
+    `/**
+ * The world drawn finer: the same countries, canvas and projection as the world, from the 1:50m outlines.
+ *
+ * @example
+ * \`\`\`ts
+ * import { loadWorldDetail } from "@johnmorrisdotca/chizu/load";
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ *
+ * const detail = await loadWorldDetail();
+ * console.log(detail.id, detail.viewBox === WORLD.viewBox, detail.regions.length === WORLD.regions.length);
+ * // world-detail true true
+ * \`\`\`
+ */
+`,
+  );
 
   const countries = countriesFrom(countriesSource);
   const near = neighboursBySharedPoints(countries, (feature) => feature.properties.__code);
@@ -830,6 +877,9 @@ type Load = () => Promise<{ default: ChizuMap }>;
 export const COUNTRY_LOADERS: Readonly<Record<string, Load>> = {
 ${lines(loaders.countries, "countries")}
 };
+
+/** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
+export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.ts");
 
 /** The regions of the ${loaders.divisions.length} countries that have them, by lower-case code. */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {

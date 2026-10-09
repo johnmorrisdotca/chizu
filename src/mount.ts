@@ -22,7 +22,7 @@ export type ChizuMountOptions = {
   map: ChizuMap;
   /** The language of the names and of the buttons. Default: the page's `lang`, or English. */
   language?: ChizuLanguage;
-  /** The zoom step to start at (1 to 5). Default 1. */
+  /** The zoom step to start at (1 to 10). Default 1. */
   zoom?: MapZoom;
   /** Tones by code (`drawChizu`'s `tones`). The chosen region is `selected` unless it is given a tone here. */
   tones?: Readonly<Record<string, string>>;
@@ -40,6 +40,15 @@ export type ChizuMountOptions = {
   controls?: boolean;
   /** A region was pressed (or its number): its code. Pressing the chosen one again passes null. */
   onSelect?: (code: string | null) => void;
+  /**
+   * A finer drawing of the same map, drawn from `detailFrom` in, where the map's own outlines would look angular: the
+   * world's is `loadWorldDetail` (pass the function, and it is fetched the first time it is wanted). It is used only
+   * when its `id` is the map's with `-detail` after it, so a detail left over from another map is never drawn.
+   * Framing, choosing and callouts keep to `map`. Default: none.
+   */
+  detail?: ChizuMap | (() => Promise<ChizuMap>);
+  /** The zoom step the finer drawing starts at. Default 4. */
+  detailFrom?: MapZoom;
   /** The view changed: after a zoom, and when a drag ends. */
   onView?: (view: ChizuView) => void;
 };
@@ -118,7 +127,7 @@ const KEY_STEP = 0.12;
 
 /**
  * Puts a map in an element, to look at by touch, mouse and keyboard: drag to move it, the buttons, the wheel or a pinch to
- * zoom in five steps, a press to choose a region, the arrow keys and plus and minus. The world wraps: it pans east and
+ * zoom in ten steps, a press to choose a region, the arrow keys and plus and minus. The world wraps: it pans east and
  * west without stopping. Every part of it is the package's own drawing (`drawChizu`) in the page's own DOM, with no shadow
  * DOM and nothing the page's style cannot reach.
  *
@@ -202,6 +211,29 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     whole.b.disabled = zoom <= MAP_ZOOM_LEVELS[0]! && !mapWrapsAround(map);
   }
 
+  /** The finer drawing, once it is here: fetched the first time a zoom wants it, then drawn. */
+  let detailed: ChizuMap | null = null;
+  let fetching: unknown = null;
+  function shown(): ChizuMap {
+    const wanted = options.detail;
+    if (!wanted || zoom < (options.detailFrom ?? 4)) return map;
+    if (typeof wanted !== "function") return wanted.id === `${map.id}-detail` ? wanted : map;
+    if (detailed && detailed.id === `${map.id}-detail`) return detailed;
+    if (fetching !== wanted) {
+      fetching = wanted;
+      wanted().then(
+        (loaded) => {
+          detailed = loaded;
+          if (loaded.id === `${map.id}-detail` && zoom >= (options.detailFrom ?? 4)) draw();
+        },
+        () => {
+          fetching = null;
+        },
+      );
+    }
+    return map;
+  }
+
   /** The corner the buttons sit in, in the map's own units, so that numbered callouts keep out from under them. */
   function callouts(window_: MapBox): ChizuDrawOptions["callouts"] {
     const wanted = options.callouts;
@@ -217,7 +249,9 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   function draw() {
     const window_ = box();
     drawnOffsets = (mapWrapsAround(map) ? wrapOffsets(window_, map.width) : [0]).join(",");
-    stage.innerHTML = drawChizu(map, { box: window_, language: language(), tones: tones(), callouts: callouts(window_), labels: options.labels, interactive: true });
+    const drawing = shown();
+    stage.innerHTML = drawChizu(drawing, { box: window_, language: language(), tones: tones(), callouts: callouts(window_), labels: options.labels, interactive: true });
+    stage.dataset.detail = String(drawing !== map);
     stage.style.aspectRatio = `${map.width} / ${map.height}`;
     stage.dataset.map = map.id;
     stage.dataset.zoom = String(zoom);

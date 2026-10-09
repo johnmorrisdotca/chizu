@@ -119,8 +119,8 @@ describe("the README's promises", () => {
 
   it("states the limits as the code has them", () => {
     const limits = section("Limits");
-    expect(limits).toContain(`five steps, ${MAP_ZOOM_LEVELS[0]}× to ${MAP_ZOOM_LEVELS.at(-1)}×`);
-    expect(MAP_ZOOM_LEVELS).toHaveLength(5);
+    expect(limits).toContain(`ten steps, ${MAP_ZOOM_LEVELS[0]}× to ${MAP_ZOOM_LEVELS.at(-1)}×`);
+    expect(MAP_ZOOM_LEVELS).toHaveLength(10);
     expect(limits).toContain(`${world.regions.length} countries on a canvas ${world.width.toLocaleString("en-US")} wide and ${world.height} tall`);
     expect(limits).toContain(`| Countries alone | ${CHIZU_COUNTRIES.length},`);
     expect(limits).toContain(`| Countries with regions | ${Object.keys(DIVISIONS_LOADERS).length} |`);

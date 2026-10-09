@@ -249,6 +249,9 @@ export const COUNTRY_LOADERS: Readonly<Record<string, Load>> = {
   ag: () => import("./countries/ag.ts"),
 };
 
+/** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
+export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.ts");
+
 /** The regions of the 32 countries that have them, by lower-case code. */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   ar: () => import("./divisions/ar.ts"),

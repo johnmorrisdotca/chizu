@@ -108,18 +108,20 @@ export function boxIsWholeMap(map: Pick<ChizuMap, "width" | "height">, box: MapB
 
 /**
  * How far in the map is drawn, as steps rather than a free zoom. A free zoom would offer a hundred framings of which a
- * few are useful: the steps are those, plus the whole map to come back to. Five, because at three a country on the
- * world is a dozen pixels across and the small ones of Europe and the Caribbean stay unpickable.
+ * few are useful: the steps are those, plus the whole map to come back to. Ten whole steps, 1× to 10×: the maps are
+ * vector outlines whose lines keep their width on the screen at any step, and at 5× a city prefecture, a ward or a
+ * country such as Luxembourg or Singapore was still a few pixels across. The first step is always 1× and the last the
+ * deepest, so code that reads `MAP_ZOOM_LEVELS[0]` and `MAP_ZOOM_LEVELS.at(-1)` for its buttons follows the ladder.
  *
  * @example
  * ```ts
  * import { MAP_ZOOM_LEVELS } from "@johnmorrisdotca/chizu";
  *
  * console.log(MAP_ZOOM_LEVELS.join(" "));
- * // 1 2 3 4 5
+ * // 1 2 3 4 5 6 7 8 9 10
  * ```
  */
-export const MAP_ZOOM_LEVELS = [1, 2, 3, 4, 5] as const;
+export const MAP_ZOOM_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
 
 /**
  *

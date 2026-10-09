@@ -80,22 +80,25 @@ test("the map chooser offers Japan first, the world, its continents, 31 other co
   await expect(page.locator(`${at("board")} .cz-region`)).toHaveCount(96);
 });
 
-test("the buttons zoom in five steps and the whole-map button comes back", async ({ page }) => {
+test("the buttons zoom in ten steps and the whole-map button comes back", async ({ page }) => {
   await open(page, "?map=divisions:us");
   const stage = page.locator(`${at("board")} .czm-stage`);
   const zoomIn = page.locator(`${at("board")} [data-action="zoom-in"]`);
   const zoomOut = page.locator(`${at("board")} [data-action="zoom-out"]`);
   const whole = page.locator(`${at("board")} [data-action="zoom-whole"]`);
   await expect(zoomOut).toBeDisabled();
-  for (const level of [2, 3, 4, 5]) {
+  for (const level of [2, 3, 4, 5, 6, 7, 8, 9, 10]) {
     await zoomIn.click();
     await expect(stage).toHaveAttribute("data-zoom", String(level));
   }
   await expect(zoomIn).toBeDisabled();
-  const [, , width5] = await viewBox(page);
-  expect(width5).toBeCloseTo(1000 / 5, 1);
+  const [, , width10] = await viewBox(page);
+  expect(width10).toBeCloseTo(1000 / 10, 1);
+  // The coastline's line is as thin at 10× as at 1×: its width does not grow with the zoom.
+  const stroke = await page.locator(`${at("board")} .cz-land`).first().evaluate((node) => getComputedStyle(node).vectorEffect);
+  expect(stroke).toBe("non-scaling-stroke");
   await zoomOut.click();
-  await expect(stage).toHaveAttribute("data-zoom", "4");
+  await expect(stage).toHaveAttribute("data-zoom", "9");
   await whole.click();
   await expect(stage).toHaveAttribute("data-zoom", "1");
   expect(await viewBox(page)).toEqual([0, 0, 1000, 740]);
@@ -185,4 +188,22 @@ test("Ctrl and the wheel zoom the map, and the wheel alone leaves the page to sc
   await page.mouse.wheel(0, -200);
   await page.keyboard.up("Control");
   await expect(stage).toHaveAttribute("data-zoom", "2");
+});
+
+test("zoomed in on the world, the coasts are drawn from the finer outlines, fetched only then", async ({ page }) => {
+  const fetched = [];
+  page.on("request", (request) => request.url().includes("world-detail") && fetched.push(request.url()));
+  await open(page, "?map=world");
+  const stage = page.locator(`${at("board")} .czm-stage`);
+  await expect(stage).toHaveAttribute("data-detail", "false");
+  expect(fetched).toEqual([]);
+  for (let step = 0; step < 3; step += 1) await page.locator(`${at("board")} [data-action="zoom-in"]`).click();
+  await expect(stage).toHaveAttribute("data-zoom", "4");
+  await expect(stage).toHaveAttribute("data-detail", "true");
+  expect(fetched).toHaveLength(1);
+  const finer = await region(page, "JP").locator(".cz-land").first().getAttribute("d");
+  await page.locator(`${at("board")} [data-action="zoom-out"]`).click();
+  await expect(stage).toHaveAttribute("data-detail", "false");
+  const coarse = await region(page, "JP").locator(".cz-land").first().getAttribute("d");
+  expect(finer.length).toBeGreaterThan(coarse.length * 3);
 });

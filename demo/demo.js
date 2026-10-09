@@ -6,7 +6,7 @@
 import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
 import { findQuestion, groupMap, groupTones, nameOf, regionGroups, seededRandom, unprojectPoint } from "./dist/index.js";
 import { drawChizu } from "./dist/draw-entry.js";
-import { loadCountry, loadDivisions } from "./dist/load-entry.js";
+import { loadCountry, loadDivisions, loadWorldDetail } from "./dist/load-entry.js";
 import { mountChizu } from "./dist/mount-entry.js";
 import world from "./dist/world-entry.js";
 import {
@@ -877,6 +877,8 @@ state.part = partsOf(state.map).find((part) => part.key === state.partKey) ?? nu
 mount = mountChizu(host, {
   map: state.map,
   language: language.lang,
+  // From 4× in, the world is drawn from the finer 1:50m outlines, fetched the first time they are wanted.
+  detail: loadWorldDetail,
   onSelect: (code) => {
     if (state.mode === "quiz") {
       if (state.quiz.style === "find" && code !== null && !state.quiz.answered) answer(code, nameIn(regionOf(code)));

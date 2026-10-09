@@ -106,7 +106,7 @@ describe("the zoom steps", () => {
 
   // Three was not enough for the world, where a country can be a dozen pixels across.
   it("goes in to five, a step at a time", () => {
-    expect([...MAP_ZOOM_LEVELS]).toEqual([1, 2, 3, 4, 5]);
+    expect([...MAP_ZOOM_LEVELS]).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
 
   it("knows its own levels", () => {

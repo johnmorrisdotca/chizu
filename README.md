@@ -76,8 +76,8 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 - **Japan's 47 prefectures**, from Natural Earth's admin-1 file, framed as a Japanese school atlas frames them: Okinawa and the Amami Islands in boxes in the Sea of Japan, Tokyo's Ogasawara Islands in a box of their own, each prefecture named and read (東京都, とうきょうと) and grouped in its region (Kanto, Kyushu).
 - **32 countries' regions**, each its own file: the prefectures of Japan, the states of the United States, Germany and Brazil, the provinces of Canada, the départements of France, the counties of Ireland, and on to Vietnam. Names in Japanese for nearly every one.
 - **ISO 3166-2 codes on the regions** (`JP-13`, `CA-ON`, `US-TX`), 1,320 of the 1,342, joined at build time from kuni 国, so a table of figures keyed by ISO code colours the map; the 22 without one are listed below with the reason.
-- **Names in English and Japanese for every country**, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time so the two packages never name a place two ways. The table of them is its own entry, 40 kB, with no outlines. Nothing of kuni's is imported at run time: Chizu still depends on nothing.
-- **Framing and zoom in five steps**, a window on a region, one tight on a shape, a square for an icon, and a fit for a group of regions. A region drawn in a box (Alaska, Hawaii, Okinawa) is framed where it is *drawn*, not out in the Pacific, and a prefecture whose far islands are boxed (Tokyo, Kagoshima) is framed on the part left in place.
+- **Names in English and Japanese for every country**, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time so the two packages never name a place two ways. The table of them, with the continents and subregions, is its own entry, 52 kB (10 kB gzipped), with no outlines. Nothing of kuni's is imported at run time: Chizu still depends on nothing.
+- **Framing and zoom in ten steps**, 1× to 10×, the lines as thin at 10× as at 1×, a window on a region, one tight on a shape, a square for an icon, and a fit for a group of regions. A region drawn in a box (Alaska, Hawaii, Okinawa) is framed where it is *drawn*, not out in the Pacific, and a prefecture whose far islands are boxed (Tokyo, Kagoshima) is framed on the part left in place.
 - **A world that goes round.** East and west never stop on the world: the canvas is drawn again either side of itself wherever the window overhangs.
 - **A callout placer.** Numbered circles in the water between and around the regions, no two leaders crossing, each crossing as little land as it can, with a slower pass for a printed sheet. The same arrangement every time.
 - **Quiz distractors.** The wrong answers for "which one is this?", tempting for a reason, the same for the same seed.
@@ -303,7 +303,7 @@ true true true
 
 ### Frame a region and fit a group
 
-A window is a box in the map's own units. `regionBox` is tight on one shape, `zoomToFit` finds the closest of the five zoom steps that holds a group, and `loadDivisions` fetches one country's regions only when they are asked for.
+A window is a box in the map's own units. `regionBox` is tight on one shape, `zoomToFit` finds the closest of the ten zoom steps that holds a group, and `loadDivisions` fetches one country's regions only when they are asked for.
 
 ```ts
 import { regionBox, zoomToFit } from "@johnmorrisdotca/chizu";
@@ -396,7 +396,7 @@ console.log(unprojectPoint(WORLD, 456, 200)!.map((n) => Math.round(n * 10) / 10)
 
 ### Every country's name, in two languages
 
-The table of countries has no outlines, so a page that only needs names loads 38 kB. `nameOf` picks the language; `reading` is the kana.
+The table of countries has no outlines, so a page that only needs names loads 52 kB (10 kB gzipped). `nameOf` picks the language; `reading` is the kana.
 
 ```ts
 import { CHIZU_COUNTRIES, countryByCode } from "@johnmorrisdotca/chizu/names";
@@ -469,6 +469,8 @@ country-ie country 238 32
 | Map | Entry | What it is | Size |
 | --- | --- | --- | --- |
 | The world | `@johnmorrisdotca/chizu/world` | 173 countries, Natural Earth at 1:110m | 170 kB |
+| The world drawn finer | `loadWorldDetail()` from `@johnmorrisdotca/chizu/load` | the same 173 countries on the same canvas, at 1:50m, for a map zoomed in (`mountChizu`'s `detail`) | 1.3 MB, fetched only when asked for |
+| The world drawn finer | `loadWorldDetail()` from `@johnmorrisdotca/chizu/load` | the same 173 countries on the same canvas, at 1:50m, for a map zoomed in (`mountChizu`'s `detail`) | 1.3 MB, fetched only when asked for |
 | A country alone | `@johnmorrisdotca/chizu/countries/<code>` or `loadCountry("<code>")` | 238 countries and territories at 1:50m (1:10m under 60,000 km²), on a canvas of their own whose longer side is 1,000 | 16 kB for Japan, 157 kB for Canada |
 | A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 32 countries, Natural Earth admin-1 at 1:10m | 203 kB for Germany, 1.8 MB for Russia |
 | Japan's prefectures | `divisions/jp` or `loadDivisions("jp")` | 47 prefectures, Natural Earth admin-1 at 1:10m, with Okinawa and the outlying islands in boxes | 186 kB |
@@ -508,7 +510,7 @@ focusBox(map, ["BY", "BW"]);                  // a window that frames these regi
 regionBox(map, "BY", 2.5);                    // tight on one shape, in a frame 2.5 times as wide as tall
 shapeGlyphBox(region.bbox);                   // a square every shape fills, for an icon
 zoomToFit(map, ["NY", "PA", "NJ"]);           // { zoom, centre }: the closest step that holds them all
-MAP_ZOOM_LEVELS;                              // [1, 2, 3, 4, 5]
+MAP_ZOOM_LEVELS;                              // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
 **Insets.** A map's `insets` list the regions it draws in a box of its own, with the box. Alaska and Hawaii are in two boxes under the lower forty-eight on the United States' map, and an inset may hold only a region's outlying islands (`outlyingBelow`) and magnify them (`magnify`). Everything that frames, outlines or numbers a map reads the list, so a region is found where it is drawn.
@@ -630,7 +632,7 @@ mount.destroy();
 | Input | What it does |
 | --- | --- |
 | Drag | moves the map; a drag past the edge stops at it (not on the world, which goes round) |
-| The `+`, `−` and `⌂` buttons | zoom in and out in five steps, and back to the whole map |
+| The `+`, `−` and `⌂` buttons | zoom in and out in ten steps, and back to the whole map |
 | Ctrl or ⌘ and the wheel, or a pinch | zoom a step about the pointer. The wheel alone scrolls the page |
 | A press | chooses a region (and a second press on it, none) |
 | Arrow keys, `+`, `-`, `0` | move, zoom, and show the whole map, with the map focused |
@@ -696,7 +698,7 @@ All of these are held by tests, and the ones with a name are exported.
 
 | Limit | Value | Where |
 | --- | --- | --- |
-| Zoom | five steps, 1× to 5× | `MAP_ZOOM_LEVELS` |
+| Zoom | ten steps, 1× to 10× | `MAP_ZOOM_LEVELS` |
 | The world | 173 countries on a canvas 1,000 wide and 489 tall | `WORLD` |
 | Countries alone | 238, on a canvas whose longer side is 1,000 | `CHIZU_COUNTRIES` |
 | Countries with regions | 32 | `DIVISIONS_CODES` |
@@ -776,6 +778,7 @@ src/
 ├── version.ts          the version
 └── data/               generated, never edited
     ├── world.ts            the world
+    ├── world-detail.ts     the world drawn finer, for a map zoomed in
     ├── countries.ts        the table of every country
     ├── loaders.ts          one import for each country's map
     ├── countries/<code>.ts   238 countries, each alone
