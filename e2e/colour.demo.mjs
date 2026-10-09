@@ -15,6 +15,9 @@ test("pasted figures shade the places they name, by code, ISO code or name in ei
   await expect(region(page, "13")).toHaveClass(/cz-tone-step[45]/);
   await expect(region(page, "47")).not.toHaveClass(/cz-tone-step/);
   await expect(page.locator(`${at("colour-legend")} li`)).toHaveCount(4);
+  // What could not be read is said in words, and nothing else is printed beside it.
+  await expect(page.locator("#colour-status")).not.toContainText("null");
+  await expect(page.locator(at("colour-bad-number"))).toContainText("Kyoto");
   await noSidewaysScroll(page);
   expect(errors).toEqual([]);
 });

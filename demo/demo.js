@@ -255,19 +255,21 @@ function renderInfo() {
   const [x, y] = region.centroid;
   const lonlat = state.map.kind === "world" ? unprojectPoint(state.map, x, y) : null;
   info.replaceChildren(
-    el("p", { class: "info-name", "data-testid": "info-name", text: say("infoName", region.name, japanese) }),
-    reading ? el("p", { class: "fam-muted", lang: "ja", "data-testid": "info-reading", text: reading }) : null,
-    region.iso ? el("p", { class: "fam-muted", "data-testid": "info-iso", text: `${say("isoCode")}: ${region.iso}` }) : null,
-    el("p", { class: "fam-muted", "data-testid": "info-group", text: `${say("group")}: ${groupIn(region)}` }),
-    lonlat ? el("p", { class: "fam-muted", text: coordinateText(lonlat[1], lonlat[0]) }) : null,
-    region.neighbors.length > 0
-      ? el(
-          "div",
-          { class: "fam-row" },
-          el("span", { class: "fam-label", text: say("touches") }),
-          ...region.neighbors.map((code) => el("button", { type: "button", class: "fam-chip", "data-code": code, text: regionOf(code) ? nameIn(regionOf(code)) : code, on: { click: () => choosePlace(code) } })),
-        )
-      : el("p", { class: "fam-muted", text: say("noNeighbours") }),
+    ...[
+      el("p", { class: "info-name", "data-testid": "info-name", text: say("infoName", region.name, japanese) }),
+      reading ? el("p", { class: "fam-muted", lang: "ja", "data-testid": "info-reading", text: reading }) : null,
+      region.iso ? el("p", { class: "fam-muted", "data-testid": "info-iso", text: `${say("isoCode")}: ${region.iso}` }) : null,
+      el("p", { class: "fam-muted", "data-testid": "info-group", text: `${say("group")}: ${groupIn(region)}` }),
+      lonlat ? el("p", { class: "fam-muted", text: coordinateText(lonlat[1], lonlat[0]) }) : null,
+      region.neighbors.length > 0
+        ? el(
+            "div",
+            { class: "fam-row" },
+            el("span", { class: "fam-label", text: say("touches") }),
+            ...region.neighbors.map((code) => el("button", { type: "button", class: "fam-chip", "data-code": code, text: regionOf(code) ? nameIn(regionOf(code)) : code, on: { click: () => choosePlace(code) } })),
+          )
+        : el("p", { class: "fam-muted", text: say("noNeighbours") }),
+    ].filter(Boolean),
   );
 }
 
@@ -729,9 +731,11 @@ function renderColour() {
     const { rows, missing, noNumber, lines } = state.figures;
     const { steps } = figureSteps(rows);
     status.replaceChildren(
-      el("p", { "data-testid": "colour-count", text: lines === 0 ? say("colourEmpty") : say("colourCount", rows.length, lines) }),
-      missing.length ? el("p", { class: "fam-error", "data-testid": "colour-missing", text: say("colourMissing", missing.join(", ")) }) : null,
-      noNumber.length ? el("p", { class: "fam-error", text: say("colourBadNumber", noNumber.join(", ")) }) : null,
+      ...[
+        el("p", { "data-testid": "colour-count", text: lines === 0 ? say("colourEmpty") : say("colourCount", rows.length, lines) }),
+        missing.length ? el("p", { class: "fam-error", "data-testid": "colour-missing", text: say("colourMissing", missing.join(", ")) }) : null,
+        noNumber.length ? el("p", { class: "fam-error", "data-testid": "colour-bad-number", text: say("colourBadNumber", noNumber.join(", ")) }) : null,
+      ].filter(Boolean),
     );
     legend.replaceChildren(...steps.map((step) => el("li", { "data-step": String(step.step) }, el("span", { class: "swatch", style: `background:${STEP_COLOURS[theme][step.step - 1]}` }), el("span", { text: `${say("colourStep", figureText(step.from, language.lang), figureText(step.to, language.lang))} (${step.count})` }))));
   }

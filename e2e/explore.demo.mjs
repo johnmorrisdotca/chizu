@@ -31,6 +31,9 @@ test("pressing a country chooses it, zooms to it and says its name in both langu
   await expect(page.locator(at("info-name"))).toHaveText("Argentina · アルゼンチン");
   // The centre of a country on the world is given as a longitude and latitude, from the map's own projection.
   await expect(page.locator(at("info"))).toContainText("Centre at");
+  // A country has no ISO 3166-2 code and an English name needs no reading: neither line is drawn, and nothing reads "null".
+  await expect(page.locator(at("info-iso"))).toHaveCount(0);
+  await expect(page.locator(at("info"))).not.toContainText("null");
 });
 
 test("in Japanese the names read Japanese first, with the reading", async ({ page }, testInfo) => {
