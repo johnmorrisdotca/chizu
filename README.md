@@ -18,7 +18,7 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
 <td align="center" valign="top">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-desk-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-desk-light.webp" alt="The demo on a desk, in English, in Callouts mode: the page header with the language chooser, five cloth patches and the Help switch, the choice of map (the whole world) and mode, the world on green felt with twenty countries numbered by white circles in the sea and a thin leader line from each circle to its country, and the start of the explanation under the map" width="600">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-desk-light.webp" alt="The demo on a desk, in English, in Callouts mode: the page header with the language chooser, five cloth patches and the Help switch, the choice of map (the whole world), part and mode, the world on green felt with twenty countries numbered by white circles in the sea and a thin leader line from each circle to its country, and the start of the explanation under the map" width="600">
 </picture>
 <br><em>The demo on a desk: the world with twenty countries numbered.</em>
 </td>
@@ -128,11 +128,17 @@ Each picture is the real map, drawn by the package and taken from [the demo](htt
 <td align="center" valign="top" width="50%">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/quiz-phone-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/quiz-phone-light.webp" alt="The demo's Quiz mode on a phone: a world map zoomed to West Africa with Guinea lit in yellow, the question Which country is lit on the map, four buttons (Sierra Leone, Guinea, Guinea-Bissau, Senegal), a disabled Next question button and the score 0 of 0" width="240">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/quiz-phone-light.webp" alt="The demo's Quiz mode on a phone: a world map at 6× with the Central African Republic lit in yellow among its neighbours, the four kinds of question with Pick a name chosen, the chips Question 1 of 10, 0 of 0, Streak 0 and Best 0, the question Which country is lit on the map, and four buttons: South Sudan, Central African Republic, Congo - Kinshasa, Chad" width="240">
 </picture>
-<br><em><strong>Quiz.</strong> One country lit and four look-alikes, from <code>findQuestion</code>; the same seed asks the same question.</em>
+<br><em><strong>Quiz.</strong> Rounds of ten from a seed, so a shared link asks the same ten; pick, type, read or find.</em>
 </td>
-<td></td>
+<td align="center" valign="top" width="50%">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/japan-desk-dark.webp">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/japan-desk-light.webp" alt="Japan's 47 prefectures in the demo's Colour mode on a desk, each of the eight regions in a colour of its own from Hokkaido in the north-east to Kyushu in the south-west, Okinawa and the Amami Islands in dashed boxes at the top left and Tokyo's far islands in one at the bottom right" width="400">
+</picture>
+<br><em><strong>Japan.</strong> The 47 prefectures coloured by region (<code>regionGroups</code>), Okinawa in its box.</em>
+</td>
 </tr>
 </table>
 
@@ -491,9 +497,7 @@ A map's canvas is `0 0 width height`, `viewBox` says so, and a region's `path` i
 
 ### ISO codes
 
-Every region of a country carries `iso`, its ISO 3166-2 code, unless ISO 3166-2 has no code for the region Natural Earth draws. The code is Natural Earth's when kuni 1.0.0 has it, and otherwise the one `ISO_JOIN` in `scripts/data-config.mjs` gives: Paris is `FR-75C` since 2019, Poland's voivodeships are numbered since 2018 (`PL-24`, Silesia), Mexico City is `MX-CMX`, New Taipei `TW-NWT`. Where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in: County Dublin's four councils are all `IE-D`, Cork City and the county council are both `IE-CO`, a district of Northern Ireland from before 2015 has the code of the district it is part of now (Derry and Strabane, `GB-DRS`). Crimea and Sevastopol, which Natural Earth draws in Russia, have the codes ISO 3166-2 gives them, `UA-43` and `UA-40`. Tests hold every region to a code or a line in that table, and every code two regions share to a line saying why.
-
-22 of the 1,342 regions have no code: Norway's counties from before 2020, which kuni 1.0.0 does not have the 2024 codes for, a county split since (Northamptonshire), a territory with none (Jervis Bay), and a few more. [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) lists every one with the reason.
+Every region of a country carries `iso`, its ISO 3166-2 code from kuni, the current one where Natural Earth's is out of date (Paris is `FR-75C`, Silesia `PL-24`); where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in (County Dublin's four councils are all `IE-D`). [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) says how each code is chosen. 22 of the 1,342 regions have no code: Norway's counties from before 2020, which kuni 1.0.0 does not have the 2024 codes for, a county split since (Northamptonshire), a territory with none (Jervis Bay), and a few more. [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) lists every one with the reason.
 
 A region that is exactly one ISO subdivision takes kuni's names, so a map and a form name a place alike; Natural Earth's are kept where kuni 1.0.0's are wrong (it writes Peterborough as "Peter" and swaps Chiayi City and County) or read worse on a map (CLDR's "Chechen" for the Chechen Republic). The rest keep Natural Earth's names, and no two regions of one map share a name in either language.
 

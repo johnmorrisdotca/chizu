@@ -20,7 +20,7 @@ await takePictures({
     {
       subject: "hero",
       views: ["desk", "phone"],
-      url: address("mode=callouts"),
+      url: address("mode=callouts&map=world"),
       height: 1000,
       ready: CALLOUTS,
       async prepare(page, { view }) {
@@ -33,9 +33,9 @@ await takePictures({
       },
     },
     // Explore: Japan chosen on the world, which is drawn with Japan in the middle and goes round without a seam.
-    { subject: "explore", views: ["desk"], url: address("mode=explore&select=JP"), ready: READY, target: board },
+    { subject: "explore", views: ["desk"], url: address("map=world&mode=explore&select=JP"), ready: READY, target: board },
     // A question: one country lit, four look-alikes to choose from.
-    { subject: "quiz", views: ["phone"], url: address("mode=quiz&seed=3"), ready: READY, async prepare(page) {
+    { subject: "quiz", views: ["phone"], url: address("map=world&mode=quiz&seed=3"), ready: READY, async prepare(page) {
         await page.waitForSelector('[data-testid="choices"] button');
         await scrollTo(board)(page);
       },
@@ -44,6 +44,8 @@ await takePictures({
     { subject: "callouts", views: ["desk"], url: address("mode=callouts&map=divisions:de"), ready: CALLOUTS, target: board },
     // The United States with Alaska and Hawaii in boxes of their own under the lower forty-eight.
     { subject: "insets", views: ["desk"], url: address("mode=explore&map=divisions:us"), ready: READY, target: board },
+    // Japan's 47 prefectures, each of the eight regions a Japanese school teaches in a colour of its own.
+    { subject: "japan", views: ["desk"], url: address("mode=colour&colour=groups"), ready: READY, target: board },
     // One country alone, from the 1:50m outlines.
     { subject: "country", views: ["phone"], url: address("mode=explore&map=country:jp"), ready: READY, target: board },
   ],
