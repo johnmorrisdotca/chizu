@@ -808,7 +808,7 @@ Please follow the [code of conduct](./CODE_OF_CONDUCT.md). A way to make the cal
 
 ## Changes
 
-See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.3.0, adds a colour for each place (`colors`), and the demo downloads every list as a Markdown table and as SQL too.
+See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.4.0, labels a seat on Japan's map 県庁所在地 and draws Alaska's and Hawaii's capitals inside their insets.
 
 ## Licence
 

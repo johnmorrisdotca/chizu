@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-10-09
+
 ### Added
 
 - **`featureKindOf(feature, language)`**: a feature's kind in words, with a word of its own in one country where the language has one. A region's seat is a 県庁所在地 (Prefectural capital) on a map of Japan's prefectures and a 行政の中心地 (Seat of government) elsewhere; the words are `kind.seat.JP` in `CHIZU_STRINGS`, and any `kind.<kind>.<COUNTRY>` is read the same way. The drawing's screen-reader labels and the demo use it.
