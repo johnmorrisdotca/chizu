@@ -1,4 +1,4 @@
-import type { ChizuFeatureKind, ChizuRegion } from "./types.ts";
+import type { ChizuFeature, ChizuFeatureKind, ChizuRegion } from "./types.ts";
 
 /**
  * THE WORDS chizu says itself, in English and Japanese: what a screen reader hears of a drawing, and the labels on a
@@ -75,6 +75,7 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
     "kind.peak": "Peak",
     "kind.capital": "Capital",
     "kind.seat": "Seat of government",
+    "kind.seat.JP": "Prefectural capital",
   },
   ja: {
     map: "{name}の地図",
@@ -124,6 +125,7 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
     "kind.peak": "山",
     "kind.capital": "首都",
     "kind.seat": "行政の中心地",
+    "kind.seat.JP": "県庁所在地",
   },
 };
 
@@ -192,4 +194,23 @@ export function nameOf(region: Pick<ChizuRegion, "name" | "nameJa" | "nameShortJ
  */
 export function featureKindName(kind: ChizuFeatureKind, language: ChizuLanguage): string {
   return chizuSay(language, `kind.${kind}`);
+}
+
+/**
+ * What a feature is called as a kind, on the map it is drawn on: `featureKindName`, except that a kind may have a word
+ * of its own in one country, written `kind.<kind>.<COUNTRY>` in `CHIZU_STRINGS` and read from the country in a seat's
+ * code (`seat-JP-47`). A region's seat is a 行政の中心地 everywhere, and a 県庁所在地 on a map of Japan's prefectures.
+ *
+ * @example
+ * ```ts
+ * import { featureKindOf } from "@johnmorrisdotca/chizu";
+ *
+ * console.log(featureKindOf({ kind: "seat", code: "seat-JP-47" }, "ja"), featureKindOf({ kind: "seat", code: "seat-US-TX" }, "ja"));
+ * // 県庁所在地 行政の中心地
+ * ```
+ */
+export function featureKindOf(feature: Pick<ChizuFeature, "kind" | "code">, language: ChizuLanguage): string {
+  const country = /^seat-([A-Z]{2})-/.exec(feature.code)?.[1];
+  const key = country ? `kind.${feature.kind}.${country}` : undefined;
+  return key && (CHIZU_STRINGS[language][key] ?? CHIZU_STRINGS.en[key]) ? chizuSay(language, key) : featureKindName(feature.kind, language);
 }

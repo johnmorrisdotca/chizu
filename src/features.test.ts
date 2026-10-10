@@ -9,7 +9,7 @@ import { placesFromText } from "./fromText.ts";
 import { layoutCallouts } from "./layout.ts";
 import { findQuestion } from "./quiz.ts";
 import { seededRandom } from "./random.ts";
-import { featureKindName } from "./strings.ts";
+import { featureKindName, featureKindOf } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 
 const layerOf = async (id: string): Promise<ChizuFeatureLayer> => (await FEATURE_LOADERS[id]!()).default;
@@ -176,5 +176,39 @@ describe("the features in a drawing", () => {
     // The boxes Okinawa is drawn in are given the plain sea again over the Sea of Japan.
     expect(drawChizu(japan, { features: ["marine"], featureLayer: layer, featureLabels: false })).toContain('class="cz-inset-sea"');
     expect(drawChizu(japan, { features: ["marine"], featureLayer: layer, featureLabels: false })).not.toContain("cz-feature-label");
+  });
+});
+
+describe("the seats of regions drawn whole in boxes of their own", () => {
+  it("puts Juneau in Alaska's box and Honolulu in Hawaii's, and every other state's seat on the map", async () => {
+    const layer = await layerOf("divisions-us");
+    const us = await mapOf("divisions-us");
+    const seats = layer.features.filter((feature) => feature.kind === "seat");
+    expect(seats).toHaveLength(50);
+    for (const [code, name] of [["AK", "Juneau"], ["HI", "Honolulu"]] as const) {
+      const seat = seats.find((feature) => feature.code === `seat-US-${code}`)!;
+      const box = us.insets.find((inset) => inset.code === code)!.box;
+      expect(seat.name).toBe(name);
+      const [x, y] = seat.centroid;
+      expect(x >= box.x && x <= box.x + box.width && y >= box.y && y <= box.y + box.height, `${name} ${seat.centroid} in ${JSON.stringify(box)}`).toBe(true);
+    }
+  });
+});
+
+describe("what a feature's kind is called on a map", () => {
+  it("calls a region's seat 県庁所在地 on a map of Japan and 行政の中心地 elsewhere", () => {
+    expect(featureKindOf({ kind: "seat", code: "seat-JP-47" }, "ja")).toBe("県庁所在地");
+    expect(featureKindOf({ kind: "seat", code: "seat-JP-47" }, "en")).toBe("Prefectural capital");
+    expect(featureKindOf({ kind: "seat", code: "seat-US-TX" }, "ja")).toBe("行政の中心地");
+    expect(featureKindOf({ kind: "seat", code: "seat-US-TX" }, "en")).toBe("Seat of government");
+    expect(featureKindOf({ kind: "capital", code: "capital-JP" }, "ja")).toBe("首都");
+    expect(featureKindOf({ kind: "lake", code: "Q200239" }, "en")).toBe("Lake");
+  });
+
+  it("is what a screen reader hears of a seat in the drawing", async () => {
+    const layer = await layerOf("divisions-jp");
+    const japan = await mapOf("divisions-jp");
+    const svg = drawChizu(japan, { features: ["capitals"], featureLayer: layer, interactive: true, language: "ja" });
+    expect(svg).toContain('aria-label="那覇市（県庁所在地）"');
   });
 });

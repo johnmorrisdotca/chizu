@@ -4,7 +4,7 @@
 // figures; and the code that draws the map as it is. Every name in English and Japanese. The working parts that need
 // no page are in tools.js; the words are in words.js.
 import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
-import { featureKindName, findFeatures, findQuestion, groupMap, groupTones, nameOf, regionGroups, seededRandom, unprojectPoint } from "./dist/index.js";
+import { featureKindName, featureKindOf, findFeatures, findQuestion, groupMap, groupTones, nameOf, regionGroups, seededRandom, unprojectPoint } from "./dist/index.js";
 import { drawChizu } from "./dist/draw-entry.js";
 import { loadCountry, loadDivisions, loadFeatures, loadWorldDetail } from "./dist/load-entry.js";
 import { mountChizu } from "./dist/mount-entry.js";
@@ -332,7 +332,7 @@ function renderFeatureInfo(feature) {
   const japanese = feature.nameJa ?? feature.name;
   const reading = feature.reading && feature.reading !== japanese ? feature.reading : null;
   const meta = [
-    el("span", { "data-testid": "info-kind", text: featureKindName(feature.kind, language.lang) }),
+    el("span", { "data-testid": "info-kind", text: featureKindOf(feature, language.lang) }),
     reading ? el("span", { lang: "ja", "data-testid": "info-reading", text: reading }) : null,
     feature.elevation !== undefined ? el("span", { text: say("elevation", feature.elevation) }) : null,
     el("span", { class: "fam-code", text: feature.code }),
@@ -362,7 +362,7 @@ function renderFeatures() {
         el("td", { text: feature.name }),
         el("td", { lang: "ja", text: feature.nameJa ?? "" }),
         el("td", { lang: "ja", text: feature.reading ?? "" }),
-        el("td", { text: featureKindName(feature.kind, language.lang) }),
+        el("td", { text: featureKindOf(feature, language.lang) }),
       ),
     ),
   );

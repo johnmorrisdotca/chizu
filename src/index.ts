@@ -59,7 +59,7 @@ export type { FindQuestion } from "./quiz.ts";
 export { placesFromText, splitPastedPlaces } from "./fromText.ts";
 export type { MatchOptions, PastedPlaces } from "./fromText.ts";
 export { projectPoint, unprojectPoint } from "./project.ts";
-export { CHIZU_STRINGS, chizuLanguageOf, chizuSay, featureKindName, nameOf } from "./strings.ts";
+export { CHIZU_STRINGS, chizuLanguageOf, chizuSay, featureKindName, featureKindOf, nameOf } from "./strings.ts";
 export type { ChizuLanguage } from "./strings.ts";
 export { seededRandom, shuffled } from "./random.ts";
 export type { Random } from "./random.ts";

@@ -6,6 +6,12 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **`featureKindOf(feature, language)`**: a feature's kind in words, with a word of its own in one country where the language has one. A region's seat is a 県庁所在地 (Prefectural capital) on a map of Japan's prefectures and a 行政の中心地 (Seat of government) elsewhere; the words are `kind.seat.JP` in `CHIZU_STRINGS`, and any `kind.<kind>.<COUNTRY>` is read the same way. The drawing's screen-reader labels and the demo use it.
+- **Alaska's and Hawaii's capitals** (Juneau and Honolulu) are drawn inside their boxes on the United States map, each projected by its own state's projection as the state is. Juneau is written in the build because kuni has no capital for Alaska. The United States' features file now has 50 seats.
+- **docs/upstream-name-issues.md** lists the names and facts that look wrong in the sources (港龍崗日, エルティシ川, the Canadian Shield as tundra, Alaska's missing capital) for fixing upstream, and says why a lagoon is 潟湖.
+
 ## [1.3.0] - 2026-10-09
 
 ### Added

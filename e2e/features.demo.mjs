@@ -175,3 +175,22 @@ test("the capitals switch marks a country's capital and its regions' seats, and 
   const [naha, box] = await Promise.all([feature(page, "seat-JP-47").boundingBox(), page.locator(`${at("board")} .cz-inset[data-code="47"]`).first().boundingBox()]);
   expect(naha.x >= box.x && naha.x + naha.width <= box.x + box.width && naha.y >= box.y && naha.y + naha.height <= box.y + box.height).toBe(true);
 });
+
+test("the capitals switch draws Juneau and Honolulu inside Alaska's and Hawaii's boxes on the United States map", async ({ page }, testInfo) => {
+  await open(page, "?map=divisions:us");
+  await tap(page, `${at("features")} button[data-value="capitals"]`, testInfo);
+  await expect(page.locator(`${at("board")} .cz-feature[data-kind="seat"]`)).toHaveCount(50);
+  for (const code of ["AK", "HI"]) {
+    const [seat, box] = await Promise.all([feature(page, `seat-US-${code}`).boundingBox(), page.locator(`${at("board")} .cz-inset[data-code="${code}"]`).first().boundingBox()]);
+    expect(seat.x >= box.x && seat.x + seat.width <= box.x + box.width && seat.y >= box.y && seat.y + seat.height <= box.y + box.height, code).toBe(true);
+  }
+});
+
+test("on a map of Japan's prefectures a seat is a 県庁所在地 in Japanese and a prefectural capital in English", async ({ page }) => {
+  await open(page, "?map=divisions:jp&lang=ja");
+  await page.locator('[data-testid="feature-find"]').fill("那覇");
+  await expect(page.locator("#feature-list tbody tr").first().locator("td").nth(3)).toHaveText("県庁所在地");
+  await open(page, "?map=divisions:jp");
+  await page.locator('[data-testid="feature-find"]').fill("Naha");
+  await expect(page.locator("#feature-list tbody tr").first().locator("td").nth(3)).toHaveText("Prefectural capital");
+});

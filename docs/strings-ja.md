@@ -54,3 +54,4 @@ open a *Fix a translation* issue with the string's name. `{name}` and the other 
 | `kind.peak` | Peak | 山 |
 | `kind.capital` | Capital | 首都 |
 | `kind.seat` | Seat of government | 行政の中心地 |
+| `kind.seat.JP` | Prefectural capital | 県庁所在地 |

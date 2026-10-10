@@ -1,4 +1,4 @@
-import { chizuSay, featureKindName, nameOf, type ChizuLanguage } from "./strings.ts";
+import { chizuSay, featureKindOf, nameOf, type ChizuLanguage } from "./strings.ts";
 import type { ChizuFeature, ChizuFeatureGroup, MapBox } from "./types.ts";
 
 /**
@@ -20,7 +20,7 @@ function attributes(feature: ChizuFeature, tone: string | undefined, interactive
   return (
     `class="cz-feature cz-${feature.group}${tone ? ` cz-tone-${escape(tone)}` : ""}" data-code="${escape(feature.code)}" data-kind="${feature.kind}" data-group="${feature.group}"` +
     (tone ? ` data-tone="${escape(tone)}"` : "") +
-    (pressable ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(chizuSay(language, "feature", { name: nameOf(feature, language), kind: featureKindName(feature.kind, language) }))}"` : "")
+    (pressable ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(chizuSay(language, "feature", { name: nameOf(feature, language), kind: featureKindOf(feature, language) }))}"` : "")
   );
 }
 

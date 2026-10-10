@@ -119,5 +119,15 @@ every function that takes a map takes it:
 The shapes are projected onto the map's canvas in the map's own projection, cut to the canvas, simplified (by up to a
 quarter of a unit for a lake or a river on a country, an eighth on the world, more for seas and landforms, whose
 edges are under land or not drawn) and rounded to a tenth of a unit. On a map with boxes, a sea is drawn where it is
-and the boxes are given the plain sea over it; a seat is carried into its region's box (Naha into Okinawa's), but a
-region drawn whole in a box of its own and a projection of its own (Alaska, Hawaii) has no seat drawn.
+and the boxes are given the plain sea over it; a seat is carried into its region's box (Naha into Okinawa's), and the
+seat of a region drawn whole in a box of its own and a projection of its own (Honolulu in Hawaii's, Juneau in Alaska's)
+is projected by that region's projection and seated in its box the way the region is. Juneau is written in the build
+(`SEATS_KUNI_LACKS`) because kuni has no capital for Alaska: see [upstream-name-issues.md](./upstream-name-issues.md).
+
+### What a seat is called
+
+A seat's kind is `seat`: Seat of government and 行政の中心地. On a map of Japan's prefectures it is a prefectural capital,
+県庁所在地, which is the word the country uses (`kind.seat.JP` in `CHIZU_STRINGS`). A kind may have a word of its own in
+one country, written `kind.<kind>.<COUNTRY>` and read from the country in a seat's code (`seat-JP-47`): `featureKindOf(feature, language)`
+gives it, and `featureKindName(kind, language)` is the country-free word. The screen-reader label of a seat on the map
+and the demo's feature card and list use `featureKindOf`.
