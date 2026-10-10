@@ -750,6 +750,7 @@ Chizu was built for [Itsutsu](https://itsutsu.com), a site for board games, puzz
 
 - [Itsutsu](https://itsutsu.com), for its geography.
 - UmaKuma, a Japanese study app by the same author, for its map sheets and its which-prefecture and which-country questions.
+- **[REST in Pieces](https://github.com/spxis/rest-in-pieces)**, a fake-data REST service, draws `/maps/{code}.svg` with Chizu: any country or region outlined, coloured and with its capital, when Chizu is installed beside it.
 
 Using Chizu in something? Open an *Add my project* issue and we will add you.
 
