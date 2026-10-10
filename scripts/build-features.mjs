@@ -17,7 +17,7 @@ import { facts as kuniFacts } from "@johnmorrisdotca/kuni/facts";
 import { loadSubdivisionFacts } from "@johnmorrisdotca/kuni/subdivision-facts";
 import { geoArea, geoBounds, geoDistance, geoPath } from "d3-geo";
 
-import { COUNTRY_RANKS, ENDING_READINGS, FEATURE_FILES, FEATURE_GROUPS, FEATURE_READINGS, LEADING_READINGS, MOST, SMALLEST, TOLERANCE, WORLD_RANKS } from "./features-config.mjs";
+import { COUNTRY_RANKS, ENDING_READINGS, FEATURE_FILES, FEATURE_GROUPS, FEATURE_READINGS, LEADING_READINGS, MOST, SEATS_KUNI_LACKS, SMALLEST, TOLERANCE, WORLD_RANKS } from "./features-config.mjs";
 import { lowerProperties, root, source } from "./natural-earth.mjs";
 
 const PRECISION = 1;
@@ -170,7 +170,10 @@ async function capitals(divisions) {
     out.push({ code: `capital-${country.alpha2}`, kind: "capital", group: "capitals", name: country.capital.en, nameJa: country.capital.ja || null, fromJa: country.capital.ja ? "kuni" : "none", item: null, rank: 0, country: country.alpha2, point: [point.lon, point.lat], parts: [] });
   }
   for (const code of [...divisions].sort()) {
-    for (const seat of (await loadSubdivisionFacts(code)) ?? []) {
+    for (const fact of (await loadSubdivisionFacts(code)) ?? []) {
+      const lacking = SEATS_KUNI_LACKS[fact.code];
+      if (lacking && fact.capital?.en) throw new Error(`${fact.code}: kuni has a capital now (${fact.capital.en}); remove it from SEATS_KUNI_LACKS`);
+      const seat = lacking ? { ...fact, capital: { en: lacking.en, ja: lacking.ja }, capitalPoint: lacking.point } : fact;
       if (!seat.capital?.en || !seat.capitalPoint) continue;
       const point = [seat.capitalPoint.lon, seat.capitalPoint.lat];
       const capital = national.get(code);
@@ -196,13 +199,25 @@ async function capitals(divisions) {
 
 /**
  * Where a point on a region's land is drawn on a map that draws some of its regions in boxes: carried into the box that
- * holds the region's pieces round it, as `mapRegionPieces` carries them; where it is otherwise. Null for a region drawn
- * whole in a box of its own (Alaska, Hawaii), which is drawn in a projection of its own the point was not.
+ * holds the region's pieces round it, as `mapRegionPieces` carries them; where it is otherwise. A region drawn whole in a
+ * box of its own (Alaska, Hawaii) is drawn in a projection of its own, so its point is projected by that one (`own`, the
+ * projection the map's builder used for it) and seated in the box as the map seats the region (`insetTransform`); null
+ * where no such projection was handed over, because a point the region's projection did not make would land at sea.
  */
-function placedOnMap(map, region, at) {
+function placedOnMap(map, region, at, own = null) {
   const insets = map.insets.filter((inset) => String(inset.code) === String(region.code));
   if (insets.length === 0) return at;
-  if (insets.some((one) => one.outlyingBelow === undefined && one.within === undefined)) return null;
+  const whole = insets.find((one) => one.outlyingBelow === undefined && one.within === undefined);
+  if (whole) {
+    if (!own) return null;
+    // The same move as src/insets.ts's insetTransform: shrink to fit the box, never magnify unless the box says so, centre.
+    const [x0, y0, x1, y1] = region.bbox;
+    const width = Math.max(x1 - x0, 0.001);
+    const height = Math.max(y1 - y0, 0.001);
+    const fits = Math.min(whole.box.width / width, whole.box.height / height);
+    const scale = whole.magnify ? fits : Math.min(1, fits);
+    return [own[0] * scale + whole.box.x + (whole.box.width - width * scale) / 2 - x0 * scale, own[1] * scale + whole.box.y + (whole.box.height - height * scale) / 2 - y0 * scale];
+  }
   let rest = piecesOf(region.path).map((piece) => piece.points);
   for (const one of insets) {
     const box = (ring) => [Math.min(...ring.map((p) => p[0])), Math.min(...ring.map((p) => p[1])), Math.max(...ring.map((p) => p[0])), Math.max(...ring.map((p) => p[1]))];
@@ -503,7 +518,8 @@ const pathOf = (pieces, closed) => pieces.map((points) => `M${points.map(([x, y]
  * features it touches.
  *
  * `options.world` is true for the world, which takes the top ranks of everything rather than what touches one country;
- * `options.avoid` the boxes a map draws its insets in, where no name is put.
+ * `options.avoid` the boxes a map draws its insets in, where no name is put; `options.insetProjections` the projections
+ * of the regions it draws whole in boxes of their own, by region code (`{ AK, HI }` on the United States).
  */
 export function featuresOn(map, projection, sources, options = {}) {
   const world = options.world === true;
@@ -525,8 +541,11 @@ export function featuresOn(map, projection, sources, options = {}) {
       // The world's capitals on the world; a country's own capital on its maps, and on its regions' map the seats of its regions.
       const ours = world ? one.kind === "capital" && onWorld.has(one.country) : one.country === country && (one.kind === "capital" || regionByIso.has(one.subdivision));
       if (!ours) continue;
+      const region = one.kind === "seat" ? regionByIso.get(one.subdivision) : null;
       const raw = projection(one.geo.coordinates);
-      const at = raw && one.kind === "seat" ? placedOnMap(map, regionByIso.get(one.subdivision), raw) : raw;
+      // A region drawn whole in a box of its own (Alaska, Hawaii) has its seat projected as the region was.
+      const own = region ? options.insetProjections?.[region.code]?.(one.geo.coordinates) : null;
+      const at = region ? placedOnMap(map, region, raw ?? own, own) : raw;
       if (!at || at[0] < 0 || at[1] < 0 || at[0] > map.width || at[1] > map.height) continue;
       kept.push({ one, pieces: [], size: 0, label: [round(at[0]), round(at[1])], bbox: [round(at[0]), round(at[1]), round(at[0]), round(at[1])] });
       continue;

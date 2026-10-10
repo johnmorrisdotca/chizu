@@ -69,6 +69,16 @@ export const FEATURE_FILES = {
   },
 };
 
+/**
+ * SEATS KUNI HAS NO CAPITAL FOR. kuni's subdivision facts (Wikidata's) leave Alaska's capital empty, so the one seat that
+ * would be drawn in Alaska's box is written here, by region code: its names and its point. Listed for kuni to fix at the
+ * source in docs/upstream-name-issues.md; delete the entry once kuni's facts have it (the build refuses to draw a seat
+ * twice). The Japanese name is for review by a native reader.
+ */
+export const SEATS_KUNI_LACKS = {
+  "US-AK": { en: "Juneau", ja: "ジュノー", point: { lat: 58.3019, lon: -134.4197 } },
+};
+
 /** The groups a caller turns on, in the order they are drawn: seas under the land, the rest on it. */
 export const FEATURE_GROUPS = ["marine", "landforms", "lakes", "rivers", "peaks", "capitals"];
 

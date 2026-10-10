@@ -317,6 +317,8 @@ millerRaw.invert = (x, y) => [x, 2.5 * Math.atan(Math.exp(0.8 * y)) - 0.625 * Ma
 let worldProjection = null;
 /** Each map's projection, by its id, for drawing its features on the same canvas (build-features.mjs). */
 const projections = new Map();
+/** The projections of the regions a map draws whole in a box of its own, by map and region code: a feature of such a region is projected by its region's, not the map's. */
+const insetProjections = new Map();
 
 function buildWorld(collection) {
   const features = countriesFrom(collection);
@@ -563,6 +565,7 @@ function buildUnitedStates(rawFeatures, countryNames) {
   });
   regions.sort((a, b) => a.code.localeCompare(b.code));
   projections.set("divisions-us", main);
+  insetProjections.set("divisions-us", { AK: alaska, HI: hawaii });
   const height = 740;
   return {
     id: "divisions-us",
@@ -821,7 +824,7 @@ async function main() {
   for (const map of allMaps) {
     const avoid = map.insets.map((inset) => inset.box);
     const country = map.id === "world" ? null : (map.kind === "country" ? map.regions[0].code : map.id.slice("divisions-".length).toUpperCase());
-    const features = featuresOn(map, projections.get(map.id), sources, { world: map.id === "world", avoid, country });
+    const features = featuresOn(map, projections.get(map.id), sources, { world: map.id === "world", avoid, country, insetProjections: insetProjections.get(map.id) });
     if (features.length === 0) continue;
     writeFeatures(join(out, "features", `${map.id}.ts`), map, features);
     loaders.features.push(map.id);
