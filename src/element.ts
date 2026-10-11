@@ -35,7 +35,7 @@ const STYLE = `${localStyle}
  * document.body.append(map);
  * ```
  */
-export type ChizuElementOptions = Omit<Partial<ChizuMountOptions>, "onSelect" | "onView"> & {
+export type ChizuElementOptions = Partial<ChizuMountOptions> & {
   /** Finite figures keyed by a region's code or ISO code, drawn in five shades. */
   data?: Readonly<Record<string, number>>;
 };
@@ -49,7 +49,7 @@ export type ChizuElementOptions = Omit<Partial<ChizuMountOptions>, "onSelect" | 
  * // true true
  * ```
  */
-export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({ map: true, language: true, zoom: true, tones: true, callouts: true, labels: true, selected: true, fit: true, selectable: true, controls: true, detail: true, detailFrom: true, features: true, featureLayer: true, featureLabels: true, data: true } satisfies Record<keyof ChizuElementOptions, boolean>);
+export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({ map: true, language: true, zoom: true, tones: true, colors: true, onSelect: true, onView: true, callouts: true, labels: true, selected: true, fit: true, selectable: true, controls: true, detail: true, detailFrom: true, features: true, featureLayer: true, featureLabels: true, data: true } satisfies Record<keyof ChizuElementOptions, boolean>);
 
 /** Load a built-in map by `world`, `country-<ISO>` or `divisions-<ISO>`. Invalid names return null. 
  *
@@ -179,14 +179,14 @@ class ChizuElement extends ElementBase {
     const stage = this.text("div", ""); stage.className = "map"; wrap.append(stage);
     const selectable = on(this, "selectable", this.options_.selectable ?? true);
     this.mount = mountChizu(stage, { ...this.options_, map, featureLayer: layer, features, language: this.language, tones, labels: this.hasAttribute("labels") ? on(this, "labels") : this.options_.labels, controls: on(this, "controls", this.options_.controls ?? true), selectable, zoom: Math.round(number(this.getAttribute("zoom"), this.options_.zoom ?? 1, 1, 10)) as MapZoom,
-      onSelect: (code) => { const choose = wrap.querySelector("select"); if (choose) choose.value = code ?? ""; this.tell("chizu-select", { region: map.id, code }); }, onView: (view) => this.tell("chizu-view", { region: map.id, ...view }) });
+      onSelect: (code) => { const choose = wrap.querySelector("select"); if (choose) choose.value = code ?? ""; this.tell("chizu-select", { region: map.id, code }); this.options_.onSelect?.(code); }, onView: (view) => { this.tell("chizu-view", { region: map.id, ...view }); this.options_.onView?.(view); } });
     if (selectable) {
       const choose = this.ownerDocument.createElement("select"); choose.className = "choose"; choose.setAttribute("aria-label", this.words("Choose a place", "場所を選ぶ"));
       const empty = this.ownerDocument.createElement("option"); empty.value = ""; empty.textContent = this.words("Nothing chosen", "選択なし"); choose.append(empty);
       for (const region of [...map.regions.filter((one) => !one.unnamed), ...(layer ? featuresShown(layer, features) : [])]) {
         const option = this.ownerDocument.createElement("option"); option.value = region.code; option.textContent = nameOf(region, this.language); choose.append(option);
       }
-      choose.addEventListener("change", () => { const code = choose.value || null; this.mount?.select(code); this.tell("chizu-select", { region: map.id, code }); }); wrap.append(choose);
+      choose.addEventListener("change", () => { const code = choose.value || null; this.mount?.select(code); this.tell("chizu-select", { region: map.id, code }); this.options_.onSelect?.(code); }); wrap.append(choose);
     }
     if (figures.length) wrap.append(this.text("p", `${this.words("Figures", "数値")}: ${low}–${high}`));
   }

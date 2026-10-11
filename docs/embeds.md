@@ -45,3 +45,8 @@ The iframe routes are `embed/`, `embed/locator/` and `embed/quiz/`. Query keys a
 | `chizu-answer` | `{ region, target, answer, correct, seed, round }` |
 
 All events bubble and cross shadow boundaries. The iframe forwards the identical detail in `{ type: event.type, detail: event.detail }`. A host must check both `event.origin === "https://johnmorrisdotca.github.io"` and `event.source === iframe.contentWindow` before using a message. No event includes visitor identity or persisted scores.
+
+Native released options remain available through the host options property,
+including colors, onSelect and onView. Callback details are the native values;
+DOM events still bubble and compose with JSON-safe details. Map/feature labels
+use the released country-specific kind names and capital-inset projection.

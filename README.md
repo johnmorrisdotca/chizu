@@ -475,10 +475,6 @@ The [map data guide](docs/map-data.md) explains the canvas, paths, place codes a
 
 ### ISO codes
 
-Every region of a country carries `iso`, its ISO 3166-2 code from kuni, the current one where Natural Earth's is out of date (Paris is `FR-75C`, Silesia `PL-24`); where Natural Earth draws one ISO subdivision as several regions, each carries the code of the one it lies in (County Dublin's four councils are all `IE-D`). Norway's counties, drawn as they were before 2020, carry the codes of the counties of 2024 they lie in. 7 of the 1,342 regions have no code: a county split since (Northamptonshire), a territory with none (Jervis Bay), and a few more. [docs/iso-codes.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/iso-codes.md) says how each code is chosen and lists every one with the reason.
-
-A region that is exactly one ISO subdivision takes kuni's names, so a map and a form name a place alike. The rest keep Natural Earth's names, and no two regions of one map share a name in either language. [docs/names.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/names.md) lists every name the map prints that is not kuni's, with the reason.
-
 The [ISO joins](docs/iso-codes.md) list the codes and exceptions; [map names](docs/names.md) list every name kept apart from kuni's, with its reason. The [map data guide](docs/map-data.md#iso-codes) preserves the worked detail.
 
 ## Framing a map

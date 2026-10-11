@@ -120,3 +120,20 @@ test("copied iframe code fits a narrow article with visible zoom controls and no
     await page.unroute("http://article.test/");
   }
 });
+
+test("released per-region colours and native callbacks survive the element bridge", async ({ page }) => {
+  await serve(page);
+  await page.goto("http://chizu.test/embed/?region=world");
+  const map = page.locator("chizu-map");
+  await expect(map).toHaveAttribute("data-ready", "true");
+  await map.evaluate(element => {
+    window.__hostSelections = [];
+    window.__hostViews = [];
+    element.options = { colors: { JP: "#ff0000", CA: "url(https://bad.test/fill)" }, onSelect: code => window.__hostSelections.push(code), onView: view => window.__hostViews.push(view) };
+  });
+  await expect(map.locator('.cz-region[data-code="JP"]').first()).toHaveAttribute("data-color", "#ff0000");
+  await expect(map.locator('.cz-region[data-code="CA"]').first()).not.toHaveAttribute("data-color", /.*/);
+  await map.locator("select.choose").selectOption("JP");
+  expect(await page.evaluate(() => window.__hostSelections)).toEqual(["JP"]);
+  expect(await page.evaluate(() => window.__hostViews.length)).toBeGreaterThan(0);
+});

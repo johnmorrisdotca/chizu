@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+- Reconcile map embeds with released per-region colors, native selection/view callbacks and the capital/feature naming fixes.
+
 - Add map, locator and seeded quiz elements, a shared embed builder and validated storage-free iframe pages.
 - Support named water and capitals, coordinate pins, code-keyed figures and keyboard selection, with reflected properties and JSON-safe native events.
 
