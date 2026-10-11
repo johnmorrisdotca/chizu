@@ -1,12 +1,12 @@
 import { COUNTRY_CODES, DIVISIONS_CODES } from "./dist/load-entry.js";
-import { readMapData } from "./dist/element.js";
+import { readMapData, readMapColors } from "./dist/element.js";
 export const regions = ["world", ...DIVISIONS_CODES.map((code) => `divisions-${code.toLowerCase()}`), ...COUNTRY_CODES.map((code) => `country-${code.toLowerCase()}`)];
 export const choices = { region: regions, size: ["small", "medium", "large"], theme: ["auto", "light", "dark"], lang: ["en", "ja"], features: ["none", "water", "all"] };
 export function validatedAttributes(query, observed) {
   const attrs = [];
   const available = new Set(observed);
   for (const [name, values] of Object.entries(choices)) if (available.has(name) && values.includes(query.get(name))) attrs.push([name, query.get(name)]);
-  for (const name of ["labels", "controls", "selectable"]) if (available.has(name) && query.has(name)) {
+  for (const name of ["labels", "controls", "selectable", "capital"]) if (available.has(name) && query.has(name)) {
     const value = query.get(name).trim().toLowerCase();
     if (["", "on", "true", "1", "off", "false", "no", "0"].includes(value)) attrs.push([name, ["off", "false", "no", "0"].includes(value) ? "false" : ""]);
   }
@@ -14,6 +14,7 @@ export function validatedAttributes(query, observed) {
     const value = Number(query.get(name));
     if (available.has(name) && query.has(name) && Number.isFinite(value) && Number.isInteger(value) && value >= min && value <= max) attrs.push([name, String(value)]);
   }
+  if (available.has("colors") && query.has("colors") && readMapColors(query.get("colors")) !== null) attrs.push(["colors", query.get("colors")]);
   if (available.has("data") && query.has("data") && readMapData(query.get("data")) !== null) attrs.push(["data", query.get("data")]);
   if (available.has("highlight") && /^[\w\s,-]{0,1000}$/.test(query.get("highlight") ?? "")) attrs.push(["highlight", query.get("highlight") ?? ""]);
   const place = query.get("place");

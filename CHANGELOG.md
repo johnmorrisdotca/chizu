@@ -13,6 +13,8 @@ All notable changes to this project are written here. The format follows
 
 ### Added
 
+- Add per-place colours and capital-marker switches to map/locator embeds, the shared builder and validated frame links. Native SDK drawing defaults and quiz question pools are unchanged.
+
 - Share a package-independent embed builder for option controls, preview adapters, code tabs and shareable links.
 
 ### Changed

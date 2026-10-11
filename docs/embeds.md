@@ -50,3 +50,15 @@ Native released options remain available through the host options property,
 including colors, onSelect and onView. Callback details are the native values;
 DOM events still bubble and compose with JSON-safe details. Map/feature labels
 use the released country-specific kind names and capital-inset projection.
+
+## Colours and capital markers
+
+`colors="JP:#2f6b4f,GB:#8a3b3b"` uses native Chizu colours per region/ISO code. Commas inside `rgb()`/`hsl()` are retained; CSS names and `var(--name)` use the native colour validator. Invalid pairs are rejected, never inserted into a style. The host can still set `options.colors`; a present attribute overrides that map. `readMapColors(text)` returns the validated map or null.
+
+Map and locator embeds now show capital markers by default. `capital="off"` (also false/no/0) removes their feature shapes even with `features="all"`; `capital="on"` adds them alongside water or other selected features. The property is boolean and reflected. `options.capital` supplies a host default. Native `drawChizu` and `mountChizu` keep their existing feature defaults; quiz question pools stay unchanged. Quiz colours remain available, while capital controls belong to map/locator builders. Frames validate both settings; builder code and copied links restore them.
+
+```html
+<chizu-map region="world" colors="JP:#2f6b4f,GB:#8a3b3b" capital="off"></chizu-map>
+```
+
+[Japanese colour/marker guide](embed-colours-ja.md).

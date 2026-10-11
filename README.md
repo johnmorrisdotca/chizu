@@ -143,7 +143,7 @@ Each picture is the real map, drawn by the package and taken from [the demo](htt
 </tr>
 </table>
 
-[Build a map, locator or quiz embed](https://johnmorrisdotca.github.io/chizu/builder.html). The [embed guide](docs/embeds.md) covers attributes, properties, iframe parameters and event messages.
+[Build a map, locator or quiz embed](https://johnmorrisdotca.github.io/chizu/builder.html). The [embed guide](docs/embeds.md) covers attributes, properties, iframe parameters and event messages. Map/locator embeds support per-place `colors` and `capital="off"`; builder links retain both. See [colours and markers](docs/embeds.md#colours-and-capital-markers).
 
 ## Use it in your project
 

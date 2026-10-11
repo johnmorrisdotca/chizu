@@ -43,3 +43,6 @@ refuses inline styles can set `--cz-color` itself from `[data-color]` in its own
 The capital's mark is not an option of its own: capitals are one of the named features, drawn as a ring round a dot and
 named beside it, and they are off until chosen. Turn them on with `features: ["capitals"]` (and the map's `featureLayer`,
 `loadFeatures(map.id)`), off by leaving them out. See [features.md](./features.md).
+
+
+The map/locator [embed builder](embeds.md#colours-and-capital-markers) exposes `colors` and a capital switch. These embed markers default on; native drawing retains the feature choices described above.

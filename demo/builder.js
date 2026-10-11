@@ -1,5 +1,5 @@
 import { VERSION } from "./dist/index.js";
-import { CHIZU_ELEMENT_OPTION_KEYS, ChizuMapElement, ChizuLocator, ChizuQuiz, readMapData } from "./dist/element.js";
+import { CHIZU_ELEMENT_OPTION_KEYS, ChizuMapElement, ChizuLocator, ChizuQuiz, readMapData, readMapColors } from "./dist/element.js";
 import "./dist/element-define.js";
 import { CHIZU_COUNTRIES } from "./dist/names-entry.js";
 import { choices } from "./embed-options.js";
@@ -19,6 +19,7 @@ const words = {
     makerLocatorSays: "Locate a named feature or latitude,longitude pair.",
     makerQuizSays: "The same seed gives the same geography questions.",
     copyLink: "Copy a link to this setup",
+    badColors: "Use code:colour pairs, such as JP:#2f6b4f,GB:#8a3b3b.",
     badData: "Use a JSON object of finite figures, such as {\"JP\":10,\"CA\":20}."
   },
   ja: {
@@ -35,6 +36,7 @@ const words = {
     makerLocatorSays: "名前のある場所、または緯度・経度を表示します。",
     makerQuizSays: "同じシードで同じ地理の問題が出ます。",
     copyLink: "この設定へのリンクをコピー",
+    badColors: "JP:#2f6b4f,GB:#8a3b3bのように、地域コードと色を指定してください。",
     badData: "{\"JP\":10,\"CA\":20} のように、地域コードと数値をJSONで指定してください。"
   },
 };
@@ -48,6 +50,8 @@ const options = [
   row("lang", "choice", all("lang"), ["Language", "The language of the names and controls."], ["言語", "名前と操作ボタンの言語です。"], { choices: choices.lang }),
   row("label", "text", all("label"), ["Spoken label", "An optional label for a screen reader."], ["読み上げる名前", "スクリーンリーダー用の名前です。指定は任意です。"]),
   row("features", "choice", all("features"), ["Features", "Named water, all features, or none."], ["地物", "名前のある水域（河川・湖など）、すべての地物、または表示なしです。"], { choices: choices.features, default: "none" }),
+  row("colors", "text", all("colors"), ["Colours per place", "Comma-separated code:colour pairs, for example JP:#2f6b4f,GB:#8a3b3b. Unlisted places keep the theme colour."], ["場所ごとの色", "JP:#2f6b4f,GB:#8a3b3bのように、地域コードと色をカンマで区切ります。指定のない場所は配色の色を使います。"]),
+  row("capital", "boolean", { map: "capital", locator: "capital" }, ["Show capitals", "Add capital markers. Turn off to omit them even with all features selected."], ["首都を表示", "首都の点を表示します。オフにすると、すべての地物を選んでも首都の点を表示しません。"], { default: true }),
   row("labels", "boolean", all("labels"), ["Labels", "Print names on the map."], ["名前", "地図に名前を表示します。"], { default: false }),
   row("controls", "boolean", all("controls"), ["Zoom controls", "Show the zoom buttons."], ["拡大・縮小ボタン", "拡大・縮小のボタンを表示します。"], { default: true }),
   row("zoom", "number", { map: "zoom", locator: "zoom" }, ["Zoom", "A zoom step from one to ten."], ["拡大", "1から10までの拡大の段階です。"], { default: 1, range: { min: 1, max: 10, step: 1 } }),
@@ -57,7 +61,7 @@ const options = [
   row("place", "text", { locator: "place" }, ["Place", "A feature id on the map, such as Q200239 on country-jp, or latitude,longitude."], ["場所", "地物ID（country-jpならQ200239など）、または緯度・経度です。"], { default: "35.69,139.69" }),
   row("seed", "number", { quiz: "seed" }, ["Seed", "The same seed gives the same questions."], ["シード", "同じシードで同じ問題が出ます。"], { default: 1, range: { min: 0, max: 4294967295, step: 1 } }),
 ];
-const leftOut = { "options.colors": "Custom native colour maps belong to host options.", "options.onSelect": "Native callbacks belong to host options; the element also dispatches composed events.", "options.onView": "Native view callbacks belong to host options; the element also dispatches composed events.", "options.features": "The features control writes features; custom group and kind lists belong to host code.", "options.map": "Custom map data belongs to the host; built-in maps are selected by region.", "options.featureLayer": "The static builder loads each map's built-in layer locally.", "options.detail": "Custom high-detail loaders belong to host code.", "options.detailFrom": "A custom detail loader's threshold belongs to host code.", "options.callouts": "Printed callout layout is configured in the map API and demo.", "options.fit": "Map selections and named locator features use the existing automatic fit.", "options.tones": "The builder exposes highlights and numeric data; custom tone classes belong to the host.", "options.selected": "The builder starts with no selected place; the locator uses place.", "options.featureLabels": "Feature names use the mounted-map default.", "options.language": "The language control writes lang.", "options.data": "The figures control writes data.", "options.labels": "The labels control writes labels.", "options.controls": "The controls switch writes controls.", "options.selectable": "The selection switch writes selectable.", "options.zoom": "The zoom control writes zoom." };
+const leftOut = { "options.colors": "The colours control writes colors.", "options.capital": "The capital switch writes capital.", "options.onSelect": "Native callbacks belong to host options; the element also dispatches composed events.", "options.onView": "Native view callbacks belong to host options; the element also dispatches composed events.", "options.features": "The features control writes features; custom group and kind lists belong to host code.", "options.map": "Custom map data belongs to the host; built-in maps are selected by region.", "options.featureLayer": "The static builder loads each map's built-in layer locally.", "options.detail": "Custom high-detail loaders belong to host code.", "options.detailFrom": "A custom detail loader's threshold belongs to host code.", "options.callouts": "Printed callout layout is configured in the map API and demo.", "options.fit": "Map selections and named locator features use the existing automatic fit.", "options.tones": "The builder exposes highlights and numeric data; custom tone classes belong to the host.", "options.selected": "The builder starts with no selected place; the locator uses place.", "options.featureLabels": "Feature names use the mounted-map default.", "options.language": "The language control writes lang.", "options.data": "The figures control writes data.", "options.labels": "The labels control writes labels.", "options.controls": "The controls switch writes controls.", "options.selectable": "The selection switch writes selectable.", "options.zoom": "The zoom control writes zoom." };
 const formats = ["element", "iframe", "module", "react", "vue", "svelte", "angular", "html", "url"];
 let mounted;
 const mapRatios = { world: 489 / 1000 };
@@ -66,12 +70,14 @@ const frameKey = (maker, settings) => `${maker}:${JSON.stringify(settings)}`;
 const page = globalThis.familyLanguage({ id: "chizu", words, onChange: () => mounted?.draw() });
 const makers = Object.fromEntries(["map", "locator", "quiz"].map((kind) => [kind, { names: kind, element: kind, tag: `chizu-${kind}`, embed: kind === "map" ? "embed/" : `embed/${kind}/`, required: ["region", ...(kind === "locator" ? ["place"] : [])], description: `maker${kind[0].toUpperCase()}${kind.slice(1)}Says`, formats, width: 720, height: (settings) => Math.ceil(Math.min(Number(settings.width) || ({ small: 320, medium: 480, large: 720 }[settings.size] ?? 480), 704) * (mapRatios[settings.region ?? "world"] ?? 489 / 1000)) + (frameExtras[frameKey(kind, settings)] ?? (kind === "quiz" ? 380 : kind === "map" ? 150 : 100)) }]));
 const builder = familyEmbedBuilder({ id: "chizu", packageName: "@johnmorrisdotca/chizu", major: VERSION.split(".")[0], site: "https://johnmorrisdotca.github.io/chizu/", title: "Chizu · maps", titleJa: "地図の埋め込み", options, leftOut, makers, groups: { map: { en: "The map", ja: "地図の設定" } }, code: ({ maker, format, settings }) => {
+  if (readMapColors(settings.colors ?? null) === null) return null;
   if (maker === "map" && readMapData(settings.data ?? null) === null) return null;
   if ((format === "iframe" || format === "url") && settings.lang === undefined) return builder.codeFor(maker, format, options, { ...settings, lang: page.lang });
   return undefined;
 } });
 builder.validateCoverage({ map: ChizuMapElement.observedAttributes, locator: ChizuLocator.observedAttributes, quiz: ChizuQuiz.observedAttributes, options: CHIZU_ELEMENT_OPTION_KEYS });
 mounted = builder.mount({ words, language: () => page, initial: { map: { region: "world", lang: page.lang }, locator: { region: "world", place: "35.69,139.69", lang: page.lang }, quiz: { region: "world", lang: page.lang } }, renderPreview: ({ stage, maker, settings, attrs, note, say }) => {
+  if (readMapColors(settings.colors ?? null) === null) { note.textContent = say("badColors"); return { destroy() {} }; }
   if (maker === "map" && readMapData(settings.data ?? null) === null) { note.textContent = say("badData"); return { destroy() {} }; }
   const element = globalThis.document.createElement(`chizu-${maker}`);
   for (const [name, value] of attrs) element.setAttribute(name, value);

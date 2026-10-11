@@ -137,3 +137,35 @@ test("released per-region colours and native callbacks survive the element bridg
   expect(await page.evaluate(() => window.__hostSelections)).toEqual(["JP"]);
   expect(await page.evaluate(() => window.__hostViews.length)).toBeGreaterThan(0);
 });
+
+
+test("map colours and capital switches survive builder links and validated frames", async ({ page }) => {
+  await serve(page);
+  await page.goto("http://chizu.test/builder.html?lang=en");
+  await page.locator("#opt-colors").fill("JP:#2f6b4f,GB:#8a3b3b");
+  await page.locator("#opt-capital").click();
+  const map = page.locator("#bld-stage chizu-map");
+  await expect(map).toHaveAttribute("data-ready", "true");
+  await expect(map.locator('.cz-region[data-code="JP"]').first()).toHaveAttribute("data-color", "#2f6b4f");
+  await expect(map.locator('.cz-region[data-code="GB"]').first()).toHaveAttribute("data-color", "#8a3b3b");
+  await expect(map.locator('[data-group="capitals"]')).toHaveCount(0);
+  const link = page.url();
+  await page.goto(link);
+  await expect(page.locator("#opt-colors")).toHaveValue("JP:#2f6b4f,GB:#8a3b3b");
+  await expect(page.locator("#opt-capital")).toHaveAttribute("aria-pressed", "false");
+  await page.locator('#bld-formats [data-format="url"]').click();
+  const frame = (await page.locator("#bld-code").textContent()).replace("https://johnmorrisdotca.github.io/chizu/", "http://chizu.test/");
+  await page.goto(frame);
+  const embedded = page.locator("chizu-map");
+  await expect(embedded).toHaveAttribute("data-ready", "true");
+  await expect(embedded.locator('.cz-region[data-code="JP"]').first()).toHaveAttribute("data-color", "#2f6b4f");
+  await expect(embedded.locator('[data-group="capitals"]')).toHaveCount(0);
+  await embedded.evaluate((element) => { element.features = "all"; element.capital = "off"; });
+  await expect(embedded).toHaveAttribute("data-ready", "true");
+  await expect(embedded.locator('[data-group="capitals"]')).toHaveCount(0);
+  await embedded.evaluate((element) => { element.capital = true; });
+  await expect(embedded.locator('[data-group="capitals"]').first()).toBeVisible();
+  await page.goto("http://chizu.test/embed/?colors=JP:url(evil)&capital=invalid");
+  await expect(page.locator("chizu-map")).not.toHaveAttribute("colors", /.*/);
+  await expect(page.locator("chizu-map")).not.toHaveAttribute("capital", /.*/);
+});

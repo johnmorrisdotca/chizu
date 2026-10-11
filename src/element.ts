@@ -1,9 +1,10 @@
 /** Browser elements for maps, located places and seeded geography questions. Importing this entry is safe on a server. */
+import { isChizuColour } from "./draw.ts";
 import WORLD from "./world-entry.ts";
 import { loadCountry, loadDivisions, loadFeatures } from "./load-entry.ts";
 import { mountChizu, type ChizuMount, type ChizuMountOptions } from "./mount.ts";
 import { CHIZU_MAP_STYLE } from "./mountStyle.ts";
-import { featureMap, featuresShown, type ChizuFeatureChoice } from "./features.ts";
+import { CHIZU_FEATURE_GROUPS, featureMap, featuresShown, type ChizuFeatureChoice } from "./features.ts";
 import { findQuestion, type FindQuestion } from "./quiz.ts";
 import { seededRandom, type Random } from "./random.ts";
 import type { MapZoom } from "./frame.ts";
@@ -12,7 +13,7 @@ import { nameOf, type ChizuLanguage } from "./strings.ts";
 import type { ChizuMap as MapData, ChizuFeatureLayer, ChizuRegion } from "./types.ts";
 
 const ElementBase: typeof HTMLElement = typeof HTMLElement === "undefined" ? class {} as unknown as typeof HTMLElement : HTMLElement;
-const COMMON = ["region", "lang", "theme", "size", "width", "label"];
+const COMMON = ["region", "lang", "theme", "size", "width", "label", "colors"];
 const on = (element: Element, name: string, fallback = false) => element.hasAttribute(name) ? !["off", "false", "no", "0"].includes((element.getAttribute(name) ?? "").trim().toLowerCase()) : fallback;
 const number = (value: string | null, fallback: number, min: number, max: number) => value === null || value.trim() === "" || !Number.isFinite(Number(value)) ? fallback : Math.min(max, Math.max(min, Number(value)));
 const write = (element: Element, name: string, value: unknown) => value === null || value === undefined ? element.removeAttribute(name) : element.setAttribute(name, value === true ? "" : String(value));
@@ -29,7 +30,7 @@ const STYLE = `${localStyle}
  * @example
  * ```ts no-run
  * import { ChizuMapElement, type ChizuElementOptions } from "@johnmorrisdotca/chizu/element";
- * const options: ChizuElementOptions = { controls: false, data: { JP: 10 } };
+ * const options: ChizuElementOptions = { controls: false, data: { JP: 10 }, colors: { JP: "#2f6b4f" }, capital: false };
  * const map = new ChizuMapElement();
  * map.options = options;
  * document.body.append(map);
@@ -38,6 +39,8 @@ const STYLE = `${localStyle}
 export type ChizuElementOptions = Partial<ChizuMountOptions> & {
   /** Finite figures keyed by a region's code or ISO code, drawn in five shades. */
   data?: Readonly<Record<string, number>>;
+  /** Add capital markers; false hides them even when all features are chosen. Defaults to true for map/locator embeds; quiz feature choices stay unchanged. */
+  capital?: boolean;
 };
 
 /** Real host option keys, kept complete by TypeScript and checked by the builder's coverage gate. 
@@ -49,7 +52,7 @@ export type ChizuElementOptions = Partial<ChizuMountOptions> & {
  * // true true
  * ```
  */
-export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({ map: true, language: true, zoom: true, tones: true, colors: true, onSelect: true, onView: true, callouts: true, labels: true, selected: true, fit: true, selectable: true, controls: true, detail: true, detailFrom: true, features: true, featureLayer: true, featureLabels: true, data: true } satisfies Record<keyof ChizuElementOptions, boolean>);
+export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({ map: true, language: true, zoom: true, tones: true, colors: true, capital: true, onSelect: true, onView: true, callouts: true, labels: true, selected: true, fit: true, selectable: true, controls: true, detail: true, detailFrom: true, features: true, featureLayer: true, featureLabels: true, data: true } satisfies Record<keyof ChizuElementOptions, boolean>);
 
 /** Load a built-in map by `world`, `country-<ISO>` or `divisions-<ISO>`. Invalid names return null. 
  *
@@ -92,6 +95,32 @@ export function readMapData(text: string | null): Record<string, number> | null 
   } catch { return null; }
 }
 
+/** Parse region colours, including native CSS colours with commas inside rgb()/hsl().
+ * @param text - Comma-separated code:colour pairs; null or empty means no overrides.
+ * @returns The validated colour map, or null for malformed or unsafe values.
+ * @example
+ * ```ts
+ * import { readMapColors } from "@johnmorrisdotca/chizu/element";
+ * console.log(readMapColors("JP:#2f6b4f,GB:rgb(138,59,59)")?.JP);
+ * console.log(readMapColors("JP:url(evil)"));
+ * // #2f6b4f
+ * // null
+ * ```
+ */
+export function readMapColors(text: string | null): Record<string, string> | null {
+  if (text === null || text.trim() === "") return {};
+  if (text.length > 16000) return null;
+  const pairs = text.split(/,(?=\s*[\w-]{1,40}\s*:)/);
+  if (pairs.length > 1500) return null;
+  const entries: [string, string][] = [];
+  for (const pair of pairs) {
+    const match = /^\s*([\w-]{1,40})\s*:\s*(.+?)\s*$/.exec(pair);
+    if (!match || !isChizuColour(match[2]!)) return null;
+    entries.push([match[1]!, match[2]!.trim()]);
+  }
+  return Object.fromEntries(entries);
+}
+
 /** Shared lifecycle for the three elements. Async map changes never put an old map into a newly configured element. */
 class ChizuElement extends ElementBase {
   protected kind: "map" | "locator" | "quiz" = "map";
@@ -106,6 +135,13 @@ class ChizuElement extends ElementBase {
   /** Host-only mounted-map options; assigning them redraws the element. */
   get options(): ChizuElementOptions { return this.options_; }
   set options(value: ChizuElementOptions) { this.options_ = value ?? {}; this.refresh(); }
+
+  /** Per-region colours as comma-separated code:colour pairs; a present attribute overrides host colours. */
+  get colors(): string | null { return this.getAttribute("colors"); }
+  set colors(value: string | null | undefined) { write(this, "colors", value); }
+  /** Whether capital markers are requested; defaults to true for maps/locators and false for quizzes. */
+  get capital(): boolean { return on(this, "capital", this.options_.capital ?? this.kind !== "quiz"); }
+  set capital(value: boolean | string | null | undefined) { write(this, "capital", value); }
 
   connectedCallback(): void {
     this.root ??= this.attachShadow({ mode: "open" });
@@ -138,10 +174,12 @@ class ChizuElement extends ElementBase {
       const map = this.options_.map ?? await loadElementMap(region);
       if (!map) throw new Error("Choose world, country-<ISO> or divisions-<ISO>.");
       const features = this.featureChoices();
-      const layer = typeof this.options_.featureLayer === "function" ? await this.options_.featureLayer(map.id) : this.options_.featureLayer ?? (features.length > 0 || this.kind === "locator" ? await loadFeatures(map.id) : null);
+      let layer = typeof this.options_.featureLayer === "function" ? await this.options_.featureLayer(map.id) : this.options_.featureLayer ?? (features.length > 0 || this.kind === "locator" ? await loadFeatures(map.id) : null);
+      if ((this.hasAttribute("capital") || this.options_.capital !== undefined) && !this.capital && layer) layer = { ...layer, features: layer.features.filter((feature) => feature.group !== "capitals") };
       if (!this.isConnected || revision !== this.#revision) return;
       this.mount?.destroy(); this.mount = null;
       this.language = (this.getAttribute("lang") ?? this.options_.language ?? this.closest("[lang]")?.getAttribute("lang") ?? this.ownerDocument.documentElement.lang).toLowerCase().startsWith("ja") ? "ja" : "en";
+      if (this.hasAttribute("colors") && readMapColors(this.colors) === null) throw new Error(this.words("Colours must be code:colour pairs with valid CSS colours.", "地域コードと有効なCSSの色を、コード:色の形式で指定してください。"));
       const theme = this.getAttribute("theme"); this.style.colorScheme = theme === "light" || theme === "dark" ? theme : "light dark";
       const width = number(this.getAttribute("width"), 0, 0, 2000);
       const sized = { small: 320, medium: 480, large: 720 }[this.getAttribute("size") ?? "medium"] ?? 480;
@@ -164,7 +202,16 @@ class ChizuElement extends ElementBase {
   }
   protected featureChoices(): ChizuFeatureChoice[] {
     const asked = this.getAttribute("features");
-    return asked === null ? [...(this.options_.features ?? [])] : asked === "water" || asked === "all" ? [asked] : [];
+    let choices: ChizuFeatureChoice[] = asked === null ? [...(this.options_.features ?? [])] : ["water", "all", "capitals"].includes(asked) ? [asked as ChizuFeatureChoice] : [];
+    if (this.kind !== "quiz" || this.hasAttribute("capital") || this.options_.capital !== undefined) {
+      if (this.capital) choices.push("capitals");
+      else choices = choices.flatMap((choice) => choice === "all" ? CHIZU_FEATURE_GROUPS.filter((group) => group !== "capitals") : ["capital", "seat", "capitals"].includes(choice) ? [] : [choice]);
+    }
+    return [...new Set(choices)];
+  }
+  protected colourOptions(map: MapData): Record<string, string> {
+    const input = this.hasAttribute("colors") ? readMapColors(this.colors)! : this.options_.colors ?? {};
+    return Object.fromEntries(Object.entries(input).map(([code, colour]) => [map.regions.find((region) => region.code === code || region.iso === code)?.code ?? code, colour]));
   }
   protected draw(wrap: HTMLElement, map: MapData, layer: ChizuFeatureLayer | null, features: ChizuFeatureChoice[]): void {
     const data = this.options_.data ?? readMapData(this.getAttribute("data"));
@@ -182,7 +229,7 @@ class ChizuElement extends ElementBase {
     }
     const stage = this.text("div", ""); stage.className = "map"; wrap.append(stage);
     const selectable = on(this, "selectable", this.options_.selectable ?? true);
-    this.mount = mountChizu(stage, { ...this.options_, map, featureLayer: layer, features, language: this.language, tones, labels: this.hasAttribute("labels") ? on(this, "labels") : this.options_.labels, controls: on(this, "controls", this.options_.controls ?? true), selectable, zoom: Math.round(number(this.getAttribute("zoom"), this.options_.zoom ?? 1, 1, 10)) as MapZoom,
+    this.mount = mountChizu(stage, { ...this.options_, colors: this.colourOptions(map), map, featureLayer: layer, features, language: this.language, tones, labels: this.hasAttribute("labels") ? on(this, "labels") : this.options_.labels, controls: on(this, "controls", this.options_.controls ?? true), selectable, zoom: Math.round(number(this.getAttribute("zoom"), this.options_.zoom ?? 1, 1, 10)) as MapZoom,
       onSelect: (code) => { const choose = wrap.querySelector("select"); if (choose) choose.value = code ?? ""; this.tell("chizu-select", { region: map.id, code }); this.options_.onSelect?.(code); }, onView: (view) => { this.tell("chizu-view", { region: map.id, ...view }); this.options_.onView?.(view); } });
     if (selectable) {
       const choose = this.ownerDocument.createElement("select"); choose.className = "choose"; choose.setAttribute("aria-label", this.words("Choose a place", "場所を選ぶ"));
@@ -204,6 +251,8 @@ class ChizuElement extends ElementBase {
  * const map = new ChizuMapElement();
  * map.region = "divisions-jp";
  * map.highlight = "JP-13";
+ * map.colors = "JP-13:#2f6b4f";
+ * map.capital = false;
  * document.body.append(map);
  * ```
  */
@@ -244,7 +293,7 @@ export class ChizuMapElement extends ChizuElement {
   /** The `selectable` attribute, reflected. */
   get selectable(): string | null { return this.getAttribute("selectable"); }
   set selectable(value: string | number | boolean | null | undefined) { write(this, "selectable", value); }
-  static get observedAttributes(): readonly string[] { return [...COMMON, "highlight", "labels", "zoom", "data", "features", "controls", "selectable"]; }
+  static get observedAttributes(): readonly string[] { return [...COMMON, "capital", "highlight", "labels", "zoom", "data", "features", "controls", "selectable"]; }
 }
 
 /** `<chizu-locator>`: locate a feature's id or a `latitude,longitude` pair, without contacting a geocoding service. 
@@ -290,7 +339,7 @@ export class ChizuLocator extends ChizuElement {
   get labels(): string | null { return this.getAttribute("labels"); }
   set labels(value: string | number | boolean | null | undefined) { write(this, "labels", value); }
   protected override kind = "locator" as const;
-  static get observedAttributes(): readonly string[] { return [...COMMON, "place", "features", "zoom", "controls", "labels"]; }
+  static get observedAttributes(): readonly string[] { return [...COMMON, "capital", "place", "features", "zoom", "controls", "labels"]; }
   protected override draw(wrap: HTMLElement, map: MapData, layer: ChizuFeatureLayer | null): void {
     const place = this.getAttribute("place") ?? "35.69,139.69";
     const region = [...map.regions, ...(layer?.features ?? [])].find((one) => one.code === place || ("iso" in one && one.iso === place));
@@ -311,7 +360,7 @@ export class ChizuLocator extends ChizuElement {
       svg.querySelector(".locator-pin")?.remove();
       const circle = this.ownerDocument.createElementNS("http://www.w3.org/2000/svg", "circle"); circle.classList.add("locator-pin"); circle.setAttribute("cx", String(point[0])); circle.setAttribute("cy", String(point[1])); circle.setAttribute("r", String((this.mount?.view().box.width ?? map.width) * .008)); svg.append(circle);
     };
-    this.mount = mountChizu(stage, { ...this.options_, map, featureLayer: layer, features: region && "kind" in region ? ["all"] : this.featureChoices(), selected: region?.code, fit: true, selectable: false, language: this.language, labels: on(this, "labels"), controls: on(this, "controls", true), zoom: Math.round(number(this.getAttribute("zoom"), 1, 1, 10)) as MapZoom, onView: (view) => { pin(); this.tell("chizu-view", { region: map.id, ...view }); } });
+    this.mount = mountChizu(stage, { ...this.options_, colors: this.colourOptions(map), map, featureLayer: layer, features: region && "kind" in region ? ["all"] : this.featureChoices(), selected: region?.code, fit: true, selectable: false, language: this.language, labels: on(this, "labels"), controls: on(this, "controls", true), zoom: Math.round(number(this.getAttribute("zoom"), 1, 1, 10)) as MapZoom, onView: (view) => { pin(); this.tell("chizu-view", { region: map.id, ...view }); } });
     pin();
     const text = this.text("p", caption); text.setAttribute("aria-live", "polite"); wrap.append(text);
     this.tell("chizu-locate", { region: map.id, place: region?.code ?? place, coordinates: point ? { latitude: Number(place.split(",")[0]), longitude: Number(place.split(",")[1]) } : null });
@@ -373,7 +422,7 @@ export class ChizuQuiz extends ChizuElement {
     const result = this.text("p", ""); result.className = "result"; result.setAttribute("aria-live", "polite");
     const next = this.text("button", this.words("Next question", "次の問題")) as HTMLButtonElement; next.type = "button";
     wrap.append(stage, question, choices, result, next);
-    this.mount = mountChizu(stage, { ...this.options_, map, featureLayer: layer, features, selectable: false, language: this.language, labels: on(this, "labels"), controls: on(this, "controls", true) });
+    this.mount = mountChizu(stage, { ...this.options_, colors: this.colourOptions(map), map, featureLayer: layer, features, selectable: false, language: this.language, labels: on(this, "labels"), controls: on(this, "controls", true) });
     const ask = () => {
       this.#round += 1;
       const target = places[Math.floor(this.#random() * places.length)].code;
