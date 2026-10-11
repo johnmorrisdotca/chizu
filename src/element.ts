@@ -364,7 +364,7 @@ export class ChizuQuiz extends ChizuElement {
     const places = pool.regions.filter((one) => !one.unnamed);
     if (places.length < 2) throw new Error("Choose a map with at least two named places for a quiz.");
     const stage = this.text("div", ""); stage.className = "map";
-    const question = this.text("p", this.words("Which place is highlighted?", "光っている場所はどこですか？"));
+    const question = this.text("p", this.words("Which place is highlighted?", "ハイライトされている場所はどこですか？"));
     const choices = this.text("div", ""); choices.className = "choices";
     const result = this.text("p", ""); result.className = "result"; result.setAttribute("aria-live", "polite");
     const next = this.text("button", this.words("Next question", "次の問題")) as HTMLButtonElement; next.type = "button";
