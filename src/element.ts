@@ -59,6 +59,8 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({ map: true, language: true
  * console.log((await loadElementMap("country-jp"))?.id, await loadElementMap("invalid"));
  * // country-jp null
  * ```
+ * @param region - The built-in map id, such as world or country-jp.
+ * @returns The loaded native map, or null for an unavailable map id.
  */
 export async function loadElementMap(region: string): Promise<MapData | null> {
   if (region === "world") return WORLD;
@@ -75,6 +77,8 @@ export async function loadElementMap(region: string): Promise<MapData | null> {
  * console.log(JSON.stringify(readMapData('{"JP":10}')), readMapData('{"JP":"bad"}'));
  * // {"JP":10} null
  * ```
+ * @param text - The JSON text to read; null means no data.
+ * @returns Finite values keyed by place code, or null when no data was supplied.
  */
 export function readMapData(text: string | null): Record<string, number> | null {
   if (text === null || text === "") return {};
@@ -400,6 +404,8 @@ export class ChizuQuiz extends ChizuElement {
  * defineMap("article-map");
  * document.body.append(document.createElement("article-map"));
  * ```
+ * @param tag - The custom tag name; omitted to use the package default.
+ * @returns Nothing; existing definitions and server imports remain safe.
  */
 export function defineMap(tag = "chizu-map"): void { define(tag, ChizuMapElement, "chizu-map"); }
 /** Register `<chizu-locator>` or a host's own tag; an existing definition is preserved. 
@@ -410,6 +416,8 @@ export function defineMap(tag = "chizu-map"): void { define(tag, ChizuMapElement
  * defineLocator("article-locator");
  * document.body.append(document.createElement("article-locator"));
  * ```
+ * @param tag - The custom tag name; omitted to use the package default.
+ * @returns Nothing; existing definitions and server imports remain safe.
  */
 export function defineLocator(tag = "chizu-locator"): void { define(tag, ChizuLocator, "chizu-locator"); }
 /** Register `<chizu-quiz>` or a host's own tag; an existing definition is preserved. 
@@ -420,6 +428,8 @@ export function defineLocator(tag = "chizu-locator"): void { define(tag, ChizuLo
  * defineQuiz("article-quiz");
  * document.body.append(document.createElement("article-quiz"));
  * ```
+ * @param tag - The custom tag name; omitted to use the package default.
+ * @returns Nothing; existing definitions and server imports remain safe.
  */
 export function defineQuiz(tag = "chizu-quiz"): void { define(tag, ChizuQuiz, "chizu-quiz"); }
 function define(tag: string, Class: CustomElementConstructor, standard: string): void {

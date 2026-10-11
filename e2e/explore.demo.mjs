@@ -205,8 +205,8 @@ test("Ctrl and the wheel zoom the map, and the wheel alone leaves the page to sc
   await page.mouse.move(after.x + after.width / 2, after.y + after.height / 2);
   await page.keyboard.down("Control");
   await page.mouse.wheel(0, -200);
-  await page.keyboard.up("Control");
   await expect(stage).toHaveAttribute("data-zoom", "2");
+  await page.keyboard.up("Control");
 });
 
 test("zoomed in on the world, the coasts are drawn from the finer outlines, fetched only then", async ({ page }) => {
