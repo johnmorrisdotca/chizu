@@ -1,6 +1,7 @@
 /**
  * Chizu 地図: the engine round a map. Framing and zoom, insets, a world that wraps round, the outlines as points,
- * quiz distractors, the callout placer, and pasted place names, over plain `ChizuMap` data. Pure functions: each returns
+ * quiz distractors, the callout placer, pasted place names, and the city scale (`localMap`: a place's own GeoJSON and
+ * pictures in a local projection), over plain `ChizuMap` data. Pure functions: each returns
  * new values and never changes what it was given. No data, no drawing, no page: the maps are
  * `@johnmorrisdotca/chizu/world`, `/countries/<code>` and `/divisions/<code>`; the drawing is `/draw`, the
  * pan-and-zoom map in a page is `/mount`, and the names of every country are `/names`.
@@ -59,6 +60,11 @@ export type { FindQuestion } from "./quiz.ts";
 export { placesFromText, splitPastedPlaces } from "./fromText.ts";
 export type { MatchOptions, PastedPlaces } from "./fromText.ts";
 export { projectPoint, unprojectPoint } from "./project.ts";
+export { groundDistance, localCanvasFromBox, localConvergence, mapBoxFromLocal, mapBoxMetres } from "./local.ts";
+export type { ChizuLocalCanvas } from "./local.ts";
+export { localMap } from "./localMap.ts";
+export type { ChizuLocalMap, ChizuLocalMarker, ChizuLocalMarkerInput, ChizuLocalOptions } from "./localMap.ts";
+export type { ChizuGeoJson, ChizuLocalShape } from "./localGeo.ts";
 export { CHIZU_STRINGS, chizuLanguageOf, chizuSay, featureKindName, featureKindOf, nameOf } from "./strings.ts";
 export type { ChizuLanguage } from "./strings.ts";
 export { seededRandom, shuffled } from "./random.ts";

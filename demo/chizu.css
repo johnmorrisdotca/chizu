@@ -94,3 +94,9 @@ select.fam-field { min-width: min(100%, 22rem); }
 #feature-list tbody tr:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
 #feature-list tbody tr[aria-selected="true"] { background: color-mix(in srgb, var(--accent) 16%, transparent); }
 #feature-list tbody tr:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+
+/* The city scale: a drawing on the family's felt, as the map is. */
+#city-board { margin: 10px auto 0; max-width: min(100%, 700px); padding: 14px; min-width: 0; }
+#city-board svg { display: block; width: 100%; height: auto; max-height: 80vh; }
+#city-bearing { width: min(100%, 18rem); }
+#city-status { min-height: 1.5em; }

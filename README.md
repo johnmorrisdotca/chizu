@@ -66,9 +66,9 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 ## Who it is for
 
 - **Geography quiz and study sites** that want "which country is this?" with look-alike wrong answers built in (neighbours first, then the same continent, then whatever is nearest), questions that come out the same from the same seed, and names in English and Japanese.
-- **Printable sheets and worksheets**, where a map has to be labelled with numbers that sit in the sea, never on the land, with leader lines that do not cross each other and cross as little other land as they can.
-- **A site that pins things on a map**: members' home countries, battles, photographs. `projectPoint` puts a longitude and latitude on the world's canvas, and the world pans round without stopping.
-- **Anyone who needs country outlines and names in Japanese** and wants them as plain data, rebuilt from a public-domain source by a script they can read, with the source and its version written beside them.
+- **Printable sheets and worksheets**, where a map has to be labelled with numbers in the sea, never on the land, with leader lines that never cross and cross as little land as they can.
+- **A site that pins things on a map**: members' home countries, battles, photographs. `projectPoint` puts a longitude and latitude on a canvas, and the world pans round without stopping.
+- **Anyone who needs country outlines and names in Japanese** as plain data, rebuilt from a public-domain source by a script they can read, with its version beside them.
 
 ## Features
 
@@ -84,6 +84,7 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 - **Quiz distractors.** The wrong answers for "which one is this?", tempting for a reason, the same for the same seed.
 - **Pasted names to places.** A list somebody typed (English, Japanese, short names, readings) becomes the regions it names, in the order written, with what matched nothing said back.
 - **Longitude and latitude to the canvas, and back**, for the world and for each country alone, held to d3-geo's own to a hundredth of a unit.
+- **The city scale.** A local projection (a canvas unit a stated number of metres) takes a map past the 10× step to a venue: your own GeoJSON, pictures at their true size and bearing, callouts, a scale bar and your credit lines, nothing fetched. [docs/city.md](./docs/city.md).
 - **Drawn as SVG text** in an entry of its own, with tones for right and wrong, a colour of your own for any region, labels, insets in dashed frames and numbered callouts, for a server, an email, a build step or `innerHTML`.
 - **Dragged and zoomed in any page**: drag to move, buttons, Ctrl and the wheel or a pinch to zoom, arrow keys, a press to choose; with the words in English and Japanese for a screen reader.
 - **No dependencies**, no network requests, and nothing stored outside the page it is in.
@@ -189,11 +190,11 @@ Each country's map is its own file and its own dynamic import (`@johnmorrisdotca
 ### What a developer gets
 
 - **Plain data.** A `ChizuMap` is `{ id, kind, name, nameJa, width, height, wraps, projection, insets, regions }`, and a region is `{ code, name, nameJa, reading, group, path, bbox, centroid, neighbors }`. Your own map (a floor plan, a game board) is the same shape, and everything in the engine works on it.
-- **The look comes from custom properties.** The drawing and the mounted map are coloured by `--cz-*` and `--czm-*` properties, light and dark, and nothing is branded.
-- **TypeScript types for all of it.** Every export has a doc comment, so an editor shows it as you type.
+- **The look comes from custom properties** (`--cz-*`, `--czm-*`), light and dark; nothing is branded.
+- **TypeScript types for all of it**, each export with a doc comment.
 ### In a framework
 
-A map is drawn by one call that takes an element and hands back an object with `destroy()`: make the element, mount into it when the page has it, and destroy the mount when the page lets it go. [docs/frameworks.md](./docs/frameworks.md) has it in React, Vue, Svelte and Angular.
+One call takes an element and hands back an object with `destroy()`: mount when the page has the element, destroy when it lets it go. [docs/frameworks.md](./docs/frameworks.md) has it in React, Vue, Svelte and Angular.
 
 ## Examples
 
@@ -438,11 +439,7 @@ The codes are ISO 3166-1 alpha-2, in lower case in a file's name (`fr`), and Nat
 
 The **32 countries with regions** are Argentina, Australia, Austria, Belgium, Brazil, Canada, Chile, China, Colombia, France, Germany, Ireland, Italy, Japan, Malaysia, Mexico, the Netherlands, New Zealand, Norway, Peru, the Philippines, Poland, Russia, South Korea, Spain, Sweden, Switzerland, Taiwan, Thailand, the United Kingdom, the United States and Vietnam.
 
-**Japan.** The 47 prefectures are numbered as Japan numbers them, `"1"` (Hokkaidō) to `"47"` (Okinawa), with `iso` the ISO 3166-2 code (`JP-01`); `group` is the region a Japanese school teaches (Hokkaido, Tohoku, Kanto, Chubu, Kinki, Chugoku, Shikoku, Kyushu, with Okinawa in Kyushu), Kinki carrying Kansai (関西) in `groupAliases`; the names in both languages and the readings (とうきょうと) are kuni's. The mainland is drawn in Mercator 1,000 across. The islands far from it are drawn in boxes, each holding its own part of the sea (`within`) at a size it can be seen at: Okinawa's main islands large in the Sea of Japan, the Sakishima and Daito Islands beside them, Kagoshima's Tokara and Amami Islands (which Natural Earth draws inside Okinawa and the build gives back) north-east of them, and Tokyo's Ogasawara Islands, Volcano Islands and Minamitorishima at the bottom right.
-
-**What a country alone leaves out.** A country is drawn with its largest piece and every piece within 9° of it, so France is the mainland and Corsica, not French Guiana, Réunion and the Pacific (they are on the world map). The United States is the lower forty-eight and Alaska.
-
-**The world leaves out** Antarctica, the French Southern Lands, Northern Cyprus and Somaliland, and at 1:110m the smallest countries are left off it: 173 are drawn, and every one of the 238 is in its own file.
+**Notes on the maps**: how Japan's prefectures are numbered, grouped and boxed, what a country alone leaves out (France is the mainland and Corsica) and what the world leaves out, in [docs/maps.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/maps.md).
 
 ### The canvas and the codes
 
@@ -492,7 +489,7 @@ const spots = layoutCallouts(map, {
 
 Three things are weighed, in this order: a circle sits in water; no two leaders cross; a leader crosses as little land as it can. A circle goes to the nearest place it fits (the sea off its own coast, the gap between two islands, the empty half of the frame) and not to one of four sides. The numbers are checked against the coastline itself and not the box round it, so an inland sea or a bay is room. Where a frame has less room than it has circles, they close up rather than some going undrawn. A start is a point on the region's own land, not its centre, which for a chain or a crescent is in the sea.
 
-`polish: true` adds an annealing pass that leaves no two leaders closer than a circle's radius and none through another number, and lets a leader leave its region from the coast nearest its number. It takes a few seconds on a crowded sheet and is seeded, so the same sheet is drawn the same every time.
+`polish: true` adds a seeded annealing pass that leaves no two leaders closer than a circle's radius and none through another number, and lets a leader leave its region from the coast nearest its number. It takes a few seconds on a crowded sheet.
 
 `placeCallouts`, `calloutSpaces` and `calloutFaults` are the lower levels: the placement over any list of centroids and rings, the places a circle may sit, and the count of crossings and near-misses a sheet is held to.
 
@@ -538,6 +535,23 @@ console.log(africa.nameJa, svg.length > 0, question.choices.every((code) => afri
 ## Longitude and latitude
 
 `projectPoint(WORLD, 139.69, 35.69)` is Tokyo on the world's canvas, `[457.5, 212.5]`, and `unprojectPoint` goes back. A map keeps how its canvas was made (`projection`). Two are closed formulas, done here with no dependency: Miller's cylindrical round a centre longitude (the world) and Lambert azimuthal equal-area round a centre (a country alone). A country's regions were fitted with a projection of their own, and `projectPoint` answers `null` for them, never a guess. The tests hold both formulas to d3-geo's own.
+
+## The city scale
+
+Natural Earth stops at about a kilometre. Past it, `localMap` makes a map of a city or a venue from the GeoJSON and pictures you pass, in a transverse Mercator centred on the place (a canvas unit is `metresPerUnit` metres, held to the ellipsoid's own distances within 0.5%), and `drawLocal` draws it. Nothing is fetched and no map data is added: you pass the credit lines. [docs/city.md](./docs/city.md) has all of it.
+
+```ts
+import { localMap } from "@johnmorrisdotca/chizu";
+import { drawLocal } from "@johnmorrisdotca/chizu/draw";
+
+const pitch = '<svg viewBox="0 0 100 60"><rect width="100" height="60" fill="#9bd18a"/></svg>';
+const map = localMap({ centre: [139.7006, 35.7004], widthMetres: 300, markers: [{ at: [139.7006, 35.7004], svg: pitch, bearing: 30, name: "Pitch" }], credits: ["Pitch made up for this example"] });
+console.log(drawLocal(map, { labels: true }).includes(">Pitch</text>"));
+```
+
+```text
+true
+```
 
 ## Drawing a map
 
@@ -589,8 +603,8 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 
 | Entry | What it holds |
 | --- | --- |
-| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
-| `@johnmorrisdotca/chizu/draw` | `drawChizu`, `CHIZU_STYLE` |
+| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `projectPoint`, `unprojectPoint`; `localMap`, `groundDistance`, `mapBoxFromLocal`, `localCanvasFromBox`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
+| `@johnmorrisdotca/chizu/draw` | `drawChizu`, `drawLocal`, `CHIZU_STYLE`, `CHIZU_LOCAL_STYLE` |
 | `@johnmorrisdotca/chizu/mount` | `mountChizu`, `ensureChizuMapStyle`, `CHIZU_MAP_STYLE` |
 | `@johnmorrisdotca/chizu/names` | `CHIZU_COUNTRIES`, `CHIZU_SOURCE`, `countryByCode`, `countriesFromText` |
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
@@ -640,7 +654,7 @@ Nothing here is branded. The drawing and the mounted map are coloured by custom 
 | `--czm-rule` | the frame and the buttons' outline | `#bdb6a4` | `#4a4d46` |
 | `--czm-accent` | the focus ring | `#b5452c` | `#ff8a6b` |
 
-The parts of the drawing carry classes (`cz-region`, `cz-land`, `cz-sea`, `cz-inset`, `cz-label`, `cz-callout`, `cz-leader`, `cz-callout-circle`, `cz-callout-number`, `cz-tone-<name>`) for anything a property cannot reach. The demo's own page is the worked example: its green felt and cloth patches are the family's stylesheet, [`demo/family.css`](./demo/family.css), the same file byte for byte in every sibling's demo, and a test holds it to its hash.
+The parts of the drawing carry classes (`cz-region`, `cz-land`, `cz-sea`, `cz-inset`, `cz-label`, `cz-callout`, `cz-leader`, `cz-callout-circle`, `cz-callout-number`, `cz-tone-<name>`) for anything a property cannot reach. The demo's page is the worked example, on the family's stylesheet, [`demo/family.css`](./demo/family.css).
 
 ## Limits
 
@@ -657,39 +671,39 @@ All of these are held by tests, and the ones with a name are exported.
 | Wrong answers | 3 unless asked otherwise, drawn from the best `count + 3` | `pickDistractors` |
 | Window copies drawn on the world | at most 4, however wrong the window | `wrapOffsets` |
 
-Placing callouts takes about 70 ms for twenty countries on the world, about 90 ms for the sixteen states of Germany and about 240 ms for the 96 départements of France (measured on a laptop); `polish: true` adds between a third of a second and a few seconds for a crowded sheet. Nothing here runs on a timer, and a mounted map draws only when it is moved, zoomed or told something new.
+Placing callouts takes about 70 ms for twenty countries on the world and about 240 ms for the 96 départements of France (on a laptop); `polish: true` adds a third of a second to a few seconds for a crowded sheet. Nothing here runs on a timer, and a mounted map draws only when it is moved, zoomed or told something new.
 
 ## Accessibility
 
-- **A screen reader hears the map.** The mounted map is a focusable stage with the name "Map of Japan" (in Japanese, 日本の地図) and a description of its keys. A polite line under it says what is chosen ("Japan chosen") or "Nothing chosen", so a change is spoken without moving focus. The zoom buttons are real buttons labelled "Zoom in", "Zoom out" and "Show the whole map", and a button that cannot do anything now is disabled.
+- **A screen reader hears the map.** The mounted map is a focusable stage with the name "Map of Japan" (in Japanese, 日本の地図) and a description of its keys. A polite line under it says what is chosen ("Japan chosen") or "Nothing chosen". The zoom buttons are real buttons labelled "Zoom in", "Zoom out" and "Show the whole map", and a button that cannot do anything now is disabled.
 - **The drawing says what it is.** `drawChizu` makes an `svg` with `role="img"` and an `aria-label` naming the map; each region carries a `<title>` with its name. With `interactive: true` the drawing is a `role="group"` and every region a `role="button"` with its name as its label, for a page to hand focus to.
 - **The keyboard moves and zooms the map.** Tab reaches the map, the arrow keys move it by 12 percent of the window, `+` and `-` zoom (`=` and `_` too) and `0` shows the whole map; the focus ring is three pixels in the accent colour. The zoom buttons are reached with Tab and pressed with Enter or Space.
-- **Touch targets.** The zoom buttons are 44 by 44 pixels. A drag on the map moves the map and not the page (`touch-action: none` on the stage only); the wheel alone scrolls the page, and only Ctrl or ⌘ with the wheel, or a pinch, zooms.
+- **Touch targets.** The zoom buttons are 44 by 44 pixels. A drag moves the map and not the page (`touch-action: none` on the stage only); the wheel alone scrolls the page.
 - **Reduced motion.** Nothing in the package animates, so there is nothing for `prefers-reduced-motion` to change.
-- **Colour.** Land, sea and the six tones follow the device's light or dark setting. A tone (`correct`, `wrong`, `selected`) is a fill colour and a `data-tone` attribute and nothing more, so a page that marks an answer right or wrong says so in words as well, as the demo's quiz does. The colour pairs in [Theming](#theming) have not been measured against WCAG contrast ratios.
-- **Not yet: choosing a place from the keyboard inside the map.** A press chooses a region; the arrow keys do not move between regions, and the regions in a mounted map are not in the tab order. A page that needs it offers its own list that calls `mount.select(code)`: the demo's table of names does, with each row focusable and chosen with Enter.
+- **Colour.** Land, sea and the six tones follow the device's light or dark setting. A tone (`correct`, `wrong`, `selected`) is a fill colour and a `data-tone` attribute and nothing more, so a page says so in words as well, as the demo's quiz does. The colour pairs in [Theming](#theming) have not been measured against WCAG contrast ratios.
+- **Not yet: choosing a place from the keyboard inside the map.** The arrow keys do not move between regions, and they are not in the tab order. A page that needs it offers its own list that calls `mount.select(code)`, as the demo's table of names does.
 - **Not yet: Japanese read by a native reader.** The words are listed beside their English in [docs/strings-ja.md](./docs/strings-ja.md) (see [Languages](#languages)).
 
 ## Browser and runtime support
 
-Any browser with ES2020 modules, pointer events and CSS `aspect-ratio`: Chrome and Edge 88, Safari 15, Firefox 89, all from 2021 on. The mounted map draws in the page's own DOM, with no shadow DOM and no CSS the page cannot reach. The demo is played in a real Chromium at a phone's width (with touch) and a desk's, and in WebKit, Safari's engine, at a phone's width; Firefox is not in that run. The package itself (everything but the page) needs no DOM: it runs in Node 22 or later (CI tests 22 and 24). Deno and Bun are not tested.
+Any browser with ES2020 modules, pointer events and CSS `aspect-ratio`: Chrome and Edge 88, Safari 15, Firefox 89, all from 2021 on. The mounted map draws in the page's own DOM, with no shadow DOM and no CSS the page cannot reach. The demo is played in Chromium (phone and desk, with touch) and WebKit (phone); Firefox is not in that run. The package itself (everything but the page) needs no DOM: it runs in Node 22 or later (CI tests 22 and 24). Deno and Bun are not tested.
 
 ## Languages
 
-English and Japanese: the names of every country, of nearly every region and of most seas, lakes and rivers (Natural Earth's, else Wikidata's: [docs/features.md](./docs/features.md)) (kuni's, from Unicode CLDR and Wikidata, and Natural Earth's, from Wikidata), the everyday short name where it is not the formal one (アメリカ), the reading in kana of every country and every prefecture, the words of the drawing and the mounted map (`CHIZU_STRINGS`), and the demo. **Japanese: included; not yet reviewed by a native reader. Corrections welcome.** The readings are kuni's, but for the three places kuni does not have, whose readings are hand-written, 3 of them (`KANJI_READINGS` in `scripts/data-config.mjs`); a name in katakana is its own reading. Every string of the board is listed beside its English in [docs/strings-ja.md](./docs/strings-ja.md), and there is an [issue template](https://github.com/johnmorrisdotca/chizu/issues/new?template=fix-a-translation.md) for fixing one. Any other language is a table of your own, passed beside these two: Natural Earth carries names in more than twenty.
+English and Japanese: the names of every country, of nearly every region and of most seas, lakes and rivers (kuni's, from Unicode CLDR and Wikidata, and Natural Earth's, from Wikidata; [docs/features.md](./docs/features.md)), the everyday short name where it is not the formal one (アメリカ), the reading in kana of every country and every prefecture, the words of the drawing and the mounted map (`CHIZU_STRINGS`), and the demo. **Japanese: included; not yet reviewed by a native reader. Corrections welcome.** The readings are kuni's, but for the three places kuni does not have, whose readings are hand-written, 3 of them (`KANJI_READINGS` in `scripts/data-config.mjs`); a name in katakana is its own reading. Every string of the board is listed beside its English in [docs/strings-ja.md](./docs/strings-ja.md), and there is an [issue template](https://github.com/johnmorrisdotca/chizu/issues/new?template=fix-a-translation.md) for fixing one. Any other language is a table of your own, passed beside these two: Natural Earth carries names in more than twenty.
 
 ## Roadmap
 
 Not here yet, and each welcome as an [issue](https://github.com/johnmorrisdotca/chizu/issues):
 
 - **The outlines as longitude and latitude**, an entry of their own, so that another map can be made from them in another projection or cut at another meridian: [Tenka](https://github.com/johnmorrisdotca/tenka) cuts its world at the Bering Strait and merges countries into territories, which a canvas that is already projected cannot do.
-- **Cities**: Natural Earth's populated places, projected on each map's canvas, for pinning a town and not only a country.
+- **Cities on the country maps**: Natural Earth's populated places, projected on each canvas, for pinning a town.
 - **More named water**: Natural Earth's regional supplements of lakes and rivers, and the bays and rivers it does not draw at 1:10m (Tokyo Bay, the Shinano).
 - **Readings for the regions outside Japan**, when kuni has them.
 - A **US-style composite** (Albers USA) as an alternative to the two boxes.
 - A **tag** (`<chizu-map>`) beside `mountChizu`, as the other packages of the family have.
 
-Left out on purpose: population, area, mottos and "famous for" facts. They are claims, and a map should not make them without a source for each; where kuni carries one with its source, Chizu reads it at build time rather than keeping a copy of its own.
+Left out on purpose: population, area, mottos and "famous for" facts. They are claims, and a map should not make them without a source for each; where kuni carries one with its source, Chizu reads it at build time.
 
 ## Architecture
 
@@ -720,10 +734,17 @@ src/
 ├── fromText.ts         pasted names to places
 ├── countries.ts        the table of countries, looked up
 ├── project.ts          longitude and latitude on a canvas
+├── local.ts            the city scale's projection and the hand-over
+├── localMap.ts         a local map from GeoJSON and pictures
+├── localGeo.ts         GeoJSON on the canvas
+├── localMarker.ts      a picture placed and cleaned
+├── localStyle.ts       the city scale's look
 ├── strings.ts          the words, in English and Japanese
 ├── style.ts            the drawing's colours
 ├── draw.ts             a map as SVG text
 ├── drawFeatures.ts     the features in a drawing, and their names
+├── drawLocal.ts        a local map as SVG text
+├── drawCallouts.ts     the numbered circles, as SVG
 ├── mount.ts            a map in a page
 ├── mountStyle.ts       the page's colours
 ├── random.ts           the seeded stream
