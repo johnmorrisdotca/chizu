@@ -1,0 +1,59 @@
+---
+title: How the engine and generated maps fit together
+section: explanation
+order: 10
+description: Preserved architecture and the boundaries between data, geometry and browser drawing.
+---
+
+## Architecture
+
+The engine is plain functions over plain data with no DOM and no dependency. The maps are generated: `scripts/build-data.mjs` reads nine Natural Earth files at a pinned release, the names, ISO codes and capitals from kuni 国 at a pinned version, and the features' other names from Wikidata as `scripts/wikidata.mjs` last asked, and writes every file under `src/data/`, and `pnpm data` twice leaves the tree unchanged. Each entry point is a file of its own, so a server that frames and numbers a map never loads the drawing, and a page that draws one country never loads another. Tests sit beside the code they test (`*.test.ts`). `scripts/` builds the data, the demo and its API reference page, takes the README's pictures and checks the package as npm packs it; `demo/` is the playable page, and `e2e/` its browser tests.
+
+```text
+src/
+├── index.ts            the engine's entry
+├── draw-entry.ts       the drawing's entry
+├── mount-entry.ts      the page's entry
+├── names-entry.ts      the table of countries' entry
+├── load-entry.ts       loadCountry and loadDivisions
+├── world-entry.ts      the world's entry
+├── types.ts            ChizuMap, ChizuRegion, MapBox and the rest
+├── frame.ts            windows, zoom steps, fits
+├── insets.ts           regions drawn in boxes of their own
+├── wrap.ts             the world that goes round
+├── outlines.ts         paths as rings, land under a point, a point on a region's land
+├── handles.ts          numbers beside regions, and in order across the map
+├── callouts.ts         numbered circles in open water
+├── calloutSpace.ts     where a circle may sit
+├── calloutPolish.ts    the slow pass for a printed sheet
+├── layout.ts           layoutCallouts over a whole map
+├── distractors.ts      the wrong answers
+├── quiz.ts             a question and its choices
+├── groups.ts           continents and other groups: cut, framed, toned
+├── features.ts         seas, lakes, rivers and the rest: chosen, searched, made a map
+├── fromText.ts         pasted names to places
+├── countries.ts        the table of countries, looked up
+├── project.ts          longitude and latitude on a canvas
+├── strings.ts          the words, in English and Japanese
+├── style.ts            the drawing's colours
+├── draw.ts             a map as SVG text
+├── drawFeatures.ts     the features in a drawing, and their names
+├── element.ts          browser elements for maps, locators and quizzes
+├── element-define.ts   register the three elements
+├── mount.ts            a map in a page
+├── mountStyle.ts       the page's colours
+├── random.ts           the seeded stream
+├── version.ts          the version
+└── data/               generated, never edited
+    ├── world.ts            the world
+    ├── world-detail.ts     the world drawn finer, for a map zoomed in
+    ├── countries.ts        the table of every country
+    ├── loaders.ts          one import for each country's map
+    ├── countries/<code>.ts   238 countries, each alone
+    ├── divisions/<code>.ts   32 countries' regions
+    └── features/<map>.ts     268 maps' named features
+```
+
+## Documentation and generated data
+
+The reference reads the public TypeScript declarations. Public map-resource comments are emitted by scripts/data-docs.mjs through the same data writer, so future data builds keep their examples. The comment refresh command changes only comments, not the upstream data or numeric paths. The local Pagefind index searches the built documentation without a hosted service.

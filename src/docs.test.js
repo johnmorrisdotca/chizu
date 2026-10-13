@@ -51,11 +51,14 @@ describe("the documents", () => {
     expect(readFileSync("CHANGELOG.md", "utf8")).toMatch(new RegExp(`^## \\[${pkg.version.replace(/\./g, "\\.")}\\] `, "m"));
   });
 
-  it("name in the README every entry package.json exports, and no other", () => {
-    const named = [...readme.matchAll(/`(@johnmorrisdotca\/chizu(?:\/[a-z<>/-]+)?)`/g)].map((match) => match[1]);
+  it("name every package entry in the README or its linked map-resource catalogue, and no other", () => {
+    const catalogue = readFileSync("docs/guides/map-resources.md", "utf8");
+    expect(readme).toContain("docs/guides/map-resources.md");
+    const documented = readme + catalogue;
+    const named = [...documented.matchAll(/`(@johnmorrisdotca\/chizu(?:\/[a-z<>/-]+)?)`/g)].map((match) => match[1]);
     for (const key of Object.keys(pkg.exports).filter((one) => one !== ".")) {
       const entry = `${pkg.name}/${key.slice(2).replace("*", key.includes("countries") || key.includes("divisions") ? "<code>" : key.includes("features") ? "<map>" : "*")}`;
-      expect(readme, entry).toContain(`\`${entry}\``);
+      expect(documented, entry).toContain(`\`${entry}\``);
     }
     for (const entry of named) {
       const key = entry === pkg.name ? "." : `./${entry.slice(pkg.name.length + 1).replace("<code>", "*").replace("<map>", "*")}`;

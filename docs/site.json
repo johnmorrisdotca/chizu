@@ -1,0 +1,2198 @@
+{
+  "job": "SVG maps for JavaScript",
+  "pitch": {
+    "en": "Draw SVG maps, frame regions, place numbered callouts and build geography quizzes with English and Japanese names.",
+    "ja": "SVGの地図を描き、地域を表示範囲に収め、番号付きの注記や地理クイズを英語と日本語の名前で作れます。"
+  },
+  "name": {
+    "en": "Chizu is the Japanese word 地図 for map.",
+    "ja": "「地図」は、土地や場所を図で表したものです。"
+  },
+  "icon": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232f5d4a'/%3E%3Ctext x='50' y='72' font-size='64' text-anchor='middle' fill='%23f3efe4'%3E図%3C/text%3E%3C/svg%3E",
+  "entries": {
+    ".": {
+      "en": "Framing, geometry and quiz tools",
+      "ja": "表示範囲・形・クイズの道具"
+    },
+    "./draw": {
+      "en": "Draw maps as SVG",
+      "ja": "SVGで地図を描く"
+    },
+    "./mount": {
+      "en": "Interactive maps",
+      "ja": "操作できる地図"
+    },
+    "./names": {
+      "en": "Country names and groups",
+      "ja": "国名とグループ"
+    },
+    "./load": {
+      "en": "Load maps and features",
+      "ja": "地図と地物を読み込む"
+    },
+    "./world": {
+      "en": "The world map",
+      "ja": "世界地図"
+    },
+    "./element": {
+      "en": "Map, locator and quiz elements",
+      "ja": "地図・場所・クイズの要素"
+    },
+    "./element/define": {
+      "en": "Register map elements",
+      "ja": "地図の要素を登録する"
+    },
+    "./countries/ad": {
+      "en": "Andorra outline",
+      "ja": "アンドラの輪郭"
+    },
+    "./countries/ae": {
+      "en": "United Arab Emirates outline",
+      "ja": "アラブ首長国連邦の輪郭"
+    },
+    "./countries/af": {
+      "en": "Afghanistan outline",
+      "ja": "アフガニスタンの輪郭"
+    },
+    "./countries/ag": {
+      "en": "Antigua & Barbuda outline",
+      "ja": "アンティグア・バーブーダの輪郭"
+    },
+    "./countries/ai": {
+      "en": "Anguilla outline",
+      "ja": "アンギラの輪郭"
+    },
+    "./countries/al": {
+      "en": "Albania outline",
+      "ja": "アルバニアの輪郭"
+    },
+    "./countries/am": {
+      "en": "Armenia outline",
+      "ja": "アルメニアの輪郭"
+    },
+    "./countries/ao": {
+      "en": "Angola outline",
+      "ja": "アンゴラの輪郭"
+    },
+    "./countries/ar": {
+      "en": "Argentina outline",
+      "ja": "アルゼンチンの輪郭"
+    },
+    "./countries/as": {
+      "en": "American Samoa outline",
+      "ja": "米領サモアの輪郭"
+    },
+    "./countries/at": {
+      "en": "Austria outline",
+      "ja": "オーストリアの輪郭"
+    },
+    "./countries/atc": {
+      "en": "Ashmore and Cartier Is. outline",
+      "ja": "アシュモア・カルティエ諸島の輪郭"
+    },
+    "./countries/au": {
+      "en": "Australia outline",
+      "ja": "オーストラリアの輪郭"
+    },
+    "./countries/aw": {
+      "en": "Aruba outline",
+      "ja": "アルバの輪郭"
+    },
+    "./countries/ax": {
+      "en": "Åland Islands outline",
+      "ja": "オーランド諸島の輪郭"
+    },
+    "./countries/az": {
+      "en": "Azerbaijan outline",
+      "ja": "アゼルバイジャンの輪郭"
+    },
+    "./countries/ba": {
+      "en": "Bosnia outline",
+      "ja": "ボスニア・ヘルツェゴビナの輪郭"
+    },
+    "./countries/bb": {
+      "en": "Barbados outline",
+      "ja": "バルバドスの輪郭"
+    },
+    "./countries/bd": {
+      "en": "Bangladesh outline",
+      "ja": "バングラデシュの輪郭"
+    },
+    "./countries/be": {
+      "en": "Belgium outline",
+      "ja": "ベルギーの輪郭"
+    },
+    "./countries/bf": {
+      "en": "Burkina Faso outline",
+      "ja": "ブルキナファソの輪郭"
+    },
+    "./countries/bg": {
+      "en": "Bulgaria outline",
+      "ja": "ブルガリアの輪郭"
+    },
+    "./countries/bh": {
+      "en": "Bahrain outline",
+      "ja": "バーレーンの輪郭"
+    },
+    "./countries/bi": {
+      "en": "Burundi outline",
+      "ja": "ブルンジの輪郭"
+    },
+    "./countries/bj": {
+      "en": "Benin outline",
+      "ja": "ベナンの輪郭"
+    },
+    "./countries/bl": {
+      "en": "St. Barthélemy outline",
+      "ja": "サン・バルテルミーの輪郭"
+    },
+    "./countries/bm": {
+      "en": "Bermuda outline",
+      "ja": "バミューダの輪郭"
+    },
+    "./countries/bn": {
+      "en": "Brunei outline",
+      "ja": "ブルネイの輪郭"
+    },
+    "./countries/bo": {
+      "en": "Bolivia outline",
+      "ja": "ボリビアの輪郭"
+    },
+    "./countries/br": {
+      "en": "Brazil outline",
+      "ja": "ブラジルの輪郭"
+    },
+    "./countries/bs": {
+      "en": "Bahamas outline",
+      "ja": "バハマの輪郭"
+    },
+    "./countries/bt": {
+      "en": "Bhutan outline",
+      "ja": "ブータンの輪郭"
+    },
+    "./countries/bw": {
+      "en": "Botswana outline",
+      "ja": "ボツワナの輪郭"
+    },
+    "./countries/by": {
+      "en": "Belarus outline",
+      "ja": "ベラルーシの輪郭"
+    },
+    "./countries/bz": {
+      "en": "Belize outline",
+      "ja": "ベリーズの輪郭"
+    },
+    "./countries/ca": {
+      "en": "Canada outline",
+      "ja": "カナダの輪郭"
+    },
+    "./countries/cd": {
+      "en": "DR Congo outline",
+      "ja": "コンゴ民主共和国の輪郭"
+    },
+    "./countries/cf": {
+      "en": "Central African Republic outline",
+      "ja": "中央アフリカ共和国の輪郭"
+    },
+    "./countries/cg": {
+      "en": "Congo outline",
+      "ja": "コンゴ共和国の輪郭"
+    },
+    "./countries/ch": {
+      "en": "Switzerland outline",
+      "ja": "スイスの輪郭"
+    },
+    "./countries/ci": {
+      "en": "Côte d’Ivoire outline",
+      "ja": "コートジボワールの輪郭"
+    },
+    "./countries/ck": {
+      "en": "Cook Islands outline",
+      "ja": "クック諸島の輪郭"
+    },
+    "./countries/cl": {
+      "en": "Chile outline",
+      "ja": "チリの輪郭"
+    },
+    "./countries/cm": {
+      "en": "Cameroon outline",
+      "ja": "カメルーンの輪郭"
+    },
+    "./countries/cn": {
+      "en": "China outline",
+      "ja": "中国の輪郭"
+    },
+    "./countries/co": {
+      "en": "Colombia outline",
+      "ja": "コロンビアの輪郭"
+    },
+    "./countries/cr": {
+      "en": "Costa Rica outline",
+      "ja": "コスタリカの輪郭"
+    },
+    "./countries/cu": {
+      "en": "Cuba outline",
+      "ja": "キューバの輪郭"
+    },
+    "./countries/cv": {
+      "en": "Cape Verde outline",
+      "ja": "カーボベルデの輪郭"
+    },
+    "./countries/cw": {
+      "en": "Curaçao outline",
+      "ja": "キュラソーの輪郭"
+    },
+    "./countries/cy": {
+      "en": "Cyprus outline",
+      "ja": "キプロスの輪郭"
+    },
+    "./countries/cz": {
+      "en": "Czechia outline",
+      "ja": "チェコの輪郭"
+    },
+    "./countries/de": {
+      "en": "Germany outline",
+      "ja": "ドイツの輪郭"
+    },
+    "./countries/dj": {
+      "en": "Djibouti outline",
+      "ja": "ジブチの輪郭"
+    },
+    "./countries/dk": {
+      "en": "Denmark outline",
+      "ja": "デンマークの輪郭"
+    },
+    "./countries/dm": {
+      "en": "Dominica outline",
+      "ja": "ドミニカ国の輪郭"
+    },
+    "./countries/do": {
+      "en": "Dominican Republic outline",
+      "ja": "ドミニカ共和国の輪郭"
+    },
+    "./countries/dz": {
+      "en": "Algeria outline",
+      "ja": "アルジェリアの輪郭"
+    },
+    "./countries/ec": {
+      "en": "Ecuador outline",
+      "ja": "エクアドルの輪郭"
+    },
+    "./countries/ee": {
+      "en": "Estonia outline",
+      "ja": "エストニアの輪郭"
+    },
+    "./countries/eg": {
+      "en": "Egypt outline",
+      "ja": "エジプトの輪郭"
+    },
+    "./countries/eh": {
+      "en": "Western Sahara outline",
+      "ja": "西サハラの輪郭"
+    },
+    "./countries/er": {
+      "en": "Eritrea outline",
+      "ja": "エリトリアの輪郭"
+    },
+    "./countries/es": {
+      "en": "Spain outline",
+      "ja": "スペインの輪郭"
+    },
+    "./countries/et": {
+      "en": "Ethiopia outline",
+      "ja": "エチオピアの輪郭"
+    },
+    "./countries/fi": {
+      "en": "Finland outline",
+      "ja": "フィンランドの輪郭"
+    },
+    "./countries/fj": {
+      "en": "Fiji outline",
+      "ja": "フィジーの輪郭"
+    },
+    "./countries/fk": {
+      "en": "Falkland Islands outline",
+      "ja": "フォークランド諸島の輪郭"
+    },
+    "./countries/fm": {
+      "en": "Micronesia outline",
+      "ja": "ミクロネシア連邦の輪郭"
+    },
+    "./countries/fo": {
+      "en": "Faroe Islands outline",
+      "ja": "フェロー諸島の輪郭"
+    },
+    "./countries/fr": {
+      "en": "France outline",
+      "ja": "フランスの輪郭"
+    },
+    "./countries/ga": {
+      "en": "Gabon outline",
+      "ja": "ガボンの輪郭"
+    },
+    "./countries/gb": {
+      "en": "United Kingdom outline",
+      "ja": "イギリスの輪郭"
+    },
+    "./countries/gd": {
+      "en": "Grenada outline",
+      "ja": "グレナダの輪郭"
+    },
+    "./countries/ge": {
+      "en": "Georgia outline",
+      "ja": "ジョージアの輪郭"
+    },
+    "./countries/gg": {
+      "en": "Guernsey outline",
+      "ja": "ガーンジーの輪郭"
+    },
+    "./countries/gh": {
+      "en": "Ghana outline",
+      "ja": "ガーナの輪郭"
+    },
+    "./countries/gl": {
+      "en": "Greenland outline",
+      "ja": "グリーンランドの輪郭"
+    },
+    "./countries/gm": {
+      "en": "Gambia outline",
+      "ja": "ガンビアの輪郭"
+    },
+    "./countries/gn": {
+      "en": "Guinea outline",
+      "ja": "ギニアの輪郭"
+    },
+    "./countries/gq": {
+      "en": "Equatorial Guinea outline",
+      "ja": "赤道ギニアの輪郭"
+    },
+    "./countries/gr": {
+      "en": "Greece outline",
+      "ja": "ギリシャの輪郭"
+    },
+    "./countries/gs": {
+      "en": "South Georgia & South Sandwich Islands outline",
+      "ja": "サウスジョージア・サウスサンドウィッチ諸島の輪郭"
+    },
+    "./countries/gt": {
+      "en": "Guatemala outline",
+      "ja": "グアテマラの輪郭"
+    },
+    "./countries/gu": {
+      "en": "Guam outline",
+      "ja": "グアムの輪郭"
+    },
+    "./countries/gw": {
+      "en": "Guinea-Bissau outline",
+      "ja": "ギニアビサウの輪郭"
+    },
+    "./countries/gy": {
+      "en": "Guyana outline",
+      "ja": "ガイアナの輪郭"
+    },
+    "./countries/hk": {
+      "en": "Hong Kong outline",
+      "ja": "香港の輪郭"
+    },
+    "./countries/hm": {
+      "en": "Heard & McDonald Islands outline",
+      "ja": "ハード島・マクドナルド諸島の輪郭"
+    },
+    "./countries/hn": {
+      "en": "Honduras outline",
+      "ja": "ホンジュラスの輪郭"
+    },
+    "./countries/hr": {
+      "en": "Croatia outline",
+      "ja": "クロアチアの輪郭"
+    },
+    "./countries/ht": {
+      "en": "Haiti outline",
+      "ja": "ハイチの輪郭"
+    },
+    "./countries/hu": {
+      "en": "Hungary outline",
+      "ja": "ハンガリーの輪郭"
+    },
+    "./countries/id": {
+      "en": "Indonesia outline",
+      "ja": "インドネシアの輪郭"
+    },
+    "./countries/ie": {
+      "en": "Ireland outline",
+      "ja": "アイルランドの輪郭"
+    },
+    "./countries/il": {
+      "en": "Israel outline",
+      "ja": "イスラエルの輪郭"
+    },
+    "./countries/im": {
+      "en": "Isle of Man outline",
+      "ja": "マン島の輪郭"
+    },
+    "./countries/in": {
+      "en": "India outline",
+      "ja": "インドの輪郭"
+    },
+    "./countries/io": {
+      "en": "British Indian Ocean Territory outline",
+      "ja": "英領インド洋地域の輪郭"
+    },
+    "./countries/ioa": {
+      "en": "Indian Ocean Ter. outline",
+      "ja": "オーストラリア領インド洋地域の輪郭"
+    },
+    "./countries/iq": {
+      "en": "Iraq outline",
+      "ja": "イラクの輪郭"
+    },
+    "./countries/ir": {
+      "en": "Iran outline",
+      "ja": "イランの輪郭"
+    },
+    "./countries/is": {
+      "en": "Iceland outline",
+      "ja": "アイスランドの輪郭"
+    },
+    "./countries/it": {
+      "en": "Italy outline",
+      "ja": "イタリアの輪郭"
+    },
+    "./countries/je": {
+      "en": "Jersey outline",
+      "ja": "ジャージーの輪郭"
+    },
+    "./countries/jm": {
+      "en": "Jamaica outline",
+      "ja": "ジャマイカの輪郭"
+    },
+    "./countries/jo": {
+      "en": "Jordan outline",
+      "ja": "ヨルダンの輪郭"
+    },
+    "./countries/jp": {
+      "en": "Japan outline",
+      "ja": "日本の輪郭"
+    },
+    "./countries/kas": {
+      "en": "Siachen Glacier outline",
+      "ja": "シアチェン氷河の輪郭"
+    },
+    "./countries/ke": {
+      "en": "Kenya outline",
+      "ja": "ケニアの輪郭"
+    },
+    "./countries/kg": {
+      "en": "Kyrgyzstan outline",
+      "ja": "キルギスの輪郭"
+    },
+    "./countries/kh": {
+      "en": "Cambodia outline",
+      "ja": "カンボジアの輪郭"
+    },
+    "./countries/ki": {
+      "en": "Kiribati outline",
+      "ja": "キリバスの輪郭"
+    },
+    "./countries/km": {
+      "en": "Comoros outline",
+      "ja": "コモロの輪郭"
+    },
+    "./countries/kn": {
+      "en": "St. Kitts & Nevis outline",
+      "ja": "セントクリストファー・ネーヴィスの輪郭"
+    },
+    "./countries/kp": {
+      "en": "North Korea outline",
+      "ja": "北朝鮮の輪郭"
+    },
+    "./countries/kr": {
+      "en": "South Korea outline",
+      "ja": "韓国の輪郭"
+    },
+    "./countries/kw": {
+      "en": "Kuwait outline",
+      "ja": "クウェートの輪郭"
+    },
+    "./countries/ky": {
+      "en": "Cayman Islands outline",
+      "ja": "ケイマン諸島の輪郭"
+    },
+    "./countries/kz": {
+      "en": "Kazakhstan outline",
+      "ja": "カザフスタンの輪郭"
+    },
+    "./countries/la": {
+      "en": "Laos outline",
+      "ja": "ラオスの輪郭"
+    },
+    "./countries/lb": {
+      "en": "Lebanon outline",
+      "ja": "レバノンの輪郭"
+    },
+    "./countries/lc": {
+      "en": "St. Lucia outline",
+      "ja": "セントルシアの輪郭"
+    },
+    "./countries/li": {
+      "en": "Liechtenstein outline",
+      "ja": "リヒテンシュタインの輪郭"
+    },
+    "./countries/lk": {
+      "en": "Sri Lanka outline",
+      "ja": "スリランカの輪郭"
+    },
+    "./countries/lr": {
+      "en": "Liberia outline",
+      "ja": "リベリアの輪郭"
+    },
+    "./countries/ls": {
+      "en": "Lesotho outline",
+      "ja": "レソトの輪郭"
+    },
+    "./countries/lt": {
+      "en": "Lithuania outline",
+      "ja": "リトアニアの輪郭"
+    },
+    "./countries/lu": {
+      "en": "Luxembourg outline",
+      "ja": "ルクセンブルクの輪郭"
+    },
+    "./countries/lv": {
+      "en": "Latvia outline",
+      "ja": "ラトビアの輪郭"
+    },
+    "./countries/ly": {
+      "en": "Libya outline",
+      "ja": "リビアの輪郭"
+    },
+    "./countries/ma": {
+      "en": "Morocco outline",
+      "ja": "モロッコの輪郭"
+    },
+    "./countries/mc": {
+      "en": "Monaco outline",
+      "ja": "モナコの輪郭"
+    },
+    "./countries/md": {
+      "en": "Moldova outline",
+      "ja": "モルドバの輪郭"
+    },
+    "./countries/me": {
+      "en": "Montenegro outline",
+      "ja": "モンテネグロの輪郭"
+    },
+    "./countries/mf": {
+      "en": "St. Martin outline",
+      "ja": "サン・マルタンの輪郭"
+    },
+    "./countries/mg": {
+      "en": "Madagascar outline",
+      "ja": "マダガスカルの輪郭"
+    },
+    "./countries/mh": {
+      "en": "Marshall Islands outline",
+      "ja": "マーシャル諸島の輪郭"
+    },
+    "./countries/mk": {
+      "en": "North Macedonia outline",
+      "ja": "北マケドニアの輪郭"
+    },
+    "./countries/ml": {
+      "en": "Mali outline",
+      "ja": "マリの輪郭"
+    },
+    "./countries/mm": {
+      "en": "Myanmar outline",
+      "ja": "ミャンマーの輪郭"
+    },
+    "./countries/mn": {
+      "en": "Mongolia outline",
+      "ja": "モンゴルの輪郭"
+    },
+    "./countries/mo": {
+      "en": "Macao outline",
+      "ja": "マカオの輪郭"
+    },
+    "./countries/mp": {
+      "en": "Northern Mariana Islands outline",
+      "ja": "北マリアナ諸島の輪郭"
+    },
+    "./countries/mr": {
+      "en": "Mauritania outline",
+      "ja": "モーリタニアの輪郭"
+    },
+    "./countries/ms": {
+      "en": "Montserrat outline",
+      "ja": "モントセラトの輪郭"
+    },
+    "./countries/mt": {
+      "en": "Malta outline",
+      "ja": "マルタの輪郭"
+    },
+    "./countries/mu": {
+      "en": "Mauritius outline",
+      "ja": "モーリシャスの輪郭"
+    },
+    "./countries/mv": {
+      "en": "Maldives outline",
+      "ja": "モルディブの輪郭"
+    },
+    "./countries/mw": {
+      "en": "Malawi outline",
+      "ja": "マラウイの輪郭"
+    },
+    "./countries/mx": {
+      "en": "Mexico outline",
+      "ja": "メキシコの輪郭"
+    },
+    "./countries/my": {
+      "en": "Malaysia outline",
+      "ja": "マレーシアの輪郭"
+    },
+    "./countries/mz": {
+      "en": "Mozambique outline",
+      "ja": "モザンビークの輪郭"
+    },
+    "./countries/na": {
+      "en": "Namibia outline",
+      "ja": "ナミビアの輪郭"
+    },
+    "./countries/nc": {
+      "en": "New Caledonia outline",
+      "ja": "ニューカレドニアの輪郭"
+    },
+    "./countries/ne": {
+      "en": "Niger outline",
+      "ja": "ニジェールの輪郭"
+    },
+    "./countries/nf": {
+      "en": "Norfolk Island outline",
+      "ja": "ノーフォーク島の輪郭"
+    },
+    "./countries/ng": {
+      "en": "Nigeria outline",
+      "ja": "ナイジェリアの輪郭"
+    },
+    "./countries/ni": {
+      "en": "Nicaragua outline",
+      "ja": "ニカラグアの輪郭"
+    },
+    "./countries/nl": {
+      "en": "Netherlands outline",
+      "ja": "オランダの輪郭"
+    },
+    "./countries/no": {
+      "en": "Norway outline",
+      "ja": "ノルウェーの輪郭"
+    },
+    "./countries/np": {
+      "en": "Nepal outline",
+      "ja": "ネパールの輪郭"
+    },
+    "./countries/nr": {
+      "en": "Nauru outline",
+      "ja": "ナウルの輪郭"
+    },
+    "./countries/nu": {
+      "en": "Niue outline",
+      "ja": "ニウエの輪郭"
+    },
+    "./countries/nz": {
+      "en": "New Zealand outline",
+      "ja": "ニュージーランドの輪郭"
+    },
+    "./countries/om": {
+      "en": "Oman outline",
+      "ja": "オマーンの輪郭"
+    },
+    "./countries/pa": {
+      "en": "Panama outline",
+      "ja": "パナマの輪郭"
+    },
+    "./countries/pe": {
+      "en": "Peru outline",
+      "ja": "ペルーの輪郭"
+    },
+    "./countries/pf": {
+      "en": "French Polynesia outline",
+      "ja": "仏領ポリネシアの輪郭"
+    },
+    "./countries/pg": {
+      "en": "Papua New Guinea outline",
+      "ja": "パプアニューギニアの輪郭"
+    },
+    "./countries/ph": {
+      "en": "Philippines outline",
+      "ja": "フィリピンの輪郭"
+    },
+    "./countries/pk": {
+      "en": "Pakistan outline",
+      "ja": "パキスタンの輪郭"
+    },
+    "./countries/pl": {
+      "en": "Poland outline",
+      "ja": "ポーランドの輪郭"
+    },
+    "./countries/pm": {
+      "en": "St. Pierre & Miquelon outline",
+      "ja": "サンピエール島・ミクロン島の輪郭"
+    },
+    "./countries/pn": {
+      "en": "Pitcairn outline",
+      "ja": "ピトケアン諸島の輪郭"
+    },
+    "./countries/pr": {
+      "en": "Puerto Rico outline",
+      "ja": "プエルトリコの輪郭"
+    },
+    "./countries/ps": {
+      "en": "Palestine outline",
+      "ja": "パレスチナの輪郭"
+    },
+    "./countries/pt": {
+      "en": "Portugal outline",
+      "ja": "ポルトガルの輪郭"
+    },
+    "./countries/pw": {
+      "en": "Palau outline",
+      "ja": "パラオの輪郭"
+    },
+    "./countries/py": {
+      "en": "Paraguay outline",
+      "ja": "パラグアイの輪郭"
+    },
+    "./countries/qa": {
+      "en": "Qatar outline",
+      "ja": "カタールの輪郭"
+    },
+    "./countries/ro": {
+      "en": "Romania outline",
+      "ja": "ルーマニアの輪郭"
+    },
+    "./countries/rs": {
+      "en": "Serbia outline",
+      "ja": "セルビアの輪郭"
+    },
+    "./countries/ru": {
+      "en": "Russia outline",
+      "ja": "ロシアの輪郭"
+    },
+    "./countries/rw": {
+      "en": "Rwanda outline",
+      "ja": "ルワンダの輪郭"
+    },
+    "./countries/sa": {
+      "en": "Saudi Arabia outline",
+      "ja": "サウジアラビアの輪郭"
+    },
+    "./countries/sb": {
+      "en": "Solomon Islands outline",
+      "ja": "ソロモン諸島の輪郭"
+    },
+    "./countries/sc": {
+      "en": "Seychelles outline",
+      "ja": "セーシェルの輪郭"
+    },
+    "./countries/sd": {
+      "en": "Sudan outline",
+      "ja": "スーダンの輪郭"
+    },
+    "./countries/se": {
+      "en": "Sweden outline",
+      "ja": "スウェーデンの輪郭"
+    },
+    "./countries/sg": {
+      "en": "Singapore outline",
+      "ja": "シンガポールの輪郭"
+    },
+    "./countries/sh": {
+      "en": "St. Helena outline",
+      "ja": "セントヘレナの輪郭"
+    },
+    "./countries/si": {
+      "en": "Slovenia outline",
+      "ja": "スロベニアの輪郭"
+    },
+    "./countries/sk": {
+      "en": "Slovakia outline",
+      "ja": "スロバキアの輪郭"
+    },
+    "./countries/sl": {
+      "en": "Sierra Leone outline",
+      "ja": "シエラレオネの輪郭"
+    },
+    "./countries/sm": {
+      "en": "San Marino outline",
+      "ja": "サンマリノの輪郭"
+    },
+    "./countries/sn": {
+      "en": "Senegal outline",
+      "ja": "セネガルの輪郭"
+    },
+    "./countries/so": {
+      "en": "Somalia outline",
+      "ja": "ソマリアの輪郭"
+    },
+    "./countries/sr": {
+      "en": "Suriname outline",
+      "ja": "スリナムの輪郭"
+    },
+    "./countries/ss": {
+      "en": "South Sudan outline",
+      "ja": "南スーダンの輪郭"
+    },
+    "./countries/st": {
+      "en": "São Tomé & Príncipe outline",
+      "ja": "サントメ・プリンシペの輪郭"
+    },
+    "./countries/sv": {
+      "en": "El Salvador outline",
+      "ja": "エルサルバドルの輪郭"
+    },
+    "./countries/sx": {
+      "en": "Sint Maarten outline",
+      "ja": "シント・マールテンの輪郭"
+    },
+    "./countries/sy": {
+      "en": "Syria outline",
+      "ja": "シリアの輪郭"
+    },
+    "./countries/sz": {
+      "en": "Eswatini outline",
+      "ja": "エスワティニの輪郭"
+    },
+    "./countries/tc": {
+      "en": "Turks & Caicos Islands outline",
+      "ja": "タークス・カイコス諸島の輪郭"
+    },
+    "./countries/td": {
+      "en": "Chad outline",
+      "ja": "チャドの輪郭"
+    },
+    "./countries/tg": {
+      "en": "Togo outline",
+      "ja": "トーゴの輪郭"
+    },
+    "./countries/th": {
+      "en": "Thailand outline",
+      "ja": "タイの輪郭"
+    },
+    "./countries/tj": {
+      "en": "Tajikistan outline",
+      "ja": "タジキスタンの輪郭"
+    },
+    "./countries/tl": {
+      "en": "Timor-Leste outline",
+      "ja": "東ティモールの輪郭"
+    },
+    "./countries/tm": {
+      "en": "Turkmenistan outline",
+      "ja": "トルクメニスタンの輪郭"
+    },
+    "./countries/tn": {
+      "en": "Tunisia outline",
+      "ja": "チュニジアの輪郭"
+    },
+    "./countries/to": {
+      "en": "Tonga outline",
+      "ja": "トンガの輪郭"
+    },
+    "./countries/tr": {
+      "en": "Türkiye outline",
+      "ja": "トルコの輪郭"
+    },
+    "./countries/tt": {
+      "en": "Trinidad & Tobago outline",
+      "ja": "トリニダード・トバゴの輪郭"
+    },
+    "./countries/tv": {
+      "en": "Tuvalu outline",
+      "ja": "ツバルの輪郭"
+    },
+    "./countries/tw": {
+      "en": "Taiwan outline",
+      "ja": "台湾の輪郭"
+    },
+    "./countries/tz": {
+      "en": "Tanzania outline",
+      "ja": "タンザニアの輪郭"
+    },
+    "./countries/ua": {
+      "en": "Ukraine outline",
+      "ja": "ウクライナの輪郭"
+    },
+    "./countries/ug": {
+      "en": "Uganda outline",
+      "ja": "ウガンダの輪郭"
+    },
+    "./countries/us": {
+      "en": "United States outline",
+      "ja": "アメリカの輪郭"
+    },
+    "./countries/uy": {
+      "en": "Uruguay outline",
+      "ja": "ウルグアイの輪郭"
+    },
+    "./countries/uz": {
+      "en": "Uzbekistan outline",
+      "ja": "ウズベキスタンの輪郭"
+    },
+    "./countries/va": {
+      "en": "Vatican City outline",
+      "ja": "バチカン市国の輪郭"
+    },
+    "./countries/vc": {
+      "en": "St. Vincent & Grenadines outline",
+      "ja": "セントビンセント及びグレナディーン諸島の輪郭"
+    },
+    "./countries/ve": {
+      "en": "Venezuela outline",
+      "ja": "ベネズエラの輪郭"
+    },
+    "./countries/vg": {
+      "en": "British Virgin Islands outline",
+      "ja": "英領ヴァージン諸島の輪郭"
+    },
+    "./countries/vi": {
+      "en": "U.S. Virgin Islands outline",
+      "ja": "米領ヴァージン諸島の輪郭"
+    },
+    "./countries/vn": {
+      "en": "Vietnam outline",
+      "ja": "ベトナムの輪郭"
+    },
+    "./countries/vu": {
+      "en": "Vanuatu outline",
+      "ja": "バヌアツの輪郭"
+    },
+    "./countries/wf": {
+      "en": "Wallis & Futuna outline",
+      "ja": "ウォリス・フツナの輪郭"
+    },
+    "./countries/ws": {
+      "en": "Samoa outline",
+      "ja": "サモアの輪郭"
+    },
+    "./countries/xk": {
+      "en": "Kosovo outline",
+      "ja": "コソボの輪郭"
+    },
+    "./countries/ye": {
+      "en": "Yemen outline",
+      "ja": "イエメンの輪郭"
+    },
+    "./countries/za": {
+      "en": "South Africa outline",
+      "ja": "南アフリカの輪郭"
+    },
+    "./countries/zm": {
+      "en": "Zambia outline",
+      "ja": "ザンビアの輪郭"
+    },
+    "./countries/zw": {
+      "en": "Zimbabwe outline",
+      "ja": "ジンバブエの輪郭"
+    },
+    "./divisions/ar": {
+      "en": "Argentina regions",
+      "ja": "アルゼンチンの行政区画"
+    },
+    "./divisions/at": {
+      "en": "Austria regions",
+      "ja": "オーストリアの行政区画"
+    },
+    "./divisions/au": {
+      "en": "Australia regions",
+      "ja": "オーストラリアの行政区画"
+    },
+    "./divisions/be": {
+      "en": "Belgium regions",
+      "ja": "ベルギーの行政区画"
+    },
+    "./divisions/br": {
+      "en": "Brazil regions",
+      "ja": "ブラジルの行政区画"
+    },
+    "./divisions/ca": {
+      "en": "Canada regions",
+      "ja": "カナダの行政区画"
+    },
+    "./divisions/ch": {
+      "en": "Switzerland regions",
+      "ja": "スイスの行政区画"
+    },
+    "./divisions/cl": {
+      "en": "Chile regions",
+      "ja": "チリの行政区画"
+    },
+    "./divisions/cn": {
+      "en": "China regions",
+      "ja": "中国の行政区画"
+    },
+    "./divisions/co": {
+      "en": "Colombia regions",
+      "ja": "コロンビアの行政区画"
+    },
+    "./divisions/de": {
+      "en": "Germany regions",
+      "ja": "ドイツの行政区画"
+    },
+    "./divisions/es": {
+      "en": "Spain regions",
+      "ja": "スペインの行政区画"
+    },
+    "./divisions/fr": {
+      "en": "France regions",
+      "ja": "フランスの行政区画"
+    },
+    "./divisions/gb": {
+      "en": "United Kingdom regions",
+      "ja": "イギリスの行政区画"
+    },
+    "./divisions/ie": {
+      "en": "Ireland regions",
+      "ja": "アイルランドの行政区画"
+    },
+    "./divisions/it": {
+      "en": "Italy regions",
+      "ja": "イタリアの行政区画"
+    },
+    "./divisions/jp": {
+      "en": "Japan regions",
+      "ja": "日本の行政区画"
+    },
+    "./divisions/kr": {
+      "en": "South Korea regions",
+      "ja": "韓国の行政区画"
+    },
+    "./divisions/mx": {
+      "en": "Mexico regions",
+      "ja": "メキシコの行政区画"
+    },
+    "./divisions/my": {
+      "en": "Malaysia regions",
+      "ja": "マレーシアの行政区画"
+    },
+    "./divisions/nl": {
+      "en": "Netherlands regions",
+      "ja": "オランダの行政区画"
+    },
+    "./divisions/no": {
+      "en": "Norway regions",
+      "ja": "ノルウェーの行政区画"
+    },
+    "./divisions/nz": {
+      "en": "New Zealand regions",
+      "ja": "ニュージーランドの行政区画"
+    },
+    "./divisions/pe": {
+      "en": "Peru regions",
+      "ja": "ペルーの行政区画"
+    },
+    "./divisions/ph": {
+      "en": "Philippines regions",
+      "ja": "フィリピンの行政区画"
+    },
+    "./divisions/pl": {
+      "en": "Poland regions",
+      "ja": "ポーランドの行政区画"
+    },
+    "./divisions/ru": {
+      "en": "Russia regions",
+      "ja": "ロシアの行政区画"
+    },
+    "./divisions/se": {
+      "en": "Sweden regions",
+      "ja": "スウェーデンの行政区画"
+    },
+    "./divisions/th": {
+      "en": "Thailand regions",
+      "ja": "タイの行政区画"
+    },
+    "./divisions/tw": {
+      "en": "Taiwan regions",
+      "ja": "台湾の行政区画"
+    },
+    "./divisions/us": {
+      "en": "United States regions",
+      "ja": "アメリカの行政区画"
+    },
+    "./divisions/vn": {
+      "en": "Vietnam regions",
+      "ja": "ベトナムの行政区画"
+    },
+    "./features/country-ad": {
+      "en": "Features: country-ad",
+      "ja": "地物：country-ad"
+    },
+    "./features/country-ae": {
+      "en": "Features: country-ae",
+      "ja": "地物：country-ae"
+    },
+    "./features/country-af": {
+      "en": "Features: country-af",
+      "ja": "地物：country-af"
+    },
+    "./features/country-ag": {
+      "en": "Features: country-ag",
+      "ja": "地物：country-ag"
+    },
+    "./features/country-ai": {
+      "en": "Features: country-ai",
+      "ja": "地物：country-ai"
+    },
+    "./features/country-al": {
+      "en": "Features: country-al",
+      "ja": "地物：country-al"
+    },
+    "./features/country-am": {
+      "en": "Features: country-am",
+      "ja": "地物：country-am"
+    },
+    "./features/country-ao": {
+      "en": "Features: country-ao",
+      "ja": "地物：country-ao"
+    },
+    "./features/country-ar": {
+      "en": "Features: country-ar",
+      "ja": "地物：country-ar"
+    },
+    "./features/country-as": {
+      "en": "Features: country-as",
+      "ja": "地物：country-as"
+    },
+    "./features/country-at": {
+      "en": "Features: country-at",
+      "ja": "地物：country-at"
+    },
+    "./features/country-atc": {
+      "en": "Features: country-atc",
+      "ja": "地物：country-atc"
+    },
+    "./features/country-au": {
+      "en": "Features: country-au",
+      "ja": "地物：country-au"
+    },
+    "./features/country-aw": {
+      "en": "Features: country-aw",
+      "ja": "地物：country-aw"
+    },
+    "./features/country-ax": {
+      "en": "Features: country-ax",
+      "ja": "地物：country-ax"
+    },
+    "./features/country-az": {
+      "en": "Features: country-az",
+      "ja": "地物：country-az"
+    },
+    "./features/country-ba": {
+      "en": "Features: country-ba",
+      "ja": "地物：country-ba"
+    },
+    "./features/country-bb": {
+      "en": "Features: country-bb",
+      "ja": "地物：country-bb"
+    },
+    "./features/country-bd": {
+      "en": "Features: country-bd",
+      "ja": "地物：country-bd"
+    },
+    "./features/country-be": {
+      "en": "Features: country-be",
+      "ja": "地物：country-be"
+    },
+    "./features/country-bf": {
+      "en": "Features: country-bf",
+      "ja": "地物：country-bf"
+    },
+    "./features/country-bg": {
+      "en": "Features: country-bg",
+      "ja": "地物：country-bg"
+    },
+    "./features/country-bh": {
+      "en": "Features: country-bh",
+      "ja": "地物：country-bh"
+    },
+    "./features/country-bi": {
+      "en": "Features: country-bi",
+      "ja": "地物：country-bi"
+    },
+    "./features/country-bj": {
+      "en": "Features: country-bj",
+      "ja": "地物：country-bj"
+    },
+    "./features/country-bl": {
+      "en": "Features: country-bl",
+      "ja": "地物：country-bl"
+    },
+    "./features/country-bm": {
+      "en": "Features: country-bm",
+      "ja": "地物：country-bm"
+    },
+    "./features/country-bn": {
+      "en": "Features: country-bn",
+      "ja": "地物：country-bn"
+    },
+    "./features/country-bo": {
+      "en": "Features: country-bo",
+      "ja": "地物：country-bo"
+    },
+    "./features/country-br": {
+      "en": "Features: country-br",
+      "ja": "地物：country-br"
+    },
+    "./features/country-bs": {
+      "en": "Features: country-bs",
+      "ja": "地物：country-bs"
+    },
+    "./features/country-bt": {
+      "en": "Features: country-bt",
+      "ja": "地物：country-bt"
+    },
+    "./features/country-bw": {
+      "en": "Features: country-bw",
+      "ja": "地物：country-bw"
+    },
+    "./features/country-by": {
+      "en": "Features: country-by",
+      "ja": "地物：country-by"
+    },
+    "./features/country-bz": {
+      "en": "Features: country-bz",
+      "ja": "地物：country-bz"
+    },
+    "./features/country-ca": {
+      "en": "Features: country-ca",
+      "ja": "地物：country-ca"
+    },
+    "./features/country-cd": {
+      "en": "Features: country-cd",
+      "ja": "地物：country-cd"
+    },
+    "./features/country-cf": {
+      "en": "Features: country-cf",
+      "ja": "地物：country-cf"
+    },
+    "./features/country-cg": {
+      "en": "Features: country-cg",
+      "ja": "地物：country-cg"
+    },
+    "./features/country-ch": {
+      "en": "Features: country-ch",
+      "ja": "地物：country-ch"
+    },
+    "./features/country-ci": {
+      "en": "Features: country-ci",
+      "ja": "地物：country-ci"
+    },
+    "./features/country-ck": {
+      "en": "Features: country-ck",
+      "ja": "地物：country-ck"
+    },
+    "./features/country-cl": {
+      "en": "Features: country-cl",
+      "ja": "地物：country-cl"
+    },
+    "./features/country-cm": {
+      "en": "Features: country-cm",
+      "ja": "地物：country-cm"
+    },
+    "./features/country-cn": {
+      "en": "Features: country-cn",
+      "ja": "地物：country-cn"
+    },
+    "./features/country-co": {
+      "en": "Features: country-co",
+      "ja": "地物：country-co"
+    },
+    "./features/country-cr": {
+      "en": "Features: country-cr",
+      "ja": "地物：country-cr"
+    },
+    "./features/country-cu": {
+      "en": "Features: country-cu",
+      "ja": "地物：country-cu"
+    },
+    "./features/country-cv": {
+      "en": "Features: country-cv",
+      "ja": "地物：country-cv"
+    },
+    "./features/country-cw": {
+      "en": "Features: country-cw",
+      "ja": "地物：country-cw"
+    },
+    "./features/country-cy": {
+      "en": "Features: country-cy",
+      "ja": "地物：country-cy"
+    },
+    "./features/country-cz": {
+      "en": "Features: country-cz",
+      "ja": "地物：country-cz"
+    },
+    "./features/country-de": {
+      "en": "Features: country-de",
+      "ja": "地物：country-de"
+    },
+    "./features/country-dj": {
+      "en": "Features: country-dj",
+      "ja": "地物：country-dj"
+    },
+    "./features/country-dk": {
+      "en": "Features: country-dk",
+      "ja": "地物：country-dk"
+    },
+    "./features/country-dm": {
+      "en": "Features: country-dm",
+      "ja": "地物：country-dm"
+    },
+    "./features/country-do": {
+      "en": "Features: country-do",
+      "ja": "地物：country-do"
+    },
+    "./features/country-dz": {
+      "en": "Features: country-dz",
+      "ja": "地物：country-dz"
+    },
+    "./features/country-ec": {
+      "en": "Features: country-ec",
+      "ja": "地物：country-ec"
+    },
+    "./features/country-ee": {
+      "en": "Features: country-ee",
+      "ja": "地物：country-ee"
+    },
+    "./features/country-eg": {
+      "en": "Features: country-eg",
+      "ja": "地物：country-eg"
+    },
+    "./features/country-eh": {
+      "en": "Features: country-eh",
+      "ja": "地物：country-eh"
+    },
+    "./features/country-er": {
+      "en": "Features: country-er",
+      "ja": "地物：country-er"
+    },
+    "./features/country-es": {
+      "en": "Features: country-es",
+      "ja": "地物：country-es"
+    },
+    "./features/country-et": {
+      "en": "Features: country-et",
+      "ja": "地物：country-et"
+    },
+    "./features/country-fi": {
+      "en": "Features: country-fi",
+      "ja": "地物：country-fi"
+    },
+    "./features/country-fj": {
+      "en": "Features: country-fj",
+      "ja": "地物：country-fj"
+    },
+    "./features/country-fk": {
+      "en": "Features: country-fk",
+      "ja": "地物：country-fk"
+    },
+    "./features/country-fm": {
+      "en": "Features: country-fm",
+      "ja": "地物：country-fm"
+    },
+    "./features/country-fo": {
+      "en": "Features: country-fo",
+      "ja": "地物：country-fo"
+    },
+    "./features/country-fr": {
+      "en": "Features: country-fr",
+      "ja": "地物：country-fr"
+    },
+    "./features/country-ga": {
+      "en": "Features: country-ga",
+      "ja": "地物：country-ga"
+    },
+    "./features/country-gb": {
+      "en": "Features: country-gb",
+      "ja": "地物：country-gb"
+    },
+    "./features/country-gd": {
+      "en": "Features: country-gd",
+      "ja": "地物：country-gd"
+    },
+    "./features/country-ge": {
+      "en": "Features: country-ge",
+      "ja": "地物：country-ge"
+    },
+    "./features/country-gg": {
+      "en": "Features: country-gg",
+      "ja": "地物：country-gg"
+    },
+    "./features/country-gh": {
+      "en": "Features: country-gh",
+      "ja": "地物：country-gh"
+    },
+    "./features/country-gl": {
+      "en": "Features: country-gl",
+      "ja": "地物：country-gl"
+    },
+    "./features/country-gm": {
+      "en": "Features: country-gm",
+      "ja": "地物：country-gm"
+    },
+    "./features/country-gn": {
+      "en": "Features: country-gn",
+      "ja": "地物：country-gn"
+    },
+    "./features/country-gq": {
+      "en": "Features: country-gq",
+      "ja": "地物：country-gq"
+    },
+    "./features/country-gr": {
+      "en": "Features: country-gr",
+      "ja": "地物：country-gr"
+    },
+    "./features/country-gs": {
+      "en": "Features: country-gs",
+      "ja": "地物：country-gs"
+    },
+    "./features/country-gt": {
+      "en": "Features: country-gt",
+      "ja": "地物：country-gt"
+    },
+    "./features/country-gu": {
+      "en": "Features: country-gu",
+      "ja": "地物：country-gu"
+    },
+    "./features/country-gw": {
+      "en": "Features: country-gw",
+      "ja": "地物：country-gw"
+    },
+    "./features/country-gy": {
+      "en": "Features: country-gy",
+      "ja": "地物：country-gy"
+    },
+    "./features/country-hk": {
+      "en": "Features: country-hk",
+      "ja": "地物：country-hk"
+    },
+    "./features/country-hm": {
+      "en": "Features: country-hm",
+      "ja": "地物：country-hm"
+    },
+    "./features/country-hn": {
+      "en": "Features: country-hn",
+      "ja": "地物：country-hn"
+    },
+    "./features/country-hr": {
+      "en": "Features: country-hr",
+      "ja": "地物：country-hr"
+    },
+    "./features/country-ht": {
+      "en": "Features: country-ht",
+      "ja": "地物：country-ht"
+    },
+    "./features/country-hu": {
+      "en": "Features: country-hu",
+      "ja": "地物：country-hu"
+    },
+    "./features/country-id": {
+      "en": "Features: country-id",
+      "ja": "地物：country-id"
+    },
+    "./features/country-ie": {
+      "en": "Features: country-ie",
+      "ja": "地物：country-ie"
+    },
+    "./features/country-il": {
+      "en": "Features: country-il",
+      "ja": "地物：country-il"
+    },
+    "./features/country-im": {
+      "en": "Features: country-im",
+      "ja": "地物：country-im"
+    },
+    "./features/country-in": {
+      "en": "Features: country-in",
+      "ja": "地物：country-in"
+    },
+    "./features/country-io": {
+      "en": "Features: country-io",
+      "ja": "地物：country-io"
+    },
+    "./features/country-ioa": {
+      "en": "Features: country-ioa",
+      "ja": "地物：country-ioa"
+    },
+    "./features/country-iq": {
+      "en": "Features: country-iq",
+      "ja": "地物：country-iq"
+    },
+    "./features/country-ir": {
+      "en": "Features: country-ir",
+      "ja": "地物：country-ir"
+    },
+    "./features/country-is": {
+      "en": "Features: country-is",
+      "ja": "地物：country-is"
+    },
+    "./features/country-it": {
+      "en": "Features: country-it",
+      "ja": "地物：country-it"
+    },
+    "./features/country-je": {
+      "en": "Features: country-je",
+      "ja": "地物：country-je"
+    },
+    "./features/country-jm": {
+      "en": "Features: country-jm",
+      "ja": "地物：country-jm"
+    },
+    "./features/country-jo": {
+      "en": "Features: country-jo",
+      "ja": "地物：country-jo"
+    },
+    "./features/country-jp": {
+      "en": "Features: country-jp",
+      "ja": "地物：country-jp"
+    },
+    "./features/country-ke": {
+      "en": "Features: country-ke",
+      "ja": "地物：country-ke"
+    },
+    "./features/country-kg": {
+      "en": "Features: country-kg",
+      "ja": "地物：country-kg"
+    },
+    "./features/country-kh": {
+      "en": "Features: country-kh",
+      "ja": "地物：country-kh"
+    },
+    "./features/country-ki": {
+      "en": "Features: country-ki",
+      "ja": "地物：country-ki"
+    },
+    "./features/country-km": {
+      "en": "Features: country-km",
+      "ja": "地物：country-km"
+    },
+    "./features/country-kn": {
+      "en": "Features: country-kn",
+      "ja": "地物：country-kn"
+    },
+    "./features/country-kp": {
+      "en": "Features: country-kp",
+      "ja": "地物：country-kp"
+    },
+    "./features/country-kr": {
+      "en": "Features: country-kr",
+      "ja": "地物：country-kr"
+    },
+    "./features/country-kw": {
+      "en": "Features: country-kw",
+      "ja": "地物：country-kw"
+    },
+    "./features/country-ky": {
+      "en": "Features: country-ky",
+      "ja": "地物：country-ky"
+    },
+    "./features/country-kz": {
+      "en": "Features: country-kz",
+      "ja": "地物：country-kz"
+    },
+    "./features/country-la": {
+      "en": "Features: country-la",
+      "ja": "地物：country-la"
+    },
+    "./features/country-lb": {
+      "en": "Features: country-lb",
+      "ja": "地物：country-lb"
+    },
+    "./features/country-lc": {
+      "en": "Features: country-lc",
+      "ja": "地物：country-lc"
+    },
+    "./features/country-li": {
+      "en": "Features: country-li",
+      "ja": "地物：country-li"
+    },
+    "./features/country-lk": {
+      "en": "Features: country-lk",
+      "ja": "地物：country-lk"
+    },
+    "./features/country-lr": {
+      "en": "Features: country-lr",
+      "ja": "地物：country-lr"
+    },
+    "./features/country-ls": {
+      "en": "Features: country-ls",
+      "ja": "地物：country-ls"
+    },
+    "./features/country-lt": {
+      "en": "Features: country-lt",
+      "ja": "地物：country-lt"
+    },
+    "./features/country-lu": {
+      "en": "Features: country-lu",
+      "ja": "地物：country-lu"
+    },
+    "./features/country-lv": {
+      "en": "Features: country-lv",
+      "ja": "地物：country-lv"
+    },
+    "./features/country-ly": {
+      "en": "Features: country-ly",
+      "ja": "地物：country-ly"
+    },
+    "./features/country-ma": {
+      "en": "Features: country-ma",
+      "ja": "地物：country-ma"
+    },
+    "./features/country-mc": {
+      "en": "Features: country-mc",
+      "ja": "地物：country-mc"
+    },
+    "./features/country-md": {
+      "en": "Features: country-md",
+      "ja": "地物：country-md"
+    },
+    "./features/country-me": {
+      "en": "Features: country-me",
+      "ja": "地物：country-me"
+    },
+    "./features/country-mf": {
+      "en": "Features: country-mf",
+      "ja": "地物：country-mf"
+    },
+    "./features/country-mg": {
+      "en": "Features: country-mg",
+      "ja": "地物：country-mg"
+    },
+    "./features/country-mh": {
+      "en": "Features: country-mh",
+      "ja": "地物：country-mh"
+    },
+    "./features/country-mk": {
+      "en": "Features: country-mk",
+      "ja": "地物：country-mk"
+    },
+    "./features/country-ml": {
+      "en": "Features: country-ml",
+      "ja": "地物：country-ml"
+    },
+    "./features/country-mm": {
+      "en": "Features: country-mm",
+      "ja": "地物：country-mm"
+    },
+    "./features/country-mn": {
+      "en": "Features: country-mn",
+      "ja": "地物：country-mn"
+    },
+    "./features/country-mp": {
+      "en": "Features: country-mp",
+      "ja": "地物：country-mp"
+    },
+    "./features/country-mr": {
+      "en": "Features: country-mr",
+      "ja": "地物：country-mr"
+    },
+    "./features/country-ms": {
+      "en": "Features: country-ms",
+      "ja": "地物：country-ms"
+    },
+    "./features/country-mt": {
+      "en": "Features: country-mt",
+      "ja": "地物：country-mt"
+    },
+    "./features/country-mu": {
+      "en": "Features: country-mu",
+      "ja": "地物：country-mu"
+    },
+    "./features/country-mv": {
+      "en": "Features: country-mv",
+      "ja": "地物：country-mv"
+    },
+    "./features/country-mw": {
+      "en": "Features: country-mw",
+      "ja": "地物：country-mw"
+    },
+    "./features/country-mx": {
+      "en": "Features: country-mx",
+      "ja": "地物：country-mx"
+    },
+    "./features/country-my": {
+      "en": "Features: country-my",
+      "ja": "地物：country-my"
+    },
+    "./features/country-mz": {
+      "en": "Features: country-mz",
+      "ja": "地物：country-mz"
+    },
+    "./features/country-na": {
+      "en": "Features: country-na",
+      "ja": "地物：country-na"
+    },
+    "./features/country-nc": {
+      "en": "Features: country-nc",
+      "ja": "地物：country-nc"
+    },
+    "./features/country-ne": {
+      "en": "Features: country-ne",
+      "ja": "地物：country-ne"
+    },
+    "./features/country-nf": {
+      "en": "Features: country-nf",
+      "ja": "地物：country-nf"
+    },
+    "./features/country-ng": {
+      "en": "Features: country-ng",
+      "ja": "地物：country-ng"
+    },
+    "./features/country-ni": {
+      "en": "Features: country-ni",
+      "ja": "地物：country-ni"
+    },
+    "./features/country-nl": {
+      "en": "Features: country-nl",
+      "ja": "地物：country-nl"
+    },
+    "./features/country-no": {
+      "en": "Features: country-no",
+      "ja": "地物：country-no"
+    },
+    "./features/country-np": {
+      "en": "Features: country-np",
+      "ja": "地物：country-np"
+    },
+    "./features/country-nr": {
+      "en": "Features: country-nr",
+      "ja": "地物：country-nr"
+    },
+    "./features/country-nu": {
+      "en": "Features: country-nu",
+      "ja": "地物：country-nu"
+    },
+    "./features/country-nz": {
+      "en": "Features: country-nz",
+      "ja": "地物：country-nz"
+    },
+    "./features/country-om": {
+      "en": "Features: country-om",
+      "ja": "地物：country-om"
+    },
+    "./features/country-pa": {
+      "en": "Features: country-pa",
+      "ja": "地物：country-pa"
+    },
+    "./features/country-pe": {
+      "en": "Features: country-pe",
+      "ja": "地物：country-pe"
+    },
+    "./features/country-pf": {
+      "en": "Features: country-pf",
+      "ja": "地物：country-pf"
+    },
+    "./features/country-pg": {
+      "en": "Features: country-pg",
+      "ja": "地物：country-pg"
+    },
+    "./features/country-ph": {
+      "en": "Features: country-ph",
+      "ja": "地物：country-ph"
+    },
+    "./features/country-pk": {
+      "en": "Features: country-pk",
+      "ja": "地物：country-pk"
+    },
+    "./features/country-pl": {
+      "en": "Features: country-pl",
+      "ja": "地物：country-pl"
+    },
+    "./features/country-pm": {
+      "en": "Features: country-pm",
+      "ja": "地物：country-pm"
+    },
+    "./features/country-pn": {
+      "en": "Features: country-pn",
+      "ja": "地物：country-pn"
+    },
+    "./features/country-pr": {
+      "en": "Features: country-pr",
+      "ja": "地物：country-pr"
+    },
+    "./features/country-ps": {
+      "en": "Features: country-ps",
+      "ja": "地物：country-ps"
+    },
+    "./features/country-pt": {
+      "en": "Features: country-pt",
+      "ja": "地物：country-pt"
+    },
+    "./features/country-pw": {
+      "en": "Features: country-pw",
+      "ja": "地物：country-pw"
+    },
+    "./features/country-py": {
+      "en": "Features: country-py",
+      "ja": "地物：country-py"
+    },
+    "./features/country-qa": {
+      "en": "Features: country-qa",
+      "ja": "地物：country-qa"
+    },
+    "./features/country-ro": {
+      "en": "Features: country-ro",
+      "ja": "地物：country-ro"
+    },
+    "./features/country-rs": {
+      "en": "Features: country-rs",
+      "ja": "地物：country-rs"
+    },
+    "./features/country-ru": {
+      "en": "Features: country-ru",
+      "ja": "地物：country-ru"
+    },
+    "./features/country-rw": {
+      "en": "Features: country-rw",
+      "ja": "地物：country-rw"
+    },
+    "./features/country-sa": {
+      "en": "Features: country-sa",
+      "ja": "地物：country-sa"
+    },
+    "./features/country-sb": {
+      "en": "Features: country-sb",
+      "ja": "地物：country-sb"
+    },
+    "./features/country-sc": {
+      "en": "Features: country-sc",
+      "ja": "地物：country-sc"
+    },
+    "./features/country-sd": {
+      "en": "Features: country-sd",
+      "ja": "地物：country-sd"
+    },
+    "./features/country-se": {
+      "en": "Features: country-se",
+      "ja": "地物：country-se"
+    },
+    "./features/country-sg": {
+      "en": "Features: country-sg",
+      "ja": "地物：country-sg"
+    },
+    "./features/country-sh": {
+      "en": "Features: country-sh",
+      "ja": "地物：country-sh"
+    },
+    "./features/country-si": {
+      "en": "Features: country-si",
+      "ja": "地物：country-si"
+    },
+    "./features/country-sk": {
+      "en": "Features: country-sk",
+      "ja": "地物：country-sk"
+    },
+    "./features/country-sl": {
+      "en": "Features: country-sl",
+      "ja": "地物：country-sl"
+    },
+    "./features/country-sm": {
+      "en": "Features: country-sm",
+      "ja": "地物：country-sm"
+    },
+    "./features/country-sn": {
+      "en": "Features: country-sn",
+      "ja": "地物：country-sn"
+    },
+    "./features/country-so": {
+      "en": "Features: country-so",
+      "ja": "地物：country-so"
+    },
+    "./features/country-sr": {
+      "en": "Features: country-sr",
+      "ja": "地物：country-sr"
+    },
+    "./features/country-ss": {
+      "en": "Features: country-ss",
+      "ja": "地物：country-ss"
+    },
+    "./features/country-st": {
+      "en": "Features: country-st",
+      "ja": "地物：country-st"
+    },
+    "./features/country-sv": {
+      "en": "Features: country-sv",
+      "ja": "地物：country-sv"
+    },
+    "./features/country-sx": {
+      "en": "Features: country-sx",
+      "ja": "地物：country-sx"
+    },
+    "./features/country-sy": {
+      "en": "Features: country-sy",
+      "ja": "地物：country-sy"
+    },
+    "./features/country-sz": {
+      "en": "Features: country-sz",
+      "ja": "地物：country-sz"
+    },
+    "./features/country-tc": {
+      "en": "Features: country-tc",
+      "ja": "地物：country-tc"
+    },
+    "./features/country-td": {
+      "en": "Features: country-td",
+      "ja": "地物：country-td"
+    },
+    "./features/country-tg": {
+      "en": "Features: country-tg",
+      "ja": "地物：country-tg"
+    },
+    "./features/country-th": {
+      "en": "Features: country-th",
+      "ja": "地物：country-th"
+    },
+    "./features/country-tj": {
+      "en": "Features: country-tj",
+      "ja": "地物：country-tj"
+    },
+    "./features/country-tl": {
+      "en": "Features: country-tl",
+      "ja": "地物：country-tl"
+    },
+    "./features/country-tm": {
+      "en": "Features: country-tm",
+      "ja": "地物：country-tm"
+    },
+    "./features/country-tn": {
+      "en": "Features: country-tn",
+      "ja": "地物：country-tn"
+    },
+    "./features/country-to": {
+      "en": "Features: country-to",
+      "ja": "地物：country-to"
+    },
+    "./features/country-tr": {
+      "en": "Features: country-tr",
+      "ja": "地物：country-tr"
+    },
+    "./features/country-tt": {
+      "en": "Features: country-tt",
+      "ja": "地物：country-tt"
+    },
+    "./features/country-tv": {
+      "en": "Features: country-tv",
+      "ja": "地物：country-tv"
+    },
+    "./features/country-tw": {
+      "en": "Features: country-tw",
+      "ja": "地物：country-tw"
+    },
+    "./features/country-tz": {
+      "en": "Features: country-tz",
+      "ja": "地物：country-tz"
+    },
+    "./features/country-ua": {
+      "en": "Features: country-ua",
+      "ja": "地物：country-ua"
+    },
+    "./features/country-ug": {
+      "en": "Features: country-ug",
+      "ja": "地物：country-ug"
+    },
+    "./features/country-us": {
+      "en": "Features: country-us",
+      "ja": "地物：country-us"
+    },
+    "./features/country-uy": {
+      "en": "Features: country-uy",
+      "ja": "地物：country-uy"
+    },
+    "./features/country-uz": {
+      "en": "Features: country-uz",
+      "ja": "地物：country-uz"
+    },
+    "./features/country-vc": {
+      "en": "Features: country-vc",
+      "ja": "地物：country-vc"
+    },
+    "./features/country-ve": {
+      "en": "Features: country-ve",
+      "ja": "地物：country-ve"
+    },
+    "./features/country-vg": {
+      "en": "Features: country-vg",
+      "ja": "地物：country-vg"
+    },
+    "./features/country-vi": {
+      "en": "Features: country-vi",
+      "ja": "地物：country-vi"
+    },
+    "./features/country-vn": {
+      "en": "Features: country-vn",
+      "ja": "地物：country-vn"
+    },
+    "./features/country-vu": {
+      "en": "Features: country-vu",
+      "ja": "地物：country-vu"
+    },
+    "./features/country-wf": {
+      "en": "Features: country-wf",
+      "ja": "地物：country-wf"
+    },
+    "./features/country-ws": {
+      "en": "Features: country-ws",
+      "ja": "地物：country-ws"
+    },
+    "./features/country-xk": {
+      "en": "Features: country-xk",
+      "ja": "地物：country-xk"
+    },
+    "./features/country-ye": {
+      "en": "Features: country-ye",
+      "ja": "地物：country-ye"
+    },
+    "./features/country-za": {
+      "en": "Features: country-za",
+      "ja": "地物：country-za"
+    },
+    "./features/country-zm": {
+      "en": "Features: country-zm",
+      "ja": "地物：country-zm"
+    },
+    "./features/country-zw": {
+      "en": "Features: country-zw",
+      "ja": "地物：country-zw"
+    },
+    "./features/divisions-ar": {
+      "en": "Features: divisions-ar",
+      "ja": "地物：divisions-ar"
+    },
+    "./features/divisions-at": {
+      "en": "Features: divisions-at",
+      "ja": "地物：divisions-at"
+    },
+    "./features/divisions-au": {
+      "en": "Features: divisions-au",
+      "ja": "地物：divisions-au"
+    },
+    "./features/divisions-be": {
+      "en": "Features: divisions-be",
+      "ja": "地物：divisions-be"
+    },
+    "./features/divisions-br": {
+      "en": "Features: divisions-br",
+      "ja": "地物：divisions-br"
+    },
+    "./features/divisions-ca": {
+      "en": "Features: divisions-ca",
+      "ja": "地物：divisions-ca"
+    },
+    "./features/divisions-ch": {
+      "en": "Features: divisions-ch",
+      "ja": "地物：divisions-ch"
+    },
+    "./features/divisions-cl": {
+      "en": "Features: divisions-cl",
+      "ja": "地物：divisions-cl"
+    },
+    "./features/divisions-cn": {
+      "en": "Features: divisions-cn",
+      "ja": "地物：divisions-cn"
+    },
+    "./features/divisions-co": {
+      "en": "Features: divisions-co",
+      "ja": "地物：divisions-co"
+    },
+    "./features/divisions-de": {
+      "en": "Features: divisions-de",
+      "ja": "地物：divisions-de"
+    },
+    "./features/divisions-es": {
+      "en": "Features: divisions-es",
+      "ja": "地物：divisions-es"
+    },
+    "./features/divisions-fr": {
+      "en": "Features: divisions-fr",
+      "ja": "地物：divisions-fr"
+    },
+    "./features/divisions-gb": {
+      "en": "Features: divisions-gb",
+      "ja": "地物：divisions-gb"
+    },
+    "./features/divisions-ie": {
+      "en": "Features: divisions-ie",
+      "ja": "地物：divisions-ie"
+    },
+    "./features/divisions-it": {
+      "en": "Features: divisions-it",
+      "ja": "地物：divisions-it"
+    },
+    "./features/divisions-jp": {
+      "en": "Features: divisions-jp",
+      "ja": "地物：divisions-jp"
+    },
+    "./features/divisions-kr": {
+      "en": "Features: divisions-kr",
+      "ja": "地物：divisions-kr"
+    },
+    "./features/divisions-mx": {
+      "en": "Features: divisions-mx",
+      "ja": "地物：divisions-mx"
+    },
+    "./features/divisions-my": {
+      "en": "Features: divisions-my",
+      "ja": "地物：divisions-my"
+    },
+    "./features/divisions-nl": {
+      "en": "Features: divisions-nl",
+      "ja": "地物：divisions-nl"
+    },
+    "./features/divisions-no": {
+      "en": "Features: divisions-no",
+      "ja": "地物：divisions-no"
+    },
+    "./features/divisions-nz": {
+      "en": "Features: divisions-nz",
+      "ja": "地物：divisions-nz"
+    },
+    "./features/divisions-pe": {
+      "en": "Features: divisions-pe",
+      "ja": "地物：divisions-pe"
+    },
+    "./features/divisions-ph": {
+      "en": "Features: divisions-ph",
+      "ja": "地物：divisions-ph"
+    },
+    "./features/divisions-pl": {
+      "en": "Features: divisions-pl",
+      "ja": "地物：divisions-pl"
+    },
+    "./features/divisions-ru": {
+      "en": "Features: divisions-ru",
+      "ja": "地物：divisions-ru"
+    },
+    "./features/divisions-se": {
+      "en": "Features: divisions-se",
+      "ja": "地物：divisions-se"
+    },
+    "./features/divisions-th": {
+      "en": "Features: divisions-th",
+      "ja": "地物：divisions-th"
+    },
+    "./features/divisions-tw": {
+      "en": "Features: divisions-tw",
+      "ja": "地物：divisions-tw"
+    },
+    "./features/divisions-us": {
+      "en": "Features: divisions-us",
+      "ja": "地物：divisions-us"
+    },
+    "./features/divisions-vn": {
+      "en": "Features: divisions-vn",
+      "ja": "地物：divisions-vn"
+    },
+    "./features/world": {
+      "en": "Features: world",
+      "ja": "地物：world"
+    }
+  }
+}

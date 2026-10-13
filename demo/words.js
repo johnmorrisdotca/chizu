@@ -2,6 +2,7 @@
 // is filled in when it is said.
 export const WORDS = {
   en: {
+    pageDocs: "Docs",
     pageApi: "API reference",
     pitch: "Japan's 47 prefectures, the world, its continents and 32 countries' regions, with their seas, lakes, rivers and mountains: a map to drag and zoom, quizzes to play and share, numbered callout sheets to print, and a map coloured from your own figures. The outlines are Natural Earth's, and every name is in English and Japanese.",
     name: "Chizu (地図) is Japanese for “map”, the everyday word, as in 世界地図, a map of the world.",
@@ -138,6 +139,7 @@ export const WORDS = {
     foot: "The outlines are Natural Earth's (public domain) and the names are kuni's (Unicode CLDR and Wikidata). Both are fetched from this page's own folder: nothing leaves your browser.",
   },
   ja: {
+    pageDocs: "ドキュメント",
     pageApi: "API（英語）",
     pitch: "日本の47都道府県、世界、大陸、32か国の地方と、その海、湖、川、山。ドラッグして拡大縮小できる地図、遊んで共有できるクイズ、印刷できる番号つきの地図、自分の数値で色を塗った地図。輪郭はNatural Earthのもので、どのなまえも英語と日本語です。",
     name: "Chizu（ちず）は、日本語の「地図」のローマ字です。ふだんよく使うことばで、「世界地図」のように使います。",

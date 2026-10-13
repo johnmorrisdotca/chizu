@@ -3,5 +3,8 @@
 import { spawnSync } from "node:child_process";
 import process from "node:process";
 
+import { writeResourceCatalogue } from "./docs-resources.mjs";
+writeResourceCatalogue(process.cwd());
+
 const made = spawnSync("pnpm", ["exec", "vitest", "run", "src/docs.test.js"], { stdio: "inherit", shell: process.platform === "win32", env: { ...process.env, UPDATE_DOCS: "1" } });
 process.exit(made.status ?? 1);

@@ -1,0 +1,2189 @@
+{
+  "measured": "esbuild 0.28.2, bundled, minified, ES2020, gzip level 9",
+  "entries": {
+    ".": {
+      "minified": 32521,
+      "gzip": 13030
+    },
+    "./draw": {
+      "minified": 34840,
+      "gzip": 12760
+    },
+    "./mount": {
+      "minified": 45620,
+      "gzip": 16618
+    },
+    "./names": {
+      "minified": 49510,
+      "gzip": 9771
+    },
+    "./load": {
+      "minified": 18407152,
+      "gzip": 6632305
+    },
+    "./world": {
+      "minified": 177893,
+      "gzip": 60005
+    },
+    "./element": {
+      "minified": 17367907,
+      "gzip": 6264111
+    },
+    "./element/define": {
+      "minified": 17367922,
+      "gzip": 6264374
+    },
+    "./countries/ad": {
+      "minified": 1370,
+      "gzip": 827
+    },
+    "./countries/ae": {
+      "minified": 3222,
+      "gzip": 1764
+    },
+    "./countries/af": {
+      "minified": 6225,
+      "gzip": 3200
+    },
+    "./countries/ag": {
+      "minified": 2414,
+      "gzip": 1285
+    },
+    "./countries/ai": {
+      "minified": 1521,
+      "gzip": 892
+    },
+    "./countries/al": {
+      "minified": 8063,
+      "gzip": 3964
+    },
+    "./countries/am": {
+      "minified": 6479,
+      "gzip": 3337
+    },
+    "./countries/ao": {
+      "minified": 5197,
+      "gzip": 2711
+    },
+    "./countries/ar": {
+      "minified": 14408,
+      "gzip": 6800
+    },
+    "./countries/as": {
+      "minified": 1500,
+      "gzip": 855
+    },
+    "./countries/at": {
+      "minified": 4390,
+      "gzip": 2306
+    },
+    "./countries/atc": {
+      "minified": 917,
+      "gzip": 519
+    },
+    "./countries/au": {
+      "minified": 24398,
+      "gzip": 11227
+    },
+    "./countries/aw": {
+      "minified": 1028,
+      "gzip": 633
+    },
+    "./countries/ax": {
+      "minified": 7016,
+      "gzip": 3593
+    },
+    "./countries/az": {
+      "minified": 4281,
+      "gzip": 2282
+    },
+    "./countries/ba": {
+      "minified": 9047,
+      "gzip": 4459
+    },
+    "./countries/bb": {
+      "minified": 1197,
+      "gzip": 717
+    },
+    "./countries/bd": {
+      "minified": 5852,
+      "gzip": 3043
+    },
+    "./countries/be": {
+      "minified": 9436,
+      "gzip": 4650
+    },
+    "./countries/bf": {
+      "minified": 4183,
+      "gzip": 2192
+    },
+    "./countries/bg": {
+      "minified": 3100,
+      "gzip": 1696
+    },
+    "./countries/bh": {
+      "minified": 2598,
+      "gzip": 1433
+    },
+    "./countries/bi": {
+      "minified": 4822,
+      "gzip": 2526
+    },
+    "./countries/bj": {
+      "minified": 2648,
+      "gzip": 1482
+    },
+    "./countries/bl": {
+      "minified": 956,
+      "gzip": 555
+    },
+    "./countries/bm": {
+      "minified": 1862,
+      "gzip": 1076
+    },
+    "./countries/bn": {
+      "minified": 2785,
+      "gzip": 1544
+    },
+    "./countries/bo": {
+      "minified": 6268,
+      "gzip": 3246
+    },
+    "./countries/br": {
+      "minified": 25876,
+      "gzip": 11934
+    },
+    "./countries/bs": {
+      "minified": 22234,
+      "gzip": 10109
+    },
+    "./countries/bt": {
+      "minified": 5033,
+      "gzip": 2592
+    },
+    "./countries/bw": {
+      "minified": 3633,
+      "gzip": 1981
+    },
+    "./countries/by": {
+      "minified": 5062,
+      "gzip": 2665
+    },
+    "./countries/bz": {
+      "minified": 7253,
+      "gzip": 3638
+    },
+    "./countries/ca": {
+      "minified": 156208,
+      "gzip": 63639
+    },
+    "./countries/cd": {
+      "minified": 9105,
+      "gzip": 4514
+    },
+    "./countries/cf": {
+      "minified": 5241,
+      "gzip": 2716
+    },
+    "./countries/cg": {
+      "minified": 5190,
+      "gzip": 2697
+    },
+    "./countries/ch": {
+      "minified": 10732,
+      "gzip": 5203
+    },
+    "./countries/ci": {
+      "minified": 4708,
+      "gzip": 2480
+    },
+    "./countries/ck": {
+      "minified": 2349,
+      "gzip": 1186
+    },
+    "./countries/cl": {
+      "minified": 27581,
+      "gzip": 12031
+    },
+    "./countries/cm": {
+      "minified": 5453,
+      "gzip": 2838
+    },
+    "./countries/cn": {
+      "minified": 36649,
+      "gzip": 16316
+    },
+    "./countries/co": {
+      "minified": 9115,
+      "gzip": 4511
+    },
+    "./countries/cr": {
+      "minified": 11892,
+      "gzip": 5492
+    },
+    "./countries/cu": {
+      "minified": 4664,
+      "gzip": 2456
+    },
+    "./countries/cv": {
+      "minified": 6471,
+      "gzip": 3238
+    },
+    "./countries/cw": {
+      "minified": 1306,
+      "gzip": 780
+    },
+    "./countries/cy": {
+      "minified": 4623,
+      "gzip": 2374
+    },
+    "./countries/cz": {
+      "minified": 3892,
+      "gzip": 2122
+    },
+    "./countries/de": {
+      "minified": 8161,
+      "gzip": 4168
+    },
+    "./countries/dj": {
+      "minified": 3510,
+      "gzip": 1907
+    },
+    "./countries/dk": {
+      "minified": 30102,
+      "gzip": 13621
+    },
+    "./countries/dm": {
+      "minified": 1720,
+      "gzip": 1006
+    },
+    "./countries/do": {
+      "minified": 8508,
+      "gzip": 4249
+    },
+    "./countries/dz": {
+      "minified": 5855,
+      "gzip": 3024
+    },
+    "./countries/ec": {
+      "minified": 5217,
+      "gzip": 2673
+    },
+    "./countries/ee": {
+      "minified": 14631,
+      "gzip": 6914
+    },
+    "./countries/eg": {
+      "minified": 4003,
+      "gzip": 2160
+    },
+    "./countries/eh": {
+      "minified": 3804,
+      "gzip": 2037
+    },
+    "./countries/er": {
+      "minified": 3263,
+      "gzip": 1795
+    },
+    "./countries/es": {
+      "minified": 6575,
+      "gzip": 3349
+    },
+    "./countries/et": {
+      "minified": 4744,
+      "gzip": 2496
+    },
+    "./countries/fi": {
+      "minified": 7528,
+      "gzip": 3790
+    },
+    "./countries/fj": {
+      "minified": 20391,
+      "gzip": 8791
+    },
+    "./countries/fk": {
+      "minified": 18922,
+      "gzip": 8932
+    },
+    "./countries/fm": {
+      "minified": 3876,
+      "gzip": 1723
+    },
+    "./countries/fo": {
+      "minified": 7220,
+      "gzip": 3688
+    },
+    "./countries/fr": {
+      "minified": 8899,
+      "gzip": 4423
+    },
+    "./countries/ga": {
+      "minified": 4332,
+      "gzip": 2318
+    },
+    "./countries/gb": {
+      "minified": 13738,
+      "gzip": 6583
+    },
+    "./countries/gd": {
+      "minified": 1556,
+      "gzip": 915
+    },
+    "./countries/ge": {
+      "minified": 2920,
+      "gzip": 1603
+    },
+    "./countries/gg": {
+      "minified": 1459,
+      "gzip": 858
+    },
+    "./countries/gh": {
+      "minified": 3478,
+      "gzip": 1889
+    },
+    "./countries/gl": {
+      "minified": 30468,
+      "gzip": 13758
+    },
+    "./countries/gm": {
+      "minified": 6105,
+      "gzip": 3077
+    },
+    "./countries/gn": {
+      "minified": 5346,
+      "gzip": 2793
+    },
+    "./countries/gq": {
+      "minified": 4064,
+      "gzip": 2060
+    },
+    "./countries/gr": {
+      "minified": 12776,
+      "gzip": 6351
+    },
+    "./countries/gs": {
+      "minified": 8389,
+      "gzip": 3894
+    },
+    "./countries/gt": {
+      "minified": 2287,
+      "gzip": 1296
+    },
+    "./countries/gu": {
+      "minified": 1308,
+      "gzip": 794
+    },
+    "./countries/gw": {
+      "minified": 18095,
+      "gzip": 8286
+    },
+    "./countries/gy": {
+      "minified": 4597,
+      "gzip": 2433
+    },
+    "./countries/hk": {
+      "minified": 6119,
+      "gzip": 3147
+    },
+    "./countries/hm": {
+      "minified": 1625,
+      "gzip": 913
+    },
+    "./countries/hn": {
+      "minified": 3532,
+      "gzip": 1913
+    },
+    "./countries/hr": {
+      "minified": 32248,
+      "gzip": 14706
+    },
+    "./countries/ht": {
+      "minified": 9512,
+      "gzip": 4704
+    },
+    "./countries/hu": {
+      "minified": 3575,
+      "gzip": 1940
+    },
+    "./countries/id": {
+      "minified": 49466,
+      "gzip": 21650
+    },
+    "./countries/ie": {
+      "minified": 4913,
+      "gzip": 2598
+    },
+    "./countries/il": {
+      "minified": 7049,
+      "gzip": 3427
+    },
+    "./countries/im": {
+      "minified": 1672,
+      "gzip": 999
+    },
+    "./countries/in": {
+      "minified": 21074,
+      "gzip": 9776
+    },
+    "./countries/io": {
+      "minified": 2038,
+      "gzip": 1118
+    },
+    "./countries/ioa": {
+      "minified": 1498,
+      "gzip": 807
+    },
+    "./countries/iq": {
+      "minified": 3808,
+      "gzip": 2066
+    },
+    "./countries/ir": {
+      "minified": 8704,
+      "gzip": 4353
+    },
+    "./countries/is": {
+      "minified": 6789,
+      "gzip": 3481
+    },
+    "./countries/it": {
+      "minified": 8788,
+      "gzip": 4452
+    },
+    "./countries/je": {
+      "minified": 1330,
+      "gzip": 788
+    },
+    "./countries/jm": {
+      "minified": 4103,
+      "gzip": 2144
+    },
+    "./countries/jo": {
+      "minified": 1995,
+      "gzip": 1162
+    },
+    "./countries/jp": {
+      "minified": 15160,
+      "gzip": 7184
+    },
+    "./countries/kas": {
+      "minified": 1236,
+      "gzip": 751
+    },
+    "./countries/ke": {
+      "minified": 3667,
+      "gzip": 2005
+    },
+    "./countries/kg": {
+      "minified": 5892,
+      "gzip": 3007
+    },
+    "./countries/kh": {
+      "minified": 3629,
+      "gzip": 1963
+    },
+    "./countries/ki": {
+      "minified": 3245,
+      "gzip": 1530
+    },
+    "./countries/km": {
+      "minified": 2333,
+      "gzip": 1309
+    },
+    "./countries/kn": {
+      "minified": 1497,
+      "gzip": 806
+    },
+    "./countries/kp": {
+      "minified": 4167,
+      "gzip": 2252
+    },
+    "./countries/kr": {
+      "minified": 3996,
+      "gzip": 2189
+    },
+    "./countries/kw": {
+      "minified": 4015,
+      "gzip": 2123
+    },
+    "./countries/ky": {
+      "minified": 1773,
+      "gzip": 1012
+    },
+    "./countries/kz": {
+      "minified": 15943,
+      "gzip": 7518
+    },
+    "./countries/la": {
+      "minified": 5919,
+      "gzip": 3076
+    },
+    "./countries/lb": {
+      "minified": 4864,
+      "gzip": 2557
+    },
+    "./countries/lc": {
+      "minified": 1404,
+      "gzip": 827
+    },
+    "./countries/li": {
+      "minified": 1171,
+      "gzip": 676
+    },
+    "./countries/lk": {
+      "minified": 1865,
+      "gzip": 1075
+    },
+    "./countries/lr": {
+      "minified": 2567,
+      "gzip": 1438
+    },
+    "./countries/ls": {
+      "minified": 5039,
+      "gzip": 2646
+    },
+    "./countries/lt": {
+      "minified": 2785,
+      "gzip": 1553
+    },
+    "./countries/lu": {
+      "minified": 3400,
+      "gzip": 1827
+    },
+    "./countries/lv": {
+      "minified": 2584,
+      "gzip": 1443
+    },
+    "./countries/ly": {
+      "minified": 4083,
+      "gzip": 2203
+    },
+    "./countries/ma": {
+      "minified": 5679,
+      "gzip": 2921
+    },
+    "./countries/mc": {
+      "minified": 830,
+      "gzip": 526
+    },
+    "./countries/md": {
+      "minified": 10365,
+      "gzip": 5082
+    },
+    "./countries/me": {
+      "minified": 5532,
+      "gzip": 2861
+    },
+    "./countries/mf": {
+      "minified": 1057,
+      "gzip": 631
+    },
+    "./countries/mg": {
+      "minified": 4239,
+      "gzip": 2245
+    },
+    "./countries/mh": {
+      "minified": 3381,
+      "gzip": 1647
+    },
+    "./countries/mk": {
+      "minified": 5606,
+      "gzip": 2903
+    },
+    "./countries/ml": {
+      "minified": 7067,
+      "gzip": 3590
+    },
+    "./countries/mm": {
+      "minified": 11896,
+      "gzip": 5710
+    },
+    "./countries/mn": {
+      "minified": 10352,
+      "gzip": 5099
+    },
+    "./countries/mo": {
+      "minified": 1974,
+      "gzip": 1098
+    },
+    "./countries/mp": {
+      "minified": 3070,
+      "gzip": 1566
+    },
+    "./countries/mr": {
+      "minified": 5059,
+      "gzip": 2598
+    },
+    "./countries/ms": {
+      "minified": 1058,
+      "gzip": 633
+    },
+    "./countries/mt": {
+      "minified": 1385,
+      "gzip": 841
+    },
+    "./countries/mu": {
+      "minified": 1916,
+      "gzip": 1055
+    },
+    "./countries/mv": {
+      "minified": 17089,
+      "gzip": 7016
+    },
+    "./countries/mw": {
+      "minified": 3899,
+      "gzip": 2083
+    },
+    "./countries/mx": {
+      "minified": 14279,
+      "gzip": 6773
+    },
+    "./countries/my": {
+      "minified": 7379,
+      "gzip": 3708
+    },
+    "./countries/mz": {
+      "minified": 7046,
+      "gzip": 3541
+    },
+    "./countries/na": {
+      "minified": 3809,
+      "gzip": 2040
+    },
+    "./countries/nc": {
+      "minified": 13966,
+      "gzip": 6294
+    },
+    "./countries/ne": {
+      "minified": 4138,
+      "gzip": 2197
+    },
+    "./countries/nf": {
+      "minified": 1114,
+      "gzip": 670
+    },
+    "./countries/ng": {
+      "minified": 5558,
+      "gzip": 2884
+    },
+    "./countries/ni": {
+      "minified": 3099,
+      "gzip": 1697
+    },
+    "./countries/nl": {
+      "minified": 11332,
+      "gzip": 5526
+    },
+    "./countries/no": {
+      "minified": 27239,
+      "gzip": 12213
+    },
+    "./countries/np": {
+      "minified": 3391,
+      "gzip": 1834
+    },
+    "./countries/nr": {
+      "minified": 784,
+      "gzip": 493
+    },
+    "./countries/nu": {
+      "minified": 1146,
+      "gzip": 697
+    },
+    "./countries/nz": {
+      "minified": 10775,
+      "gzip": 5167
+    },
+    "./countries/om": {
+      "minified": 3934,
+      "gzip": 2139
+    },
+    "./countries/pa": {
+      "minified": 3919,
+      "gzip": 2107
+    },
+    "./countries/pe": {
+      "minified": 8636,
+      "gzip": 4314
+    },
+    "./countries/pf": {
+      "minified": 13868,
+      "gzip": 5947
+    },
+    "./countries/pg": {
+      "minified": 10837,
+      "gzip": 5322
+    },
+    "./countries/ph": {
+      "minified": 17082,
+      "gzip": 8095
+    },
+    "./countries/pk": {
+      "minified": 8449,
+      "gzip": 4221
+    },
+    "./countries/pl": {
+      "minified": 4981,
+      "gzip": 2623
+    },
+    "./countries/pm": {
+      "minified": 1965,
+      "gzip": 1091
+    },
+    "./countries/pn": {
+      "minified": 1203,
+      "gzip": 680
+    },
+    "./countries/pr": {
+      "minified": 4736,
+      "gzip": 2410
+    },
+    "./countries/ps": {
+      "minified": 3944,
+      "gzip": 2062
+    },
+    "./countries/pt": {
+      "minified": 4106,
+      "gzip": 2086
+    },
+    "./countries/pw": {
+      "minified": 2782,
+      "gzip": 1431
+    },
+    "./countries/py": {
+      "minified": 4235,
+      "gzip": 2242
+    },
+    "./countries/qa": {
+      "minified": 3870,
+      "gzip": 2065
+    },
+    "./countries/ro": {
+      "minified": 4388,
+      "gzip": 2327
+    },
+    "./countries/rs": {
+      "minified": 4272,
+      "gzip": 2300
+    },
+    "./countries/ru": {
+      "minified": 100547,
+      "gzip": 41095
+    },
+    "./countries/rw": {
+      "minified": 5005,
+      "gzip": 2635
+    },
+    "./countries/sa": {
+      "minified": 6633,
+      "gzip": 3381
+    },
+    "./countries/sb": {
+      "minified": 29368,
+      "gzip": 12472
+    },
+    "./countries/sc": {
+      "minified": 4643,
+      "gzip": 2179
+    },
+    "./countries/sd": {
+      "minified": 6705,
+      "gzip": 3335
+    },
+    "./countries/se": {
+      "minified": 8613,
+      "gzip": 4261
+    },
+    "./countries/sg": {
+      "minified": 1246,
+      "gzip": 735
+    },
+    "./countries/sh": {
+      "minified": 1099,
+      "gzip": 662
+    },
+    "./countries/si": {
+      "minified": 7667,
+      "gzip": 3868
+    },
+    "./countries/sk": {
+      "minified": 8320,
+      "gzip": 4125
+    },
+    "./countries/sl": {
+      "minified": 2389,
+      "gzip": 1353
+    },
+    "./countries/sm": {
+      "minified": 967,
+      "gzip": 592
+    },
+    "./countries/sn": {
+      "minified": 3995,
+      "gzip": 2149
+    },
+    "./countries/so": {
+      "minified": 2581,
+      "gzip": 1445
+    },
+    "./countries/sr": {
+      "minified": 3193,
+      "gzip": 1759
+    },
+    "./countries/ss": {
+      "minified": 5131,
+      "gzip": 2660
+    },
+    "./countries/st": {
+      "minified": 2052,
+      "gzip": 1123
+    },
+    "./countries/sv": {
+      "minified": 5889,
+      "gzip": 2954
+    },
+    "./countries/sx": {
+      "minified": 919,
+      "gzip": 534
+    },
+    "./countries/sy": {
+      "minified": 2938,
+      "gzip": 1640
+    },
+    "./countries/sz": {
+      "minified": 1862,
+      "gzip": 1069
+    },
+    "./countries/tc": {
+      "minified": 3584,
+      "gzip": 1908
+    },
+    "./countries/td": {
+      "minified": 4612,
+      "gzip": 2420
+    },
+    "./countries/tg": {
+      "minified": 7164,
+      "gzip": 3525
+    },
+    "./countries/th": {
+      "minified": 8272,
+      "gzip": 4189
+    },
+    "./countries/tj": {
+      "minified": 5720,
+      "gzip": 2968
+    },
+    "./countries/tl": {
+      "minified": 4437,
+      "gzip": 2332
+    },
+    "./countries/tm": {
+      "minified": 6511,
+      "gzip": 3340
+    },
+    "./countries/tn": {
+      "minified": 3171,
+      "gzip": 1726
+    },
+    "./countries/to": {
+      "minified": 3420,
+      "gzip": 1678
+    },
+    "./countries/tr": {
+      "minified": 8055,
+      "gzip": 4029
+    },
+    "./countries/tt": {
+      "minified": 3459,
+      "gzip": 1813
+    },
+    "./countries/tv": {
+      "minified": 1488,
+      "gzip": 846
+    },
+    "./countries/tw": {
+      "minified": 8171,
+      "gzip": 4065
+    },
+    "./countries/tz": {
+      "minified": 5745,
+      "gzip": 2969
+    },
+    "./countries/ua": {
+      "minified": 9251,
+      "gzip": 4581
+    },
+    "./countries/ug": {
+      "minified": 3108,
+      "gzip": 1687
+    },
+    "./countries/us": {
+      "minified": 75471,
+      "gzip": 30803
+    },
+    "./countries/uy": {
+      "minified": 2634,
+      "gzip": 1477
+    },
+    "./countries/uz": {
+      "minified": 8687,
+      "gzip": 4279
+    },
+    "./countries/va": {
+      "minified": 830,
+      "gzip": 517
+    },
+    "./countries/vc": {
+      "minified": 2089,
+      "gzip": 1102
+    },
+    "./countries/ve": {
+      "minified": 8319,
+      "gzip": 4162
+    },
+    "./countries/vg": {
+      "minified": 2040,
+      "gzip": 1161
+    },
+    "./countries/vi": {
+      "minified": 1751,
+      "gzip": 1001
+    },
+    "./countries/vn": {
+      "minified": 8882,
+      "gzip": 4409
+    },
+    "./countries/vu": {
+      "minified": 13897,
+      "gzip": 6343
+    },
+    "./countries/wf": {
+      "minified": 1240,
+      "gzip": 710
+    },
+    "./countries/ws": {
+      "minified": 2407,
+      "gzip": 1349
+    },
+    "./countries/xk": {
+      "minified": 4330,
+      "gzip": 2298
+    },
+    "./countries/ye": {
+      "minified": 3587,
+      "gzip": 1960
+    },
+    "./countries/za": {
+      "minified": 6608,
+      "gzip": 3376
+    },
+    "./countries/zm": {
+      "minified": 5810,
+      "gzip": 3005
+    },
+    "./countries/zw": {
+      "minified": 3007,
+      "gzip": 1655
+    },
+    "./divisions/ar": {
+      "minified": 153108,
+      "gzip": 58309
+    },
+    "./divisions/at": {
+      "minified": 36468,
+      "gzip": 13992
+    },
+    "./divisions/au": {
+      "minified": 215689,
+      "gzip": 81266
+    },
+    "./divisions/be": {
+      "minified": 26801,
+      "gzip": 10359
+    },
+    "./divisions/br": {
+      "minified": 477525,
+      "gzip": 172547
+    },
+    "./divisions/ca": {
+      "minified": 1047448,
+      "gzip": 363488
+    },
+    "./divisions/ch": {
+      "minified": 73338,
+      "gzip": 27335
+    },
+    "./divisions/cl": {
+      "minified": 274455,
+      "gzip": 94568
+    },
+    "./divisions/cn": {
+      "minified": 734575,
+      "gzip": 262373
+    },
+    "./divisions/co": {
+      "minified": 184034,
+      "gzip": 72709
+    },
+    "./divisions/de": {
+      "minified": 202632,
+      "gzip": 74490
+    },
+    "./divisions/es": {
+      "minified": 206527,
+      "gzip": 78350
+    },
+    "./divisions/fr": {
+      "minified": 324404,
+      "gzip": 124316
+    },
+    "./divisions/gb": {
+      "minified": 336578,
+      "gzip": 125862
+    },
+    "./divisions/ie": {
+      "minified": 117704,
+      "gzip": 46334
+    },
+    "./divisions/it": {
+      "minified": 288129,
+      "gzip": 110967
+    },
+    "./divisions/jp": {
+      "minified": 187248,
+      "gzip": 65726
+    },
+    "./divisions/kr": {
+      "minified": 65790,
+      "gzip": 26891
+    },
+    "./divisions/mx": {
+      "minified": 299546,
+      "gzip": 112713
+    },
+    "./divisions/my": {
+      "minified": 86019,
+      "gzip": 30718
+    },
+    "./divisions/nl": {
+      "minified": 34226,
+      "gzip": 13010
+    },
+    "./divisions/no": {
+      "minified": 256958,
+      "gzip": 80694
+    },
+    "./divisions/nz": {
+      "minified": 88725,
+      "gzip": 35503
+    },
+    "./divisions/pe": {
+      "minified": 133037,
+      "gzip": 50391
+    },
+    "./divisions/ph": {
+      "minified": 171705,
+      "gzip": 66762
+    },
+    "./divisions/pl": {
+      "minified": 51009,
+      "gzip": 19926
+    },
+    "./divisions/ru": {
+      "minified": 1843886,
+      "gzip": 624645
+    },
+    "./divisions/se": {
+      "minified": 118888,
+      "gzip": 43646
+    },
+    "./divisions/th": {
+      "minified": 384159,
+      "gzip": 127557
+    },
+    "./divisions/tw": {
+      "minified": 29326,
+      "gzip": 10967
+    },
+    "./divisions/us": {
+      "minified": 722665,
+      "gzip": 267219
+    },
+    "./divisions/vn": {
+      "minified": 145858,
+      "gzip": 52702
+    },
+    "./features/country-ad": {
+      "minified": 731,
+      "gzip": 389
+    },
+    "./features/country-ae": {
+      "minified": 3276,
+      "gzip": 1455
+    },
+    "./features/country-af": {
+      "minified": 14316,
+      "gzip": 5893
+    },
+    "./features/country-ag": {
+      "minified": 915,
+      "gzip": 478
+    },
+    "./features/country-ai": {
+      "minified": 930,
+      "gzip": 484
+    },
+    "./features/country-al": {
+      "minified": 7333,
+      "gzip": 3125
+    },
+    "./features/country-am": {
+      "minified": 2508,
+      "gzip": 1245
+    },
+    "./features/country-ao": {
+      "minified": 23966,
+      "gzip": 9817
+    },
+    "./features/country-ar": {
+      "minified": 50172,
+      "gzip": 18678
+    },
+    "./features/country-as": {
+      "minified": 858,
+      "gzip": 456
+    },
+    "./features/country-at": {
+      "minified": 11075,
+      "gzip": 4787
+    },
+    "./features/country-atc": {
+      "minified": 423,
+      "gzip": 315
+    },
+    "./features/country-au": {
+      "minified": 80071,
+      "gzip": 28487
+    },
+    "./features/country-aw": {
+      "minified": 706,
+      "gzip": 399
+    },
+    "./features/country-ax": {
+      "minified": 1048,
+      "gzip": 618
+    },
+    "./features/country-az": {
+      "minified": 9489,
+      "gzip": 4213
+    },
+    "./features/country-ba": {
+      "minified": 5809,
+      "gzip": 2654
+    },
+    "./features/country-bb": {
+      "minified": 1021,
+      "gzip": 547
+    },
+    "./features/country-bd": {
+      "minified": 27463,
+      "gzip": 9676
+    },
+    "./features/country-be": {
+      "minified": 5495,
+      "gzip": 2424
+    },
+    "./features/country-bf": {
+      "minified": 9823,
+      "gzip": 4153
+    },
+    "./features/country-bg": {
+      "minified": 8667,
+      "gzip": 3709
+    },
+    "./features/country-bh": {
+      "minified": 1112,
+      "gzip": 581
+    },
+    "./features/country-bi": {
+      "minified": 3813,
+      "gzip": 1881
+    },
+    "./features/country-bj": {
+      "minified": 5736,
+      "gzip": 2550
+    },
+    "./features/country-bl": {
+      "minified": 735,
+      "gzip": 414
+    },
+    "./features/country-bm": {
+      "minified": 657,
+      "gzip": 370
+    },
+    "./features/country-bn": {
+      "minified": 899,
+      "gzip": 527
+    },
+    "./features/country-bo": {
+      "minified": 30418,
+      "gzip": 12023
+    },
+    "./features/country-br": {
+      "minified": 142732,
+      "gzip": 51834
+    },
+    "./features/country-bs": {
+      "minified": 4165,
+      "gzip": 2030
+    },
+    "./features/country-bt": {
+      "minified": 2633,
+      "gzip": 1198
+    },
+    "./features/country-bw": {
+      "minified": 10391,
+      "gzip": 4452
+    },
+    "./features/country-by": {
+      "minified": 14077,
+      "gzip": 5939
+    },
+    "./features/country-bz": {
+      "minified": 3350,
+      "gzip": 1395
+    },
+    "./features/country-ca": {
+      "minified": 284212,
+      "gzip": 98612
+    },
+    "./features/country-cd": {
+      "minified": 63365,
+      "gzip": 24669
+    },
+    "./features/country-cf": {
+      "minified": 17556,
+      "gzip": 7193
+    },
+    "./features/country-cg": {
+      "minified": 10297,
+      "gzip": 4460
+    },
+    "./features/country-ch": {
+      "minified": 6171,
+      "gzip": 2557
+    },
+    "./features/country-ci": {
+      "minified": 24484,
+      "gzip": 9898
+    },
+    "./features/country-ck": {
+      "minified": 648,
+      "gzip": 379
+    },
+    "./features/country-cl": {
+      "minified": 28074,
+      "gzip": 10019
+    },
+    "./features/country-cm": {
+      "minified": 19437,
+      "gzip": 7910
+    },
+    "./features/country-cn": {
+      "minified": 166957,
+      "gzip": 59521
+    },
+    "./features/country-co": {
+      "minified": 37718,
+      "gzip": 15181
+    },
+    "./features/country-cr": {
+      "minified": 5335,
+      "gzip": 2263
+    },
+    "./features/country-cu": {
+      "minified": 4674,
+      "gzip": 2163
+    },
+    "./features/country-cv": {
+      "minified": 1369,
+      "gzip": 745
+    },
+    "./features/country-cw": {
+      "minified": 796,
+      "gzip": 471
+    },
+    "./features/country-cy": {
+      "minified": 1258,
+      "gzip": 688
+    },
+    "./features/country-cz": {
+      "minified": 8385,
+      "gzip": 3531
+    },
+    "./features/country-de": {
+      "minified": 30712,
+      "gzip": 12157
+    },
+    "./features/country-dj": {
+      "minified": 3349,
+      "gzip": 1336
+    },
+    "./features/country-dk": {
+      "minified": 4827,
+      "gzip": 2113
+    },
+    "./features/country-dm": {
+      "minified": 1028,
+      "gzip": 558
+    },
+    "./features/country-do": {
+      "minified": 4496,
+      "gzip": 2109
+    },
+    "./features/country-dz": {
+      "minified": 14553,
+      "gzip": 5537
+    },
+    "./features/country-ec": {
+      "minified": 9182,
+      "gzip": 3738
+    },
+    "./features/country-ee": {
+      "minified": 7060,
+      "gzip": 2727
+    },
+    "./features/country-eg": {
+      "minified": 21391,
+      "gzip": 8309
+    },
+    "./features/country-eh": {
+      "minified": 1202,
+      "gzip": 704
+    },
+    "./features/country-er": {
+      "minified": 6285,
+      "gzip": 2726
+    },
+    "./features/country-es": {
+      "minified": 33858,
+      "gzip": 13239
+    },
+    "./features/country-et": {
+      "minified": 27266,
+      "gzip": 10910
+    },
+    "./features/country-fi": {
+      "minified": 61556,
+      "gzip": 23133
+    },
+    "./features/country-fj": {
+      "minified": 2610,
+      "gzip": 1278
+    },
+    "./features/country-fk": {
+      "minified": 2219,
+      "gzip": 1170
+    },
+    "./features/country-fm": {
+      "minified": 917,
+      "gzip": 482
+    },
+    "./features/country-fo": {
+      "minified": 1744,
+      "gzip": 833
+    },
+    "./features/country-fr": {
+      "minified": 38722,
+      "gzip": 15242
+    },
+    "./features/country-ga": {
+      "minified": 12020,
+      "gzip": 5159
+    },
+    "./features/country-gb": {
+      "minified": 19438,
+      "gzip": 7912
+    },
+    "./features/country-gd": {
+      "minified": 997,
+      "gzip": 500
+    },
+    "./features/country-ge": {
+      "minified": 4354,
+      "gzip": 2031
+    },
+    "./features/country-gg": {
+      "minified": 774,
+      "gzip": 434
+    },
+    "./features/country-gh": {
+      "minified": 25763,
+      "gzip": 10248
+    },
+    "./features/country-gl": {
+      "minified": 24043,
+      "gzip": 9648
+    },
+    "./features/country-gm": {
+      "minified": 2474,
+      "gzip": 1258
+    },
+    "./features/country-gn": {
+      "minified": 12299,
+      "gzip": 5320
+    },
+    "./features/country-gq": {
+      "minified": 4023,
+      "gzip": 1835
+    },
+    "./features/country-gr": {
+      "minified": 27505,
+      "gzip": 11464
+    },
+    "./features/country-gs": {
+      "minified": 1556,
+      "gzip": 816
+    },
+    "./features/country-gt": {
+      "minified": 9733,
+      "gzip": 4123
+    },
+    "./features/country-gu": {
+      "minified": 1046,
+      "gzip": 571
+    },
+    "./features/country-gw": {
+      "minified": 2734,
+      "gzip": 1397
+    },
+    "./features/country-gy": {
+      "minified": 9846,
+      "gzip": 4208
+    },
+    "./features/country-hk": {
+      "minified": 1091,
+      "gzip": 619
+    },
+    "./features/country-hm": {
+      "minified": 814,
+      "gzip": 509
+    },
+    "./features/country-hn": {
+      "minified": 9573,
+      "gzip": 4008
+    },
+    "./features/country-hr": {
+      "minified": 17122,
+      "gzip": 7205
+    },
+    "./features/country-ht": {
+      "minified": 2585,
+      "gzip": 1297
+    },
+    "./features/country-hu": {
+      "minified": 7626,
+      "gzip": 3283
+    },
+    "./features/country-id": {
+      "minified": 49753,
+      "gzip": 18254
+    },
+    "./features/country-ie": {
+      "minified": 8138,
+      "gzip": 3529
+    },
+    "./features/country-il": {
+      "minified": 3731,
+      "gzip": 1647
+    },
+    "./features/country-im": {
+      "minified": 1081,
+      "gzip": 581
+    },
+    "./features/country-in": {
+      "minified": 99014,
+      "gzip": 36295
+    },
+    "./features/country-io": {
+      "minified": 639,
+      "gzip": 398
+    },
+    "./features/country-ioa": {
+      "minified": 676,
+      "gzip": 408
+    },
+    "./features/country-iq": {
+      "minified": 23434,
+      "gzip": 9541
+    },
+    "./features/country-ir": {
+      "minified": 24733,
+      "gzip": 9749
+    },
+    "./features/country-is": {
+      "minified": 8809,
+      "gzip": 3945
+    },
+    "./features/country-it": {
+      "minified": 22154,
+      "gzip": 8751
+    },
+    "./features/country-je": {
+      "minified": 816,
+      "gzip": 488
+    },
+    "./features/country-jm": {
+      "minified": 1440,
+      "gzip": 783
+    },
+    "./features/country-jo": {
+      "minified": 3989,
+      "gzip": 1743
+    },
+    "./features/country-jp": {
+      "minified": 19121,
+      "gzip": 7674
+    },
+    "./features/country-ke": {
+      "minified": 13046,
+      "gzip": 5509
+    },
+    "./features/country-kg": {
+      "minified": 7042,
+      "gzip": 3039
+    },
+    "./features/country-kh": {
+      "minified": 11915,
+      "gzip": 5146
+    },
+    "./features/country-ki": {
+      "minified": 614,
+      "gzip": 422
+    },
+    "./features/country-km": {
+      "minified": 1237,
+      "gzip": 675
+    },
+    "./features/country-kn": {
+      "minified": 669,
+      "gzip": 386
+    },
+    "./features/country-kp": {
+      "minified": 11427,
+      "gzip": 4928
+    },
+    "./features/country-kr": {
+      "minified": 11461,
+      "gzip": 4671
+    },
+    "./features/country-kw": {
+      "minified": 2149,
+      "gzip": 1079
+    },
+    "./features/country-ky": {
+      "minified": 675,
+      "gzip": 397
+    },
+    "./features/country-kz": {
+      "minified": 54689,
+      "gzip": 20350
+    },
+    "./features/country-la": {
+      "minified": 13381,
+      "gzip": 5719
+    },
+    "./features/country-lb": {
+      "minified": 2095,
+      "gzip": 1035
+    },
+    "./features/country-lc": {
+      "minified": 1003,
+      "gzip": 541
+    },
+    "./features/country-li": {
+      "minified": 423,
+      "gzip": 285
+    },
+    "./features/country-lk": {
+      "minified": 4862,
+      "gzip": 2115
+    },
+    "./features/country-lr": {
+      "minified": 4421,
+      "gzip": 2058
+    },
+    "./features/country-ls": {
+      "minified": 5444,
+      "gzip": 2458
+    },
+    "./features/country-lt": {
+      "minified": 5467,
+      "gzip": 2401
+    },
+    "./features/country-lu": {
+      "minified": 857,
+      "gzip": 514
+    },
+    "./features/country-lv": {
+      "minified": 4564,
+      "gzip": 1982
+    },
+    "./features/country-ly": {
+      "minified": 9182,
+      "gzip": 3503
+    },
+    "./features/country-ma": {
+      "minified": 13205,
+      "gzip": 5211
+    },
+    "./features/country-mc": {
+      "minified": 886,
+      "gzip": 480
+    },
+    "./features/country-md": {
+      "minified": 6669,
+      "gzip": 3048
+    },
+    "./features/country-me": {
+      "minified": 4359,
+      "gzip": 1974
+    },
+    "./features/country-mf": {
+      "minified": 647,
+      "gzip": 366
+    },
+    "./features/country-mg": {
+      "minified": 11548,
+      "gzip": 4861
+    },
+    "./features/country-mh": {
+      "minified": 400,
+      "gzip": 279
+    },
+    "./features/country-mk": {
+      "minified": 947,
+      "gzip": 566
+    },
+    "./features/country-ml": {
+      "minified": 19226,
+      "gzip": 7825
+    },
+    "./features/country-mm": {
+      "minified": 31594,
+      "gzip": 12031
+    },
+    "./features/country-mn": {
+      "minified": 23361,
+      "gzip": 8983
+    },
+    "./features/country-mp": {
+      "minified": 688,
+      "gzip": 418
+    },
+    "./features/country-mr": {
+      "minified": 8029,
+      "gzip": 3413
+    },
+    "./features/country-ms": {
+      "minified": 711,
+      "gzip": 382
+    },
+    "./features/country-mt": {
+      "minified": 685,
+      "gzip": 376
+    },
+    "./features/country-mu": {
+      "minified": 1235,
+      "gzip": 647
+    },
+    "./features/country-mv": {
+      "minified": 1219,
+      "gzip": 567
+    },
+    "./features/country-mw": {
+      "minified": 7315,
+      "gzip": 3228
+    },
+    "./features/country-mx": {
+      "minified": 62791,
+      "gzip": 22370
+    },
+    "./features/country-my": {
+      "minified": 14127,
+      "gzip": 5519
+    },
+    "./features/country-mz": {
+      "minified": 17558,
+      "gzip": 7140
+    },
+    "./features/country-na": {
+      "minified": 12724,
+      "gzip": 5332
+    },
+    "./features/country-nc": {
+      "minified": 2794,
+      "gzip": 1323
+    },
+    "./features/country-ne": {
+      "minified": 5071,
+      "gzip": 2239
+    },
+    "./features/country-nf": {
+      "minified": 660,
+      "gzip": 379
+    },
+    "./features/country-ng": {
+      "minified": 23781,
+      "gzip": 9655
+    },
+    "./features/country-ni": {
+      "minified": 14731,
+      "gzip": 6355
+    },
+    "./features/country-nl": {
+      "minified": 10301,
+      "gzip": 4304
+    },
+    "./features/country-no": {
+      "minified": 43509,
+      "gzip": 14771
+    },
+    "./features/country-np": {
+      "minified": 9517,
+      "gzip": 4024
+    },
+    "./features/country-nr": {
+      "minified": 387,
+      "gzip": 276
+    },
+    "./features/country-nu": {
+      "minified": 393,
+      "gzip": 277
+    },
+    "./features/country-nz": {
+      "minified": 45765,
+      "gzip": 16390
+    },
+    "./features/country-om": {
+      "minified": 7985,
+      "gzip": 3261
+    },
+    "./features/country-pa": {
+      "minified": 9027,
+      "gzip": 3673
+    },
+    "./features/country-pe": {
+      "minified": 36266,
+      "gzip": 14547
+    },
+    "./features/country-pf": {
+      "minified": 1309,
+      "gzip": 631
+    },
+    "./features/country-pg": {
+      "minified": 20985,
+      "gzip": 8580
+    },
+    "./features/country-ph": {
+      "minified": 20783,
+      "gzip": 8083
+    },
+    "./features/country-pk": {
+      "minified": 28377,
+      "gzip": 11248
+    },
+    "./features/country-pl": {
+      "minified": 16786,
+      "gzip": 7091
+    },
+    "./features/country-pm": {
+      "minified": 1799,
+      "gzip": 797
+    },
+    "./features/country-pn": {
+      "minified": 676,
+      "gzip": 392
+    },
+    "./features/country-pr": {
+      "minified": 1920,
+      "gzip": 907
+    },
+    "./features/country-ps": {
+      "minified": 1872,
+      "gzip": 954
+    },
+    "./features/country-pt": {
+      "minified": 6707,
+      "gzip": 2781
+    },
+    "./features/country-pw": {
+      "minified": 1015,
+      "gzip": 517
+    },
+    "./features/country-py": {
+      "minified": 16137,
+      "gzip": 6805
+    },
+    "./features/country-qa": {
+      "minified": 1600,
+      "gzip": 818
+    },
+    "./features/country-ro": {
+      "minified": 22103,
+      "gzip": 8822
+    },
+    "./features/country-rs": {
+      "minified": 14066,
+      "gzip": 5861
+    },
+    "./features/country-ru": {
+      "minified": 232741,
+      "gzip": 80624
+    },
+    "./features/country-rw": {
+      "minified": 5491,
+      "gzip": 2571
+    },
+    "./features/country-sa": {
+      "minified": 14760,
+      "gzip": 5923
+    },
+    "./features/country-sb": {
+      "minified": 4466,
+      "gzip": 2052
+    },
+    "./features/country-sc": {
+      "minified": 708,
+      "gzip": 381
+    },
+    "./features/country-sd": {
+      "minified": 18634,
+      "gzip": 7436
+    },
+    "./features/country-se": {
+      "minified": 40241,
+      "gzip": 15437
+    },
+    "./features/country-sg": {
+      "minified": 1477,
+      "gzip": 726
+    },
+    "./features/country-sh": {
+      "minified": 451,
+      "gzip": 294
+    },
+    "./features/country-si": {
+      "minified": 4040,
+      "gzip": 1812
+    },
+    "./features/country-sk": {
+      "minified": 2753,
+      "gzip": 1295
+    },
+    "./features/country-sl": {
+      "minified": 3710,
+      "gzip": 1742
+    },
+    "./features/country-sm": {
+      "minified": 694,
+      "gzip": 404
+    },
+    "./features/country-sn": {
+      "minified": 9170,
+      "gzip": 4081
+    },
+    "./features/country-so": {
+      "minified": 8492,
+      "gzip": 3629
+    },
+    "./features/country-sr": {
+      "minified": 12217,
+      "gzip": 5114
+    },
+    "./features/country-ss": {
+      "minified": 11078,
+      "gzip": 4589
+    },
+    "./features/country-st": {
+      "minified": 1381,
+      "gzip": 669
+    },
+    "./features/country-sv": {
+      "minified": 3257,
+      "gzip": 1539
+    },
+    "./features/country-sx": {
+      "minified": 465,
+      "gzip": 300
+    },
+    "./features/country-sy": {
+      "minified": 8058,
+      "gzip": 3523
+    },
+    "./features/country-sz": {
+      "minified": 978,
+      "gzip": 486
+    },
+    "./features/country-tc": {
+      "minified": 717,
+      "gzip": 382
+    },
+    "./features/country-td": {
+      "minified": 12225,
+      "gzip": 5035
+    },
+    "./features/country-tg": {
+      "minified": 3583,
+      "gzip": 1702
+    },
+    "./features/country-th": {
+      "minified": 23274,
+      "gzip": 9127
+    },
+    "./features/country-tj": {
+      "minified": 7380,
+      "gzip": 3170
+    },
+    "./features/country-tl": {
+      "minified": 2253,
+      "gzip": 1058
+    },
+    "./features/country-tm": {
+      "minified": 8876,
+      "gzip": 3968
+    },
+    "./features/country-tn": {
+      "minified": 4242,
+      "gzip": 1840
+    },
+    "./features/country-to": {
+      "minified": 845,
+      "gzip": 460
+    },
+    "./features/country-tr": {
+      "minified": 37044,
+      "gzip": 14386
+    },
+    "./features/country-tt": {
+      "minified": 1354,
+      "gzip": 727
+    },
+    "./features/country-tv": {
+      "minified": 653,
+      "gzip": 390
+    },
+    "./features/country-tw": {
+      "minified": 2715,
+      "gzip": 1239
+    },
+    "./features/country-tz": {
+      "minified": 40964,
+      "gzip": 16269
+    },
+    "./features/country-ua": {
+      "minified": 32177,
+      "gzip": 12682
+    },
+    "./features/country-ug": {
+      "minified": 25063,
+      "gzip": 10075
+    },
+    "./features/country-us": {
+      "minified": 207197,
+      "gzip": 70742
+    },
+    "./features/country-uy": {
+      "minified": 11852,
+      "gzip": 5139
+    },
+    "./features/country-uz": {
+      "minified": 13666,
+      "gzip": 5322
+    },
+    "./features/country-vc": {
+      "minified": 670,
+      "gzip": 391
+    },
+    "./features/country-ve": {
+      "minified": 31213,
+      "gzip": 12156
+    },
+    "./features/country-vg": {
+      "minified": 654,
+      "gzip": 379
+    },
+    "./features/country-vi": {
+      "minified": 722,
+      "gzip": 408
+    },
+    "./features/country-vn": {
+      "minified": 18368,
+      "gzip": 7143
+    },
+    "./features/country-vu": {
+      "minified": 3609,
+      "gzip": 1650
+    },
+    "./features/country-wf": {
+      "minified": 941,
+      "gzip": 495
+    },
+    "./features/country-ws": {
+      "minified": 1153,
+      "gzip": 629
+    },
+    "./features/country-xk": {
+      "minified": 1712,
+      "gzip": 861
+    },
+    "./features/country-ye": {
+      "minified": 7624,
+      "gzip": 3051
+    },
+    "./features/country-za": {
+      "minified": 34374,
+      "gzip": 13474
+    },
+    "./features/country-zm": {
+      "minified": 28949,
+      "gzip": 11795
+    },
+    "./features/country-zw": {
+      "minified": 13144,
+      "gzip": 5524
+    },
+    "./features/divisions-ar": {
+      "minified": 70069,
+      "gzip": 25345
+    },
+    "./features/divisions-at": {
+      "minified": 13151,
+      "gzip": 5342
+    },
+    "./features/divisions-au": {
+      "minified": 77702,
+      "gzip": 26961
+    },
+    "./features/divisions-be": {
+      "minified": 7937,
+      "gzip": 2980
+    },
+    "./features/divisions-br": {
+      "minified": 139751,
+      "gzip": 49039
+    },
+    "./features/divisions-ca": {
+      "minified": 264466,
+      "gzip": 89890
+    },
+    "./features/divisions-ch": {
+      "minified": 11701,
+      "gzip": 3608
+    },
+    "./features/divisions-cl": {
+      "minified": 34431,
+      "gzip": 11376
+    },
+    "./features/divisions-cn": {
+      "minified": 163950,
+      "gzip": 57064
+    },
+    "./features/divisions-co": {
+      "minified": 47690,
+      "gzip": 18101
+    },
+    "./features/divisions-de": {
+      "minified": 36959,
+      "gzip": 14060
+    },
+    "./features/divisions-es": {
+      "minified": 39951,
+      "gzip": 13308
+    },
+    "./features/divisions-fr": {
+      "minified": 58942,
+      "gzip": 18686
+    },
+    "./features/divisions-gb": {
+      "minified": 58019,
+      "gzip": 15175
+    },
+    "./features/divisions-ie": {
+      "minified": 14255,
+      "gzip": 4859
+    },
+    "./features/divisions-it": {
+      "minified": 44319,
+      "gzip": 12733
+    },
+    "./features/divisions-jp": {
+      "minified": 28794,
+      "gzip": 9538
+    },
+    "./features/divisions-kr": {
+      "minified": 15061,
+      "gzip": 5692
+    },
+    "./features/divisions-mx": {
+      "minified": 71329,
+      "gzip": 24246
+    },
+    "./features/divisions-my": {
+      "minified": 19354,
+      "gzip": 6936
+    },
+    "./features/divisions-nl": {
+      "minified": 12944,
+      "gzip": 4869
+    },
+    "./features/divisions-no": {
+      "minified": 32960,
+      "gzip": 10956
+    },
+    "./features/divisions-nz": {
+      "minified": 56502,
+      "gzip": 20206
+    },
+    "./features/divisions-pe": {
+      "minified": 47924,
+      "gzip": 18425
+    },
+    "./features/divisions-ph": {
+      "minified": 37936,
+      "gzip": 11790
+    },
+    "./features/divisions-pl": {
+      "minified": 20462,
+      "gzip": 7900
+    },
+    "./features/divisions-ru": {
+      "minified": 252702,
+      "gzip": 83768
+    },
+    "./features/divisions-se": {
+      "minified": 55469,
+      "gzip": 20781
+    },
+    "./features/divisions-th": {
+      "minified": 42433,
+      "gzip": 13170
+    },
+    "./features/divisions-tw": {
+      "minified": 5705,
+      "gzip": 1953
+    },
+    "./features/divisions-us": {
+      "minified": 231669,
+      "gzip": 77506
+    },
+    "./features/divisions-vn": {
+      "minified": 28607,
+      "gzip": 10113
+    },
+    "./features/world": {
+      "minified": 205490,
+      "gzip": 64548
+    }
+  }
+}

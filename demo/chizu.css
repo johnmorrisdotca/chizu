@@ -94,3 +94,6 @@ select.fam-field { min-width: min(100%, 22rem); }
 #feature-list tbody tr:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
 #feature-list tbody tr[aria-selected="true"] { background: color-mix(in srgb, var(--accent) 16%, transparent); }
 #feature-list tbody tr:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+
+/* Keep navigation width stable across languages. */
+header nav a[data-say="pageDocs"] { inline-size: 8rem; justify-content: center; flex: none; }

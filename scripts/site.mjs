@@ -30,7 +30,7 @@ const page = `<!doctype html>
   <head>
     ${familyHead({
       id,
-      title: "Chizu · maps of Japan, the world and its countries, in English and Japanese",
+      title: "Chizu 地図 — SVG maps for JavaScript",
       description: "Japan's 47 prefectures, the world, its continents and 32 countries' regions, with their seas, lakes, rivers and mountains: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.",
       ogTitle: "Chizu maps",
       ogDescription: "Japan's prefectures, the world and 32 countries' regions: quizzes, callout sheets and coloured maps, in English and Japanese.",
@@ -41,7 +41,7 @@ const page = `<!doctype html>
   </head>
   <body>
     <main>
-      ${familyHeader({ id, links: [{ href: "api.html", say: "pageApi" }] })}
+      ${familyHeader({ id, links: [{ href: "docs/index.html", say: "pageDocs" }, { href: "api.html", say: "pageApi" }] })}
       <div class="setup fam-row" data-help-en="Choose the map: the whole world, the regions of one country (its provinces, states or départements), or one country on its own. Each country is a file of its own, fetched when you ask for it." data-help-ja="地図を選びます。世界全体、一つの国の地方（州や県など）、または一つの国だけ、のどれかです。国ごとに別のファイルで、選んだときに読み込みます。">
         <span class="fam-label" data-say="map"></span>
         <select class="fam-field" id="map" data-testid="map" data-say-label="map"></select>
@@ -169,8 +169,8 @@ for (const file of ["builder.js", "builder.css", "embed-options.js"]) cpSync(`de
 cpSync("demo/embed", "site/embed", { recursive: true });
 writeFileSync("site/family-embed-builder.js", `export const FAMILY_EMBED_BUILDER_WORDS = ${JSON.stringify(FAMILY_EMBED_BUILDER_WORDS)};\nexport ${familyEmbedBuilder.toString()};\n`);
 const builderParts = {
-  builderHead: familyHead({ id, title: "Chizu · build a map, locator or quiz", description: "Preview an embeddable map, named place or geography quiz and copy the code." }),
-  builderHeader: familyHeader({ id, links: [{ href: "./", say: "toGallery" }] }),
+  builderHead: familyHead({ id, title: "Chizu 地図 — SVG maps for JavaScript", description: "Preview an embeddable map, named place or geography quiz and copy the code." }),
+  builderHeader: familyHeader({ id, links: [{ href: "./", say: "toGallery" }, { href: "docs/index.html", say: "pageDocs" }, { href: "api.html", say: "pageApi" }] }),
   unreviewed: familyUnreviewed({ id }), footer: familyFooter({ id }), script: `<script>${FAMILY_SCRIPT}</script>`,
 };
 writeFileSync("site/builder.html", readFileSync("demo/builder.html", "utf8").replace(/<!-- family:([A-Za-z]+) -->/g, (_match, key) => builderParts[key]));

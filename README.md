@@ -1,4 +1,4 @@
-<h1 align="center">Chizu <sub>地図</sub></h1>
+<h1 align="center">Chizu <sub>地図</sub> — SVG maps for JavaScript</h1>
 
 <p align="center"><strong>Maps for JavaScript and TypeScript, in English and Japanese.</strong><br>
 The world and 32 countries' regions drawn from Natural Earth (public domain), Japan's 47 prefectures among them, with their seas, lakes, rivers, mountains and capitals on request, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing and zoom, insets, a world that wraps round the date line, quiz distractors, and a callout placer that puts numbered circles in open water with leader lines that never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
@@ -9,9 +9,11 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="13.0 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-13.0%20kB-2f5d4a"></a>
+  <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
-<p align="center"><a href="https://johnmorrisdotca.github.io/chizu/"><strong>Open the map →</strong></a> · <a href="https://johnmorrisdotca.github.io/chizu/api.html">API reference</a></p>
+<p align="center"><a href="https://johnmorrisdotca.github.io/chizu/"><strong>Open the map →</strong></a> · <a href="https://johnmorrisdotca.github.io/chizu/docs/">Documentation</a> · <a href="https://johnmorrisdotca.github.io/chizu/docs/guides/getting-started.html">Getting started</a> · <a href="https://johnmorrisdotca.github.io/chizu/api.html">API reference</a></p>
 
 <table align="center">
 <tr>
@@ -148,6 +150,18 @@ Each picture is the real map, drawn by the package and taken from [the demo](htt
 ## Use it in your project
 
 Chizu is five things, each usable without the others: **the engine** (framing, zoom, insets, callouts, distractors, pasted names; plain functions over plain data), **the maps** (the world, a country alone, a country's regions: data, one file each), **the drawing** (SVG text), **the page** (a mounted map) and **the names** (every country in both languages, with no outlines). The table under [API](#api) says which entry holds which.
+
+### Install under another name
+
+```sh
+npm install maps@npm:@johnmorrisdotca/chizu
+```
+
+```ts no-check
+import { wholeMapBox } from "maps";
+import WORLD from "maps/world";
+console.log(wholeMapBox(WORLD));
+```
 
 ### Install
 
@@ -592,6 +606,10 @@ mount.destroy();
 
 ## API
 
+Every fixed map and feature import is listed in the [map-resource catalogue](docs/guides/map-resources.md).
+
+The [documentation](https://johnmorrisdotca.github.io/chizu/docs/) supplies checked examples, bilingual guides and local search. The [API index](https://johnmorrisdotca.github.io/chizu/api.html) retains export anchors.
+
 The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists every export of every entry point with its signature and its doc comment. It is made from the source by `pnpm site`, so it cannot fall behind the code.
 
 | Entry | What it holds |
@@ -702,52 +720,7 @@ Left out on purpose: population, area, mottos and "famous for" facts. They are c
 
 ## Architecture
 
-The engine is plain functions over plain data with no DOM and no dependency. The maps are generated: `scripts/build-data.mjs` reads nine Natural Earth files at a pinned release, the names, ISO codes and capitals from kuni 国 at a pinned version, and the features' other names from Wikidata as `scripts/wikidata.mjs` last asked, and writes every file under `src/data/`, and `pnpm data` twice leaves the tree unchanged. Each entry point is a file of its own, so a server that frames and numbers a map never loads the drawing, and a page that draws one country never loads another. Tests sit beside the code they test (`*.test.ts`). `scripts/` builds the data, the demo and its API reference page, takes the README's pictures and checks the package as npm packs it; `demo/` is the playable page, and `e2e/` its browser tests.
-
-```text
-src/
-├── index.ts            the engine's entry
-├── draw-entry.ts       the drawing's entry
-├── mount-entry.ts      the page's entry
-├── names-entry.ts      the table of countries' entry
-├── load-entry.ts       loadCountry and loadDivisions
-├── world-entry.ts      the world's entry
-├── types.ts            ChizuMap, ChizuRegion, MapBox and the rest
-├── frame.ts            windows, zoom steps, fits
-├── insets.ts           regions drawn in boxes of their own
-├── wrap.ts             the world that goes round
-├── outlines.ts         paths as rings, land under a point, a point on a region's land
-├── handles.ts          numbers beside regions, and in order across the map
-├── callouts.ts         numbered circles in open water
-├── calloutSpace.ts     where a circle may sit
-├── calloutPolish.ts    the slow pass for a printed sheet
-├── layout.ts           layoutCallouts over a whole map
-├── distractors.ts      the wrong answers
-├── quiz.ts             a question and its choices
-├── groups.ts           continents and other groups: cut, framed, toned
-├── features.ts         seas, lakes, rivers and the rest: chosen, searched, made a map
-├── fromText.ts         pasted names to places
-├── countries.ts        the table of countries, looked up
-├── project.ts          longitude and latitude on a canvas
-├── strings.ts          the words, in English and Japanese
-├── style.ts            the drawing's colours
-├── draw.ts             a map as SVG text
-├── drawFeatures.ts     the features in a drawing, and their names
-├── element.ts          browser elements for maps, locators and quizzes
-├── element-define.ts   register the three elements
-├── mount.ts            a map in a page
-├── mountStyle.ts       the page's colours
-├── random.ts           the seeded stream
-├── version.ts          the version
-└── data/               generated, never edited
-    ├── world.ts            the world
-    ├── world-detail.ts     the world drawn finer, for a map zoomed in
-    ├── countries.ts        the table of every country
-    ├── loaders.ts          one import for each country's map
-    ├── countries/<code>.ts   238 countries, each alone
-    ├── divisions/<code>.ts   32 countries' regions
-    └── features/<map>.ts     268 maps' named features
-```
+The engine, generated resources and browser layers are explained in the [architecture guide](docs/guides/architecture.md); its complete source tree and build description are preserved there.
 
 ## The name
 
@@ -833,6 +806,8 @@ pnpm data           # make src/data again from Natural Earth (downloads once int
 pnpm test:package   # pack, install and import it as somebody who installed it would
 pnpm test:demo      # build the demo and play it in a real browser, at a phone's width and a desk's
 pnpm site           # build the demo into site/, as the Pages workflow publishes it
+pnpm docs:check    # typecheck and run the public API and guide examples
+pnpm docs:site     # build the documentation and its local search index
 pnpm screenshots:readme   # take the README's pictures from the built demo, in light and dark
 pnpm test:readme    # run every example in the README against the built package
 ```

@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+- Add bilingual documentation, checked public examples, paired guides, local search and machine-readable pages. Name the existing map/feature wildcard imports explicitly for reference discovery.
+
 - Reconcile map embeds with released per-region colors, native selection/view callbacks and the capital/feature naming fixes.
 
 - Add map, locator and seeded quiz elements, a shared embed builder and validated storage-free iframe pages.

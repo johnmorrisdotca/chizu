@@ -44,7 +44,7 @@ const TWENTY = ["JP", "CN", "KR", "IN", "AU", "NZ", "US", "CA", "MX", "BR", "AR"
 const STEP_COLOURS = { light: ["#e6f0e8", "#bcd9c5", "#88bd9f", "#4f9a73", "#2c6a4c"], dark: ["#26352b", "#2f5a41", "#3f8460", "#6db58c", "#b4e3c6"] };
 const GROUP_COLOURS = { light: ["#f2c6a0", "#a9cbe8", "#c9e2a6", "#e9b7cf", "#f3e19a", "#b8b2e3", "#9fd8cf", "#e3b9a3", "#d0d0c0", "#cfe0f0"], dark: ["#7a4e2e", "#2d5375", "#4d6a2c", "#73405a", "#776a26", "#4a4380", "#2c6b62", "#6e4734", "#55554a", "#3d5266"] };
 
-const language = familyLanguage({ id: "chizu", words: WORDS, onChange: () => refreshAll() });
+const language = familyLanguage({ id: "chizu", words: WORDS, onChange: () => { docsLink(); refreshAll(); } });
 const say = (key, ...args) => {
   const word = WORDS[language.lang][key];
   return typeof word === "function" ? word(...args) : word;
@@ -1056,3 +1056,6 @@ chooseMode(state.mode);
 // An address may name the place to start on: ?select=13.
 if (state.mode === "explore" && regionOf(params.get("select"))) choosePlace(params.get("select"));
 host.dataset.ready = "true";
+
+function docsLink(){document.querySelector('[data-say="pageDocs"]')?.setAttribute("href",language.lang==="ja"?"docs/ja/index.html":"docs/index.html");}
+docsLink();

@@ -7,6 +7,8 @@ import { familyEmbedBuilder, FAMILY_EMBED_BUILDER_WORDS } from "./family-embed-b
 const words = {
   en: {
     ...FAMILY_EMBED_BUILDER_WORDS.en,
+    pageDocs: "Docs",
+    pageApi: "API reference",
     pitch: "Choose a map, locate a place or build a geography quiz, then copy the code for your page.",
     name: "Chizu means map in Japanese.",
     nameLink: "About the name",
@@ -24,6 +26,8 @@ const words = {
   },
   ja: {
     ...FAMILY_EMBED_BUILDER_WORDS.ja,
+    pageDocs: "ドキュメント",
+    pageApi: "API（英語）",
     pitch: "地図、場所の表示、地理クイズを選んで、ページに埋め込むコードをコピーできます。",
     name: "「地図」は英語の map に当たる日本語です。",
     nameLink: "名前について",
@@ -67,7 +71,7 @@ let mounted;
 const mapRatios = { world: 489 / 1000 };
 const frameExtras = {};
 const frameKey = (maker, settings) => `${maker}:${JSON.stringify(settings)}`;
-const page = globalThis.familyLanguage({ id: "chizu", words, onChange: () => mounted?.draw() });
+const page = globalThis.familyLanguage({ id: "chizu", words, onChange: () => { docsLink(); mounted?.draw(); } });
 const makers = Object.fromEntries(["map", "locator", "quiz"].map((kind) => [kind, { names: kind, element: kind, tag: `chizu-${kind}`, embed: kind === "map" ? "embed/" : `embed/${kind}/`, required: ["region", ...(kind === "locator" ? ["place"] : [])], description: `maker${kind[0].toUpperCase()}${kind.slice(1)}Says`, formats, width: 720, height: (settings) => Math.ceil(Math.min(Number(settings.width) || ({ small: 320, medium: 480, large: 720 }[settings.size] ?? 480), 704) * (mapRatios[settings.region ?? "world"] ?? 489 / 1000)) + (frameExtras[frameKey(kind, settings)] ?? (kind === "quiz" ? 380 : kind === "map" ? 150 : 100)) }]));
 const builder = familyEmbedBuilder({ id: "chizu", packageName: "@johnmorrisdotca/chizu", major: VERSION.split(".")[0], site: "https://johnmorrisdotca.github.io/chizu/", title: "Chizu · maps", titleJa: "地図の埋め込み", options, leftOut, makers, groups: { map: { en: "The map", ja: "地図の設定" } }, code: ({ maker, format, settings }) => {
   if (readMapColors(settings.colors ?? null) === null) return null;
@@ -85,3 +89,6 @@ mounted = builder.mount({ words, language: () => page, initial: { map: { region:
   stage.append(element);
   return { destroy() { element.remove(); } };
 } });
+
+function docsLink(){document.querySelector('[data-say="pageDocs"]')?.setAttribute("href",page.lang==="ja"?"docs/ja/index.html":"docs/index.html");}
+docsLink();
