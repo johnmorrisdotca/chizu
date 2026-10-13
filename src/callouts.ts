@@ -53,6 +53,8 @@ export const HANDLE_LAYOUTS = {
   around: "around",
 } as const;
 /**
+ * The native ordering, candidate positions and constraints used to place numbered callouts.
+ *
  *
  * @example
  * ```ts
@@ -176,6 +178,14 @@ function landCrossed(
  * console.log(spots.map((spot) => spot.item).join(" "));
  * // a b
  * ```
+ *
+ * @param entries - Native places to order or lay out.
+ * @param radius - The circle or label radius in native map units.
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @param keepOut - The native frame areas reserved against callout placement.
+ * @param land - Native land geometry or land obstacles that labels must avoid.
+ * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
+ * @returns Places every circle in the open space around the map.
  */
 export function placeCallouts<T>(
   entries: ReadonlyArray<{ item: T; centroid: readonly [number, number] }>,

@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-fm.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-fm";
+ * console.log(layer.map, layer.features.length);
+ * // country-fm 3
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-fm","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-fm; names from Natural Earth and Wikidata","features":[{"code":"Q159183","kind":"sea","group":"marine","name":"Philippine Sea","nameJa":"フィリピン海","reading":"ふぃりぴんかい","rank":1,"path":"M61,-1L-1,36L-1,-1Z","bbox":[-1,-1,61,36],"centroid":[12.4,12.4],"neighbors":[]},{"code":"ne-1159107639","kind":"peak","group":"peaks","name":"Mount Nanlaud","nameJa":"ンギネニ山","reading":"んぎねにさん","rank":9,"elevation":791,"path":"","bbox":[805.3,127.6,805.3,127.6],"centroid":[805.3,127.6],"neighbors":[]},{"code":"capital-FM","kind":"capital","group":"capitals","name":"Palikir","nameJa":"パリキール","reading":"パリキール","rank":0,"path":"","bbox":[803.6,125.8,803.6,125.8],"centroid":[803.6,125.8],"neighbors":[]}]};
 
 export default layer;

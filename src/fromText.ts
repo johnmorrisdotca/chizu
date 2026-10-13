@@ -48,6 +48,9 @@ function namesOf(region: Named, optionalEnding: RegExp | undefined): string[] {
  * console.log(splitPastedPlaces("Japan, France\n  Brazil;Egypt\t"));
  * // [ 'Japan', 'France', 'Brazil', 'Egypt' ]
  * ```
+ *
+ * @param text - Pasted names or serialized attribute text specified by this signature.
+ * @returns A paste split into its lines, on the separators a pasted list actually uses.
  */
 export function splitPastedPlaces(text: string): string[] {
   return text
@@ -57,6 +60,8 @@ export function splitPastedPlaces(text: string): string[] {
 }
 
 /**
+ * Matched native places in paste order and the original text items that were not found.
+ *
  *
  * @example
  * ```ts
@@ -87,6 +92,11 @@ export type PastedPlaces = {
  * console.log(placesFromText("Japan, フランス\nBrazil, Narnia", WORLD.regions));
  * // { codes: [ 'JP', 'FR', 'BR' ], missing: [ 'Narnia' ] }
  * ```
+ *
+ * @param text - Pasted names or serialized attribute text specified by this signature.
+ * @param regions - The native regions available for matching or layout.
+ * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
+ * @returns The regions a paste names. Order is the paste's, because somebody who wrote them in lesson order meant that order. A name written twice adds the place once.
  */
 export function placesFromText(text: string, regions: readonly Named[], options: MatchOptions = {}): PastedPlaces {
   const byName = new Map<string, string>();

@@ -37,6 +37,12 @@ export type FindQuestion = {
  * console.log(findQuestion(WORLD, "FR", seededRandom(7)));
  * // { target: 'FR', choices: [ 'BE', 'FR', 'DE', 'CH' ], answerIndex: 1 }
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param targetCode - The native region code for the correct quiz answer.
+ * @param random - A random source returning a value in [0, 1); use seededRandom for reproducible output.
+ * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
+ * @returns The seeded target and shuffled answer choices, or null for an unknown or explicitly unnamed target.
  */
 export function findQuestion(map: Pick<ChizuMap, "width" | "height" | "regions">, targetCode: string | number, random: Random, options: Omit<DistractorOptions, "random"> = {}): FindQuestion | null {
   const target = map.regions.find((region) => String(region.code) === String(targetCode));

@@ -33,6 +33,9 @@ export type Random = () => number;
  * console.log(a() === b(), a() === b());
  * // true true
  * ```
+ *
+ * @param seed - A reproducible numeric seed, read as an unsigned 32-bit integer.
+ * @returns A stream of numbers in [0, 1) fixed by a seed. The seed is read as an unsigned 32-bit integer.
  */
 export function seededRandom(seed: number): Random {
   let state = seed >>> 0;
@@ -55,6 +58,10 @@ export function seededRandom(seed: number): Random {
  * console.log(shuffled(items, seededRandom(7)).join(" ") === shuffled(items, seededRandom(7)).join(" "), items.join(" "));
  * // true JP FR BR EG
  * ```
+ *
+ * @param items - The input items; shuffling returns a copy.
+ * @param random - A random source returning a value in [0, 1); use seededRandom for reproducible output.
+ * @returns A copy of the list in a random order (Fisher–Yates, from the end); the list given is left alone.
  */
 export function shuffled<T>(items: readonly T[], random: Random): T[] {
   const out = [...items];

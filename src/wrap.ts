@@ -23,6 +23,9 @@ import type { ChizuMap, MapBox } from "./types.ts";
  * console.log(mapWrapsAround(WORLD), mapWrapsAround((await loadCountry("fr"))!));
  * // true false
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @returns Whether this map's east and west edges are the same edge.
  */
 export function mapWrapsAround(map: Pick<ChizuMap, "wraps">): boolean {
   return map.wraps;
@@ -45,6 +48,10 @@ const MOST_COPIES = 4;
  * console.log(wrapAcross(1030, 1000), wrapAcross(-20, 1000), wrapAcross(500, 1000));
  * // 30 980 500
  * ```
+ *
+ * @param x - The horizontal native map coordinate.
+ * @param width - The native canvas width or frame width specified by this signature.
+ * @returns A coordinate brought back onto the canvas, for a pan that has gone round.
  */
 export function wrapAcross(x: number, width: number): number {
   if (!(width > 0)) return x;
@@ -63,6 +70,10 @@ export function wrapAcross(x: number, width: number): number {
  * console.log(wrapOffsets({ x: -100, y: 0, width: 400, height: 200 }, 1000));
  * // [ -1000, 0 ]
  * ```
+ *
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @param width - The native canvas width or frame width specified by this signature.
+ * @returns The copies of the canvas this window sees, as x offsets in map units: `[0]` while the window is wholly on the canvas, which is most of the time. The second copy is only drawn once the reader has panned across the cut.
  */
 export function wrapOffsets(box: MapBox, width: number): number[] {
   if (!(width > 0) || !(box.width > 0)) return [0];
@@ -86,6 +97,11 @@ export function wrapOffsets(box: MapBox, width: number): number[] {
  * console.log(wrapIntoBox(950, { x: -100, y: 0, width: 400, height: 200 }, 1000));
  * // -50
  * ```
+ *
+ * @param x - The horizontal native map coordinate.
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @param width - The native canvas width or frame width specified by this signature.
+ * @returns The point’s horizontally wrapped coordinate in the window, or null when no copy lies in it.
  */
 export function wrapIntoBox(x: number, box: MapBox, width: number): number | null {
   if (!(width > 0)) return x >= box.x && x <= box.x + box.width ? x : null;
@@ -109,6 +125,11 @@ export function wrapIntoBox(x: number, box: MapBox, width: number): number | nul
  * console.log(nearestWrappedBox({ x: -50, y: 0, width: 100, height: 100 }, { x: 900, y: 0, width: 100, height: 100 }, 1000));
  * // { x: -100, y: 0, width: 100, height: 100 }
  * ```
+ *
+ * @param from - The starting window in native map units.
+ * @param to - The destination window whose nearest wrapped copy is requested.
+ * @param width - The native canvas width or frame width specified by this signature.
+ * @returns The copy of a window nearest another one. Travelling from Japan to Hawaii is a short hop east across the date line, and their stored coordinates are at opposite ends of the canvas, so easing between the two as they are stored sweeps the whole earth the wrong way. Sliding the destination onto the nearest copy makes the journey the short one.
  */
 export function nearestWrappedBox(from: MapBox, to: MapBox, width: number): MapBox {
   if (!(width > 0)) return to;

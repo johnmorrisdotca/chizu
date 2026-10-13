@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-atc.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-atc";
+ * console.log(layer.map, layer.features.length);
+ * // country-atc 1
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-atc","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-atc; names from Natural Earth and Wikidata","features":[{"code":"Q1239","kind":"ocean","group":"marine","name":"Indian Ocean","nameJa":"インド洋","reading":"いんどよう","rank":0,"path":"M-1,-1L1001,-1L1001,541L-1,541Z","bbox":[-1,-1,1001,541],"centroid":[500,270],"neighbors":[]}]};
 
 export default layer;

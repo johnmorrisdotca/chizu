@@ -29,12 +29,18 @@ export const HANDLE_RADIUS_RATIO = 0.045;
  * console.log(handleRadius({ width: 1000 }, 2));
  * // 90
  * ```
+ *
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @param scale - The geometric scale factor specified by this signature.
+ * @returns A handle's radius in the map's own units, for a window this wide and a share of the usual size.
  */
 export function handleRadius(box: { width: number }, scale: number): number {
   return box.width * HANDLE_RADIUS_RATIO * scale;
 }
 
 /**
+ * A numbered region’s label position, native land anchor and leader geometry.
+ *
  *
  * @example
  * ```ts
@@ -142,6 +148,11 @@ export type HandleBounds = { x: number; y: number; width: number; height: number
  * console.log(spots.map((spot) => spot.item).join(" "), Math.hypot(spots[0]!.hx - spots[1]!.hx, spots[0]!.hy - spots[1]!.hy) >= 8);
  * // a b true
  * ```
+ *
+ * @param entries - Native places to order or lay out.
+ * @param radius - The circle or label radius in native map units.
+ * @param bounds - The allowed label placement bounds in native map units.
+ * @returns Places every handle clear of the ones before it.
  */
 export function placeHandles<T>(
   entries: ReadonlyArray<{ item: T; centroid: readonly [number, number] }>,
@@ -200,6 +211,10 @@ export function placeHandles<T>(
  * console.log(orderByPosition(places, (place) => place.at).map((place) => place.name).join(" "));
  * // west middle east
  * ```
+ *
+ * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
+ * @param centreOf - The function that reads an entry’s native centre.
+ * @returns The choices in the order they run across the map, west to east.
  */
 export function orderByPosition<T>(options: readonly T[], centreOf: (option: T) => readonly [number, number] | null | undefined): T[] {
   const positioned = options.map((option, index) => ({ option, index, centroid: centreOf(option) ?? null }));

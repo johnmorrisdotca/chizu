@@ -3,6 +3,7 @@
  * départements. Each is a dynamic import of a file of its own, so a bundler makes a chunk for each and a page fetches
  * only the ones it draws.
  */
+
 import { COUNTRY_LOADERS, DIVISIONS_LOADERS, FEATURE_LOADERS, WORLD_DETAIL_LOADER } from "./data/loaders.ts";
 import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 
@@ -43,6 +44,9 @@ export const DIVISIONS_CODES: readonly string[] = Object.keys(DIVISIONS_LOADERS)
  * console.log(japan.id, japan.kind, japan.regions.length, await loadCountry("xx"));
  * // country-jp country 1 null
  * ```
+ *
+ * @param code - The native region or country code; null clears a region selection where accepted.
+ * @returns The requested country map, or null when no built-in map exists for its code.
  */
 export async function loadCountry(code: string): Promise<ChizuMap | null> {
   const load = COUNTRY_LOADERS[code.toLowerCase()];
@@ -61,6 +65,9 @@ export async function loadCountry(code: string): Promise<ChizuMap | null> {
  * console.log(japan.regions.length, tokyo.code, tokyo.nameJa, tokyo.reading, tokyo.group);
  * // 47 13 東京都 とうきょうと Kanto
  * ```
+ *
+ * @param code - The native region or country code; null clears a region selection where accepted.
+ * @returns The requested subdivision map, or null when no built-in subdivision map exists for its code.
  */
 export async function loadDivisions(code: string): Promise<ChizuMap | null> {
   const load = DIVISIONS_LOADERS[code.toLowerCase()];
@@ -83,6 +90,8 @@ export async function loadDivisions(code: string): Promise<ChizuMap | null> {
  * console.log(detail.id, japan(detail) > japan(WORLD) * 3);
  * // world-detail true
  * ```
+ *
+ * @returns The finer world map with the same canvas and country codes as the coarse world map.
  */
 export async function loadWorldDetail(): Promise<ChizuMap> {
   return (await WORLD_DETAIL_LOADER()).default;
@@ -117,6 +126,9 @@ export const FEATURE_MAPS: readonly string[] = Object.keys(FEATURE_LOADERS);
  * console.log(japan.map, seto.name, seto.kind, seto.reading, await loadFeatures("divisions-xx"));
  * // divisions-jp Seto Inland Sea sea せとないかい null
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @returns The matching feature layer, or null when the requested map has no built-in layer.
  */
 export async function loadFeatures(map: string | Pick<ChizuMap, "id">): Promise<ChizuFeatureLayer | null> {
   const load = FEATURE_LOADERS[typeof map === "string" ? map : map.id];

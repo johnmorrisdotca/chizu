@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-je.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-je";
+ * console.log(layer.map, layer.features.length);
+ * // country-je 2
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-je","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-je; names from Natural Earth and Wikidata","features":[{"code":"Q560549","kind":"plain","group":"landforms","name":"North European Plain","nameJa":"北ヨーロッパ平野","reading":"きたよーろっぱへいや","rank":1,"path":"M793.5,628L646,521.7L326.3,521.7L25.7,593.7L92.1,4.2L683.4,76.4L955.5,234.1L993.4,564.6L828.5,628Z","bbox":[25.7,4.2,993.4,628],"centroid":[307.1,278.3],"neighbors":[]},{"code":"capital-JE","kind":"capital","group":"capitals","name":"Saint Helier","nameJa":"セント・ヘリア","reading":"セントヘリア","rank":0,"path":"","bbox":[564.7,504.7,564.7,504.7],"centroid":[564.7,504.7],"neighbors":[]}]};
 
 export default layer;

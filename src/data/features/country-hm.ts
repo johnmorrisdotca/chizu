@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-hm.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-hm";
+ * console.log(layer.map, layer.features.length);
+ * // country-hm 2
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-hm","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-hm; names from Natural Earth and Wikidata","features":[{"code":"Q1239","kind":"ocean","group":"marine","name":"Indian Ocean","nameJa":"インド洋","reading":"いんどよう","rank":0,"path":"M1001,422.8L859.6,374.4L607.5,189L264.6,109.7L119.9,13.8L26.2,41.5L30.9,79.7L86.3,172.8L174.6,196.9L308.3,534.3L398.3,642.7L611.5,642.8L817.9,507.2L970.2,486.4L1001,466.3L1001,667L-1,667L-1,-1L1001,-1Z","bbox":[-1,-1,1001,667],"centroid":[839.2,160.8],"neighbors":[]},{"code":"ne-1159108125","kind":"peak","group":"peaks","name":"Big Ben","nameJa":"ビッグ・ベン山塊","rank":9,"elevation":2745,"path":"","bbox":[493.7,399.2,493.7,399.2],"centroid":[493.7,399.2],"neighbors":[]}]};
 
 export default layer;

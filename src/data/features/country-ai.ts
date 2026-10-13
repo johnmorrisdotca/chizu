@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-ai.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-ai";
+ * console.log(layer.map, layer.features.length);
+ * // country-ai 3
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-ai","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-ai; names from Natural Earth and Wikidata","features":[{"code":"Q1247","kind":"sea","group":"marine","name":"Caribbean Sea","nameJa":"カリブ海","reading":"かりぶかい","rank":1,"path":"M477.2,-1L1001,185L1001,908L-1,908L-1,-1Z","bbox":[-1,-1,1001,908],"centroid":[446.4,460.6],"neighbors":[]},{"code":"Q3003173","kind":"peak","group":"peaks","name":"Crocus Hill","nameJa":"クロッカス・ヒル","reading":"クロッカスヒル","rank":9,"elevation":65,"path":"","bbox":[732.8,792.7,732.8,792.7],"centroid":[732.8,792.7],"neighbors":[]},{"code":"capital-AI","kind":"capital","group":"capitals","name":"The Valley","nameJa":"ザ・バレー","reading":"ザバレー","rank":0,"path":"","bbox":[752.6,799.9,752.6,799.9],"centroid":[752.6,799.9],"neighbors":[]}]};
 
 export default layer;

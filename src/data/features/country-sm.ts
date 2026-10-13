@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-sm.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-sm";
+ * console.log(layer.map, layer.features.length);
+ * // country-sm 2
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-sm","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-sm; names from Natural Earth and Wikidata","features":[{"code":"Q158526","kind":"peak","group":"peaks","name":"Monte Titano","nameJa":"ティターノ山","reading":"てぃたーのさん","rank":9,"elevation":739,"path":"","bbox":[512.1,801.9,512.1,801.9],"centroid":[512.1,801.9],"neighbors":[]},{"code":"capital-SM","kind":"capital","group":"capitals","name":"City of San Marino","nameJa":"サンマリノ市","reading":"さんまりのし","rank":0,"path":"","bbox":[512.2,580.8,512.2,580.8],"centroid":[512.2,580.8],"neighbors":[]}]};
 
 export default layer;

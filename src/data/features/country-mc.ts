@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-mc.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-mc";
+ * console.log(layer.map, layer.features.length);
+ * // country-mc 3
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-mc","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-mc; names from Natural Earth and Wikidata","features":[{"code":"Q4918","kind":"sea","group":"marine","name":"Mediterranean Sea","nameJa":"地中海","reading":"ちちゅうかい","rank":1,"path":"M-1,685.5L1001,261.6L1001,880L-1,880Z","bbox":[-1,261.6,1001,880],"centroid":[753.9,632.4],"neighbors":[]},{"code":"Q1517182","kind":"peak","group":"peaks","name":"Mont Agel","nameJa":"アジェル山","reading":"あじぇるさん","rank":9,"elevation":140,"path":"","bbox":[536.2,339.5,536.2,339.5],"centroid":[536.2,339.5],"neighbors":[]},{"code":"capital-MC","kind":"capital","group":"capitals","name":"Monaco","nameJa":"モナコ","reading":"モナコ","rank":0,"path":"","bbox":[756.7,646.7,756.7,646.7],"centroid":[756.7,646.7],"neighbors":[]}]};
 
 export default layer;

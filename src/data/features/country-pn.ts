@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-pn.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-pn";
+ * console.log(layer.map, layer.features.length);
+ * // country-pn 2
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-pn","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-pn; names from Natural Earth and Wikidata","features":[{"code":"Q98","kind":"ocean","group":"marine","name":"Pacific Ocean","nameJa":"太平洋","reading":"たいへいよう","rank":0,"path":"M-1,-1L1001,-1L1001,211L-1,211Z","bbox":[-1,-1,1001,211],"centroid":[500,105],"neighbors":[]},{"code":"capital-PN","kind":"capital","group":"capitals","name":"Adamstown","nameJa":"アダムスタウン","reading":"アダムスタウン","rank":0,"path":"","bbox":[112.2,209.1,112.2,209.1],"centroid":[112.2,209.1],"neighbors":[]}]};
 
 export default layer;

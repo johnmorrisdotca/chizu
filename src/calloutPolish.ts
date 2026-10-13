@@ -469,6 +469,10 @@ function seeded(seed: number): () => number {
  * console.log(calloutFaults([{ x: 0, y: 0, hx: 10, hy: 10 }, { x: 10, y: 0, hx: 0, hy: 10 }], 1));
  * // { crossings: 1, close: 0 }
  * ```
+ *
+ * @param spots - Placed native callouts and their leader endpoints.
+ * @param radius - The circle or label radius in native map units.
+ * @returns The two faults a printed sheet is held to, counted over its placed leaders: pairs that cross, and pairs closer than a radius - or than they start, where two regions start closer than that - counting a line through another number's circle as close too.
  */
 export function calloutFaults(
   spots: ReadonlyArray<{ x: number; y: number; hx: number; hy: number }>,

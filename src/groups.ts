@@ -26,6 +26,9 @@ type Groupable = Pick<ChizuMap, "regions">;
  * console.log(groups.map((group) => `${group.name} ${group.codes.length}`).join(", "));
  * // Asia 46, Europe 39, Africa 50, North America 18, South America 13, Oceania 7
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @returns The groups a map's regions fall in, by their `group`, in the order the map first names them: the continents on the world, the eight regions on Japan's prefectures, the four Census regions on the United States'.
  */
 export function regionGroups(map: Pick<ChizuMap, "regions">): ChizuGroup[] {
   const groups = new Map<string, ChizuGroup>();
@@ -58,6 +61,11 @@ export function regionGroups(map: Pick<ChizuMap, "regions">): ChizuGroup[] {
  * console.log(map.regions.length, findQuestion(map, "KE", seededRandom(1))?.choices.length);
  * // 50 4
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param codes - Native region codes from this map, in the requested order.
+ * @param names - Optional names for the resulting group map.
+ * @returns The map cut down to a group: the same canvas, only the regions whose codes are given (in the map's order), only their boxes, and neighbours only among themselves. What a quiz or a callout sheet within the group is given, so that "which country of Africa is this?" offers African look-alikes and numbers African countries only. Codes the map does not have are passed over.
  */
 export function groupMap(map: ChizuMap, codes: ReadonlyArray<string | number>, names: { id?: string; name?: string; nameJa?: string } = {}): ChizuMap {
   const wanted = new Set(codes.map(String));
@@ -94,6 +102,11 @@ const GROUP_MARGIN_RATIO = 0.06;
  * console.log(svg.startsWith("<svg"));
  * // true
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param codes - Native region codes from this map, in the requested order.
+ * @param aspect - The desired window width divided by its height.
+ * @returns The window that shows a group whole, shaped to the frame it is drawn in (`aspect`, how much wider than tall), with a little room round it. Each member is framed on its mainland (`mainlandBounds`), so France's overseas departments, drawn on the world as part of France, do not stretch Europe's window to South America; a region drawn in a box is framed where it is drawn. The whole map for a group the map has none of.
  */
 export function groupBox(map: ChizuMap, codes: ReadonlyArray<string | number>, aspect = 1): MapBox {
   const wanted = new Set(codes.map(String));
@@ -134,6 +147,12 @@ export function groupBox(map: ChizuMap, codes: ReadonlyArray<string | number>, a
  * console.log(tones.JP, tones.KR, tones.CN);
  * // selected undefined muted
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param codes - Native region codes from this map, in the requested order.
+ * @param outside - The tone assigned to regions outside the chosen group.
+ * @param inside - Optional tone overrides for regions inside the chosen group.
+ * @returns Tones that fade every region outside a group (`faint` unless another tone is named) and leave the group's own as they are, or give them `inside`'s tones: for a map of a continent drawn on the world, with its neighbours as a pale coast round it.
  */
 export function groupTones(map: Groupable, codes: ReadonlyArray<string | number>, outside = "faint", inside: Readonly<Record<string, string>> = {}): Record<string, string> {
   const wanted = new Set(codes.map(String));

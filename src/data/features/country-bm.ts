@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-bm.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-bm";
+ * console.log(layer.map, layer.features.length);
+ * // country-bm 2
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-bm","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-bm; names from Natural Earth and Wikidata","features":[{"code":"Q6421145","kind":"peak","group":"peaks","name":"Town Hill","nameJa":"タウン・ヒル","reading":"タウンヒル","rank":9,"elevation":79,"path":"","bbox":[528.8,390.6,528.8,390.6],"centroid":[528.8,390.6],"neighbors":[]},{"code":"capital-BM","kind":"capital","group":"capitals","name":"Hamilton","nameJa":"ハミルトン","reading":"ハミルトン","rank":0,"path":"","bbox":[444.9,440.3,444.9,440.3],"centroid":[444.9,440.3],"neighbors":[]}]};
 
 export default layer;

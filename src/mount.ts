@@ -82,6 +82,8 @@ export type ChizuMountOptions = {
 export type ChizuView = { zoom: MapZoom; centre: { x: number; y: number }; box: MapBox };
 
 /**
+ * The mounted native map’s drawing updates, selected region, framing, loaded features and cleanup handle.
+ *
  *
  * @example
  * ```ts no-run
@@ -124,6 +126,9 @@ export type ChizuMount = {
  * // Put the mounted map's stylesheet in the page (or the shadow root) once, before drawing into it yourself.
  * ensureChizuMapStyle(document.body);
  * ```
+ *
+ * @param host - The page or shadow-root element that receives the native map and its scoped styles.
+ * @returns Nothing; the native scoped map styles are installed for the host.
  */
 export function ensureChizuMapStyle(host: Element): void {
   const root = host.getRootNode();
@@ -157,6 +162,10 @@ const KEY_STEP = 0.12;
  * });
  * mount.show(["JP", "KR"]);
  * ```
+ *
+ * @param host - The page or shadow-root element that receives the native map and its scoped styles.
+ * @param initial - The initial native map, framing, display settings and interaction callbacks.
+ * @returns The mounted native map handle; call destroy when removing its host.
  */
 export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): ChizuMount {
   ensureChizuMapStyle(host);

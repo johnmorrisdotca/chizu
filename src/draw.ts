@@ -75,6 +75,9 @@ const SAFE_COLOUR = /^(#[0-9a-f]{3,8}|[a-z]{3,30}|(?:rgb|hsl)a?\([0-9a-z.,%\s/+-
  * console.log(isChizuColour("#2f6b4f"), isChizuColour("teal"), isChizuColour("red;x:y"));
  * // true true false
  * ```
+ *
+ * @param colour - A candidate region fill: hex, CSS name, rgb()/hsl() or a CSS variable.
+ * @returns Whether `colour` is one `drawChizu`'s `colors` will draw.
  */
 export const isChizuColour = (colour: string): boolean => SAFE_COLOUR.test(colour.trim());
 
@@ -103,6 +106,10 @@ const LABEL_RATIO = 0.016;
  * console.log(svg.startsWith("<svg"), svg.includes("<title>日本</title>"));
  * // true true
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
+ * @returns The SVG text of the native map, with the requested layers, tones, labels and callouts.
  */
 export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string {
   const language = options.language ?? "en";

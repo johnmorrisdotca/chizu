@@ -48,6 +48,7 @@ import {
 } from "./data-config.mjs";
 import { featureSources, featuresOn } from "./build-features.mjs";
 import { root, source } from "./natural-earth.mjs";
+import { mapReferenceDoc, featureReferenceDoc } from "./data-docs.mjs";
 
 const out = join(root, "src", "data");
 const PRECISION = 2;
@@ -152,7 +153,7 @@ function writeMap(path, header, map, doc = "") {
  */
 import type { ChizuMap } from "${"../".repeat(path.slice(out.length + 1).split("/").length)}types.ts";
 
-${doc}const map: ChizuMap = ${literal(map)};
+${doc || mapReferenceDoc(path.slice(out.length + 1).replace(/\.ts$/, ""), header, map)}const map: ChizuMap = ${literal(map)};
 
 export default map;
 `,
@@ -177,7 +178,7 @@ function writeFeatures(path, map, features) {
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
-const layer: ChizuFeatureLayer = ${literal(layer)};
+${featureReferenceDoc(path.slice(out.length + 1).replace(/\.ts$/, ""), layer)}const layer: ChizuFeatureLayer = ${literal(layer)};
 
 export default layer;
 `,

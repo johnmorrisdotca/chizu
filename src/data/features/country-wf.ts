@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-wf.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-wf";
+ * console.log(layer.map, layer.features.length);
+ * // country-wf 3
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-wf","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-wf; names from Natural Earth and Wikidata","features":[{"code":"Q98","kind":"ocean","group":"marine","name":"Pacific Ocean","nameJa":"太平洋","reading":"たいへいよう","rank":0,"path":"M-1,-1L1001,-1L1001,556L-1,556Z","bbox":[-1,-1,1001,556],"centroid":[500,277.5],"neighbors":[]},{"code":"ne-1159107985","kind":"peak","group":"peaks","name":"Mont Singavi","nameJa":"モン・サンガーヴ山","reading":"もんさんがーゔさん","rank":9,"elevation":762,"path":"","bbox":[14.8,530.5,14.8,530.5],"centroid":[14.8,530.5],"neighbors":[]},{"code":"capital-WF","kind":"capital","group":"capitals","name":"Mata-Utu","nameJa":"マタウトゥ","reading":"マタウトゥ","rank":0,"path":"","bbox":[978.4,35.5,978.4,35.5],"centroid":[978.4,35.5],"neighbors":[]}]};
 
 export default layer;

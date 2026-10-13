@@ -69,6 +69,10 @@ const WATER: readonly ChizuFeatureGroup[] = ["marine", "lakes", "rivers"];
  * console.log(featureChosen(lake, ["water"]), featureChosen(lake, ["rivers"]), featureChosen(lake, ["lake"]));
  * // true false true
  * ```
+ *
+ * @param feature - The physical feature being classified or tested.
+ * @param choices - Native physical-feature groups, kinds, water or all selections.
+ * @returns Whether a feature is among the choices.
  */
 export function featureChosen(feature: Pick<ChizuFeature, "kind" | "group">, choices: readonly ChizuFeatureChoice[]): boolean {
   return choices.some((choice) => choice === "all" || choice === feature.group || choice === feature.kind || (choice === "water" && WATER.includes(feature.group)));
@@ -86,6 +90,10 @@ export function featureChosen(feature: Pick<ChizuFeature, "kind" | "group">, cho
  * console.log(featuresShown(japan, ["lakes", "rivers"]).map((one) => one.name).join(", "));
  * // Lake Biwa, Ishikari River, Tone River, Mogami River
  * ```
+ *
+ * @param layer - The native feature layer; its coordinates must match the map used for drawing.
+ * @param choices - Native physical-feature groups, kinds, water or all selections.
+ * @returns The features of a layer that are among the choices, in the layer's order (seas first, peaks last).
  */
 export function featuresShown(layer: Pick<ChizuFeatureLayer, "features"> | null | undefined, choices: readonly ChizuFeatureChoice[] = ["all"]): ChizuFeature[] {
   if (!layer || choices.length === 0) return [];
@@ -109,6 +117,11 @@ export function featuresShown(layer: Pick<ChizuFeatureLayer, "features"> | null 
  * console.log(water.id, question.choices.length, question.choices[question.answerIndex] === caspian.code);
  * // world-features 4 true
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param layer - The native feature layer; its coordinates must match the map used for drawing.
+ * @param choices - Native physical-feature groups, kinds, water or all selections.
+ * @returns A layer as a map of its own: the same canvas, the features as its regions. Every function of the engine takes it, so a sea is framed with `focusBox`, asked about with `findQuestion` (its look-alikes are the seas next to it, then the rest of its group, then the nearest), and read from a paste with `placesFromText`.
  */
 export function featureMap(map: ChizuMap, layer: Pick<ChizuFeatureLayer, "features">, choices: readonly ChizuFeatureChoice[] = ["all"]): ChizuMap {
   const regions: ChizuRegion[] = featuresShown(layer, choices).map((feature) => ({ ...feature }));
@@ -144,6 +157,11 @@ function fold(text: string): string {
  * // カスピ海 0
  * // [ 'Nile', 'White Nile', 'Blue Nile' ]
  * ```
+ *
+ * @param features - The native features available for name lookup.
+ * @param typed - The English/Japanese feature name, code or reading to match.
+ * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
+ * @returns The features a few typed letters may mean, best first: a name (English or Japanese) or reading that is the words typed, then one that begins with them, then one with a word that does, then one that holds them anywhere; within each, the higher ranked first. Case, accents, kana and spacing never matter, so `caspian`, `カスピ` and `かすぴ` all find the Caspian Sea. Up to `limit` (default 10).
  */
 export function findFeatures<T extends Pick<ChizuFeature, "code" | "name" | "nameJa" | "reading" | "rank">>(features: readonly T[], typed: string, options: { limit?: number } = {}): T[] {
   const needle = fold(typed);

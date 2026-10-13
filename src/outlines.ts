@@ -48,6 +48,10 @@ export type MapRing = {
  * console.log(parseMapRings("M0,0L10,0L10,10Z M20,20L30,20L30,30Z").map((ring) => [ring.minX, ring.maxX]));
  * // [ [ 0, 10 ], [ 20, 30 ] ]
  * ```
+ *
+ * @param path - The native SVG outline path to parse.
+ * @param transform - The native inset scale and translation to apply.
+ * @returns The rings of one region's path, in the order it draws them, each with its own box.
  */
 export function parseMapRings(path: string, transform?: InsetTransform | null): MapRing[] {
   const rings: MapRing[] = [];
@@ -84,6 +88,11 @@ export function parseMapRings(path: string, transform?: InsetTransform | null): 
  * console.log(pointInRing(5, 5, square!), pointInRing(15, 5, square!));
  * // true false
  * ```
+ *
+ * @param x - The horizontal native map coordinate.
+ * @param y - The vertical native map coordinate.
+ * @param ring - A closed outline ring in native map units.
+ * @returns Whether a point is inside a ring, by the crossing rule.
  */
 export function pointInRing(x: number, y: number, ring: MapRing): boolean {
   if (x < ring.minX || x > ring.maxX || y < ring.minY || y > ring.maxY) return false;
@@ -110,6 +119,11 @@ export function pointInRing(x: number, y: number, ring: MapRing): boolean {
  * console.log(distanceToRing(13, 5, square!), distanceToRing(5, 5, square!));
  * // 3 5
  * ```
+ *
+ * @param x - The horizontal native map coordinate.
+ * @param y - The vertical native map coordinate.
+ * @param ring - A closed outline ring in native map units.
+ * @returns How far a point is from a ring's outline, ignoring which side of it the point is on.
  */
 export function distanceToRing(x: number, y: number, ring: MapRing): number {
   const points = ring.points;
@@ -138,6 +152,12 @@ export function distanceToRing(x: number, y: number, ring: MapRing): number {
  * console.log(circleMeetsRing(13, 5, 2, square!), circleMeetsRing(13, 5, 4, square!));
  * // false true
  * ```
+ *
+ * @param x - The horizontal native map coordinate.
+ * @param y - The vertical native map coordinate.
+ * @param radius - The circle or label radius in native map units.
+ * @param ring - A closed outline ring in native map units.
+ * @returns Whether a circle of this radius at this point touches the land inside a ring.
  */
 export function circleMeetsRing(x: number, y: number, radius: number, ring: MapRing): boolean {
   return seaAround(x, y, radius, ring) < radius;
@@ -157,6 +177,12 @@ export function circleMeetsRing(x: number, y: number, radius: number, ring: MapR
  * console.log(seaAround(16, 5, 10, square!));
  * // 6
  * ```
+ *
+ * @param x - The horizontal native map coordinate.
+ * @param y - The vertical native map coordinate.
+ * @param reach - The maximum native map-unit search distance.
+ * @param ring - A closed outline ring in native map units.
+ * @returns How much water is around a point before this ring's land, never looking further than `reach` - a place far from every coast only has to be known to be far, and walking six thousand points to find out how far is the bill this runs up on every draw.
  */
 export function seaAround(x: number, y: number, reach: number, ring: MapRing): number {
   if (x + reach < ring.minX || x - reach > ring.maxX || y + reach < ring.minY || y - reach > ring.maxY) return reach;
@@ -175,6 +201,13 @@ export function seaAround(x: number, y: number, reach: number, ring: MapRing): n
  * console.log(segmentMeetsRing(-5, 5, 15, 5, square!), segmentMeetsRing(-5, 20, 15, 20, square!));
  * // true false
  * ```
+ *
+ * @param ax - The first segment endpoint’s horizontal map coordinate.
+ * @param ay - The first segment endpoint’s vertical map coordinate.
+ * @param bx - The second segment endpoint’s horizontal map coordinate.
+ * @param by - The second segment endpoint’s vertical map coordinate.
+ * @param ring - A closed outline ring in native map units.
+ * @returns Whether a straight line from one point to another passes over the land inside a ring.
  */
 export function segmentMeetsRing(
   ax: number,
@@ -228,6 +261,10 @@ export function segmentMeetsRing(
  * console.log(mainland[3] - mainland[1] < WORLD.regions[index]!.bbox[3] - WORLD.regions[index]!.bbox[1]);
  * // true
  * ```
+ *
+ * @param rings - Closed outline rings in native map units.
+ * @param reach - The maximum native map-unit search distance.
+ * @returns Bounds around the mainland and nearby pieces, or null when no ring exists.
  */
 export function mainlandBounds(
   rings: readonly MapRing[],
@@ -278,6 +315,9 @@ export function mainlandBounds(
  * console.log(landAnchor(parseMapRings("M0,0L20,0L20,10L0,10Z")));
  * // [ 5, 5 ]
  * ```
+ *
+ * @param rings - Closed outline rings in native map units.
+ * @returns A point on the widest ring’s land, or null when no ring exists.
  */
 export function landAnchor(rings: readonly MapRing[]): [number, number] | null {
   let widest: MapRing | null = null;
@@ -335,6 +375,8 @@ export function landAnchor(rings: readonly MapRing[]): [number, number] | null {
 export type MapPiece = { d: string; transform: InsetTransform | null };
 
 /**
+ * The region’s separate drawn pieces, including the geometry moved into its inset boxes.
+ *
  *
  * @example
  * ```ts
@@ -346,6 +388,10 @@ export type MapPiece = { d: string; transform: InsetTransform | null };
  * console.log(mapRegionPieces(alaska, insetFor(us, "AK")).length, mapRegionPieces(alaska, null)[0]!.transform);
  * // 1 null
  * ```
+ *
+ * @param region - The native region, or built-in map selector where the signature requires text.
+ * @param inset - The native inset placement and optional restriction to part of a region.
+ * @returns The region’s separate drawn pieces, including the geometry moved into its inset boxes.
  */
 export function mapRegionPieces(
   region: { path: string; bbox: readonly [number, number, number, number] },
@@ -414,6 +460,9 @@ const outlineCache = new WeakMap<object, MapOutline[]>();
  * console.log(outlines.length === WORLD.regions.length, mapOutlines(WORLD) === outlines);
  * // true true
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @returns The outlines of every region of a map, in the map's order, with a point on each one's land.
  */
 export function mapOutlines(map: Pick<ChizuMap, "regions" | "insets">): MapOutline[] {
   const known = outlineCache.get(map);
@@ -448,6 +497,8 @@ function ringPath(points: readonly number[]): string {
 }
 
 /**
+ * Copies of the outlines translated horizontally by the supplied map-unit offset.
+ *
  *
  * @example
  * ```ts
@@ -459,6 +510,10 @@ function ringPath(points: readonly number[]): string {
  * console.log(Math.round(shifted[0]!.rings[0]!.minX - mapOutlines(WORLD)[0]!.rings[0]!.minX));
  * // 1000
  * ```
+ *
+ * @param outlines - Native parsed region outlines, including their region identifiers.
+ * @param by - The second segment endpoint’s vertical map coordinate.
+ * @returns Copies of the outlines translated horizontally by the supplied map-unit offset.
  */
 export function shiftedOutlines(outlines: readonly MapOutline[], by: number): MapOutline[] {
   if (by === 0) return outlines as MapOutline[];

@@ -34,6 +34,11 @@ function wrapLongitude(lon: number): number {
  * console.log(tokyo.map((value) => value.toFixed(1)).join(", "));
  * // 457.5, 212.5
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param lon - Longitude in degrees, in [longitude, latitude] order.
+ * @param lat - Latitude in degrees, in [longitude, latitude] order.
+ * @returns The native [x, y] point, or null when the map’s projection is not reversible here.
  */
 export function projectPoint(map: Pick<ChizuMap, "projection">, lon: number, lat: number): [number, number] | null {
   const p = map.projection;
@@ -69,6 +74,11 @@ export function projectPoint(map: Pick<ChizuMap, "projection">, lon: number, lat
  * console.log(unprojectPoint(WORLD, x, y)!.map((value) => value.toFixed(2)).join(", "));
  * // 2.35, 48.86
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param x - The horizontal native map coordinate.
+ * @param y - The vertical native map coordinate.
+ * @returns The [longitude, latitude] pair in degrees, or null when the map’s projection is not reversible here.
  */
 export function unprojectPoint(map: Pick<ChizuMap, "projection">, x: number, y: number): [number, number] | null {
   const p = map.projection;

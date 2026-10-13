@@ -113,6 +113,12 @@ export type CalloutLand = { rings: readonly MapRing[] };
  * console.log(segmentsCross([0, 0], [10, 10], [0, 10], [10, 0]), segmentsCross([0, 0], [10, 0], [0, 5], [10, 5]));
  * // true false
  * ```
+ *
+ * @param a - The first point or segment endpoint, in native map units.
+ * @param b - The second point or segment endpoint, in native map units.
+ * @param c - The first endpoint of the other segment, in native map units.
+ * @param d - The second endpoint of the other segment, in native map units.
+ * @returns Whether two leaders cross. Touching at an end is not crossing.
  */
 export function segmentsCross(
   a: readonly [number, number],
@@ -149,6 +155,12 @@ function pointToSegment(point: readonly [number, number], a: readonly [number, n
  * console.log(segmentsGap([0, 0], [10, 0], [0, 5], [10, 5]));
  * // 5
  * ```
+ *
+ * @param a - The first point or segment endpoint, in native map units.
+ * @param b - The second point or segment endpoint, in native map units.
+ * @param c - The first endpoint of the other segment, in native map units.
+ * @param d - The second endpoint of the other segment, in native map units.
+ * @returns How close two leaders come, where they do not cross: the nearest any point of one gets to the other. Zero when they cross.
  */
 export function segmentsGap(
   a: readonly [number, number],
@@ -178,6 +190,11 @@ function circleMeetsBox(point: readonly [number, number], radius: number, box: C
  * console.log(segmentCrossesBox([0, 15], [30, 15], box), segmentCrossesBox([0, 0], [30, 0], box));
  * // true false
  * ```
+ *
+ * @param a - The first point or segment endpoint, in native map units.
+ * @param b - The second point or segment endpoint, in native map units.
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @returns Whether a straight leader from `a` to `b` passes through this box.
  */
 export function segmentCrossesBox(
   a: readonly [number, number],
@@ -253,6 +270,12 @@ export type CalloutPlace = {
  * console.log(calloutSpaces(4, { x: 0, y: 0, width: 100, height: 100 }, { bottom: 0, right: 0 }, []).length > 20);
  * // true
  * ```
+ *
+ * @param radius - The circle or label radius in native map units.
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @param keepOut - The native frame areas reserved against callout placement.
+ * @param land - Native land geometry or land obstacles that labels must avoid.
+ * @returns Every place in the frame where a circle fits clear of the land and of the credit's corner, on a grid fine enough to find the water beside a coast.
  */
 export function calloutSpaces(
   radius: number,
@@ -274,6 +297,12 @@ export function calloutSpaces(
  * console.log(grid.cols > 0, grid.step > 0, grid.places.length > 0);
  * // true true true
  * ```
+ *
+ * @param radius - The circle or label radius in native map units.
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @param keepOut - The native frame areas reserved against callout placement.
+ * @param land - Native land geometry or land obstacles that labels must avoid.
+ * @returns The same places, with the grid they were found on.
  */
 export function calloutGrid(
   radius: number,

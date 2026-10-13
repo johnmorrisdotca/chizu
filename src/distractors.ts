@@ -59,6 +59,11 @@ export type Scorable = {
  * console.log(distractorScore(get("DE"), get("FR"), diagonal) > distractorScore(get("DE"), get("BR"), diagonal));
  * // true
  * ```
+ *
+ * @param target - The native place whose tempting wrong answers are being ranked.
+ * @param candidate - A candidate wrong-answer place whose score is compared with the target.
+ * @param diagonal - The corner-to-corner length of the native canvas used to normalize distance.
+ * @returns How tempting `candidate` is as a wrong answer for `target`, from 0 up to 200: 100 for a land neighbour, 60 for the same group, and up to 40 for being close, measured against `diagonal`, the corner-to-corner length of the map (each map is drawn on a canvas of its own, so a distance only means something relative to it).
  */
 export function distractorScore(target: Scorable, candidate: Scorable, diagonal: number): number {
   let score = 0;
@@ -80,12 +85,17 @@ export function distractorScore(target: Scorable, candidate: Scorable, diagonal:
  * console.log(mapDiagonal({ width: 300, height: 400 }));
  * // 500
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @returns The corner-to-corner length of a map's canvas, which proximity is measured against.
  */
 export function mapDiagonal(map: Pick<ChizuMap, "width" | "height">): number {
   return Math.hypot(map.width, map.height);
 }
 
 /**
+ * The wrong-answer count, optional seeded random source and candidate restriction.
+ *
  *
  * @example
  * ```ts
@@ -124,6 +134,11 @@ export type DistractorOptions = {
  * console.log(pickDistractors(WORLD, "DE", { count: 3 }));
  * // [ 'LU', 'NL', 'AT' ]
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param targetCode - The native region code for the correct quiz answer.
+ * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
+ * @returns The wrong answers to "which one is this?": the codes of `count` places, drawn from the most tempting ones for the target, never the target itself. With `random` the pool is shuffled and cut, so the same target is asked with different company; without it the answer is simply the best `count`, the same every time.
  */
 export function pickDistractors(map: Pick<ChizuMap, "width" | "height" | "regions">, targetCode: string | number, options: DistractorOptions = {}): string[] {
   const count = options.count ?? 3;

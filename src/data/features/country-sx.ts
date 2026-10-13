@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-sx.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-sx";
+ * console.log(layer.map, layer.features.length);
+ * // country-sx 1
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-sx","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-sx; names from Natural Earth and Wikidata","features":[{"code":"capital-SX","kind":"capital","group":"capitals","name":"Philipsburg","nameJa":"フィリップスブルフ","reading":"フィリップスブルフ","rank":0,"path":"","bbox":[778.6,437.2,778.6,437.2],"centroid":[778.6,437.2],"neighbors":[]}]};
 
 export default layer;

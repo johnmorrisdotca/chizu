@@ -22,6 +22,9 @@ import { mapWrapsAround } from "./wrap.ts";
  * console.log(boxToViewBox({ x: 10, y: 20.5, width: 300, height: 200 }));
  * // 10 20.5 300 200
  * ```
+ *
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @returns A window as an SVG `viewBox` attribute.
  */
 export function boxToViewBox(box: MapBox): string {
   return `${box.x} ${box.y} ${box.width} ${box.height}`;
@@ -43,6 +46,9 @@ type Frameable = Pick<ChizuMap, "width" | "height" | "regions" | "insets" | "wra
  * console.log(wholeMapBox(WORLD));
  * // { x: 0, y: 0, width: 1000, height: 489 }
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @returns The whole canvas as a window.
  */
 export function wholeMapBox(map: Pick<ChizuMap, "width" | "height">): MapBox {
   return { x: 0, y: 0, width: map.width, height: map.height };
@@ -62,6 +68,10 @@ const matching = (map: Pick<ChizuMap, "regions">, codes: ReadonlyArray<string | 
  * console.log(boxToViewBox(focusBox(WORLD, ["DE", "PL"])).split(" ").map((n) => Math.round(Number(n))).join(" "));
  * // 1 50 220 220
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param codes - Native region codes from this map, in the requested order.
+ * @returns The window that frames these regions, or the whole map when none are given.
  */
 export function focusBox(map: Frameable, codes: ReadonlyArray<string | number>): MapBox {
   const whole = wholeMapBox(map);
@@ -101,6 +111,10 @@ export function focusBox(map: Frameable, codes: ReadonlyArray<string | number>):
  * console.log(boxIsWholeMap(WORLD, wholeMapBox(WORLD)), boxIsWholeMap(WORLD, focusBox(WORLD, ["JP"])));
  * // true false
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @returns True when the box shows the whole map rather than a zoomed-in window.
  */
 export function boxIsWholeMap(map: Pick<ChizuMap, "width" | "height">, box: MapBox): boolean {
   return box.width >= map.width && box.height >= map.height;
@@ -124,6 +138,8 @@ export function boxIsWholeMap(map: Pick<ChizuMap, "width" | "height">, box: MapB
 export const MAP_ZOOM_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
 
 /**
+ * One of the native whole-number zoom steps from 1 to 10.
+ *
  *
  * @example
  * ```ts
@@ -146,6 +162,9 @@ export type MapZoom = (typeof MAP_ZOOM_LEVELS)[number];
  * console.log(isMapZoom(3), isMapZoom(2.5), isMapZoom(11));
  * // true false false
  * ```
+ *
+ * @param value - The number to test against the native zoom ladder.
+ * @returns Whether a number is one of the zoom steps.
  */
 export function isMapZoom(value: number): value is MapZoom {
   return (MAP_ZOOM_LEVELS as readonly number[]).includes(value);
@@ -161,6 +180,10 @@ export function isMapZoom(value: number): value is MapZoom {
  * console.log(stepMapZoom(1, 1), stepMapZoom(10, 1), stepMapZoom(1, -1));
  * // 2 10 1
  * ```
+ *
+ * @param zoom - A valid zoom step from MAP_ZOOM_LEVELS.
+ * @param by - The second segment endpoint’s vertical map coordinate.
+ * @returns One step in or out, clamped: the ends stay put rather than wrapping.
  */
 export function stepMapZoom(zoom: MapZoom, by: 1 | -1): MapZoom {
   const at = MAP_ZOOM_LEVELS.indexOf(zoom);
@@ -184,6 +207,12 @@ export function stepMapZoom(zoom: MapZoom, by: 1 | -1): MapZoom {
  * console.log(zoomBox(WORLD, 2, { x: 500, y: 200 }));
  * // { x: 250, y: 77.75, width: 500, height: 244.5 }
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param zoom - A valid zoom step from MAP_ZOOM_LEVELS.
+ * @param centre - The desired window centre in native map units.
+ * @param clamp - Whether to hold a non-wrapping window inside its map canvas.
+ * @returns The window a zoom step and a centre make.
  */
 export function zoomBox(map: Frameable, zoom: MapZoom, centre: { x: number; y: number }, clamp = true): MapBox {
   const whole = wholeMapBox(map);
@@ -220,6 +249,9 @@ export function zoomBox(map: Frameable, zoom: MapZoom, centre: { x: number; y: n
  * console.log(boxCentre({ x: 100, y: 50, width: 200, height: 100 }));
  * // { x: 200, y: 100 }
  * ```
+ *
+ * @param box - The window in native map units, or the inset destination specified by this signature.
+ * @returns Where a box is looking, which is what a zoom step keeps hold of.
  */
 export function boxCentre(box: MapBox): { x: number; y: number } {
   return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
@@ -246,6 +278,10 @@ const FIT_MARGIN_RATIO = 0.15;
  * console.log(fit.zoom, Math.round(fit.centre.x), Math.round(fit.centre.y));
  * // 10 58 148
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param codes - Native region codes from this map, in the requested order.
+ * @returns The zoom step and centre that show all of these regions at once: for opening a region from its heading, which wants it filling the view and not the whole map with a few regions lit somewhere in it.
  */
 export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>): { zoom: MapZoom; centre: { x: number; y: number } } {
   const whole = wholeMapBox(map);
@@ -285,6 +321,10 @@ export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>)
  * console.log(focusRegionFit(WORLD, "JP")?.zoom, focusRegionFit(WORLD, "XX"));
  * // 8 null
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param code - The native region or country code; null clears a region selection where accepted.
+ * @returns The zoom step and centre fitting the chosen region, or null for a null or unknown region code.
  */
 export function focusRegionFit(map: Frameable, code: string | number | null): { zoom: MapZoom; centre: { x: number; y: number } } | null {
   if (code === null) return null;
@@ -307,6 +347,10 @@ export function focusRegionFit(map: Frameable, code: string | number | null): { 
  * console.log(regionCentre(japan, "47"));
  * // { x: 315, y: 560 }
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param code - The native region or country code; null clears a region selection where accepted.
+ * @returns The region’s drawn centre in native map units, or null for a null or unknown region code.
  */
 export function regionCentre(map: Frameable, code: string | number | null): { x: number; y: number } | null {
   if (code === null) return null;
@@ -340,6 +384,11 @@ const SHAPE_MARGIN_RATIO = 0.1;
  * console.log((box.width / box.height).toFixed(3));
  * // 1.333
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param code - The native region or country code; null clears a region selection where accepted.
+ * @param aspect - The desired window width divided by its height.
+ * @returns A window tight on one region, for drawing it on its own.
  */
 export function regionBox(map: Frameable, code: string | number, aspect = 1): MapBox {
   const region = map.regions.find((entry) => String(entry.code) === String(code));
@@ -377,6 +426,9 @@ const GLYPH_MARGIN_RATIO = 0.06;
  * console.log(box.width === box.height);
  * // true
  * ```
+ *
+ * @param bbox - The native left, top, right and bottom bounds of the geometry.
+ * @returns A square window on one region's own outline, for drawing it as an icon: every shape gets the same box and fills it, so a small region is as legible in a list as a large one.
  */
 export function shapeGlyphBox(bbox: readonly [number, number, number, number]): MapBox {
   const [minX, minY, maxX, maxY] = bbox;

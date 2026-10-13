@@ -5,6 +5,17 @@
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
+/**
+ * Named physical features and capital markers on the canvas of country-ad.
+ * Pair this layer with the map whose id matches its map field; these coordinates are not another map's coordinates.
+ *
+ * @example
+ * ```ts
+ * import layer from "@johnmorrisdotca/chizu/features/country-ad";
+ * console.log(layer.map, layer.features.length);
+ * // country-ad 2
+ * ```
+ */
 const layer: ChizuFeatureLayer = {"map":"country-ad","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-ad; names from Natural Earth and Wikidata","features":[{"code":"Q62467","kind":"peak","group":"peaks","name":"Coma Pedrosa","nameJa":"コマ・ペドローザ","reading":"コマペドローザ","rank":9,"elevation":2943,"path":"","bbox":[93.4,224,93.4,224],"centroid":[93.4,224],"neighbors":[]},{"code":"capital-AD","kind":"capital","group":"capitals","name":"Andorra la Vella","nameJa":"アンドラ・ラ・ベリャ","reading":"アンドララベリャ","rank":0,"path":"","bbox":[316.7,527.5,316.7,527.5],"centroid":[316.7,527.5],"neighbors":[]}]};
 
 export default layer;

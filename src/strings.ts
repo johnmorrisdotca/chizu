@@ -17,6 +17,8 @@ import type { ChizuFeature, ChizuFeatureKind, ChizuRegion } from "./types.ts";
 export type ChizuLanguage = "en" | "ja";
 
 /**
+ * Native English and Japanese map controls, descriptions and physical-feature labels.
+ *
  *
  * @example
  * ```ts
@@ -139,6 +141,9 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
  * console.log(chizuLanguageOf("ja-JP"), chizuLanguageOf("fr"), chizuLanguageOf(undefined));
  * // ja en en
  * ```
+ *
+ * @param tag - The custom-element tag or language tag specified by the signature.
+ * @returns A language this package has words for, from a tag such as `ja-JP` or `en`: Japanese for any `ja`, English otherwise.
  */
 export function chizuLanguageOf(tag: string | undefined | null): ChizuLanguage {
   return String(tag ?? "").toLowerCase().startsWith("ja") ? "ja" : "en";
@@ -156,6 +161,11 @@ export function chizuLanguageOf(tag: string | undefined | null): ChizuLanguage {
  * // Map of Japan
  * // 日本の地図
  * ```
+ *
+ * @param language - The English or Japanese display language.
+ * @param key - The native localized-message key.
+ * @param values - Replacement values for brace-delimited message placeholders.
+ * @returns A line of the board's words with its `{name}` values filled in.
  */
 export function chizuSay(language: ChizuLanguage, key: string, values: Record<string, string | number> = {}): string {
   const line = CHIZU_STRINGS[language][key] ?? CHIZU_STRINGS.en[key] ?? key;
@@ -175,6 +185,10 @@ export function chizuSay(language: ChizuLanguage, key: string, values: Record<st
  * console.log(nameOf(us, "en"), nameOf(us, "ja"));
  * // United States アメリカ
  * ```
+ *
+ * @param region - The native region, or built-in map selector where the signature requires text.
+ * @param language - The English or Japanese display language.
+ * @returns What a region is called in a language: the English name, or in Japanese the everyday short name where there is one (アメリカ), else the full Japanese name, else the English.
  */
 export function nameOf(region: Pick<ChizuRegion, "name" | "nameJa" | "nameShortJa">, language: ChizuLanguage): string {
   return language === "ja" ? (region.nameShortJa ?? region.nameJa ?? region.name) : region.name;
@@ -191,6 +205,10 @@ export function nameOf(region: Pick<ChizuRegion, "name" | "nameJa" | "nameShortJ
  * console.log(featureKindName("strait", "en"), featureKindName("strait", "ja"), featureKindName("range", "ja"));
  * // Strait 海峡 山脈
  * ```
+ *
+ * @param kind - The native physical-feature kind.
+ * @param language - The English or Japanese display language.
+ * @returns What a kind of feature is called, in a language: `Sea` and 海, `Mountain range` and 山脈. From `CHIZU_STRINGS` (`kind.sea`), so a page can replace one.
  */
 export function featureKindName(kind: ChizuFeatureKind, language: ChizuLanguage): string {
   return chizuSay(language, `kind.${kind}`);
@@ -208,6 +226,10 @@ export function featureKindName(kind: ChizuFeatureKind, language: ChizuLanguage)
  * console.log(featureKindOf({ kind: "seat", code: "seat-JP-47" }, "ja"), featureKindOf({ kind: "seat", code: "seat-US-TX" }, "ja"));
  * // 県庁所在地 行政の中心地
  * ```
+ *
+ * @param feature - The physical feature being classified or tested.
+ * @param language - The English or Japanese display language.
+ * @returns What a feature is called as a kind, on the map it is drawn on: `featureKindName`, except that a kind may have a word of its own in one country, written `kind.<kind>.<COUNTRY>` in `CHIZU_STRINGS` and read from the country in a seat's code (`seat-JP-47`). A region's seat is a 行政の中心地 everywhere, and a 県庁所在地 on a map of Japan's prefectures.
  */
 export function featureKindOf(feature: Pick<ChizuFeature, "kind" | "code">, language: ChizuLanguage): string {
   const country = /^seat-([A-Z]{2})-/.exec(feature.code)?.[1];

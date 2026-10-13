@@ -33,6 +33,8 @@ export type CalloutSpot = {
 };
 
 /**
+ * The region codes, framing window, radius, numbering and layout options for a callout sheet.
+ *
  *
  * @example
  * ```ts
@@ -102,6 +104,10 @@ export const CALLOUT_RADIUS_RATIO = 0.03;
  * console.log(spots.map((spot) => `${spot.number} ${spot.code}`).join(", "));
  * // 1 JP, 2 BR, 3 EG, 4 AU
  * ```
+ *
+ * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
+ * @param request - Native codes, framing, numbering and layout choices for the callout sheet.
+ * @returns Numbered circles in the open space around and between the regions of a map, each with a leader line to its region.
  */
 export function layoutCallouts(map: Pick<ChizuMap, "regions" | "insets" | "width" | "height" | "wraps">, request: CalloutRequest): CalloutSpot[] {
   const box = request.box ?? wholeMapBox(map);
