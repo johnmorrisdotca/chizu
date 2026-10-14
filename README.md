@@ -709,55 +709,7 @@ Left out on purpose: population, area, mottos and "famous for" facts. They are c
 
 The engine is plain functions over plain data with no DOM and no dependency. The maps are generated: `scripts/build-data.mjs` reads nine Natural Earth files at a pinned release, the names, ISO codes and capitals from kuni 国 at a pinned version, and the features' other names from Wikidata as `scripts/wikidata.mjs` last asked, and writes every file under `src/data/`, and `pnpm data` twice leaves the tree unchanged. Each entry point is a file of its own, so a server that frames and numbers a map never loads the drawing, and a page that draws one country never loads another. Tests sit beside the code they test (`*.test.ts`). `scripts/` builds the data, the demo and its API reference page, takes the README's pictures and checks the package as npm packs it; `demo/` is the playable page, and `e2e/` its browser tests.
 
-```text
-src/
-├── index.ts            the engine's entry
-├── draw-entry.ts       the drawing's entry
-├── mount-entry.ts      the page's entry
-├── names-entry.ts      the table of countries' entry
-├── load-entry.ts       loadCountry and loadDivisions
-├── world-entry.ts      the world's entry
-├── types.ts            ChizuMap, ChizuRegion, MapBox and the rest
-├── frame.ts            windows, zoom steps, fits
-├── insets.ts           regions drawn in boxes of their own
-├── wrap.ts             the world that goes round
-├── outlines.ts         paths as rings, land under a point, a point on a region's land
-├── handles.ts          numbers beside regions, and in order across the map
-├── callouts.ts         numbered circles in open water
-├── calloutSpace.ts     where a circle may sit
-├── calloutPolish.ts    the slow pass for a printed sheet
-├── layout.ts           layoutCallouts over a whole map
-├── distractors.ts      the wrong answers
-├── quiz.ts             a question and its choices
-├── groups.ts           continents and other groups: cut, framed, toned
-├── features.ts         seas, lakes, rivers and the rest: chosen, searched, made a map
-├── fromText.ts         pasted names to places
-├── countries.ts        the table of countries, looked up
-├── project.ts          longitude and latitude on a canvas
-├── local.ts            the city scale's projection and the hand-over
-├── localMap.ts         a local map from GeoJSON and pictures
-├── localGeo.ts         GeoJSON on the canvas
-├── localMarker.ts      a picture placed and cleaned
-├── localStyle.ts       the city scale's look
-├── strings.ts          the words, in English and Japanese
-├── style.ts            the drawing's colours
-├── draw.ts             a map as SVG text
-├── drawFeatures.ts     the features in a drawing, and their names
-├── drawLocal.ts        a local map as SVG text
-├── drawCallouts.ts     the numbered circles, as SVG
-├── mount.ts            a map in a page
-├── mountStyle.ts       the page's colours
-├── random.ts           the seeded stream
-├── version.ts          the version
-└── data/               generated, never edited
-    ├── world.ts            the world
-    ├── world-detail.ts     the world drawn finer, for a map zoomed in
-    ├── countries.ts        the table of every country
-    ├── loaders.ts          one import for each country's map
-    ├── countries/<code>.ts   238 countries, each alone
-    ├── divisions/<code>.ts   32 countries' regions
-    └── features/<map>.ts     268 maps' named features
-```
+Every source file, with what it holds, is listed in [docs/architecture.md](./docs/architecture.md).
 
 ## The name
 
@@ -778,7 +730,7 @@ Using Chizu in something? Open an *Add my project* issue and we will add you.
 ### The family
 
 <!-- family:start (made by scripts/family-readme.mjs from scripts/family-template.mjs; change those, not this) -->
-Chizu is one of twenty-four packages, each made for the same site, each at
+Chizu is one of twenty-six packages, each made for the same site, each at
 [github.com/johnmorrisdotca](https://github.com/johnmorrisdotca). The code of every one is MIT.
 
 - [Korokoro](https://github.com/johnmorrisdotca/korokoro) (コロコロ): dice, with notation, exact odds, real sounds and the dice of many games. [Demo](https://johnmorrisdotca.github.io/korokoro/).
@@ -805,8 +757,10 @@ Chizu is one of twenty-four packages, each made for the same site, each at
 - [Gunjin](https://github.com/johnmorrisdotca/gunjin) (軍人): five hidden-rank strategy games with pass-the-device play. [Demo](https://johnmorrisdotca.github.io/gunjin/).
 - [Karakuri](https://github.com/johnmorrisdotca/karakuri) (からくり): eight hyper-casual puzzle games, some of them physics: draw a shield, pull pins, cut ropes, slide blocks, pour tubes. [Demo](https://johnmorrisdotca.github.io/karakuri/).
 - [Houseki](https://github.com/johnmorrisdotca/houseki) (宝石): gem and stone matching puzzles: falling triplets, stone collapse, colour chains and gem swap. [Demo](https://johnmorrisdotca.github.io/houseki/).
+- [Kyogijo Stadiums](https://github.com/johnmorrisdotca/kyogijo-stadiums) (競技場): sports fields, rinks, courts and ballparks drawn to scale as SVG, with each team and the score on them. [Demo](https://johnmorrisdotca.github.io/kyogijo-stadiums/).
+- [Taisen](https://github.com/johnmorrisdotca/taisen-brackets) (対戦): a sport-agnostic tournament bracket, drawn as SVG, from a list of ties. [Demo](https://johnmorrisdotca.github.io/taisen-brackets/). Not on npm yet.
 
-**This package is Chizu.** The demos of all twenty-four share one header and footer, so each links the rest.
+**This package is Chizu.** The demos of all twenty-six share one header and footer, so each links the rest.
 <!-- family:end -->
 
 ## Development
