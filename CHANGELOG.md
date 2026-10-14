@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+- Keep complete resource catalogues on the documentation entry index and the active resource beside core navigation; render valid default imports in HTML and Markdown.
+
 - Add bilingual documentation, checked public examples, paired guides, local search and machine-readable pages. Name the existing map/feature wildcard imports explicitly for reference discovery.
 
 - Reconcile map embeds with released per-region colors, native selection/view callbacks and the capital/feature naming fixes.
