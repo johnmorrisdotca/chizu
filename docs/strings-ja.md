@@ -21,6 +21,8 @@ open a *Fix a translation* issue with the string's name. `{name}` and the other 
 | `callout` | Number {n}: {name} | {n}番：{name} |
 | `inset` | {name}, drawn in a box of its own | {name}、別枠に描いています |
 | `feature` | {name}, {kind} | {name}（{kind}） |
+| `localMap` | Map of the area, {size} across | 周辺の地図、幅{size} |
+| `creditNaturalEarth` | Map data: Natural Earth, public domain | 地図データ：Natural Earth（パブリックドメイン） |
 | `kind.ocean` | Ocean | 大洋 |
 | `kind.sea` | Sea | 海 |
 | `kind.gulf` | Gulf | 湾 |

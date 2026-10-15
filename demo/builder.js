@@ -8,7 +8,7 @@ const words = {
   en: {
     ...FAMILY_EMBED_BUILDER_WORDS.en,
     pageDocs: "Docs",
-    pageApi: "API reference",
+    pageApi: "API",
     pitch: "Choose a map, locate a place or build a geography quiz, then copy the code for your page.",
     name: "Chizu means map in Japanese.",
     nameLink: "About the name",

@@ -7,7 +7,7 @@ description: Retain native geometry, resource versions and existing import/ancho
 
 ## Updating within 1.x
 
-This documentation rollout preserves the 1.4.0 SDK behavior and data. Explicit country/division/feature export entries name existing wildcard paths. The map ids, region codes, source geometry, projection, native display defaults and seed behavior do not change. Existing `api.html` export anchors remain; new reference pages add the parameter, return and checked-example detail.
+Explicit country/division/feature export entries name existing wildcard paths. The map ids, region codes, source geometry, projection, native display defaults and seed behavior do not change. Existing `api.html` export anchors remain; new reference pages add the parameter, return and checked-example detail.
 
 Keep version-pinned URLs when a saved lesson or map must retain its exact shapes and answer order. Read the [changelog](../../CHANGELOG.md) before changing data or SDK versions, and retest a representative inset, wrapped world, feature layer and quiz.
 

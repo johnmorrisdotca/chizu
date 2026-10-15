@@ -18,6 +18,7 @@ const uses = [
   `const africa = groupMap(WORLD, CHIZU_CONTINENTS.find((c) => c.code === "AF").codes)  // a continent, for a quiz or callouts within it`,
   `const water = await loadFeatures("divisions-jp")  // Japan's seas, lakes and rivers on its own canvas: 瀬戸内海 (せとないかい), Lake Biwa`,
   `drawChizu(WORLD, { features: ["water"], featureLayer: await loadFeatures("world"), tones: { Q5484: "selected" } })  // the world's water, the Caspian lit`,
+  `drawLocal(localMap({ centre: [139.7006, 35.7004], widthMetres: 400, data: geojson, markers, credits }))  // a venue past the 10× step: your GeoJSON and pictures, true metres, nothing fetched`,
   `projectPoint(WORLD, 139.69, 35.69)  // [x, y] of Tokyo on the world's canvas, to pin a member there`,
   `mountChizu(element, { map: WORLD, onSelect: (code) => … })  // a map to drag, zoom and press, by touch, mouse and keyboard`,
 ];
@@ -130,6 +131,16 @@ const page = `<!doctype html>
         <ul class="colour-legend" id="colour-legend" data-testid="colour-legend"></ul>
         <div id="colour-map-files"></div>
         <div id="colour-data-files"></div>
+      </section>
+      <section class="settings" id="city" data-testid="city" aria-labelledby="city-title">
+        <h2 id="city-title" data-say="cityTitle"></h2>
+        <p data-say="cityText"></p>
+        ${row("city-scale", "cityScale", ["Step from Japan's map at 10× down to a venue: 20 km, 2 km and 400 m across, each a local map of the same made-up ground. The red box on Japan's map is what the 20 km step covers.", "日本の10倍の地図から、幅20 km、2 km、400 mの順に、同じ架空の土地を拡大していきます。どれもその場所だけの地図です。日本の地図の赤い枠が、20 kmの段階の範囲です。"])}
+        ${row("city-names", "cityNames", ["Print the names of the shapes that have one, where they fit.", "名前のある形の名前を、収まる場合だけ表示します。"])}
+        ${row("city-numbers", "numbering", ["Number the hall, the pond, the north gate and the pitch with the callout placer.", "本館、池、北門、ピッチに、目印の番号をつけます。"])}
+        <div class="setup fam-row"><label class="fam-label" for="city-bearing" data-say="cityBearing"></label><input type="range" class="fam-field" id="city-bearing" data-testid="city-bearing" min="0" max="359" value="30" /><output id="city-bearing-out" data-testid="city-bearing-out"></output></div>
+        <p class="fam-muted" id="city-status" data-testid="city-status" aria-live="polite"></p>
+        <div class="table fam-felt" id="city-board" data-testid="city-board"></div>
       </section>
       <section class="settings code" aria-labelledby="code-title">
         <h2 id="code-title" data-say="codeTitle"></h2>

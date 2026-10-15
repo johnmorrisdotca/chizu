@@ -1,6 +1,6 @@
 {
   "name": "@johnmorrisdotca/chizu",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Chizu 地図 — SVG maps for JavaScript: world and country outlines, 32 countries' regions, English/Japanese names, pan and zoom, insets, geography quizzes and numbered callouts. Zero dependencies.",
   "keywords": [
     "browser",

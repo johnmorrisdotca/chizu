@@ -97,3 +97,8 @@ select.fam-field { min-width: min(100%, 22rem); }
 
 /* Keep navigation width stable across languages. */
 header nav a[data-say="pageDocs"] { inline-size: 8rem; justify-content: center; flex: none; }
+/* The city scale: a drawing on the family's felt, as the map is. */
+#city-board { margin: 10px auto 0; max-width: min(100%, 700px); padding: 14px; min-width: 0; }
+#city-board svg { display: block; width: 100%; height: auto; max-height: 80vh; }
+#city-bearing { width: min(100%, 18rem); }
+#city-status { min-height: 1.5em; }

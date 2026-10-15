@@ -1,13 +1,13 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
-/** The README's Architecture tree names every source file, and nothing that is not one, so it cannot fall behind the code. The generated maps (a file for each country) are named by their folders, with their counts. */
-describe("the preserved architecture guide", () => {
-  const readme = readFileSync("README.md", "utf8");
-  expect(readme).toContain("docs/guides/architecture.md");
-  const guide = readFileSync("docs/guides/architecture.md", "utf8");
-  const section = guide.slice(guide.indexOf("## Architecture"));
-  const tree = section.slice(section.indexOf("```text"), section.indexOf("```", section.indexOf("```text") + 7));
+/** The source tree in docs/architecture.md, which the README's Architecture section links, and the copy of it in the architecture guide, name every source file, and nothing that is not one, so they cannot fall behind the code. The generated maps (a file for each country) are named by their folders, with their counts. */
+const treeOf = (text) => text.slice(text.indexOf("```text"), text.indexOf("```", text.indexOf("```text") + 7));
+const trees = {
+  "the source tree in docs/architecture.md": treeOf(readFileSync("docs/architecture.md", "utf8")),
+  "the source tree in the architecture guide": treeOf(readFileSync("docs/guides/architecture.md", "utf8")),
+};
+for (const [title, tree] of Object.entries(trees)) describe(title, () => {
   const files = (folder) => readdirSync(folder, { recursive: true }).map((path) => path.replace(/\\/g, "/"));
 
   it("names exactly the files under src/, the generated maps apart", () => {

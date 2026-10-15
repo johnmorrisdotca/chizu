@@ -15,6 +15,8 @@ src/
 ├── draw-entry.ts       the drawing's entry
 ├── mount-entry.ts      the page's entry
 ├── names-entry.ts      the table of countries' entry
+├── element.ts          the map, locator and quiz as custom elements
+├── element-define.ts   registers them as tags
 ├── load-entry.ts       loadCountry and loadDivisions
 ├── world-entry.ts      the world's entry
 ├── types.ts            ChizuMap, ChizuRegion, MapBox and the rest
@@ -34,12 +36,17 @@ src/
 ├── fromText.ts         pasted names to places
 ├── countries.ts        the table of countries, looked up
 ├── project.ts          longitude and latitude on a canvas
+├── local.ts            the city scale's projection and the hand-over
+├── localMap.ts         a local map from GeoJSON and pictures
+├── localGeo.ts         GeoJSON on the canvas
+├── localMarker.ts      a picture placed and cleaned
+├── localStyle.ts       the city scale's look
 ├── strings.ts          the words, in English and Japanese
 ├── style.ts            the drawing's colours
 ├── draw.ts             a map as SVG text
 ├── drawFeatures.ts     the features in a drawing, and their names
-├── element.ts          browser elements for maps, locators and quizzes
-├── element-define.ts   register the three elements
+├── drawLocal.ts        a local map as SVG text
+├── drawCallouts.ts     the numbered circles, as SVG
 ├── mount.ts            a map in a page
 ├── mountStyle.ts       the page's colours
 ├── random.ts           the seeded stream

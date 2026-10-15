@@ -6,28 +6,35 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
-- Synchronize documentation tooling for repository layouts, generated type references, Node entry points and repository-specific README links.
+## [1.5.0] - 2026-10-14
 
-- Keep complete resource catalogues on the documentation entry index and the active resource beside core navigation; render valid default imports in HTML and Markdown.
-
-- Add bilingual documentation, checked public examples, paired guides, local search and machine-readable pages. Name the existing map/feature wildcard imports explicitly for reference discovery.
-
-- Reconcile map embeds with released per-region colors, native selection/view callbacks and the capital/feature naming fixes.
-
-- Add map, locator and seeded quiz elements, a shared embed builder and validated storage-free iframe pages.
-- Support named water and capitals, coordinate pins, code-keyed figures and keyboard selection, with reflected properties and JSON-safe native events.
+Nothing exported has been removed or renamed, no type has lost a field, and every map drawn before is byte for byte as it was. Besides the city scale, the map, locator and quiz are custom elements with the family's standard embed attributes and a shared builder, and the package has an English and Japanese documentation site with a checked example for every export.
 
 ### Added
 
+- **The city scale: `localMap` and `drawLocal`.** A map of a city or a single venue, past the 10× step and Natural Earth's kilometre, from GeoJSON and pictures the caller passes in. Nothing is fetched and no map data is added. A transverse Mercator on the WGS 84 ellipsoid centred on the place (Krüger's series, closed-form both ways, conformal) is the projection: a canvas unit is a stated `metresPerUnit` metres, and two points up to 50 km apart are within 0.5% of Vincenty's geodesic (in practice 0.02%). `ChizuProjection` gains `{ kind: "local" }` and `ChizuMap.kind` gains `"local"`, so `projectPoint`, `unprojectPoint` and every function of the engine (framing, zoom, `layoutCallouts`) take a local map; its polygons are its `regions`. See docs/city.md.
+  - GeoJSON of Points, LineStrings, Polygons, their Multi forms and GeometryCollections, painted in the order given, with a look by `properties.kind` (`water`, `building`, `green`, `pitch`, `road`), by class or by id (`styles`: fill, stroke, a colour for the dark look, width in pixels or in metres, opacity, classes and custom properties of your own), tones, names in English and Japanese, and the callout placer. A shape that cannot be drawn is named in `problems`.
+  - **A picture at a place**: SVG scaled to real metres, turned to a bearing from true north (less the grid's convergence there) about an anchor, cleaned of script, style sheets, images and outside references.
+  - **Credits and a scale bar.** The caller's credit lines are printed, after Chizu's own Natural Earth line with `naturalEarth: true`, and a scale bar in metres; callouts keep out of that corner.
+  - **The hand-over from a country's map**: `mapBoxMetres`, `localCanvasFromBox` and `mapBoxFromLocal`, plus `groundDistance` and `localConvergence`. `CHIZU_LOCAL_STYLE` is the look, in light and dark. The demo has a City scale section with a made-up ground (not OpenStreetMap data).
+  - Two new words in `CHIZU_STRINGS`: `localMap` (Map of the area, {size} across: 周辺の地図、幅{size}) and `creditNaturalEarth` (Map data: Natural Earth, public domain: 地図データ：Natural Earth（パブリックドメイン）).
+- Add bilingual documentation, checked public examples, paired guides, local search and machine-readable pages. Name the existing map/feature wildcard imports explicitly for reference discovery.
+- Reconcile map embeds with released per-region colors, native selection/view callbacks and the capital/feature naming fixes.
+- Add map, locator and seeded quiz elements, a shared embed builder and validated storage-free iframe pages.
+- Support named water and capitals, coordinate pins, code-keyed figures and keyboard selection, with reflected properties and JSON-safe native events.
 - Add per-place colours and capital-marker switches to map/locator embeds, the shared builder and validated frame links. Native SDK drawing defaults and quiz question pools are unchanged.
-
 - Share a package-independent embed builder for option controls, preview adapters, code tabs and shareable links.
 
 ### Changed
 
+- The numbered circles of a drawing are written by one function (`drawCallouts.ts`) that `drawChizu` and `drawLocal` share; `drawChizu`'s output is unchanged.
+- README: the notes on Japan's and the countries' maps moved to docs/maps.md, to keep the README within npm's limit (it was 162 characters over).
+- The API link in the header reads "API" in English, so that the header takes the same number of rows in English and in Japanese on a phone, as the demo's test of a language change asks.
+- Synchronize documentation tooling for repository layouts, generated type references, Node entry points and repository-specific README links.
+- Keep complete resource catalogues on the documentation entry index and the active resource beside core navigation; render valid default imports in HTML and Markdown.
 - Group the package family by kind, alphabetize each group, and include the geography packages and REST in Pieces in the shared footer and README.
-
 - Update the shared family description for addresses in all seven supported countries, including France and Germany.
+
 
 ## [1.4.0] - 2026-10-09
 

@@ -2,16 +2,16 @@
   "measured": "esbuild 0.28.2, bundled, minified, ES2020, gzip level 9",
   "entries": {
     ".": {
-      "minified": 32521,
-      "gzip": 13030
+      "minified": 45960,
+      "gzip": 18399
     },
     "./draw": {
-      "minified": 34840,
-      "gzip": 12760
+      "minified": 47448,
+      "gzip": 16184
     },
     "./mount": {
-      "minified": 45620,
-      "gzip": 16618
+      "minified": 46111,
+      "gzip": 16966
     },
     "./names": {
       "minified": 49510,
@@ -19,35 +19,35 @@
     },
     "./load": {
       "minified": 18407152,
-      "gzip": 6632305
+      "gzip": 6613965
     },
     "./world": {
       "minified": 177893,
-      "gzip": 60005
+      "gzip": 59783
     },
     "./element": {
-      "minified": 17367907,
-      "gzip": 6264111
+      "minified": 17369399,
+      "gzip": 6247151
     },
     "./element/define": {
-      "minified": 17367922,
-      "gzip": 6264374
+      "minified": 17369414,
+      "gzip": 6247186
     },
     "./countries/ad": {
       "minified": 1370,
-      "gzip": 827
+      "gzip": 826
     },
     "./countries/ae": {
       "minified": 3222,
-      "gzip": 1764
+      "gzip": 1726
     },
     "./countries/af": {
       "minified": 6225,
-      "gzip": 3200
+      "gzip": 3114
     },
     "./countries/ag": {
       "minified": 2414,
-      "gzip": 1285
+      "gzip": 1284
     },
     "./countries/ai": {
       "minified": 1521,
@@ -55,319 +55,319 @@
     },
     "./countries/al": {
       "minified": 8063,
-      "gzip": 3964
+      "gzip": 3882
     },
     "./countries/am": {
       "minified": 6479,
-      "gzip": 3337
+      "gzip": 3254
     },
     "./countries/ao": {
       "minified": 5197,
-      "gzip": 2711
+      "gzip": 2631
     },
     "./countries/ar": {
       "minified": 14408,
-      "gzip": 6800
+      "gzip": 6719
     },
     "./countries/as": {
       "minified": 1500,
-      "gzip": 855
+      "gzip": 863
     },
     "./countries/at": {
       "minified": 4390,
-      "gzip": 2306
+      "gzip": 2261
     },
     "./countries/atc": {
       "minified": 917,
-      "gzip": 519
+      "gzip": 521
     },
     "./countries/au": {
       "minified": 24398,
-      "gzip": 11227
+      "gzip": 11106
     },
     "./countries/aw": {
       "minified": 1028,
-      "gzip": 633
+      "gzip": 639
     },
     "./countries/ax": {
       "minified": 7016,
-      "gzip": 3593
+      "gzip": 3497
     },
     "./countries/az": {
       "minified": 4281,
-      "gzip": 2282
+      "gzip": 2222
     },
     "./countries/ba": {
       "minified": 9047,
-      "gzip": 4459
+      "gzip": 4343
     },
     "./countries/bb": {
       "minified": 1197,
-      "gzip": 717
+      "gzip": 725
     },
     "./countries/bd": {
       "minified": 5852,
-      "gzip": 3043
+      "gzip": 2951
     },
     "./countries/be": {
       "minified": 9436,
-      "gzip": 4650
+      "gzip": 4548
     },
     "./countries/bf": {
       "minified": 4183,
-      "gzip": 2192
+      "gzip": 2153
     },
     "./countries/bg": {
       "minified": 3100,
-      "gzip": 1696
+      "gzip": 1665
     },
     "./countries/bh": {
       "minified": 2598,
-      "gzip": 1433
+      "gzip": 1408
     },
     "./countries/bi": {
       "minified": 4822,
-      "gzip": 2526
+      "gzip": 2465
     },
     "./countries/bj": {
       "minified": 2648,
-      "gzip": 1482
+      "gzip": 1453
     },
     "./countries/bl": {
       "minified": 956,
-      "gzip": 555
+      "gzip": 556
     },
     "./countries/bm": {
       "minified": 1862,
-      "gzip": 1076
+      "gzip": 1070
     },
     "./countries/bn": {
       "minified": 2785,
-      "gzip": 1544
+      "gzip": 1519
     },
     "./countries/bo": {
       "minified": 6268,
-      "gzip": 3246
+      "gzip": 3143
     },
     "./countries/br": {
       "minified": 25876,
-      "gzip": 11934
+      "gzip": 11808
     },
     "./countries/bs": {
       "minified": 22234,
-      "gzip": 10109
+      "gzip": 10007
     },
     "./countries/bt": {
       "minified": 5033,
-      "gzip": 2592
+      "gzip": 2546
     },
     "./countries/bw": {
       "minified": 3633,
-      "gzip": 1981
+      "gzip": 1940
     },
     "./countries/by": {
       "minified": 5062,
-      "gzip": 2665
+      "gzip": 2599
     },
     "./countries/bz": {
       "minified": 7253,
-      "gzip": 3638
+      "gzip": 3550
     },
     "./countries/ca": {
       "minified": 156208,
-      "gzip": 63639
+      "gzip": 63413
     },
     "./countries/cd": {
       "minified": 9105,
-      "gzip": 4514
+      "gzip": 4433
     },
     "./countries/cf": {
       "minified": 5241,
-      "gzip": 2716
+      "gzip": 2670
     },
     "./countries/cg": {
       "minified": 5190,
-      "gzip": 2697
+      "gzip": 2643
     },
     "./countries/ch": {
       "minified": 10732,
-      "gzip": 5203
+      "gzip": 5097
     },
     "./countries/ci": {
       "minified": 4708,
-      "gzip": 2480
+      "gzip": 2424
     },
     "./countries/ck": {
       "minified": 2349,
-      "gzip": 1186
+      "gzip": 1191
     },
     "./countries/cl": {
       "minified": 27581,
-      "gzip": 12031
+      "gzip": 11919
     },
     "./countries/cm": {
       "minified": 5453,
-      "gzip": 2838
+      "gzip": 2749
     },
     "./countries/cn": {
       "minified": 36649,
-      "gzip": 16316
+      "gzip": 16207
     },
     "./countries/co": {
       "minified": 9115,
-      "gzip": 4511
+      "gzip": 4405
     },
     "./countries/cr": {
       "minified": 11892,
-      "gzip": 5492
+      "gzip": 5412
     },
     "./countries/cu": {
       "minified": 4664,
-      "gzip": 2456
+      "gzip": 2396
     },
     "./countries/cv": {
       "minified": 6471,
-      "gzip": 3238
+      "gzip": 3178
     },
     "./countries/cw": {
       "minified": 1306,
-      "gzip": 780
+      "gzip": 785
     },
     "./countries/cy": {
       "minified": 4623,
-      "gzip": 2374
+      "gzip": 2321
     },
     "./countries/cz": {
       "minified": 3892,
-      "gzip": 2122
+      "gzip": 2061
     },
     "./countries/de": {
       "minified": 8161,
-      "gzip": 4168
+      "gzip": 4054
     },
     "./countries/dj": {
       "minified": 3510,
-      "gzip": 1907
+      "gzip": 1863
     },
     "./countries/dk": {
       "minified": 30102,
-      "gzip": 13621
+      "gzip": 13484
     },
     "./countries/dm": {
       "minified": 1720,
-      "gzip": 1006
+      "gzip": 1000
     },
     "./countries/do": {
       "minified": 8508,
-      "gzip": 4249
+      "gzip": 4164
     },
     "./countries/dz": {
       "minified": 5855,
-      "gzip": 3024
+      "gzip": 2956
     },
     "./countries/ec": {
       "minified": 5217,
-      "gzip": 2673
+      "gzip": 2612
     },
     "./countries/ee": {
       "minified": 14631,
-      "gzip": 6914
+      "gzip": 6813
     },
     "./countries/eg": {
       "minified": 4003,
-      "gzip": 2160
+      "gzip": 2099
     },
     "./countries/eh": {
       "minified": 3804,
-      "gzip": 2037
+      "gzip": 1994
     },
     "./countries/er": {
       "minified": 3263,
-      "gzip": 1795
+      "gzip": 1746
     },
     "./countries/es": {
       "minified": 6575,
-      "gzip": 3349
+      "gzip": 3276
     },
     "./countries/et": {
       "minified": 4744,
-      "gzip": 2496
+      "gzip": 2440
     },
     "./countries/fi": {
       "minified": 7528,
-      "gzip": 3790
+      "gzip": 3685
     },
     "./countries/fj": {
       "minified": 20391,
-      "gzip": 8791
+      "gzip": 8721
     },
     "./countries/fk": {
       "minified": 18922,
-      "gzip": 8932
+      "gzip": 8795
     },
     "./countries/fm": {
       "minified": 3876,
-      "gzip": 1723
+      "gzip": 1713
     },
     "./countries/fo": {
       "minified": 7220,
-      "gzip": 3688
+      "gzip": 3579
     },
     "./countries/fr": {
       "minified": 8899,
-      "gzip": 4423
+      "gzip": 4328
     },
     "./countries/ga": {
       "minified": 4332,
-      "gzip": 2318
+      "gzip": 2263
     },
     "./countries/gb": {
       "minified": 13738,
-      "gzip": 6583
+      "gzip": 6484
     },
     "./countries/gd": {
       "minified": 1556,
-      "gzip": 915
+      "gzip": 922
     },
     "./countries/ge": {
       "minified": 2920,
-      "gzip": 1603
+      "gzip": 1579
     },
     "./countries/gg": {
       "minified": 1459,
-      "gzip": 858
+      "gzip": 860
     },
     "./countries/gh": {
       "minified": 3478,
-      "gzip": 1889
+      "gzip": 1852
     },
     "./countries/gl": {
       "minified": 30468,
-      "gzip": 13758
+      "gzip": 13605
     },
     "./countries/gm": {
       "minified": 6105,
-      "gzip": 3077
+      "gzip": 2979
     },
     "./countries/gn": {
       "minified": 5346,
-      "gzip": 2793
+      "gzip": 2724
     },
     "./countries/gq": {
       "minified": 4064,
-      "gzip": 2060
+      "gzip": 2044
     },
     "./countries/gr": {
       "minified": 12776,
-      "gzip": 6351
+      "gzip": 6212
     },
     "./countries/gs": {
       "minified": 8389,
-      "gzip": 3894
+      "gzip": 3824
     },
     "./countries/gt": {
       "minified": 2287,
-      "gzip": 1296
+      "gzip": 1285
     },
     "./countries/gu": {
       "minified": 1308,
@@ -375,15 +375,15 @@
     },
     "./countries/gw": {
       "minified": 18095,
-      "gzip": 8286
+      "gzip": 8172
     },
     "./countries/gy": {
       "minified": 4597,
-      "gzip": 2433
+      "gzip": 2384
     },
     "./countries/hk": {
       "minified": 6119,
-      "gzip": 3147
+      "gzip": 3065
     },
     "./countries/hm": {
       "minified": 1625,
@@ -391,99 +391,99 @@
     },
     "./countries/hn": {
       "minified": 3532,
-      "gzip": 1913
+      "gzip": 1882
     },
     "./countries/hr": {
       "minified": 32248,
-      "gzip": 14706
+      "gzip": 14552
     },
     "./countries/ht": {
       "minified": 9512,
-      "gzip": 4704
+      "gzip": 4581
     },
     "./countries/hu": {
       "minified": 3575,
-      "gzip": 1940
+      "gzip": 1907
     },
     "./countries/id": {
       "minified": 49466,
-      "gzip": 21650
+      "gzip": 21478
     },
     "./countries/ie": {
       "minified": 4913,
-      "gzip": 2598
+      "gzip": 2529
     },
     "./countries/il": {
       "minified": 7049,
-      "gzip": 3427
+      "gzip": 3357
     },
     "./countries/im": {
       "minified": 1672,
-      "gzip": 999
+      "gzip": 991
     },
     "./countries/in": {
       "minified": 21074,
-      "gzip": 9776
+      "gzip": 9653
     },
     "./countries/io": {
       "minified": 2038,
-      "gzip": 1118
+      "gzip": 1131
     },
     "./countries/ioa": {
       "minified": 1498,
-      "gzip": 807
+      "gzip": 815
     },
     "./countries/iq": {
       "minified": 3808,
-      "gzip": 2066
+      "gzip": 2026
     },
     "./countries/ir": {
       "minified": 8704,
-      "gzip": 4353
+      "gzip": 4252
     },
     "./countries/is": {
       "minified": 6789,
-      "gzip": 3481
+      "gzip": 3372
     },
     "./countries/it": {
       "minified": 8788,
-      "gzip": 4452
+      "gzip": 4341
     },
     "./countries/je": {
       "minified": 1330,
-      "gzip": 788
+      "gzip": 789
     },
     "./countries/jm": {
       "minified": 4103,
-      "gzip": 2144
+      "gzip": 2110
     },
     "./countries/jo": {
       "minified": 1995,
-      "gzip": 1162
+      "gzip": 1150
     },
     "./countries/jp": {
       "minified": 15160,
-      "gzip": 7184
+      "gzip": 7108
     },
     "./countries/kas": {
       "minified": 1236,
-      "gzip": 751
+      "gzip": 754
     },
     "./countries/ke": {
       "minified": 3667,
-      "gzip": 2005
+      "gzip": 1953
     },
     "./countries/kg": {
       "minified": 5892,
-      "gzip": 3007
+      "gzip": 2944
     },
     "./countries/kh": {
       "minified": 3629,
-      "gzip": 1963
+      "gzip": 1914
     },
     "./countries/ki": {
       "minified": 3245,
-      "gzip": 1530
+      "gzip": 1523
     },
     "./countries/km": {
       "minified": 2333,
@@ -491,327 +491,327 @@
     },
     "./countries/kn": {
       "minified": 1497,
-      "gzip": 806
+      "gzip": 810
     },
     "./countries/kp": {
       "minified": 4167,
-      "gzip": 2252
+      "gzip": 2198
     },
     "./countries/kr": {
       "minified": 3996,
-      "gzip": 2189
+      "gzip": 2136
     },
     "./countries/kw": {
       "minified": 4015,
-      "gzip": 2123
+      "gzip": 2078
     },
     "./countries/ky": {
       "minified": 1773,
-      "gzip": 1012
+      "gzip": 1020
     },
     "./countries/kz": {
       "minified": 15943,
-      "gzip": 7518
+      "gzip": 7413
     },
     "./countries/la": {
       "minified": 5919,
-      "gzip": 3076
+      "gzip": 3003
     },
     "./countries/lb": {
       "minified": 4864,
-      "gzip": 2557
+      "gzip": 2489
     },
     "./countries/lc": {
       "minified": 1404,
-      "gzip": 827
+      "gzip": 825
     },
     "./countries/li": {
       "minified": 1171,
-      "gzip": 676
+      "gzip": 680
     },
     "./countries/lk": {
       "minified": 1865,
-      "gzip": 1075
+      "gzip": 1063
     },
     "./countries/lr": {
       "minified": 2567,
-      "gzip": 1438
+      "gzip": 1424
     },
     "./countries/ls": {
       "minified": 5039,
-      "gzip": 2646
+      "gzip": 2575
     },
     "./countries/lt": {
       "minified": 2785,
-      "gzip": 1553
+      "gzip": 1521
     },
     "./countries/lu": {
       "minified": 3400,
-      "gzip": 1827
+      "gzip": 1783
     },
     "./countries/lv": {
       "minified": 2584,
-      "gzip": 1443
+      "gzip": 1422
     },
     "./countries/ly": {
       "minified": 4083,
-      "gzip": 2203
+      "gzip": 2144
     },
     "./countries/ma": {
       "minified": 5679,
-      "gzip": 2921
+      "gzip": 2872
     },
     "./countries/mc": {
       "minified": 830,
-      "gzip": 526
+      "gzip": 527
     },
     "./countries/md": {
       "minified": 10365,
-      "gzip": 5082
+      "gzip": 4968
     },
     "./countries/me": {
       "minified": 5532,
-      "gzip": 2861
+      "gzip": 2799
     },
     "./countries/mf": {
       "minified": 1057,
-      "gzip": 631
+      "gzip": 638
     },
     "./countries/mg": {
       "minified": 4239,
-      "gzip": 2245
+      "gzip": 2200
     },
     "./countries/mh": {
       "minified": 3381,
-      "gzip": 1647
+      "gzip": 1639
     },
     "./countries/mk": {
       "minified": 5606,
-      "gzip": 2903
+      "gzip": 2833
     },
     "./countries/ml": {
       "minified": 7067,
-      "gzip": 3590
+      "gzip": 3495
     },
     "./countries/mm": {
       "minified": 11896,
-      "gzip": 5710
+      "gzip": 5614
     },
     "./countries/mn": {
       "minified": 10352,
-      "gzip": 5099
+      "gzip": 4979
     },
     "./countries/mo": {
       "minified": 1974,
-      "gzip": 1098
+      "gzip": 1099
     },
     "./countries/mp": {
       "minified": 3070,
-      "gzip": 1566
+      "gzip": 1575
     },
     "./countries/mr": {
       "minified": 5059,
-      "gzip": 2598
+      "gzip": 2543
     },
     "./countries/ms": {
       "minified": 1058,
-      "gzip": 633
+      "gzip": 640
     },
     "./countries/mt": {
       "minified": 1385,
-      "gzip": 841
+      "gzip": 840
     },
     "./countries/mu": {
       "minified": 1916,
-      "gzip": 1055
+      "gzip": 1057
     },
     "./countries/mv": {
       "minified": 17089,
-      "gzip": 7016
+      "gzip": 6860
     },
     "./countries/mw": {
       "minified": 3899,
-      "gzip": 2083
+      "gzip": 2033
     },
     "./countries/mx": {
       "minified": 14279,
-      "gzip": 6773
+      "gzip": 6678
     },
     "./countries/my": {
       "minified": 7379,
-      "gzip": 3708
+      "gzip": 3609
     },
     "./countries/mz": {
       "minified": 7046,
-      "gzip": 3541
+      "gzip": 3457
     },
     "./countries/na": {
       "minified": 3809,
-      "gzip": 2040
+      "gzip": 1996
     },
     "./countries/nc": {
       "minified": 13966,
-      "gzip": 6294
+      "gzip": 6217
     },
     "./countries/ne": {
       "minified": 4138,
-      "gzip": 2197
+      "gzip": 2150
     },
     "./countries/nf": {
       "minified": 1114,
-      "gzip": 670
+      "gzip": 674
     },
     "./countries/ng": {
       "minified": 5558,
-      "gzip": 2884
+      "gzip": 2816
     },
     "./countries/ni": {
       "minified": 3099,
-      "gzip": 1697
+      "gzip": 1664
     },
     "./countries/nl": {
       "minified": 11332,
-      "gzip": 5526
+      "gzip": 5433
     },
     "./countries/no": {
       "minified": 27239,
-      "gzip": 12213
+      "gzip": 12121
     },
     "./countries/np": {
       "minified": 3391,
-      "gzip": 1834
+      "gzip": 1786
     },
     "./countries/nr": {
       "minified": 784,
-      "gzip": 493
+      "gzip": 491
     },
     "./countries/nu": {
       "minified": 1146,
-      "gzip": 697
+      "gzip": 705
     },
     "./countries/nz": {
       "minified": 10775,
-      "gzip": 5167
+      "gzip": 5064
     },
     "./countries/om": {
       "minified": 3934,
-      "gzip": 2139
+      "gzip": 2072
     },
     "./countries/pa": {
       "minified": 3919,
-      "gzip": 2107
+      "gzip": 2070
     },
     "./countries/pe": {
       "minified": 8636,
-      "gzip": 4314
+      "gzip": 4211
     },
     "./countries/pf": {
       "minified": 13868,
-      "gzip": 5947
+      "gzip": 5867
     },
     "./countries/pg": {
       "minified": 10837,
-      "gzip": 5322
+      "gzip": 5214
     },
     "./countries/ph": {
       "minified": 17082,
-      "gzip": 8095
+      "gzip": 7994
     },
     "./countries/pk": {
       "minified": 8449,
-      "gzip": 4221
+      "gzip": 4120
     },
     "./countries/pl": {
       "minified": 4981,
-      "gzip": 2623
+      "gzip": 2572
     },
     "./countries/pm": {
       "minified": 1965,
-      "gzip": 1091
+      "gzip": 1088
     },
     "./countries/pn": {
       "minified": 1203,
-      "gzip": 680
+      "gzip": 692
     },
     "./countries/pr": {
       "minified": 4736,
-      "gzip": 2410
+      "gzip": 2363
     },
     "./countries/ps": {
       "minified": 3944,
-      "gzip": 2062
+      "gzip": 2024
     },
     "./countries/pt": {
       "minified": 4106,
-      "gzip": 2086
+      "gzip": 2064
     },
     "./countries/pw": {
       "minified": 2782,
-      "gzip": 1431
+      "gzip": 1434
     },
     "./countries/py": {
       "minified": 4235,
-      "gzip": 2242
+      "gzip": 2202
     },
     "./countries/qa": {
       "minified": 3870,
-      "gzip": 2065
+      "gzip": 2012
     },
     "./countries/ro": {
       "minified": 4388,
-      "gzip": 2327
+      "gzip": 2266
     },
     "./countries/rs": {
       "minified": 4272,
-      "gzip": 2300
+      "gzip": 2245
     },
     "./countries/ru": {
       "minified": 100547,
-      "gzip": 41095
+      "gzip": 40929
     },
     "./countries/rw": {
       "minified": 5005,
-      "gzip": 2635
+      "gzip": 2575
     },
     "./countries/sa": {
       "minified": 6633,
-      "gzip": 3381
+      "gzip": 3306
     },
     "./countries/sb": {
       "minified": 29368,
-      "gzip": 12472
+      "gzip": 12377
     },
     "./countries/sc": {
       "minified": 4643,
-      "gzip": 2179
+      "gzip": 2171
     },
     "./countries/sd": {
       "minified": 6705,
-      "gzip": 3335
+      "gzip": 3267
     },
     "./countries/se": {
       "minified": 8613,
-      "gzip": 4261
+      "gzip": 4153
     },
     "./countries/sg": {
       "minified": 1246,
-      "gzip": 735
+      "gzip": 736
     },
     "./countries/sh": {
       "minified": 1099,
-      "gzip": 662
+      "gzip": 664
     },
     "./countries/si": {
       "minified": 7667,
-      "gzip": 3868
+      "gzip": 3763
     },
     "./countries/sk": {
       "minified": 8320,
-      "gzip": 4125
+      "gzip": 4051
     },
     "./countries/sl": {
       "minified": 2389,
-      "gzip": 1353
+      "gzip": 1329
     },
     "./countries/sm": {
       "minified": 967,
@@ -819,323 +819,323 @@
     },
     "./countries/sn": {
       "minified": 3995,
-      "gzip": 2149
+      "gzip": 2111
     },
     "./countries/so": {
       "minified": 2581,
-      "gzip": 1445
+      "gzip": 1419
     },
     "./countries/sr": {
       "minified": 3193,
-      "gzip": 1759
+      "gzip": 1720
     },
     "./countries/ss": {
       "minified": 5131,
-      "gzip": 2660
+      "gzip": 2601
     },
     "./countries/st": {
       "minified": 2052,
-      "gzip": 1123
+      "gzip": 1121
     },
     "./countries/sv": {
       "minified": 5889,
-      "gzip": 2954
+      "gzip": 2895
     },
     "./countries/sx": {
       "minified": 919,
-      "gzip": 534
+      "gzip": 537
     },
     "./countries/sy": {
       "minified": 2938,
-      "gzip": 1640
+      "gzip": 1605
     },
     "./countries/sz": {
       "minified": 1862,
-      "gzip": 1069
+      "gzip": 1072
     },
     "./countries/tc": {
       "minified": 3584,
-      "gzip": 1908
+      "gzip": 1872
     },
     "./countries/td": {
       "minified": 4612,
-      "gzip": 2420
+      "gzip": 2376
     },
     "./countries/tg": {
       "minified": 7164,
-      "gzip": 3525
+      "gzip": 3439
     },
     "./countries/th": {
       "minified": 8272,
-      "gzip": 4189
+      "gzip": 4082
     },
     "./countries/tj": {
       "minified": 5720,
-      "gzip": 2968
+      "gzip": 2881
     },
     "./countries/tl": {
       "minified": 4437,
-      "gzip": 2332
+      "gzip": 2280
     },
     "./countries/tm": {
       "minified": 6511,
-      "gzip": 3340
+      "gzip": 3259
     },
     "./countries/tn": {
       "minified": 3171,
-      "gzip": 1726
+      "gzip": 1698
     },
     "./countries/to": {
       "minified": 3420,
-      "gzip": 1678
+      "gzip": 1670
     },
     "./countries/tr": {
       "minified": 8055,
-      "gzip": 4029
+      "gzip": 3934
     },
     "./countries/tt": {
       "minified": 3459,
-      "gzip": 1813
+      "gzip": 1788
     },
     "./countries/tv": {
       "minified": 1488,
-      "gzip": 846
+      "gzip": 864
     },
     "./countries/tw": {
       "minified": 8171,
-      "gzip": 4065
+      "gzip": 3991
     },
     "./countries/tz": {
       "minified": 5745,
-      "gzip": 2969
+      "gzip": 2905
     },
     "./countries/ua": {
       "minified": 9251,
-      "gzip": 4581
+      "gzip": 4468
     },
     "./countries/ug": {
       "minified": 3108,
-      "gzip": 1687
+      "gzip": 1651
     },
     "./countries/us": {
       "minified": 75471,
-      "gzip": 30803
+      "gzip": 30685
     },
     "./countries/uy": {
       "minified": 2634,
-      "gzip": 1477
+      "gzip": 1452
     },
     "./countries/uz": {
       "minified": 8687,
-      "gzip": 4279
+      "gzip": 4180
     },
     "./countries/va": {
       "minified": 830,
-      "gzip": 517
+      "gzip": 518
     },
     "./countries/vc": {
       "minified": 2089,
-      "gzip": 1102
+      "gzip": 1110
     },
     "./countries/ve": {
       "minified": 8319,
-      "gzip": 4162
+      "gzip": 4063
     },
     "./countries/vg": {
       "minified": 2040,
-      "gzip": 1161
+      "gzip": 1165
     },
     "./countries/vi": {
       "minified": 1751,
-      "gzip": 1001
+      "gzip": 1004
     },
     "./countries/vn": {
       "minified": 8882,
-      "gzip": 4409
+      "gzip": 4295
     },
     "./countries/vu": {
       "minified": 13897,
-      "gzip": 6343
+      "gzip": 6253
     },
     "./countries/wf": {
       "minified": 1240,
-      "gzip": 710
+      "gzip": 716
     },
     "./countries/ws": {
       "minified": 2407,
-      "gzip": 1349
+      "gzip": 1337
     },
     "./countries/xk": {
       "minified": 4330,
-      "gzip": 2298
+      "gzip": 2241
     },
     "./countries/ye": {
       "minified": 3587,
-      "gzip": 1960
+      "gzip": 1910
     },
     "./countries/za": {
       "minified": 6608,
-      "gzip": 3376
+      "gzip": 3294
     },
     "./countries/zm": {
       "minified": 5810,
-      "gzip": 3005
+      "gzip": 2940
     },
     "./countries/zw": {
       "minified": 3007,
-      "gzip": 1655
+      "gzip": 1624
     },
     "./divisions/ar": {
       "minified": 153108,
-      "gzip": 58309
+      "gzip": 58030
     },
     "./divisions/at": {
       "minified": 36468,
-      "gzip": 13992
+      "gzip": 13858
     },
     "./divisions/au": {
       "minified": 215689,
-      "gzip": 81266
+      "gzip": 81056
     },
     "./divisions/be": {
       "minified": 26801,
-      "gzip": 10359
+      "gzip": 10213
     },
     "./divisions/br": {
       "minified": 477525,
-      "gzip": 172547
+      "gzip": 172155
     },
     "./divisions/ca": {
       "minified": 1047448,
-      "gzip": 363488
+      "gzip": 363042
     },
     "./divisions/ch": {
       "minified": 73338,
-      "gzip": 27335
+      "gzip": 27124
     },
     "./divisions/cl": {
       "minified": 274455,
-      "gzip": 94568
+      "gzip": 94457
     },
     "./divisions/cn": {
       "minified": 734575,
-      "gzip": 262373
+      "gzip": 261744
     },
     "./divisions/co": {
       "minified": 184034,
-      "gzip": 72709
+      "gzip": 72374
     },
     "./divisions/de": {
       "minified": 202632,
-      "gzip": 74490
+      "gzip": 74191
     },
     "./divisions/es": {
       "minified": 206527,
-      "gzip": 78350
+      "gzip": 78140
     },
     "./divisions/fr": {
       "minified": 324404,
-      "gzip": 124316
+      "gzip": 123837
     },
     "./divisions/gb": {
       "minified": 336578,
-      "gzip": 125862
+      "gzip": 125479
     },
     "./divisions/ie": {
       "minified": 117704,
-      "gzip": 46334
+      "gzip": 46073
     },
     "./divisions/it": {
       "minified": 288129,
-      "gzip": 110967
+      "gzip": 110507
     },
     "./divisions/jp": {
       "minified": 187248,
-      "gzip": 65726
+      "gzip": 65467
     },
     "./divisions/kr": {
       "minified": 65790,
-      "gzip": 26891
+      "gzip": 26767
     },
     "./divisions/mx": {
       "minified": 299546,
-      "gzip": 112713
+      "gzip": 112418
     },
     "./divisions/my": {
       "minified": 86019,
-      "gzip": 30718
+      "gzip": 30529
     },
     "./divisions/nl": {
       "minified": 34226,
-      "gzip": 13010
+      "gzip": 12845
     },
     "./divisions/no": {
       "minified": 256958,
-      "gzip": 80694
+      "gzip": 80578
     },
     "./divisions/nz": {
       "minified": 88725,
-      "gzip": 35503
+      "gzip": 35294
     },
     "./divisions/pe": {
       "minified": 133037,
-      "gzip": 50391
+      "gzip": 50158
     },
     "./divisions/ph": {
       "minified": 171705,
-      "gzip": 66762
+      "gzip": 66548
     },
     "./divisions/pl": {
       "minified": 51009,
-      "gzip": 19926
+      "gzip": 19733
     },
     "./divisions/ru": {
       "minified": 1843886,
-      "gzip": 624645
+      "gzip": 623137
     },
     "./divisions/se": {
       "minified": 118888,
-      "gzip": 43646
+      "gzip": 43540
     },
     "./divisions/th": {
       "minified": 384159,
-      "gzip": 127557
+      "gzip": 127259
     },
     "./divisions/tw": {
       "minified": 29326,
-      "gzip": 10967
+      "gzip": 10870
     },
     "./divisions/us": {
       "minified": 722665,
-      "gzip": 267219
+      "gzip": 265817
     },
     "./divisions/vn": {
       "minified": 145858,
-      "gzip": 52702
+      "gzip": 52497
     },
     "./features/country-ad": {
       "minified": 731,
-      "gzip": 389
+      "gzip": 387
     },
     "./features/country-ae": {
       "minified": 3276,
-      "gzip": 1455
+      "gzip": 1450
     },
     "./features/country-af": {
       "minified": 14316,
-      "gzip": 5893
+      "gzip": 5859
     },
     "./features/country-ag": {
       "minified": 915,
-      "gzip": 478
+      "gzip": 477
     },
     "./features/country-ai": {
       "minified": 930,
-      "gzip": 484
+      "gzip": 481
     },
     "./features/country-al": {
       "minified": 7333,
-      "gzip": 3125
+      "gzip": 3104
     },
     "./features/country-am": {
       "minified": 2508,
@@ -1143,139 +1143,139 @@
     },
     "./features/country-ao": {
       "minified": 23966,
-      "gzip": 9817
+      "gzip": 9789
     },
     "./features/country-ar": {
       "minified": 50172,
-      "gzip": 18678
+      "gzip": 18641
     },
     "./features/country-as": {
       "minified": 858,
-      "gzip": 456
+      "gzip": 455
     },
     "./features/country-at": {
       "minified": 11075,
-      "gzip": 4787
+      "gzip": 4751
     },
     "./features/country-atc": {
       "minified": 423,
-      "gzip": 315
+      "gzip": 312
     },
     "./features/country-au": {
       "minified": 80071,
-      "gzip": 28487
+      "gzip": 28439
     },
     "./features/country-aw": {
       "minified": 706,
-      "gzip": 399
+      "gzip": 398
     },
     "./features/country-ax": {
       "minified": 1048,
-      "gzip": 618
+      "gzip": 619
     },
     "./features/country-az": {
       "minified": 9489,
-      "gzip": 4213
+      "gzip": 4198
     },
     "./features/country-ba": {
       "minified": 5809,
-      "gzip": 2654
+      "gzip": 2643
     },
     "./features/country-bb": {
       "minified": 1021,
-      "gzip": 547
+      "gzip": 550
     },
     "./features/country-bd": {
       "minified": 27463,
-      "gzip": 9676
+      "gzip": 9645
     },
     "./features/country-be": {
       "minified": 5495,
-      "gzip": 2424
+      "gzip": 2420
     },
     "./features/country-bf": {
       "minified": 9823,
-      "gzip": 4153
+      "gzip": 4167
     },
     "./features/country-bg": {
       "minified": 8667,
-      "gzip": 3709
+      "gzip": 3667
     },
     "./features/country-bh": {
       "minified": 1112,
-      "gzip": 581
+      "gzip": 582
     },
     "./features/country-bi": {
       "minified": 3813,
-      "gzip": 1881
+      "gzip": 1872
     },
     "./features/country-bj": {
       "minified": 5736,
-      "gzip": 2550
+      "gzip": 2545
     },
     "./features/country-bl": {
       "minified": 735,
-      "gzip": 414
+      "gzip": 412
     },
     "./features/country-bm": {
       "minified": 657,
-      "gzip": 370
+      "gzip": 367
     },
     "./features/country-bn": {
       "minified": 899,
-      "gzip": 527
+      "gzip": 530
     },
     "./features/country-bo": {
       "minified": 30418,
-      "gzip": 12023
+      "gzip": 11979
     },
     "./features/country-br": {
       "minified": 142732,
-      "gzip": 51834
+      "gzip": 51690
     },
     "./features/country-bs": {
       "minified": 4165,
-      "gzip": 2030
+      "gzip": 2005
     },
     "./features/country-bt": {
       "minified": 2633,
-      "gzip": 1198
+      "gzip": 1206
     },
     "./features/country-bw": {
       "minified": 10391,
-      "gzip": 4452
+      "gzip": 4443
     },
     "./features/country-by": {
       "minified": 14077,
-      "gzip": 5939
+      "gzip": 5953
     },
     "./features/country-bz": {
       "minified": 3350,
-      "gzip": 1395
+      "gzip": 1392
     },
     "./features/country-ca": {
       "minified": 284212,
-      "gzip": 98612
+      "gzip": 98398
     },
     "./features/country-cd": {
       "minified": 63365,
-      "gzip": 24669
+      "gzip": 24595
     },
     "./features/country-cf": {
       "minified": 17556,
-      "gzip": 7193
+      "gzip": 7174
     },
     "./features/country-cg": {
       "minified": 10297,
-      "gzip": 4460
+      "gzip": 4442
     },
     "./features/country-ch": {
       "minified": 6171,
-      "gzip": 2557
+      "gzip": 2540
     },
     "./features/country-ci": {
       "minified": 24484,
-      "gzip": 9898
+      "gzip": 9908
     },
     "./features/country-ck": {
       "minified": 648,
@@ -1283,71 +1283,71 @@
     },
     "./features/country-cl": {
       "minified": 28074,
-      "gzip": 10019
+      "gzip": 10014
     },
     "./features/country-cm": {
       "minified": 19437,
-      "gzip": 7910
+      "gzip": 7913
     },
     "./features/country-cn": {
       "minified": 166957,
-      "gzip": 59521
+      "gzip": 59317
     },
     "./features/country-co": {
       "minified": 37718,
-      "gzip": 15181
+      "gzip": 15150
     },
     "./features/country-cr": {
       "minified": 5335,
-      "gzip": 2263
+      "gzip": 2247
     },
     "./features/country-cu": {
       "minified": 4674,
-      "gzip": 2163
+      "gzip": 2157
     },
     "./features/country-cv": {
       "minified": 1369,
-      "gzip": 745
+      "gzip": 749
     },
     "./features/country-cw": {
       "minified": 796,
-      "gzip": 471
+      "gzip": 475
     },
     "./features/country-cy": {
       "minified": 1258,
-      "gzip": 688
+      "gzip": 691
     },
     "./features/country-cz": {
       "minified": 8385,
-      "gzip": 3531
+      "gzip": 3506
     },
     "./features/country-de": {
       "minified": 30712,
-      "gzip": 12157
+      "gzip": 12129
     },
     "./features/country-dj": {
       "minified": 3349,
-      "gzip": 1336
+      "gzip": 1333
     },
     "./features/country-dk": {
       "minified": 4827,
-      "gzip": 2113
+      "gzip": 2094
     },
     "./features/country-dm": {
       "minified": 1028,
-      "gzip": 558
+      "gzip": 562
     },
     "./features/country-do": {
       "minified": 4496,
-      "gzip": 2109
+      "gzip": 2101
     },
     "./features/country-dz": {
       "minified": 14553,
-      "gzip": 5537
+      "gzip": 5492
     },
     "./features/country-ec": {
       "minified": 9182,
-      "gzip": 3738
+      "gzip": 3731
     },
     "./features/country-ee": {
       "minified": 7060,
@@ -1355,39 +1355,39 @@
     },
     "./features/country-eg": {
       "minified": 21391,
-      "gzip": 8309
+      "gzip": 8266
     },
     "./features/country-eh": {
       "minified": 1202,
-      "gzip": 704
+      "gzip": 708
     },
     "./features/country-er": {
       "minified": 6285,
-      "gzip": 2726
+      "gzip": 2719
     },
     "./features/country-es": {
       "minified": 33858,
-      "gzip": 13239
+      "gzip": 13190
     },
     "./features/country-et": {
       "minified": 27266,
-      "gzip": 10910
+      "gzip": 10869
     },
     "./features/country-fi": {
       "minified": 61556,
-      "gzip": 23133
+      "gzip": 23094
     },
     "./features/country-fj": {
       "minified": 2610,
-      "gzip": 1278
+      "gzip": 1276
     },
     "./features/country-fk": {
       "minified": 2219,
-      "gzip": 1170
+      "gzip": 1168
     },
     "./features/country-fm": {
       "minified": 917,
-      "gzip": 482
+      "gzip": 483
     },
     "./features/country-fo": {
       "minified": 1744,
@@ -1395,107 +1395,107 @@
     },
     "./features/country-fr": {
       "minified": 38722,
-      "gzip": 15242
+      "gzip": 15194
     },
     "./features/country-ga": {
       "minified": 12020,
-      "gzip": 5159
+      "gzip": 5127
     },
     "./features/country-gb": {
       "minified": 19438,
-      "gzip": 7912
+      "gzip": 7886
     },
     "./features/country-gd": {
       "minified": 997,
-      "gzip": 500
+      "gzip": 499
     },
     "./features/country-ge": {
       "minified": 4354,
-      "gzip": 2031
+      "gzip": 2012
     },
     "./features/country-gg": {
       "minified": 774,
-      "gzip": 434
+      "gzip": 432
     },
     "./features/country-gh": {
       "minified": 25763,
-      "gzip": 10248
+      "gzip": 10227
     },
     "./features/country-gl": {
       "minified": 24043,
-      "gzip": 9648
+      "gzip": 9644
     },
     "./features/country-gm": {
       "minified": 2474,
-      "gzip": 1258
+      "gzip": 1257
     },
     "./features/country-gn": {
       "minified": 12299,
-      "gzip": 5320
+      "gzip": 5290
     },
     "./features/country-gq": {
       "minified": 4023,
-      "gzip": 1835
+      "gzip": 1840
     },
     "./features/country-gr": {
       "minified": 27505,
-      "gzip": 11464
+      "gzip": 11412
     },
     "./features/country-gs": {
       "minified": 1556,
-      "gzip": 816
+      "gzip": 822
     },
     "./features/country-gt": {
       "minified": 9733,
-      "gzip": 4123
+      "gzip": 4126
     },
     "./features/country-gu": {
       "minified": 1046,
-      "gzip": 571
+      "gzip": 573
     },
     "./features/country-gw": {
       "minified": 2734,
-      "gzip": 1397
+      "gzip": 1403
     },
     "./features/country-gy": {
       "minified": 9846,
-      "gzip": 4208
+      "gzip": 4174
     },
     "./features/country-hk": {
       "minified": 1091,
-      "gzip": 619
+      "gzip": 623
     },
     "./features/country-hm": {
       "minified": 814,
-      "gzip": 509
+      "gzip": 512
     },
     "./features/country-hn": {
       "minified": 9573,
-      "gzip": 4008
+      "gzip": 3994
     },
     "./features/country-hr": {
       "minified": 17122,
-      "gzip": 7205
+      "gzip": 7171
     },
     "./features/country-ht": {
       "minified": 2585,
-      "gzip": 1297
+      "gzip": 1293
     },
     "./features/country-hu": {
       "minified": 7626,
-      "gzip": 3283
+      "gzip": 3264
     },
     "./features/country-id": {
       "minified": 49753,
-      "gzip": 18254
+      "gzip": 18202
     },
     "./features/country-ie": {
       "minified": 8138,
-      "gzip": 3529
+      "gzip": 3502
     },
     "./features/country-il": {
       "minified": 3731,
-      "gzip": 1647
+      "gzip": 1633
     },
     "./features/country-im": {
       "minified": 1081,
@@ -1503,83 +1503,83 @@
     },
     "./features/country-in": {
       "minified": 99014,
-      "gzip": 36295
+      "gzip": 36193
     },
     "./features/country-io": {
       "minified": 639,
-      "gzip": 398
+      "gzip": 395
     },
     "./features/country-ioa": {
       "minified": 676,
-      "gzip": 408
+      "gzip": 406
     },
     "./features/country-iq": {
       "minified": 23434,
-      "gzip": 9541
+      "gzip": 9553
     },
     "./features/country-ir": {
       "minified": 24733,
-      "gzip": 9749
+      "gzip": 9720
     },
     "./features/country-is": {
       "minified": 8809,
-      "gzip": 3945
+      "gzip": 3905
     },
     "./features/country-it": {
       "minified": 22154,
-      "gzip": 8751
+      "gzip": 8738
     },
     "./features/country-je": {
       "minified": 816,
-      "gzip": 488
+      "gzip": 490
     },
     "./features/country-jm": {
       "minified": 1440,
-      "gzip": 783
+      "gzip": 788
     },
     "./features/country-jo": {
       "minified": 3989,
-      "gzip": 1743
+      "gzip": 1751
     },
     "./features/country-jp": {
       "minified": 19121,
-      "gzip": 7674
+      "gzip": 7657
     },
     "./features/country-ke": {
       "minified": 13046,
-      "gzip": 5509
+      "gzip": 5480
     },
     "./features/country-kg": {
       "minified": 7042,
-      "gzip": 3039
+      "gzip": 3042
     },
     "./features/country-kh": {
       "minified": 11915,
-      "gzip": 5146
+      "gzip": 5120
     },
     "./features/country-ki": {
       "minified": 614,
-      "gzip": 422
+      "gzip": 426
     },
     "./features/country-km": {
       "minified": 1237,
-      "gzip": 675
+      "gzip": 681
     },
     "./features/country-kn": {
       "minified": 669,
-      "gzip": 386
+      "gzip": 383
     },
     "./features/country-kp": {
       "minified": 11427,
-      "gzip": 4928
+      "gzip": 4909
     },
     "./features/country-kr": {
       "minified": 11461,
-      "gzip": 4671
+      "gzip": 4641
     },
     "./features/country-kw": {
       "minified": 2149,
-      "gzip": 1079
+      "gzip": 1072
     },
     "./features/country-ky": {
       "minified": 675,
@@ -1587,115 +1587,115 @@
     },
     "./features/country-kz": {
       "minified": 54689,
-      "gzip": 20350
+      "gzip": 20302
     },
     "./features/country-la": {
       "minified": 13381,
-      "gzip": 5719
+      "gzip": 5727
     },
     "./features/country-lb": {
       "minified": 2095,
-      "gzip": 1035
+      "gzip": 1038
     },
     "./features/country-lc": {
       "minified": 1003,
-      "gzip": 541
+      "gzip": 543
     },
     "./features/country-li": {
       "minified": 423,
-      "gzip": 285
+      "gzip": 283
     },
     "./features/country-lk": {
       "minified": 4862,
-      "gzip": 2115
+      "gzip": 2110
     },
     "./features/country-lr": {
       "minified": 4421,
-      "gzip": 2058
+      "gzip": 2043
     },
     "./features/country-ls": {
       "minified": 5444,
-      "gzip": 2458
+      "gzip": 2450
     },
     "./features/country-lt": {
       "minified": 5467,
-      "gzip": 2401
+      "gzip": 2396
     },
     "./features/country-lu": {
       "minified": 857,
-      "gzip": 514
+      "gzip": 519
     },
     "./features/country-lv": {
       "minified": 4564,
-      "gzip": 1982
+      "gzip": 1978
     },
     "./features/country-ly": {
       "minified": 9182,
-      "gzip": 3503
+      "gzip": 3475
     },
     "./features/country-ma": {
       "minified": 13205,
-      "gzip": 5211
+      "gzip": 5169
     },
     "./features/country-mc": {
       "minified": 886,
-      "gzip": 480
+      "gzip": 478
     },
     "./features/country-md": {
       "minified": 6669,
-      "gzip": 3048
+      "gzip": 3043
     },
     "./features/country-me": {
       "minified": 4359,
-      "gzip": 1974
+      "gzip": 1952
     },
     "./features/country-mf": {
       "minified": 647,
-      "gzip": 366
+      "gzip": 364
     },
     "./features/country-mg": {
       "minified": 11548,
-      "gzip": 4861
+      "gzip": 4835
     },
     "./features/country-mh": {
       "minified": 400,
-      "gzip": 279
+      "gzip": 277
     },
     "./features/country-mk": {
       "minified": 947,
-      "gzip": 566
+      "gzip": 571
     },
     "./features/country-ml": {
       "minified": 19226,
-      "gzip": 7825
+      "gzip": 7810
     },
     "./features/country-mm": {
       "minified": 31594,
-      "gzip": 12031
+      "gzip": 11982
     },
     "./features/country-mn": {
       "minified": 23361,
-      "gzip": 8983
+      "gzip": 8945
     },
     "./features/country-mp": {
       "minified": 688,
-      "gzip": 418
+      "gzip": 417
     },
     "./features/country-mr": {
       "minified": 8029,
-      "gzip": 3413
+      "gzip": 3378
     },
     "./features/country-ms": {
       "minified": 711,
-      "gzip": 382
+      "gzip": 380
     },
     "./features/country-mt": {
       "minified": 685,
-      "gzip": 376
+      "gzip": 374
     },
     "./features/country-mu": {
       "minified": 1235,
-      "gzip": 647
+      "gzip": 650
     },
     "./features/country-mv": {
       "minified": 1219,
@@ -1703,31 +1703,31 @@
     },
     "./features/country-mw": {
       "minified": 7315,
-      "gzip": 3228
+      "gzip": 3221
     },
     "./features/country-mx": {
       "minified": 62791,
-      "gzip": 22370
+      "gzip": 22315
     },
     "./features/country-my": {
       "minified": 14127,
-      "gzip": 5519
+      "gzip": 5510
     },
     "./features/country-mz": {
       "minified": 17558,
-      "gzip": 7140
+      "gzip": 7136
     },
     "./features/country-na": {
       "minified": 12724,
-      "gzip": 5332
+      "gzip": 5282
     },
     "./features/country-nc": {
       "minified": 2794,
-      "gzip": 1323
+      "gzip": 1329
     },
     "./features/country-ne": {
       "minified": 5071,
-      "gzip": 2239
+      "gzip": 2220
     },
     "./features/country-nf": {
       "minified": 660,
@@ -1735,71 +1735,71 @@
     },
     "./features/country-ng": {
       "minified": 23781,
-      "gzip": 9655
+      "gzip": 9626
     },
     "./features/country-ni": {
       "minified": 14731,
-      "gzip": 6355
+      "gzip": 6327
     },
     "./features/country-nl": {
       "minified": 10301,
-      "gzip": 4304
+      "gzip": 4276
     },
     "./features/country-no": {
       "minified": 43509,
-      "gzip": 14771
+      "gzip": 14756
     },
     "./features/country-np": {
       "minified": 9517,
-      "gzip": 4024
+      "gzip": 4009
     },
     "./features/country-nr": {
       "minified": 387,
-      "gzip": 276
+      "gzip": 271
     },
     "./features/country-nu": {
       "minified": 393,
-      "gzip": 277
+      "gzip": 272
     },
     "./features/country-nz": {
       "minified": 45765,
-      "gzip": 16390
+      "gzip": 16341
     },
     "./features/country-om": {
       "minified": 7985,
-      "gzip": 3261
+      "gzip": 3224
     },
     "./features/country-pa": {
       "minified": 9027,
-      "gzip": 3673
+      "gzip": 3645
     },
     "./features/country-pe": {
       "minified": 36266,
-      "gzip": 14547
+      "gzip": 14502
     },
     "./features/country-pf": {
       "minified": 1309,
-      "gzip": 631
+      "gzip": 638
     },
     "./features/country-pg": {
       "minified": 20985,
-      "gzip": 8580
+      "gzip": 8564
     },
     "./features/country-ph": {
       "minified": 20783,
-      "gzip": 8083
+      "gzip": 8069
     },
     "./features/country-pk": {
       "minified": 28377,
-      "gzip": 11248
+      "gzip": 11226
     },
     "./features/country-pl": {
       "minified": 16786,
-      "gzip": 7091
+      "gzip": 7100
     },
     "./features/country-pm": {
       "minified": 1799,
-      "gzip": 797
+      "gzip": 800
     },
     "./features/country-pn": {
       "minified": 676,
@@ -1807,207 +1807,207 @@
     },
     "./features/country-pr": {
       "minified": 1920,
-      "gzip": 907
+      "gzip": 911
     },
     "./features/country-ps": {
       "minified": 1872,
-      "gzip": 954
+      "gzip": 956
     },
     "./features/country-pt": {
       "minified": 6707,
-      "gzip": 2781
+      "gzip": 2783
     },
     "./features/country-pw": {
       "minified": 1015,
-      "gzip": 517
+      "gzip": 515
     },
     "./features/country-py": {
       "minified": 16137,
-      "gzip": 6805
+      "gzip": 6792
     },
     "./features/country-qa": {
       "minified": 1600,
-      "gzip": 818
+      "gzip": 822
     },
     "./features/country-ro": {
       "minified": 22103,
-      "gzip": 8822
+      "gzip": 8796
     },
     "./features/country-rs": {
       "minified": 14066,
-      "gzip": 5861
+      "gzip": 5828
     },
     "./features/country-ru": {
       "minified": 232741,
-      "gzip": 80624
+      "gzip": 80351
     },
     "./features/country-rw": {
       "minified": 5491,
-      "gzip": 2571
+      "gzip": 2557
     },
     "./features/country-sa": {
       "minified": 14760,
-      "gzip": 5923
+      "gzip": 5875
     },
     "./features/country-sb": {
       "minified": 4466,
-      "gzip": 2052
+      "gzip": 2031
     },
     "./features/country-sc": {
       "minified": 708,
-      "gzip": 381
+      "gzip": 378
     },
     "./features/country-sd": {
       "minified": 18634,
-      "gzip": 7436
+      "gzip": 7398
     },
     "./features/country-se": {
       "minified": 40241,
-      "gzip": 15437
+      "gzip": 15397
     },
     "./features/country-sg": {
       "minified": 1477,
-      "gzip": 726
+      "gzip": 728
     },
     "./features/country-sh": {
       "minified": 451,
-      "gzip": 294
+      "gzip": 291
     },
     "./features/country-si": {
       "minified": 4040,
-      "gzip": 1812
+      "gzip": 1796
     },
     "./features/country-sk": {
       "minified": 2753,
-      "gzip": 1295
+      "gzip": 1300
     },
     "./features/country-sl": {
       "minified": 3710,
-      "gzip": 1742
+      "gzip": 1734
     },
     "./features/country-sm": {
       "minified": 694,
-      "gzip": 404
+      "gzip": 401
     },
     "./features/country-sn": {
       "minified": 9170,
-      "gzip": 4081
+      "gzip": 4049
     },
     "./features/country-so": {
       "minified": 8492,
-      "gzip": 3629
+      "gzip": 3610
     },
     "./features/country-sr": {
       "minified": 12217,
-      "gzip": 5114
+      "gzip": 5110
     },
     "./features/country-ss": {
       "minified": 11078,
-      "gzip": 4589
+      "gzip": 4555
     },
     "./features/country-st": {
       "minified": 1381,
-      "gzip": 669
+      "gzip": 674
     },
     "./features/country-sv": {
       "minified": 3257,
-      "gzip": 1539
+      "gzip": 1542
     },
     "./features/country-sx": {
       "minified": 465,
-      "gzip": 300
+      "gzip": 297
     },
     "./features/country-sy": {
       "minified": 8058,
-      "gzip": 3523
+      "gzip": 3527
     },
     "./features/country-sz": {
       "minified": 978,
-      "gzip": 486
+      "gzip": 483
     },
     "./features/country-tc": {
       "minified": 717,
-      "gzip": 382
+      "gzip": 380
     },
     "./features/country-td": {
       "minified": 12225,
-      "gzip": 5035
+      "gzip": 4996
     },
     "./features/country-tg": {
       "minified": 3583,
-      "gzip": 1702
+      "gzip": 1699
     },
     "./features/country-th": {
       "minified": 23274,
-      "gzip": 9127
+      "gzip": 9094
     },
     "./features/country-tj": {
       "minified": 7380,
-      "gzip": 3170
+      "gzip": 3162
     },
     "./features/country-tl": {
       "minified": 2253,
-      "gzip": 1058
+      "gzip": 1057
     },
     "./features/country-tm": {
       "minified": 8876,
-      "gzip": 3968
+      "gzip": 3947
     },
     "./features/country-tn": {
       "minified": 4242,
-      "gzip": 1840
+      "gzip": 1835
     },
     "./features/country-to": {
       "minified": 845,
-      "gzip": 460
+      "gzip": 458
     },
     "./features/country-tr": {
       "minified": 37044,
-      "gzip": 14386
+      "gzip": 14363
     },
     "./features/country-tt": {
       "minified": 1354,
-      "gzip": 727
+      "gzip": 732
     },
     "./features/country-tv": {
       "minified": 653,
-      "gzip": 390
+      "gzip": 389
     },
     "./features/country-tw": {
       "minified": 2715,
-      "gzip": 1239
+      "gzip": 1235
     },
     "./features/country-tz": {
       "minified": 40964,
-      "gzip": 16269
+      "gzip": 16221
     },
     "./features/country-ua": {
       "minified": 32177,
-      "gzip": 12682
+      "gzip": 12645
     },
     "./features/country-ug": {
       "minified": 25063,
-      "gzip": 10075
+      "gzip": 10079
     },
     "./features/country-us": {
       "minified": 207197,
-      "gzip": 70742
+      "gzip": 70576
     },
     "./features/country-uy": {
       "minified": 11852,
-      "gzip": 5139
+      "gzip": 5118
     },
     "./features/country-uz": {
       "minified": 13666,
-      "gzip": 5322
+      "gzip": 5307
     },
     "./features/country-vc": {
       "minified": 670,
-      "gzip": 391
+      "gzip": 393
     },
     "./features/country-ve": {
       "minified": 31213,
-      "gzip": 12156
+      "gzip": 12119
     },
     "./features/country-vg": {
       "minified": 654,
@@ -2015,15 +2015,15 @@
     },
     "./features/country-vi": {
       "minified": 722,
-      "gzip": 408
+      "gzip": 406
     },
     "./features/country-vn": {
       "minified": 18368,
-      "gzip": 7143
+      "gzip": 7105
     },
     "./features/country-vu": {
       "minified": 3609,
-      "gzip": 1650
+      "gzip": 1646
     },
     "./features/country-wf": {
       "minified": 941,
@@ -2039,151 +2039,151 @@
     },
     "./features/country-ye": {
       "minified": 7624,
-      "gzip": 3051
+      "gzip": 3027
     },
     "./features/country-za": {
       "minified": 34374,
-      "gzip": 13474
+      "gzip": 13434
     },
     "./features/country-zm": {
       "minified": 28949,
-      "gzip": 11795
+      "gzip": 11753
     },
     "./features/country-zw": {
       "minified": 13144,
-      "gzip": 5524
+      "gzip": 5536
     },
     "./features/divisions-ar": {
       "minified": 70069,
-      "gzip": 25345
+      "gzip": 25269
     },
     "./features/divisions-at": {
       "minified": 13151,
-      "gzip": 5342
+      "gzip": 5320
     },
     "./features/divisions-au": {
       "minified": 77702,
-      "gzip": 26961
+      "gzip": 26873
     },
     "./features/divisions-be": {
       "minified": 7937,
-      "gzip": 2980
+      "gzip": 2969
     },
     "./features/divisions-br": {
       "minified": 139751,
-      "gzip": 49039
+      "gzip": 48936
     },
     "./features/divisions-ca": {
       "minified": 264466,
-      "gzip": 89890
+      "gzip": 89724
     },
     "./features/divisions-ch": {
       "minified": 11701,
-      "gzip": 3608
+      "gzip": 3597
     },
     "./features/divisions-cl": {
       "minified": 34431,
-      "gzip": 11376
+      "gzip": 11366
     },
     "./features/divisions-cn": {
       "minified": 163950,
-      "gzip": 57064
+      "gzip": 56946
     },
     "./features/divisions-co": {
       "minified": 47690,
-      "gzip": 18101
+      "gzip": 18047
     },
     "./features/divisions-de": {
       "minified": 36959,
-      "gzip": 14060
+      "gzip": 14015
     },
     "./features/divisions-es": {
       "minified": 39951,
-      "gzip": 13308
+      "gzip": 13284
     },
     "./features/divisions-fr": {
       "minified": 58942,
-      "gzip": 18686
+      "gzip": 18655
     },
     "./features/divisions-gb": {
       "minified": 58019,
-      "gzip": 15175
+      "gzip": 15177
     },
     "./features/divisions-ie": {
       "minified": 14255,
-      "gzip": 4859
+      "gzip": 4838
     },
     "./features/divisions-it": {
       "minified": 44319,
-      "gzip": 12733
+      "gzip": 12700
     },
     "./features/divisions-jp": {
       "minified": 28794,
-      "gzip": 9538
+      "gzip": 9501
     },
     "./features/divisions-kr": {
       "minified": 15061,
-      "gzip": 5692
+      "gzip": 5680
     },
     "./features/divisions-mx": {
       "minified": 71329,
-      "gzip": 24246
+      "gzip": 24210
     },
     "./features/divisions-my": {
       "minified": 19354,
-      "gzip": 6936
+      "gzip": 6932
     },
     "./features/divisions-nl": {
       "minified": 12944,
-      "gzip": 4869
+      "gzip": 4854
     },
     "./features/divisions-no": {
       "minified": 32960,
-      "gzip": 10956
+      "gzip": 10954
     },
     "./features/divisions-nz": {
       "minified": 56502,
-      "gzip": 20206
+      "gzip": 20141
     },
     "./features/divisions-pe": {
       "minified": 47924,
-      "gzip": 18425
+      "gzip": 18376
     },
     "./features/divisions-ph": {
       "minified": 37936,
-      "gzip": 11790
+      "gzip": 11791
     },
     "./features/divisions-pl": {
       "minified": 20462,
-      "gzip": 7900
+      "gzip": 7894
     },
     "./features/divisions-ru": {
       "minified": 252702,
-      "gzip": 83768
+      "gzip": 83545
     },
     "./features/divisions-se": {
       "minified": 55469,
-      "gzip": 20781
+      "gzip": 20732
     },
     "./features/divisions-th": {
       "minified": 42433,
-      "gzip": 13170
+      "gzip": 13153
     },
     "./features/divisions-tw": {
       "minified": 5705,
-      "gzip": 1953
+      "gzip": 1958
     },
     "./features/divisions-us": {
       "minified": 231669,
-      "gzip": 77506
+      "gzip": 77315
     },
     "./features/divisions-vn": {
       "minified": 28607,
-      "gzip": 10113
+      "gzip": 10086
     },
     "./features/world": {
       "minified": 205490,
-      "gzip": 64548
+      "gzip": 64544
     }
   }
 }

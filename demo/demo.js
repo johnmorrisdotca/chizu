@@ -27,6 +27,7 @@ import {
 } from "./tools.js";
 import { toMarkdown, toSql } from "./downloads.js";
 import { WORDS } from "./words.js";
+import { initCity } from "./city.js";
 
 const params = new URLSearchParams(location.search);
 const MODES = ["explore", "quiz", "callouts", "colour"];
@@ -100,6 +101,8 @@ const state = {
 const host = document.getElementById("board");
 const $ = (id) => document.getElementById(id);
 let mount = null;
+/** Draws the city-scale section again; set once the section is wired. */
+let refreshCity = null;
 
 const el = (tag, props = {}, ...children) => {
   const node = document.createElement(tag);
@@ -998,6 +1001,7 @@ function refreshAll() {
     for (const button of document.querySelectorAll("[data-copy]")) button.textContent = say("copy");
   }
   renderCode();
+  refreshCity?.();
 }
 
 $("map").addEventListener("change", (event) => chooseMap(event.target.value));
@@ -1059,3 +1063,4 @@ host.dataset.ready = "true";
 
 function docsLink(){document.querySelector('[data-say="pageDocs"]')?.setAttribute("href",language.lang==="ja"?"docs/ja/index.html":"docs/index.html");}
 docsLink();
+refreshCity = initCity({ say, language, seg, remember, params });

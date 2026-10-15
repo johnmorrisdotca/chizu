@@ -129,8 +129,10 @@ export interface ChizuInset {
 
 /**
  * How a map's canvas was made from the earth, enough to put a longitude and latitude on it (`projectPoint`):
- * Miller's cylindrical projection round a centre longitude (the world), or a Lambert azimuthal equal-area
- * projection round a centre (one country on its own).
+ * Miller's cylindrical projection round a centre longitude (the world), a Lambert azimuthal equal-area
+ * projection round a centre (one country on its own), or, for a city or a single venue (`localMap`), a transverse
+ * Mercator on the WGS 84 ellipsoid round a centre (`radius` is its rectifying radius, in metres), a unit of the canvas being
+ * `metresPerUnit` metres.
  *
  * @example
  * ```ts
@@ -145,6 +147,7 @@ export interface ChizuInset {
 export type ChizuProjection =
   | { kind: "miller"; centre: number; scale: number; translate: [number, number] }
   | { kind: "azimuthal-equal-area"; centre: [number, number]; scale: number; translate: [number, number] }
+  | { kind: "local"; centre: [number, number]; radius: number; metresPerUnit: number; translate: [number, number] }
   | { kind: "other"; description: string };
 
 /**
@@ -163,8 +166,8 @@ export type ChizuProjection =
 export interface ChizuMap {
   /** `world`, `country-fr` (France alone, from Natural Earth's countries) or `divisions-fr` (its départements). */
   id: string;
-  /** What its regions are: the whole `world`, a single `country`, or the `divisions` of one. */
-  kind: "world" | "country" | "divisions";
+  /** What its regions are: the whole `world`, a single `country`, the `divisions` of one, or the shapes of a `local` map of a city or a venue. */
+  kind: "world" | "country" | "divisions" | "local";
   /** The map's name in English and Japanese. */
   name: string;
   nameJa?: string;

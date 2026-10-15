@@ -14,7 +14,7 @@ const question=findQuestion(WORLD,"JP",seededRandom(42),{count:3});
 console.log(question?.target,question?.choices,question?.answerIndex);
 ```
 
-`count` は誤答の数です。並べ替えた選択肢には正解も含まれます。`answerIndex` は、その選択肢の中の正解位置です。不明な地域や、名前のない地域として明示されたものは `null` になります。候補が少なければ、選択肢も少なくなります。誤答の得点は、隣接する地域、同じグループ、近い位置などを考慮します。
+`count`は誤答の数です。並べ替えた選択肢には正解も含まれます。`answerIndex`は、その選択肢の中の正解位置です。不明な地域や、名前のない地域として明示されたものは`null`になります。候補が少なければ、選択肢も少なくなります。誤答の得点は、隣接する地域、同じグループ、近い位置などを考慮します。
 
 ## 入力を固定する
 
