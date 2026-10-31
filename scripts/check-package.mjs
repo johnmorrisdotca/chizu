@@ -55,7 +55,7 @@ const pointed = [
   ...Object.values(pkg.bin ?? {}),
   ...Object.values(pkg.exports).flatMap((entry) => (typeof entry === "string" ? [entry] : Object.values(entry))),
 ];
-// A pattern (`./dist/data/countries/*.js`) points at every file it matches: at least one, and none that is only a declaration.
+// A pattern (`./dist/data/countries/*.data.js`) points at every file it matches: at least one, and none that is only a declaration.
 for (const file of new Set(pointed)) {
   const wanted = file.replace(/^\.\//, "");
   const found = wanted.includes("*")

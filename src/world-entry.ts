@@ -4,7 +4,7 @@
  * outlines load only on the page that draws them. A page loading a country's own map by name wants `/load` instead.
  */
 
-import world from "./data/world.ts";
+import world from "./data/world.data.ts";
 
 export { world as WORLD };
 export default world;

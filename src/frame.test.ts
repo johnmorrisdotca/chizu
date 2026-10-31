@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import us from "./data/divisions/us.ts";
-import world from "./data/world.ts";
+import us from "./data/divisions/us.data.ts";
+import world from "./data/world.data.ts";
 import {
   boxCentre,
   boxIsWholeMap,
@@ -367,7 +367,7 @@ describe("choosing one place zooms in to fit it", () => {
 describe("framing a region whose outlying islands are drawn in a box", () => {
   /* Before Japan, no map boxed only part of a region, and framing Tokyo took the reader to Ogasawara's box. */
   it("frames Tokyo on the Tokyo left in place, and Okinawa on its box", async () => {
-    const japan = (await import("./data/divisions/jp.ts")).default;
+    const japan = (await import("./data/divisions/jp.data.ts")).default;
     const tokyo = japan.regions.find((region) => region.code === "13")!;
     const box = japan.insets.find((inset) => inset.code === "13")!.box;
     const centre = regionCentre(japan, "13")!;

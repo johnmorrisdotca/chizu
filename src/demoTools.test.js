@@ -18,8 +18,8 @@ import {
   toJson,
   toText,
 } from "../demo/tools.js";
-import japan from "./data/divisions/jp.ts";
-import world from "./data/world.ts";
+import japan from "./data/divisions/jp.data.ts";
+import world from "./data/world.data.ts";
 import { seededRandom } from "./random.ts";
 
 const prefecture = (code) => japan.regions.find((region) => region.code === code);

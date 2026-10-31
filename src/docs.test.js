@@ -12,9 +12,9 @@ import {
   SHORT_ENGLISH_NOT_FOR_MAPS,
 } from "../scripts/data-config.mjs";
 import { FAMILY, familyRepo } from "../scripts/family-template.mjs";
-import { CHIZU_COUNTRIES, CHIZU_SOURCE } from "./data/countries.ts";
-import { DIVISIONS_LOADERS } from "./data/loaders.ts";
-import world from "./data/world.ts";
+import { CHIZU_COUNTRIES, CHIZU_SOURCE } from "./data/countries.data.ts";
+import { DIVISIONS_LOADERS } from "./data/loaders.data.ts";
+import world from "./data/world.data.ts";
 import { pickDistractors } from "./distractors.ts";
 import { MAP_ZOOM_LEVELS } from "./frame.ts";
 import { placesFromText } from "./fromText.ts";

@@ -1,8 +1,8 @@
 import { geoAzimuthalEqualArea, geoProjection } from "d3-geo";
 import { describe, expect, it } from "vitest";
 
-import { COUNTRY_LOADERS } from "./data/loaders.ts";
-import world from "./data/world.ts";
+import { COUNTRY_LOADERS } from "./data/loaders.data.ts";
+import world from "./data/world.data.ts";
 import { mapOutlines, pointInRing } from "./outlines.ts";
 import { projectPoint, unprojectPoint } from "./project.ts";
 import { seededRandom } from "./random.ts";
@@ -111,7 +111,7 @@ describe("a longitude and latitude on a country alone", () => {
 
 describe("a map fitted with a projection that is not a closed formula here", () => {
   it("answers null and never a guess", async () => {
-    const { default: de } = await import("./data/divisions/de.ts");
+    const { default: de } = await import("./data/divisions/de.data.ts");
     expect(de.projection.kind).toBe("other");
     expect(projectPoint(de, 10, 51)).toBeNull();
     expect(unprojectPoint(de, 500, 500)).toBeNull();

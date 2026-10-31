@@ -78,7 +78,7 @@ test("Japan's prefectures: typed names are right in English, in Japanese and wit
   await expect(page.locator(at("question"))).toContainText("Type its name");
   const target = await lit(page);
   const names = await page.evaluate(async (code) => {
-    const japan = (await import("./dist/data/divisions/jp.js")).default;
+    const japan = (await import("./dist/data/divisions/jp.data.js")).default;
     const region = japan.regions.find((one) => one.code === code);
     return { name: region.name, nameJa: region.nameJa, reading: region.reading };
   }, target);
@@ -88,7 +88,7 @@ test("Japan's prefectures: typed names are right in English, in Japanese and wit
   await page.locator(at("next")).click();
   const second = await lit(page);
   const english = await page.evaluate(
-    async (code) => (await import("./dist/data/divisions/jp.js")).default.regions.find((one) => one.code === code).name,
+    async (code) => (await import("./dist/data/divisions/jp.data.js")).default.regions.find((one) => one.code === code).name,
     second,
   );
   await page.locator(at("answer")).fill(english.toUpperCase());
@@ -106,7 +106,7 @@ test("Japan's prefectures: typed names are right in English, in Japanese and wit
   const asked = await lit(page);
   const reading = await page.evaluate(
     async (code) =>
-      (await import("./dist/data/divisions/jp.js")).default.regions.find((one) => one.code === code).reading,
+      (await import("./dist/data/divisions/jp.data.js")).default.regions.find((one) => one.code === code).reading,
     asked,
   );
   await expect(page.locator(at("question"))).toContainText("How is");

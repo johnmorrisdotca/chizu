@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import de from "./data/divisions/de.ts";
+import de from "./data/divisions/de.data.ts";
 import { CHIZU_STRINGS, chizuLanguageOf, chizuSay, nameOf } from "./strings.ts";
 
 describe("the words chizu says", () => {

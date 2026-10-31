@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import de from "./data/divisions/de.ts";
-import us from "./data/divisions/us.ts";
-import world from "./data/world.ts";
+import de from "./data/divisions/de.data.ts";
+import us from "./data/divisions/us.data.ts";
+import world from "./data/world.data.ts";
 import { drawChizu, isChizuColour } from "./draw.ts";
 import { regionBox, zoomBox } from "./frame.ts";
 import { CHIZU_STYLE } from "./style.ts";

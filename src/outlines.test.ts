@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import us from "./data/divisions/us.ts";
-import { DIVISIONS_LOADERS } from "./data/loaders.ts";
-import world from "./data/world.ts";
+import us from "./data/divisions/us.data.ts";
+import { DIVISIONS_LOADERS } from "./data/loaders.data.ts";
+import world from "./data/world.data.ts";
 import {
   circleMeetsRing,
   distanceToRing,

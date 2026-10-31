@@ -13,7 +13,7 @@ describe("the files of features", () => {
     expect(files.length).toBeGreaterThan(200);
     for (const file of files)
       expect(statSync(`src/data/features/${file}`).size, file).toBeLessThanOrEqual(
-        file === "world.ts" ? FEATURE_BUDGET.world : FEATURE_BUDGET.other,
+        file === "world.data.ts" ? FEATURE_BUDGET.world : FEATURE_BUDGET.other,
       );
   });
 

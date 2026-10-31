@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { countriesFromText, countryByCode } from "./countries.ts";
-import world from "./data/world.ts";
+import world from "./data/world.data.ts";
 import { placesFromText, splitPastedPlaces } from "./fromText.ts";
 import type { ChizuRegion } from "./types.ts";
 

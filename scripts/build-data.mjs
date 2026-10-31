@@ -1,10 +1,10 @@
 // Builds every file of map data under src/data/ from Natural Earth: `pnpm data`.
 //
-//   src/data/world.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
-//   src/data/countries/<xx>.ts       each country alone, finer (admin-0 at 1:50m, and at 1:10m for the small ones), on a canvas of its own
-//   src/data/divisions/<xx>.ts       the provinces, states, prefectures or départements of 32 countries (admin-1 at 1:10m)
-//   src/data/countries.ts            the table of every country: names in English and Japanese, and what it has
-//   src/data/loaders.ts              one dynamic import for each file above
+//   src/data/world.data.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
+//   src/data/countries/<xx>.data.ts  each country alone, finer (admin-0 at 1:50m, and at 1:10m for the small ones), on a canvas of its own
+//   src/data/divisions/<xx>.data.ts  the provinces, states, prefectures or départements of 32 countries (admin-1 at 1:10m)
+//   src/data/countries.data.ts            the table of every country: names in English and Japanese, and what it has
+//   src/data/loaders.data.ts              one dynamic import for each file above
 //
 // SOURCE AND LICENCE. Natural Earth (naturalearthdata.com), release 5.1.2, read from the project's own repository at
 // that tag, each file checked against the SHA-256 written in data-config.mjs. Natural Earth is in the public domain:
@@ -173,7 +173,7 @@ function writeMap(path, header, map, doc = "") {
  */
 import type { ChizuMap } from "${"../".repeat(path.slice(out.length + 1).split("/").length)}types.ts";
 
-${doc || mapReferenceDoc(path.slice(out.length + 1).replace(/\.ts$/, ""), header, map)}const map: ChizuMap = ${literal(map)};
+${doc || mapReferenceDoc(path.slice(out.length + 1).replace(/\.data\.ts$|\.ts$/, ""), header, map)}const map: ChizuMap = ${literal(map)};
 
 export default map;
 `,
@@ -198,7 +198,7 @@ function writeFeatures(path, map, features) {
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
 
-${featureReferenceDoc(path.slice(out.length + 1).replace(/\.ts$/, ""), layer)}const layer: ChizuFeatureLayer = ${literal(layer)};
+${featureReferenceDoc(path.slice(out.length + 1).replace(/\.data\.ts$|\.ts$/, ""), layer)}const layer: ChizuFeatureLayer = ${literal(layer)};
 
 export default layer;
 `,
@@ -884,7 +884,7 @@ async function main() {
 
   const world = buildWorld(worldSource);
   writeMap(
-    join(out, "world.ts"),
+    join(out, "world.data.ts"),
     `The world: ${world.regions.length} countries, ${world.source}.`,
     world,
     `/**
@@ -904,7 +904,7 @@ async function main() {
   const onWorld = new Set(world.regions.map((r) => r.code));
   const worldDetail = buildWorldDetail(countriesSource, world);
   writeMap(
-    join(out, "world-detail.ts"),
+    join(out, "world-detail.data.ts"),
     `The world drawn finer, for a page zoomed in: ${worldDetail.regions.length} countries, ${worldDetail.source}.`,
     worldDetail,
     `/**
@@ -935,7 +935,7 @@ async function main() {
     countryNames.set(p.__code, { ...names, nameJa: names.nameShortJa ?? names.nameJa });
     const map = buildCountry(feature, near[index], fine);
     const file = p.__code.toLowerCase();
-    writeMap(join(out, "countries", `${file}.ts`), `${names.name}, alone: ${map.source}.`, map);
+    writeMap(join(out, "countries", `${file}.data.ts`), `${names.name}, alone: ${map.source}.`, map);
     allMaps.push(map);
     loaders.countries.push(file);
     table.push({
@@ -962,7 +962,7 @@ async function main() {
   for (const map of builtDivisions) {
     const file = map.id.replace("divisions-", "");
     writeMap(
-      join(out, "divisions", `${file}.ts`),
+      join(out, "divisions", `${file}.data.ts`),
       `${map.name}: ${map.regions.length} ${map.regionNamePlural.toLowerCase()}, ${map.source}.`,
       map,
     );
@@ -988,7 +988,7 @@ async function main() {
       insetProjections: insetProjections.get(map.id),
     });
     if (features.length === 0) continue;
-    writeFeatures(join(out, "features", `${map.id}.ts`), map, features);
+    writeFeatures(join(out, "features", `${map.id}.data.ts`), map, features);
     loaders.features.push(map.id);
   }
   loaders.features.sort();
@@ -1031,7 +1031,7 @@ async function main() {
     });
   };
   writeFileSync(
-    join(out, "countries.ts"),
+    join(out, "countries.data.ts"),
     `/*
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.
  * Every country Natural Earth ${NATURAL_EARTH.version} draws at 1:50m (${table.length} of them): its names in English and
@@ -1112,9 +1112,9 @@ export const CHIZU_SOURCE = ${literal({
     })};
 `,
   );
-  const lines = (list, folder) => list.map((file) => `  ${file}: () => import("./${folder}/${file}.ts"),`).join("\n");
+  const lines = (list, folder) => list.map((file) => `  ${file}: () => import("./${folder}/${file}.data.ts"),`).join("\n");
   writeFileSync(
-    join(out, "loaders.ts"),
+    join(out, "loaders.data.ts"),
     `/*
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.
  * One dynamic import for each country's own map and each country's regions, so that a bundler makes each its own
@@ -1130,7 +1130,7 @@ ${lines(loaders.countries, "countries")}
 };
 
 /** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
-export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.ts");
+export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.data.ts");
 
 /** The regions of the ${loaders.divisions.length} countries that have them, by lower-case code. */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
@@ -1139,7 +1139,7 @@ ${lines(loaders.divisions, "divisions")}
 
 /** The named physical features drawn on ${loaders.features.length} maps (seas, lakes, rivers, landforms, peaks), by the map's id. */
 export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuFeatureLayer }>>> = {
-${loaders.features.map((id) => `  ${JSON.stringify(id)}: () => import("./features/${id}.ts"),`).join("\n")}
+${loaders.features.map((id) => `  ${JSON.stringify(id)}: () => import("./features/${id}.data.ts"),`).join("\n")}
 };
 `,
   );

@@ -4,7 +4,7 @@
  * only the ones it draws.
  */
 
-import { COUNTRY_LOADERS, DIVISIONS_LOADERS, FEATURE_LOADERS, WORLD_DETAIL_LOADER } from "./data/loaders.ts";
+import { COUNTRY_LOADERS, DIVISIONS_LOADERS, FEATURE_LOADERS, WORLD_DETAIL_LOADER } from "./data/loaders.data.ts";
 import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 
 /**

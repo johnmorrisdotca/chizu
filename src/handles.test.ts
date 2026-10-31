@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import ca from "./data/divisions/ca.ts";
+import ca from "./data/divisions/ca.data.ts";
 import { HANDLE_CLEARANCE, HANDLE_SLOTS, orderByPosition, placeHandles } from "./handles.ts";
 
 const RADIUS = 10;

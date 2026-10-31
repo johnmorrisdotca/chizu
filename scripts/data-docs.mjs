@@ -22,7 +22,7 @@ export function refreshDataReferenceDocs(root) {
     for (const filename of readdirSync(directory).filter((name) => name.endsWith(".ts"))) {
       const file = join(directory, filename);
       const text = readFileSync(file, "utf8");
-      const entry = `${kind}/${filename.slice(0, -3)}`;
+      const entry = `${kind}/${filename.replace(/\.data\.ts$|\.ts$/, "")}`;
       const declaration = kind === "features" ? "const layer: ChizuFeatureLayer" : "const map: ChizuMap";
       const position = text.indexOf(declaration);
       if (position < 0) throw new Error(`No generated declaration in ${relative(root, file)}`);

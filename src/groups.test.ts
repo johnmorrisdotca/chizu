@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./data/countries.ts";
-import { DIVISIONS_LOADERS } from "./data/loaders.ts";
-import world from "./data/world.ts";
+import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./data/countries.data.ts";
+import { DIVISIONS_LOADERS } from "./data/loaders.data.ts";
+import world from "./data/world.data.ts";
 import { pickDistractors } from "./distractors.ts";
 import { groupBox, groupMap, groupTones, regionGroups } from "./groups.ts";
 import { layoutCallouts } from "./layout.ts";

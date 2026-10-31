@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import fr from "./data/divisions/fr.ts";
-import us from "./data/divisions/us.ts";
-import world from "./data/world.ts";
+import fr from "./data/divisions/fr.data.ts";
+import us from "./data/divisions/us.data.ts";
+import world from "./data/world.data.ts";
 import { DISTRACTOR_SCORES, distractorScore, mapDiagonal, pickDistractors, type Scorable } from "./distractors.ts";
 import { seededRandom } from "./random.ts";
 

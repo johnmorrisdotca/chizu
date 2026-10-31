@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import gb from "./data/countries/gb.ts";
-import world from "./data/world.ts";
+import gb from "./data/countries/gb.data.ts";
+import world from "./data/world.data.ts";
 import { drawLocal } from "./drawLocal.ts";
 import { focusBox, regionBox, zoomBox } from "./frame.ts";
 import { groundDistance, localCanvasFromBox, localConvergence, mapBoxFromLocal, mapBoxMetres } from "./local.ts";

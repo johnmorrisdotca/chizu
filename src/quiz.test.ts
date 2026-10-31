@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import world from "./data/world.ts";
+import world from "./data/world.data.ts";
 import { findQuestion } from "./quiz.ts";
 import { seededRandom, shuffled } from "./random.ts";
 

@@ -1,4 +1,4 @@
-import { CHIZU_COUNTRIES } from "./data/countries.ts";
+import { CHIZU_COUNTRIES } from "./data/countries.data.ts";
 import { type PastedPlaces, placesFromText } from "./fromText.ts";
 import type { ChizuCountry } from "./types.ts";
 

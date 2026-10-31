@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import us from "./data/divisions/us.ts";
-import world from "./data/world.ts";
+import us from "./data/divisions/us.data.ts";
+import world from "./data/world.data.ts";
 import { mapWrapsAround, nearestWrappedBox, wrapAcross, wrapIntoBox, wrapOffsets } from "./wrap.ts";
 
 const WIDTH = 1000;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { FEATURE_LOADERS } from "./data/loaders.ts";
-import world from "./data/world.ts";
+import { FEATURE_LOADERS } from "./data/loaders.data.ts";
+import world from "./data/world.data.ts";
 import { drawChizu } from "./draw.ts";
 import {
   CHIZU_FEATURE_GROUPS,
