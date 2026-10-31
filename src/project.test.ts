@@ -72,7 +72,10 @@ describe("a longitude and latitude on a country alone", () => {
       const map = (await COUNTRY_LOADERS[code]!()).default as ChizuMap;
       const p = map.projection;
       if (p.kind !== "azimuthal-equal-area") throw new Error(code);
-      const reference = geoAzimuthalEqualArea().rotate([-p.centre[0], -p.centre[1]]).scale(p.scale).translate(p.translate);
+      const reference = geoAzimuthalEqualArea()
+        .rotate([-p.centre[0], -p.centre[1]])
+        .scale(p.scale)
+        .translate(p.translate);
       for (const [lon, lat] of points(60, 3, 85)) {
         const theirs = reference([lon, lat]);
         if (!theirs) continue;

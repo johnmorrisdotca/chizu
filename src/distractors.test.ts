@@ -17,16 +17,18 @@ describe("distractorScore", () => {
     const target = scorable({ code: "A", neighbors: ["B"] });
     const neighbour = scorable({ code: "B", group: "South", centroid: [DIAGONAL, 0] });
     const stranger = scorable({ code: "C", group: "South", centroid: [DIAGONAL, 0] });
-    expect(distractorScore(target, neighbour, DIAGONAL) - distractorScore(target, stranger, DIAGONAL))
-      .toBe(DISTRACTOR_SCORES.neighbor);
+    expect(distractorScore(target, neighbour, DIAGONAL) - distractorScore(target, stranger, DIAGONAL)).toBe(
+      DISTRACTOR_SCORES.neighbor,
+    );
   });
 
   it("rewards sharing a group", () => {
     const target = scorable({ code: "A", group: "North" });
     const sameGroup = scorable({ code: "B", group: "North", centroid: [DIAGONAL, 0] });
     const otherGroup = scorable({ code: "C", group: "South", centroid: [DIAGONAL, 0] });
-    expect(distractorScore(target, sameGroup, DIAGONAL) - distractorScore(target, otherGroup, DIAGONAL))
-      .toBe(DISTRACTOR_SCORES.group);
+    expect(distractorScore(target, sameGroup, DIAGONAL) - distractorScore(target, otherGroup, DIAGONAL)).toBe(
+      DISTRACTOR_SCORES.group,
+    );
   });
 
   it("prefers what is nearer when nothing else separates them", () => {
@@ -66,7 +68,9 @@ describe("a map's own regions as scorables", () => {
     const california = states.find((state) => state.code === "CA")!;
     const florida = states.find((state) => state.code === "FL")!;
     const diagonal = mapDiagonal(us);
-    expect(distractorScore(california, oregon, diagonal)).toBeGreaterThan(distractorScore(california, florida, diagonal));
+    expect(distractorScore(california, oregon, diagonal)).toBeGreaterThan(
+      distractorScore(california, florida, diagonal),
+    );
   });
 });
 
@@ -97,9 +101,12 @@ describe("choosing the wrong answers", () => {
     const plain = pickDistractors(world, "JP", { count: 3 });
     expect(pickDistractors(world, "JP", { count: 3 })).toEqual(plain);
     const seen = new Set<string>();
-    for (let seed = 1; seed <= 40; seed += 1) for (const code of pickDistractors(world, "JP", { count: 3, random: seededRandom(seed) })) seen.add(code);
+    for (let seed = 1; seed <= 40; seed += 1)
+      for (const code of pickDistractors(world, "JP", { count: 3, random: seededRandom(seed) })) seen.add(code);
     expect(seen.size).toBeGreaterThan(3);
-    expect(pickDistractors(world, "JP", { count: 3, random: seededRandom(7) })).toEqual(pickDistractors(world, "JP", { count: 3, random: seededRandom(7) }));
+    expect(pickDistractors(world, "JP", { count: 3, random: seededRandom(7) })).toEqual(
+      pickDistractors(world, "JP", { count: 3, random: seededRandom(7) }),
+    );
   });
 
   it("keeps to the places it is allowed to offer", () => {
@@ -110,7 +117,11 @@ describe("choosing the wrong answers", () => {
   });
 
   it("offers fewer rather than failing when the map has too few places", () => {
-    expect(pickDistractors({ width: 100, height: 100, regions: world.regions.slice(0, 2) }, world.regions[0]!.code, { count: 3 })).toHaveLength(1);
+    expect(
+      pickDistractors({ width: 100, height: 100, regions: world.regions.slice(0, 2) }, world.regions[0]!.code, {
+        count: 3,
+      }),
+    ).toHaveLength(1);
     expect(pickDistractors(world, "ZZ")).toEqual([]);
     expect(pickDistractors(world, "JP", { count: 0 })).toEqual([]);
   });

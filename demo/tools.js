@@ -117,7 +117,10 @@ export function parseFigures(text, find) {
       continue;
     }
     const place = line.slice(0, cut).trim();
-    const figure = line.slice(cut + 1).trim().replace(/[\s_]/g, "");
+    const figure = line
+      .slice(cut + 1)
+      .trim()
+      .replace(/[\s_]/g, "");
     const value = figure === "" ? Number.NaN : Number(figure);
     if (!Number.isFinite(value)) {
       noNumber.push(line);
@@ -143,10 +146,13 @@ export function parseFigures(text, find) {
 export function figureSteps(rows, count = 5) {
   const sorted = [...rows].sort((a, b) => a.value - b.value);
   const stepOf = new Map();
-  sorted.forEach((row, index) => stepOf.set(row.code, Math.min(count, Math.floor((index * count) / sorted.length) + 1)));
+  sorted.forEach((row, index) =>
+    stepOf.set(row.code, Math.min(count, Math.floor((index * count) / sorted.length) + 1)),
+  );
   // Equal figures share a step: the step of the first of them.
   for (let index = 1; index < sorted.length; index += 1) {
-    if (sorted[index].value === sorted[index - 1].value) stepOf.set(sorted[index].code, stepOf.get(sorted[index - 1].code));
+    if (sorted[index].value === sorted[index - 1].value)
+      stepOf.set(sorted[index].code, stepOf.get(sorted[index - 1].code));
   }
   const steps = [];
   for (let step = 1; step <= count; step += 1) {
@@ -218,24 +224,45 @@ export function codeFor(view, kind) {
   else imports.push(`import { drawChizu } from "@johnmorrisdotca/chizu/draw";`);
   if (engine.length) imports.push(`import { ${engine.join(", ")} } from "@johnmorrisdotca/chizu";`);
   lines.push(...imports, "");
-  if (source !== "world") lines.push(`const map = await ${source === "country" ? "loadCountry" : "loadDivisions"}(${JSON.stringify(code)});`);
+  if (source !== "world")
+    lines.push(`const map = await ${source === "country" ? "loadCountry" : "loadDivisions"}(${JSON.stringify(code)});`);
   if (view.part) lines.push(`const part = ${JSON.stringify(view.part.codes)};`);
-  if (view.features && kind === "draw") lines.push(`const layer = await loadFeatures(${JSON.stringify(view.mapId ?? (source === "world" ? "world" : `${source === "country" ? "country" : "divisions"}-${code}`))});`);
+  if (view.features && kind === "draw")
+    lines.push(
+      `const layer = await loadFeatures(${JSON.stringify(view.mapId ?? (source === "world" ? "world" : `${source === "country" ? "country" : "divisions"}-${code}`))});`,
+    );
   const tones = Object.keys(view.tones ?? {}).length ? JSON.stringify(view.tones) : null;
-  const toneExpression = view.part ? (tones ? `{ ...groupTones(${mapExpression}, part), ...${tones} }` : `groupTones(${mapExpression}, part)`) : tones;
+  const toneExpression = view.part
+    ? tones
+      ? `{ ...groupTones(${mapExpression}, part), ...${tones} }`
+      : `groupTones(${mapExpression}, part)`
+    : tones;
   const options = [];
   if (kind === "mount") options.push(`map: ${mapExpression}`);
   options.push(`language: ${JSON.stringify(view.language)}`);
   if (toneExpression) options.push(`tones: ${toneExpression}`);
   if (view.callouts) options.push(`callouts: ${JSON.stringify(view.callouts)}`);
-  if (view.features) options.push(`features: ${JSON.stringify(view.features)}`, `featureLayer: ${kind === "mount" ? "loadFeatures" : "layer"}`);
+  if (view.features)
+    options.push(
+      `features: ${JSON.stringify(view.features)}`,
+      `featureLayer: ${kind === "mount" ? "loadFeatures" : "layer"}`,
+    );
   if (kind === "draw" && view.part) options.push(`box: groupBox(${mapExpression}, part, 4 / 3)`);
   if (kind === "draw") options.push("style: true");
   if (kind === "mount") {
-    lines.push(`const mount = mountChizu(document.querySelector("#map"), {`, ...options.map((option) => `  ${option},`), `});`);
+    lines.push(
+      `const mount = mountChizu(document.querySelector("#map"), {`,
+      ...options.map((option) => `  ${option},`),
+      `});`,
+    );
     if (view.part) lines.push(`mount.show(part);`);
   } else {
-    lines.push(`const svg = drawChizu(${mapExpression}, {`, ...options.map((option) => `  ${option},`), `});`, `document.querySelector("#map").innerHTML = svg;`);
+    lines.push(
+      `const svg = drawChizu(${mapExpression}, {`,
+      ...options.map((option) => `  ${option},`),
+      `});`,
+      `document.querySelector("#map").innerHTML = svg;`,
+    );
   }
   return `${lines.join("\n")}\n`;
 }

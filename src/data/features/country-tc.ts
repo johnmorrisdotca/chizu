@@ -16,6 +16,39 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-tc 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-tc","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-tc; names from Natural Earth and Wikidata","features":[{"code":"Q3492008","kind":"peak","group":"peaks","name":"Blue Hills","nameJa":"ブルーヒルズ","reading":"ブルーヒルズ","rank":9,"elevation":49,"path":"","bbox":[134.3,126.2,134.3,126.2],"centroid":[134.3,126.2],"neighbors":[]},{"code":"capital-TC","kind":"capital","group":"capitals","name":"Cockburn Town","nameJa":"コックバーンタウン","reading":"コックバーンタウン","rank":0,"path":"","bbox":[991.8,395.6,991.8,395.6],"centroid":[991.8,395.6],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-tc",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-tc; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "Q3492008",
+      kind: "peak",
+      group: "peaks",
+      name: "Blue Hills",
+      nameJa: "ブルーヒルズ",
+      reading: "ブルーヒルズ",
+      rank: 9,
+      elevation: 49,
+      path: "",
+      bbox: [134.3, 126.2, 134.3, 126.2],
+      centroid: [134.3, 126.2],
+      neighbors: [],
+    },
+    {
+      code: "capital-TC",
+      kind: "capital",
+      group: "capitals",
+      name: "Cockburn Town",
+      nameJa: "コックバーンタウン",
+      reading: "コックバーンタウン",
+      rank: 0,
+      path: "",
+      bbox: [991.8, 395.6, 991.8, 395.6],
+      centroid: [991.8, 395.6],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

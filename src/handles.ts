@@ -165,26 +165,24 @@ export function placeHandles<T>(
     placed.every((other) => Math.hypot(other.hx - hx, other.hy - hy) >= radius * HANDLE_CLEARANCE);
 
   const inFrame = (hx: number, hy: number) =>
-    !bounds
-    || (hx - radius >= bounds.x
-      && hx + radius <= bounds.x + bounds.width
-      && hy - radius >= bounds.y
-      && hy + radius <= bounds.y + bounds.height);
+    !bounds ||
+    (hx - radius >= bounds.x &&
+      hx + radius <= bounds.x + bounds.width &&
+      hy - radius >= bounds.y &&
+      hy + radius <= bounds.y + bounds.height);
 
   for (const { item, centroid } of entries) {
     const [x, y] = centroid;
-    const slots = HANDLE_SLOTS.map(
-      ([dx, dy]) => [x + dx * radius, y + dy * radius] as const,
-    );
+    const slots = HANDLE_SLOTS.map(([dx, dy]) => [x + dx * radius, y + dy * radius] as const);
     /*
      * Clear and on the map if possible; clear but overhanging the edge if not,
      * since a handle half off the frame can still be read and tapped while one
      * underneath another cannot. Only if nothing is clear does it stack.
      */
     const spot =
-      slots.find(([hx, hy]) => isClear(hx, hy) && inFrame(hx, hy))
-      ?? slots.find(([hx, hy]) => isClear(hx, hy))
-      ?? slots[0]!;
+      slots.find(([hx, hy]) => isClear(hx, hy) && inFrame(hx, hy)) ??
+      slots.find(([hx, hy]) => isClear(hx, hy)) ??
+      slots[0]!;
 
     placed.push({ item, x, y, hx: spot[0], hy: spot[1] });
   }
@@ -216,7 +214,10 @@ export function placeHandles<T>(
  * @param centreOf - The function that reads an entry’s native centre.
  * @returns The choices in the order they run across the map, west to east.
  */
-export function orderByPosition<T>(options: readonly T[], centreOf: (option: T) => readonly [number, number] | null | undefined): T[] {
+export function orderByPosition<T>(
+  options: readonly T[],
+  centreOf: (option: T) => readonly [number, number] | null | undefined,
+): T[] {
   const positioned = options.map((option, index) => ({ option, index, centroid: centreOf(option) ?? null }));
 
   return positioned

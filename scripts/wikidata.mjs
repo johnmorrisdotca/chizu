@@ -34,14 +34,17 @@ const EARTH_KM = 6371;
 /** Wikidata's classes for a river and its kin, which a river item is an instance of. */
 const RIVER_CLASSES = ["Q4022", "Q55659167", "Q47521", "Q1437299", "Q159675", "Q12284", "Q573344"];
 
-
 async function sparql(query) {
   for (let attempt = 1; ; attempt += 1) {
     let response;
     try {
       response = await fetch(ENDPOINT, {
         method: "POST",
-        headers: { "User-Agent": USER_AGENT, Accept: "application/sparql-results+json", "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          "User-Agent": USER_AGENT,
+          Accept: "application/sparql-results+json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
         body: new URLSearchParams({ query }).toString(),
       });
     } catch (error) {
@@ -55,7 +58,8 @@ async function sparql(query) {
       await pause(1500);
       return json.results.bindings;
     }
-    if (attempt >= 4 || ![429, 500, 502, 503, 504].includes(response.status)) throw new Error(`Wikidata answered ${response.status}: ${(await response.text()).slice(0, 300)}`);
+    if (attempt >= 4 || ![429, 500, 502, 503, 504].includes(response.status))
+      throw new Error(`Wikidata answered ${response.status}: ${(await response.text()).slice(0, 300)}`);
     const wait = Number(response.headers.get("retry-after")) * 1000 || 10000 * attempt;
     console.log(`Wikidata answered ${response.status}; trying again in ${wait / 1000} s`);
     await pause(wait);
@@ -63,7 +67,8 @@ async function sparql(query) {
 }
 
 const qid = (uri) => uri.slice(uri.lastIndexOf("/") + 1);
-const chunks = (list, size) => Array.from({ length: Math.ceil(list.length / size) }, (_, i) => list.slice(i * size, i * size + size));
+const chunks = (list, size) =>
+  Array.from({ length: Math.ceil(list.length / size) }, (_, i) => list.slice(i * size, i * size + size));
 const hiraganaOnly = (text) => /^[\p{Script=Hiragana}ー]+$/u.test(text);
 
 /** Labels, the name in kana and hiragana aliases, for these items. */
@@ -75,7 +80,9 @@ async function itemsOf(ids) {
       OPTIONAL { ?item rdfs:label ?en FILTER(lang(?en) = "en") }
       OPTIONAL { ?item rdfs:label ?ja FILTER(lang(?ja) = "ja") }
       OPTIONAL { ?item wdt:P1814 ?kana } }`);
-    const aliases = await sparql(`SELECT ?item ?alias WHERE { VALUES ?item { ${values} } ?item skos:altLabel ?alias FILTER(lang(?alias) = "ja") }`);
+    const aliases = await sparql(
+      `SELECT ?item ?alias WHERE { VALUES ?item { ${values} } ?item skos:altLabel ?alias FILTER(lang(?alias) = "ja") }`,
+    );
     for (const row of labels) {
       const id = qid(row.item.value);
       const item = (items[id] ??= {});
@@ -114,7 +121,9 @@ function riverLabels(p) {
 export const riverKey = (p) => `${p.rivernum}|${p.name}`;
 
 async function matchRivers() {
-  const rivers = (await source(FEATURE_FILES.rivers.file)).features.map((feature) => ({ p: lowerProperties(feature), geometry: feature.geometry })).filter(({ p }) => p.featurecla === "River" && p.name);
+  const rivers = (await source(FEATURE_FILES.rivers.file)).features
+    .map((feature) => ({ p: lowerProperties(feature), geometry: feature.geometry }))
+    .filter(({ p }) => p.featurecla === "River" && p.name);
   const byKey = new Map();
   for (const river of rivers) {
     const key = riverKey(river.p);
@@ -130,7 +139,8 @@ async function matchRivers() {
   const candidates = new Map();
   for (const batch of chunks(labels, 400)) {
     const values = batch.map((label) => JSON.stringify(label) + "@en").join(" ");
-    const rows = await sparql(`SELECT ?item ?label ?coord ?links WHERE { VALUES ?label { ${values} } VALUES ?class { ${RIVER_CLASSES.map((one) => `wd:${one}`).join(" ")} }
+    const rows =
+      await sparql(`SELECT ?item ?label ?coord ?links WHERE { VALUES ?label { ${values} } VALUES ?class { ${RIVER_CLASSES.map((one) => `wd:${one}`).join(" ")} }
       ?item rdfs:label ?label; wdt:P31 ?class; wdt:P625 ?coord; wikibase:sitelinks ?links }`);
     for (const row of rows) {
       const match = /Point\(([-\d.eE]+) ([-\d.eE]+)\)/.exec(row.coord.value);
@@ -151,7 +161,10 @@ async function matchRivers() {
       for (const candidate of candidates.get(label) ?? []) {
         const km = Math.min(...sample.map((point) => geoDistance(point, candidate.at))) * EARTH_KM;
         if (km > (held.hinted ? HINT_KM : candidate.links >= FAR_LINKS ? FAR_KM : MATCH_KM)) continue;
-        const better = best === null || candidate.links > best.links || (candidate.links === best.links && (km < best.km || (km === best.km && candidate.id < best.id)));
+        const better =
+          best === null ||
+          candidate.links > best.links ||
+          (candidate.links === best.links && (km < best.km || (km === best.km && candidate.id < best.id)));
         if (better) best = { id: candidate.id, km, links: candidate.links };
       }
     }

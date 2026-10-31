@@ -5,7 +5,8 @@ import { placesFromText, splitPastedPlaces } from "./fromText.ts";
 import { countriesFromText, countryByCode } from "./countries.ts";
 import type { ChizuRegion } from "./types.ts";
 
-const region = (code: string, name: string, nameJa: string, reading: string) => ({ code, name, nameJa, reading }) as unknown as ChizuRegion;
+const region = (code: string, name: string, nameJa: string, reading: string) =>
+  ({ code, name, nameJa, reading }) as unknown as ChizuRegion;
 
 const JP = [
   region("13", "Tokyo", "東京都", "とうきょう"),
@@ -62,7 +63,6 @@ describe("a paste of place names", () => {
     expect(placesFromText("   \n  ", JP)).toEqual({ codes: [], missing: [] });
   });
 });
-
 
 describe("a paste of countries", () => {
   it("finds the countries by English name, Japanese name, the short name, the reading or the code", () => {

@@ -7,22 +7,28 @@ const trees = {
   "the source tree in docs/architecture.md": treeOf(readFileSync("docs/architecture.md", "utf8")),
   "the source tree in the architecture guide": treeOf(readFileSync("docs/guides/architecture.md", "utf8")),
 };
-for (const [title, tree] of Object.entries(trees)) describe(title, () => {
-  const files = (folder) => readdirSync(folder, { recursive: true }).map((path) => path.replace(/\\/g, "/"));
+for (const [title, tree] of Object.entries(trees))
+  describe(title, () => {
+    const files = (folder) => readdirSync(folder, { recursive: true }).map((path) => path.replace(/\\/g, "/"));
 
-  it("names exactly the files under src/, the generated maps apart", () => {
-    const named = [...tree.matchAll(/[├└]── ([\w.-]+\.ts)\b/g)].map((match) => match[1]).sort();
-    const listed = files("src")
-      .filter((path) => path.endsWith(".ts") && !/\.(test|fixture)\./.test(path) && !/^data\/(countries|divisions|features)\//.test(path))
-      .map((path) => path.split("/").at(-1))
-      .sort();
-    expect(named).toEqual(listed);
-  });
+    it("names exactly the files under src/, the generated maps apart", () => {
+      const named = [...tree.matchAll(/[├└]── ([\w.-]+\.ts)\b/g)].map((match) => match[1]).sort();
+      const listed = files("src")
+        .filter(
+          (path) =>
+            path.endsWith(".ts") &&
+            !/\.(test|fixture)\./.test(path) &&
+            !/^data\/(countries|divisions|features)\//.test(path),
+        )
+        .map((path) => path.split("/").at(-1))
+        .sort();
+      expect(named).toEqual(listed);
+    });
 
-  it("counts the generated maps as the folders have them", () => {
-    const count = (folder) => files(`src/data/${folder}`).filter((path) => path.endsWith(".ts")).length;
-    expect(tree).toContain(`countries/<code>.ts   ${count("countries")} countries, each alone`);
-    expect(tree).toContain(`divisions/<code>.ts   ${count("divisions")} countries' regions`);
-    expect(tree).toContain(`features/<map>.ts     ${count("features")} maps' named features`);
+    it("counts the generated maps as the folders have them", () => {
+      const count = (folder) => files(`src/data/${folder}`).filter((path) => path.endsWith(".ts")).length;
+      expect(tree).toContain(`countries/<code>.ts   ${count("countries")} countries, each alone`);
+      expect(tree).toContain(`divisions/<code>.ts   ${count("divisions")} countries' regions`);
+      expect(tree).toContain(`features/<map>.ts     ${count("features")} maps' named features`);
+    });
   });
-});

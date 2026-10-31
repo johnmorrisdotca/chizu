@@ -10,19 +10,30 @@ test("it opens on Japan's map at 10x with the next step marked, and says how muc
   const errors = await open(page, "?map=world");
   await expect(page.locator(`${board} .city-footprint`)).toHaveCount(1);
   await expect(page.locator(board)).toHaveAttribute("data-map", "country-jp");
-  await expect(page.locator(at("city-status"))).toHaveText(/^About [\d.]+ km across; one unit of the drawing is [\d.]+ km\.$/);
+  await expect(page.locator(at("city-status"))).toHaveText(
+    /^About [\d.]+ km across; one unit of the drawing is [\d.]+ km\.$/,
+  );
   expect(errors).toEqual([]);
 });
 
-test("each step is a local map of the same ground, true to its metres, with a scale bar and a credit line", async ({ page }) => {
+test("each step is a local map of the same ground, true to its metres, with a scale bar and a credit line", async ({
+  page,
+}) => {
   const errors = await open(page, "?map=world");
-  for (const [value, metres, bar, perUnit] of [["20000", 20000, "2 km", 20], ["2000", 2000, "200 m", 2], ["400", 400, "50 m", 0.4]]) {
+  for (const [value, metres, bar, perUnit] of [
+    ["20000", 20000, "2 km", 20],
+    ["2000", 2000, "200 m", 2],
+    ["400", 400, "50 m", 0.4],
+  ]) {
     await scale(page, value).click();
     const drawing = page.locator(board);
     await expect(drawing).toHaveAttribute("data-map", "local");
     await expect(drawing).toHaveAttribute("data-metres-per-unit", String(perUnit));
     await expect(drawing).toHaveAttribute("viewBox", "0 0 1000 1000");
-    await expect(drawing).toHaveAttribute("aria-label", metres >= 1000 ? `Map of the area, ${metres / 1000} km across` : `Map of the area, ${metres} m across`);
+    await expect(drawing).toHaveAttribute(
+      "aria-label",
+      metres >= 1000 ? `Map of the area, ${metres / 1000} km across` : `Map of the area, ${metres} m across`,
+    );
     await expect(page.locator(`${board} .cz-scale-text`)).toHaveText(bar);
     await expect(page.locator(`${board} .cz-credit`)).toHaveText("Made-up shapes for this demo");
     await expect(page.locator(at("city-status"))).toContainText(`one unit of the drawing is`);
@@ -30,7 +41,9 @@ test("each step is a local map of the same ground, true to its metres, with a sc
   expect(errors).toEqual([]);
 });
 
-test("at 400 m the shapes are drawn in their kinds' looks, the pitch is a picture turned to its bearing, and the bearing can be changed", async ({ page }) => {
+test("at 400 m the shapes are drawn in their kinds' looks, the pitch is a picture turned to its bearing, and the bearing can be changed", async ({
+  page,
+}) => {
   await open(page, "?map=world&city=400");
   await expect(page.locator(`${board} [data-type="water"] .cz-local-area`)).toHaveCount(1);
   await expect(page.locator(`${board} [data-type="building"].stand`)).toHaveCount(1);
@@ -42,11 +55,16 @@ test("at 400 m the shapes are drawn in their kinds' looks, the pitch is a pictur
   expect(await page.locator(`${board} .cz-marker`).getAttribute("transform")).not.toBe(before);
   await expect(page.locator(at("city-bearing-out"))).toHaveText("90°");
   // The picture is 60 m across and the canvas is 0.4 m to the unit: 150 units wide on the screen.
-  const width = await page.locator(`${board} .cz-marker rect`).first().evaluate((node) => node.getBoundingClientRect().width / node.ownerSVGElement.getBoundingClientRect().width);
+  const width = await page
+    .locator(`${board} .cz-marker rect`)
+    .first()
+    .evaluate((node) => node.getBoundingClientRect().width / node.ownerSVGElement.getBoundingClientRect().width);
   expect(width).toBeGreaterThan(0.05);
 });
 
-test("names and numbers: the names print where they fit, and the callout placer numbers four things in open ground", async ({ page }) => {
+test("names and numbers: the names print where they fit, and the callout placer numbers four things in open ground", async ({
+  page,
+}) => {
   await open(page, "?map=world&city=400");
   await expect(page.locator(`${board} .cz-label`)).toHaveCount(0);
   await page.locator(`${at("city-names")} button[data-value="true"]`).click();

@@ -557,5 +557,5 @@ export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: C
   "divisions-tw": () => import("./features/divisions-tw.ts"),
   "divisions-us": () => import("./features/divisions-us.ts"),
   "divisions-vn": () => import("./features/divisions-vn.ts"),
-  "world": () => import("./features/world.ts"),
+  world: () => import("./features/world.ts"),
 };

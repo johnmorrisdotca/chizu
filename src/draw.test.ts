@@ -25,7 +25,8 @@ describe("a map as SVG text", () => {
 
   it("is well-formed, as far as a parser that only counts tags can tell", () => {
     const svg = drawChizu(world, { labels: true, callouts: ["JP", "BR", "AU"] });
-    for (const tag of ["svg", "g", "text", "title"]) expect(count(svg, new RegExp(`<${tag}[ >]`, "g")), tag).toBe(count(svg, new RegExp(`</${tag}>`, "g")));
+    for (const tag of ["svg", "g", "text", "title"])
+      expect(count(svg, new RegExp(`<${tag}[ >]`, "g")), tag).toBe(count(svg, new RegExp(`</${tag}>`, "g")));
   });
 
   it("speaks Japanese when asked, in the names and the label", () => {
@@ -55,12 +56,16 @@ describe("a map as SVG text", () => {
 
   it("keeps a region's tone beside its colour, and draws two places in two colours", () => {
     const svg = drawChizu(de, { tones: { BY: "selected" }, colors: { BY: "#112233", NW: "#445566" } });
-    expect(svg).toContain('class="cz-region cz-tone-selected" data-code="BY" data-tone="selected" data-color="#112233"');
+    expect(svg).toContain(
+      'class="cz-region cz-tone-selected" data-code="BY" data-tone="selected" data-color="#112233"',
+    );
     expect(svg).toContain('data-code="NW" data-color="#445566"');
   });
 
   it("ignores a colour that is not one, so nothing from an address or a form can end the attribute", () => {
-    const svg = drawChizu(de, { colors: { BY: 'red" onclick="x', NW: "red;fill:url(#x)", BE: "javascript:1", HH: "<b>" } });
+    const svg = drawChizu(de, {
+      colors: { BY: 'red" onclick="x', NW: "red;fill:url(#x)", BE: "javascript:1", HH: "<b>" },
+    });
     expect(svg).not.toContain("data-color");
     expect(svg).not.toContain("onclick");
     expect(isChizuColour("#2f6b4f")).toBe(true);
@@ -86,7 +91,10 @@ describe("a map as SVG text", () => {
   });
 
   it("escapes what is written into it", () => {
-    const evil = { ...de, regions: [{ ...de.regions[0]!, name: 'A "quoted" <b>name</b> & more', code: 'X"Y' }, ...de.regions.slice(1)] };
+    const evil = {
+      ...de,
+      regions: [{ ...de.regions[0]!, name: 'A "quoted" <b>name</b> & more', code: 'X"Y' }, ...de.regions.slice(1)],
+    };
     const svg = drawChizu(evil, { label: 'x" onload="y' });
     expect(svg).not.toContain("<b>name");
     expect(svg).toContain("A &quot;quoted&quot; &lt;b&gt;name&lt;/b&gt; &amp; more");

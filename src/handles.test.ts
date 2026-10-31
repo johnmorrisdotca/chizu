@@ -52,7 +52,12 @@ describe("handle clearance", () => {
    * to come out with four handles you can tell apart.
    */
   it("finds room for a third and fourth, not just a second", () => {
-    const spots = place([[0, 0], [0, 0], [0, 0], [0, 0]]);
+    const spots = place([
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+    ]);
     expect(tightestGap(spots)).toBeGreaterThanOrEqual(HANDLE_CLEARANCE);
   });
 
@@ -76,18 +81,24 @@ describe("handle clearance", () => {
 
   it("keeps a crowded column numbered left to right", () => {
     // Four regions in a vertical line: every handle should stay in its column.
-    const spots = place([[100, 100], [100, 104], [100, 108], [100, 112]]);
+    const spots = place([
+      [100, 100],
+      [100, 104],
+      [100, 108],
+      [100, 112],
+    ]);
     expect(spots.every((spot) => spot.hx === 100)).toBe(true);
     expect(tightestGap(spots)).toBeGreaterThanOrEqual(HANDLE_CLEARANCE);
   });
 
   it("keeps handles inside the frame when it can", () => {
     // A region hard against the top edge: above would crop, below fits.
-    const spots = placeHandles(
-      [{ item: "edge", centroid: [100, 5] as const }],
-      RADIUS,
-      { x: 0, y: 0, width: 200, height: 200 },
-    );
+    const spots = placeHandles([{ item: "edge", centroid: [100, 5] as const }], RADIUS, {
+      x: 0,
+      y: 0,
+      width: 200,
+      height: 200,
+    });
     expect(spots[0]!.hy).toBeGreaterThan(5);
     expect(spots[0]!.hy - RADIUS).toBeGreaterThanOrEqual(0);
   });

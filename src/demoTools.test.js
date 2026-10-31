@@ -2,7 +2,22 @@
 // their steps, the files a download writes, and the code that draws the map as it is.
 import { describe, expect, it } from "vitest";
 
-import { answersFor, codeFor, fileName, figureSteps, foldAnswer, hasKanjiReading, isNameOf, isReadingOf, nextStreak, parseFigures, roundOrder, toCsv, toJson, toText } from "../demo/tools.js";
+import {
+  answersFor,
+  codeFor,
+  fileName,
+  figureSteps,
+  foldAnswer,
+  hasKanjiReading,
+  isNameOf,
+  isReadingOf,
+  nextStreak,
+  parseFigures,
+  roundOrder,
+  toCsv,
+  toJson,
+  toText,
+} from "../demo/tools.js";
 import japan from "./data/divisions/jp.ts";
 import world from "./data/world.ts";
 import { seededRandom } from "./random.ts";
@@ -19,7 +34,8 @@ describe("a typed answer", () => {
 
   it("is right in English or Japanese, with or without the ending, and by code", () => {
     const tokyo = prefecture("13");
-    for (const typed of ["Tokyo", "tokyo", "東京都", "東京", "とうきょうと", "トウキョウ", "JP-13"]) expect(isNameOf(typed, tokyo), typed).toBe(true);
+    for (const typed of ["Tokyo", "tokyo", "東京都", "東京", "とうきょうと", "トウキョウ", "JP-13"])
+      expect(isNameOf(typed, tokyo), typed).toBe(true);
     expect(isNameOf("Kyoto", tokyo)).toBe(false);
     expect(isNameOf("", tokyo)).toBe(false);
     expect(isNameOf("osaka", prefecture("27"))).toBe(true);
@@ -65,12 +81,17 @@ describe("pasted figures", () => {
   const find = (words) => ({ tokyo: "13", osaka: "27", "jp-23": "23" })[words.toLowerCase()] ?? null;
 
   it("read the number after the last comma, tab or semicolon, and say back what matched nothing", () => {
-    const parsed = parseFigures("Tokyo, 14047594\nOsaka\t8,837,685\nJP-23; 7542415.5\nAtlantis, 3\nKyoto\n\nTokyo, 1", find);
-    expect(parsed.rows).toEqual([
-      { code: "13", value: 14047594, place: "Tokyo" },
-      { code: "27", value: 685, place: "Osaka\t8,837" },
-      { code: "23", value: 7542415.5, place: "JP-23" },
-    ].filter((row) => row.code !== "27"));
+    const parsed = parseFigures(
+      "Tokyo, 14047594\nOsaka\t8,837,685\nJP-23; 7542415.5\nAtlantis, 3\nKyoto\n\nTokyo, 1",
+      find,
+    );
+    expect(parsed.rows).toEqual(
+      [
+        { code: "13", value: 14047594, place: "Tokyo" },
+        { code: "27", value: 685, place: "Osaka\t8,837" },
+        { code: "23", value: 7542415.5, place: "JP-23" },
+      ].filter((row) => row.code !== "27"),
+    );
     expect(parsed.missing).toEqual(["Osaka\t8,837", "Atlantis"]);
     expect(parsed.noNumber).toEqual(["Kyoto"]);
   });
@@ -81,13 +102,25 @@ describe("pasted figures", () => {
     expect(steps.map((step) => step.count)).toEqual([2, 2, 2, 2, 2]);
     expect(stepOf.get("0")).toBe(1);
     expect(stepOf.get("9")).toBe(5);
-    expect(figureSteps([{ code: "a", value: 1 }, { code: "b", value: 1 }, { code: "c", value: 2 }]).stepOf.get("b")).toBe(1);
+    expect(
+      figureSteps([
+        { code: "a", value: 1 },
+        { code: "b", value: 1 },
+        { code: "c", value: 2 },
+      ]).stepOf.get("b"),
+    ).toBe(1);
   });
 });
 
 describe("files", () => {
-  const columns = [{ key: "code", label: "code" }, { key: "name", label: "name" }];
-  const rows = [{ code: "13", name: "Tokyo" }, { code: "X", name: 'A "quoted", name' }];
+  const columns = [
+    { key: "code", label: "code" },
+    { key: "name", label: "name" },
+  ];
+  const rows = [
+    { code: "13", name: "Tokyo" },
+    { code: "X", name: 'A "quoted", name' },
+  ];
 
   it("write CSV with quoting, JSON with the columns asked for, and text a line a row", () => {
     expect(toCsv(columns, rows)).toBe('code,name\n13,Tokyo\nX,"A ""quoted"", name"\n');
@@ -99,12 +132,18 @@ describe("files", () => {
 
 describe("the code for the view", () => {
   it("loads the map in view, mounts or draws it, and keeps to the part", () => {
-    const mount = codeFor({ mapKey: "divisions:jp", language: "ja", tones: {}, callouts: null, part: { codes: ["13", "14"] } }, "mount");
+    const mount = codeFor(
+      { mapKey: "divisions:jp", language: "ja", tones: {}, callouts: null, part: { codes: ["13", "14"] } },
+      "mount",
+    );
     expect(mount).toContain('import { loadDivisions } from "@johnmorrisdotca/chizu/load";');
     expect(mount).toContain('const map = await loadDivisions("jp");');
     expect(mount).toContain("tones: groupTones(map, part)");
     expect(mount).toContain("mount.show(part);");
-    const draw = codeFor({ mapKey: "world", language: "en", tones: { JP: "selected" }, callouts: { codes: ["JP"] }, part: null }, "draw");
+    const draw = codeFor(
+      { mapKey: "world", language: "en", tones: { JP: "selected" }, callouts: { codes: ["JP"] }, part: null },
+      "draw",
+    );
     expect(draw).toContain('import WORLD from "@johnmorrisdotca/chizu/world";');
     expect(draw).toContain('tones: {"JP":"selected"}');
     expect(draw).toContain('callouts: {"codes":["JP"]}');
@@ -112,14 +151,30 @@ describe("the code for the view", () => {
   });
 
   it("draws the features the switch has on, from their own file", () => {
-    const mount = codeFor({ mapKey: "divisions:jp", mapId: "divisions-jp", language: "en", tones: {}, callouts: null, part: null, features: ["water"] }, "mount");
+    const mount = codeFor(
+      {
+        mapKey: "divisions:jp",
+        mapId: "divisions-jp",
+        language: "en",
+        tones: {},
+        callouts: null,
+        part: null,
+        features: ["water"],
+      },
+      "mount",
+    );
     expect(mount).toContain('import { loadDivisions, loadFeatures } from "@johnmorrisdotca/chizu/load";');
     expect(mount).toContain('features: ["water"]');
     expect(mount).toContain("featureLayer: loadFeatures");
-    const draw = codeFor({ mapKey: "world", mapId: "world", language: "en", tones: {}, callouts: null, part: null, features: ["all"] }, "draw");
+    const draw = codeFor(
+      { mapKey: "world", mapId: "world", language: "en", tones: {}, callouts: null, part: null, features: ["all"] },
+      "draw",
+    );
     expect(draw).toContain('import { loadFeatures } from "@johnmorrisdotca/chizu/load";');
     expect(draw).toContain('const layer = await loadFeatures("world");');
     expect(draw).toContain("featureLayer: layer");
-    expect(codeFor({ mapKey: "world", language: "en", tones: {}, callouts: null, part: null }, "mount")).not.toContain("loadFeatures");
+    expect(codeFor({ mapKey: "world", language: "en", tones: {}, callouts: null, part: null }, "mount")).not.toContain(
+      "loadFeatures",
+    );
   });
 });

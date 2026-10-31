@@ -13,7 +13,12 @@ const fills = (page, options) =>
     document.body.append(host);
     mountChizu(host, { map: await loadDivisions("de"), controls: false, ...given });
     const fill = (code) => getComputedStyle(host.querySelector(`.cz-region[data-code="${code}"] .cz-land`)).fill;
-    const result = { by: fill("BY"), nw: fill("NW"), be: fill("BE"), attribute: host.querySelector('.cz-region[data-code="BY"]').getAttribute("data-color") };
+    const result = {
+      by: fill("BY"),
+      nw: fill("NW"),
+      be: fill("BE"),
+      attribute: host.querySelector('.cz-region[data-code="BY"]').getAttribute("data-color"),
+    };
     host.remove();
     return result;
   }, options);

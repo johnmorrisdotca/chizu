@@ -28,15 +28,55 @@ describe("where a leader may start", () => {
 describe("the faults a printed sheet is held to", () => {
   it("counts a crossing, a pair running close, and a line through another's circle", () => {
     const r = 10;
-    expect(calloutFaults([{ x: 0, y: 0, hx: 100, hy: 100 }, { x: 0, y: 100, hx: 100, hy: 0 }], r)).toEqual({ crossings: 1, close: 0 });
-    expect(calloutFaults([{ x: 0, y: 0, hx: 100, hy: 0 }, { x: 0, y: 30, hx: 100, hy: 5 }], r)).toEqual({ crossings: 0, close: 1 });
-    expect(calloutFaults([{ x: 0, y: 0, hx: 200, hy: 0 }, { x: 100, y: 60, hx: 100, hy: 5 }], r)).toEqual({ crossings: 0, close: 1 });
-    expect(calloutFaults([{ x: 0, y: 0, hx: 100, hy: 0 }, { x: 0, y: 40, hx: 100, hy: 40 }], r)).toEqual({ crossings: 0, close: 0 });
+    expect(
+      calloutFaults(
+        [
+          { x: 0, y: 0, hx: 100, hy: 100 },
+          { x: 0, y: 100, hx: 100, hy: 0 },
+        ],
+        r,
+      ),
+    ).toEqual({ crossings: 1, close: 0 });
+    expect(
+      calloutFaults(
+        [
+          { x: 0, y: 0, hx: 100, hy: 0 },
+          { x: 0, y: 30, hx: 100, hy: 5 },
+        ],
+        r,
+      ),
+    ).toEqual({ crossings: 0, close: 1 });
+    expect(
+      calloutFaults(
+        [
+          { x: 0, y: 0, hx: 200, hy: 0 },
+          { x: 100, y: 60, hx: 100, hy: 5 },
+        ],
+        r,
+      ),
+    ).toEqual({ crossings: 0, close: 1 });
+    expect(
+      calloutFaults(
+        [
+          { x: 0, y: 0, hx: 100, hy: 0 },
+          { x: 0, y: 40, hx: 100, hy: 40 },
+        ],
+        r,
+      ),
+    ).toEqual({ crossings: 0, close: 0 });
   });
 
   /* Two regions whose middles are half a radius apart cannot start further apart than that. */
   it("owes two leaders only the room they start with", () => {
-    expect(calloutFaults([{ x: 0, y: 0, hx: -100, hy: 0 }, { x: 0, y: 5, hx: 0, hy: 100 }], 10)).toEqual({ crossings: 0, close: 0 });
+    expect(
+      calloutFaults(
+        [
+          { x: 0, y: 0, hx: -100, hy: 0 },
+          { x: 0, y: 5, hx: 0, hy: 100 },
+        ],
+        10,
+      ),
+    ).toEqual({ crossings: 0, close: 0 });
   });
 });
 
@@ -46,7 +86,9 @@ describe("the faults a printed sheet is held to", () => {
  * polish gives each its own.
  */
 describe("the polish", () => {
-  const land = [square(300, 300, 340, 500), square(340, 300, 380, 500), square(380, 300, 420, 500)].map((ring) => ({ rings: [ring] }));
+  const land = [square(300, 300, 340, 500), square(340, 300, 380, 500), square(380, 300, 420, 500)].map((ring) => ({
+    rings: [ring],
+  }));
   const entries = [
     { item: "a", centroid: [320, 400] as const },
     { item: "b", centroid: [360, 400] as const },

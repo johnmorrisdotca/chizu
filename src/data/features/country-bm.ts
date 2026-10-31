@@ -16,6 +16,39 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-bm 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-bm","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-bm; names from Natural Earth and Wikidata","features":[{"code":"Q6421145","kind":"peak","group":"peaks","name":"Town Hill","nameJa":"タウン・ヒル","reading":"タウンヒル","rank":9,"elevation":79,"path":"","bbox":[528.8,390.6,528.8,390.6],"centroid":[528.8,390.6],"neighbors":[]},{"code":"capital-BM","kind":"capital","group":"capitals","name":"Hamilton","nameJa":"ハミルトン","reading":"ハミルトン","rank":0,"path":"","bbox":[444.9,440.3,444.9,440.3],"centroid":[444.9,440.3],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-bm",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-bm; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "Q6421145",
+      kind: "peak",
+      group: "peaks",
+      name: "Town Hill",
+      nameJa: "タウン・ヒル",
+      reading: "タウンヒル",
+      rank: 9,
+      elevation: 79,
+      path: "",
+      bbox: [528.8, 390.6, 528.8, 390.6],
+      centroid: [528.8, 390.6],
+      neighbors: [],
+    },
+    {
+      code: "capital-BM",
+      kind: "capital",
+      group: "capitals",
+      name: "Hamilton",
+      nameJa: "ハミルトン",
+      reading: "ハミルトン",
+      rank: 0,
+      path: "",
+      bbox: [444.9, 440.3, 444.9, 440.3],
+      centroid: [444.9, 440.3],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

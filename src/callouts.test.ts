@@ -47,7 +47,8 @@ describe("where a circle may sit", () => {
     const land = [blockOfLand(400, 300, 600, 500)];
     const places = calloutSpaces(radius, box, { bottom: 0, right: 0 }, land);
     for (const place of places) {
-      const touching = place.x > 400 - radius && place.x < 600 + radius && place.y > 300 - radius && place.y < 500 + radius;
+      const touching =
+        place.x > 400 - radius && place.x < 600 + radius && place.y > 300 - radius && place.y < 500 + radius;
       expect(touching, `${place.x},${place.y}`).toBe(false);
     }
     expect(places.length).toBeGreaterThan(0);
@@ -139,9 +140,9 @@ describe("a leader and the land it crosses", () => {
     /* An island at the left, with a wall of land between it and the right edge. */
     const land = [blockOfLand(38, 45, 42, 55), blockOfLand(55, 0, 70, 100)];
     const [spot] = placeCallouts([entry("a", 40, 50)], 3, frame, undefined, land);
-    expect(segmentCrossesBox([spot!.x, spot!.y], [spot!.hx, spot!.hy], { minX: 55, minY: 0, maxX: 70, maxY: 100 })).toBe(
-      false,
-    );
+    expect(
+      segmentCrossesBox([spot!.x, spot!.y], [spot!.hx, spot!.hy], { minX: 55, minY: 0, maxX: 70, maxY: 100 }),
+    ).toBe(false);
   });
 
   it("keeps two leaders from crossing each other", () => {
@@ -198,7 +199,11 @@ describe.each([
     expect(crossingLeaders(placed)).toBe(0);
     const raked = placed.reduce((total, spot, i) => {
       const others = land.filter((_, k) => k !== i);
-      return total + others.filter(({ rings }) => rings.some((ring) => segmentMeetsRing(spot.x, spot.y, spot.hx, spot.hy, ring))).length;
+      return (
+        total +
+        others.filter(({ rings }) => rings.some((ring) => segmentMeetsRing(spot.x, spot.y, spot.hx, spot.hy, ring)))
+          .length
+      );
     }, 0);
     expect(raked).toBeLessThan(rakedLimit);
   });

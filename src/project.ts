@@ -107,7 +107,12 @@ export function unprojectPoint(map: Pick<ChizuMap, "projection">, x: number, y: 
     return [wrapLongitude(lon0 + l / RAD), f / RAD];
   }
   if (p.kind === "local") {
-    const [lon, lat] = localLonLat(p.centre, p.radius, (x - p.translate[0]) * p.metresPerUnit, (p.translate[1] - y) * p.metresPerUnit);
+    const [lon, lat] = localLonLat(
+      p.centre,
+      p.radius,
+      (x - p.translate[0]) * p.metresPerUnit,
+      (p.translate[1] - y) * p.metresPerUnit,
+    );
     return [lon, lat];
   }
   return null;
@@ -123,9 +128,24 @@ export const LOCAL_RADIUS = 6367449.14577;
 // Krüger's series for the transverse Mercator on the WGS 84 ellipsoid (n is its third flattening), to the fourth order in n:
 // exact to a few nanometres at 100 km and to a millimetre at 1,000 km from the centre.
 const N3 = 0.0016792203863837;
-const ALPHA = [N3 / 2 - (2 * N3 ** 2) / 3 + (5 * N3 ** 3) / 16 + (41 * N3 ** 4) / 180, (13 * N3 ** 2) / 48 - (3 * N3 ** 3) / 5 + (557 * N3 ** 4) / 1440, (61 * N3 ** 3) / 240 - (103 * N3 ** 4) / 140, (49561 * N3 ** 4) / 161280];
-const BETA = [N3 / 2 - (2 * N3 ** 2) / 3 + (37 * N3 ** 3) / 96 - N3 ** 4 / 360, N3 ** 2 / 48 + N3 ** 3 / 15 - (437 * N3 ** 4) / 1440, (17 * N3 ** 3) / 480 - (37 * N3 ** 4) / 840, (4397 * N3 ** 4) / 161280];
-const DELTA = [2 * N3 - (2 * N3 ** 2) / 3 - 2 * N3 ** 3 + (116 * N3 ** 4) / 45, (7 * N3 ** 2) / 3 - (8 * N3 ** 3) / 5 - (227 * N3 ** 4) / 45, (56 * N3 ** 3) / 15 - (136 * N3 ** 4) / 35, (4279 * N3 ** 4) / 630];
+const ALPHA = [
+  N3 / 2 - (2 * N3 ** 2) / 3 + (5 * N3 ** 3) / 16 + (41 * N3 ** 4) / 180,
+  (13 * N3 ** 2) / 48 - (3 * N3 ** 3) / 5 + (557 * N3 ** 4) / 1440,
+  (61 * N3 ** 3) / 240 - (103 * N3 ** 4) / 140,
+  (49561 * N3 ** 4) / 161280,
+];
+const BETA = [
+  N3 / 2 - (2 * N3 ** 2) / 3 + (37 * N3 ** 3) / 96 - N3 ** 4 / 360,
+  N3 ** 2 / 48 + N3 ** 3 / 15 - (437 * N3 ** 4) / 1440,
+  (17 * N3 ** 3) / 480 - (37 * N3 ** 4) / 840,
+  (4397 * N3 ** 4) / 161280,
+];
+const DELTA = [
+  2 * N3 - (2 * N3 ** 2) / 3 - 2 * N3 ** 3 + (116 * N3 ** 4) / 45,
+  (7 * N3 ** 2) / 3 - (8 * N3 ** 3) / 5 - (227 * N3 ** 4) / 45,
+  (56 * N3 ** 3) / 15 - (136 * N3 ** 4) / 35,
+  (4279 * N3 ** 4) / 630,
+];
 const E_CONF = (2 * Math.sqrt(N3)) / (1 + N3);
 
 /** The conformal latitude's northing term ξ' and easting term η' of a point east of the central meridian by `dl` radians. */
@@ -147,8 +167,13 @@ function krueger(dl: number, f: number): [number, number] {
  * WGS 84 ellipsoid, scale one on the central meridian: conformal, and true to the ellipsoid's metres to a millimetre
  * anywhere within hundreds of kilometres). Null where the projection cannot say, a quarter of the earth away.
  */
-export function localMetres(centre: readonly [number, number], radius: number, lon: number, lat: number): [number, number] | null {
-  const dl = ((((lon - centre[0] + 180) % 360) + 360) % 360 - 180) * RAD;
+export function localMetres(
+  centre: readonly [number, number],
+  radius: number,
+  lon: number,
+  lat: number,
+): [number, number] | null {
+  const dl = (((((lon - centre[0] + 180) % 360) + 360) % 360) - 180) * RAD;
   if (Math.abs(dl) > 1.2 || Math.abs(lat) > 90) return null;
   const [xi, eta] = krueger(dl, lat * RAD);
   const [xi0] = krueger(0, centre[1] * RAD);
@@ -156,7 +181,12 @@ export function localMetres(centre: readonly [number, number], radius: number, l
 }
 
 /** The longitude and latitude of the place east and north of the centre by these metres: the inverse of `localMetres`. */
-export function localLonLat(centre: readonly [number, number], radius: number, east: number, north: number): [number, number] {
+export function localLonLat(
+  centre: readonly [number, number],
+  radius: number,
+  east: number,
+  north: number,
+): [number, number] {
   const [xi0] = krueger(0, centre[1] * RAD);
   const xi = north / radius + xi0;
   const eta = east / radius;

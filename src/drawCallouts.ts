@@ -2,7 +2,8 @@ import type { CalloutSpot } from "./layout.ts";
 import { chizuSay, nameOf, type ChizuLanguage } from "./strings.ts";
 import type { ChizuRegion } from "./types.ts";
 
-const escape = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const escape = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const num = (value: number) => String(Math.round(value * 100) / 100);
 
 /**
@@ -10,7 +11,12 @@ const num = (value: number) => String(Math.round(value * 100) / 100);
  * on, its circle and its number. The one place both `drawChizu` and `drawLocal` write them, so they look alike.
  * `named` finds what a spot's code names, for the screen reader's line.
  */
-export function calloutsSvg(spots: readonly CalloutSpot[], named: (code: string) => Pick<ChizuRegion, "name" | "nameJa" | "nameShortJa"> | undefined, language: ChizuLanguage, interactive: boolean): string {
+export function calloutsSvg(
+  spots: readonly CalloutSpot[],
+  named: (code: string) => Pick<ChizuRegion, "name" | "nameJa" | "nameShortJa"> | undefined,
+  language: ChizuLanguage,
+  interactive: boolean,
+): string {
   return `<g class="cz-callouts">${spots
     .map((spot) => {
       const region = named(spot.code) ?? { name: spot.code };

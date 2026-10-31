@@ -8,10 +8,32 @@ import { regionBox, wholeMapBox } from "./frame.ts";
 import { CALLOUT_RADIUS_RATIO, layoutCallouts } from "./layout.ts";
 import { mapOutlines, segmentMeetsRing } from "./outlines.ts";
 
-const asLeaders = (spots: ReturnType<typeof layoutCallouts>) => spots.map((spot) => ({ x: spot.start[0], y: spot.start[1], hx: spot.circle[0], hy: spot.circle[1] }));
+const asLeaders = (spots: ReturnType<typeof layoutCallouts>) =>
+  spots.map((spot) => ({ x: spot.start[0], y: spot.start[1], hx: spot.circle[0], hy: spot.circle[1] }));
 
 /** Twenty countries a school atlas names, spread over the world. */
-const TWENTY = ["JP", "CN", "KR", "IN", "AU", "NZ", "US", "CA", "MX", "BR", "AR", "GB", "FR", "DE", "IT", "ES", "RU", "EG", "ZA", "KE"];
+const TWENTY = [
+  "JP",
+  "CN",
+  "KR",
+  "IN",
+  "AU",
+  "NZ",
+  "US",
+  "CA",
+  "MX",
+  "BR",
+  "AR",
+  "GB",
+  "FR",
+  "DE",
+  "IT",
+  "ES",
+  "RU",
+  "EG",
+  "ZA",
+  "KE",
+];
 
 describe("numbered circles for a map's regions", () => {
   it("numbers each region asked for, in the order asked, each with a start on its own land and a circle in the water", () => {
@@ -22,8 +44,18 @@ describe("numbered circles for a map's regions", () => {
     const land = mapOutlines(de);
     spots.forEach((spot) => {
       const at = de.regions.findIndex((region) => region.code === spot.code);
-      expect(land[at]!.rings.some((ring) => segmentMeetsRing(spot.start[0], spot.start[1], spot.start[0], spot.start[1], ring)), `${spot.code} start`).toBe(true);
-      expect(land.some(({ rings }) => rings.some((ring) => segmentMeetsRing(spot.circle[0], spot.circle[1], spot.circle[0], spot.circle[1], ring))), `${spot.code} circle`).toBe(false);
+      expect(
+        land[at]!.rings.some((ring) =>
+          segmentMeetsRing(spot.start[0], spot.start[1], spot.start[0], spot.start[1], ring),
+        ),
+        `${spot.code} start`,
+      ).toBe(true);
+      expect(
+        land.some(({ rings }) =>
+          rings.some((ring) => segmentMeetsRing(spot.circle[0], spot.circle[1], spot.circle[0], spot.circle[1], ring)),
+        ),
+        `${spot.code} circle`,
+      ).toBe(false);
       expect(spot.radius).toBeCloseTo(de.width * CALLOUT_RADIUS_RATIO);
     });
     expect(calloutFaults(asLeaders(spots), spots[0]!.radius).crossings).toBe(0);
@@ -69,7 +101,9 @@ describe("numbered circles for a map's regions", () => {
     const keepOut = { bottom: de.width * 0.3, right: 80 };
     const spots = layoutCallouts(de, { codes: de.regions.map((r) => r.code), keepOut });
     for (const spot of spots) {
-      const inCorner = spot.circle[0] > de.width - keepOut.bottom - spot.radius && spot.circle[1] > de.height - keepOut.right - spot.radius;
+      const inCorner =
+        spot.circle[0] > de.width - keepOut.bottom - spot.radius &&
+        spot.circle[1] > de.height - keepOut.right - spot.radius;
       expect(inCorner, spot.code).toBe(false);
     }
   });
@@ -82,7 +116,12 @@ describe("numbered circles on the world", () => {
     expect(spots).toHaveLength(20);
     const land = mapOutlines(world);
     for (const spot of spots) {
-      expect(land.some(({ rings }) => rings.some((ring) => segmentMeetsRing(spot.circle[0], spot.circle[1], spot.circle[0], spot.circle[1], ring))), spot.code).toBe(false);
+      expect(
+        land.some(({ rings }) =>
+          rings.some((ring) => segmentMeetsRing(spot.circle[0], spot.circle[1], spot.circle[0], spot.circle[1], ring)),
+        ),
+        spot.code,
+      ).toBe(false);
     }
     expect(calloutFaults(asLeaders(spots), spots[0]!.radius).crossings).toBe(0);
   });

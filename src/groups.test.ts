@@ -32,7 +32,11 @@ describe("the continents and subregions", () => {
     // kuni 1.1.0 follows UN M49, which puts South Georgia in South America and Heard Island in Oceania: Antarctica, which
     // the maps leave off, holds none of the countries drawn.
     expect(continent("AN").codes).toEqual([]);
-    expect([continent("SA").codes.includes("GS"), continent("OC").codes.includes("HM"), continent("AF").codes.includes("IO")]).toEqual([true, true, true]);
+    expect([
+      continent("SA").codes.includes("GS"),
+      continent("OC").codes.includes("HM"),
+      continent("AF").codes.includes("IO"),
+    ]).toEqual([true, true, true]);
   });
 
   it("put every country kuni places in a subregion in that one subregion only", () => {
@@ -44,7 +48,9 @@ describe("the continents and subregions", () => {
         seen.set(code, entry.code);
       }
     }
-    expect(CHIZU_SUBREGIONS.find((entry) => entry.code === "030")!.codes).toEqual(expect.arrayContaining(["CN", "JP", "KR", "KP", "MN", "TW"]));
+    expect(CHIZU_SUBREGIONS.find((entry) => entry.code === "030")!.codes).toEqual(
+      expect.arrayContaining(["CN", "JP", "KR", "KP", "MN", "TW"]),
+    );
   });
 });
 
@@ -65,13 +71,20 @@ describe("a group's map", () => {
     const question = findQuestion(europe, "FR", seededRandom(3))!;
     for (const choice of question.choices) expect(continent("EU").codes).toContain(choice);
     for (const code of pickDistractors(europe, "DE", { count: 5 })) expect(continent("EU").codes).toContain(code);
-    const spots = layoutCallouts(world, { codes: ["FR", "DE", "IT", "ES"], box: groupBox(world, continent("EU").codes) });
+    const spots = layoutCallouts(world, {
+      codes: ["FR", "DE", "IT", "ES"],
+      box: groupBox(world, continent("EU").codes),
+    });
     expect(spots.map((spot) => spot.code).sort()).toEqual(["DE", "ES", "FR", "IT"]);
   });
 
   it("works for any list of codes a page names, and passes over codes the map does not have", () => {
     const g7 = ["CA", "FR", "DE", "IT", "JP", "GB", "US", "XX"];
-    expect(groupMap(world, g7).regions.map((region) => region.code).sort()).toEqual(["CA", "DE", "FR", "GB", "IT", "JP", "US"]);
+    expect(
+      groupMap(world, g7)
+        .regions.map((region) => region.code)
+        .sort(),
+    ).toEqual(["CA", "DE", "FR", "GB", "IT", "JP", "US"]);
   });
 });
 
@@ -106,7 +119,14 @@ describe("framing a group", () => {
 describe("a map's own groups", () => {
   it("are the continents on the world, with their Japanese names", () => {
     const groups = regionGroups(world);
-    expect(groups.map((group) => group.name)).toEqual(["Asia", "Europe", "Africa", "North America", "South America", "Oceania"]);
+    expect(groups.map((group) => group.name)).toEqual([
+      "Asia",
+      "Europe",
+      "Africa",
+      "North America",
+      "South America",
+      "Oceania",
+    ]);
     expect(groups[0]!.nameJa).toBe("アジア");
   });
 
@@ -131,7 +151,11 @@ describe("a map's own groups", () => {
       Central: ["ON", "QC"],
     });
     const us = (await DIVISIONS_LOADERS.us!()).default;
-    expect(regionGroups(us).map((group) => group.nameJa).sort()).toEqual(["中西部", "北東部", "南部", "西部"]);
+    expect(
+      regionGroups(us)
+        .map((group) => group.nameJa)
+        .sort(),
+    ).toEqual(["中西部", "北東部", "南部", "西部"]);
   });
 });
 

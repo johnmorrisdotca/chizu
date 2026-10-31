@@ -36,7 +36,14 @@ export function regionGroups(map: Pick<ChizuMap, "regions">): ChizuGroup[] {
     if (region.unnamed) continue;
     let group = groups.get(region.group);
     if (!group) {
-      group = { code: region.group, kind: "region", name: region.group, ...(region.groupJa ? { nameJa: region.groupJa } : {}), ...(region.groupAliases ? { aliases: [...region.groupAliases] } : {}), codes: [] };
+      group = {
+        code: region.group,
+        kind: "region",
+        name: region.group,
+        ...(region.groupJa ? { nameJa: region.groupJa } : {}),
+        ...(region.groupAliases ? { aliases: [...region.groupAliases] } : {}),
+        codes: [],
+      };
       groups.set(region.group, group);
     }
     group.codes.push(String(region.code));
@@ -67,7 +74,11 @@ export function regionGroups(map: Pick<ChizuMap, "regions">): ChizuGroup[] {
  * @param names - Optional names for the resulting group map.
  * @returns The map cut down to a group: the same canvas, only the regions whose codes are given (in the map's order), only their boxes, and neighbours only among themselves. What a quiz or a callout sheet within the group is given, so that "which country of Africa is this?" offers African look-alikes and numbers African countries only. Codes the map does not have are passed over.
  */
-export function groupMap(map: ChizuMap, codes: ReadonlyArray<string | number>, names: { id?: string; name?: string; nameJa?: string } = {}): ChizuMap {
+export function groupMap(
+  map: ChizuMap,
+  codes: ReadonlyArray<string | number>,
+  names: { id?: string; name?: string; nameJa?: string } = {},
+): ChizuMap {
   const wanted = new Set(codes.map(String));
   const regions = map.regions
     .filter((region) => wanted.has(String(region.code)))
@@ -76,7 +87,7 @@ export function groupMap(map: ChizuMap, codes: ReadonlyArray<string | number>, n
     ...map,
     id: names.id ?? `${map.id}-group`,
     name: names.name ?? map.name,
-    ...(names.nameJa ?? map.nameJa ? { nameJa: names.nameJa ?? map.nameJa } : {}),
+    ...((names.nameJa ?? map.nameJa) ? { nameJa: names.nameJa ?? map.nameJa } : {}),
     insets: map.insets.filter((inset) => wanted.has(String(inset.code))),
     regions,
   };
@@ -154,7 +165,12 @@ export function groupBox(map: ChizuMap, codes: ReadonlyArray<string | number>, a
  * @param inside - Optional tone overrides for regions inside the chosen group.
  * @returns Tones that fade every region outside a group (`faint` unless another tone is named) and leave the group's own as they are, or give them `inside`'s tones: for a map of a continent drawn on the world, with its neighbours as a pale coast round it.
  */
-export function groupTones(map: Groupable, codes: ReadonlyArray<string | number>, outside = "faint", inside: Readonly<Record<string, string>> = {}): Record<string, string> {
+export function groupTones(
+  map: Groupable,
+  codes: ReadonlyArray<string | number>,
+  outside = "faint",
+  inside: Readonly<Record<string, string>> = {},
+): Record<string, string> {
   const wanted = new Set(codes.map(String));
   const tones: Record<string, string> = {};
   for (const region of map.regions) {

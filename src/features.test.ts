@@ -3,7 +3,14 @@ import { describe, expect, it } from "vitest";
 import { drawChizu } from "./draw.ts";
 import { FEATURE_LOADERS } from "./data/loaders.ts";
 import world from "./data/world.ts";
-import { CHIZU_FEATURE_GROUPS, CHIZU_FEATURE_KINDS, featureChosen, featureMap, featuresShown, findFeatures } from "./features.ts";
+import {
+  CHIZU_FEATURE_GROUPS,
+  CHIZU_FEATURE_KINDS,
+  featureChosen,
+  featureMap,
+  featuresShown,
+  findFeatures,
+} from "./features.ts";
 import { focusRegionFit } from "./frame.ts";
 import { placesFromText } from "./fromText.ts";
 import { layoutCallouts } from "./layout.ts";
@@ -38,8 +45,15 @@ describe("the features' data", () => {
         else expect(feature.path, `${id} ${feature.code}`).toMatch(/^M.*Z$/);
         const [x0, y0, x1, y1] = feature.bbox;
         // Cut to the canvas, a unit of slack either side.
-        expect(x0 >= -1.5 && y0 >= -1.5 && x1 <= map.width + 1.5 && y1 <= map.height + 1.5, `${id} ${feature.code} ${feature.bbox}`).toBe(true);
-        for (const near of feature.neighbors) expect(layer.features.some((other) => other.code === near), `${id} ${feature.code} → ${near}`).toBe(true);
+        expect(
+          x0 >= -1.5 && y0 >= -1.5 && x1 <= map.width + 1.5 && y1 <= map.height + 1.5,
+          `${id} ${feature.code} ${feature.bbox}`,
+        ).toBe(true);
+        for (const near of feature.neighbors)
+          expect(
+            layer.features.some((other) => other.code === near),
+            `${id} ${feature.code} → ${near}`,
+          ).toBe(true);
       }
     }
   }, 120_000);
@@ -47,10 +61,39 @@ describe("the features' data", () => {
   it("gives the world the great water, each once though Natural Earth draws the Pacific and the Atlantic in halves", async () => {
     const layer = await layerOf("world");
     const named = (name: string) => layer.features.filter((feature) => feature.name === name);
-    for (const name of ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Caspian Sea", "Mediterranean Sea", "Sea of Japan", "Lake Superior", "Lake Victoria", "Nile", "Amazon River", "Yangtze River", "Mississippi River"]) expect(named(name), name).toHaveLength(1);
-    expect(named("Caspian Sea")[0]).toMatchObject({ code: "Q5484", kind: "sea", nameJa: "カスピ海", reading: "かすぴかい" });
-    expect(named("Pacific Ocean")[0]).toMatchObject({ code: "Q98", kind: "ocean", nameJa: "太平洋", reading: "たいへいよう" });
-    for (const group of CHIZU_FEATURE_GROUPS) expect(layer.features.some((feature) => feature.group === group), group).toBe(true);
+    for (const name of [
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Arctic Ocean",
+      "Caspian Sea",
+      "Mediterranean Sea",
+      "Sea of Japan",
+      "Lake Superior",
+      "Lake Victoria",
+      "Nile",
+      "Amazon River",
+      "Yangtze River",
+      "Mississippi River",
+    ])
+      expect(named(name), name).toHaveLength(1);
+    expect(named("Caspian Sea")[0]).toMatchObject({
+      code: "Q5484",
+      kind: "sea",
+      nameJa: "カスピ海",
+      reading: "かすぴかい",
+    });
+    expect(named("Pacific Ocean")[0]).toMatchObject({
+      code: "Q98",
+      kind: "ocean",
+      nameJa: "太平洋",
+      reading: "たいへいよう",
+    });
+    for (const group of CHIZU_FEATURE_GROUPS)
+      expect(
+        layer.features.some((feature) => feature.group === group),
+        group,
+      ).toBe(true);
   });
 
   it("gives Japan's prefectures the seas on their coasts and the lakes and rivers on their land, named and read", async () => {
@@ -64,13 +107,19 @@ describe("the features' data", () => {
       ["Tone River", "利根川", "とねがわ"],
       ["Tsugaru Strait", "津軽海峡", "つがるかいきょう"],
       ["Mount Fuji", "富士山", "ふじさん"],
-    ]) expect(byName[name!], name).toMatchObject({ nameJa, reading });
+    ])
+      expect(byName[name!], name).toMatchObject({ nameJa, reading });
     // Nothing of a neighbour's land: no Korean river, no Chinese lake.
-    expect(layer.features.some((feature) => ["Han River", "Nakdong River", "Lake Khanka"].includes(feature.name))).toBe(false);
+    expect(layer.features.some((feature) => ["Han River", "Nakdong River", "Lake Khanka"].includes(feature.name))).toBe(
+      false,
+    );
     // The Sea of Japan's name is not written over the boxes the map draws Okinawa in.
     const japan = await mapOf("divisions-jp");
     const [x, y] = byName["Sea of Japan"]!.centroid;
-    for (const inset of japan.insets) expect(x > inset.box.x && x < inset.box.x + inset.box.width && y > inset.box.y && y < inset.box.y + inset.box.height).toBe(false);
+    for (const inset of japan.insets)
+      expect(
+        x > inset.box.x && x < inset.box.x + inset.box.width && y > inset.box.y && y < inset.box.y + inset.box.height,
+      ).toBe(false);
   });
 
   it("marks a country's capital on its maps and the world, and on Japan's prefectures each one's seat, Naha in Okinawa's box", async () => {
@@ -83,9 +132,17 @@ describe("the features' data", () => {
     expect(naha).toMatchObject({ name: "Naha", nameJa: "那覇市", reading: "なはし" });
     const map = await mapOf("divisions-jp");
     const box = map.insets.find((inset) => inset.code === "47")!.box;
-    expect(naha.centroid[0] > box.x && naha.centroid[0] < box.x + box.width && naha.centroid[1] > box.y && naha.centroid[1] < box.y + box.height).toBe(true);
+    expect(
+      naha.centroid[0] > box.x &&
+        naha.centroid[0] < box.x + box.width &&
+        naha.centroid[1] > box.y &&
+        naha.centroid[1] < box.y + box.height,
+    ).toBe(true);
     const world = await layerOf("world");
-    expect(world.features.find((feature) => feature.code === "capital-FR")).toMatchObject({ name: "Paris", nameJa: "パリ" });
+    expect(world.features.find((feature) => feature.code === "capital-FR")).toMatchObject({
+      name: "Paris",
+      nameJa: "パリ",
+    });
     expect(world.features.filter((feature) => feature.kind === "seat")).toEqual([]);
   });
 
@@ -106,13 +163,20 @@ describe("the features in the engine", () => {
   it("shows what was chosen: the water, a group, a kind, or everything", () => {
     const sea = { kind: "sea", group: "marine" } as const;
     const peak = { kind: "peak", group: "peaks" } as const;
-    expect([featureChosen(sea, ["water"]), featureChosen(peak, ["water"]), featureChosen(peak, ["all"]), featureChosen(sea, ["strait"]), featureChosen(sea, [])]).toEqual([true, false, true, false, false]);
+    expect([
+      featureChosen(sea, ["water"]),
+      featureChosen(peak, ["water"]),
+      featureChosen(peak, ["all"]),
+      featureChosen(sea, ["strait"]),
+      featureChosen(sea, []),
+    ]).toEqual([true, false, true, false, false]);
     expect(featuresShown(null, ["water"])).toEqual([]);
   });
 
   it("finds a feature by its English, its Japanese or its reading, the closest match first", async () => {
     const layer = await layerOf("world");
-    for (const typed of ["caspian", "Caspian Sea", "カスピ", "かすぴかい", "q5484"]) expect(findFeatures(layer.features, typed)[0]?.code, typed).toBe("Q5484");
+    for (const typed of ["caspian", "Caspian Sea", "カスピ", "かすぴかい", "q5484"])
+      expect(findFeatures(layer.features, typed)[0]?.code, typed).toBe("Q5484");
     expect(findFeatures(layer.features, "")).toEqual([]);
     expect(findFeatures(layer.features, "sea", { limit: 3 })).toHaveLength(3);
   });
@@ -125,7 +189,10 @@ describe("the features in the engine", () => {
     expect(question.choices).toHaveLength(4);
     expect(question.choices[question.answerIndex]).toBe("Q5484");
     expect(focusRegionFit(water, "Q5484")?.zoom).toBeGreaterThan(1);
-    expect(placesFromText("Caspian Sea, 太平洋, Atlantis", water.regions)).toEqual({ codes: ["Q5484", "Q98"], missing: ["Atlantis"] });
+    expect(placesFromText("Caspian Sea, 太平洋, Atlantis", water.regions)).toEqual({
+      codes: ["Q5484", "Q98"],
+      missing: ["Atlantis"],
+    });
   });
 
   it("numbers features in callouts, from where their names go", async () => {
@@ -163,7 +230,9 @@ describe("the features in a drawing", () => {
     expect(svg).toContain('aria-label="Caspian Sea, Sea"');
     expect(svg).toContain('class="cz-feature-label cz-water-label cz-sea-label"');
     // A feature from another map's layer is never drawn on this one.
-    expect(drawChizu(world, { features: ["all"], featureLayer: { ...layer, map: "divisions-jp" } })).toBe(drawChizu(world));
+    expect(drawChizu(world, { features: ["all"], featureLayer: { ...layer, map: "divisions-jp" } })).toBe(
+      drawChizu(world),
+    );
   });
 
   it("draws a toned feature whose group is off, and puts no names on the water when asked for none", async () => {
@@ -174,8 +243,12 @@ describe("the features in a drawing", () => {
     expect(svg.match(/class="cz-feature /g)).toHaveLength(1);
     expect(svg).toContain(">琵琶湖</text>");
     // The boxes Okinawa is drawn in are given the plain sea again over the Sea of Japan.
-    expect(drawChizu(japan, { features: ["marine"], featureLayer: layer, featureLabels: false })).toContain('class="cz-inset-sea"');
-    expect(drawChizu(japan, { features: ["marine"], featureLayer: layer, featureLabels: false })).not.toContain("cz-feature-label");
+    expect(drawChizu(japan, { features: ["marine"], featureLayer: layer, featureLabels: false })).toContain(
+      'class="cz-inset-sea"',
+    );
+    expect(drawChizu(japan, { features: ["marine"], featureLayer: layer, featureLabels: false })).not.toContain(
+      "cz-feature-label",
+    );
   });
 });
 
@@ -185,12 +258,18 @@ describe("the seats of regions drawn whole in boxes of their own", () => {
     const us = await mapOf("divisions-us");
     const seats = layer.features.filter((feature) => feature.kind === "seat");
     expect(seats).toHaveLength(50);
-    for (const [code, name] of [["AK", "Juneau"], ["HI", "Honolulu"]] as const) {
+    for (const [code, name] of [
+      ["AK", "Juneau"],
+      ["HI", "Honolulu"],
+    ] as const) {
       const seat = seats.find((feature) => feature.code === `seat-US-${code}`)!;
       const box = us.insets.find((inset) => inset.code === code)!.box;
       expect(seat.name).toBe(name);
       const [x, y] = seat.centroid;
-      expect(x >= box.x && x <= box.x + box.width && y >= box.y && y <= box.y + box.height, `${name} ${seat.centroid} in ${JSON.stringify(box)}`).toBe(true);
+      expect(
+        x >= box.x && x <= box.x + box.width && y >= box.y && y <= box.y + box.height,
+        `${name} ${seat.centroid} in ${JSON.stringify(box)}`,
+      ).toBe(true);
     }
   });
 });

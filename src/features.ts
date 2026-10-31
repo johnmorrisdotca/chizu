@@ -1,4 +1,11 @@
-import type { ChizuFeature, ChizuFeatureGroup, ChizuFeatureKind, ChizuFeatureLayer, ChizuMap, ChizuRegion } from "./types.ts";
+import type {
+  ChizuFeature,
+  ChizuFeatureGroup,
+  ChizuFeatureKind,
+  ChizuFeatureLayer,
+  ChizuMap,
+  ChizuRegion,
+} from "./types.ts";
 
 /**
  * NAMED FEATURES: the oceans, seas, bays and straits, the lakes and reservoirs, the rivers, the deserts, ranges and
@@ -19,7 +26,14 @@ import type { ChizuFeature, ChizuFeatureGroup, ChizuFeatureKind, ChizuFeatureLay
  * // marine landforms lakes rivers peaks capitals
  * ```
  */
-export const CHIZU_FEATURE_GROUPS: readonly ChizuFeatureGroup[] = ["marine", "landforms", "lakes", "rivers", "peaks", "capitals"];
+export const CHIZU_FEATURE_GROUPS: readonly ChizuFeatureGroup[] = [
+  "marine",
+  "landforms",
+  "lakes",
+  "rivers",
+  "peaks",
+  "capitals",
+];
 
 /**
  * The kinds in each group.
@@ -34,7 +48,24 @@ export const CHIZU_FEATURE_GROUPS: readonly ChizuFeatureGroup[] = ["marine", "la
  */
 export const CHIZU_FEATURE_KINDS: Readonly<Record<ChizuFeatureGroup, readonly ChizuFeatureKind[]>> = {
   marine: ["ocean", "sea", "gulf", "bay", "strait", "channel", "sound", "fjord", "inlet", "lagoon", "reef"],
-  landforms: ["desert", "range", "plateau", "plain", "peninsula", "cape", "basin", "delta", "valley", "wetland", "tundra", "isthmus", "depression", "lowland", "gorge", "foothills"],
+  landforms: [
+    "desert",
+    "range",
+    "plateau",
+    "plain",
+    "peninsula",
+    "cape",
+    "basin",
+    "delta",
+    "valley",
+    "wetland",
+    "tundra",
+    "isthmus",
+    "depression",
+    "lowland",
+    "gorge",
+    "foothills",
+  ],
   lakes: ["lake", "reservoir"],
   rivers: ["river"],
   peaks: ["peak"],
@@ -74,8 +105,17 @@ const WATER: readonly ChizuFeatureGroup[] = ["marine", "lakes", "rivers"];
  * @param choices - Native physical-feature groups, kinds, water or all selections.
  * @returns Whether a feature is among the choices.
  */
-export function featureChosen(feature: Pick<ChizuFeature, "kind" | "group">, choices: readonly ChizuFeatureChoice[]): boolean {
-  return choices.some((choice) => choice === "all" || choice === feature.group || choice === feature.kind || (choice === "water" && WATER.includes(feature.group)));
+export function featureChosen(
+  feature: Pick<ChizuFeature, "kind" | "group">,
+  choices: readonly ChizuFeatureChoice[],
+): boolean {
+  return choices.some(
+    (choice) =>
+      choice === "all" ||
+      choice === feature.group ||
+      choice === feature.kind ||
+      (choice === "water" && WATER.includes(feature.group)),
+  );
 }
 
 /**
@@ -95,7 +135,10 @@ export function featureChosen(feature: Pick<ChizuFeature, "kind" | "group">, cho
  * @param choices - Native physical-feature groups, kinds, water or all selections.
  * @returns The features of a layer that are among the choices, in the layer's order (seas first, peaks last).
  */
-export function featuresShown(layer: Pick<ChizuFeatureLayer, "features"> | null | undefined, choices: readonly ChizuFeatureChoice[] = ["all"]): ChizuFeature[] {
+export function featuresShown(
+  layer: Pick<ChizuFeatureLayer, "features"> | null | undefined,
+  choices: readonly ChizuFeatureChoice[] = ["all"],
+): ChizuFeature[] {
   if (!layer || choices.length === 0) return [];
   return layer.features.filter((feature) => featureChosen(feature, choices));
 }
@@ -123,7 +166,11 @@ export function featuresShown(layer: Pick<ChizuFeatureLayer, "features"> | null 
  * @param choices - Native physical-feature groups, kinds, water or all selections.
  * @returns A layer as a map of its own: the same canvas, the features as its regions. Every function of the engine takes it, so a sea is framed with `focusBox`, asked about with `findQuestion` (its look-alikes are the seas next to it, then the rest of its group, then the nearest), and read from a paste with `placesFromText`.
  */
-export function featureMap(map: ChizuMap, layer: Pick<ChizuFeatureLayer, "features">, choices: readonly ChizuFeatureChoice[] = ["all"]): ChizuMap {
+export function featureMap(
+  map: ChizuMap,
+  layer: Pick<ChizuFeatureLayer, "features">,
+  choices: readonly ChizuFeatureChoice[] = ["all"],
+): ChizuMap {
   const regions: ChizuRegion[] = featuresShown(layer, choices).map((feature) => ({ ...feature }));
   return { ...map, id: `${map.id}-features`, regionName: "Feature", regionNamePlural: "Features", insets: [], regions };
 }
@@ -163,7 +210,11 @@ function fold(text: string): string {
  * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
  * @returns The features a few typed letters may mean, best first: a name (English or Japanese) or reading that is the words typed, then one that begins with them, then one with a word that does, then one that holds them anywhere; within each, the higher ranked first. Case, accents, kana and spacing never matter, so `caspian`, `カスピ` and `かすぴ` all find the Caspian Sea. Up to `limit` (default 10).
  */
-export function findFeatures<T extends Pick<ChizuFeature, "code" | "name" | "nameJa" | "reading" | "rank">>(features: readonly T[], typed: string, options: { limit?: number } = {}): T[] {
+export function findFeatures<T extends Pick<ChizuFeature, "code" | "name" | "nameJa" | "reading" | "rank">>(
+  features: readonly T[],
+  typed: string,
+  options: { limit?: number } = {},
+): T[] {
   const needle = fold(typed);
   if (needle === "") return [];
   const scored: Array<{ feature: T; score: number }> = [];
@@ -173,12 +224,27 @@ export function findFeatures<T extends Pick<ChizuFeature, "code" | "name" | "nam
     for (const name of names) {
       if (!name) continue;
       const folded = fold(name);
-      const words = name.toLowerCase().split(/[\s-]+/u).map(fold);
-      const score = folded === needle ? 4 : folded.startsWith(needle) ? 3 : words.some((word) => word.startsWith(needle)) ? 2 : folded.includes(needle) ? 1 : 0;
+      const words = name
+        .toLowerCase()
+        .split(/[\s-]+/u)
+        .map(fold);
+      const score =
+        folded === needle
+          ? 4
+          : folded.startsWith(needle)
+            ? 3
+            : words.some((word) => word.startsWith(needle))
+              ? 2
+              : folded.includes(needle)
+                ? 1
+                : 0;
       best = Math.max(best, score);
     }
     if (best > 0) scored.push({ feature, score: best });
   }
-  scored.sort((a, b) => b.score - a.score || a.feature.rank - b.feature.rank || a.feature.name.localeCompare(b.feature.name, "en"));
+  scored.sort(
+    (a, b) =>
+      b.score - a.score || a.feature.rank - b.feature.rank || a.feature.name.localeCompare(b.feature.name, "en"),
+  );
   return scored.slice(0, options.limit ?? 10).map((entry) => entry.feature);
 }

@@ -84,7 +84,8 @@ export type ChizuLocalDrawOptions = {
   naturalEarth?: boolean;
 };
 
-const escape = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const escape = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const num = (value: number) => String(Math.round(value * 100) / 100);
 const LABEL_RATIO = 0.016;
 const CREDIT_RATIO = 0.0135;
@@ -92,7 +93,8 @@ const CREDIT_RATIO = 0.0135;
 const safeWord = (value: unknown) => typeof value === "string" && /^[A-Za-z_][\w-]{0,40}$/.test(value);
 const safeColour = (value: unknown) => (typeof value === "string" && isChizuColour(value) ? value.trim() : null);
 const unit01 = (value: unknown) => (typeof value === "number" && value >= 0 && value <= 1 ? value : null);
-const SAFE_VAR_VALUE = /^(?:-?\d{1,6}(?:\.\d{1,4})?(?:px|%|em|rem|deg)?|(#[0-9a-f]{3,8}|[a-z]{3,30}|(?:rgb|hsl)a?\([0-9a-z.,%\s/+-]{1,60}\)|var\(--[a-z0-9_-]{1,40}\)))$/i;
+const SAFE_VAR_VALUE =
+  /^(?:-?\d{1,6}(?:\.\d{1,4})?(?:px|%|em|rem|deg)?|(#[0-9a-f]{3,8}|[a-z]{3,30}|(?:rgb|hsl)a?\([0-9a-z.,%\s/+-]{1,60}\)|var\(--[a-z0-9_-]{1,40}\)))$/i;
 
 /** A distance in metres in words: 40 m, 1.5 km. */
 export function metresText(metres: number): string {
@@ -107,7 +109,11 @@ function roundLength(most: number): number {
 }
 
 /** The look merged from the styles that apply to a shape, as a style attribute, the classes it adds and whether it is measured in metres. */
-function lookOf(shape: ChizuLocalShape, styles: Readonly<Record<string, ChizuLocalStyle>>, metresPerUnit: number): { style: string; classes: string[] } {
+function lookOf(
+  shape: ChizuLocalShape,
+  styles: Readonly<Record<string, ChizuLocalStyle>>,
+  metresPerUnit: number,
+): { style: string; classes: string[] } {
   const keys = [...(shape.type ? [shape.type] : []), ...shape.classes, shape.id];
   const merged: ChizuLocalStyle = {};
   const classes: string[] = [];
@@ -115,7 +121,11 @@ function lookOf(shape: ChizuLocalShape, styles: Readonly<Record<string, ChizuLoc
     if (!Object.hasOwn(styles, key)) continue;
     const one = styles[key]!;
     Object.assign(merged, { ...one, dark: { ...merged.dark, ...one.dark }, vars: { ...merged.vars, ...one.vars } });
-    classes.push(...(Array.isArray(one.class) ? one.class : typeof one.class === "string" ? one.class.split(/\s+/) : []).filter(safeWord));
+    classes.push(
+      ...(Array.isArray(one.class) ? one.class : typeof one.class === "string" ? one.class.split(/\s+/) : []).filter(
+        safeWord,
+      ),
+    );
   }
   const parts: string[] = [];
   const set = (name: string, value: string | null) => value && parts.push(`${name}:${value}`);
@@ -126,14 +136,21 @@ function lookOf(shape: ChizuLocalShape, styles: Readonly<Record<string, ChizuLoc
   if (typeof merged.widthMetres === "number" && merged.widthMetres > 0 && merged.widthMetres <= 100_000) {
     set("--cz-stroke-width", `${Math.round((merged.widthMetres / metresPerUnit) * 1000) / 1000}px`);
     classes.push("cz-metric");
-  } else if (typeof merged.strokeWidth === "number" && merged.strokeWidth >= 0 && merged.strokeWidth <= 40) set("--cz-stroke-width", `${merged.strokeWidth}px`);
+  } else if (typeof merged.strokeWidth === "number" && merged.strokeWidth >= 0 && merged.strokeWidth <= 40)
+    set("--cz-stroke-width", `${merged.strokeWidth}px`);
   set("--cz-opacity", unit01(merged.opacity) === null ? null : String(merged.opacity));
   set("--cz-fill-opacity", unit01(merged.fillOpacity) === null ? null : String(merged.fillOpacity));
-  for (const [name, value] of Object.entries(merged.vars ?? {})) if (/^--[A-Za-z][\w-]{0,40}$/.test(name) && typeof value === "string" && SAFE_VAR_VALUE.test(value.trim())) parts.push(`${name}:${value.trim()}`);
+  for (const [name, value] of Object.entries(merged.vars ?? {}))
+    if (/^--[A-Za-z][\w-]{0,40}$/.test(name) && typeof value === "string" && SAFE_VAR_VALUE.test(value.trim()))
+      parts.push(`${name}:${value.trim()}`);
   return { style: parts.join(";"), classes };
 }
 
-const meets = (bbox: readonly number[], box: MapBox, margin: number) => bbox[2]! >= box.x - margin && bbox[0]! <= box.x + box.width + margin && bbox[3]! >= box.y - margin && bbox[1]! <= box.y + box.height + margin;
+const meets = (bbox: readonly number[], box: MapBox, margin: number) =>
+  bbox[2]! >= box.x - margin &&
+  bbox[0]! <= box.x + box.width + margin &&
+  bbox[3]! >= box.y - margin &&
+  bbox[1]! <= box.y + box.height + margin;
 
 /** A name that fits the width given, in characters of its size, else cut with an ellipsis. */
 function fitted(text: string, size: number, room: number, ja: boolean): { text: string; size: number } {
@@ -141,7 +158,8 @@ function fitted(text: string, size: number, room: number, ja: boolean): { text: 
   let s = size;
   if (width(text, s) > room) s = Math.max(size * 0.7, room / (text.length * (ja ? 1 : 0.52)));
   let out = text;
-  while (out.length > 1 && width(out, s) > room) out = `${out.slice(0, Math.max(1, Math.floor(room / (s * (ja ? 1 : 0.52))) - 1))}…`;
+  while (out.length > 1 && width(out, s) > room)
+    out = `${out.slice(0, Math.max(1, Math.floor(room / (s * (ja ? 1 : 0.52))) - 1))}…`;
   return { text: out, size: s };
 }
 
@@ -185,7 +203,8 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
   const styles = options.styles ?? {};
   const interactive = options.interactive === true;
   const margin = box.width * 0.02;
-  const nameFor = (item: { name?: string; nameJa?: string; id: string }) => nameOf({ name: item.name ?? item.id, nameJa: item.nameJa }, language);
+  const nameFor = (item: { name?: string; nameJa?: string; id: string }) =>
+    nameOf({ name: item.name ?? item.id, nameJa: item.nameJa }, language);
 
   // The shapes, in the order given.
   const drawn: string[] = [];
@@ -199,11 +218,20 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
       (shape.type ? ` data-type="${shape.type}"` : "") +
       (tone ? ` data-tone="${escape(tone)}"` : "") +
       (look.style ? ` style="${escape(look.style)}"` : "") +
-      (interactive ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(name ?? shape.id)}"` : "");
+      (interactive
+        ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(name ?? shape.id)}"`
+        : "");
     const title = name ? `<title>${escape(name)}</title>` : "";
-    if (shape.kind === "area") drawn.push(`<g ${attributes}>${title}<path class="cz-local-area" d="${shape.path}"/></g>`);
-    else if (shape.kind === "line") drawn.push(`<g ${attributes}>${title}${interactive ? `<path class="cz-local-hit" d="${shape.path}"/>` : ""}<path class="cz-local-line" d="${shape.path}"/></g>`);
-    else drawn.push(`<g ${attributes}>${title}<circle class="cz-local-point" cx="${num(shape.centroid[0])}" cy="${num(shape.centroid[1])}" r="${num(box.width * 0.006)}"/></g>`);
+    if (shape.kind === "area")
+      drawn.push(`<g ${attributes}>${title}<path class="cz-local-area" d="${shape.path}"/></g>`);
+    else if (shape.kind === "line")
+      drawn.push(
+        `<g ${attributes}>${title}${interactive ? `<path class="cz-local-hit" d="${shape.path}"/>` : ""}<path class="cz-local-line" d="${shape.path}"/></g>`,
+      );
+    else
+      drawn.push(
+        `<g ${attributes}>${title}<circle class="cz-local-point" cx="${num(shape.centroid[0])}" cy="${num(shape.centroid[1])}" r="${num(box.width * 0.006)}"/></g>`,
+      );
   }
 
   // The pictures.
@@ -215,7 +243,9 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
       const move = `translate(${num(marker.at[0])} ${num(marker.at[1])})${marker.rotation ? ` rotate(${marker.rotation})` : ""} scale(${marker.scale}) translate(${-marker.anchor[0]} ${-marker.anchor[1]})`;
       pictures.push(
         `<g class="cz-marker${marker.classes.length ? ` ${marker.classes.join(" ")}` : ""}" data-code="${escape(marker.id)}" data-bearing="${marker.bearing}" transform="${move}"` +
-          (interactive ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(name ?? marker.id)}"` : "") +
+          (interactive
+            ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(name ?? marker.id)}"`
+            : "") +
           `>${name ? `<title>${escape(name)}</title>` : ""}${marker.markup}</g>`,
       );
     }
@@ -224,13 +254,20 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
   // The credit lines and the scale bar sit in the bottom-right corner, and the callouts keep out of it.
   const cs = box.width * CREDIT_RATIO;
   const gap = box.width * 0.012;
-  const creditLines = [...(options.naturalEarth ? [chizuSay(language, "creditNaturalEarth")] : []), ...map.credits, ...(options.credits ?? [])].filter((line) => typeof line === "string" && line.trim() !== "");
+  const creditLines = [
+    ...(options.naturalEarth ? [chizuSay(language, "creditNaturalEarth")] : []),
+    ...map.credits,
+    ...(options.credits ?? []),
+  ].filter((line) => typeof line === "string" && line.trim() !== "");
   const creditText = creditLines.map((line) => fitted(line, cs, box.width - gap * 2, ja));
   const lineHeight = cs * 1.35;
   const right = box.x + box.width - gap;
   const bottom = box.y + box.height - gap;
   const credits = creditText
-    .map((line, i) => `<text class="cz-credit" x="${num(right)}" y="${num(bottom - (creditText.length - 1 - i) * lineHeight - cs * 0.2)}" font-size="${num(line.size)}">${escape(line.text)}</text>`)
+    .map(
+      (line, i) =>
+        `<text class="cz-credit" x="${num(right)}" y="${num(bottom - (creditText.length - 1 - i) * lineHeight - cs * 0.2)}" font-size="${num(line.size)}">${escape(line.text)}</text>`,
+    )
     .join("");
   const creditsTop = bottom - creditText.length * lineHeight;
   let scale = "";
@@ -248,7 +285,8 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
     scaleWidth = Math.max(length, words.length * cs * 0.6);
     scaleHeight = box.y + box.height - (y - tick - cs * 1.4);
   }
-  const keepWidth = Math.max(scaleWidth, ...creditText.map((line) => line.text.length * line.size * (ja ? 1 : 0.52))) + gap * 2;
+  const keepWidth =
+    Math.max(scaleWidth, ...creditText.map((line) => line.text.length * line.size * (ja ? 1 : 0.52))) + gap * 2;
   const keepHeight = Math.max(scaleHeight, creditText.length * lineHeight + gap * 2);
   const crowded = creditText.length > 0 || scaleWidth > 0;
 
@@ -272,14 +310,40 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
         const at = outline?.anchor ?? shape.centroid;
         const widest = Math.max(0, ...(outline?.rings ?? []).map((ring) => ring.maxX - ring.minX));
         candidates.push({ id: shape.id, text, x: at[0], y: at[1], start: false, weight: widest, room: widest * 1.15 });
-      } else if (shape.kind === "line") candidates.push({ id: shape.id, text, x: shape.centroid[0], y: shape.centroid[1], start: false, weight: 0, room: Infinity });
-      else candidates.push({ id: shape.id, text, x: shape.centroid[0] + size * 0.9, y: shape.centroid[1], start: true, weight: 0, room: Infinity });
+      } else if (shape.kind === "line")
+        candidates.push({
+          id: shape.id,
+          text,
+          x: shape.centroid[0],
+          y: shape.centroid[1],
+          start: false,
+          weight: 0,
+          room: Infinity,
+        });
+      else
+        candidates.push({
+          id: shape.id,
+          text,
+          x: shape.centroid[0] + size * 0.9,
+          y: shape.centroid[1],
+          start: true,
+          weight: 0,
+          room: Infinity,
+        });
     }
     if (options.markers !== false) {
       for (const marker of map.markers) {
         if (!marker.name && !marker.nameJa) continue;
         if (only !== null && !only.has(marker.id)) continue;
-        candidates.push({ id: marker.id, text: nameFor(marker), x: marker.at[0], y: marker.at[1], start: false, weight: 0, room: Infinity });
+        candidates.push({
+          id: marker.id,
+          text: nameFor(marker),
+          x: marker.at[0],
+          y: marker.at[1],
+          start: false,
+          weight: 0,
+          room: Infinity,
+        });
       }
     }
     // The explicitly asked-for first, then the larger areas.
@@ -288,10 +352,18 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
       const wide = c.text.length * size * (ja ? 1 : 0.55);
       if (only === null && wide > c.room) continue;
       if (c.x < box.x || c.x > box.x + box.width || c.y < box.y || c.y > box.y + box.height) continue;
-      const rect: [number, number, number, number] = c.start ? [c.x, c.y - size / 2, c.x + wide, c.y + size / 2] : [c.x - wide / 2, c.y - size / 2, c.x + wide / 2, c.y + size / 2];
-      if (only === null && placed.some((other) => rect[0] < other[2] && rect[2] > other[0] && rect[1] < other[3] && rect[3] > other[1])) continue;
+      const rect: [number, number, number, number] = c.start
+        ? [c.x, c.y - size / 2, c.x + wide, c.y + size / 2]
+        : [c.x - wide / 2, c.y - size / 2, c.x + wide / 2, c.y + size / 2];
+      if (
+        only === null &&
+        placed.some((other) => rect[0] < other[2] && rect[2] > other[0] && rect[1] < other[3] && rect[3] > other[1])
+      )
+        continue;
       placed.push(rect);
-      parts.push(`<text class="cz-label cz-local-label${c.start ? " cz-local-label-start" : ""}" x="${num(c.x)}" y="${num(c.y)}" font-size="${num(size)}" data-code="${escape(c.id)}">${escape(c.text)}</text>`);
+      parts.push(
+        `<text class="cz-label cz-local-label${c.start ? " cz-local-label-start" : ""}" x="${num(c.x)}" y="${num(c.y)}" font-size="${num(size)}" data-code="${escape(c.id)}">${escape(c.text)}</text>`,
+      );
     }
     labels = parts.length ? `<g class="cz-labels">${parts.join("")}</g>` : "";
   }
@@ -299,9 +371,19 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
   // The numbered circles.
   let callouts = "";
   if (options.callouts) {
-    const request = Array.isArray(options.callouts) ? { codes: options.callouts as readonly string[] } : (options.callouts as Omit<CalloutRequest, "box">);
-    const others = [...map.shapes.filter((shape) => shape.kind !== "area"), ...(options.markers === false ? [] : map.markers)].map((one) => ({ code: one.id, centroid: "at" in one ? one.at : one.centroid }));
-    const keepOut = crowded ? { bottom: Math.max(request.keepOut?.bottom ?? 0, keepWidth), right: Math.max(request.keepOut?.right ?? 0, keepHeight) } : request.keepOut;
+    const request = Array.isArray(options.callouts)
+      ? { codes: options.callouts as readonly string[] }
+      : (options.callouts as Omit<CalloutRequest, "box">);
+    const others = [
+      ...map.shapes.filter((shape) => shape.kind !== "area"),
+      ...(options.markers === false ? [] : map.markers),
+    ].map((one) => ({ code: one.id, centroid: "at" in one ? one.at : one.centroid }));
+    const keepOut = crowded
+      ? {
+          bottom: Math.max(request.keepOut?.bottom ?? 0, keepWidth),
+          right: Math.max(request.keepOut?.right ?? 0, keepHeight),
+        }
+      : request.keepOut;
     const spots = layoutCallouts(map, { features: others, ...request, ...(keepOut ? { keepOut } : {}), box });
     const named = (code: string) => {
       const found = map.shapes.find((shape) => shape.id === code) ?? map.markers.find((marker) => marker.id === code);
@@ -311,7 +393,11 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
   }
 
   const size = metresText(box.width * mpu);
-  const label = options.label ?? (map.name || map.nameJa ? chizuSay(language, "map", { name: ja ? (map.nameJa ?? map.name) : map.name || map.nameJa || "" }) : chizuSay(language, "localMap", { size }));
+  const label =
+    options.label ??
+    (map.name || map.nameJa
+      ? chizuSay(language, "map", { name: ja ? (map.nameJa ?? map.name) : map.name || map.nameJa || "" })
+      : chizuSay(language, "localMap", { size }));
   const style = options.style ? `<style>${CHIZU_STYLE}${CHIZU_LOCAL_STYLE}</style>` : "";
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" class="chizu cz-local" viewBox="${num(box.x)} ${num(box.y)} ${num(box.width)} ${num(box.height)}" role="${interactive ? "group" : "img"}" aria-label="${escape(label)}" data-map="${escape(map.id)}" data-metres-per-unit="${mpu}">` +

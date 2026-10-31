@@ -3,7 +3,10 @@ import { expect, test } from "@playwright/test";
 
 import { at, noSidewaysScroll, open, region, svg, tap } from "./demo.mjs";
 
-const viewBox = (page) => svg(page).getAttribute("viewBox").then((text) => text.split(" ").map(Number));
+const viewBox = (page) =>
+  svg(page)
+    .getAttribute("viewBox")
+    .then((text) => text.split(" ").map(Number));
 
 test("the world is drawn with every country when asked for, and nothing is chosen at first", async ({ page }) => {
   const errors = await open(page, "?map=world");
@@ -46,7 +49,9 @@ test("in Japanese the names read Japanese first, with the reading", async ({ pag
   await expect(page.locator("#names tbody tr[data-code='CA'] td").nth(3)).toHaveText("カリフォルニア州");
 });
 
-test("the table of names lists every place in both languages, narrows as you type and chooses on a press", async ({ page }) => {
+test("the table of names lists every place in both languages, narrows as you type and chooses on a press", async ({
+  page,
+}) => {
   await open(page, "?map=world");
   const rows = page.locator("#names tbody tr");
   await expect(rows).toHaveCount(173);
@@ -61,7 +66,9 @@ test("the table of names lists every place in both languages, narrows as you typ
   await expect(rows.first()).toHaveAttribute("aria-selected", "true");
 });
 
-test("the map chooser offers Japan first, the world, its continents, 31 other countries' regions and every country alone", async ({ page }) => {
+test("the map chooser offers Japan first, the world, its continents, 31 other countries' regions and every country alone", async ({
+  page,
+}) => {
   await open(page, "?map=world");
   const groups = page.locator("#map optgroup");
   await expect(groups).toHaveCount(5);
@@ -98,7 +105,10 @@ test("the buttons zoom in ten steps and the whole-map button comes back", async 
   const [, , width10] = await viewBox(page);
   expect(width10).toBeCloseTo(1000 / 10, 1);
   // The coastline's line is as thin at 10× as at 1×: its width does not grow with the zoom.
-  const stroke = await page.locator(`${at("board")} .cz-land`).first().evaluate((node) => getComputedStyle(node).vectorEffect);
+  const stroke = await page
+    .locator(`${at("board")} .cz-land`)
+    .first()
+    .evaluate((node) => getComputedStyle(node).vectorEffect);
   expect(stroke).toBe("non-scaling-stroke");
   await zoomOut.click();
   await expect(stage).toHaveAttribute("data-zoom", "9");
@@ -107,7 +117,9 @@ test("the buttons zoom in ten steps and the whole-map button comes back", async 
   expect(await viewBox(page)).toEqual([0, 0, 1000, 740]);
 });
 
-test("dragging moves the window and keeps it on a country's map, and the keyboard moves and zooms it too", async ({ page }) => {
+test("dragging moves the window and keeps it on a country's map, and the keyboard moves and zooms it too", async ({
+  page,
+}) => {
   await open(page, "?map=divisions:us");
   const stage = page.locator(`${at("board")} .czm-stage`);
   await page.locator(`${at("board")} [data-action="zoom-in"]`).click();
@@ -151,7 +163,9 @@ test("a drag is not a press: nothing is chosen by moving the map", async ({ page
   await expect(page.locator(`${at("board")} .czm-says`)).toHaveText("Nothing chosen");
 });
 
-test("the world goes round: dragged past its edge it draws the land again on the far side, and is never stopped east or west", async ({ page }) => {
+test("the world goes round: dragged past its edge it draws the land again on the far side, and is never stopped east or west", async ({
+  page,
+}) => {
   await open(page, "?map=world");
   const stage = page.locator(`${at("board")} .czm-stage`);
   await expect(page.locator(`${at("board")} .cz-land-copy`)).toHaveCount(1);

@@ -20,7 +20,11 @@ const scratch = mkdtempSync(join(tmpdir(), "chizu-package-"));
 function run(command, args, cwd, viaShell = false) {
   const shell = viaShell && windows;
   // A path is quoted for the shell; a bare name such as npm is left for the shell to find.
-  const ran = spawnSync(shell && /[\\/]/.test(command) ? `"${command}"` : command, args, { cwd, encoding: "utf8", shell });
+  const ran = spawnSync(shell && /[\\/]/.test(command) ? `"${command}"` : command, args, {
+    cwd,
+    encoding: "utf8",
+    shell,
+  });
   if (ran.status !== 0) {
     console.error(`FAIL ${command} ${args.join(" ")}\n${ran.stdout}\n${ran.stderr}`);
     process.exit(1);
@@ -29,7 +33,9 @@ function run(command, args, cwd, viaShell = false) {
 }
 
 // 1. Pack, with npm.
-const packed = JSON.parse(run("npm", ["pack", "--json", "--ignore-scripts", "--pack-destination", scratch], root, true));
+const packed = JSON.parse(
+  run("npm", ["pack", "--json", "--ignore-scripts", "--pack-destination", scratch], root, true),
+);
 const tarball = join(scratch, packed[0].filename);
 const inTarball = new Set(packed[0].files.map((file) => file.path));
 console.log(`ok   npm pack: ${packed[0].filename}, ${packed[0].files.length} files`);
@@ -42,11 +48,21 @@ if (shipped.length > 0) {
 console.log("ok   no picture and nothing from docs/ is in the tarball");
 
 // 2. Everything package.json points at is in the tarball.
-const pointed = [pkg.main, pkg.module, pkg.types, ...Object.values(pkg.bin ?? {}), ...Object.values(pkg.exports).flatMap((entry) => (typeof entry === "string" ? [entry] : Object.values(entry)))];
+const pointed = [
+  pkg.main,
+  pkg.module,
+  pkg.types,
+  ...Object.values(pkg.bin ?? {}),
+  ...Object.values(pkg.exports).flatMap((entry) => (typeof entry === "string" ? [entry] : Object.values(entry))),
+];
 // A pattern (`./dist/data/countries/*.js`) points at every file it matches: at least one, and none that is only a declaration.
 for (const file of new Set(pointed)) {
   const wanted = file.replace(/^\.\//, "");
-  const found = wanted.includes("*") ? [...inTarball].some((name) => new RegExp(`^${wanted.replace(/[.]/g, "\\.").replace("*", "[a-z0-9-]+")}$`).test(name)) : inTarball.has(wanted);
+  const found = wanted.includes("*")
+    ? [...inTarball].some((name) =>
+        new RegExp(`^${wanted.replace(/[.]/g, "\\.").replace("*", "[a-z0-9-]+")}$`).test(name),
+      )
+    : inTarball.has(wanted);
   if (!found) {
     console.error(`FAIL package.json points at ${file}, which is not in the tarball`);
     process.exit(1);
@@ -76,7 +92,11 @@ const question = local.findQuestion(localWorld, "FR", local.seededRandom(7));
 const spots = local.layoutCallouts(localWorld, { codes: ["JP", "BR", "EG", "AU"], radiusRatio: 0.02 });
 
 // 4. Every entry in `exports`, by ESM and by require. A pattern is tried on a few of the files it matches.
-const SAMPLES = { "./countries/*": ["fr", "jp", "sg"], "./divisions/*": ["de", "us", "fr"], "./features/*": ["world", "divisions-jp", "country-fr"] };
+const SAMPLES = {
+  "./countries/*": ["fr", "jp", "sg"],
+  "./divisions/*": ["de", "us", "fr"],
+  "./features/*": ["world", "divisions-jp", "country-fr"],
+};
 const entries = Object.keys(pkg.exports).flatMap((key) => {
   if (key === ".") return [pkg.name];
   if (key.includes("*")) return SAMPLES[key].map((one) => `${pkg.name}/${key.slice(2).replace("*", one)}`);

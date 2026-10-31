@@ -139,7 +139,10 @@ export interface ChizuLocalMap extends ChizuMap {
 }
 
 const round = (value: number) => Math.round(value * 1000) / 1000;
-const classesOf = (value: unknown): string[] => (Array.isArray(value) ? value : typeof value === "string" ? value.split(/\s+/) : []).filter((one): one is string => typeof one === "string" && /^[A-Za-z_][\w-]{0,40}$/.test(one)).slice(0, 8);
+const classesOf = (value: unknown): string[] =>
+  (Array.isArray(value) ? value : typeof value === "string" ? value.split(/\s+/) : [])
+    .filter((one): one is string => typeof one === "string" && /^[A-Za-z_][\w-]{0,40}$/.test(one))
+    .slice(0, 8);
 
 /**
  * A local map: the ground of a city or a venue, from caller-given GeoJSON and pictures, in a projection made for a small
@@ -165,7 +168,9 @@ const classesOf = (value: unknown): string[] => (Array.isArray(value) ? value : 
  */
 export function localMap(options: ChizuLocalOptions): ChizuLocalMap {
   const canvas = localCanvas(options);
-  const { shapes, problems } = options.data ? readLocalShapes(options.data, canvas.projection) : { shapes: [], problems: [] };
+  const { shapes, problems } = options.data
+    ? readLocalShapes(options.data, canvas.projection)
+    : { shapes: [], problems: [] };
   const regions: ChizuRegion[] = shapes
     .filter((shape) => shape.kind === "area")
     .map((shape) => ({
@@ -182,23 +187,41 @@ export function localMap(options: ChizuLocalOptions): ChizuLocalMap {
   const markers: ChizuLocalMarker[] = [];
   (options.markers ?? []).forEach((input, index) => {
     const label = input.id ?? `marker-${index + 1}`;
-    const at = Array.isArray(input.at) && input.at.length >= 2 ? projectPoint(canvas, Number(input.at[0]), Number(input.at[1])) : null;
+    const at =
+      Array.isArray(input.at) && input.at.length >= 2
+        ? projectPoint(canvas, Number(input.at[0]), Number(input.at[1]))
+        : null;
     if (!at || !at.every(Number.isFinite)) return void problems.push(`${label}: no place to put it`);
-    if (typeof input.svg !== "string" || input.svg.length > 500_000) return void problems.push(`${label}: no picture, or one over 500 kB`);
+    if (typeof input.svg !== "string" || input.svg.length > 500_000)
+      return void problems.push(`${label}: no picture, or one over 500 kB`);
     const picture = splitPicture(input.svg, input.viewBox);
     if (!picture) return void problems.push(`${label}: the picture says no size; give a viewBox`);
     const [vx, vy, vw, vh] = picture.viewBox;
     const unit = input.size ? input.size[0] / vw : (input.metresPerUnit ?? 1);
-    if (!(unit > 0) || !Number.isFinite(unit)) return void problems.push(`${label}: its size in metres must be above zero`);
+    if (!(unit > 0) || !Number.isFinite(unit))
+      return void problems.push(`${label}: its size in metres must be above zero`);
     const scale = unit / canvas.projection.metresPerUnit;
     const bearing = Number.isFinite(input.bearing) ? Number(input.bearing) : 0;
-    const rotation = round(bearing - localConvergence(canvas.projection.centre, Number(input.at[0]), Number(input.at[1])));
-    const anchor: [number, number] = input.anchor && input.anchor.every(Number.isFinite) ? [input.anchor[0], input.anchor[1]] : [vx + vw / 2, vy + vh / 2];
+    const rotation = round(
+      bearing - localConvergence(canvas.projection.centre, Number(input.at[0]), Number(input.at[1])),
+    );
+    const anchor: [number, number] =
+      input.anchor && input.anchor.every(Number.isFinite)
+        ? [input.anchor[0], input.anchor[1]]
+        : [vx + vw / 2, vy + vh / 2];
     const turn = (rotation * Math.PI) / 180;
-    const corners = [[vx, vy], [vx + vw, vy], [vx, vy + vh], [vx + vw, vy + vh]].map(([x, y]) => {
+    const corners = [
+      [vx, vy],
+      [vx + vw, vy],
+      [vx, vy + vh],
+      [vx + vw, vy + vh],
+    ].map(([x, y]) => {
       const dx = (x! - anchor[0]) * scale;
       const dy = (y! - anchor[1]) * scale;
-      return [at[0] + dx * Math.cos(turn) - dy * Math.sin(turn), at[1] + dx * Math.sin(turn) + dy * Math.cos(turn)] as const;
+      return [
+        at[0] + dx * Math.cos(turn) - dy * Math.sin(turn),
+        at[1] + dx * Math.sin(turn) + dy * Math.cos(turn),
+      ] as const;
     });
     markers.push({
       id: label.slice(0, 80),
@@ -212,11 +235,18 @@ export function localMap(options: ChizuLocalOptions): ChizuLocalMap {
       anchor,
       viewBox: picture.viewBox,
       markup: cleanSvgMarkup(picture.markup, `cz-m${index + 1}-`),
-      bbox: [round(Math.min(...corners.map((c) => c[0]))), round(Math.min(...corners.map((c) => c[1]))), round(Math.max(...corners.map((c) => c[0]))), round(Math.max(...corners.map((c) => c[1])))],
+      bbox: [
+        round(Math.min(...corners.map((c) => c[0]))),
+        round(Math.min(...corners.map((c) => c[1]))),
+        round(Math.max(...corners.map((c) => c[0]))),
+        round(Math.max(...corners.map((c) => c[1]))),
+      ],
     });
   });
 
-  const credits = (options.credits ?? []).filter((line): line is string => typeof line === "string" && line.trim() !== "").map((line) => line.trim().slice(0, 300));
+  const credits = (options.credits ?? [])
+    .filter((line): line is string => typeof line === "string" && line.trim() !== "")
+    .map((line) => line.trim().slice(0, 300));
   return {
     id: options.id ?? "local",
     kind: "local",

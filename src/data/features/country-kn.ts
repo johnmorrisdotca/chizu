@@ -16,6 +16,39 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-kn 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-kn","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-kn; names from Natural Earth and Wikidata","features":[{"code":"ne-1159108295","kind":"peak","group":"peaks","name":"Mount Misery","nameJa":"ミザリー山","reading":"みざりーさん","rank":9,"elevation":1156,"path":"","bbox":[164.3,155.9,164.3,155.9],"centroid":[164.3,155.9],"neighbors":[]},{"code":"capital-KN","kind":"capital","group":"capitals","name":"Basseterre","nameJa":"バセテール","reading":"バセテール","rank":0,"path":"","bbox":[396.7,367.5,396.7,367.5],"centroid":[396.7,367.5],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-kn",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-kn; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "ne-1159108295",
+      kind: "peak",
+      group: "peaks",
+      name: "Mount Misery",
+      nameJa: "ミザリー山",
+      reading: "みざりーさん",
+      rank: 9,
+      elevation: 1156,
+      path: "",
+      bbox: [164.3, 155.9, 164.3, 155.9],
+      centroid: [164.3, 155.9],
+      neighbors: [],
+    },
+    {
+      code: "capital-KN",
+      kind: "capital",
+      group: "capitals",
+      name: "Basseterre",
+      nameJa: "バセテール",
+      reading: "バセテール",
+      rank: 0,
+      path: "",
+      bbox: [396.7, 367.5, 396.7, 367.5],
+      centroid: [396.7, 367.5],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

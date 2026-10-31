@@ -73,7 +73,12 @@ describe("a map's outlines", () => {
     const at = us.regions.findIndex((region) => region.code === "AK");
     const drawn = mapOutlines(us)[at]!;
     const inPlace = mapOutlines({ regions: us.regions, insets: [] })[at]!;
-    const [minX, minY, maxX, maxY] = [Math.min(...drawn.rings.map((r) => r.minX)), Math.min(...drawn.rings.map((r) => r.minY)), Math.max(...drawn.rings.map((r) => r.maxX)), Math.max(...drawn.rings.map((r) => r.maxY))];
+    const [minX, minY, maxX, maxY] = [
+      Math.min(...drawn.rings.map((r) => r.minX)),
+      Math.min(...drawn.rings.map((r) => r.minY)),
+      Math.max(...drawn.rings.map((r) => r.maxX)),
+      Math.max(...drawn.rings.map((r) => r.maxY)),
+    ];
     expect(minX).toBeGreaterThanOrEqual(seated.box.x - 1);
     expect(minY).toBeGreaterThanOrEqual(seated.box.y - 1);
     expect(maxX).toBeLessThanOrEqual(seated.box.x + seated.box.width + 1);
@@ -93,8 +98,21 @@ describe("a map's outlines", () => {
 describe("a region whose outlying islands are drawn in a box", () => {
   const mainland = "M100 100L300 100L300 300L100 300Z";
   const islands = "M500 900L540 900L540 930L500 930ZM560 940L590 940L590 960L560 960Z";
-  const region = { code: "X", name: "X", group: "g", path: mainland + islands, bbox: [100, 100, 590, 960] as [number, number, number, number], centroid: [200, 200] as [number, number], neighbors: [] };
-  const inset: ChizuInset = { code: "X", box: { x: 700, y: 700, width: 200, height: 150 }, outlyingBelow: 800, magnify: true };
+  const region = {
+    code: "X",
+    name: "X",
+    group: "g",
+    path: mainland + islands,
+    bbox: [100, 100, 590, 960] as [number, number, number, number],
+    centroid: [200, 200] as [number, number],
+    neighbors: [],
+  };
+  const inset: ChizuInset = {
+    code: "X",
+    box: { x: 700, y: 700, width: 200, height: 150 },
+    outlyingBelow: 800,
+    magnify: true,
+  };
 
   it("draws the region where it is and the islands in the box", () => {
     const pieces = mapRegionPieces(region, inset);
@@ -117,7 +135,9 @@ describe("a region whose outlying islands are drawn in a box", () => {
     const map = { regions: [region], insets: [inset] };
     for (const ring of mapOutlines(map)[0]!.rings) expect(ring.minY).toBeLessThan(inset.outlyingBelow!);
     // Which is the thing that changed: drawn without the box, they are down there.
-    expect(mapOutlines({ regions: [region], insets: [] })[0]!.rings.some((ring) => ring.minY >= inset.outlyingBelow!)).toBe(true);
+    expect(
+      mapOutlines({ regions: [region], insets: [] })[0]!.rings.some((ring) => ring.minY >= inset.outlyingBelow!),
+    ).toBe(true);
   });
 
   // A number still points at the region itself, not at the box.
@@ -166,7 +186,9 @@ describe("where a leader ends", () => {
     const maps: ChizuMap[] = [world];
     for (const load of Object.values(DIVISIONS_LOADERS)) maps.push((await load()).default);
     for (const map of maps) {
-      const adrift = mapOutlines(map).filter(({ rings, anchor }) => !anchor || !rings.some((ring) => pointInRing(anchor[0], anchor[1], ring)));
+      const adrift = mapOutlines(map).filter(
+        ({ rings, anchor }) => !anchor || !rings.some((ring) => pointInRing(anchor[0], anchor[1], ring)),
+      );
       expect(adrift, map.id).toHaveLength(0);
     }
   }, 60000);
@@ -174,7 +196,9 @@ describe("where a leader ends", () => {
   it("is on the land where the stored centroid is in the sea", () => {
     const stored = (code: string) => world.regions.find((region) => region.code === code)!.centroid;
     const outlines = mapOutlines(world);
-    const adriftBefore = world.regions.filter((region, at) => !outlines[at]!.rings.some((ring) => pointInRing(region.centroid[0], region.centroid[1], ring)));
+    const adriftBefore = world.regions.filter(
+      (region, at) => !outlines[at]!.rings.some((ring) => pointInRing(region.centroid[0], region.centroid[1], ring)),
+    );
     // The world's crescents and chains are exactly why the anchor exists.
     expect(adriftBefore.length).toBeGreaterThan(5);
     expect(adriftBefore.map((region) => region.code)).toContain("ID");
@@ -262,10 +286,28 @@ describe("the same outlines, one canvas east", () => {
 
 describe("a region drawn in several boxes, each taking the islands of its own part of the sea", () => {
   const islands = "M0 0L20 0L20 20L0 20Z" + "M400 400L410 400L410 410L400 410Z" + "M800 0L805 0L805 5L800 5Z";
-  const region = { code: "Y", name: "Y", group: "g", path: islands, bbox: [0, 0, 805, 410] as [number, number, number, number], centroid: [10, 10] as [number, number], neighbors: [] };
+  const region = {
+    code: "Y",
+    name: "Y",
+    group: "g",
+    path: islands,
+    bbox: [0, 0, 805, 410] as [number, number, number, number],
+    centroid: [10, 10] as [number, number],
+    neighbors: [],
+  };
   const boxes: ChizuInset[] = [
-    { code: "Y", box: { x: 100, y: 100, width: 100, height: 100 }, within: { x: -10, y: -10, width: 50, height: 50 }, magnify: true },
-    { code: "Y", box: { x: 300, y: 100, width: 40, height: 40 }, within: { x: 390, y: 390, width: 30, height: 30 }, magnify: true },
+    {
+      code: "Y",
+      box: { x: 100, y: 100, width: 100, height: 100 },
+      within: { x: -10, y: -10, width: 50, height: 50 },
+      magnify: true,
+    },
+    {
+      code: "Y",
+      box: { x: 300, y: 100, width: 40, height: 40 },
+      within: { x: 390, y: 390, width: 30, height: 30 },
+      magnify: true,
+    },
   ];
 
   it("puts each part in its own box at its own scale, and leaves what no box takes where it is", () => {
@@ -284,7 +326,10 @@ describe("a region drawn in several boxes, each taking the islands of its own pa
 
   it("is framed on the part left in place, or on its first box when every piece is boxed", () => {
     expect(drawnBounds(region, boxes)).toEqual([800, 0, 805, 5]);
-    const all = [...boxes, { code: "Y", box: { x: 500, y: 100, width: 10, height: 10 }, within: { x: 790, y: -10, width: 30, height: 30 } }];
+    const all = [
+      ...boxes,
+      { code: "Y", box: { x: 500, y: 100, width: 10, height: 10 }, within: { x: 790, y: -10, width: 30, height: 30 } },
+    ];
     expect(drawnBounds(region, all)).toEqual([100, 100, 200, 200]);
   });
 });

@@ -109,12 +109,17 @@ export const CALLOUT_RADIUS_RATIO = 0.03;
  * @param request - Native codes, framing, numbering and layout choices for the callout sheet.
  * @returns Numbered circles in the open space around and between the regions of a map, each with a leader line to its region.
  */
-export function layoutCallouts(map: Pick<ChizuMap, "regions" | "insets" | "width" | "height" | "wraps">, request: CalloutRequest): CalloutSpot[] {
+export function layoutCallouts(
+  map: Pick<ChizuMap, "regions" | "insets" | "width" | "height" | "wraps">,
+  request: CalloutRequest,
+): CalloutSpot[] {
   const box = request.box ?? wholeMapBox(map);
   const radius = box.width * (request.radiusRatio ?? CALLOUT_RADIUS_RATIO);
   const outlines = mapOutlines(map);
   const offsets = mapWrapsAround(map) ? wrapOffsets(box, map.width) : [0];
-  const land: CalloutLand[] = offsets.flatMap((offset) => shiftedOutlines(outlines, offset).map(({ rings }) => ({ rings })));
+  const land: CalloutLand[] = offsets.flatMap((offset) =>
+    shiftedOutlines(outlines, offset).map(({ rings }) => ({ rings })),
+  );
 
   const wanted = request.codes.map((code, order) => ({ code: String(code), order }));
   const entries: Array<{ item: { code: string; order: number }; centroid: [number, number] }> = [];
@@ -123,14 +128,27 @@ export function layoutCallouts(map: Pick<ChizuMap, "regions" | "insets" | "width
     const feature = at < 0 ? request.features?.find((one) => one.code === code) : undefined;
     if (at < 0 && !feature) continue;
     const anchor = feature ? feature.centroid : (outlines[at]!.anchor ?? map.regions[at]!.centroid);
-    const x = mapWrapsAround(map) ? wrapIntoBox(anchor[0], box, map.width) : anchor[0] >= box.x && anchor[0] <= box.x + box.width ? anchor[0] : null;
+    const x = mapWrapsAround(map)
+      ? wrapIntoBox(anchor[0], box, map.width)
+      : anchor[0] >= box.x && anchor[0] <= box.x + box.width
+        ? anchor[0]
+        : null;
     if (x === null || anchor[1] < box.y || anchor[1] > box.y + box.height) continue;
     // `x` is the copy of the canvas the window shows, which on a wrapped map is not always the one the anchor is stored in.
     entries.push({ item: { code, order }, centroid: [x, anchor[1]] });
   }
 
   const placed = placeCallouts(entries, radius, box, request.keepOut, land, { polish: request.polish ?? false });
-  const spots = placed.map(({ item, x, y, hx, hy }) => ({ code: item.code, order: item.order, start: [x, y] as [number, number], circle: [hx, hy] as [number, number], radius }));
+  const spots = placed.map(({ item, x, y, hx, hy }) => ({
+    code: item.code,
+    order: item.order,
+    start: [x, y] as [number, number],
+    circle: [hx, hy] as [number, number],
+    radius,
+  }));
   const sequence = request.numbering === "west-to-east" ? orderByPosition(spots, (spot) => spot.start) : spots;
-  return sequence.map(({ order, ...spot }, index) => ({ ...spot, number: request.numbering === "west-to-east" ? index + 1 : order + 1 }));
+  return sequence.map(({ order, ...spot }, index) => ({
+    ...spot,
+    number: request.numbering === "west-to-east" ? index + 1 : order + 1,
+  }));
 }

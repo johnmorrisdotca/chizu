@@ -283,7 +283,10 @@ const FIT_MARGIN_RATIO = 0.15;
  * @param codes - Native region codes from this map, in the requested order.
  * @returns The zoom step and centre that show all of these regions at once: for opening a region from its heading, which wants it filling the view and not the whole map with a few regions lit somewhere in it.
  */
-export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>): { zoom: MapZoom; centre: { x: number; y: number } } {
+export function zoomToFit(
+  map: Frameable,
+  codes: ReadonlyArray<string | number>,
+): { zoom: MapZoom; centre: { x: number; y: number } } {
   const whole = wholeMapBox(map);
   const drawn = matching(map, codes).map((region) => {
     const seated = insetsFor(map, region.code);
@@ -302,7 +305,9 @@ export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>)
   const bestFit = (marginRatio: number) => {
     const needWidth = (maxX - minX) * (1 + marginRatio * 2);
     const needHeight = (maxY - minY) * (1 + marginRatio * 2);
-    return [...MAP_ZOOM_LEVELS].reverse().find((level) => whole.width / level >= needWidth && whole.height / level >= needHeight);
+    return [...MAP_ZOOM_LEVELS]
+      .reverse()
+      .find((level) => whole.width / level >= needWidth && whole.height / level >= needHeight);
   };
   const padded = bestFit(FIT_MARGIN_RATIO) ?? MAP_ZOOM_LEVELS[0];
   const zoom = padded === MAP_ZOOM_LEVELS[0] ? (bestFit(0) ?? padded) : padded;
@@ -326,7 +331,10 @@ export function zoomToFit(map: Frameable, codes: ReadonlyArray<string | number>)
  * @param code - The native region or country code; null clears a region selection where accepted.
  * @returns The zoom step and centre fitting the chosen region, or null for a null or unknown region code.
  */
-export function focusRegionFit(map: Frameable, code: string | number | null): { zoom: MapZoom; centre: { x: number; y: number } } | null {
+export function focusRegionFit(
+  map: Frameable,
+  code: string | number | null,
+): { zoom: MapZoom; centre: { x: number; y: number } } | null {
   if (code === null) return null;
   if (!map.regions.some((region) => String(region.code) === String(code))) return null;
   return zoomToFit(map, [code]);
@@ -407,7 +415,12 @@ export function regionBox(map: Frameable, code: string | number, aspect = 1): Ma
   if (width / height < shape) width = height * shape;
   else height = width / shape;
 
-  return { x: (source.minX + source.maxX) / 2 - width / 2, y: (source.minY + source.maxY) / 2 - height / 2, width, height };
+  return {
+    x: (source.minX + source.maxX) / 2 - width / 2,
+    y: (source.minY + source.maxY) / 2 - height / 2,
+    width,
+    height,
+  };
 }
 
 const GLYPH_MARGIN_RATIO = 0.06;

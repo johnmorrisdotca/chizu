@@ -150,7 +150,11 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
  * @returns A language this package has words for, from a tag such as `ja-JP` or `en`: Japanese for any `ja`, English otherwise.
  */
 export function chizuLanguageOf(tag: string | undefined | null): ChizuLanguage {
-  return String(tag ?? "").toLowerCase().startsWith("ja") ? "ja" : "en";
+  return String(tag ?? "")
+    .toLowerCase()
+    .startsWith("ja")
+    ? "ja"
+    : "en";
 }
 
 /**
@@ -238,5 +242,7 @@ export function featureKindName(kind: ChizuFeatureKind, language: ChizuLanguage)
 export function featureKindOf(feature: Pick<ChizuFeature, "kind" | "code">, language: ChizuLanguage): string {
   const country = /^seat-([A-Z]{2})-/.exec(feature.code)?.[1];
   const key = country ? `kind.${feature.kind}.${country}` : undefined;
-  return key && (CHIZU_STRINGS[language][key] ?? CHIZU_STRINGS.en[key]) ? chizuSay(language, key) : featureKindName(feature.kind, language);
+  return key && (CHIZU_STRINGS[language][key] ?? CHIZU_STRINGS.en[key])
+    ? chizuSay(language, key)
+    : featureKindName(feature.kind, language);
 }

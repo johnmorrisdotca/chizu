@@ -74,7 +74,10 @@ const GEOMETRIES = new Set(["Point", "MultiPoint", "LineString", "MultiLineStrin
 type Pt = [number, number];
 
 /** The shapes of a GeoJSON value, in the order given, projected by `projection`, and what was left out and why. */
-export function readLocalShapes(data: ChizuGeoJson | readonly ChizuGeoJson[], projection: ChizuProjection): { shapes: ChizuLocalShape[]; problems: string[] } {
+export function readLocalShapes(
+  data: ChizuGeoJson | readonly ChizuGeoJson[],
+  projection: ChizuProjection,
+): { shapes: ChizuLocalShape[]; problems: string[] } {
   const shapes: ChizuLocalShape[] = [];
   const problems: string[] = [];
   const taken = new Set<string>();
@@ -87,61 +90,106 @@ export function readLocalShapes(data: ChizuGeoJson | readonly ChizuGeoJson[], pr
     if (!Number.isFinite(lon) || !Number.isFinite(lat) || Math.abs(lat) > 90 || Math.abs(lon) > 360) return null;
     return projectPoint(map, lon, lat);
   };
-  const points = (list: unknown): Pt[] => (Array.isArray(list) ? list.map(place).filter((point): point is Pt => point !== null) : []);
+  const points = (list: unknown): Pt[] =>
+    Array.isArray(list) ? list.map(place).filter((point): point is Pt => point !== null) : [];
   const ring = (list: unknown): Pt[] => {
     const all = points(list);
     const out = all.filter((point, i) => i === 0 || point[0] !== all[i - 1]![0] || point[1] !== all[i - 1]![1]);
     if (out.length > 1 && out[0]![0] === out.at(-1)![0] && out[0]![1] === out.at(-1)![1]) out.pop();
     return out;
   };
-  const text = (value: unknown) => (typeof value === "string" && value.trim() !== "" ? value.trim().slice(0, 200) : undefined);
-  const word = (value: unknown, most: number) => (typeof value === "string" && /^[A-Za-z_][\w-]*$/.test(value) && value.length <= most ? value : undefined);
+  const text = (value: unknown) =>
+    typeof value === "string" && value.trim() !== "" ? value.trim().slice(0, 200) : undefined;
+  const word = (value: unknown, most: number) =>
+    typeof value === "string" && /^[A-Za-z_][\w-]*$/.test(value) && value.length <= most ? value : undefined;
 
   const add = (feature: ChizuGeoJson, geometry: ChizuGeoJson, suffix: string) => {
     const properties = feature.properties && typeof feature.properties === "object" ? feature.properties : {};
-    const given = feature.id ?? (typeof properties.id === "string" || typeof properties.id === "number" ? properties.id : undefined);
+    const given =
+      feature.id ??
+      (typeof properties.id === "string" || typeof properties.id === "number" ? properties.id : undefined);
     let id = given !== undefined && String(given) !== "" ? String(given).slice(0, 80) : `f${shapes.length + 1}`;
     id = `${id}${suffix}`;
     while (taken.has(id)) id = `${id}-${taken.size + 1}`;
     const where = `${id} (${geometry.type})`;
-    const classes = (Array.isArray(properties.class) ? properties.class : typeof properties.class === "string" ? properties.class.split(/\s+/) : []).map((one) => word(one, 40)).filter((one): one is string => one !== undefined).slice(0, 8);
-    const common = { id, name: text(properties.name), nameJa: text(properties.nameJa) ?? text(properties["name:ja"]), type: word(typeof properties.kind === "string" ? properties.kind.toLowerCase() : undefined, 30), classes };
+    const classes = (
+      Array.isArray(properties.class)
+        ? properties.class
+        : typeof properties.class === "string"
+          ? properties.class.split(/\s+/)
+          : []
+    )
+      .map((one) => word(one, 40))
+      .filter((one): one is string => one !== undefined)
+      .slice(0, 8);
+    const common = {
+      id,
+      name: text(properties.name),
+      nameJa: text(properties.nameJa) ?? text(properties["name:ja"]),
+      type: word(typeof properties.kind === "string" ? properties.kind.toLowerCase() : undefined, 30),
+      classes,
+    };
     const finish = (kind: ChizuLocalShape["kind"], path: string, all: Pt[], centroid: Pt) => {
       if (all.length === 0) return false;
       taken.add(id);
       const xs = all.map((p) => p[0]);
       const ys = all.map((p) => p[1]);
-      shapes.push({ ...common, kind, path, bbox: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)], centroid });
+      shapes.push({
+        ...common,
+        kind,
+        path,
+        bbox: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)],
+        centroid,
+      });
       return true;
     };
     const coordinates = geometry.coordinates;
     if (geometry.type === "Point" || geometry.type === "MultiPoint") {
-      const list = geometry.type === "Point" ? [place(coordinates)].filter((p): p is Pt => p !== null) : points(coordinates);
-      if (list.length === 0 || !finish("point", "", list, centroidOf(list))) problems.push(`${where}: no position that can be drawn`);
+      const list =
+        geometry.type === "Point" ? [place(coordinates)].filter((p): p is Pt => p !== null) : points(coordinates);
+      if (list.length === 0 || !finish("point", "", list, centroidOf(list)))
+        problems.push(`${where}: no position that can be drawn`);
       return;
     }
     if (geometry.type === "LineString" || geometry.type === "MultiLineString") {
-      const parts = (geometry.type === "LineString" ? [coordinates] : Array.isArray(coordinates) ? coordinates : []).map(points).filter((part) => part.length >= 2);
+      const parts = (geometry.type === "LineString" ? [coordinates] : Array.isArray(coordinates) ? coordinates : [])
+        .map(points)
+        .filter((part) => part.length >= 2);
       if (parts.length === 0) return void problems.push(`${where}: a line needs two positions`);
       const all = parts.flat();
-      finish("line", parts.map((part) => "M" + part.map(([x, y]) => `${num(x)},${num(y)}`).join("L")).join(" "), all, midway(parts));
+      finish(
+        "line",
+        parts.map((part) => "M" + part.map(([x, y]) => `${num(x)},${num(y)}`).join("L")).join(" "),
+        all,
+        midway(parts),
+      );
       return;
     }
     // Polygon, MultiPolygon
-    const polygons = (geometry.type === "Polygon" ? [coordinates] : Array.isArray(coordinates) ? coordinates : []).map((rings) => (Array.isArray(rings) ? rings.map(ring).filter((one) => one.length >= 3) : []));
+    const polygons = (geometry.type === "Polygon" ? [coordinates] : Array.isArray(coordinates) ? coordinates : []).map(
+      (rings) => (Array.isArray(rings) ? rings.map(ring).filter((one) => one.length >= 3) : []),
+    );
     const usable = polygons.filter((rings) => rings.length > 0);
     if (usable.length === 0) return void problems.push(`${where}: a polygon needs a ring of three different positions`);
     const rings = usable.flat();
     const centre = massOf(usable.map((rs) => rs[0]!));
-    finish("area", rings.map((r) => "M" + r.map(([x, y]) => `${num(x)},${num(y)}`).join("L") + "Z").join(" "), rings.flat(), centre);
+    finish(
+      "area",
+      rings.map((r) => "M" + r.map(([x, y]) => `${num(x)},${num(y)}`).join("L") + "Z").join(" "),
+      rings.flat(),
+      centre,
+    );
   };
 
   const walk = (node: ChizuGeoJson, inherit: ChizuGeoJson | null) => {
-    if (!node || typeof node !== "object" || typeof node.type !== "string") return void problems.push("something that is not GeoJSON was skipped");
-    if (node.type === "FeatureCollection") return void (Array.isArray(node.features) ? node.features : []).forEach((one) => walk(one, null));
+    if (!node || typeof node !== "object" || typeof node.type !== "string")
+      return void problems.push("something that is not GeoJSON was skipped");
+    if (node.type === "FeatureCollection")
+      return void (Array.isArray(node.features) ? node.features : []).forEach((one) => walk(one, null));
     if (node.type === "Feature") {
       const geometry = node.geometry;
-      if (!geometry) return void problems.push(`${node.id ?? `f${shapes.length + 1}`}: a Feature with no geometry was skipped`);
+      if (!geometry)
+        return void problems.push(`${node.id ?? `f${shapes.length + 1}`}: a Feature with no geometry was skipped`);
       return walk(geometry, node);
     }
     const feature = inherit ?? { type: "Feature", properties: {}, geometry: node };
@@ -183,14 +231,18 @@ function massOf(rings: readonly (readonly Pt[])[]): Pt {
 
 /** The point half way along the longest of some lines. */
 function midway(parts: readonly (readonly Pt[])[]): Pt {
-  const length = (part: readonly Pt[]) => part.slice(1).reduce((sum, p, i) => sum + Math.hypot(p[0] - part[i]![0], p[1] - part[i]![1]), 0);
+  const length = (part: readonly Pt[]) =>
+    part.slice(1).reduce((sum, p, i) => sum + Math.hypot(p[0] - part[i]![0], p[1] - part[i]![1]), 0);
   const longest = parts.reduce((best, part) => (length(part) > length(best) ? part : best), parts[0]!);
   let left = length(longest) / 2;
   for (let i = 1; i < longest.length; i += 1) {
     const step = Math.hypot(longest[i]![0] - longest[i - 1]![0], longest[i]![1] - longest[i - 1]![1]);
     if (left <= step && step > 0) {
       const t = left / step;
-      return [longest[i - 1]![0] + (longest[i]![0] - longest[i - 1]![0]) * t, longest[i - 1]![1] + (longest[i]![1] - longest[i - 1]![1]) * t];
+      return [
+        longest[i - 1]![0] + (longest[i]![0] - longest[i - 1]![0]) * t,
+        longest[i - 1]![1] + (longest[i]![1] - longest[i - 1]![1]) * t,
+      ];
     }
     left -= step;
   }

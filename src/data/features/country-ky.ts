@@ -16,6 +16,38 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-ky 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-ky","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-ky; names from Natural Earth and Wikidata","features":[{"code":"Q1247","kind":"sea","group":"marine","name":"Caribbean Sea","nameJa":"カリブ海","reading":"かりぶかい","rank":1,"path":"M-1,-1L1001,-1L1001,313L-1,313Z","bbox":[-1,-1,1001,313],"centroid":[500,156],"neighbors":[]},{"code":"capital-KY","kind":"capital","group":"capitals","name":"George Town","nameJa":"ジョージタウン","reading":"ジョージタウン","rank":0,"path":"","bbox":[21.5,289.3,21.5,289.3],"centroid":[21.5,289.3],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-ky",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-ky; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "Q1247",
+      kind: "sea",
+      group: "marine",
+      name: "Caribbean Sea",
+      nameJa: "カリブ海",
+      reading: "かりぶかい",
+      rank: 1,
+      path: "M-1,-1L1001,-1L1001,313L-1,313Z",
+      bbox: [-1, -1, 1001, 313],
+      centroid: [500, 156],
+      neighbors: [],
+    },
+    {
+      code: "capital-KY",
+      kind: "capital",
+      group: "capitals",
+      name: "George Town",
+      nameJa: "ジョージタウン",
+      reading: "ジョージタウン",
+      rank: 0,
+      path: "",
+      bbox: [21.5, 289.3, 21.5, 289.3],
+      centroid: [21.5, 289.3],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

@@ -16,6 +16,39 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-vg 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-vg","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-vg; names from Natural Earth and Wikidata","features":[{"code":"Q6357023","kind":"peak","group":"peaks","name":"Mount Sage","nameJa":"セージ山","reading":"せーじさん","rank":9,"elevation":521,"path":"","bbox":[239.7,690.8,239.7,690.8],"centroid":[239.7,690.8],"neighbors":[]},{"code":"capital-VG","kind":"capital","group":"capitals","name":"Road Town","nameJa":"ロードタウン","reading":"ロードタウン","rank":0,"path":"","bbox":[306.2,663,306.2,663],"centroid":[306.2,663],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-vg",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-vg; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "Q6357023",
+      kind: "peak",
+      group: "peaks",
+      name: "Mount Sage",
+      nameJa: "セージ山",
+      reading: "せーじさん",
+      rank: 9,
+      elevation: 521,
+      path: "",
+      bbox: [239.7, 690.8, 239.7, 690.8],
+      centroid: [239.7, 690.8],
+      neighbors: [],
+    },
+    {
+      code: "capital-VG",
+      kind: "capital",
+      group: "capitals",
+      name: "Road Town",
+      nameJa: "ロードタウン",
+      reading: "ロードタウン",
+      rank: 0,
+      path: "",
+      bbox: [306.2, 663, 306.2, 663],
+      centroid: [306.2, 663],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

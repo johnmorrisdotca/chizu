@@ -16,6 +16,39 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-nf 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-nf","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-nf; names from Natural Earth and Wikidata","features":[{"code":"Q1361458","kind":"peak","group":"peaks","name":"Mount Bates","nameJa":"ベイツ山","reading":"べいつさん","rank":9,"elevation":319,"path":"","bbox":[504.7,458.2,504.7,458.2],"centroid":[504.7,458.2],"neighbors":[]},{"code":"capital-NF","kind":"capital","group":"capitals","name":"Kingston","nameJa":"キングストン","reading":"キングストン","rank":0,"path":"","bbox":[613.4,636.3,613.4,636.3],"centroid":[613.4,636.3],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-nf",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-nf; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "Q1361458",
+      kind: "peak",
+      group: "peaks",
+      name: "Mount Bates",
+      nameJa: "ベイツ山",
+      reading: "べいつさん",
+      rank: 9,
+      elevation: 319,
+      path: "",
+      bbox: [504.7, 458.2, 504.7, 458.2],
+      centroid: [504.7, 458.2],
+      neighbors: [],
+    },
+    {
+      code: "capital-NF",
+      kind: "capital",
+      group: "capitals",
+      name: "Kingston",
+      nameJa: "キングストン",
+      reading: "キングストン",
+      rank: 0,
+      path: "",
+      bbox: [613.4, 636.3, 613.4, 636.3],
+      centroid: [613.4, 636.3],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

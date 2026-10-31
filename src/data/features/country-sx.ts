@@ -16,6 +16,25 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-sx 1
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-sx","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-sx; names from Natural Earth and Wikidata","features":[{"code":"capital-SX","kind":"capital","group":"capitals","name":"Philipsburg","nameJa":"フィリップスブルフ","reading":"フィリップスブルフ","rank":0,"path":"","bbox":[778.6,437.2,778.6,437.2],"centroid":[778.6,437.2],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-sx",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-sx; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "capital-SX",
+      kind: "capital",
+      group: "capitals",
+      name: "Philipsburg",
+      nameJa: "フィリップスブルフ",
+      reading: "フィリップスブルフ",
+      rank: 0,
+      path: "",
+      bbox: [778.6, 437.2, 778.6, 437.2],
+      centroid: [778.6, 437.2],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

@@ -7,7 +7,7 @@ test("the code loads the map in view and mounts it, and follows the part and the
   await open(page);
   const code = page.locator(at("code"));
   await expect(code).toContainText('await loadDivisions("jp")');
-  await expect(code).toContainText("mountChizu(document.querySelector(\"#map\")");
+  await expect(code).toContainText('mountChizu(document.querySelector("#map")');
   await expect(code).toContainText('language: "en"');
   await page.locator(at("part")).selectOption("Kanto");
   await expect(code).toContainText('const part = ["8","9","10","11","12","13","14"]');
@@ -32,7 +32,12 @@ test("the code runs: drawn with the package it names, it makes the map", async (
     const host = document.createElement("div");
     host.id = "map";
     document.body.append(host);
-    const runnable = source.replace(/from "@johnmorrisdotca\/chizu\/(\w+)"/g, (_, entry) => `from "${location.origin}/dist/${entry === "world" ? "world-entry" : `${entry}-entry`}.js"`).replace(/from "@johnmorrisdotca\/chizu"/g, `from "${location.origin}/dist/index.js"`);
+    const runnable = source
+      .replace(
+        /from "@johnmorrisdotca\/chizu\/(\w+)"/g,
+        (_, entry) => `from "${location.origin}/dist/${entry === "world" ? "world-entry" : `${entry}-entry`}.js"`,
+      )
+      .replace(/from "@johnmorrisdotca\/chizu"/g, `from "${location.origin}/dist/index.js"`);
     const url = URL.createObjectURL(new Blob([runnable], { type: "text/javascript" }));
     await import(url);
     return host.innerHTML.slice(0, 200);

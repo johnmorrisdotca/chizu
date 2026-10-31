@@ -1,4 +1,11 @@
-import { CALLOUT_ROOMY, segmentsCross, segmentsGap, type CalloutLand, type CalloutObstacle, type CalloutPlace } from "./calloutSpace.ts";
+import {
+  CALLOUT_ROOMY,
+  segmentsCross,
+  segmentsGap,
+  type CalloutLand,
+  type CalloutObstacle,
+  type CalloutPlace,
+} from "./calloutSpace.ts";
 import { distanceToRing, pointInRing, segmentMeetsRing, type MapRing } from "./outlines.ts";
 
 /**
@@ -115,7 +122,7 @@ export function regionStarts(
 ): Point[][] {
   return entries.map(({ centroid }, i) => {
     const own = ownRegion[i]!;
-    const ring = own < 0 ? null : land[own]!.rings.find((one) => pointInRing(centroid[0], centroid[1], one)) ?? null;
+    const ring = own < 0 ? null : (land[own]!.rings.find((one) => pointInRing(centroid[0], centroid[1], one)) ?? null);
     return leaderStarts(centroid, ring, radius);
   });
 }
@@ -153,7 +160,9 @@ export function coastlineLeaderCost(context: {
       if (land[k]!.rings.some((ring) => segmentMeetsRing(ax, ay, spot.x, spot.y, ring))) crossed += 1;
     }
     const cost =
-      Math.hypot(spot.x - ax, spot.y - ay) + landCost * crossed + tightCost * Math.max(0, (CALLOUT_ROOMY - spot.sea) / CALLOUT_ROOMY);
+      Math.hypot(spot.x - ax, spot.y - ay) +
+      landCost * crossed +
+      tightCost * Math.max(0, (CALLOUT_ROOMY - spot.sea) / CALLOUT_ROOMY);
     known[i]!.set(key, cost);
     return cost;
   };
@@ -187,7 +196,9 @@ export function polishCallouts(context: PolishContext): number[] {
   const clearAt = radius * POLISH_CIRCLE_CLEAR_RADII;
   const end = (place: number): Point => [spaces[place]!.x, spaces[place]!.y];
   /* Two regions whose middles sit closer than a radius are owed only the room they had. */
-  const owed = starts.map((a) => starts.map((b) => Math.min(closeAt, Math.hypot(a[0]![0] - b[0]![0], a[0]![1] - b[0]![1]))));
+  const owed = starts.map((a) =>
+    starts.map((b) => Math.min(closeAt, Math.hypot(a[0]![0] - b[0]![0], a[0]![1] - b[0]![1]))),
+  );
 
   /* The start nearest a place, which is the one a leader to it would leave from. */
   const facing = (i: number, place: number) => {
@@ -237,7 +248,8 @@ export function polishCallouts(context: PolishContext): number[] {
   };
   const weigh = (found: Faults) => CROSSING_WEIGHT * found.crossings + CLOSE_WEIGHT * found.close;
   const own = (i: number, si: number, pi: number) => leaderCost(i, si, pi) / radius;
-  const scoreOf = (i: number, si: number, pi: number, ignoring = -1) => weigh(faultsOf(i, si, pi, ignoring)) + own(i, si, pi);
+  const scoreOf = (i: number, si: number, pi: number, ignoring = -1) =>
+    weigh(faultsOf(i, si, pi, ignoring)) + own(i, si, pi);
   const totals = () => {
     const found = { crossings: 0, close: 0 };
     let price = 0;
@@ -307,8 +319,12 @@ export function polishCallouts(context: PolishContext): number[] {
         const si = facing(i, theirs);
         const sj = facing(j, mine);
         delta =
-          scoreOf(i, si, theirs, j) + scoreOf(j, sj, mine, i) + weigh(pair(i, si, theirs, j, sj, mine)) -
-          (scoreOf(i, from[i]!, mine, j) + scoreOf(j, from[j]!, theirs, i) + weigh(pair(i, from[i]!, mine, j, from[j]!, theirs)));
+          scoreOf(i, si, theirs, j) +
+          scoreOf(j, sj, mine, i) +
+          weigh(pair(i, si, theirs, j, sj, mine)) -
+          (scoreOf(i, from[i]!, mine, j) +
+            scoreOf(j, from[j]!, theirs, i) +
+            weigh(pair(i, from[i]!, mine, j, from[j]!, theirs)));
         apply = () => {
           const seats = [...at];
           seats[i] = theirs;
@@ -367,7 +383,8 @@ export function polishCallouts(context: PolishContext): number[] {
           const cost = own(i, option, place);
           if (cost + 1e-9 >= (pick?.score ?? was)) continue;
           const found = faultsOf(i, option, place);
-          if (found.crossings > now.crossings || (found.crossings === now.crossings && found.close > now.close)) continue;
+          if (found.crossings > now.crossings || (found.crossings === now.crossings && found.close > now.close))
+            continue;
           const score = weigh(found) + cost;
           if (score + 1e-9 < (pick?.score ?? was)) pick = { start: option, place, score };
         }
@@ -388,8 +405,12 @@ export function polishCallouts(context: PolishContext): number[] {
           const now = pair(i, from[i]!, at[i]!, j, from[j]!, at[j]!);
           if (now.crossings === 0 && now.close === 0) continue;
           const was = scoreOf(i, from[i]!, at[i]!, j) + scoreOf(j, from[j]!, at[j]!, i) + weigh(now);
-          const crossedBefore = faultsOf(i, from[i]!, at[i]!, j).crossings + faultsOf(j, from[j]!, at[j]!, i).crossings + now.crossings;
-          const theirs = starts[j]!.map((_, option) => ({ faults: faultsOf(j, option, at[j]!, i), own: own(j, option, at[j]!) }));
+          const crossedBefore =
+            faultsOf(i, from[i]!, at[i]!, j).crossings + faultsOf(j, from[j]!, at[j]!, i).crossings + now.crossings;
+          const theirs = starts[j]!.map((_, option) => ({
+            faults: faultsOf(j, option, at[j]!, i),
+            own: own(j, option, at[j]!),
+          }));
           let pick: { si: number; pi: number; sj: number; score: number } | null = null;
           for (const place of pools[i]!) {
             if (place !== at[i] && !room(place, i, spacing)) continue;
@@ -423,7 +444,12 @@ export function polishCallouts(context: PolishContext): number[] {
   let kept = attempt(0);
   for (let seed = 1; seed < ATTEMPTS && kept.crossings + kept.close > 0; seed += 1) {
     const next = attempt(seed);
-    if (next.crossings < kept.crossings || (next.crossings === kept.crossings && (next.close < kept.close || (next.close === kept.close && next.score < kept.score)))) kept = next;
+    if (
+      next.crossings < kept.crossings ||
+      (next.crossings === kept.crossings &&
+        (next.close < kept.close || (next.close === kept.close && next.score < kept.score)))
+    )
+      kept = next;
   }
   reseat(kept.seats);
   kept.from.forEach((option, i) => (from[i] = option));

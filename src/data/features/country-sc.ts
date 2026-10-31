@@ -16,6 +16,39 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-sc 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-sc","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-sc; names from Natural Earth and Wikidata","features":[{"code":"Q1579060","kind":"peak","group":"peaks","name":"Morne Seychellois","nameJa":"モルヌ・セシェロワ","reading":"モルヌセシェロワ","rank":9,"elevation":905,"path":"","bbox":[917.2,84.3,917.2,84.3],"centroid":[917.2,84.3],"neighbors":[]},{"code":"capital-SC","kind":"capital","group":"capitals","name":"Victoria","nameJa":"ヴィクトリア","reading":"ヴィクトリア","rank":0,"path":"","bbox":[918.2,83.1,918.2,83.1],"centroid":[918.2,83.1],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-sc",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-sc; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "Q1579060",
+      kind: "peak",
+      group: "peaks",
+      name: "Morne Seychellois",
+      nameJa: "モルヌ・セシェロワ",
+      reading: "モルヌセシェロワ",
+      rank: 9,
+      elevation: 905,
+      path: "",
+      bbox: [917.2, 84.3, 917.2, 84.3],
+      centroid: [917.2, 84.3],
+      neighbors: [],
+    },
+    {
+      code: "capital-SC",
+      kind: "capital",
+      group: "capitals",
+      name: "Victoria",
+      nameJa: "ヴィクトリア",
+      reading: "ヴィクトリア",
+      rank: 0,
+      path: "",
+      bbox: [918.2, 83.1, 918.2, 83.1],
+      centroid: [918.2, 83.1],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

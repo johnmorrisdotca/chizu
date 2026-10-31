@@ -12,7 +12,9 @@ const take = async (page, testid) => {
   return { name: file.suggestedFilename(), body: Buffer.concat(await (await file.createReadStream()).toArray()) };
 };
 
-test("the map downloads as an SVG that stands alone and a PNG, and the places as CSV, JSON and text", async ({ page }) => {
+test("the map downloads as an SVG that stands alone and a PNG, and the places as CSV, JSON and text", async ({
+  page,
+}) => {
   await open(page);
   const svg = await take(page, "download-map-svg");
   expect(svg.name).toBe("chizu-divisions-jp-map.svg");
@@ -29,7 +31,15 @@ test("the map downloads as an SVG that stands alone and a PNG, and the places as
   expect(csv).toContain("13,JP-13,Tokyo,東京都,とうきょうと,Kanto,関東地方");
   const json = JSON.parse((await take(page, "download-list-json")).body.toString("utf8"));
   expect(json.map).toBe("divisions-jp");
-  expect(json.rows[0]).toEqual({ code: "1", iso: "JP-01", name: "Hokkaidō", nameJa: "北海道", reading: "ほっかいどう", group: "Hokkaido", groupJa: "北海道地方" });
+  expect(json.rows[0]).toEqual({
+    code: "1",
+    iso: "JP-01",
+    name: "Hokkaidō",
+    nameJa: "北海道",
+    reading: "ほっかいどう",
+    group: "Hokkaido",
+    groupJa: "北海道地方",
+  });
   const txt = (await take(page, "download-list-txt")).body.toString("utf8");
   expect(txt.split("\n")[0]).toBe("Japan");
 });
@@ -58,7 +68,9 @@ test("a part's list holds only the part", async ({ page }) => {
   expect((await take(page, "download-list-csv")).name).toBe("chizu-divisions-jp-shikoku-places.csv");
 });
 
-test("callouts download as a sheet to print, the map and its numbered list as one SVG, and the list as CSV, JSON and text", async ({ page }) => {
+test("callouts download as a sheet to print, the map and its numbered list as one SVG, and the list as CSV, JSON and text", async ({
+  page,
+}) => {
   await open(page, "?mode=callouts&part=Kyushu");
   const sheet = (await take(page, "download-sheet-svg")).body.toString("utf8");
   expect(sheet.match(/class="cz-callout"/g)).toHaveLength(8);

@@ -44,7 +44,12 @@ export type FindQuestion = {
  * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
  * @returns The seeded target and shuffled answer choices, or null for an unknown or explicitly unnamed target.
  */
-export function findQuestion(map: Pick<ChizuMap, "width" | "height" | "regions">, targetCode: string | number, random: Random, options: Omit<DistractorOptions, "random"> = {}): FindQuestion | null {
+export function findQuestion(
+  map: Pick<ChizuMap, "width" | "height" | "regions">,
+  targetCode: string | number,
+  random: Random,
+  options: Omit<DistractorOptions, "random"> = {},
+): FindQuestion | null {
   const target = map.regions.find((region) => String(region.code) === String(targetCode));
   // A piece drawn with no name is not a place to ask about.
   if (!target || (target as { unnamed?: boolean }).unnamed) return null;

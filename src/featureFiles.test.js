@@ -11,11 +11,15 @@ describe("the files of features", () => {
   it("are each within their budget", () => {
     const files = readdirSync("src/data/features");
     expect(files.length).toBeGreaterThan(200);
-    for (const file of files) expect(statSync(`src/data/features/${file}`).size, file).toBeLessThanOrEqual(file === "world.ts" ? FEATURE_BUDGET.world : FEATURE_BUDGET.other);
+    for (const file of files)
+      expect(statSync(`src/data/features/${file}`).size, file).toBeLessThanOrEqual(
+        file === "world.ts" ? FEATURE_BUDGET.world : FEATURE_BUDGET.other,
+      );
   });
 
   it("say where the shapes and names come from, in NOTICE.md", () => {
     const notice = readFileSync("NOTICE.md", "utf8");
-    for (const words of ["Wikidata", "CC0", "ne_10m_rivers_lake_centerlines", "ne_10m_geography_marine_polys", "kuni"]) expect(notice, words).toContain(words);
+    for (const words of ["Wikidata", "CC0", "ne_10m_rivers_lake_centerlines", "ne_10m_geography_marine_polys", "kuni"])
+      expect(notice, words).toContain(words);
   });
 });

@@ -7,7 +7,8 @@ describe("the words chizu says", () => {
   it("has every line in both languages, with the same values to fill in", () => {
     expect(Object.keys(CHIZU_STRINGS.ja).sort()).toEqual(Object.keys(CHIZU_STRINGS.en).sort());
     const fields = (line: string) => [...line.matchAll(/\{(\w+)\}/g)].map((match) => match[1]).sort();
-    for (const key of Object.keys(CHIZU_STRINGS.en)) expect(fields(CHIZU_STRINGS.ja[key]!), key).toEqual(fields(CHIZU_STRINGS.en[key]!));
+    for (const key of Object.keys(CHIZU_STRINGS.en))
+      expect(fields(CHIZU_STRINGS.ja[key]!), key).toEqual(fields(CHIZU_STRINGS.en[key]!));
   });
 
   it("fills in what it is given and leaves what it is not", () => {

@@ -107,7 +107,11 @@ export type InsetTransform = { scale: number; x: number; y: number };
  * @param magnify - Whether the inset may enlarge its geometry instead of only shrinking it.
  * @returns What to do to a region's own geometry to seat it in its box: shrink it to fit if it is too big, centre it in the frame, and leave it at its own size unless the box says it may be magnified.
  */
-export function insetTransform(bbox: readonly [number, number, number, number], box: MapBox, magnify = false): InsetTransform {
+export function insetTransform(
+  bbox: readonly [number, number, number, number],
+  box: MapBox,
+  magnify = false,
+): InsetTransform {
   const width = Math.max(bbox[2] - bbox[0], 0.001);
   const height = Math.max(bbox[3] - bbox[1], 0.001);
   const fits = Math.min(box.width / width, box.height / height);

@@ -82,7 +82,8 @@ const SAFE_COLOUR = /^(#[0-9a-f]{3,8}|[a-z]{3,30}|(?:rgb|hsl)a?\([0-9a-z.,%\s/+-
  */
 export const isChizuColour = (colour: string): boolean => SAFE_COLOUR.test(colour.trim());
 
-const escape = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const escape = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const num = (value: number) => String(Math.round(value * 100) / 100);
 
 /** The label's font size, as a share of the window's width. */
@@ -125,13 +126,20 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
     options.featureLayer && options.featureLayer.map === map.id
       ? (() => {
           const chosen = new Set(featuresShown(options.featureLayer, options.features ?? []));
-          return options.featureLayer.features.filter((feature) => chosen.has(feature) || tones[feature.code] !== undefined);
+          return options.featureLayer.features.filter(
+            (feature) => chosen.has(feature) || tones[feature.code] !== undefined,
+          );
         })()
       : [];
   const layerOf = (group: ChizuFeatureGroup) => {
     if (!shown.some((feature) => feature.group === group)) return "";
     const shapes = featureShapes(shown, group, box, { language, tones, interactive });
-    return offsets.map((offset) => `<g class="cz-features" data-group="${group}"${offset === 0 ? "" : ` transform="translate(${num(offset)} 0)"`}>${shapes}</g>`).join("");
+    return offsets
+      .map(
+        (offset) =>
+          `<g class="cz-features" data-group="${group}"${offset === 0 ? "" : ` transform="translate(${num(offset)} 0)"`}>${shapes}</g>`,
+      )
+      .join("");
   };
   const insetOf = new Map<string, ChizuInset[]>();
   for (const inset of map.insets) insetOf.set(String(inset.code), [...(insetOf.get(String(inset.code)) ?? []), inset]);
@@ -139,21 +147,40 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
   const regionGroup = (index: number) => {
     const region = map.regions[index]!;
     const tone = tones[region.code];
-    const colour = Object.hasOwn(colors, region.code) && typeof colors[region.code] === "string" && isChizuColour(colors[region.code]!) ? colors[region.code]!.trim() : undefined;
+    const colour =
+      Object.hasOwn(colors, region.code) &&
+      typeof colors[region.code] === "string" &&
+      isChizuColour(colors[region.code]!)
+        ? colors[region.code]!.trim()
+        : undefined;
     const pieces = mapRegionPieces(region, insetOf.get(String(region.code)) ?? null);
     const attributes = `class="cz-region${tone ? ` cz-tone-${escape(tone)}` : ""}" data-code="${escape(region.code)}"${tone ? ` data-tone="${escape(tone)}"` : ""}${colour ? ` data-color="${escape(colour)}" style="--cz-color:${escape(colour)}"` : ""}${interactive ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(nameOf(region, language))}"` : ""}`;
-    const paths = pieces.map((piece) => `<path class="cz-land" d="${piece.d}"${piece.transform ? ` transform="${insetTransformAttribute(piece.transform)}"` : ""}/>`).join("");
+    const paths = pieces
+      .map(
+        (piece) =>
+          `<path class="cz-land" d="${piece.d}"${piece.transform ? ` transform="${insetTransformAttribute(piece.transform)}"` : ""}/>`,
+      )
+      .join("");
     return `<g ${attributes}><title>${escape(nameOf(region, language))}</title>${paths}</g>`;
   };
   const land = map.regions.map((_, index) => regionGroup(index)).join("");
 
-  const copies = offsets.map((offset) => (offset === 0 ? `<g class="cz-land-copy">${land}</g>` : `<g class="cz-land-copy" transform="translate(${num(offset)} 0)">${land}</g>`)).join("");
+  const copies = offsets
+    .map((offset) =>
+      offset === 0
+        ? `<g class="cz-land-copy">${land}</g>`
+        : `<g class="cz-land-copy" transform="translate(${num(offset)} 0)">${land}</g>`,
+    )
+    .join("");
 
   const frames =
     options.insetFrames === false
       ? ""
       : map.insets
-          .map((inset) => `<rect class="cz-inset" data-code="${escape(inset.code)}" x="${num(inset.box.x)}" y="${num(inset.box.y)}" width="${num(inset.box.width)}" height="${num(inset.box.height)}"/>`)
+          .map(
+            (inset) =>
+              `<rect class="cz-inset" data-code="${escape(inset.code)}" x="${num(inset.box.x)}" y="${num(inset.box.y)}" width="${num(inset.box.width)}" height="${num(inset.box.height)}"/>`,
+          )
           .join("");
 
   let labels = "";
@@ -171,7 +198,9 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
         if (only === null && name.length * size * (language === "ja" ? 1 : 0.55) > widest * 1.15) return;
         const x = at[0] + offset;
         if (x < box.x || x > box.x + box.width || at[1] < box.y || at[1] > box.y + box.height) return;
-        parts.push(`<text class="cz-label" x="${num(x)}" y="${num(at[1])}" font-size="${num(size)}" data-code="${escape(region.code)}">${escape(name)}</text>`);
+        parts.push(
+          `<text class="cz-label" x="${num(x)}" y="${num(at[1])}" font-size="${num(size)}" data-code="${escape(region.code)}">${escape(name)}</text>`,
+        );
       });
     }
     labels = `<g class="cz-labels">${parts.join("")}</g>`;
@@ -179,18 +208,32 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
 
   let callouts = "";
   if (options.callouts) {
-    const request = Array.isArray(options.callouts) ? { codes: options.callouts as readonly string[] } : (options.callouts as Omit<CalloutRequest, "box">);
+    const request = Array.isArray(options.callouts)
+      ? { codes: options.callouts as readonly string[] }
+      : (options.callouts as Omit<CalloutRequest, "box">);
     const spots = layoutCallouts(map, { features: shown, ...request, box });
-    callouts = calloutsSvg(spots, (code) => map.regions.find((entry) => entry.code === code) ?? shown.find((entry) => entry.code === code), language, interactive);
+    callouts = calloutsSvg(
+      spots,
+      (code) => map.regions.find((entry) => entry.code === code) ?? shown.find((entry) => entry.code === code),
+      language,
+      interactive,
+    );
   }
 
-  const label = options.label ?? chizuSay(language, "map", { name: language === "ja" ? (map.nameJa ?? map.name) : map.name });
+  const label =
+    options.label ?? chizuSay(language, "map", { name: language === "ja" ? (map.nameJa ?? map.name) : map.name });
   const style = options.style ? `<style>${CHIZU_STYLE}</style>` : "";
   // A sea is drawn where it is, so the boxes a map draws its far islands in are given the plain sea again over it.
   const boxSea = shown.some((feature) => feature.group === "marine")
-    ? map.insets.map((inset) => `<rect class="cz-inset-sea" x="${num(inset.box.x)}" y="${num(inset.box.y)}" width="${num(inset.box.width)}" height="${num(inset.box.height)}"/>`).join("")
+    ? map.insets
+        .map(
+          (inset) =>
+            `<rect class="cz-inset-sea" x="${num(inset.box.x)}" y="${num(inset.box.y)}" width="${num(inset.box.width)}" height="${num(inset.box.height)}"/>`,
+        )
+        .join("")
     : "";
-  const named = shown.length > 0 && options.featureLabels !== false ? featureLabels(shown, box, offsets, { language, tones }) : "";
+  const named =
+    shown.length > 0 && options.featureLabels !== false ? featureLabels(shown, box, offsets, { language, tones }) : "";
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" class="chizu" viewBox="${num(box.x)} ${num(box.y)} ${num(box.width)} ${num(box.height)}" role="${interactive ? "group" : "img"}" aria-label="${escape(label)}" data-map="${escape(map.id)}">` +
     style +

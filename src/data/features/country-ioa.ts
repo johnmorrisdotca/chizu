@@ -16,6 +16,39 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-ioa 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-ioa","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-ioa; names from Natural Earth and Wikidata","features":[{"code":"Q1239","kind":"ocean","group":"marine","name":"Indian Ocean","nameJa":"インド洋","reading":"いんどよう","rank":0,"path":"M-1,-1L1001,-1L1001,216L-1,216Z","bbox":[-1,-1,1001,216],"centroid":[500,107.5],"neighbors":[]},{"code":"Q524471","kind":"peak","group":"peaks","name":"Murray Hill","nameJa":"マーレー・ヒル","reading":"マーレーヒル","rank":9,"elevation":356,"path":"","bbox":[988.9,6.3,988.9,6.3],"centroid":[988.9,6.3],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-ioa",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-ioa; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "Q1239",
+      kind: "ocean",
+      group: "marine",
+      name: "Indian Ocean",
+      nameJa: "インド洋",
+      reading: "いんどよう",
+      rank: 0,
+      path: "M-1,-1L1001,-1L1001,216L-1,216Z",
+      bbox: [-1, -1, 1001, 216],
+      centroid: [500, 107.5],
+      neighbors: [],
+    },
+    {
+      code: "Q524471",
+      kind: "peak",
+      group: "peaks",
+      name: "Murray Hill",
+      nameJa: "マーレー・ヒル",
+      reading: "マーレーヒル",
+      rank: 9,
+      elevation: 356,
+      path: "",
+      bbox: [988.9, 6.3, 988.9, 6.3],
+      centroid: [988.9, 6.3],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

@@ -304,7 +304,6 @@ export function placeCallouts<T>(
     return true;
   };
 
-
   /* Furthest from its nearest room first: it is the one with no second choice. */
   const order = entries
     .map((_, i) => ({ i, reach: shortlists[i]![0]?.cost ?? 0 }))
@@ -417,11 +416,16 @@ export function placeCallouts<T>(
         /* Crossing, or running alongside: trading seats undoes either. */
         const a = entries[i]!.centroid;
         const c = entries[j]!.centroid;
-        if (segmentsGap(a, [here.x, here.y], c, [there.x, there.y]) >= Math.min(near, Math.hypot(a[0] - c[0], a[1] - c[1]))) continue;
+        if (
+          segmentsGap(a, [here.x, here.y], c, [there.x, there.y]) >=
+          Math.min(near, Math.hypot(a[0] - c[0], a[1] - c[1]))
+        )
+          continue;
         const was = costOf(i, at[i]!, j) + costOf(j, at[j]!, i);
         const swapped = costOf(i, at[j]!, j) + costOf(j, at[i]!, i);
         if (swapped + 1e-9 >= was) continue;
-        if (crossedBy(i, at[j]!, j) + crossedBy(j, at[i]!, i) > crossedBy(i, at[i]!, j) + crossedBy(j, at[j]!, i)) continue;
+        if (crossedBy(i, at[j]!, j) + crossedBy(j, at[i]!, i) > crossedBy(i, at[i]!, j) + crossedBy(j, at[j]!, i))
+          continue;
         const held = at[i]!;
         const other = at[j]!;
         at[i] = -1;

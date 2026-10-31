@@ -16,6 +16,39 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-vi 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-vi","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-vi; names from Natural Earth and Wikidata","features":[{"code":"Q3005470","kind":"peak","group":"peaks","name":"Crown Mountain","nameJa":"クラウン山","reading":"くらうんさん","rank":9,"elevation":473,"path":"","bbox":[96.4,37.8,96.4,37.8],"centroid":[96.4,37.8],"neighbors":[]},{"code":"capital-VI","kind":"capital","group":"capitals","name":"Charlotte Amalie","nameJa":"シャーロット・アマリー","reading":"シャーロットアマリー","rank":0,"path":"","bbox":[123.4,52,123.4,52],"centroid":[123.4,52],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-vi",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-vi; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "Q3005470",
+      kind: "peak",
+      group: "peaks",
+      name: "Crown Mountain",
+      nameJa: "クラウン山",
+      reading: "くらうんさん",
+      rank: 9,
+      elevation: 473,
+      path: "",
+      bbox: [96.4, 37.8, 96.4, 37.8],
+      centroid: [96.4, 37.8],
+      neighbors: [],
+    },
+    {
+      code: "capital-VI",
+      kind: "capital",
+      group: "capitals",
+      name: "Charlotte Amalie",
+      nameJa: "シャーロット・アマリー",
+      reading: "シャーロットアマリー",
+      rank: 0,
+      path: "",
+      bbox: [123.4, 52, 123.4, 52],
+      centroid: [123.4, 52],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

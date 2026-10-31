@@ -209,13 +209,7 @@ export function seaAround(x: number, y: number, reach: number, ring: MapRing): n
  * @param ring - A closed outline ring in native map units.
  * @returns Whether a straight line from one point to another passes over the land inside a ring.
  */
-export function segmentMeetsRing(
-  ax: number,
-  ay: number,
-  bx: number,
-  by: number,
-  ring: MapRing,
-): boolean {
+export function segmentMeetsRing(ax: number, ay: number, bx: number, by: number, ring: MapRing): boolean {
   if (Math.max(ax, bx) < ring.minX || Math.min(ax, bx) > ring.maxX) return false;
   if (Math.max(ay, by) < ring.minY || Math.min(ay, by) > ring.maxY) return false;
   const points = ring.points;
@@ -266,10 +260,7 @@ export function segmentMeetsRing(
  * @param reach - The maximum native map-unit search distance.
  * @returns Bounds around the mainland and nearby pieces, or null when no ring exists.
  */
-export function mainlandBounds(
-  rings: readonly MapRing[],
-  reach = 1,
-): [number, number, number, number] | null {
+export function mainlandBounds(rings: readonly MapRing[], reach = 1): [number, number, number, number] | null {
   let widest: MapRing | null = null;
   for (const ring of rings) {
     const area = (ring.maxX - ring.minX) * (ring.maxY - ring.minY);
@@ -406,7 +397,10 @@ export function mapRegionPieces(
   for (const one of insets) {
     const takes = (ring: MapRing) =>
       one.within !== undefined
-        ? ring.minX >= one.within.x && ring.maxX <= one.within.x + one.within.width && ring.minY >= one.within.y && ring.maxY <= one.within.y + one.within.height
+        ? ring.minX >= one.within.x &&
+          ring.maxX <= one.within.x + one.within.width &&
+          ring.minY >= one.within.y &&
+          ring.maxY <= one.within.y + one.within.height
         : ring.minY >= one.outlyingBelow!;
     const taken = rest.filter(takes);
     rest = rest.filter((ring) => !takes(ring));
@@ -468,7 +462,10 @@ export function mapOutlines(map: Pick<ChizuMap, "regions" | "insets">): MapOutli
   const known = outlineCache.get(map);
   if (known) return known;
   const outlines = map.regions.map((region) => {
-    const rings = mapRegionPieces(region, map.insets.filter((inset) => String(inset.code) === String(region.code))).flatMap((piece) => parseMapRings(piece.d, piece.transform));
+    const rings = mapRegionPieces(
+      region,
+      map.insets.filter((inset) => String(inset.code) === String(region.code)),
+    ).flatMap((piece) => parseMapRings(piece.d, piece.transform));
     return { rings, anchor: landAnchor(rings) };
   });
   outlineCache.set(map, outlines);
@@ -558,5 +555,10 @@ export function drawnBounds(
   const inPlace = pieces.filter((piece) => piece.transform === null);
   const framed = inPlace.length > 0 ? inPlace : [pieces[0]!];
   const rings = framed.flatMap((piece) => parseMapRings(piece.d, piece.transform));
-  return [Math.min(...rings.map((ring) => ring.minX)), Math.min(...rings.map((ring) => ring.minY)), Math.max(...rings.map((ring) => ring.maxX)), Math.max(...rings.map((ring) => ring.maxY))];
+  return [
+    Math.min(...rings.map((ring) => ring.minX)),
+    Math.min(...rings.map((ring) => ring.minY)),
+    Math.max(...rings.map((ring) => ring.maxX)),
+    Math.max(...rings.map((ring) => ring.maxY)),
+  ];
 }

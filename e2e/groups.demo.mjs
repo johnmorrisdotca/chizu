@@ -28,18 +28,34 @@ test("the world's parts are its continents and the UN's subregions, named in Jap
 
 test("a quiz on a continent offers only its countries, and callouts number only them", async ({ page }) => {
   await open(page, "?map=world&part=EU&mode=quiz&seed=4");
-  const europe = await page.evaluate(async () => (await import("./dist/names-entry.js")).CHIZU_CONTINENTS.find((one) => one.code === "EU").codes);
-  for (const code of await page.locator(`${at("choices")} button`).evaluateAll((all) => all.map((button) => button.dataset.code))) expect(europe).toContain(code);
+  const europe = await page.evaluate(
+    async () => (await import("./dist/names-entry.js")).CHIZU_CONTINENTS.find((one) => one.code === "EU").codes,
+  );
+  for (const code of await page
+    .locator(`${at("choices")} button`)
+    .evaluateAll((all) => all.map((button) => button.dataset.code)))
+    expect(europe).toContain(code);
   await page.locator(`${at("modes")} button[data-value="callouts"]`).click();
-  const numbered = await page.locator(`${at("board")} .cz-callout`).evaluateAll((all) => all.map((node) => node.dataset.code));
+  const numbered = await page
+    .locator(`${at("board")} .cz-callout`)
+    .evaluateAll((all) => all.map((node) => node.dataset.code));
   expect(numbered.length).toBeGreaterThan(5);
   for (const code of numbered) expect(europe).toContain(code);
 });
 
 test("Canada's parts are its five regions, and the colour mode paints each its own colour", async ({ page }) => {
   await open(page, "?map=divisions:ca&mode=colour&colour=groups");
-  expect(await page.locator(`${at("part")} option`).allTextContents()).toEqual(["All of it", "Prairies (3)", "West Coast (1)", "Atlantic (4)", "North (3)", "Central (2)"]);
+  expect(await page.locator(`${at("part")} option`).allTextContents()).toEqual([
+    "All of it",
+    "Prairies (3)",
+    "West Coast (1)",
+    "Atlantic (4)",
+    "North (3)",
+    "Central (2)",
+  ]);
   await expect(page.locator(`${at("colour-legend")} li`)).toHaveCount(5);
-  const tones = await page.locator(`${at("board")} .cz-region`).evaluateAll((all) => [...new Set(all.map((node) => node.dataset.tone))]);
+  const tones = await page
+    .locator(`${at("board")} .cz-region`)
+    .evaluateAll((all) => [...new Set(all.map((node) => node.dataset.tone))]);
   expect(tones.sort()).toEqual(["group1", "group2", "group3", "group4", "group5"]);
 });

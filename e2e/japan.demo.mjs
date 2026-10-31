@@ -38,16 +38,34 @@ test("Okinawa is pressed where it is drawn, in its box", async ({ page }, testIn
 test("the table finds a prefecture by its name, its reading in either kana, or its ISO code", async ({ page }) => {
   await open(page);
   const rows = page.locator("#names tbody tr");
-  for (const [typed, code] of [["osaka", "27"], ["おおさか", "27"], ["オオサカ", "27"], ["JP-27", "27"], ["大阪", "27"]]) {
+  for (const [typed, code] of [
+    ["osaka", "27"],
+    ["おおさか", "27"],
+    ["オオサカ", "27"],
+    ["JP-27", "27"],
+    ["大阪", "27"],
+  ]) {
     await page.locator(at("filter")).fill(typed);
     await expect(rows.first(), typed).toHaveAttribute("data-code", code);
   }
 });
 
-test("a part of Japan is one of its eight regions: the map frames it and fades the rest, and the list keeps to it", async ({ page }) => {
+test("a part of Japan is one of its eight regions: the map frames it and fades the rest, and the list keeps to it", async ({
+  page,
+}) => {
   await open(page);
   const options = await page.locator(`${at("part")} option`).allTextContents();
-  expect(options).toEqual(["All of it", "Hokkaido (1)", "Tohoku (6)", "Kanto (7)", "Chubu (9)", "Kinki (Kansai) (7)", "Chugoku (5)", "Shikoku (4)", "Kyushu (8)"]);
+  expect(options).toEqual([
+    "All of it",
+    "Hokkaido (1)",
+    "Tohoku (6)",
+    "Kanto (7)",
+    "Chubu (9)",
+    "Kinki (Kansai) (7)",
+    "Chugoku (5)",
+    "Shikoku (4)",
+    "Kyushu (8)",
+  ]);
   await page.locator(at("part")).selectOption("Kanto");
   await expect(page.locator("#names tbody tr")).toHaveCount(7);
   await expect(region(page, "13")).not.toHaveClass(/cz-tone-faint/);
@@ -56,10 +74,15 @@ test("a part of Japan is one of its eight regions: the map frames it and fades t
   await expect(page).toHaveURL(/part=Kanto/);
   // A quiz of the part asks only about it.
   await page.locator(`${at("modes")} button[data-value="quiz"]`).click();
-  for (const code of await page.locator(`${at("choices")} button`).evaluateAll((all) => all.map((button) => button.dataset.code))) expect(["8", "9", "10", "11", "12", "13", "14"]).toContain(code);
+  for (const code of await page
+    .locator(`${at("choices")} button`)
+    .evaluateAll((all) => all.map((button) => button.dataset.code)))
+    expect(["8", "9", "10", "11", "12", "13", "14"]).toContain(code);
 });
 
-test("the place card keeps one height, chosen or not, and its parts and neighbours are a row of chips", async ({ page }) => {
+test("the place card keeps one height, chosen or not, and its parts and neighbours are a row of chips", async ({
+  page,
+}) => {
   await open(page);
   const card = page.locator(at("info"));
   const before = (await card.boundingBox()).height;

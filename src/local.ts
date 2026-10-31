@@ -40,11 +40,20 @@ export type ChizuLocalCanvas = {
 };
 
 /** The canvas of a local map, worked out: the projection and the size in units. */
-export function localCanvas(canvas: ChizuLocalCanvas): Pick<ChizuMap, "width" | "height" | "viewBox"> & { projection: Extract<ChizuProjection, { kind: "local" }> } {
+export function localCanvas(
+  canvas: ChizuLocalCanvas,
+): Pick<ChizuMap, "width" | "height" | "viewBox"> & { projection: Extract<ChizuProjection, { kind: "local" }> } {
   const { centre, widthMetres } = canvas;
   const heightMetres = canvas.heightMetres ?? widthMetres;
-  if (!(widthMetres > 0) || !(heightMetres > 0) || !Number.isFinite(widthMetres) || !Number.isFinite(heightMetres)) throw new RangeError("a local map needs a width and a height in metres, above zero");
-  if (!Number.isFinite(centre[0]) || !Number.isFinite(centre[1]) || Math.abs(centre[1]) > 89 || Math.abs(centre[0]) > 360) throw new RangeError("a local map needs a centre of longitude and latitude, the latitude within 89°");
+  if (!(widthMetres > 0) || !(heightMetres > 0) || !Number.isFinite(widthMetres) || !Number.isFinite(heightMetres))
+    throw new RangeError("a local map needs a width and a height in metres, above zero");
+  if (
+    !Number.isFinite(centre[0]) ||
+    !Number.isFinite(centre[1]) ||
+    Math.abs(centre[1]) > 89 ||
+    Math.abs(centre[0]) > 360
+  )
+    throw new RangeError("a local map needs a centre of longitude and latitude, the latitude within 89°");
   const metresPerUnit = canvas.metresPerUnit ?? Math.max(widthMetres, heightMetres) / 1000;
   if (!(metresPerUnit > 0) || !Number.isFinite(metresPerUnit)) throw new RangeError("metresPerUnit must be above zero");
   const width = round(widthMetres / metresPerUnit);
@@ -53,7 +62,13 @@ export function localCanvas(canvas: ChizuLocalCanvas): Pick<ChizuMap, "width" | 
     width,
     height,
     viewBox: `0 0 ${width} ${height}`,
-    projection: { kind: "local", centre: [centre[0], centre[1]], radius: LOCAL_RADIUS, metresPerUnit, translate: [width / 2, height / 2] },
+    projection: {
+      kind: "local",
+      centre: [centre[0], centre[1]],
+      radius: LOCAL_RADIUS,
+      metresPerUnit,
+      translate: [width / 2, height / 2],
+    },
   };
 }
 
@@ -84,7 +99,7 @@ export function groundDistance(a: readonly [number, number], b: readonly [number
   const h = Math.sin((f2 - f1) / 2) ** 2 + Math.cos(f1) * Math.cos(f2) * Math.sin(dl / 2) ** 2;
   const sphere = 2 * 6371008.8 * Math.asin(Math.min(1, Math.sqrt(h)));
   if (sphere > 400_000) return sphere;
-  const mid: [number, number] = [a[0] + ((((b[0] - a[0] + 180) % 360) + 360) % 360 - 180) / 2, (a[1] + b[1]) / 2];
+  const mid: [number, number] = [a[0] + (((((b[0] - a[0] + 180) % 360) + 360) % 360) - 180) / 2, (a[1] + b[1]) / 2];
   const p = localMetres(mid, LOCAL_RADIUS, a[0], a[1]);
   const q = localMetres(mid, LOCAL_RADIUS, b[0], b[1]);
   return p && q ? Math.hypot(q[0] - p[0], q[1] - p[1]) : sphere;
@@ -110,7 +125,7 @@ export function groundDistance(a: readonly [number, number], b: readonly [number
  * ```
  */
 export function localConvergence(centre: readonly [number, number], lon: number, lat: number): number {
-  const dl = (((lon - centre[0] + 180) % 360) + 360) % 360 - 180;
+  const dl = ((((lon - centre[0] + 180) % 360) + 360) % 360) - 180;
   return Math.atan(Math.tan(dl * RAD) * Math.sin(lat * RAD)) / RAD;
 }
 
@@ -168,7 +183,12 @@ export function localCanvasFromBox(map: Pick<ChizuMap, "projection">, box: MapBo
   const metres = mapBoxMetres(map, box);
   const centre = unprojectPoint(map, box.x + box.width / 2, box.y + box.height / 2);
   if (!metres || !centre || Math.abs(centre[1]) > 89) return null;
-  return { centre, widthMetres: metres.width, heightMetres: metres.height, metresPerUnit: Math.max(metres.width, metres.height) / 1000 };
+  return {
+    centre,
+    widthMetres: metres.width,
+    heightMetres: metres.height,
+    metresPerUnit: Math.max(metres.width, metres.height) / 1000,
+  };
 }
 
 /**
@@ -192,7 +212,11 @@ export function localCanvasFromBox(map: Pick<ChizuMap, "projection">, box: MapBo
  * // true true
  * ```
  */
-export function mapBoxFromLocal(map: Pick<ChizuMap, "projection">, local: Pick<ChizuMap, "projection" | "width" | "height">, box?: MapBox): MapBox | null {
+export function mapBoxFromLocal(
+  map: Pick<ChizuMap, "projection">,
+  local: Pick<ChizuMap, "projection" | "width" | "height">,
+  box?: MapBox,
+): MapBox | null {
   const p = local.projection;
   if (p.kind !== "local") return null;
   const window = box ?? { x: 0, y: 0, width: local.width, height: local.height };
@@ -203,11 +227,21 @@ export function mapBoxFromLocal(map: Pick<ChizuMap, "projection">, local: Pick<C
     [window.x + window.width, window.y + window.height],
   ];
   const points = corners.map(([x, y]) => {
-    const [lon, lat] = localLonLat(p.centre, p.radius, (x - p.translate[0]) * p.metresPerUnit, (p.translate[1] - y) * p.metresPerUnit);
+    const [lon, lat] = localLonLat(
+      p.centre,
+      p.radius,
+      (x - p.translate[0]) * p.metresPerUnit,
+      (p.translate[1] - y) * p.metresPerUnit,
+    );
     return projectPoint(map, lon, lat);
   });
   if (points.some((point) => point === null)) return null;
   const xs = points.map((point) => point![0]);
   const ys = points.map((point) => point![1]);
-  return { x: Math.min(...xs), y: Math.min(...ys), width: Math.max(...xs) - Math.min(...xs), height: Math.max(...ys) - Math.min(...ys) };
+  return {
+    x: Math.min(...xs),
+    y: Math.min(...ys),
+    width: Math.max(...xs) - Math.min(...xs),
+    height: Math.max(...ys) - Math.min(...ys),
+  };
 }

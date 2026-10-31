@@ -18,7 +18,7 @@ export function refreshDataReferenceDocs(root) {
   const changes = [];
   for (const kind of ["countries", "divisions", "features"]) {
     const directory = join(root, "src/data", kind);
-    for (const filename of readdirSync(directory).filter(name => name.endsWith(".ts"))) {
+    for (const filename of readdirSync(directory).filter((name) => name.endsWith(".ts"))) {
       const file = join(directory, filename);
       const text = readFileSync(file, "utf8");
       const entry = `${kind}/${filename.slice(0, -3)}`;
@@ -34,7 +34,10 @@ export function refreshDataReferenceDocs(root) {
       const data = JSON.parse(literal);
       const doc = kind === "features" ? featureReferenceDoc(entry, data) : mapReferenceDoc(entry, description, data);
       const next = text.slice(0, insert) + doc + text.slice(position);
-      if (next !== text) { writeFileSync(file, next); changes.push(relative(root, file)); }
+      if (next !== text) {
+        writeFileSync(file, next);
+        changes.push(relative(root, file));
+      }
     }
   }
   return changes;

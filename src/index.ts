@@ -7,7 +7,21 @@
  * pan-and-zoom map in a page is `/mount`, and the names of every country are `/names`.
  */
 
-export type { Bounds, ChizuCountry, ChizuFeature, ChizuFeatureGroup, ChizuFeatureKind, ChizuFeatureLayer, ChizuGroup, ChizuInset, ChizuMap, ChizuPlace, ChizuProjection, ChizuRegion, MapBox } from "./types.ts";
+export type {
+  Bounds,
+  ChizuCountry,
+  ChizuFeature,
+  ChizuFeatureGroup,
+  ChizuFeatureKind,
+  ChizuFeatureLayer,
+  ChizuGroup,
+  ChizuInset,
+  ChizuMap,
+  ChizuPlace,
+  ChizuProjection,
+  ChizuRegion,
+  MapBox,
+} from "./types.ts";
 export {
   MAP_ZOOM_LEVELS,
   boxCentre,
@@ -25,7 +39,14 @@ export {
   zoomToFit,
 } from "./frame.ts";
 export type { MapZoom } from "./frame.ts";
-export { applyInsetTransform, insetFor, insetHoldsWhole, insetsFor, insetTransform, insetTransformAttribute } from "./insets.ts";
+export {
+  applyInsetTransform,
+  insetFor,
+  insetHoldsWhole,
+  insetsFor,
+  insetTransform,
+  insetTransformAttribute,
+} from "./insets.ts";
 export type { InsetTransform } from "./insets.ts";
 export { mapWrapsAround, nearestWrappedBox, wrapAcross, wrapIntoBox, wrapOffsets } from "./wrap.ts";
 export {
@@ -42,11 +63,26 @@ export {
   shiftedOutlines,
 } from "./outlines.ts";
 export type { MapOutline, MapPiece, MapRing } from "./outlines.ts";
-export { HANDLE_CLEARANCE, HANDLE_RADIUS_RATIO, HANDLE_SLOTS, handleRadius, orderByPosition, placeHandles } from "./handles.ts";
+export {
+  HANDLE_CLEARANCE,
+  HANDLE_RADIUS_RATIO,
+  HANDLE_SLOTS,
+  handleRadius,
+  orderByPosition,
+  placeHandles,
+} from "./handles.ts";
 export type { HandleBounds, HandleSpot } from "./handles.ts";
 export { HANDLE_LAYOUTS, placeCallouts } from "./callouts.ts";
 export type { HandleLayout } from "./callouts.ts";
-export { CALLOUT_INSET, CALLOUT_ROOMY, calloutGrid, calloutSpaces, segmentCrossesBox, segmentsCross, segmentsGap } from "./calloutSpace.ts";
+export {
+  CALLOUT_INSET,
+  CALLOUT_ROOMY,
+  calloutGrid,
+  calloutSpaces,
+  segmentCrossesBox,
+  segmentsCross,
+  segmentsGap,
+} from "./calloutSpace.ts";
 export type { CalloutKeepOut, CalloutLand, CalloutObstacle, CalloutPlace } from "./calloutSpace.ts";
 export { POLISH_CIRCLE_CLEAR_RADII, POLISH_CLOSE_RADII, calloutFaults } from "./calloutPolish.ts";
 export { CALLOUT_RADIUS_RATIO, layoutCallouts } from "./layout.ts";
@@ -55,7 +91,14 @@ export { DISTRACTOR_SCORES, distractorScore, mapDiagonal, pickDistractors } from
 export type { DistractorOptions, Scorable } from "./distractors.ts";
 export { findQuestion } from "./quiz.ts";
 export { groupBox, groupMap, groupTones, regionGroups } from "./groups.ts";
-export { CHIZU_FEATURE_GROUPS, CHIZU_FEATURE_KINDS, featureChosen, featureMap, featuresShown, findFeatures } from "./features.ts";
+export {
+  CHIZU_FEATURE_GROUPS,
+  CHIZU_FEATURE_KINDS,
+  featureChosen,
+  featureMap,
+  featuresShown,
+  findFeatures,
+} from "./features.ts";
 export type { ChizuFeatureChoice } from "./features.ts";
 export type { FindQuestion } from "./quiz.ts";
 export { placesFromText, splitPastedPlaces } from "./fromText.ts";

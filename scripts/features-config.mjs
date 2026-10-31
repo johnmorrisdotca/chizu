@@ -10,10 +10,23 @@
 export const FEATURE_FILES = {
   marine: {
     file: "ne_10m_geography_marine_polys.geojson",
-    kinds: { ocean: "ocean", sea: "sea", gulf: "gulf", bay: "bay", strait: "strait", channel: "channel", sound: "sound", fjord: "fjord", inlet: "inlet", lagoon: "lagoon", reef: "reef" },
+    kinds: {
+      ocean: "ocean",
+      sea: "sea",
+      gulf: "gulf",
+      bay: "bay",
+      strait: "strait",
+      channel: "channel",
+      sound: "sound",
+      fjord: "fjord",
+      inlet: "inlet",
+      lagoon: "lagoon",
+      reef: "reef",
+    },
     leftOut: {
       generic: "Natural Earth's unnamed pieces of sea, which are there to fill the gaps between the named ones",
-      river: "the mouths of the Amazon, the Yangtze and the Columbia, drawn as sea and named as the river, which the rivers file draws",
+      river:
+        "the mouths of the Amazon, the Yangtze and the Columbia, drawn as sea and named as the river, which the rivers file draws",
     },
   },
   lakes: {
@@ -24,7 +37,10 @@ export const FEATURE_FILES = {
   rivers: {
     file: "ne_10m_rivers_lake_centerlines.geojson",
     kinds: { River: "river" },
-    leftOut: { "Lake Centerline": "the line Natural Earth draws through a lake to carry a river's name across it; the lake itself is drawn" },
+    leftOut: {
+      "Lake Centerline":
+        "the line Natural Earth draws through a lake to carry a river's name across it; the lake itself is drawn",
+    },
   },
   landforms: {
     file: "ne_10m_geography_regions_polys.geojson",

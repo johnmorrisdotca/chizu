@@ -55,7 +55,12 @@ describe("windows", () => {
     expect(box.x).toBeGreaterThanOrEqual(0);
     expect(box.x + box.width).toBeLessThanOrEqual(whole.width + 0.001);
     // A set that needs the whole map gets it.
-    expect(focusBox(MAP, MAP.regions.map((region) => region.code))).toEqual(whole);
+    expect(
+      focusBox(
+        MAP,
+        MAP.regions.map((region) => region.code),
+      ),
+    ).toEqual(whole);
   });
 });
 
@@ -255,7 +260,12 @@ describe("framing a whole group of regions", () => {
   });
 
   it("stays at one for a set that will not fit closer, rather than cutting it", () => {
-    expect(zoomToFit(MAP, MAP.regions.map((r) => r.code)).zoom).toBe(1);
+    expect(
+      zoomToFit(
+        MAP,
+        MAP.regions.map((r) => r.code),
+      ).zoom,
+    ).toBe(1);
   });
 });
 

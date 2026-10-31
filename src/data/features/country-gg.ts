@@ -16,6 +16,38 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * // country-gg 2
  * ```
  */
-const layer: ChizuFeatureLayer = {"map":"country-gg","source":"Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-gg; names from Natural Earth and Wikidata","features":[{"code":"Q34640","kind":"channel","group":"marine","name":"English Channel","nameJa":"イギリス海峡","reading":"いぎりすかいきょう","rank":3,"path":"M-1,-1L1001,-1L1001,984L-1,984Z","bbox":[-1,-1,1001,984],"centroid":[500,491.5],"neighbors":[]},{"code":"capital-GG","kind":"capital","group":"capitals","name":"St. Peter Port","nameJa":"セント・ピーター・ポート","reading":"セントピーターポート","rank":0,"path":"","bbox":[246.4,834.6,246.4,834.6],"centroid":[246.4,834.6],"neighbors":[]}]};
+const layer: ChizuFeatureLayer = {
+  map: "country-gg",
+  source:
+    "Natural Earth 5.1.2 physical vectors, 1:10m, on the canvas of country-gg; names from Natural Earth and Wikidata",
+  features: [
+    {
+      code: "Q34640",
+      kind: "channel",
+      group: "marine",
+      name: "English Channel",
+      nameJa: "イギリス海峡",
+      reading: "いぎりすかいきょう",
+      rank: 3,
+      path: "M-1,-1L1001,-1L1001,984L-1,984Z",
+      bbox: [-1, -1, 1001, 984],
+      centroid: [500, 491.5],
+      neighbors: [],
+    },
+    {
+      code: "capital-GG",
+      kind: "capital",
+      group: "capitals",
+      name: "St. Peter Port",
+      nameJa: "セント・ピーター・ポート",
+      reading: "セントピーターポート",
+      rank: 0,
+      path: "",
+      bbox: [246.4, 834.6, 246.4, 834.6],
+      centroid: [246.4, 834.6],
+      neighbors: [],
+    },
+  ],
+};
 
 export default layer;

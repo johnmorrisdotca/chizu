@@ -26,7 +26,8 @@ export async function source(file) {
   }
   const bytes = readFileSync(path);
   const hash = createHash("sha256").update(bytes).digest("hex");
-  if (hash !== NATURAL_EARTH.files[file]) throw new Error(`${file} is not the file this script was written for (sha256 ${hash})`);
+  if (hash !== NATURAL_EARTH.files[file])
+    throw new Error(`${file} is not the file this script was written for (sha256 ${hash})`);
   return JSON.parse(bytes.toString("utf8"));
 }
 

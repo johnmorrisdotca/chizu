@@ -111,7 +111,10 @@ export function placesFromText(text: string, regions: readonly Named[], options:
   const seen = new Set<string>();
   for (const line of splitPastedPlaces(text)) {
     const wanted = line.toLowerCase();
-    const code = byName.get(wanted) ?? (options.optionalEnding ? byName.get(wanted.replace(options.optionalEnding, "")) : undefined) ?? null;
+    const code =
+      byName.get(wanted) ??
+      (options.optionalEnding ? byName.get(wanted.replace(options.optionalEnding, "")) : undefined) ??
+      null;
     if (!code) {
       missing.push(line);
       continue;

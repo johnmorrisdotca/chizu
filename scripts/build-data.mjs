@@ -20,10 +20,26 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import process from "node:process";
 
-import { CONTINENTS as KUNI_CONTINENTS, continentName, countries as kuniCountries, country as kuniCountry, subregionName } from "@johnmorrisdotca/kuni";
+import {
+  CONTINENTS as KUNI_CONTINENTS,
+  continentName,
+  countries as kuniCountries,
+  country as kuniCountry,
+  subregionName,
+} from "@johnmorrisdotca/kuni";
 import { groupings as kuniGroupings } from "@johnmorrisdotca/kuni/groupings";
 import { subdivision as kuniSubdivision } from "@johnmorrisdotca/kuni/subdivisions";
-import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoDistance, geoMercator, geoPath, geoProjection } from "d3-geo";
+import {
+  geoAlbers,
+  geoArea,
+  geoAzimuthalEqualArea,
+  geoCentroid,
+  geoConicEqualArea,
+  geoDistance,
+  geoMercator,
+  geoPath,
+  geoProjection,
+} from "d3-geo";
 
 import {
   AMAMI,
@@ -136,7 +152,12 @@ function regionOf(draw, feature, fields) {
   if (!d) throw new Error(`no path for ${fields.name}`);
   const [[minX, minY], [maxX, maxY]] = draw.bounds(feature);
   const [cx, cy] = draw.centroid(feature);
-  return { ...fields, path: tidy(d), bbox: [round(minX), round(minY), round(maxX), round(maxY)], centroid: [round(cx), round(cy)] };
+  return {
+    ...fields,
+    path: tidy(d),
+    bbox: [round(minX), round(minY), round(maxX), round(maxY)],
+    centroid: [round(cx), round(cy)],
+  };
 }
 
 const literal = (value) => JSON.stringify(value);
@@ -189,8 +210,11 @@ export default layer;
 
 /** kuni is read from node_modules, and must be the version this script was written for: a newer one is a change of names, made on purpose. */
 function checkKuni() {
-  const installed = JSON.parse(readFileSync(join(root, "node_modules", ...KUNI.package.split("/"), "package.json"), "utf8")).version;
-  if (installed !== KUNI.version) throw new Error(`${KUNI.package} ${installed} is installed; this script reads ${KUNI.version} (data-config.mjs)`);
+  const installed = JSON.parse(
+    readFileSync(join(root, "node_modules", ...KUNI.package.split("/"), "package.json"), "utf8"),
+  ).version;
+  if (installed !== KUNI.version)
+    throw new Error(`${KUNI.package} ${installed} is installed; this script reads ${KUNI.version} (data-config.mjs)`);
 }
 
 /** How a name written with kanji is read, for the few places kuni does not know: the hand-written table, or null. A katakana name is its own reading. */
@@ -243,9 +267,12 @@ function namesOf(properties, code) {
   }
   const display = DISPLAY_NAMES[code] ?? {};
   const short = display.nameShortJa ?? (SHORT_NAMES_NOT_EVERYDAY.has(code) ? undefined : known.shortName?.ja);
-  const reading = display.reading ?? (short ? (kanaReading(short) ?? SHORT_NAME_READINGS[short]) : (known.reading ?? kanaReading(known.name.ja)));
+  const reading =
+    display.reading ??
+    (short ? (kanaReading(short) ?? SHORT_NAME_READINGS[short]) : (known.reading ?? kanaReading(known.name.ja)));
   if (!reading) throw new Error(`${code}: no reading for ${short ?? known.name.ja}; add it to SHORT_NAME_READINGS`);
-  const name = display.name ?? (known.shortName?.en && !SHORT_ENGLISH_NOT_FOR_MAPS[code] ? known.shortName.en : known.name.en);
+  const name =
+    display.name ?? (known.shortName?.en && !SHORT_ENGLISH_NOT_FOR_MAPS[code] ? known.shortName.en : known.name.en);
   return { name, nameJa: known.name.ja, ...(short ? { nameShortJa: short } : {}), reading };
 }
 
@@ -256,7 +283,11 @@ function identityOf(properties, code) {
   return {
     group: known ? CONTINENT_NAMES[continent] : properties.CONTINENT,
     ...(known ? { groupJa: continentName(continent, "ja") } : {}),
-    iso3: known ? known.alpha3 : properties.ISO_A3_EH && properties.ISO_A3_EH !== "-99" ? properties.ISO_A3_EH : properties.ADM0_A3,
+    iso3: known
+      ? known.alpha3
+      : properties.ISO_A3_EH && properties.ISO_A3_EH !== "-99"
+        ? properties.ISO_A3_EH
+        : properties.ADM0_A3,
   };
 }
 
@@ -273,7 +304,10 @@ function regionIso(country, feature) {
     if (join) return null;
     throw new Error(`${key} (${feature.properties.name}) has no ISO 3166-2 code: give it a line in ISO_JOIN`);
   }
-  if (!kuniSubdivision(iso)) throw new Error(`${key} (${feature.properties.name}): ${iso} is not in kuni ${KUNI.version}; give it a line in ISO_JOIN`);
+  if (!kuniSubdivision(iso))
+    throw new Error(
+      `${key} (${feature.properties.name}): ${iso} is not in kuni ${KUNI.version}; give it a line in ISO_JOIN`,
+    );
   return iso;
 }
 
@@ -339,7 +373,9 @@ function buildWorld(collection) {
     });
   });
   // In the order a directory reads them: by continent, then by English name.
-  regions.sort((a, b) => CONTINENTS.indexOf(a.group) - CONTINENTS.indexOf(b.group) || a.name.localeCompare(b.name, "en"));
+  regions.sort(
+    (a, b) => CONTINENTS.indexOf(a.group) - CONTINENTS.indexOf(b.group) || a.name.localeCompare(b.name, "en"),
+  );
   const [tx, ty] = projection.translate();
   worldProjection = projection;
   projections.set("world", projection);
@@ -354,7 +390,12 @@ function buildWorld(collection) {
     width: WORLD_WIDTH,
     height,
     wraps: true,
-    projection: { kind: "miller", centre: CENTRE_LONGITUDE, scale: keepScale(projection.scale()), translate: [keepTranslate(tx), keepTranslate(ty)] },
+    projection: {
+      kind: "miller",
+      centre: CENTRE_LONGITUDE,
+      scale: keepScale(projection.scale()),
+      translate: [keepTranslate(tx), keepTranslate(ty)],
+    },
     insets: [],
     source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, 1:110m, Miller cylindrical centred on ${CENTRE_LONGITUDE}°E`,
     regions,
@@ -436,7 +477,15 @@ function buildCountry(feature, near, fine) {
   const pieces = corePieces((finer ?? feature).geometry);
   const geometry = { type: "MultiPolygon", coordinates: pieces };
   const [lon, lat] = geoCentroid(geometry);
-  const projection = geoAzimuthalEqualArea().rotate([-lon, -lat]).fitExtent([[0, 0], [COUNTRY_SIDE, COUNTRY_SIDE]], geometry);
+  const projection = geoAzimuthalEqualArea()
+    .rotate([-lon, -lat])
+    .fitExtent(
+      [
+        [0, 0],
+        [COUNTRY_SIDE, COUNTRY_SIDE],
+      ],
+      geometry,
+    );
   const draw = geoPath(projection);
   const [[x0, y0], [x1, y1]] = draw.bounds(geometry);
   const [tx, ty] = projection.translate();
@@ -464,7 +513,12 @@ function buildCountry(feature, near, fine) {
     width,
     height,
     wraps: false,
-    projection: { kind: "azimuthal-equal-area", centre: [keepDegrees(lon), keepDegrees(lat)], scale: keepScale(projection.scale()), translate: projection.translate().map(keepTranslate) },
+    projection: {
+      kind: "azimuthal-equal-area",
+      centre: [keepDegrees(lon), keepDegrees(lat)],
+      scale: keepScale(projection.scale()),
+      translate: projection.translate().map(keepTranslate),
+    },
     insets: [],
     source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, ${finer ? "1:10m" : "1:50m"}, Lambert azimuthal equal-area centred on the country, longer side ${COUNTRY_SIDE}`,
     regions: [region],
@@ -489,7 +543,8 @@ function withRegionCodes(config, rawFeatures) {
 function groupOf(config, feature) {
   const groups = REGION_GROUPS[config.code];
   const group = groups?.members?.[feature.properties.__code] ?? config.regionFn(feature);
-  if (groups?.members && !groups.members[feature.properties.__code]) throw new Error(`${config.code}:${feature.properties.__code} has no group in REGION_GROUPS`);
+  if (groups?.members && !groups.members[feature.properties.__code])
+    throw new Error(`${config.code}:${feature.properties.__code} has no group in REGION_GROUPS`);
   const groupJa = groups?.names[group];
   if (groups && !groupJa) throw new Error(`${config.code}: no Japanese name for the group ${group}`);
   return { group, ...(groupJa ? { groupJa } : {}) };
@@ -512,7 +567,10 @@ function regionsOf(draw, features, config) {
   const near = neighboursBySharedPoints(features, (feature) => feature.properties.__code);
   const isos = isoCodes(config.code, features);
   const regions = features.map((feature, index) =>
-    regionOf(draw, feature, { ...regionFields(config, feature, isos[index].iso, isos[index].shared), neighbors: near[index] }),
+    regionOf(draw, feature, {
+      ...regionFields(config, feature, isos[index].iso, isos[index].shared),
+      neighbors: near[index],
+    }),
   );
   regions.sort((a, b) => a.code.localeCompare(b.code));
   return regions;
@@ -521,7 +579,9 @@ function regionsOf(draw, features, config) {
 function buildDivisions(config, rawFeatures, countryNames) {
   const features = withRegionCodes(config, rawFeatures);
   if (features.length === 0) throw new Error(`no regions for ${config.code}`);
-  const projection = config.projection().fitSize([config.width, config.height], { type: "FeatureCollection", features });
+  const projection = config
+    .projection()
+    .fitSize([config.width, config.height], { type: "FeatureCollection", features });
   const regions = regionsOf(geoPath(projection), features, config);
   projections.set(`divisions-${config.code.toLowerCase()}`, projection);
   return {
@@ -535,7 +595,13 @@ function buildDivisions(config, rawFeatures, countryNames) {
     width: config.width,
     height: config.height,
     wraps: false,
-    projection: { kind: "other", description: `d3-geo ${config.projection.toString().replace(/^\(\) => /, "").replace(/\s+/g, " ")}, fitted to ${config.width}x${config.height}` },
+    projection: {
+      kind: "other",
+      description: `d3-geo ${config.projection
+        .toString()
+        .replace(/^\(\) => /, "")
+        .replace(/\s+/g, " ")}, fitted to ${config.width}x${config.height}`,
+    },
     insets: [],
     source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, fitted to ${config.width}x${config.height}`,
     regions,
@@ -549,11 +615,20 @@ function buildDivisions(config, rawFeatures, countryNames) {
  */
 function buildUnitedStates(rawFeatures, countryNames) {
   const config = { code: "US", regionFn: (f) => f.properties.region || "United States" };
-  const states = withRegionCodes({ filter: (f) => f.properties.iso_a2 === "US", codeFn: (f) => f.properties.postal }, rawFeatures);
+  const states = withRegionCodes(
+    { filter: (f) => f.properties.iso_a2 === "US", codeFn: (f) => f.properties.postal },
+    rawFeatures,
+  );
   const lower = states.filter((f) => f.properties.__code !== "AK" && f.properties.__code !== "HI");
   const width = 1000;
   const mainHeight = 600;
-  const main = geoAlbers().fitExtent([[0, 0], [width, mainHeight]], { type: "FeatureCollection", features: lower });
+  const main = geoAlbers().fitExtent(
+    [
+      [0, 0],
+      [width, mainHeight],
+    ],
+    { type: "FeatureCollection", features: lower },
+  );
   const k = main.scale();
   const alaska = geoConicEqualArea().parallels([55, 65]).rotate([154, 0]).center([0, 62]).scale(k).translate([0, 0]);
   const hawaii = geoConicEqualArea().parallels([8, 18]).rotate([157, 0]).center([0, 20]).scale(k).translate([0, 0]);
@@ -562,7 +637,10 @@ function buildUnitedStates(rawFeatures, countryNames) {
   const regions = states.map((feature, index) => {
     const p = feature.properties;
     const projection = p.__code === "AK" ? alaska : p.__code === "HI" ? hawaii : main;
-    return regionOf(geoPath(projection), feature, { ...regionFields(config, feature, isos[index].iso, isos[index].shared), neighbors: near[index] });
+    return regionOf(geoPath(projection), feature, {
+      ...regionFields(config, feature, isos[index].iso, isos[index].shared),
+      neighbors: near[index],
+    });
   });
   regions.sort((a, b) => a.code.localeCompare(b.code));
   projections.set("divisions-us", main);
@@ -579,7 +657,10 @@ function buildUnitedStates(rawFeatures, countryNames) {
     width,
     height,
     wraps: false,
-    projection: { kind: "other", description: `d3-geo geoAlbers for the lower 48, a conic equal-area of its own for Alaska and for Hawaii, at one scale; fitted to ${width}x${mainHeight}` },
+    projection: {
+      kind: "other",
+      description: `d3-geo geoAlbers for the lower 48, a conic equal-area of its own for Alaska and for Hawaii, at one scale; fitted to ${width}x${mainHeight}`,
+    },
     insets: [
       { code: "AK", box: { x: 20, y: 610, width: 360, height: 120 } },
       { code: "HI", box: { x: 400, y: 640, width: 230, height: 90 } },
@@ -593,14 +674,27 @@ function buildUnitedStates(rawFeatures, countryNames) {
 function withAmamiInKagoshima(features) {
   const isAmami = (polygon) => {
     const ring = polygon[0];
-    return Math.min(...ring.map(([lon]) => lon)) >= AMAMI.eastOf && Math.min(...ring.map(([, lat]) => lat)) >= AMAMI.northOf;
+    return (
+      Math.min(...ring.map(([lon]) => lon)) >= AMAMI.eastOf && Math.min(...ring.map(([, lat]) => lat)) >= AMAMI.northOf
+    );
   };
   const okinawa = features.find((feature) => feature.properties.iso_3166_2 === "JP-47");
   const amami = polygonsOf(okinawa.geometry).filter(isAmami);
   if (amami.length === 0) throw new Error("no Amami Islands in Okinawa: has Natural Earth changed?");
   return features.map((feature) => {
-    if (feature === okinawa) return { ...feature, geometry: { type: "MultiPolygon", coordinates: polygonsOf(feature.geometry).filter((polygon) => !isAmami(polygon)) } };
-    if (feature.properties.iso_3166_2 === "JP-46") return { ...feature, geometry: { type: "MultiPolygon", coordinates: [...polygonsOf(feature.geometry), ...amami] } };
+    if (feature === okinawa)
+      return {
+        ...feature,
+        geometry: {
+          type: "MultiPolygon",
+          coordinates: polygonsOf(feature.geometry).filter((polygon) => !isAmami(polygon)),
+        },
+      };
+    if (feature.properties.iso_3166_2 === "JP-46")
+      return {
+        ...feature,
+        geometry: { type: "MultiPolygon", coordinates: [...polygonsOf(feature.geometry), ...amami] },
+      };
     return feature;
   });
 }
@@ -617,7 +711,11 @@ function japanGroups() {
   for (const region of set) {
     const others = (region.otherNames ?? []).flatMap((other) => [other.en, other.ja].filter(Boolean));
     const aliases = [...new Set([...others.flatMap((name) => [bare(name), name]), bare(region.name.ja)])];
-    const fields = { group: bare(region.name.en), groupJa: region.name.ja, ...(others.length > 0 ? { groupAliases: aliases } : {}) };
+    const fields = {
+      group: bare(region.name.en),
+      groupJa: region.name.ja,
+      ...(others.length > 0 ? { groupAliases: aliases } : {}),
+    };
     for (const iso of region.members) byIso.set(iso, fields);
   }
   return (iso) => {
@@ -648,8 +746,19 @@ function buildJapan(rawFeatures, countryNames) {
   const mainland = features
     .filter((feature) => feature.properties.__code !== "47")
     .map((feature) => {
-      const south = feature.properties.__code === "46" ? JAPAN_OUTLYING.kagoshimaSouthOf : feature.properties.__code === "13" ? JAPAN_OUTLYING.tokyoSouthOf : -90;
-      return { ...feature, geometry: { type: "MultiPolygon", coordinates: polygonsOf(feature.geometry).filter((polygon) => northernEdge(polygon) >= south) } };
+      const south =
+        feature.properties.__code === "46"
+          ? JAPAN_OUTLYING.kagoshimaSouthOf
+          : feature.properties.__code === "13"
+            ? JAPAN_OUTLYING.tokyoSouthOf
+            : -90;
+      return {
+        ...feature,
+        geometry: {
+          type: "MultiPolygon",
+          coordinates: polygonsOf(feature.geometry).filter((polygon) => northernEdge(polygon) >= south),
+        },
+      };
     });
   const width = 1000;
   const projection = geoMercator().fitWidth(width, { type: "FeatureCollection", features: mainland });
@@ -690,7 +799,10 @@ function buildJapan(rawFeatures, countryNames) {
     width,
     height,
     wraps: false,
-    projection: { kind: "other", description: `d3-geo geoMercator, fitted to the mainland ${width} across (scale ${keepScale(projection.scale())}, translate ${keepTranslate(tx)},${keepTranslate(ty)})` },
+    projection: {
+      kind: "other",
+      description: `d3-geo geoMercator, fitted to the mainland ${width} across (scale ${keepScale(projection.scale())}, translate ${keepTranslate(tx)},${keepTranslate(ty)})`,
+    },
     insets: JAPAN_INSETS(lineAt, (lon0, lat0, lon1, lat1) => {
       const [x0, y1] = projection([lon0, lat0]).map(round);
       const [x1, y0] = projection([lon1, lat1]).map(round);
@@ -713,13 +825,48 @@ function buildJapan(rawFeatures, countryNames) {
  */
 function JAPAN_INSETS(lineAt, area) {
   return [
-    { code: "13", box: { x: 790, y: 880, width: 40, height: 200 }, within: area(141.9, 26.4, 142.5, 27.9), magnify: true },
-    { code: "13", box: { x: 840, y: 880, width: 40, height: 140 }, within: area(140.6, 24, 141.7, 27.5), magnify: true },
-    { code: "13", box: { x: 840, y: 1035, width: 35, height: 35 }, within: area(153.5, 24, 154.5, 24.7), magnify: true },
-    { code: "46", box: { x: 300, y: 160, width: 110, height: 230 }, outlyingBelow: lineAt(130, JAPAN_OUTLYING.kagoshimaSouthOf), magnify: true },
-    { code: "47", box: { x: 200, y: 420, width: 230, height: 280 }, within: area(126.5, 25.9, 128.6, 28.1), magnify: true },
-    { code: "47", box: { x: 20, y: 570, width: 170, height: 125 }, within: area(122.5, 24, 125.7, 26.1), magnify: true },
-    { code: "47", box: { x: 440, y: 450, width: 40, height: 50 }, within: area(130.9, 24.3, 131.6, 26.1), magnify: true },
+    {
+      code: "13",
+      box: { x: 790, y: 880, width: 40, height: 200 },
+      within: area(141.9, 26.4, 142.5, 27.9),
+      magnify: true,
+    },
+    {
+      code: "13",
+      box: { x: 840, y: 880, width: 40, height: 140 },
+      within: area(140.6, 24, 141.7, 27.5),
+      magnify: true,
+    },
+    {
+      code: "13",
+      box: { x: 840, y: 1035, width: 35, height: 35 },
+      within: area(153.5, 24, 154.5, 24.7),
+      magnify: true,
+    },
+    {
+      code: "46",
+      box: { x: 300, y: 160, width: 110, height: 230 },
+      outlyingBelow: lineAt(130, JAPAN_OUTLYING.kagoshimaSouthOf),
+      magnify: true,
+    },
+    {
+      code: "47",
+      box: { x: 200, y: 420, width: 230, height: 280 },
+      within: area(126.5, 25.9, 128.6, 28.1),
+      magnify: true,
+    },
+    {
+      code: "47",
+      box: { x: 20, y: 570, width: 170, height: 125 },
+      within: area(122.5, 24, 125.7, 26.1),
+      magnify: true,
+    },
+    {
+      code: "47",
+      box: { x: 440, y: 450, width: 40, height: 50 },
+      within: area(130.9, 24.3, 131.6, 26.1),
+      magnify: true,
+    },
   ];
 }
 
@@ -807,14 +954,19 @@ async function main() {
   const divisionCodes = new Set([...configs.map((c) => c.code), "US", "JP"]);
   for (const entry of table) entry.hasDivisions = divisionCodes.has(entry.code);
   const missing = [...divisionCodes].filter((code) => !table.some((entry) => entry.code === code));
-  if (missing.length > 0) throw new Error(`regions asked for a country that has no map of its own: ${missing.join(" ")}`);
+  if (missing.length > 0)
+    throw new Error(`regions asked for a country that has no map of its own: ${missing.join(" ")}`);
   const builtDivisions = [];
   for (const config of configs) builtDivisions.push(buildDivisions(config, divisionsSource.features, countryNames));
   builtDivisions.push(buildUnitedStates(divisionsSource.features, countryNames));
   builtDivisions.push(buildJapan(divisionsSource.features, countryNames));
   for (const map of builtDivisions) {
     const file = map.id.replace("divisions-", "");
-    writeMap(join(out, "divisions", `${file}.ts`), `${map.name}: ${map.regions.length} ${map.regionNamePlural.toLowerCase()}, ${map.source}.`, map);
+    writeMap(
+      join(out, "divisions", `${file}.ts`),
+      `${map.name}: ${map.regions.length} ${map.regionNamePlural.toLowerCase()}, ${map.source}.`,
+      map,
+    );
     allMaps.push(map);
     loaders.divisions.push(file);
   }
@@ -824,19 +976,40 @@ async function main() {
   loaders.features = [];
   for (const map of allMaps) {
     const avoid = map.insets.map((inset) => inset.box);
-    const country = map.id === "world" ? null : (map.kind === "country" ? map.regions[0].code : map.id.slice("divisions-".length).toUpperCase());
-    const features = featuresOn(map, projections.get(map.id), sources, { world: map.id === "world", avoid, country, insetProjections: insetProjections.get(map.id) });
+    const country =
+      map.id === "world"
+        ? null
+        : map.kind === "country"
+          ? map.regions[0].code
+          : map.id.slice("divisions-".length).toUpperCase();
+    const features = featuresOn(map, projections.get(map.id), sources, {
+      world: map.id === "world",
+      avoid,
+      country,
+      insetProjections: insetProjections.get(map.id),
+    });
     if (features.length === 0) continue;
     writeFeatures(join(out, "features", `${map.id}.ts`), map, features);
     loaders.features.push(map.id);
   }
   loaders.features.sort();
-  console.log(`features: ${loaders.features.length} maps · Japanese names ${JSON.stringify(sources.stats.japanese)} · readings ${JSON.stringify(sources.stats.readings)} · rivers ${JSON.stringify(sources.stats.rivers)}`);
+  console.log(
+    `features: ${loaders.features.length} maps · Japanese names ${JSON.stringify(sources.stats.japanese)} · readings ${JSON.stringify(sources.stats.readings)} · rivers ${JSON.stringify(sources.stats.rivers)}`,
+  );
 
   table.sort((a, b) => a.code.localeCompare(b.code));
   const inTable = new Set(table.map((entry) => entry.code));
   const groupsTable = (kind) => {
-    const codes = kind === "continent" ? [...KUNI_CONTINENTS] : [...new Set(kuniCountries().map((one) => one.subregion).filter(Boolean))].sort();
+    const codes =
+      kind === "continent"
+        ? [...KUNI_CONTINENTS]
+        : [
+            ...new Set(
+              kuniCountries()
+                .map((one) => one.subregion)
+                .filter(Boolean),
+            ),
+          ].sort();
     return codes.map((code) => {
       const nameJa = kind === "continent" ? continentName(code, "ja") : subregionName(code, "ja");
       const reading = kanaReading(nameJa) ?? GROUP_READINGS[nameJa];
@@ -891,7 +1064,9 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = ${literal(table)};
  * import { CHIZU_CONTINENTS } from "@johnmorrisdotca/chizu/names";
  *
  * console.log(CHIZU_CONTINENTS.map((continent) => \`\${continent.code} \${continent.nameJa} \${continent.codes.length}\`).join(", "));
- * // ${groupsTable("continent").map((group) => `${group.code} ${group.nameJa} ${group.codes.length}`).join(", ")}
+ * // ${groupsTable("continent")
+   .map((group) => `${group.code} ${group.nameJa} ${group.codes.length}`)
+   .join(", ")}
  * \`\`\`
  */
 export const CHIZU_CONTINENTS: readonly ChizuGroup[] = ${literal(groupsTable("continent"))};
@@ -929,7 +1104,12 @@ export const CHIZU_SOURCE = ${literal({
       retrieved: NATURAL_EARTH.retrieved,
       licence: "Public domain",
       files: Object.keys(NATURAL_EARTH.files),
-      names: { name: "kuni", package: KUNI.package, version: KUNI.version, licence: "MIT; its names are Unicode CLDR's (Unicode-3.0) and Wikidata's (CC0)" },
+      names: {
+        name: "kuni",
+        package: KUNI.package,
+        version: KUNI.version,
+        licence: "MIT; its names are Unicode CLDR's (Unicode-3.0) and Wikidata's (CC0)",
+      },
     })};
 `,
   );
@@ -964,7 +1144,9 @@ ${loaders.features.map((id) => `  ${JSON.stringify(id)}: () => import("./feature
 };
 `,
   );
-  console.log(`world: ${world.regions.length} countries · countries: ${loaders.countries.length} · divisions: ${loaders.divisions.length}`);
+  console.log(
+    `world: ${world.regions.length} countries · countries: ${loaders.countries.length} · divisions: ${loaders.divisions.length}`,
+  );
 }
 
 main().catch((error) => {

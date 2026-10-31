@@ -136,7 +136,11 @@ export function segmentsCross(
 }
 
 /** How far a point is from a segment. */
-function pointToSegment(point: readonly [number, number], a: readonly [number, number], b: readonly [number, number]): number {
+function pointToSegment(
+  point: readonly [number, number],
+  a: readonly [number, number],
+  b: readonly [number, number],
+): number {
   const dx = b[0] - a[0];
   const dy = b[1] - a[1];
   const length = dx * dx + dy * dy;

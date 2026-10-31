@@ -11,14 +11,24 @@ describe("where a map puts the regions it draws in a box", () => {
     for (const load of Object.values(DIVISIONS_LOADERS)) {
       const map = (await load()).default;
       // Only a region drawn wholly in a box is out of the way. A box holding just a region's outlying islands leaves the rest of the region in place, so that part is checked against every box like any other - including its own.
-      const inBoxes = new Set(map.insets.filter((inset) => inset.outlyingBelow === undefined).map((inset) => inset.code));
+      const inBoxes = new Set(
+        map.insets.filter((inset) => inset.outlyingBelow === undefined).map((inset) => inset.code),
+      );
       for (const inset of map.insets) {
         const trespassers = map.regions.filter((region) => {
           if (inBoxes.has(region.code)) return false;
           const [x0, y0, x1, y1] = drawnBounds(region, insetFor(map, region.code));
-          return x0 < inset.box.x + inset.box.width && x1 > inset.box.x && y0 < inset.box.y + inset.box.height && y1 > inset.box.y;
+          return (
+            x0 < inset.box.x + inset.box.width &&
+            x1 > inset.box.x &&
+            y0 < inset.box.y + inset.box.height &&
+            y1 > inset.box.y
+          );
         });
-        expect(trespassers.map((region) => region.code), `${map.id} ${inset.code}`).toEqual([]);
+        expect(
+          trespassers.map((region) => region.code),
+          `${map.id} ${inset.code}`,
+        ).toEqual([]);
       }
     }
   });
@@ -55,7 +65,9 @@ describe("where a map puts the regions it draws in a box", () => {
     expect(insetFor(us, "AK")?.box.x).toBe(20);
     expect(insetFor(us, "HI")).not.toBeNull();
     expect(insetFor(us, "TX")).toBeNull();
-    expect(insetFor({ insets: [{ code: 47, box: { x: 1, y: 2, width: 3, height: 4 } }] as never }, "47")).not.toBeNull();
+    expect(
+      insetFor({ insets: [{ code: 47, box: { x: 1, y: 2, width: 3, height: 4 } }] as never }, "47"),
+    ).not.toBeNull();
   });
 });
 
