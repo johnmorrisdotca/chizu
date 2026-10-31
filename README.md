@@ -841,7 +841,7 @@ Please follow the [code of conduct](./CODE_OF_CONDUCT.md). A way to make the cal
 
 ## Changes
 
-See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.5.0, adds the city scale (`localMap` and `drawLocal`), the map, locator and quiz as elements with the standard embed attributes, the shared embed builder, and the documentation site with a checked example for every export.
+See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.5.1, changes nothing a player sees.
 
 ## Licence
 
