@@ -1112,7 +1112,8 @@ export const CHIZU_SOURCE = ${literal({
     })};
 `,
   );
-  const lines = (list, folder) => list.map((file) => `  ${file}: () => import("./${folder}/${file}.data.ts"),`).join("\n");
+  const lines = (list, folder) =>
+    list.map((file) => `  ${file}: () => import("./${folder}/${file}.data.ts"),`).join("\n");
   writeFileSync(
     join(out, "loaders.data.ts"),
     `/*

@@ -88,7 +88,8 @@ test("Japan's prefectures: typed names are right in English, in Japanese and wit
   await page.locator(at("next")).click();
   const second = await lit(page);
   const english = await page.evaluate(
-    async (code) => (await import("./dist/data/divisions/jp.data.js")).default.regions.find((one) => one.code === code).name,
+    async (code) =>
+      (await import("./dist/data/divisions/jp.data.js")).default.regions.find((one) => one.code === code).name,
     second,
   );
   await page.locator(at("answer")).fill(english.toUpperCase());
