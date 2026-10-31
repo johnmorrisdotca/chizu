@@ -4,8 +4,8 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 
 import { describe, expect, it } from "vitest";
 
-/** The largest a file of features may be: the world's is fetched beside the 170 kB world, a country's alone. */
-export const FEATURE_BUDGET = { world: 210_000, other: 300_000 };
+/** The largest a file of features may be, after the 120-column format: the world's is fetched beside the world, a country's alone. */
+export const FEATURE_BUDGET = { world: 240_000, other: 310_000 };
 
 describe("the files of features", () => {
   it("are each within their budget", () => {

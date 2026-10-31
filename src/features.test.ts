@@ -21,7 +21,7 @@ import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 const layerOf = async (id: string): Promise<ChizuFeatureLayer> => (await FEATURE_LOADERS[id]!()).default;
 const mapOf = async (id: string): Promise<ChizuMap> => {
   const [kind, code] = id.split("-");
-  return (await import(`./data/${kind === "divisions" ? "divisions" : "countries"}/${code}.ts`)).default;
+  return (await import(`./data/${kind === "divisions" ? "divisions" : "countries"}/${code}.data.ts`)).default;
 };
 
 describe("the features' data", () => {

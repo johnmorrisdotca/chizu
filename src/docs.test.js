@@ -290,12 +290,12 @@ describe("the README's promises", () => {
     expect(notice).toContain(`Natural Earth ${CHIZU_SOURCE.version}`);
     expect(readme).toContain(`Natural Earth](https://www.naturalearthdata.com/) ${CHIZU_SOURCE.version}`);
     for (const [file, hash] of config
-      .matchAll(/"(ne_[0-9a-z_]+\.geojson)": "([0-9a-f]{64})"/g)
+      .matchAll(/"(ne_[0-9a-z_]+\.geojson)":\s*"([0-9a-f]{64})"/g)
       .map((match) => [match[1], match[2]])) {
       expect(notice, file).toContain(hash);
       expect(notice, file).toContain(file.replace(".geojson", ""));
     }
-    expect(config.match(/"ne_[0-9a-z_]+\.geojson": "[0-9a-f]{64}"/g)).toHaveLength(9);
+    expect(config.match(/"ne_[0-9a-z_]+\.geojson":\s*"[0-9a-f]{64}"/g)).toHaveLength(9);
     expect(CHIZU_SOURCE.files).toHaveLength(9);
     expect(notice).toContain(`tree/${CHIZU_SOURCE.tag}`);
     expect(pkg.files).toContain("NOTICE.md");
