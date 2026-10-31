@@ -101,6 +101,7 @@ describe("zooming the map", () => {
 
 describe("the zoom steps", () => {
   const closest = MAP_ZOOM_LEVELS[MAP_ZOOM_LEVELS.length - 1];
+  if (closest === undefined) throw new Error("the zoom steps are empty");
 
   it("stops at each end rather than wrapping", () => {
     expect(stepMapZoom(1, -1)).toBe(1);

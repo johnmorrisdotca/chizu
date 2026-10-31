@@ -102,8 +102,10 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
 export async function loadElementMap(region: string): Promise<MapData | null> {
   if (region === "world") return WORLD;
   const match = /^(country|divisions)-([a-z]{2,3})$/i.exec(region);
-  if (!match) return null;
-  return match[1].toLowerCase() === "country" ? loadCountry(match[2]) : loadDivisions(match[2]);
+  const kind = match?.[1];
+  const code = match?.[2];
+  if (kind === undefined || code === undefined) return null;
+  return kind.toLowerCase() === "country" ? loadCountry(code) : loadDivisions(code);
 }
 
 /** Parse finite choropleth figures; invalid JSON and nested or non-numeric values are rejected.
@@ -779,7 +781,9 @@ export class ChizuQuiz extends ChizuElement {
     });
     const ask = () => {
       this.#round += 1;
-      const target = places[Math.floor(this.#random() * places.length)].code;
+      const place = places[Math.floor(this.#random() * places.length)];
+      if (place === undefined) throw new Error("a quiz round needs a place");
+      const target = place.code;
       this.#question = findQuestion(pool, target, this.#random);
       if (!this.#question) return;
       this.mount!.set({ tones: { [target]: "selected" }, selected: null });
