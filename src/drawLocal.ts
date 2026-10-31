@@ -1,12 +1,12 @@
 import { isChizuColour } from "./draw.ts";
 import { calloutsSvg } from "./drawCallouts.ts";
 import { wholeMapBox } from "./frame.ts";
-import { layoutCallouts, type CalloutRequest } from "./layout.ts";
-import type { ChizuLocalMap } from "./localMap.ts";
+import { type CalloutRequest, layoutCallouts } from "./layout.ts";
 import type { ChizuLocalShape } from "./localGeo.ts";
+import type { ChizuLocalMap } from "./localMap.ts";
 import { CHIZU_LOCAL_STYLE } from "./localStyle.ts";
 import { mapOutlines } from "./outlines.ts";
-import { chizuSay, nameOf, type ChizuLanguage } from "./strings.ts";
+import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
 import type { MapBox } from "./types.ts";
 
@@ -84,7 +84,7 @@ export type ChizuLocalDrawOptions = {
   naturalEarth?: boolean;
 };
 
-const escape = (text: string) =>
+const escapeHtml = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const num = (value: number) => String(Math.round(value * 100) / 100);
 const LABEL_RATIO = 0.016;
@@ -214,14 +214,14 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
     const look = lookOf(shape, styles, mpu);
     const name = shape.name || shape.nameJa ? nameFor(shape) : null;
     const attributes =
-      `class="cz-local-shape cz-local-${shape.kind}-shape${shape.classes.length ? ` ${shape.classes.join(" ")}` : ""}${look.classes.length ? ` ${[...new Set(look.classes)].join(" ")}` : ""}${tone ? ` cz-tone-${escape(tone)}` : ""}" data-code="${escape(shape.id)}" data-kind="${shape.kind}"` +
+      `class="cz-local-shape cz-local-${shape.kind}-shape${shape.classes.length ? ` ${shape.classes.join(" ")}` : ""}${look.classes.length ? ` ${[...new Set(look.classes)].join(" ")}` : ""}${tone ? ` cz-tone-${escapeHtml(tone)}` : ""}" data-code="${escapeHtml(shape.id)}" data-kind="${shape.kind}"` +
       (shape.type ? ` data-type="${shape.type}"` : "") +
-      (tone ? ` data-tone="${escape(tone)}"` : "") +
-      (look.style ? ` style="${escape(look.style)}"` : "") +
+      (tone ? ` data-tone="${escapeHtml(tone)}"` : "") +
+      (look.style ? ` style="${escapeHtml(look.style)}"` : "") +
       (interactive
-        ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(name ?? shape.id)}"`
+        ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escapeHtml(name ?? shape.id)}"`
         : "");
-    const title = name ? `<title>${escape(name)}</title>` : "";
+    const title = name ? `<title>${escapeHtml(name)}</title>` : "";
     if (shape.kind === "area")
       drawn.push(`<g ${attributes}>${title}<path class="cz-local-area" d="${shape.path}"/></g>`);
     else if (shape.kind === "line")
@@ -242,11 +242,11 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
       const name = marker.name || marker.nameJa ? nameFor(marker) : null;
       const move = `translate(${num(marker.at[0])} ${num(marker.at[1])})${marker.rotation ? ` rotate(${marker.rotation})` : ""} scale(${marker.scale}) translate(${-marker.anchor[0]} ${-marker.anchor[1]})`;
       pictures.push(
-        `<g class="cz-marker${marker.classes.length ? ` ${marker.classes.join(" ")}` : ""}" data-code="${escape(marker.id)}" data-bearing="${marker.bearing}" transform="${move}"` +
+        `<g class="cz-marker${marker.classes.length ? ` ${marker.classes.join(" ")}` : ""}" data-code="${escapeHtml(marker.id)}" data-bearing="${marker.bearing}" transform="${move}"` +
           (interactive
-            ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(name ?? marker.id)}"`
+            ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escapeHtml(name ?? marker.id)}"`
             : "") +
-          `>${name ? `<title>${escape(name)}</title>` : ""}${marker.markup}</g>`,
+          `>${name ? `<title>${escapeHtml(name)}</title>` : ""}${marker.markup}</g>`,
       );
     }
   }
@@ -266,7 +266,7 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
   const credits = creditText
     .map(
       (line, i) =>
-        `<text class="cz-credit" x="${num(right)}" y="${num(bottom - (creditText.length - 1 - i) * lineHeight - cs * 0.2)}" font-size="${num(line.size)}">${escape(line.text)}</text>`,
+        `<text class="cz-credit" x="${num(right)}" y="${num(bottom - (creditText.length - 1 - i) * lineHeight - cs * 0.2)}" font-size="${num(line.size)}">${escapeHtml(line.text)}</text>`,
     )
     .join("");
   const creditsTop = bottom - creditText.length * lineHeight;
@@ -281,7 +281,7 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
     const words = metresText(metres);
     scale =
       `<g class="cz-scale" data-metres="${metres}"><path class="cz-scale-line" d="M${num(right - length)},${num(y - tick)}L${num(right - length)},${num(y)}L${num(right)},${num(y)}L${num(right)},${num(y - tick)}"/>` +
-      `<text class="cz-scale-text" x="${num(right)}" y="${num(y - tick - cs * 0.25)}" font-size="${num(cs * 1.05)}">${escape(words)}</text></g>`;
+      `<text class="cz-scale-text" x="${num(right)}" y="${num(y - tick - cs * 0.25)}" font-size="${num(cs * 1.05)}">${escapeHtml(words)}</text></g>`;
     scaleWidth = Math.max(length, words.length * cs * 0.6);
     scaleHeight = box.y + box.height - (y - tick - cs * 1.4);
   }
@@ -362,7 +362,7 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
         continue;
       placed.push(rect);
       parts.push(
-        `<text class="cz-label cz-local-label${c.start ? " cz-local-label-start" : ""}" x="${num(c.x)}" y="${num(c.y)}" font-size="${num(size)}" data-code="${escape(c.id)}">${escape(c.text)}</text>`,
+        `<text class="cz-label cz-local-label${c.start ? " cz-local-label-start" : ""}" x="${num(c.x)}" y="${num(c.y)}" font-size="${num(size)}" data-code="${escapeHtml(c.id)}">${escapeHtml(c.text)}</text>`,
       );
     }
     labels = parts.length ? `<g class="cz-labels">${parts.join("")}</g>` : "";
@@ -400,7 +400,7 @@ export function drawLocal(map: ChizuLocalMap, options: ChizuLocalDrawOptions = {
       : chizuSay(language, "localMap", { size }));
   const style = options.style ? `<style>${CHIZU_STYLE}${CHIZU_LOCAL_STYLE}</style>` : "";
   return (
-    `<svg xmlns="http://www.w3.org/2000/svg" class="chizu cz-local" viewBox="${num(box.x)} ${num(box.y)} ${num(box.width)} ${num(box.height)}" role="${interactive ? "group" : "img"}" aria-label="${escape(label)}" data-map="${escape(map.id)}" data-metres-per-unit="${mpu}">` +
+    `<svg xmlns="http://www.w3.org/2000/svg" class="chizu cz-local" viewBox="${num(box.x)} ${num(box.y)} ${num(box.width)} ${num(box.height)}" role="${interactive ? "group" : "img"}" aria-label="${escapeHtml(label)}" data-map="${escapeHtml(map.id)}" data-metres-per-unit="${mpu}">` +
     style +
     `<rect class="cz-ground" x="${num(box.x)}" y="${num(box.y)}" width="${num(box.width)}" height="${num(box.height)}"/>` +
     drawn.join("") +

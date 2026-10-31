@@ -1,17 +1,17 @@
-import { drawChizu, type ChizuDrawOptions } from "./draw.ts";
+import { type ChizuDrawOptions, drawChizu } from "./draw.ts";
 import type { ChizuFeatureChoice } from "./features.ts";
 import {
   boxCentre,
   focusRegionFit,
   MAP_ZOOM_LEVELS,
+  type MapZoom,
   stepMapZoom,
   wholeMapBox,
   zoomBox,
   zoomToFit,
-  type MapZoom,
 } from "./frame.ts";
 import { CHIZU_MAP_STYLE } from "./mountStyle.ts";
-import { chizuSay, nameOf, type ChizuLanguage } from "./strings.ts";
+import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapAcross, wrapOffsets } from "./wrap.ts";
 

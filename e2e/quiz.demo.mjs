@@ -126,7 +126,7 @@ test("finding a place on the map: the place is not lit, a press answers, and the
   const target = await page.evaluate(() => {
     const words = document.querySelector('[data-testid="question"]').textContent;
     return [...document.querySelectorAll("#names tbody tr")].find((row) =>
-      words.includes(row.children[2].textContent + "?"),
+      words.includes(`${row.children[2].textContent}?`),
     )?.dataset.code;
   });
   expect(target).toBeTruthy();

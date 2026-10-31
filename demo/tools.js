@@ -146,9 +146,9 @@ export function parseFigures(text, find) {
 export function figureSteps(rows, count = 5) {
   const sorted = [...rows].sort((a, b) => a.value - b.value);
   const stepOf = new Map();
-  sorted.forEach((row, index) =>
-    stepOf.set(row.code, Math.min(count, Math.floor((index * count) / sorted.length) + 1)),
-  );
+  sorted.forEach((row, index) => {
+    stepOf.set(row.code, Math.min(count, Math.floor((index * count) / sorted.length) + 1));
+  });
   // Equal figures share a step: the step of the first of them.
   for (let index = 1; index < sorted.length; index += 1) {
     if (sorted[index].value === sorted[index - 1].value)

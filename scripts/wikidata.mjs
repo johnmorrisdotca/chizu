@@ -85,7 +85,11 @@ async function itemsOf(ids) {
     );
     for (const row of labels) {
       const id = qid(row.item.value);
-      const item = (items[id] ??= {});
+      let item = items[id];
+      if (item == null) {
+        item = {};
+        items[id] = item;
+      }
       if (row.en) item.en = row.en.value;
       if (row.ja) item.ja = row.ja.value;
       if (row.kana) item.kana = [...new Set([...(item.kana ?? []), row.kana.value])].sort();
@@ -93,7 +97,11 @@ async function itemsOf(ids) {
     for (const row of aliases) {
       if (!hiraganaOnly(row.alias.value)) continue;
       const id = qid(row.item.value);
-      const item = (items[id] ??= {});
+      let item = items[id];
+      if (item == null) {
+        item = {};
+        items[id] = item;
+      }
       item.hiragana = [...new Set([...(item.hiragana ?? []), row.alias.value])].sort();
     }
     console.log(`items: ${Object.keys(items).length} of ${ids.length}`);
@@ -138,7 +146,7 @@ async function matchRivers() {
   const labels = [...new Set([...byKey.values()].flatMap((held) => [...held.labels]))].sort();
   const candidates = new Map();
   for (const batch of chunks(labels, 400)) {
-    const values = batch.map((label) => JSON.stringify(label) + "@en").join(" ");
+    const values = batch.map((label) => `${JSON.stringify(label)}@en`).join(" ");
     const rows =
       await sparql(`SELECT ?item ?label ?coord ?links WHERE { VALUES ?label { ${values} } VALUES ?class { ${RIVER_CLASSES.map((one) => `wd:${one}`).join(" ")} }
       ?item rdfs:label ?label; wdt:P31 ?class; wdt:P625 ?coord; wikibase:sitelinks ?links }`);

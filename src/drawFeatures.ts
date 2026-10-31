@@ -1,4 +1,4 @@
-import { chizuSay, featureKindOf, nameOf, type ChizuLanguage } from "./strings.ts";
+import { type ChizuLanguage, chizuSay, featureKindOf, nameOf } from "./strings.ts";
 import type { ChizuFeature, ChizuFeatureGroup, MapBox } from "./types.ts";
 
 /**
@@ -6,7 +6,7 @@ import type { ChizuFeature, ChizuFeatureGroup, MapBox } from "./types.ts";
  * it, and their names, placed so that no two overlap. Kept apart from draw.ts, which reads only what it is handed.
  */
 
-const escape = (text: string) =>
+const escapeHtml = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const num = (value: number) => String(Math.round(value * 100) / 100);
 
@@ -24,10 +24,10 @@ function attributes(
 ): string {
   const pressable = interactive && feature.group !== "landforms";
   return (
-    `class="cz-feature cz-${feature.group}${tone ? ` cz-tone-${escape(tone)}` : ""}" data-code="${escape(feature.code)}" data-kind="${feature.kind}" data-group="${feature.group}"` +
-    (tone ? ` data-tone="${escape(tone)}"` : "") +
+    `class="cz-feature cz-${feature.group}${tone ? ` cz-tone-${escapeHtml(tone)}` : ""}" data-code="${escapeHtml(feature.code)}" data-kind="${feature.kind}" data-group="${feature.group}"` +
+    (tone ? ` data-tone="${escapeHtml(tone)}"` : "") +
     (pressable
-      ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(chizuSay(language, "feature", { name: nameOf(feature, language), kind: featureKindOf(feature, language) }))}"`
+      ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escapeHtml(chizuSay(language, "feature", { name: nameOf(feature, language), kind: featureKindOf(feature, language) }))}"`
       : "")
   );
 }
@@ -50,7 +50,7 @@ export function featureShapes(
   return features
     .filter((feature) => feature.group === group)
     .map((feature) => {
-      const open = `<g ${attributes(feature, options.tones[feature.code], options.interactive, options.language)}><title>${escape(nameOf(feature, options.language))}</title>`;
+      const open = `<g ${attributes(feature, options.tones[feature.code], options.interactive, options.language)}><title>${escapeHtml(nameOf(feature, options.language))}</title>`;
       if (group === "rivers") {
         // A wide, unseen line under the river, so a finger can press a line a pixel or two wide.
         return `${open}<path class="cz-river-hit" d="${feature.path}"/><path class="cz-river" d="${feature.path}" stroke-width="${riverWidth(feature.rank)}"/></g>`;
@@ -146,7 +146,7 @@ export function featureLabels(
                 : "cz-landform-label";
       const turn = angle ? ` transform="rotate(${angle} ${num(at.x)} ${num(at.y)})"` : "";
       parts.push(
-        `<text class="cz-feature-label ${kind}" x="${num(at.x)}" y="${num(at.y)}" font-size="${num(size)}" data-code="${escape(feature.code)}"${turn}>${escape(name)}</text>`,
+        `<text class="cz-feature-label ${kind}" x="${num(at.x)}" y="${num(at.y)}" font-size="${num(size)}" data-code="${escapeHtml(feature.code)}"${turn}>${escapeHtml(name)}</text>`,
       );
     }
   }

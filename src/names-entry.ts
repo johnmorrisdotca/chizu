@@ -5,5 +5,5 @@
  * M49 subregions, each with its countries.
  */
 
-export { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SOURCE, CHIZU_SUBREGIONS } from "./data/countries.ts";
 export { countriesFromText, countryByCode } from "./countries.ts";
+export { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SOURCE, CHIZU_SUBREGIONS } from "./data/countries.ts";

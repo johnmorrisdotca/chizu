@@ -3,13 +3,13 @@ import { describe, expect, it } from "vitest";
 import us from "./data/divisions/us.ts";
 import world from "./data/world.ts";
 import {
-  MAP_ZOOM_LEVELS,
   boxCentre,
   boxIsWholeMap,
   boxToViewBox,
   focusBox,
   focusRegionFit,
   isMapZoom,
+  MAP_ZOOM_LEVELS,
   regionBox,
   regionCentre,
   shapeGlyphBox,

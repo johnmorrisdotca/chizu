@@ -1,16 +1,16 @@
 /** Browser elements for maps, located places and seeded geography questions. Importing this entry is safe on a server. */
 import { isChizuColour } from "./draw.ts";
-import WORLD from "./world-entry.ts";
-import { loadCountry, loadDivisions, loadFeatures } from "./load-entry.ts";
-import { mountChizu, type ChizuMount, type ChizuMountOptions } from "./mount.ts";
-import { CHIZU_MAP_STYLE } from "./mountStyle.ts";
-import { CHIZU_FEATURE_GROUPS, featureMap, featuresShown, type ChizuFeatureChoice } from "./features.ts";
-import { findQuestion, type FindQuestion } from "./quiz.ts";
-import { seededRandom, type Random } from "./random.ts";
+import { CHIZU_FEATURE_GROUPS, type ChizuFeatureChoice, featureMap, featuresShown } from "./features.ts";
 import type { MapZoom } from "./frame.ts";
+import { loadCountry, loadDivisions, loadFeatures } from "./load-entry.ts";
+import { type ChizuMount, type ChizuMountOptions, mountChizu } from "./mount.ts";
+import { CHIZU_MAP_STYLE } from "./mountStyle.ts";
 import { projectPoint } from "./project.ts";
-import { nameOf, type ChizuLanguage } from "./strings.ts";
-import type { ChizuMap as MapData, ChizuFeatureLayer, ChizuRegion } from "./types.ts";
+import { type FindQuestion, findQuestion } from "./quiz.ts";
+import { type Random, seededRandom } from "./random.ts";
+import { type ChizuLanguage, nameOf } from "./strings.ts";
+import type { ChizuFeatureLayer, ChizuRegion, ChizuMap as MapData } from "./types.ts";
+import WORLD from "./world-entry.ts";
 
 const ElementBase: typeof HTMLElement =
   typeof HTMLElement === "undefined" ? (class {} as unknown as typeof HTMLElement) : HTMLElement;

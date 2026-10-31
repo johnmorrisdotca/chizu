@@ -1,11 +1,8 @@
-import { FAMILY, familyRepo } from "../scripts/family-template.mjs";
 // The documents and the demo, held to the source. Plain JavaScript, so that reading files needs no Node types.
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import process from "node:process";
-
 import { describe, expect, it } from "vitest";
-
 import {
   CONTINENT_OVERRIDES,
   DISPLAY_NAMES,
@@ -14,19 +11,20 @@ import {
   NAME_FIXES,
   SHORT_ENGLISH_NOT_FOR_MAPS,
 } from "../scripts/data-config.mjs";
+import { FAMILY, familyRepo } from "../scripts/family-template.mjs";
 import { CHIZU_COUNTRIES, CHIZU_SOURCE } from "./data/countries.ts";
 import { DIVISIONS_LOADERS } from "./data/loaders.ts";
 import world from "./data/world.ts";
-import { MAP_ZOOM_LEVELS } from "./frame.ts";
 import { pickDistractors } from "./distractors.ts";
+import { MAP_ZOOM_LEVELS } from "./frame.ts";
 import { placesFromText } from "./fromText.ts";
 import { CALLOUT_RADIUS_RATIO, layoutCallouts } from "./layout.ts";
+import { CHIZU_MAP_STYLE } from "./mountStyle.ts";
 import { projectPoint, unprojectPoint } from "./project.ts";
 import { findQuestion } from "./quiz.ts";
 import { seededRandom } from "./random.ts";
 import { CHIZU_STRINGS } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
-import { CHIZU_MAP_STYLE } from "./mountStyle.ts";
 import { VERSION } from "./version.ts";
 
 const pkg = JSON.parse(readFileSync("package.json", "utf8"));

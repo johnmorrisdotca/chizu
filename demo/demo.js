@@ -3,7 +3,9 @@
 // from a seed, so a link asks the same questions; numbered callout sheets to download; a map coloured from pasted
 // figures; and the code that draws the map as it is. Every name in English and Japanese. The working parts that need
 // no page are in tools.js; the words are in words.js.
-import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
+
+import { initCity } from "./city.js";
+import { drawChizu } from "./dist/draw-entry.js";
 import {
   featureKindName,
   featureKindOf,
@@ -16,15 +18,16 @@ import {
   seededRandom,
   unprojectPoint,
 } from "./dist/index.js";
-import { drawChizu } from "./dist/draw-entry.js";
 import { loadCountry, loadDivisions, loadFeatures, loadWorldDetail } from "./dist/load-entry.js";
 import { mountChizu } from "./dist/mount-entry.js";
+import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
 import world from "./dist/world-entry.js";
+import { toMarkdown, toSql } from "./downloads.js";
 import {
   codeFor,
-  fileName,
   figureSteps,
   figureText,
+  fileName,
   foldAnswer,
   hasKanjiReading,
   isNameOf,
@@ -36,9 +39,7 @@ import {
   toJson,
   toText,
 } from "./tools.js";
-import { toMarkdown, toSql } from "./downloads.js";
 import { WORDS } from "./words.js";
-import { initCity } from "./city.js";
 
 const params = new URLSearchParams(location.search);
 const MODES = ["explore", "quiz", "callouts", "colour"];
@@ -327,22 +328,24 @@ async function loadMap(key) {
 }
 
 async function chooseMap(key, partKey = null) {
-  if (key.startsWith("continent:")) {
-    partKey = key.slice("continent:".length);
-    key = "world";
+  let currentKey = key;
+  let currentPart = partKey;
+  if (currentKey.startsWith("continent:")) {
+    currentPart = currentKey.slice("continent:".length);
+    currentKey = "world";
   }
-  state.mapKey = key;
-  state.map = await loadMap(key);
+  state.mapKey = currentKey;
+  state.map = await loadMap(currentKey);
   state.layer = null;
   await ensureLayer();
-  state.part = findPart(state.map, partKey);
+  state.part = findPart(state.map, currentPart);
   state.selected = null;
   host.dataset.map = state.map.id;
   mount.setMap(state.map);
-  remember({ map: key, part: state.part?.key ?? null });
+  remember({ map: currentKey, part: state.part?.key ?? null });
   refreshAll();
   showPart();
-  if (state.mode === "quiz") startRound();
+  if (state.mode === "quiz") void startRound();
   else paint();
 }
 
@@ -354,7 +357,7 @@ function choosePart(key) {
   showPart();
   renderNames();
   renderInfo();
-  if (state.mode === "quiz") startRound();
+  if (state.mode === "quiz") void startRound();
   else paint();
 }
 
@@ -952,14 +955,14 @@ function renderQuestion() {
 
 function chooseStyle(style) {
   state.quiz.style = style;
-  startRound();
+  void startRound();
 }
 
 function chooseFeatures(value) {
   state.features = value;
   remember({ features: value === "off" ? null : value });
   settings();
-  ensureLayer().then(() => {
+  void ensureLayer().then(() => {
     mount.set(featureOptions());
     renderFeatures();
     renderCode();
@@ -1216,10 +1219,10 @@ function calloutSheet() {
   const line = 30;
   const rows = Math.ceil(names.length / columns);
   const legendHeight = rows * line + 40;
-  const escape = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const escapeHtml = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;");
   const items = names.map(
     (name, index) =>
-      `<text x="${24 + (index % columns) * (width / columns)}" y="${height + 34 + Math.floor(index / columns) * line}" font-size="18" font-family="system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif" fill="#1f2320"><tspan font-weight="700">${index + 1}</tspan>  ${escape(name)}</text>`,
+      `<text x="${24 + (index % columns) * (width / columns)}" y="${height + 34 + Math.floor(index / columns) * line}" font-size="18" font-family="system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif" fill="#1f2320"><tspan font-weight="700">${index + 1}</tspan>  ${escapeHtml(name)}</text>`,
   );
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height + legendHeight}" viewBox="0 0 ${width} ${height + legendHeight}"><rect width="100%" height="100%" fill="#ffffff"/>${map.replace("<svg ", '<svg x="0" y="0" ')}${items.join("")}</svg>`;
 }
@@ -1250,9 +1253,11 @@ function colourTones() {
   if (state.colourBy === "groups") {
     const groups = regionGroups({ regions: inPart() });
     const tones = {};
-    groups.forEach((group, index) =>
-      group.codes.forEach((code) => (tones[code] = `group${(index % GROUP_COLOURS.light.length) + 1}`)),
-    );
+    groups.forEach((group, index) => {
+      group.codes.forEach((code) => {
+        tones[code] = `group${(index % GROUP_COLOURS.light.length) + 1}`;
+      });
+    });
     return tones;
   }
   const { stepOf } = figureSteps(state.figures.rows);
@@ -1483,7 +1488,7 @@ function chooseMode(mode) {
   mount.set({ fit: true });
   if (mode === "quiz") {
     mount.set({ callouts: undefined });
-    startRound();
+    void startRound();
   } else if (mode === "callouts") {
     state.selected = null;
     paint();
@@ -1529,9 +1534,11 @@ $("typed").addEventListener("submit", checkTyped);
 $("skip").addEventListener("click", () => answer(null, "", "shown"));
 $("new-round").addEventListener("click", () => {
   state.quiz.seed = 1 + Math.floor(Math.random() * 999999);
-  startRound();
+  void startRound();
 });
-$("again").addEventListener("click", () => startRound());
+$("again").addEventListener("click", () => {
+  void startRound();
+});
 $("copy-link").addEventListener("click", (event) => copyText($("share-link").value, event.currentTarget));
 $("copy-code").addEventListener("click", (event) => copyText($("code").textContent, event.currentTarget));
 $("figures").addEventListener("input", readFigures);

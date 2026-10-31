@@ -1,14 +1,14 @@
+import { coastlineLeaderCost, polishCallouts, regionStarts } from "./calloutPolish.ts";
 import {
   CALLOUT_ROOMY,
+  type CalloutKeepOut,
+  type CalloutLand,
+  type CalloutObstacle,
   calloutGrid,
   segmentCrossesBox,
   segmentsCross,
   segmentsGap,
-  type CalloutKeepOut,
-  type CalloutLand,
-  type CalloutObstacle,
 } from "./calloutSpace.ts";
-import { coastlineLeaderCost, polishCallouts, regionStarts } from "./calloutPolish.ts";
 import { HANDLE_CLEARANCE, type HandleSpot } from "./handles.ts";
 import { pointInRing } from "./outlines.ts";
 import type { MapBox } from "./types.ts";
@@ -499,7 +499,9 @@ export function placeCallouts<T>(
   const reseat = (seats: readonly number[]) => {
     inCell.clear();
     at.fill(-1);
-    seats.forEach((place, i) => sit(i, place));
+    seats.forEach((place, i) => {
+      sit(i, place);
+    });
   };
   const from = polishCallouts({ starts, spaces, at, radius, spacing, reseat, room, nearest, leaderCost: leaderFrom });
   return entries.map((entry, i) => {

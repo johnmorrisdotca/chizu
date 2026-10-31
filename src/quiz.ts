@@ -1,5 +1,5 @@
-import { pickDistractors, type DistractorOptions } from "./distractors.ts";
-import { shuffled, type Random } from "./random.ts";
+import { type DistractorOptions, pickDistractors } from "./distractors.ts";
+import { type Random, shuffled } from "./random.ts";
 import type { ChizuMap } from "./types.ts";
 
 /**

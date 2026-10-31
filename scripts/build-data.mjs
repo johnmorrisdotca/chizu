@@ -21,8 +21,8 @@ import { dirname, join } from "node:path";
 import process from "node:process";
 
 import {
-  CONTINENTS as KUNI_CONTINENTS,
   continentName,
+  CONTINENTS as KUNI_CONTINENTS,
   countries as kuniCountries,
   country as kuniCountry,
   subregionName,
@@ -40,12 +40,15 @@ import {
   geoPath,
   geoProjection,
 } from "d3-geo";
-
+import { featureSources, featuresOn } from "./build-features.mjs";
 import {
   AMAMI,
   CONTINENT_NAMES,
+  CONTINENT_OVERRIDES,
+  DISPLAY_NAMES,
   DIVISION_CONFIGS,
   EXCLUDED,
+  GROUP_READINGS,
   ISO_JOIN,
   JAPAN_GROUPING,
   JAPAN_OUTLYING,
@@ -55,16 +58,12 @@ import {
   NAME_FIXES,
   NATURAL_EARTH,
   REGION_GROUPS,
-  SHORT_NAME_READINGS,
-  GROUP_READINGS,
-  SHORT_NAMES_NOT_EVERYDAY,
   SHORT_ENGLISH_NOT_FOR_MAPS,
-  DISPLAY_NAMES,
-  CONTINENT_OVERRIDES,
+  SHORT_NAME_READINGS,
+  SHORT_NAMES_NOT_EVERYDAY,
 } from "./data-config.mjs";
-import { featureSources, featuresOn } from "./build-features.mjs";
+import { featureReferenceDoc, mapReferenceDoc } from "./data-docs.mjs";
 import { root, source } from "./natural-earth.mjs";
-import { mapReferenceDoc, featureReferenceDoc } from "./data-docs.mjs";
 
 const out = join(root, "src", "data");
 const PRECISION = 2;

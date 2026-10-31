@@ -1,11 +1,11 @@
 import { calloutsSvg } from "./drawCallouts.ts";
 import { featureLabels, featureShapes } from "./drawFeatures.ts";
-import { featuresShown, type ChizuFeatureChoice } from "./features.ts";
+import { type ChizuFeatureChoice, featuresShown } from "./features.ts";
 import { wholeMapBox } from "./frame.ts";
 import { insetTransformAttribute } from "./insets.ts";
-import { layoutCallouts, type CalloutRequest } from "./layout.ts";
+import { type CalloutRequest, layoutCallouts } from "./layout.ts";
 import { mapOutlines, mapRegionPieces } from "./outlines.ts";
-import { chizuSay, nameOf, type ChizuLanguage } from "./strings.ts";
+import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
 import type { ChizuFeature, ChizuFeatureGroup, ChizuFeatureLayer, ChizuInset, ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapOffsets } from "./wrap.ts";
@@ -82,7 +82,7 @@ const SAFE_COLOUR = /^(#[0-9a-f]{3,8}|[a-z]{3,30}|(?:rgb|hsl)a?\([0-9a-z.,%\s/+-
  */
 export const isChizuColour = (colour: string): boolean => SAFE_COLOUR.test(colour.trim());
 
-const escape = (text: string) =>
+const escapeHtml = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const num = (value: number) => String(Math.round(value * 100) / 100);
 
@@ -154,14 +154,14 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
         ? colors[region.code]!.trim()
         : undefined;
     const pieces = mapRegionPieces(region, insetOf.get(String(region.code)) ?? null);
-    const attributes = `class="cz-region${tone ? ` cz-tone-${escape(tone)}` : ""}" data-code="${escape(region.code)}"${tone ? ` data-tone="${escape(tone)}"` : ""}${colour ? ` data-color="${escape(colour)}" style="--cz-color:${escape(colour)}"` : ""}${interactive ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escape(nameOf(region, language))}"` : ""}`;
+    const attributes = `class="cz-region${tone ? ` cz-tone-${escapeHtml(tone)}` : ""}" data-code="${escapeHtml(region.code)}"${tone ? ` data-tone="${escapeHtml(tone)}"` : ""}${colour ? ` data-color="${escapeHtml(colour)}" style="--cz-color:${escapeHtml(colour)}"` : ""}${interactive ? ` data-interactive="true" role="button" tabindex="-1" aria-label="${escapeHtml(nameOf(region, language))}"` : ""}`;
     const paths = pieces
       .map(
         (piece) =>
           `<path class="cz-land" d="${piece.d}"${piece.transform ? ` transform="${insetTransformAttribute(piece.transform)}"` : ""}/>`,
       )
       .join("");
-    return `<g ${attributes}><title>${escape(nameOf(region, language))}</title>${paths}</g>`;
+    return `<g ${attributes}><title>${escapeHtml(nameOf(region, language))}</title>${paths}</g>`;
   };
   const land = map.regions.map((_, index) => regionGroup(index)).join("");
 
@@ -179,7 +179,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
       : map.insets
           .map(
             (inset) =>
-              `<rect class="cz-inset" data-code="${escape(inset.code)}" x="${num(inset.box.x)}" y="${num(inset.box.y)}" width="${num(inset.box.width)}" height="${num(inset.box.height)}"/>`,
+              `<rect class="cz-inset" data-code="${escapeHtml(inset.code)}" x="${num(inset.box.x)}" y="${num(inset.box.y)}" width="${num(inset.box.width)}" height="${num(inset.box.height)}"/>`,
           )
           .join("");
 
@@ -199,7 +199,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
         const x = at[0] + offset;
         if (x < box.x || x > box.x + box.width || at[1] < box.y || at[1] > box.y + box.height) return;
         parts.push(
-          `<text class="cz-label" x="${num(x)}" y="${num(at[1])}" font-size="${num(size)}" data-code="${escape(region.code)}">${escape(name)}</text>`,
+          `<text class="cz-label" x="${num(x)}" y="${num(at[1])}" font-size="${num(size)}" data-code="${escapeHtml(region.code)}">${escapeHtml(name)}</text>`,
         );
       });
     }
@@ -235,7 +235,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
   const named =
     shown.length > 0 && options.featureLabels !== false ? featureLabels(shown, box, offsets, { language, tones }) : "";
   return (
-    `<svg xmlns="http://www.w3.org/2000/svg" class="chizu" viewBox="${num(box.x)} ${num(box.y)} ${num(box.width)} ${num(box.height)}" role="${interactive ? "group" : "img"}" aria-label="${escape(label)}" data-map="${escape(map.id)}">` +
+    `<svg xmlns="http://www.w3.org/2000/svg" class="chizu" viewBox="${num(box.x)} ${num(box.y)} ${num(box.width)} ${num(box.height)}" role="${interactive ? "group" : "img"}" aria-label="${escapeHtml(label)}" data-map="${escapeHtml(map.id)}">` +
     style +
     `<rect class="cz-sea" x="${num(box.x)}" y="${num(box.y)}" width="${num(box.width)}" height="${num(box.height)}"/>` +
     layerOf("marine") +

@@ -1,5 +1,5 @@
-import type { ChizuProjection } from "./types.ts";
 import { projectPoint } from "./project.ts";
+import type { ChizuProjection } from "./types.ts";
 
 /**
  * GEOJSON ON A LOCAL CANVAS: the caller's own shapes (a stadium's footprint, a pitch, the water beside it, a road, a
@@ -159,7 +159,7 @@ export function readLocalShapes(
       const all = parts.flat();
       finish(
         "line",
-        parts.map((part) => "M" + part.map(([x, y]) => `${num(x)},${num(y)}`).join("L")).join(" "),
+        parts.map((part) => `M${part.map(([x, y]) => `${num(x)},${num(y)}`).join("L")}`).join(" "),
         all,
         midway(parts),
       );
@@ -175,7 +175,7 @@ export function readLocalShapes(
     const centre = massOf(usable.map((rs) => rs[0]!));
     finish(
       "area",
-      rings.map((r) => "M" + r.map(([x, y]) => `${num(x)},${num(y)}`).join("L") + "Z").join(" "),
+      rings.map((r) => `M${r.map(([x, y]) => `${num(x)},${num(y)}`).join("L")}Z`).join(" "),
       rings.flat(),
       centre,
     );
@@ -184,8 +184,10 @@ export function readLocalShapes(
   const walk = (node: ChizuGeoJson, inherit: ChizuGeoJson | null) => {
     if (!node || typeof node !== "object" || typeof node.type !== "string")
       return void problems.push("something that is not GeoJSON was skipped");
-    if (node.type === "FeatureCollection")
-      return void (Array.isArray(node.features) ? node.features : []).forEach((one) => walk(one, null));
+    if (node.type === "FeatureCollection") {
+      for (const one of Array.isArray(node.features) ? node.features : []) walk(one, null);
+      return;
+    }
     if (node.type === "Feature") {
       const geometry = node.geometry;
       if (!geometry)

@@ -1,7 +1,8 @@
 // Public reference comments for the generated map and feature modules.
-import process from "node:process";
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
+import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 export function mapReferenceDoc(entry, description, map) {

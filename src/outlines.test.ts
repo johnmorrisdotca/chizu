@@ -1,15 +1,14 @@
 import { describe, expect, it } from "vitest";
-
-import { DIVISIONS_LOADERS } from "./data/loaders.ts";
 import us from "./data/divisions/us.ts";
+import { DIVISIONS_LOADERS } from "./data/loaders.ts";
 import world from "./data/world.ts";
 import {
   circleMeetsRing,
   distanceToRing,
+  drawnBounds,
   landAnchor,
   mainlandBounds,
   mapOutlines,
-  drawnBounds,
   mapRegionPieces,
   parseMapRings,
   pointInRing,

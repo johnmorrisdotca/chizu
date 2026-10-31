@@ -16,7 +16,7 @@ describe("embed colour parsing", () => {
       "<img>:red",
       "JP:red,",
       "JP:red,GB:bad()",
-      "JP:" + "a".repeat(16001),
+      `JP:${"a".repeat(16001)}`,
     ])
       expect(readMapColors(value)).toBeNull();
     expect(readMapColors(null)).toEqual({});

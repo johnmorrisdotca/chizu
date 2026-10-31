@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { calloutFaults, leaderStarts } from "./calloutPolish.ts";
 import { placeCallouts } from "./callouts.ts";
-import { parseMapRings, pointInRing, distanceToRing } from "./outlines.ts";
+import { distanceToRing, parseMapRings, pointInRing } from "./outlines.ts";
 
 const square = (minX: number, minY: number, maxX: number, maxY: number) =>
   parseMapRings(`M${minX} ${minY}L${maxX} ${minY}L${maxX} ${maxY}L${minX} ${maxY}Z`)[0]!;
@@ -100,7 +100,9 @@ describe("the polish", () => {
     const polished = placeCallouts(entries, 12, box, { bottom: 0, right: 0 }, land, { polish: true });
     expect(calloutFaults(polished, 12)).toEqual({ crossings: 0, close: 0 });
     /* Each leader still starts on its own land. */
-    polished.forEach((spot, at) => expect(pointInRing(spot.x, spot.y, land[at]!.rings[0]!)).toBe(true));
+    polished.forEach((spot, at) => {
+      expect(pointInRing(spot.x, spot.y, land[at]!.rings[0]!)).toBe(true);
+    });
   });
 
   it("draws the same sheet every time", () => {

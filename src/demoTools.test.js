@@ -5,8 +5,8 @@ import { describe, expect, it } from "vitest";
 import {
   answersFor,
   codeFor,
-  fileName,
   figureSteps,
+  fileName,
   foldAnswer,
   hasKanjiReading,
   isNameOf,

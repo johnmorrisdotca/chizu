@@ -4,6 +4,6 @@
  * round without stopping. A separate entry (`@johnmorrisdotca/chizu/mount`), so a server never loads any of it.
  */
 
-export { ensureChizuMapStyle, mountChizu } from "./mount.ts";
 export type { ChizuMount, ChizuMountOptions, ChizuView } from "./mount.ts";
+export { ensureChizuMapStyle, mountChizu } from "./mount.ts";
 export { CHIZU_MAP_STYLE } from "./mountStyle.ts";

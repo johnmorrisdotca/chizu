@@ -1,5 +1,5 @@
-import { localCanvas, localConvergence, type ChizuLocalCanvas } from "./local.ts";
-import { readLocalShapes, type ChizuGeoJson, type ChizuLocalShape } from "./localGeo.ts";
+import { type ChizuLocalCanvas, localCanvas, localConvergence } from "./local.ts";
+import { type ChizuGeoJson, type ChizuLocalShape, readLocalShapes } from "./localGeo.ts";
 import { cleanSvgMarkup, splitPicture } from "./localMarker.ts";
 import { projectPoint } from "./project.ts";
 import type { ChizuMap, ChizuRegion } from "./types.ts";
@@ -191,24 +191,33 @@ export function localMap(options: ChizuLocalOptions): ChizuLocalMap {
       Array.isArray(input.at) && input.at.length >= 2
         ? projectPoint(canvas, Number(input.at[0]), Number(input.at[1]))
         : null;
-    if (!at || !at.every(Number.isFinite)) return void problems.push(`${label}: no place to put it`);
-    if (typeof input.svg !== "string" || input.svg.length > 500_000)
-      return void problems.push(`${label}: no picture, or one over 500 kB`);
+    if (!at?.every(Number.isFinite)) {
+      problems.push(`${label}: no place to put it`);
+      return;
+    }
+    if (typeof input.svg !== "string" || input.svg.length > 500_000) {
+      problems.push(`${label}: no picture, or one over 500 kB`);
+      return;
+    }
     const picture = splitPicture(input.svg, input.viewBox);
-    if (!picture) return void problems.push(`${label}: the picture says no size; give a viewBox`);
+    if (!picture) {
+      problems.push(`${label}: the picture says no size; give a viewBox`);
+      return;
+    }
     const [vx, vy, vw, vh] = picture.viewBox;
     const unit = input.size ? input.size[0] / vw : (input.metresPerUnit ?? 1);
-    if (!(unit > 0) || !Number.isFinite(unit))
-      return void problems.push(`${label}: its size in metres must be above zero`);
+    if (!(unit > 0) || !Number.isFinite(unit)) {
+      problems.push(`${label}: its size in metres must be above zero`);
+      return;
+    }
     const scale = unit / canvas.projection.metresPerUnit;
     const bearing = Number.isFinite(input.bearing) ? Number(input.bearing) : 0;
     const rotation = round(
       bearing - localConvergence(canvas.projection.centre, Number(input.at[0]), Number(input.at[1])),
     );
-    const anchor: [number, number] =
-      input.anchor && input.anchor.every(Number.isFinite)
-        ? [input.anchor[0], input.anchor[1]]
-        : [vx + vw / 2, vy + vh / 2];
+    const anchor: [number, number] = input.anchor?.every(Number.isFinite)
+      ? [input.anchor[0], input.anchor[1]]
+      : [vx + vw / 2, vy + vh / 2];
     const turn = (rotation * Math.PI) / 180;
     const corners = [
       [vx, vy],

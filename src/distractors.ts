@@ -1,5 +1,5 @@
+import { type Random, shuffled } from "./random.ts";
 import type { ChizuMap } from "./types.ts";
-import { shuffled, type Random } from "./random.ts";
 
 /**
  * What makes one place on a map a convincing wrong answer for another.

@@ -1,5 +1,5 @@
 import { CHIZU_COUNTRIES } from "./data/countries.ts";
-import { placesFromText, type PastedPlaces } from "./fromText.ts";
+import { type PastedPlaces, placesFromText } from "./fromText.ts";
 import type { ChizuCountry } from "./types.ts";
 
 const byCode = new Map(CHIZU_COUNTRIES.map((country) => [country.code, country]));

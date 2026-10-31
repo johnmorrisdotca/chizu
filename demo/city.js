@@ -1,8 +1,9 @@
 // The demo's city scale: a made-up ground (not OpenStreetMap, not a survey) drawn from GeoJSON and a picture in metres,
 // at four scales: Japan's map at 10x, then 20 km, 2 km and 400 m across, each a local map of the same ground. The
 // country step shows the box the next step covers, worked out by mapBoxFromLocal.
-import { localMap, mapBoxFromLocal, mapBoxMetres, projectPoint, zoomBox } from "./dist/index.js";
+
 import { drawChizu, drawLocal } from "./dist/draw-entry.js";
+import { localMap, mapBoxFromLocal, mapBoxMetres, projectPoint, zoomBox } from "./dist/index.js";
 import { loadCountry } from "./dist/load-entry.js";
 
 export const CITY_CENTRE = [139.7006, 35.7004];
@@ -160,7 +161,7 @@ export function initCity({ say, language, seg, remember, params }) {
         state.scale = value;
         remember({ city: value === "country" ? null : value });
         controls();
-        draw();
+        void draw();
       },
       (value) => (value === "country" ? say("cityCountry") : metresWords(Number(value))),
     );
@@ -172,7 +173,7 @@ export function initCity({ say, language, seg, remember, params }) {
         state.names = value;
         remember({ cityNames: value ? "on" : null });
         controls();
-        draw();
+        void draw();
       },
       (value) => say(value ? "on" : "off"),
     );
@@ -184,7 +185,7 @@ export function initCity({ say, language, seg, remember, params }) {
         state.numbers = value;
         remember({ cityNumbers: value ? "on" : null });
         controls();
-        draw();
+        void draw();
       },
       (value) => say(value ? "on" : "off"),
     );
@@ -193,12 +194,12 @@ export function initCity({ say, language, seg, remember, params }) {
   slider.addEventListener("input", () => {
     state.bearing = Number(slider.value);
     remember({ bearing: state.bearing === 30 ? null : state.bearing });
-    draw();
+    void draw();
   });
   controls();
-  draw();
+  void draw();
   return () => {
     controls();
-    draw();
+    void draw();
   };
 }

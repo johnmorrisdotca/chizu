@@ -1,12 +1,12 @@
 import {
   CALLOUT_ROOMY,
-  segmentsCross,
-  segmentsGap,
   type CalloutLand,
   type CalloutObstacle,
   type CalloutPlace,
+  segmentsCross,
+  segmentsGap,
 } from "./calloutSpace.ts";
-import { distanceToRing, pointInRing, segmentMeetsRing, type MapRing } from "./outlines.ts";
+import { distanceToRing, type MapRing, pointInRing, segmentMeetsRing } from "./outlines.ts";
 
 /**
  * The last pass over a printed sheet's numbers: no two leaders closer than a
@@ -278,7 +278,9 @@ export function polishCallouts(context: PolishContext): number[] {
    */
   const attempt = (seed: number) => {
     reseat(keptSeats);
-    startFrom.forEach((option, i) => (from[i] = option));
+    startFrom.forEach((option, i) => {
+      from[i] = option;
+    });
     let best = { score: begin.score, seats: [...at], from: [...from] };
     let score = begin.score;
     const random = seeded(count * 7919 + spaces.length + seed * 104_729);
@@ -342,7 +344,9 @@ export function polishCallouts(context: PolishContext): number[] {
 
     /* The best arrangement seen, and only if it is no worse on either fault than where this began. */
     reseat(best.seats);
-    best.from.forEach((option, i) => (from[i] = option));
+    best.from.forEach((option, i) => {
+      from[i] = option;
+    });
 
     /*
      * Then every leader is offered every start and every place in its pool,
@@ -452,7 +456,9 @@ export function polishCallouts(context: PolishContext): number[] {
       kept = next;
   }
   reseat(kept.seats);
-  kept.from.forEach((option, i) => (from[i] = option));
+  kept.from.forEach((option, i) => {
+    from[i] = option;
+  });
   const finish = totals();
   if (finish.crossings > begin.crossings || (finish.crossings === begin.crossings && finish.close > begin.close)) {
     reseat(keptSeats);

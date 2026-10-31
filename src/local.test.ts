@@ -7,9 +7,9 @@ import { focusBox, regionBox, zoomBox } from "./frame.ts";
 import { groundDistance, localCanvasFromBox, localConvergence, mapBoxFromLocal, mapBoxMetres } from "./local.ts";
 import { localMap } from "./localMap.ts";
 import { cleanSvgMarkup } from "./localMarker.ts";
+import { CHIZU_LOCAL_STYLE } from "./localStyle.ts";
 import { projectPoint, unprojectPoint } from "./project.ts";
 import { CHIZU_STYLE } from "./style.ts";
-import { CHIZU_LOCAL_STYLE } from "./localStyle.ts";
 
 const RAD = Math.PI / 180;
 
@@ -503,8 +503,8 @@ describe("a picture on the ground", () => {
       centre,
       widthMetres: 400,
       markers: [
-        { at: centre, svg: gradient + "</g></g></svg>" },
-        { at: centre, svg: gradient + "</svg>" },
+        { at: centre, svg: `${gradient}</g></g></svg>` },
+        { at: centre, svg: `${gradient}</svg>` },
       ],
     });
     expect(map.markers[0]!.markup).toContain('id="cz-m1-g"');

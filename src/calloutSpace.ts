@@ -1,5 +1,5 @@
 import { HANDLE_CLEARANCE } from "./handles.ts";
-import { seaAround, type MapRing } from "./outlines.ts";
+import { type MapRing, seaAround } from "./outlines.ts";
 import type { MapBox } from "./types.ts";
 
 /**

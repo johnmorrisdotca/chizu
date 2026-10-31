@@ -1,4 +1,4 @@
-import { insetTransform, type InsetTransform } from "./insets.ts";
+import { type InsetTransform, insetTransform } from "./insets.ts";
 import type { ChizuInset, ChizuMap } from "./types.ts";
 
 /**

@@ -1,5 +1,5 @@
-import { placeCallouts } from "./callouts.ts";
 import type { CalloutKeepOut, CalloutLand } from "./calloutSpace.ts";
+import { placeCallouts } from "./callouts.ts";
 import { wholeMapBox } from "./frame.ts";
 import { orderByPosition } from "./handles.ts";
 import { mapOutlines, shiftedOutlines } from "./outlines.ts";

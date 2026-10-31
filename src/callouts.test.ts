@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { CALLOUT_INSET, calloutSpaces, segmentCrossesBox, type CalloutLand } from "./calloutSpace.ts";
+import { CALLOUT_INSET, type CalloutLand, calloutSpaces, segmentCrossesBox } from "./calloutSpace.ts";
 import { placeCallouts } from "./callouts.ts";
+import br from "./data/divisions/br.ts";
 import de from "./data/divisions/de.ts";
 import fr from "./data/divisions/fr.ts";
-import br from "./data/divisions/br.ts";
 import { HANDLE_CLEARANCE, HANDLE_RADIUS_RATIO } from "./handles.ts";
 import { mapOutlines, parseMapRings, segmentMeetsRing } from "./outlines.ts";
 

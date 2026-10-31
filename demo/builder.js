@@ -1,16 +1,17 @@
-import { VERSION } from "./dist/index.js";
 import {
   CHIZU_ELEMENT_OPTION_KEYS,
-  ChizuMapElement,
   ChizuLocator,
+  ChizuMapElement,
   ChizuQuiz,
-  readMapData,
   readMapColors,
+  readMapData,
 } from "./dist/element.js";
+import { VERSION } from "./dist/index.js";
 import "./dist/element-define.js";
 import { CHIZU_COUNTRIES } from "./dist/names-entry.js";
 import { choices } from "./embed-options.js";
-import { familyEmbedBuilder, FAMILY_EMBED_BUILDER_WORDS } from "./family-embed-builder.js";
+import { FAMILY_EMBED_BUILDER_WORDS, familyEmbedBuilder } from "./family-embed-builder.js";
+
 const words = {
   en: {
     ...FAMILY_EMBED_BUILDER_WORDS.en,

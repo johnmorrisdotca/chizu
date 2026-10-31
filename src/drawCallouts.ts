@@ -1,8 +1,8 @@
 import type { CalloutSpot } from "./layout.ts";
-import { chizuSay, nameOf, type ChizuLanguage } from "./strings.ts";
+import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import type { ChizuRegion } from "./types.ts";
 
-const escape = (text: string) =>
+const escapeHtml = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const num = (value: number) => String(Math.round(value * 100) / 100);
 
@@ -28,8 +28,8 @@ export function calloutsSvg(
       const endY = spot.circle[1] - (dy / length) * spot.radius;
       const words = chizuSay(language, "callout", { n: spot.number, name: nameOf(region, language) });
       return (
-        `<g class="cz-callout" data-code="${escape(spot.code)}" data-number="${spot.number}"${interactive ? ` data-interactive="true"` : ""}>` +
-        `<title>${escape(words)}</title>` +
+        `<g class="cz-callout" data-code="${escapeHtml(spot.code)}" data-number="${spot.number}"${interactive ? ` data-interactive="true"` : ""}>` +
+        `<title>${escapeHtml(words)}</title>` +
         `<line class="cz-leader" x1="${num(spot.start[0])}" y1="${num(spot.start[1])}" x2="${num(endX)}" y2="${num(endY)}"/>` +
         `<circle class="cz-start" cx="${num(spot.start[0])}" cy="${num(spot.start[1])}" r="${num(spot.radius * 0.18)}"/>` +
         `<circle class="cz-callout-circle" cx="${num(spot.circle[0])}" cy="${num(spot.circle[1])}" r="${num(spot.radius)}"/>` +

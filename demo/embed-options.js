@@ -1,5 +1,5 @@
+import { readMapColors, readMapData } from "./dist/element.js";
 import { COUNTRY_CODES, DIVISIONS_CODES } from "./dist/load-entry.js";
-import { readMapData, readMapColors } from "./dist/element.js";
 export const regions = [
   "world",
   ...DIVISIONS_CODES.map((code) => `divisions-${code.toLowerCase()}`),
