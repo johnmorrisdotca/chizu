@@ -16,7 +16,9 @@
 //
 // DETERMINISTIC. No clock, no randomness, no network after the download: the same Natural Earth files and the same
 // d3-geo version (pinned by the lockfile) write the same bytes. `pnpm data` twice leaves the working tree clean.
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import process from "node:process";
 
@@ -903,6 +905,31 @@ function JAPAN_INSETS(lineAt, area) {
 
 // ---- The tables ------------------------------------------------------------------------------------------------
 
+/**
+ * The committed tables are in the family's code style, which the project's own Biome settings leave out of
+ * `*.data.ts`. The writer therefore formats them here, with those same settings, so `pnpm data` makes the committed
+ * bytes. Biome leaves a file over 1 MiB as it is. The world in degrees is written afterwards, unformatted, on
+ * purpose: it is shipped as it stands, so its size is the size of the data.
+ */
+function formatData() {
+  const config = mkdtempSync(join(tmpdir(), "chizu-biome-"));
+  try {
+    writeFileSync(
+      join(config, "biome.json"),
+      JSON.stringify({
+        formatter: { indentStyle: "space", indentWidth: 2, lineWidth: 120 },
+        javascript: { formatter: { quoteStyle: "double", semicolons: "always", trailingCommas: "all" } },
+        linter: { enabled: false },
+        assist: { enabled: false },
+      }),
+    );
+    const biome = join(root, "node_modules", "@biomejs", "biome", "bin", "biome");
+    execFileSync(process.execPath, [biome, "format", "--write", `--config-path=${config}`, out], { stdio: "ignore" });
+  } finally {
+    rmSync(config, { recursive: true, force: true });
+  }
+}
+
 async function main() {
   checkKuni();
   const worldSource = await source("ne_110m_admin_0_countries.geojson");
@@ -934,10 +961,11 @@ async function main() {
 `,
   );
   const worldGeo = buildWorldGeo(worldSource);
-  writeFileSync(
-    join(out, "world-geo.data.ts"),
-    `/*\n * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.\n * The world: ${worldGeo.features.length} countries, Natural Earth 5.1.2 admin-0 countries, 1:110m, longitude and latitude.\n * Natural Earth is in the public domain (naturalearthdata.com). See NOTICE.md.\n */\n\ntype WorldGeo = {\n  type: "FeatureCollection";\n  features: Array<{\n    type: "Feature";\n    properties: {\n      code: string;\n      name: string;\n      nameJa: string;\n      iso3: string;\n      group: string;\n      groupJa: string;\n    };\n    geometry: { type: string; coordinates: unknown };\n  }>;\n  source: string;\n};\n\n/**\n * The world, every country a region, as longitude and latitude in degrees.\n *\n * @example\n * \`\`\`ts\n * import WORLD_GEO from "@johnmorrisdotca/chizu/world-geo";\n *\n * const japan = WORLD_GEO.features.find((feature) => feature.properties.code === "JP")!;\n * console.log(WORLD_GEO.features.length, japan.properties.code, japan.properties.name, japan.properties.nameJa);\n * // ${worldGeo.features.length} JP Japan 日本\n * \`\`\`\n */\nconst worldGeo: WorldGeo = ${literal(worldGeo)};\n\nexport default worldGeo;\n`,
-  );
+  const writeWorldGeo = () =>
+    writeFileSync(
+      join(out, "world-geo.data.ts"),
+      `/*\n * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.\n * The world: ${worldGeo.features.length} countries, Natural Earth 5.1.2 admin-0 countries, 1:110m, longitude and latitude.\n * Natural Earth is in the public domain (naturalearthdata.com). See NOTICE.md.\n */\n\ntype WorldGeo = {\n  type: "FeatureCollection";\n  features: Array<{\n    type: "Feature";\n    properties: {\n      code: string;\n      name: string;\n      nameJa: string;\n      iso3: string;\n      group: string;\n      groupJa: string;\n    };\n    geometry: { type: string; coordinates: unknown };\n  }>;\n  source: string;\n};\n\n/**\n * The world, every country a region, as longitude and latitude in degrees.\n *\n * @example\n * \`\`\`ts\n * import WORLD_GEO from "@johnmorrisdotca/chizu/world-geo";\n *\n * const japan = WORLD_GEO.features.find((feature) => feature.properties.code === "JP")!;\n * console.log(WORLD_GEO.features.length, japan.properties.code, japan.properties.name, japan.properties.nameJa);\n * // ${worldGeo.features.length} JP Japan 日本\n * \`\`\`\n */\nconst worldGeo: WorldGeo = ${literal(worldGeo)};\n\nexport default worldGeo;\n`,
+    );
   const onWorld = new Set(world.regions.map((r) => r.code));
   const worldDetail = buildWorldDetail(countriesSource, world);
   writeMap(
@@ -1181,6 +1209,8 @@ ${loaders.features.map((id) => `  ${JSON.stringify(id)}: () => import("./feature
 };
 `,
   );
+  formatData();
+  writeWorldGeo();
   console.log(
     `world: ${world.regions.length} countries · countries: ${loaders.countries.length} · divisions: ${loaders.divisions.length}`,
   );
