@@ -557,6 +557,15 @@ console.log(africa.nameJa, svg.length > 0, question.choices.every((code) => afri
 
 `projectPoint(WORLD, 139.69, 35.69)` is Tokyo on the world's canvas, `[457.5, 212.5]`, and `unprojectPoint` goes back. A map keeps how its canvas was made (`projection`). Two are closed formulas, done here with no dependency: Miller's cylindrical round a centre longitude (the world) and Lambert azimuthal equal-area round a centre (a country alone). A country's regions were fitted with a projection of their own, and `projectPoint` answers `null` for them, never a guess. The tests hold both formulas to d3-geo's own.
 
+`@johnmorrisdotca/chizu/world-geo` is the same world before any projection: a GeoJSON `FeatureCollection` of 177 features (Natural Earth 5.1.2, 1:110m) in WGS84 `[longitude, latitude]` degrees, `Polygon` and `MultiPolygon`, rings whole through the date line and down to the south pole, for d3-geo's `geoOrthographic` or any spherical view. It is the 173 countries of `WORLD` and the four it leaves out: Antarctica (`AQ`), the French Southern Lands (`TF`), Northern Cyprus (`CYN`) and Somaliland (`SOL`). Each feature's `properties` are `code`, `iso3`, `name`, `nameJa`, `group` and `groupJa`; the collection has a `source`. It has no dependency, and is its own entry (166 kB minified, 44 kB gzipped), so a flat map never loads it.
+
+```ts
+import WORLD_GEO from "@johnmorrisdotca/chizu/world-geo";
+
+const japan = WORLD_GEO.features.find((feature) => feature.properties.code === "JP")!;
+console.log(WORLD_GEO.features.length, japan.properties.iso3, japan.properties.nameJa); // 177 JPN 日本
+```
+
 ## The city scale
 
 Natural Earth stops at about a kilometre. Past it, `localMap` makes a map of a city or a venue from the GeoJSON and pictures you pass, in a transverse Mercator centred on the place (a canvas unit is `metresPerUnit` metres, held to the ellipsoid's own distances within 0.5%), and `drawLocal` draws it. Nothing is fetched and no map data is added: you pass the credit lines. [docs/city.md](./docs/city.md) has all of it.

@@ -10,7 +10,11 @@ All notable changes to this project are written here. The format follows
 
 ### Added
 
-- `@johnmorrisdotca/chizu/world-geo`: the same 173 Natural Earth 1:110m country outlines as unprojected longitude/latitude GeoJSON, with ISO codes and English/Japanese names, for an orthographic globe or another spherical projection. The existing projected `world` export is unchanged.
+- `@johnmorrisdotca/chizu/world-geo`: the world as unprojected longitude/latitude GeoJSON (WGS84, `[longitude, latitude]` in degrees, rings whole through the date line and to the poles), for an orthographic globe or another spherical projection. It holds all 177 features of Natural Earth 5.1.2's 1:110m countries: the flat `world`'s 173, and the four it leaves out (Antarctica, the French Southern Lands, Northern Cyprus and Somaliland), so a globe loses nothing. Each feature has `code`, `iso3`, `name` (English) and `nameJa` (Japanese; kuni's, and Natural Earth's for the two places kuni lacks), plus `group` and `groupJa`; the collection has a `source`. No runtime dependency. 166 kB minified, 44 kB gzipped. The existing projected `world` export is unchanged.
+
+### Fixed
+
+- `pnpm data` now makes the committed maps byte for byte: it formats the tables the way the repository keeps them (the project's Biome settings leave `*.data.ts` out, so the writer applies them itself), and CI's data check, which had failed since the formatting commit of 1.5.1, passes.
 
 ## [1.5.1] - 2026-10-31
 

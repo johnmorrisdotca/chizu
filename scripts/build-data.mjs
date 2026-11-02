@@ -1,6 +1,7 @@
 // Builds every file of map data under src/data/ from Natural Earth: `pnpm data`.
 //
 //   src/data/world.data.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
+//   src/data/world-geo.data.ts            the same world in longitude and latitude, unprojected, with the four it leaves out (177)
 //   src/data/countries/<xx>.data.ts  each country alone, finer (admin-0 at 1:50m, and at 1:10m for the small ones), on a canvas of its own
 //   src/data/divisions/<xx>.data.ts  the provinces, states, prefectures or départements of 32 countries (admin-1 at 1:10m)
 //   src/data/countries.data.ts            the table of every country: names in English and Japanese, and what it has
@@ -237,10 +238,10 @@ function isoOf(properties) {
   return iso && iso !== "-99" ? iso : properties.ADM0_A3;
 }
 
-function countriesFrom(collection) {
+function countriesFrom(collection, keepExcluded = false) {
   const taken = new Set();
   const features = collection.features
-    .filter((feature) => !EXCLUDED.has(isoOf(feature.properties)))
+    .filter((feature) => keepExcluded || !EXCLUDED.has(isoOf(feature.properties)))
     // A sovereign's own entry first, so a code two entries claim (Australia's two island territories use AU) goes to the one that is the country.
     .sort((a, b) => Number(b.properties.NAME === b.properties.ADMIN) - Number(a.properties.NAME === a.properties.ADMIN))
     .map((feature) => {
@@ -426,9 +427,13 @@ function buildWorldDetail(collection, world) {
   };
 }
 
-/** The world as longitude and latitude in degrees: every country a GeoJSON feature, no projection. */
+/**
+ * The world as longitude and latitude in degrees: every feature of Natural Earth's 1:110m countries a GeoJSON feature,
+ * no projection. Unlike the flat world, it keeps Antarctica, the French Southern Lands, Northern Cyprus and
+ * Somaliland, so a globe loses nothing: 177 features.
+ */
 function buildWorldGeo(collection) {
-  const features = countriesFrom(collection);
+  const features = countriesFrom(collection, true);
   const oneDecimal = fixed(1);
   const roundCoordinates = (node) => {
     if (typeof node[0] === "number") return node.map(oneDecimal);
@@ -436,7 +441,7 @@ function buildWorldGeo(collection) {
   };
   const geoFeatures = features.map((feature) => {
     const p = feature.properties;
-    const names = namesOf(p, p.__code);
+    const names = kuniCountry(p.__code) ? namesOf(p, p.__code) : { name: p.NAME, nameJa: p.NAME_JA };
     const identity = identityOf(p, p.__code);
     return {
       type: "Feature",
@@ -964,7 +969,7 @@ async function main() {
   const writeWorldGeo = () =>
     writeFileSync(
       join(out, "world-geo.data.ts"),
-      `/*\n * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.\n * The world: ${worldGeo.features.length} countries, Natural Earth 5.1.2 admin-0 countries, 1:110m, longitude and latitude.\n * Natural Earth is in the public domain (naturalearthdata.com). See NOTICE.md.\n */\n\ntype WorldGeo = {\n  type: "FeatureCollection";\n  features: Array<{\n    type: "Feature";\n    properties: {\n      code: string;\n      name: string;\n      nameJa: string;\n      iso3: string;\n      group: string;\n      groupJa: string;\n    };\n    geometry: { type: string; coordinates: unknown };\n  }>;\n  source: string;\n};\n\n/**\n * The world, every country a region, as longitude and latitude in degrees.\n *\n * @example\n * \`\`\`ts\n * import WORLD_GEO from "@johnmorrisdotca/chizu/world-geo";\n *\n * const japan = WORLD_GEO.features.find((feature) => feature.properties.code === "JP")!;\n * console.log(WORLD_GEO.features.length, japan.properties.code, japan.properties.name, japan.properties.nameJa);\n * // ${worldGeo.features.length} JP Japan 日本\n * \`\`\`\n */\nconst worldGeo: WorldGeo = ${literal(worldGeo)};\n\nexport default worldGeo;\n`,
+      `/*\n * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.\n * The world: ${worldGeo.features.length} countries, Natural Earth 5.1.2 admin-0 countries, 1:110m, longitude and latitude.\n * Natural Earth is in the public domain (naturalearthdata.com). See NOTICE.md.\n */\n\ntype WorldGeo = {\n  type: "FeatureCollection";\n  features: Array<{\n    type: "Feature";\n    properties: {\n      code: string;\n      name: string;\n      nameJa: string;\n      iso3: string;\n      group: string;\n      groupJa?: string;\n    };\n    geometry: { type: string; coordinates: unknown };\n  }>;\n  source: string;\n};\n\n/**\n * The world, every country a region, as longitude and latitude in degrees.\n *\n * @example\n * \`\`\`ts\n * import WORLD_GEO from "@johnmorrisdotca/chizu/world-geo";\n *\n * const japan = WORLD_GEO.features.find((feature) => feature.properties.code === "JP")!;\n * console.log(WORLD_GEO.features.length, japan.properties.code, japan.properties.name, japan.properties.nameJa);\n * // ${worldGeo.features.length} JP Japan 日本\n * \`\`\`\n */\nconst worldGeo: WorldGeo = ${literal(worldGeo)};\n\nexport default worldGeo;\n`,
     );
   const onWorld = new Set(world.regions.map((r) => r.code));
   const worldDetail = buildWorldDetail(countriesSource, world);
