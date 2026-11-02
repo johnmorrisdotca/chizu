@@ -124,6 +124,15 @@ describe("the workflows", () => {
     expect(ci).toContain("run: pnpm test:package");
   });
 
+  it("release.yml refuses unless CI succeeded on the commit, calls the shared release workflow, and makes no GitHub release", () => {
+    const release = read(".github/workflows/release.yml");
+    expect(release).toContain("actions: read\n");
+    expect(release).toContain('gh run list --repo "$GITHUB_REPOSITORY" --workflow ci.yml --commit "$GITHUB_SHA"');
+    expect(release).toContain('"completed success "*) ;;');
+    expect(release).toMatch(/\n {2}release:\n {4}needs: ci-green\n {4}uses: johnmorrisdotca\/kazoku-ui\/\.github\/workflows\/reusable-release\.yml@v\d+\.\d+\.\d+\n/);
+    expect(release).not.toMatch(/github-release: true|gh release /);
+  });
+
   it("pages.yml is the same text in every package, named Pages, apart from the steps that build and check a documentation site", () => {
     const pages = read(".github/workflows/pages.yml").replace("\n      - run: pnpm docs:site\n", "\n").replace("\n      - run: node scripts/docs-compat.mjs\n", "\n");
     expect(pages).toMatch(/^name: Pages$/m);
@@ -161,7 +170,7 @@ describe("the README's version pins", () => {
 });
 
 describe("the release notes", () => {
-  it("are the changelog's section for the version, which the Release workflow puts on the GitHub release", () => {
+  it("are the changelog's section for the version", () => {
     const log = "# Changelog\n\n## [Unreleased]\n\n## [1.2.0] - 2026-01-02\n\n### Added\n\n- A thing.\n\n## [1.1.0] - 2026-01-01\n\n- Older.\n\n[Unreleased]: https://example.test\n";
     expect(releaseNotes(log, "1.2.0")).toBe("### Added\n\n- A thing.");
     expect(releaseNotes(log, "1.1.0")).toBe("- Older.");
@@ -169,9 +178,6 @@ describe("the release notes", () => {
     // Until a version is published its notes are under [Unreleased]; the release takes the heading with the version and the date.
     const notes = releaseNotes(read("CHANGELOG.md"), pkg.version) ?? releaseNotes(read("CHANGELOG.md"), "Unreleased");
     expect(notes?.length, `CHANGELOG.md has nothing under ## [${pkg.version}] or ## [Unreleased]`).toBeGreaterThan(40);
-    const workflow = read(".github/workflows/release.yml");
-    expect(workflow).toContain("scripts/release-notes.mjs");
-    expect(workflow).not.toContain("See CHANGELOG.md.");
   });
 
   it("come from a changelog in Keep a Changelog form: an Unreleased heading, then each version in brackets with its date", () => {
