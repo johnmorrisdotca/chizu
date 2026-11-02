@@ -76,7 +76,7 @@ test("names and numbers: the names print where they fit, and the callout placer 
 
 test("in Japanese the names, the label and the credit follow", async ({ page }) => {
   await open(page, "?map=world&city=400&cityNames=on");
-  await page.locator('[data-lang="ja"]').click();
+  await page.locator('kazoku-language-picker [data-v="ja"]').click();
   await expect(page.locator(`${board} .cz-label`).filter({ hasText: "本館" })).toHaveCount(1);
   await expect(page.locator(board)).toHaveAttribute("aria-label", "周辺の地図、幅400 m");
   await expect(page.locator("#city-title")).toHaveText("街の縮尺");

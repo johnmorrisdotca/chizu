@@ -3,6 +3,8 @@
 // compiled library beside it.
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
+import { build } from "esbuild";
+
 import { API_CSS, apiPage } from "./api.mjs";
 import {
   FAMILY_EMBED_BUILDER_WORDS,
@@ -36,152 +38,70 @@ const escapeHtml = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").r
 const row = (testid, label, help) =>
   `<div class="setup fam-row" data-help-en="${escapeHtml(help[0])}" data-help-ja="${escapeHtml(help[1])}"><span class="fam-label" data-say="${label}"></span><div class="fam-seg" role="group" data-say-label="${label}" id="${testid}" data-testid="${testid}"></div></div>`;
 
-const page = `<!doctype html>
-<html lang="en">
-  <head>
-    ${familyHead({
-      id,
-      title: "Chizu 地図 — SVG maps for JavaScript",
-      description:
-        "Japan's 47 prefectures, the world, its continents and 32 countries' regions, with their seas, lakes, rivers and mountains: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.",
-      ogTitle: "Chizu maps",
-      ogDescription:
-        "Japan's prefectures, the world and 32 countries' regions: quizzes, callout sheets and coloured maps, in English and Japanese.",
-    })}
-    <link rel="icon" href="${ICON}" />
-    <link rel="stylesheet" href="family.css" />
-    <link rel="stylesheet" href="chizu.css" />
-  </head>
-  <body>
-    <main>
-      ${familyHeader({
-        id,
-        links: [
-          { href: "docs/index.html", say: "pageDocs" },
-          { href: "api.html", say: "pageApi" },
-        ],
-      })}
-      <div class="setup fam-row" data-help-en="Choose the map: the whole world, the regions of one country (its provinces, states or départements), or one country on its own. Each country is a file of its own, fetched when you ask for it." data-help-ja="地図を選びます。世界全体、一つの国の地方（州や県など）、または一つの国だけ、のどれかです。国ごとに別のファイルで、選んだときに読み込みます。">
-        <span class="fam-label" data-say="map"></span>
-        <select class="fam-field" id="map" data-testid="map" data-say-label="map"></select>
-      </div>
-      <div class="setup fam-row" id="part-row" data-help-en="Look at one part of the map: a continent or a subregion of the world, or one of a country's own regions, such as Japan's Kanto. The quiz, the numbers and the colours keep to it." data-help-ja="地図の一部だけを見ます。世界なら大陸や地域、国なら日本の関東地方のような地方です。クイズ、番号、色分けもその範囲だけになります。">
-        <span class="fam-label" data-say="part"></span>
-        <select class="fam-field" id="part" data-testid="part" data-say-label="part"></select>
-      </div>
-      ${row("features", "features", ["Draw the map's named water (its seas, bays and straits, lakes and rivers), its capitals (a country's capital, and on a map of its regions each region's seat), or everything named on it, deserts, mountain ranges and peaks too. Off, the map is as it always was. Each map's features are a file of their own, fetched the first time you turn them on.", "地図に、名前のある水（海、湾、海峡、湖、川）を重ねて描きます。「首都」にすると、国の首都と、地方の地図では各地方の中心地（日本では県庁所在地）を描きます。「すべて」にすると、砂漠、山脈、山など、名前のあるものをすべて描きます。「なし」なら、いつもの地図のままです。描くものは地図ごとに別のファイルで、はじめて表示するときに読み込みます。"])}
-      ${row("modes", "mode", ["Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.", "地図を見てなまえを調べる、クイズで遊ぶ、番号つきの目印をつける、自分の数値で色を塗る、のどれかを選びます。"])}
-      <div class="table fam-felt" id="board" data-testid="board"></div>
-      <section class="settings" id="panel-explore" data-testid="panel-explore" aria-labelledby="explore-title">
-        <h2 id="explore-title" data-say="exploreTitle"></h2>
-        <div class="info" id="info" data-testid="info" aria-live="polite"></div>
-        <div class="setup fam-row" data-help-en="Type part of a name, in English or Japanese, to narrow the list of names below." data-help-ja="なまえの一部を、英語でも日本語でも入力すると、下の一覧がしぼりこまれます。">
-          <span class="fam-label" data-say="filter"></span>
-          <input class="fam-field" id="filter" data-testid="filter" type="search" autocomplete="off" data-say-placeholder="filterPlaceholder" data-say-label="filter" />
-        </div>
-        <div class="fam-table-box"><table id="names" data-testid="names"><thead><tr><th data-say="colCode"></th><th data-say="colIso"></th><th data-say="colEnglish"></th><th data-say="colJapanese"></th><th data-say="colReading"></th><th data-say="colGroup"></th></tr></thead><tbody></tbody></table></div>
-        <div id="explore-map-files"></div>
-        <div id="explore-list-files"></div>
-        <h3 class="sub-title" data-say="featuresTitle"></h3>
-        <div class="setup fam-row" data-help-en="Type part of the name of a sea, a lake, a river, a mountain range or a peak, in English, in Japanese or in kana. Press a row to see it on the map." data-help-ja="海、湖、川、山脈、山などのなまえの一部を、英語、日本語、かなのどれかで入力すると、下の一覧がしぼりこまれます。行を押すと、地図に表示します。">
-          <span class="fam-label" data-say="featureFind"></span>
-          <input class="fam-field" id="feature-find" data-testid="feature-find" type="search" autocomplete="off" data-say-placeholder="featureFindPlaceholder" data-say-label="featureFind" />
-        </div>
-        <p class="fam-muted feature-count" id="feature-count" data-testid="feature-count" aria-live="polite"></p>
-        <div class="fam-table-box feature-box"><table id="feature-list" data-testid="feature-list"><thead><tr><th data-say="colEnglish"></th><th data-say="colJapanese"></th><th data-say="colReading"></th><th data-say="colKind"></th></tr></thead><tbody></tbody></table></div>
-        <div id="feature-files"></div>
-      </section>
-      <section class="settings" id="panel-quiz" data-testid="panel-quiz" aria-labelledby="quiz-title" hidden>
-        <h2 id="quiz-title" data-say="quizTitle"></h2>
-        ${row("styles", "style", ["Pick the lit place's name from four look-alikes, type its name in English or Japanese, type the reading of its name in kana, find a named place on the map, or find a named sea, lake or river. Ten questions a round, made from a seed: share the link and a friend gets the same ten.", "光っている場所のなまえを似たなまえ4つから選ぶ、英語か日本語でなまえを入力する、なまえの読みをかなで入力する、なまえを見て地図でさがす、海や湖や川を地図でさがす、のどれかを選びます。1回は10問で、問題はリンクに入っている番号で決まります。リンクを送れば、友だちにも同じ10問が出ます。"])}
-        <div class="fam-row quiz-chips">
-          <span class="fam-chip" id="progress" data-testid="progress"></span>
-          <span class="fam-chip" id="score" data-testid="score"></span>
-          <span class="fam-chip" id="streak" data-testid="streak"></span>
-          <span class="fam-chip" id="best" data-testid="best"></span>
-        </div>
-        <p id="question" data-testid="question" aria-live="polite"></p>
-        <div class="choices" id="choices" data-testid="choices" role="group" data-say-label="choices"></div>
-        <form class="typed fam-row" id="typed" data-testid="typed" hidden>
-          <input class="fam-field" id="answer" data-testid="answer" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-say-label="answer" />
-          <button type="submit" class="fam-button" data-primary="true" id="check" data-testid="check" data-say="check"></button>
-          <button type="button" class="fam-button" id="skip" data-testid="skip" data-say="skip"></button>
-        </form>
-        <div class="fam-row">
-          <button type="button" class="fam-button" id="next" data-testid="next" data-say="next"></button>
-        </div>
-        <div class="summary" id="quiz-summary" data-testid="quiz-summary" hidden>
-          <p class="summary-text" id="summary-text" data-testid="summary-text"></p>
-          <div class="fam-table-box"><table class="results" id="summary-table" data-testid="summary-table"></table></div>
-          <div id="summary-files"></div>
-          <p data-say="shareText"></p>
-          <div class="fam-row share">
-            <input class="fam-field" id="share-link" data-testid="share-link" readonly data-say-label="share" />
-            <button type="button" class="fam-button" id="copy-link" data-testid="copy-link" data-copy data-say="copy"></button>
-          </div>
-          <div class="fam-row">
-            <button type="button" class="fam-button" data-primary="true" id="new-round" data-testid="new-round" data-say="newRound"></button>
-            <button type="button" class="fam-button" id="again" data-testid="again" data-say="again"></button>
-          </div>
-        </div>
-      </section>
-      <section class="settings" id="panel-callouts" data-testid="panel-callouts" aria-labelledby="callouts-title" hidden>
-        <h2 id="callouts-title" data-say="calloutsTitle"></h2>
-        <p data-say="calloutsText"></p>
-        ${row("polish", "polish", ["Off is the quick walk, fast enough to redraw on every move. On finishes with the slow pass a printed sheet gets: no two leaders closer than a circle's width, none through another number. It can take a few seconds.", "「なし」は速い配置で、動かすたびに描き直せます。「あり」は印刷用の仕上げで、引き出し線どうしを円の幅より近づけず、他の番号を通らないようにします。数秒かかることがあります。"])}
-        ${row("numbering", "numbering", ["Number the regions in the order of the list, or as they run across the map from west to east.", "番号を、一覧の順につけるか、地図の西から東へ並ぶ順につけます。"])}
-        <ol class="legend" id="legend" data-testid="legend"></ol>
-        <div id="callout-sheet-files"></div>
-        <div id="callout-list-files"></div>
-      </section>
-      <section class="settings" id="panel-colour" data-testid="panel-colour" aria-labelledby="colour-title" hidden>
-        <h2 id="colour-title" data-say="colourTitle"></h2>
-        ${row("colour-by", "colourBy", ["Shade the places from figures you paste, in five steps from the lowest to the highest, or give each of the map's parts a colour of its own.", "貼りつけた数値で、小さいものから大きいものまで5段階に塗るか、地図のグループ（大陸や地方など）ごとに色を分けます。"])}
-        <div class="figures" id="figures-row">
-          <p data-say="colourText"></p>
-          <textarea class="fam-field" id="figures" data-testid="figures" rows="6" data-mono="true" data-say-label="colourData" data-say-placeholder="colourPlaceholder" spellcheck="false"></textarea>
-          <div class="fam-row">
-            <button type="button" class="fam-button" id="colour-example" data-testid="colour-example" data-say="colourExample"></button>
-            <span class="fam-muted" data-say="colourExampleNote"></span>
-          </div>
-        </div>
-        <div class="colour-status" id="colour-status" aria-live="polite"></div>
-        <ul class="colour-legend" id="colour-legend" data-testid="colour-legend"></ul>
-        <div id="colour-map-files"></div>
-        <div id="colour-data-files"></div>
-      </section>
-      <section class="settings" id="city" data-testid="city" aria-labelledby="city-title">
-        <h2 id="city-title" data-say="cityTitle"></h2>
-        <p data-say="cityText"></p>
-        ${row("city-scale", "cityScale", ["Step from Japan's map at 10× down to a venue: 20 km, 2 km and 400 m across, each a local map of the same made-up ground. The red box on Japan's map is what the 20 km step covers.", "日本の10倍の地図から、幅20 km、2 km、400 mの順に、同じ架空の土地を拡大していきます。どれもその場所だけの地図です。日本の地図の赤い枠が、20 kmの段階の範囲です。"])}
-        ${row("city-names", "cityNames", ["Print the names of the shapes that have one, where they fit.", "名前のある形の名前を、収まる場合だけ表示します。"])}
-        ${row("city-numbers", "numbering", ["Number the hall, the pond, the north gate and the pitch with the callout placer.", "本館、池、北門、ピッチに、目印の番号をつけます。"])}
-        <div class="setup fam-row"><label class="fam-label" for="city-bearing" data-say="cityBearing"></label><input type="range" class="fam-field" id="city-bearing" data-testid="city-bearing" min="0" max="359" value="30" /><output id="city-bearing-out" data-testid="city-bearing-out"></output></div>
-        <p class="fam-muted" id="city-status" data-testid="city-status" aria-live="polite"></p>
-        <div class="table fam-felt" id="city-board" data-testid="city-board"></div>
-      </section>
-      <section class="settings code" aria-labelledby="code-title">
-        <h2 id="code-title" data-say="codeTitle"></h2>
-        <p data-say="codeText"></p>
-        <div class="fam-seg" role="group" id="code-kind" data-testid="code-kind"></div>
-        <pre class="snippet"><code id="code" data-testid="code"></code></pre>
-        <div class="fam-row"><button type="button" class="fam-button" id="copy-code" data-testid="copy-code" data-copy data-say="copy"></button></div>
-      </section>
-      ${familyUnreviewed({ id })}
-      <section class="more" aria-labelledby="more-title">
-        <h2 id="more-title" data-say="moreTitle"></h2>
-        <p data-say="moreText"></p>
-        <ul class="uses">
-          ${uses.map((line) => `<li><code>${escapeHtml(line)}</code></li>`).join("\n          ")}
-        </ul>
-      </section>
-      ${familyFooter({ id })}
-    </main>
-    <script>${FAMILY_SCRIPT}</script>
-    <script type="module" src="demo.js"></script>
-  </body>
-</html>
-`;
+// The page is demo/index.html; each <!-- family:key --> in it is replaced by the text below.
+const pageParts = {
+  head: familyHead({
+    id,
+    title: "Chizu 地図 — SVG maps for JavaScript",
+    description:
+      "Japan's 47 prefectures, the world, its continents and 32 countries' regions, with their seas, lakes, rivers and mountains: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.",
+    ogTitle: "Chizu maps",
+    ogDescription:
+      "Japan's prefectures, the world and 32 countries' regions: quizzes, callout sheets and coloured maps, in English and Japanese.",
+  }),
+  icon: ICON,
+  header: familyHeader({
+    id,
+    links: [
+      { href: "docs/index.html", say: "pageDocs" },
+      { href: "api.html", say: "pageApi" },
+    ],
+  }),
+  rowFeatures: row("features", "features", [
+    "Draw the map's named water (its seas, bays and straits, lakes and rivers), its capitals (a country's capital, and on a map of its regions each region's seat), or everything named on it, deserts, mountain ranges and peaks too. Off, the map is as it always was. Each map's features are a file of their own, fetched the first time you turn them on.",
+    "地図に、名前のある水（海、湾、海峡、湖、川）を重ねて描きます。「首都」にすると、国の首都と、地方の地図では各地方の中心地（日本では県庁所在地）を描きます。「すべて」にすると、砂漠、山脈、山など、名前のあるものをすべて描きます。「なし」なら、いつもの地図のままです。描くものは地図ごとに別のファイルで、はじめて表示するときに読み込みます。",
+  ]),
+  rowModes: row("modes", "mode", [
+    "Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.",
+    "地図を見てなまえを調べる、クイズで遊ぶ、番号つきの目印をつける、自分の数値で色を塗る、のどれかを選びます。",
+  ]),
+  rowStyles: row("styles", "style", [
+    "Pick the lit place's name from four look-alikes, type its name in English or Japanese, type the reading of its name in kana, find a named place on the map, or find a named sea, lake or river. Ten questions a round, made from a seed: share the link and a friend gets the same ten.",
+    "光っている場所のなまえを似たなまえ4つから選ぶ、英語か日本語でなまえを入力する、なまえの読みをかなで入力する、なまえを見て地図でさがす、海や湖や川を地図でさがす、のどれかを選びます。1回は10問で、問題はリンクに入っている番号で決まります。リンクを送れば、友だちにも同じ10問が出ます。",
+  ]),
+  rowPolish: row("polish", "polish", [
+    "Off is the quick walk, fast enough to redraw on every move. On finishes with the slow pass a printed sheet gets: no two leaders closer than a circle's width, none through another number. It can take a few seconds.",
+    "「なし」は速い配置で、動かすたびに描き直せます。「あり」は印刷用の仕上げで、引き出し線どうしを円の幅より近づけず、他の番号を通らないようにします。数秒かかることがあります。",
+  ]),
+  rowNumbering: row("numbering", "numbering", [
+    "Number the regions in the order of the list, or as they run across the map from west to east.",
+    "番号を、一覧の順につけるか、地図の西から東へ並ぶ順につけます。",
+  ]),
+  rowColourBy: row("colour-by", "colourBy", [
+    "Shade the places from figures you paste, in five steps from the lowest to the highest, or give each of the map's parts a colour of its own.",
+    "貼りつけた数値で、小さいものから大きいものまで5段階に塗るか、地図のグループ（大陸や地方など）ごとに色を分けます。",
+  ]),
+  rowCityScale: row("city-scale", "cityScale", [
+    "Step from Japan's map at 10× down to a venue: 20 km, 2 km and 400 m across, each a local map of the same made-up ground. The red box on Japan's map is what the 20 km step covers.",
+    "日本の10倍の地図から、幅20 km、2 km、400 mの順に、同じ架空の土地を拡大していきます。どれもその場所だけの地図です。日本の地図の赤い枠が、20 kmの段階の範囲です。",
+  ]),
+  rowCityNames: row("city-names", "cityNames", [
+    "Print the names of the shapes that have one, where they fit.",
+    "名前のある形の名前を、収まる場合だけ表示します。",
+  ]),
+  rowCityNumbers: row("city-numbers", "numbering", [
+    "Number the hall, the pond, the north gate and the pitch with the callout placer.",
+    "本館、池、北門、ピッチに、目印の番号をつけます。",
+  ]),
+  unreviewed: familyUnreviewed({ id }),
+  uses: uses.map((line) => `<li><code>${escapeHtml(line)}</code></li>`).join("\n          "),
+  footer: familyFooter({ id }),
+  script: `<script>${FAMILY_SCRIPT}</script>\n    <script type="module" src="kazoku-parts.js"></script>`,
+};
+const page = readFileSync("demo/index.html", "utf8").replace(
+  /<!-- family:([A-Za-z]+) -->/g,
+  (_match, key) => pageParts[key],
+);
 
 rmSync("site", { recursive: true, force: true });
 mkdirSync("site", { recursive: true });
@@ -189,6 +109,19 @@ cpSync("demo", "site", { recursive: true });
 // The declarations and source maps are for editors, not for a browser.
 cpSync("dist", "site/dist", { recursive: true, filter: (from) => !/\.(d\.ts|map)$/.test(from) });
 writeFileSync("site/index.html", page);
+// The family header's language picker and theme switch, as one small module for every page of the site (the demo, the builder, the API reference and the docs).
+await build({
+  stdin: {
+    contents:
+      'import "@johnmorrisdotca/kazoku-ui/language-picker/define";\nimport "@johnmorrisdotca/kazoku-ui/theme-switch/define";\n',
+    resolveDir: process.cwd(),
+  },
+  outfile: "site/kazoku-parts.js",
+  bundle: true,
+  format: "esm",
+  minify: true,
+  logLevel: "silent",
+});
 // The API reference, made from the source: every export of every entry point.
 writeFileSync("site/api.css", API_CSS);
 writeFileSync("site/api.html", apiPage({ id, name: "Chizu", icon: ICON }));
@@ -216,7 +149,7 @@ const builderParts = {
   }),
   unreviewed: familyUnreviewed({ id }),
   footer: familyFooter({ id }),
-  script: `<script>${FAMILY_SCRIPT}</script>`,
+  script: `<script>${FAMILY_SCRIPT}</script>\n    <script type="module" src="kazoku-parts.js"></script>`,
 };
 writeFileSync(
   "site/builder.html",

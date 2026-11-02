@@ -235,6 +235,12 @@ import "@johnmorrisdotca/chizu/element/define";
 <chizu-quiz region="world" seed="7"></chizu-quiz>
 ```
 
+## Use it anywhere
+
+The [demo](https://johnmorrisdotca.github.io/chizu/), the [docs](https://johnmorrisdotca.github.io/chizu/docs/) (English and Japanese) and the [embed page](https://johnmorrisdotca.github.io/chizu/embed/). Each way below is a tested file in [`examples/`](./examples) (`pnpm test:usage`).
+
+Guides: [script tag](./docs/guides/html-and-cdn.md), [Vite and webpack](./docs/guides/bundlers.md), [React, Vue, Svelte, Angular](./docs/guides/frameworks.md), [iframe](./docs/guides/embed-maps.md), [TypeScript and Node](./docs/guides/typescript-and-node.md).
+
 ## Examples
 
 Each example is a whole recipe: copy it and it works. They are run in CI against the built package (`pnpm test:readme`), so none of them is a guess, and the output shown is what they print.
@@ -731,16 +737,7 @@ English and Japanese: the names of every country, of nearly every region and of 
 
 ## Roadmap
 
-Not here yet, and each welcome as an [issue](https://github.com/johnmorrisdotca/chizu/issues):
-
-- **The outlines as longitude and latitude**, an entry of their own, so that another map can be made from them in another projection or cut at another meridian: [Tenka](https://github.com/johnmorrisdotca/tenka) cuts its world at the Bering Strait and merges countries into territories, which a canvas that is already projected cannot do.
-- **Cities on the country maps**: Natural Earth's populated places, projected on each canvas, for pinning a town.
-- **More named water**: Natural Earth's regional supplements of lakes and rivers, and the bays and rivers it does not draw at 1:10m (Tokyo Bay, the Shinano).
-- **Readings for the regions outside Japan**, when kuni has them.
-- A **US-style composite** (Albers USA) as an alternative to the two boxes.
-- A **tag** (`<chizu-map>`) beside `mountChizu`, as the other packages of the family have.
-
-Left out on purpose: population, area, mottos and "famous for" facts. They are claims, and a map should not make them without a source for each; where kuni carries one with its source, Chizu reads it at build time.
+What is planned and what is not: [docs/roadmap.md](./docs/roadmap.md).
 
 ## Architecture
 
@@ -765,7 +762,7 @@ Using Chizu in something? Open an *Add my project* issue and we will add you.
 ### The family
 
 <!-- family:start (made by scripts/family-readme.mjs from scripts/family-template.mjs; change those, not this) -->
-Chizu is one of thirty-two packages, each made for the same site, each at
+Chizu is one of thirty-three packages, each made for the same site, each at
 [github.com/johnmorrisdotca](https://github.com/johnmorrisdotca) or [github.com/spxis](https://github.com/spxis). The code of every one is MIT.
 
 **Games — board**
@@ -809,6 +806,7 @@ Chizu is one of thirty-two packages, each made for the same site, each at
 **Geography & data**
 
 - [address-plus](https://github.com/johnmorrisdotca/address-plus) (アドレスプラス): parse and format addresses in the United States, Canada, Japan, Australia, France, Germany and the United Kingdom. [Demo](https://johnmorrisdotca.github.io/address-plus/).
+- [Chikyu Earth](https://github.com/johnmorrisdotca/chikyu-earth) (地球): a line-drawn globe that turns at the Earth's own rate, with an optional realistic Earth from space and markers for any place. [Demo](https://johnmorrisdotca.github.io/chikyu-earth/).
 - [Chizu](https://github.com/johnmorrisdotca/chizu) (地図): maps of the world and of countries' regions, in English and Japanese, with a quiz and callouts. [Demo](https://johnmorrisdotca.github.io/chizu/).
 - [Hata](https://github.com/johnmorrisdotca/hata) (旗): country and regional flags as SVG, at their true proportions and keyed by ISO code. [Demo](https://johnmorrisdotca.github.io/hata/).
 - [Kuni](https://github.com/johnmorrisdotca/kuni) (国): countries and their regions, with ISO codes and names in English and Japanese. [Demo](https://johnmorrisdotca.github.io/kuni/).
@@ -825,7 +823,7 @@ Chizu is one of thirty-two packages, each made for the same site, each at
 - [REST in Pieces](https://github.com/spxis/rest-in-pieces) (レスト・イン・ピーシーズ): seeded test data and REST APIs for frontend development, with latency and error drills. [Demo](https://spxis.github.io/rest-in-pieces/).
 
 
-**This package is Chizu.** The demos of all thirty-two share one header and footer, so each links the rest.
+**This package is Chizu.** The demos of all thirty-three share one header and footer, so each links the rest.
 <!-- family:end -->
 
 ## Development
@@ -851,7 +849,7 @@ Please follow the [code of conduct](./CODE_OF_CONDUCT.md). A way to make the cal
 
 ## Changes
 
-See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.6.1, changes the release tooling only; 1.6.0 added the world's outlines as longitude and latitude for spherical projections.
+See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.7.0, changes the demo, the docs and the release tooling only; 1.6.0 added the world's outlines as longitude and latitude for spherical projections.
 
 ## Licence
 

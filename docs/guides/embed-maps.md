@@ -21,6 +21,31 @@ console.log(map.tagName,map.getAttribute("region"));
 map.remove();
 ```
 
+## An iframe
+
+An iframe of the embed page needs no code of your own: the address chooses the map (`region`), the lit places (`highlight`), the names (`labels`), the language (`lang`) and the theme (`theme`). The frame's keys are the attribute names above.
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chizu in an iframe</title>
+  </head>
+  <body>
+    <iframe
+      src="https://johnmorrisdotca.github.io/chizu/embed/?region=world&highlight=JP%20CA&labels=on"
+      title="The world, with Japan and Canada lit"
+      width="480"
+      height="320"
+      loading="lazy"
+      style="border: 0"
+    ></iframe>
+  </body>
+</html>
+```
+
 ## Host events and privacy
 
 Use the documented native callbacks/events. For a frame, check `event.origin` and `event.source` before trusting its message. The public messages carry display/game metadata rather than storing personal inputs. Host code owns any persistence. The built-in element registration respects an existing definition; import `/element` when registering your own tags.

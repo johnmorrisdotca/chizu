@@ -21,6 +21,31 @@ console.log(map.tagName,map.getAttribute("region"));
 map.remove();
 ```
 
+## iframe
+
+埋め込みページの iframe には、自分のコードが要りません。アドレスで、地図 (`region`)、色をつける場所 (`highlight`)、名前の表示 (`labels`)、言語 (`lang`)、テーマ (`theme`) を選びます。枠のキーは、上の属性の名前と同じです。
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chizu in an iframe</title>
+  </head>
+  <body>
+    <iframe
+      src="https://johnmorrisdotca.github.io/chizu/embed/?region=world&highlight=JP%20CA&labels=on"
+      title="The world, with Japan and Canada lit"
+      width="480"
+      height="320"
+      loading="lazy"
+      style="border: 0"
+    ></iframe>
+  </body>
+</html>
+```
+
 ## ページ側のイベントと入力の扱い
 
 仕様に記載したコールバックやイベントを使います。フレームのメッセージは`event.origin`と`event.source`を確認してから扱います。公開メッセージは表示やゲームの情報を伝えます。入力の保存はページ側で管理します。標準の要素登録は既存の定義を保ちます。独自のタグを登録するときは`/element`を読み込みます。

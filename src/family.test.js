@@ -18,9 +18,9 @@ const id = pkg.name.replace(/^@[^/]+\//, "");
 // list of the family, are the same text.
 // The template of 2026-10-15d groups thirty-two packages by kind: the sports packages (Dougu Sports, Kyogijo Stadiums, Senshu Jerseys, Taisen Brackets) are a group of their own. The family's list is swept again, in every
 // repository at once, when a package is added to it, and this hash is then the new one.
-const TEMPLATE = { version: "2026-10-15d", sha256: "fcc192026cf284303344e108b20e6181126607c670a881a6b3bf8479da26ab03" };
+const TEMPLATE = { version: "2026-11-02b", sha256: "ba62baad076a3d2821c793fa2bf73184ea9b5d1b40721b0987b7cc459a27960d" };
 const FILES = {
-  "scripts/family-readme.mjs": "0ca8badd4d54e393f723b5a625e76caf4b96a01bb79d087448748a358e834afc",
+  "scripts/family-readme.mjs": "ea87c4b45eaaa14cbd40eb40d9eccb38dbe7d45855f9eb0f1c75a4e3b0596306",
   "scripts/release-notes.mjs": "efab0fb78ad05973a8885624c0d2ce3b458b55799c11eabaa5176603ce8cd1e9",
   "scripts/community/SECURITY.md": "ff6f650be7789396233671d2558439736efe7f96a1d1d39115dd5cf94d29275c",
   "scripts/community/CODE_OF_CONDUCT.md": "34da1f56f004ce8f7f95d4449b64d2ecb5827dd9f0d4eea1da351a20713ebe70",
@@ -45,7 +45,7 @@ describe("the family template", () => {
   });
 
   it("lists every package of the family, in order, each with its Japanese name and a line on it", () => {
-    expect(FAMILY.map((one) => one.id)).toEqual(["domino", "gunjin", "narabe", "sugoroku", "tenka", "hitotsu", "jarajara", "kumimoji", "toranpu", "houseki", "jirai", "karakuri", "kazu", "kyuubu", "meikyuu", "suido", "tobiishi", "tsunagi", "korokoro", "tane", "bushu", "hikidashi", "kotoba", "address-plus", "chizu", "hata", "kuni", "dougu-sports", "kyogijo-stadiums", "senshu-jerseys", "taisen-brackets", "rest-in-pieces"]);
+    expect(FAMILY.map((one) => one.id)).toEqual(["domino", "gunjin", "narabe", "sugoroku", "tenka", "hitotsu", "jarajara", "kumimoji", "toranpu", "houseki", "jirai", "karakuri", "kazu", "kyuubu", "meikyuu", "suido", "tobiishi", "tsunagi", "korokoro", "tane", "bushu", "hikidashi", "kotoba", "address-plus", "chikyu-earth", "chizu", "hata", "kuni", "dougu-sports", "kyogijo-stadiums", "senshu-jerseys", "taisen-brackets", "rest-in-pieces"]);
     for (const one of FAMILY) {
       expect(one.name, one.id).toBe(({ "address-plus": "address-plus", "rest-in-pieces": "REST in Pieces" })[one.id] ?? one.id.split("-").map((word) => word[0].toUpperCase() + word.slice(1)).join(" "));
       expect(one.kana, one.id).toMatch(/\S/);
@@ -124,13 +124,13 @@ describe("the workflows", () => {
     expect(ci).toContain("run: pnpm test:package");
   });
 
-  it("release.yml refuses unless CI succeeded on the commit, calls the shared release workflow, and makes no GitHub release", () => {
+  it("release.yml refuses unless CI succeeded on the commit, calls the shared release workflow, and makes the GitHub release page", () => {
     const release = read(".github/workflows/release.yml");
     expect(release).toContain("actions: read\n");
     expect(release).toContain('gh run list --repo "$GITHUB_REPOSITORY" --workflow ci.yml --commit "$GITHUB_SHA"');
     expect(release).toContain('"completed success "*) ;;');
     expect(release).toMatch(/\n {2}release:\n {4}needs: ci-green\n {4}uses: johnmorrisdotca\/kazoku-ui\/\.github\/workflows\/reusable-release\.yml@v\d+\.\d+\.\d+\n/);
-    expect(release).not.toMatch(/github-release: true|gh release /);
+    expect(release).toContain("      github-release: true\n");
   });
 
   it("pages.yml is the same text in every package, named Pages, apart from the steps that build and check a documentation site", () => {

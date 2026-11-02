@@ -15,7 +15,7 @@ test("the shared builder previews all three makers and writes every host format"
       await expect(page.locator("#bld-code")).not.toHaveText("");
     }
   }
-  await page.locator('[data-lang="ja"]').click();
+  await page.locator('kazoku-language-picker [data-v="ja"]').click();
   await expect(page.locator("#bld-maker-says")).toContainText("問題");
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect(errors).toEqual([]);

@@ -2,7 +2,7 @@ name: Release
 # Run by hand (Actions → Release → Run workflow) from main, or push a v<version> tag. It refuses unless the CI workflow
 # has succeeded on this commit (the ci-green job). The steps are then kazoku-ui's shared release workflow
 # (docs/release-workflow.md there): check the tag, run the check below, tag, and publish to npm by trusted publishing,
-# with provenance. Nothing is made on GitHub but the tag: no GitHub release.
+# with provenance, and the GitHub release page (its notes are the CHANGELOG's) is made by the same run.
 # npm trusts this file by name (npmjs.com → the package → Settings → Trusted Publisher: release.yml), so publishing needs
 # no token and no secret.
 on:
@@ -31,4 +31,5 @@ jobs:
     needs: ci-green
     uses: johnmorrisdotca/kazoku-ui/.github/workflows/reusable-release.yml@v0.7.3
     with:
+      github-release: true
       check-command: pnpm check && pnpm build && node scripts/check-package.mjs
