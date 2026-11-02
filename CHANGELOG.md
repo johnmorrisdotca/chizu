@@ -6,6 +6,17 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.6.1] - 2026-11-02
+
+Tooling and tests only: nothing in the package changes.
+
+### Changed
+
+- The Release workflow refuses to run unless the CI workflow has succeeded on the commit it was started on (the `ci-green` job; it showed itself needed when 1.5.1 was published while CI's data check was failing). It now calls kazoku-ui's shared `reusable-release.yml` (pinned to v0.7.3) with this package's check, as senshu-jerseys, dougu-sports and meigen-sports do; the trusted-publisher entry on npmjs.com still names `release.yml`.
+- The Release workflow no longer makes a GitHub release or attaches the tarball: nothing is made on GitHub but the tag.
+- The size test (`src/docs-site.test.js`) compares the minified bytes exactly and the gzip bytes within 4 percent: a Mac's zlib gives gzip sizes up to 3.3 percent away from the CI runner's for the same input, so the test used to fail on an untouched checkout.
+- Documented: `pnpm data` writes `world-geo.data.ts` unformatted on purpose (formatted it would be about 13,000 lines, larger on disk and in the bundle) in `scripts/build-data.mjs` and `docs/maps.md`.
+
 ## [1.6.0] - 2026-11-02
 
 ### Added

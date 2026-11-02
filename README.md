@@ -851,7 +851,7 @@ Please follow the [code of conduct](./CODE_OF_CONDUCT.md). A way to make the cal
 
 ## Changes
 
-See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.6.0, adds the world's outlines as longitude and latitude for spherical projections.
+See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.6.1, changes the release tooling only; 1.6.0 added the world's outlines as longitude and latitude for spherical projections.
 
 ## Licence
 
