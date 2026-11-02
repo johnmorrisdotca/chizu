@@ -6,6 +6,21 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-11-02
+
+The package is unchanged; the demo, the documentation and the release tooling follow the family.
+
+### Added
+
+- Usage, written and tested: `examples/` holds every way of using the package (a script tag from jsDelivr and unpkg, Vite, webpack, React with a server render, Vue, Svelte, Angular, an iframe of the embed page, TypeScript, Node), and `pnpm test:usage` builds or runs each against the package as npm packs it and opens the pages in a browser; CI runs it. Four new guides (plain HTML and CDNs, Vite and webpack, React, Vue, Svelte and Angular, TypeScript and Node) and an iframe section in the embed guide, each with its Japanese twin and holding the tested files word for word. `docs/roadmap.md` (moved out of the README, which is near npm's size limit).
+- `scripts/check-standard.mjs`, kazoku-ui's must-have list for a package, and `src/standard.test.js`; `AGENTS.md` from the family template.
+- `demo/index.html`: the demo page is now a file (the family's header and footer are still put in by `scripts/site.mjs`).
+
+### Changed
+
+- The demo, the builder, the API reference and the documentation use the family's shared language picker and theme switch (kazoku-ui 0.10.0, built into `kazoku-parts.js`) in place of the old language buttons. The family files are the template of 2026-11-02b (33 packages), and the documentation generator is `2026-11-02-kazoku-header`.
+- The Release workflow makes the GitHub release page again (`github-release: true`; its notes are the CHANGELOG's), keeping the `ci-green` check.
+
 ## [1.6.1] - 2026-11-02
 
 Tooling and tests only: nothing in the package changes.
