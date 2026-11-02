@@ -9,7 +9,7 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="18.4 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-18.4%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="18.2 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-18.2%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -636,6 +636,7 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 | `@johnmorrisdotca/chizu/names` | `CHIZU_COUNTRIES`, `CHIZU_SOURCE`, `countryByCode`, `countriesFromText` |
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
+| `@johnmorrisdotca/chizu/world-geo` | the world as longitude/latitude GeoJSON for a spherical projection, as the default export and as `WORLD_GEO` |
 | `@johnmorrisdotca/chizu/countries/<code>` | one country alone, as the default export |
 | `@johnmorrisdotca/chizu/divisions/<code>` | one country's regions, as the default export |
 | `@johnmorrisdotca/chizu/features/<map>` | one map's seas, lakes, rivers, landforms, peaks and capitals (`world`, `divisions-jp`), as the default export |

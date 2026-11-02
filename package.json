@@ -73,6 +73,11 @@
       "import": "./dist/world-entry.js",
       "default": "./dist/world-entry.js"
     },
+    "./world-geo": {
+      "types": "./dist/world-geo-entry.d.ts",
+      "import": "./dist/world-geo-entry.js",
+      "default": "./dist/world-geo-entry.js"
+    },
     "./countries/*": {
       "types": "./dist/data/countries/*.data.d.ts",
       "import": "./dist/data/countries/*.data.js",

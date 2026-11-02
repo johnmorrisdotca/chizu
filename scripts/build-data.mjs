@@ -424,6 +424,38 @@ function buildWorldDetail(collection, world) {
   };
 }
 
+/** The world as longitude and latitude in degrees: every country a GeoJSON feature, no projection. */
+function buildWorldGeo(collection) {
+  const features = countriesFrom(collection);
+  const oneDecimal = fixed(1);
+  const roundCoordinates = (node) => {
+    if (typeof node[0] === "number") return node.map(oneDecimal);
+    return node.map(roundCoordinates);
+  };
+  const geoFeatures = features.map((feature) => {
+    const p = feature.properties;
+    const names = namesOf(p, p.__code);
+    const identity = identityOf(p, p.__code);
+    return {
+      type: "Feature",
+      properties: {
+        code: p.__code,
+        name: names.name,
+        nameJa: names.nameJa,
+        iso3: identity.iso3,
+        group: identity.group,
+        groupJa: identity.groupJa,
+      },
+      geometry: { ...feature.geometry, coordinates: roundCoordinates(feature.geometry.coordinates) },
+    };
+  });
+  return {
+    type: "FeatureCollection",
+    features: geoFeatures,
+    source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, 1:110m, longitude and latitude`,
+  };
+}
+
 // ---- Each country alone -----------------------------------------------------------------------------------------
 
 const DEGREES = 180 / Math.PI;
@@ -900,6 +932,11 @@ async function main() {
  * \`\`\`
  */
 `,
+  );
+  const worldGeo = buildWorldGeo(worldSource);
+  writeFileSync(
+    join(out, "world-geo.data.ts"),
+    `/*\n * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.\n * The world: ${worldGeo.features.length} countries, Natural Earth 5.1.2 admin-0 countries, 1:110m, longitude and latitude.\n * Natural Earth is in the public domain (naturalearthdata.com). See NOTICE.md.\n */\n\ntype WorldGeo = {\n  type: "FeatureCollection";\n  features: Array<{\n    type: "Feature";\n    properties: {\n      code: string;\n      name: string;\n      nameJa: string;\n      iso3: string;\n      group: string;\n      groupJa: string;\n    };\n    geometry: { type: string; coordinates: unknown };\n  }>;\n  source: string;\n};\n\n/**\n * The world, every country a region, as longitude and latitude in degrees.\n *\n * @example\n * \`\`\`ts\n * import WORLD_GEO from "@johnmorrisdotca/chizu/world-geo";\n *\n * const japan = WORLD_GEO.features.find((feature) => feature.properties.code === "JP")!;\n * console.log(WORLD_GEO.features.length, japan.properties.code, japan.properties.name, japan.properties.nameJa);\n * // ${worldGeo.features.length} JP Japan 日本\n * \`\`\`\n */\nconst worldGeo: WorldGeo = ${literal(worldGeo)};\n\nexport default worldGeo;\n`,
   );
   const onWorld = new Set(world.regions.map((r) => r.code));
   const worldDetail = buildWorldDetail(countriesSource, world);

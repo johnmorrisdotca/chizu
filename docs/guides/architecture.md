@@ -20,6 +20,7 @@ src/
 ├── element-define.ts   registers them as tags
 ├── load-entry.ts       loadCountry and loadDivisions
 ├── world-entry.ts      the world's entry
+├── world-geo-entry.ts  the world as longitude and latitude, for a spherical projection
 ├── types.ts            ChizuMap, ChizuRegion, MapBox and the rest
 ├── frame.ts            windows, zoom steps, fits
 ├── insets.ts           regions drawn in boxes of their own
@@ -54,6 +55,7 @@ src/
 ├── version.ts          the version
 └── data/               generated, never edited
     ├── world.data.ts            the world
+    ├── world-geo.data.ts        the world as longitude and latitude
     ├── world-detail.data.ts     the world drawn finer, for a map zoomed in
     ├── countries.data.ts        the table of every country
     ├── loaders.data.ts          one import for each country's map
