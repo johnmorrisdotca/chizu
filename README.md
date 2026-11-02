@@ -842,7 +842,7 @@ Please follow the [code of conduct](./CODE_OF_CONDUCT.md). A way to make the cal
 
 ## Changes
 
-See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.5.1, changes nothing a player sees.
+See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.6.0, adds the world's outlines as longitude and latitude for spherical projections.
 
 ## Licence
 

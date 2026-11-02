@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-11-02
+
 ### Added
 
 - `@johnmorrisdotca/chizu/world-geo`: the same 173 Natural Earth 1:110m country outlines as unprojected longitude/latitude GeoJSON, with ISO codes and English/Japanese names, for an orthographic globe or another spherical projection. The existing projected `world` export is unchanged.
