@@ -1,7 +1,7 @@
 // Builds every file of map data under src/data/ from Natural Earth: `pnpm data`.
 //
 //   src/data/world.data.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
-//   src/data/world-geo.data.ts            the same world in longitude and latitude, unprojected, with the four it leaves out (177)
+//   src/data/world-geo.data.ts            the same world in longitude and latitude, unprojected, with the four it leaves out (177); the one table kept unformatted
 //   src/data/countries/<xx>.data.ts  each country alone, finer (admin-0 at 1:50m, and at 1:10m for the small ones), on a canvas of its own
 //   src/data/divisions/<xx>.data.ts  the provinces, states, prefectures or départements of 32 countries (admin-1 at 1:10m)
 //   src/data/countries.data.ts            the table of every country: names in English and Japanese, and what it has
@@ -966,6 +966,7 @@ async function main() {
 `,
   );
   const worldGeo = buildWorldGeo(worldSource);
+  // Unformatted on purpose: formatted, the world in degrees would be about 13,000 lines, larger on disk and in the bundle.
   const writeWorldGeo = () =>
     writeFileSync(
       join(out, "world-geo.data.ts"),
