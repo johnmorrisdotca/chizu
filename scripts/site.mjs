@@ -15,8 +15,11 @@ import {
   familyHeader,
   familyUnreviewed,
 } from "./family-template.mjs";
+import { publishThumbnails, thumbnailHead } from "./family-thumbnail.mjs";
 
 const id = "chizu";
+const ALT =
+  "Chizu: the world with Japan in the middle, each continent in a colour of its own, drawn as SVG from Natural Earth outlines.";
 const ICON =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232f5d4a'/%3E%3Ctext x='50' y='72' font-size='64' text-anchor='middle' fill='%23f3efe4'%3E図%3C/text%3E%3C/svg%3E";
 
@@ -49,6 +52,7 @@ const pageParts = {
     ogDescription:
       "Japan's prefectures, the world and 32 countries' regions: quizzes, callout sheets and coloured maps, in English and Japanese.",
   }),
+  thumbnail: thumbnailHead(JSON.parse(readFileSync("package.json", "utf8")), { alt: ALT }),
   icon: ICON,
   header: familyHeader({
     id,
@@ -109,6 +113,8 @@ cpSync("demo", "site", { recursive: true });
 // The declarations and source maps are for editors, not for a browser.
 cpSync("dist", "site/dist", { recursive: true, filter: (from) => !/\.(d\.ts|map)$/.test(from) });
 writeFileSync("site/index.html", page);
+// The family's card, dark card and icon, at <site>/thumbnail.png, thumbnail-dark.png and icon.png.
+publishThumbnails(".", "site");
 // The family header's language picker and theme switch, as one small module for every page of the site (the demo, the builder, the API reference and the docs).
 await build({
   stdin: {

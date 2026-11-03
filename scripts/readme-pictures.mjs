@@ -75,4 +75,43 @@ await takePictures({
       target: board,
     },
   ],
+  // The family's thumbnail, dark thumbnail and icon (scripts/family-thumbnail.mjs): the world with Japan in the middle,
+  // each continent in a colour of its own; the icon is Japan's 47 prefectures in the colours of its eight regions,
+  // the main islands alone (the sea and the boxes of the far islands left out).
+  thumbnail: {
+    url: address("map=world&mode=colour&colour=groups"),
+    ready: READY,
+    target: `${board} svg.chizu`,
+    icon: {
+      url: address("mode=colour&colour=groups"),
+      async prepare(page) {
+        await page.locator(`${board} svg.chizu`).evaluate((map) => {
+          // A mask that is the whole map less the boxes, so the islands drawn in the boxes go with them.
+          const ns = "http://www.w3.org/2000/svg";
+          const mask = document.createElementNS(ns, "mask");
+          mask.id = "thumbnail-no-insets";
+          const [, , width, height] = map.getAttribute("viewBox").split(" ").map(Number);
+          const rect = (x, y, w, h, fill) => {
+            const shape = document.createElementNS(ns, "rect");
+            for (const [name, value] of Object.entries({ x, y, width: w, height: h, fill }))
+              shape.setAttribute(name, value);
+            return shape;
+          };
+          mask.append(rect(0, 0, width, height, "white"));
+          for (const inset of map.querySelectorAll(".cz-inset")) {
+            const box = inset.getBBox();
+            mask.append(rect(box.x, box.y, box.width, box.height, "black"));
+            inset.style.setProperty("display", "none");
+          }
+          map.append(mask);
+          for (const region of map.querySelectorAll(".cz-region"))
+            region.setAttribute("mask", "url(#thumbnail-no-insets)");
+          for (const sea of map.querySelectorAll(".cz-sea")) sea.style.setProperty("display", "none");
+          map.style.setProperty("width", "640px", "important");
+          map.style.setProperty("height", "auto", "important");
+        });
+      },
+    },
+    label: "Chizu 地図",
+  },
 });

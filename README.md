@@ -1,3 +1,5 @@
+<p align="center"><a href="https://johnmorrisdotca.github.io/chizu/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/thumbnail-dark.png"><img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/thumbnail.png" alt="Chizu: the world with Japan in the middle, each continent in a colour of its own, drawn as SVG from Natural Earth outlines." width="1200"></picture></a></p>
+
 <h1 align="center">Chizu <sub>地図</sub> — SVG maps for JavaScript</h1>
 
 <p align="center"><strong>Maps for JavaScript and TypeScript, in English and Japanese.</strong><br>
