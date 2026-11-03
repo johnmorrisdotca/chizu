@@ -35,3 +35,27 @@ export const CHIZU_MAP_STYLE = `${CHIZU_STYLE}
 .chizu-map .czm-says { margin: 6px 0 0; min-height: 1.4em; font-size: .9rem; }
 .chizu-map .czm-zoom { position: absolute; left: 8px; bottom: 8px; padding: 2px 8px; border-radius: 8px; background: var(--czm-surface); border: 1px solid var(--czm-rule); font-size: .8rem; font-variant-numeric: tabular-nums; pointer-events: none; }
 `;
+
+/**
+ * Put the style in the page once: in the document's head, or in the shadow root the host is in.
+ *
+ * @example
+ * ```ts no-run
+ * import { ensureChizuMapStyle } from "@johnmorrisdotca/chizu/mount";
+ *
+ * // Put the mounted map's stylesheet in the page (or the shadow root) once, before drawing into it yourself.
+ * ensureChizuMapStyle(document.body);
+ * ```
+ *
+ * @param host - The page or shadow-root element that receives the native map and its scoped styles.
+ * @returns Nothing; the native scoped map styles are installed for the host.
+ */
+export function ensureChizuMapStyle(host: Element): void {
+  const root = host.getRootNode();
+  const target: Node = root instanceof ShadowRoot ? root : host.ownerDocument.head;
+  if ((target as ParentNode).querySelector("style[data-chizu-map]") !== null) return;
+  const style = host.ownerDocument.createElement("style");
+  style.setAttribute("data-chizu-map", "");
+  style.textContent = CHIZU_MAP_STYLE;
+  target.appendChild(style);
+}
