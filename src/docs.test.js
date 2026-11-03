@@ -31,6 +31,7 @@ const pkg = JSON.parse(readFileSync("package.json", "utf8"));
 const readme = readFileSync("README.md", "utf8");
 const notice = readFileSync("NOTICE.md", "utf8");
 const config = readFileSync("scripts/data-config.mjs", "utf8");
+const configNames = readFileSync("scripts/data-config/names.mjs", "utf8");
 
 /** A README section's text, from its heading to the next heading of the same level. */
 const section = (heading) => {
@@ -303,9 +304,9 @@ describe("the README's promises", () => {
   });
 
   it("counts the hand-written readings as the build script has them", () => {
-    const table = config.slice(
-      config.indexOf("export const KANJI_READINGS"),
-      config.indexOf("};", config.indexOf("export const KANJI_READINGS")),
+    const table = configNames.slice(
+      configNames.indexOf("export const KANJI_READINGS"),
+      configNames.indexOf("};", configNames.indexOf("export const KANJI_READINGS")),
     );
     const count = [...table.matchAll(/^\s+\S+: "[^"]+",$/gm)].length;
     expect(readme).toContain(`${count} of them (\`KANJI_READINGS\``);
