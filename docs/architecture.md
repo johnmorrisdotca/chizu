@@ -19,10 +19,13 @@ src/
 ├── insets.ts           regions drawn in boxes of their own
 ├── wrap.ts             the world that goes round
 ├── outlines.ts         paths as rings, land under a point, a point on a region's land
+├── ringGeometry.ts     rings: the point in a ring, the distance to one, a circle or a segment meeting one
 ├── handles.ts          numbers beside regions, and in order across the map
 ├── callouts.ts         numbered circles in open water
+├── calloutCosts.ts     the costs and limits the callout placer weighs a place by
 ├── calloutSpace.ts     where a circle may sit
 ├── calloutPolish.ts    the slow pass for a printed sheet
+├── calloutStarts.ts    where the slow pass starts each leader from
 ├── layout.ts           layoutCallouts over a whole map
 ├── distractors.ts      the wrong answers
 ├── quiz.ts             a question and its choices
@@ -43,6 +46,7 @@ src/
 ├── drawLocal.ts        a local map as SVG text
 ├── drawCallouts.ts     the numbered circles, as SVG
 ├── mount.ts            a map in a page
+├── mountTypes.ts       what a mounted map is told and what it gives back
 ├── mountStyle.ts       the page's colours
 ├── random.ts           the seeded stream
 ├── version.ts          the version

@@ -7,6 +7,7 @@ All notable changes to this project are written here. The format follows
 ## [Unreleased]
 
 - Biome reports no warnings (the Help test reads the line under an option row with an optional chain); nothing a user of the package sees has changed.
+- Source files over 500 lines are split by what they do (the mounted map, the outlines, the callouts, the data build scripts and the local-map tests), with the same exports and the same data: `pnpm data` writes the same files. `pnpm check` now runs `scripts/check-max-lines.mjs`, which fails a file over 500 lines.
 - The README opens with the package's thumbnail, and the demo carries it as its link preview (og:image) and publishes the card, a dark card and an icon on Pages at `thumbnail.png`, `thumbnail-dark.png` and `icon.png`.
 
 ## [1.7.0] - 2026-11-02
