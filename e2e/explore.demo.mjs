@@ -196,17 +196,28 @@ test("the world goes round: dragged past its edge it draws the land again on the
   await expect(page.locator(`${at("board")} .cz-land-copy`)).toHaveCount(1);
 });
 
-test("Ctrl and the wheel zoom the map, and the wheel alone leaves the page to scroll", async ({ page }) => {
+test("the wheel over the map zooms it, and a wheel that starts at the end of the zoom leaves the page to scroll", async ({
+  page,
+}) => {
   await open(page, "?map=world");
   const stage = page.locator(`${at("board")} .czm-stage`);
   await stage.scrollIntoViewIfNeeded();
   const box = await stage.boundingBox();
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-  // Down the page: on a phone the map starts low on it, and the scroll brings it up.
+  // Whether the page's last wheel event was claimed by the map (its default prevented), read after the map's own handler.
+  await page.evaluate(() => {
+    window.wheelClaimed = [];
+    document.addEventListener("wheel", (event) =>
+      window.wheelClaimed.push({ cancelable: event.cancelable, prevented: event.defaultPrevented }),
+    );
+  });
+  const claimed = () => page.evaluate(() => window.wheelClaimed);
+  // The map is at its widest: the wheel down is not the map's, and the page scrolls.
   await page.mouse.wheel(0, 200);
   await expect(stage).toHaveAttribute("data-zoom", "1");
-  // The wheel alone scrolled the page: once it has come to rest, the pointer goes back over the map.
   await page.waitForFunction(() => window.scrollY > 0);
+  expect(await claimed()).toEqual([{ cancelable: true, prevented: false }]);
+  // Once the page has come to rest, the pointer goes back over the map.
   let after = await stage.boundingBox();
   await expect
     .poll(async () => {
@@ -217,9 +228,18 @@ test("Ctrl and the wheel zoom the map, and the wheel alone leaves the page to sc
     })
     .toBe(true);
   await page.mouse.move(after.x + after.width / 2, after.y + after.height / 2);
-  await page.keyboard.down("Control");
+  // A browser does not let a wheel event be cancelled while a page scroll is still going, so wait for it to end.
+  await page.waitForTimeout(500);
   await page.mouse.wheel(0, -200);
   await expect(stage).toHaveAttribute("data-zoom", "2");
+  // The wheel is the map's: the event is claimed wherever the browser lets it be (a phone-sized Chromium keeps it from being cancelled after a scroll).
+  const last = (await claimed()).at(-1);
+  if (last.cancelable) expect(last.prevented).toBe(true);
+  // A pinch (Ctrl and the wheel) zooms too.
+  await page.waitForTimeout(400);
+  await page.keyboard.down("Control");
+  await page.mouse.wheel(0, -200);
+  await expect(stage).toHaveAttribute("data-zoom", "3");
   await page.keyboard.up("Control");
 });
 

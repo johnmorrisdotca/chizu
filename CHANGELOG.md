@@ -6,6 +6,11 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-11-04
+
+### Changed
+
+- **The wheel zooms the map.** The wheel over a mounted map now zooms it a step about the pointer, as a pinch (Ctrl or Command and the wheel) did; before, the wheel alone scrolled the page. With the pointer anywhere else the page scrolls, and a wheel that starts while the zoom is already at its end scrolls the page too, so the page is never trapped. A sideways swipe, or Shift and the wheel, is left to the page. The Help line for a screen reader (English and Japanese) says that the wheel zooms.
 - Biome reports no warnings (the Help test reads the line under an option row with an optional chain); nothing a user of the package sees has changed.
 - Source files over 500 lines are split by what they do (the mounted map, the outlines, the callouts, the data build scripts and the local-map tests), with the same exports and the same data: `pnpm data` writes the same files. `pnpm check` now runs `scripts/check-max-lines.mjs`, which fails a file over 500 lines.
 - The README opens with the package's thumbnail, and the demo carries it as its link preview (og:image) and publishes the card, a dark card and an icon on Pages at `thumbnail.png`, `thumbnail-dark.png` and `icon.png`.

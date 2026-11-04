@@ -11,7 +11,7 @@ import {
 } from "./frame.ts";
 import { ensureChizuMapStyle } from "./mountStyle.ts";
 import type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
-import { DRAG_PIXELS, KEY_STEP, WHEEL_PAUSE_MS } from "./mountTypes.ts";
+import { DRAG_PIXELS, KEY_STEP, WHEEL_GESTURE_MS, WHEEL_PAUSE_MS } from "./mountTypes.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapAcross, wrapOffsets } from "./wrap.ts";
@@ -346,7 +346,8 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   let dragged = 0;
   let pinch = 0;
   let last = { x: 0, y: 0 };
-  let lastWheel = 0;
+  let lastWheel = Number.NEGATIVE_INFINITY;
+  let lastStep = 0;
 
   const toMap = (clientX: number, clientY: number) => {
     const rect = stage.getBoundingClientRect();
@@ -424,14 +425,20 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     changed();
   }
   function wheel(event: WheelEvent) {
-    // The wheel alone scrolls the page; with Ctrl or ⌘ (which is also what a trackpad's pinch sends) it zooms the map.
-    if (!event.ctrlKey && !event.metaKey) return;
-    event.preventDefault();
+    // The wheel over the map zooms it, as does a pinch (Ctrl or ⌘ and the wheel). A wheel that starts with the zoom already at its end, or a
+    // sideways swipe, leaves the page to scroll, so the page is never trapped.
+    const pinch = event.ctrlKey || event.metaKey;
+    if (!pinch && (event.shiftKey || Math.abs(event.deltaX) > Math.abs(event.deltaY))) return;
     const now = Date.now();
-    if (now - lastWheel < WHEEL_PAUSE_MS) return;
+    const by = event.deltaY < 0 ? 1 : -1;
+    const atEnd = stepMapZoom(zoom, by) === zoom;
+    if (!pinch && atEnd && now - lastWheel >= WHEEL_GESTURE_MS) return;
+    event.preventDefault();
+    const stepped = now - lastStep >= WHEEL_PAUSE_MS;
     lastWheel = now;
-    const at = toMap(event.clientX, event.clientY);
-    setZoom(stepMapZoom(zoom, event.deltaY < 0 ? 1 : -1), at);
+    if (!stepped || atEnd) return;
+    lastStep = now;
+    setZoom(stepMapZoom(zoom, by), toMap(event.clientX, event.clientY));
   }
   function key(event: KeyboardEvent) {
     const window_ = box();

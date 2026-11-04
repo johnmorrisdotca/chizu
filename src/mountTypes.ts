@@ -116,5 +116,7 @@ export type ChizuMount = {
 
 export const DRAG_PIXELS = 5;
 export const WHEEL_PAUSE_MS = 140;
+/** Wheel steps closer together than this belong to one turn of the wheel, so a zoom that reaches its end part-way through does not hand the rest to the page. */
+export const WHEEL_GESTURE_MS = 300;
 /** How far the arrow keys move the window, as a share of it. */
 export const KEY_STEP = 0.12;

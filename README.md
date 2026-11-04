@@ -11,7 +11,7 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="18.4 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-18.4%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="18.2 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-18.2%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -90,7 +90,7 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 - **Longitude and latitude to the canvas, and back**, for the world and for each country alone, held to d3-geo's own to a hundredth of a unit.
 - **The city scale.** A local projection (a canvas unit a stated number of metres) takes a map past the 10× step to a venue: your own GeoJSON, pictures at their true size and bearing, callouts, a scale bar and your credit lines, nothing fetched. [docs/city.md](./docs/city.md).
 - **Drawn as SVG text** in an entry of its own, with tones for right and wrong, a colour of your own for any region, labels, insets in dashed frames and numbered callouts, for a server, an email, a build step or `innerHTML`.
-- **Dragged and zoomed in any page**: drag to move, buttons, Ctrl and the wheel or a pinch to zoom, arrow keys, a press to choose; with the words in English and Japanese for a screen reader.
+- **Dragged and zoomed in any page**: drag to move, buttons, the wheel or a pinch to zoom, arrow keys, a press to choose; with the words in English and Japanese for a screen reader.
 - **No dependencies**, no network requests, and nothing stored outside the page it is in.
 
 ### What's in it
@@ -249,7 +249,7 @@ Each example is a whole recipe: copy it and it works. They are run in CI against
 
 ### A map in a page, with no bundler
 
-Save this as a file and open it: a world you can drag, zoom with the buttons, Ctrl and the wheel or a pinch, and press. The two modules come from a CDN; `@1` is the major version.
+Save this as a file and open it: a world you can drag, zoom with the buttons, the wheel or a pinch, and press. The two modules come from a CDN; `@1` is the major version.
 
 ```html
 <!doctype html>
@@ -629,7 +629,7 @@ mount.destroy();
 | --- | --- |
 | Drag | moves the map; a drag past the edge stops at it (not on the world, which goes round) |
 | The `+`, `−` and `⌂` buttons | zoom in and out in ten steps, and back to the whole map |
-| Ctrl or ⌘ and the wheel, or a pinch | zoom a step about the pointer. The wheel alone scrolls the page |
+| The wheel over the map, or a pinch | zoom a step about the pointer. With the pointer elsewhere the page scrolls, and a wheel that starts with the zoom already at its end scrolls the page too |
 | A press | chooses a region (and a second press on it, none) |
 | Arrow keys, `+`, `-`, `0` | move, zoom, and show the whole map, with the map focused |
 
@@ -723,7 +723,7 @@ Placing callouts takes about 70 ms for twenty countries on the world and about 2
 - **A screen reader hears the map.** The mounted map is a focusable stage with the name "Map of Japan" (in Japanese, 日本の地図) and a description of its keys. A polite line under it says what is chosen ("Japan chosen") or "Nothing chosen". The zoom buttons are real buttons labelled "Zoom in", "Zoom out" and "Show the whole map", and a button that cannot do anything now is disabled.
 - **The drawing says what it is.** `drawChizu` makes an `svg` with `role="img"` and an `aria-label` naming the map; each region carries a `<title>` with its name. With `interactive: true` the drawing is a `role="group"` and every region a `role="button"` with its name as its label, for a page to hand focus to.
 - **The keyboard moves and zooms the map.** Tab reaches the map, the arrow keys move it by 12 percent of the window, `+` and `-` zoom (`=` and `_` too) and `0` shows the whole map; the focus ring is three pixels in the accent colour. The zoom buttons are reached with Tab and pressed with Enter or Space.
-- **Touch targets.** The zoom buttons are 44 by 44 pixels. A drag moves the map and not the page (`touch-action: none` on the stage only); the wheel alone scrolls the page.
+- **Touch targets.** The zoom buttons are 44 by 44 pixels. A drag moves the map and not the page (`touch-action: none` on the stage only); the wheel over the map zooms it and anywhere else scrolls the page.
 - **Reduced motion.** Nothing in the package animates, so there is nothing for `prefers-reduced-motion` to change.
 - **Colour.** Land, sea and the six tones follow the device's light or dark setting. A tone (`correct`, `wrong`, `selected`) is a fill colour and a `data-tone` attribute and nothing more, so a page says so in words as well, as the demo's quiz does. The colour pairs in [Theming](#theming) have not been measured against WCAG contrast ratios.
 - **Not yet: choosing a place from the keyboard inside the map.** The arrow keys do not move between regions, and they are not in the tab order. A page that needs it offers its own list that calls `mount.select(code)`, as the demo's table of names does.
