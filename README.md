@@ -502,25 +502,7 @@ The full reference and examples are in the linked guide. See [Framing a map](./d
 
 ## Numbered callouts
 
-`layoutCallouts(map, request)` puts a numbered circle for each region asked for in the open space between and around the land, and gives back where each leader starts and where its circle sits:
-
-```ts no-check
-const spots = layoutCallouts(map, {
-  codes: ["BY", "NW", "SL"],   // the regions, numbered in this order
-  box,                         // the window the map is drawn in; default the whole map
-  radiusRatio: 0.03,           // the circle's radius as a share of the window's width
-  polish: true,                // finish with the slow pass for a printed sheet
-  keepOut: { bottom: 200, right: 40 },   // a corner to keep clear, for a credit line
-  numbering: "west-to-east",   // or "given", the default
-});
-// [{ code: "BY", number: 1, start: [x, y], circle: [x, y], radius }, …]
-```
-
-Three things are weighed, in this order: a circle sits in water; no two leaders cross; a leader crosses as little land as it can. A circle goes to the nearest place it fits (the sea off its own coast, the gap between two islands, the empty half of the frame) and not to one of four sides. The numbers are checked against the coastline itself and not the box round it, so an inland sea or a bay is room. Where a frame has less room than it has circles, they close up rather than some going undrawn. A start is a point on the region's own land, not its centre, which for a chain or a crescent is in the sea.
-
-`polish: true` adds a seeded annealing pass that leaves no two leaders closer than a circle's radius and none through another number, and lets a leader leave its region from the coast nearest its number. It takes a few seconds on a crowded sheet.
-
-`placeCallouts`, `calloutSpaces` and `calloutFaults` are the lower levels: the placement over any list of centroids and rings, the places a circle may sit, and the count of crossings and near-misses a sheet is held to.
+`layoutCallouts(map, request)` puts a numbered circle for each region asked for in the open space around the land and gives back where each leader starts and where its circle sits. The request, the three things it weighs, `polish: true` for a printed sheet, and the lower levels (`placeCallouts`, `calloutSpaces`, `calloutFaults`) are in [Numbered callouts](docs/callouts.md).
 
 ## Which one is this?
 
@@ -536,26 +518,7 @@ A wrong answer is scored 100 for a land neighbour, 60 for sharing a group and up
 
 ## Continents and other groups
 
-A group of places is a list of codes, and four functions show any of them: a continent, a UN M49 subregion, the eight regions of Japan, Canada's five, the four Census regions of the United States, or a list a page names itself (the G7, the countries a class has studied). `groupMap` cuts a map down to the group, so a quiz asks African look-alikes for an African country and callouts number only the group; `groupBox` frames it, each member on its mainland, so France's overseas departments do not stretch Europe's window to South America; `groupTones` fades the rest of the map round it.
-
-```ts
-import WORLD from "@johnmorrisdotca/chizu/world";
-import { CHIZU_CONTINENTS } from "@johnmorrisdotca/chizu/names";
-import { drawChizu } from "@johnmorrisdotca/chizu/draw";
-import { findQuestion, groupBox, groupMap, groupTones, layoutCallouts, seededRandom } from "@johnmorrisdotca/chizu";
-
-const africa = CHIZU_CONTINENTS.find((continent) => continent.code === "AF")!;
-const box = groupBox(WORLD, africa.codes, 4 / 3);
-const svg = drawChizu(WORLD, { box, tones: groupTones(WORLD, africa.codes), callouts: ["EG", "KE", "NG", "ZA"] });
-const question = findQuestion(groupMap(WORLD, africa.codes), "KE", seededRandom(1))!;
-console.log(africa.nameJa, svg.length > 0, question.choices.every((code) => africa.codes.includes(code)));
-```
-
-```text
-アフリカ true true
-```
-
-**The continents** (`CHIZU_CONTINENTS` in `/names`) are kuni's seven, from UN M49 by way of CLDR: Africa, Antarctica, Asia, Europe, North America (with Central America and the Caribbean), Oceania and South America, each with its English and Japanese names, its reading and its countries. Every one of the 238 countries is in exactly one; Antarctica, like the French Southern Lands, is not drawn, and holds none. A country's `group` is its continent's English name and `groupJa` its Japanese. **The subregions** (`CHIZU_SUBREGIONS`) are the twenty-two of UN M49 (Eastern Asia, Western Europe, the Caribbean…), kuni's too. **A map's own groups** are `regionGroups(map)`: the continents on the world, the eight regions on Japan's prefectures (北海道地方 to 九州地方, Okinawa in Kyushu), Canada's Atlantic, Central, Prairies, West Coast and North, and the Census regions of the United States, each named in English and Japanese. Named groupings beyond these (the EU, ASEAN, the G7) are kuni's to keep, with their dates and sources; until it has one, pass its codes.
+A group of places is a list of codes, and `groupMap`, `groupBox` and `groupTones` cut a map down to one, frame it and fade the rest: a continent, a UN M49 subregion, the regions of Japan, Canada or the United States, or a list a page names itself. The worked example, `CHIZU_CONTINENTS`, `CHIZU_SUBREGIONS` and `regionGroups(map)` are in [Continents and other groups](docs/groups.md).
 
 ## Pasted names
 
