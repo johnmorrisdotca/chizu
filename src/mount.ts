@@ -13,7 +13,7 @@ import { mountCities } from "./mountCities.ts";
 import { ensureChizuMapStyle } from "./mountStyle.ts";
 import type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
 import { DRAG_PIXELS, KEY_STEP, WHEEL_GESTURE_MS, WHEEL_PAUSE_MS } from "./mountTypes.ts";
-import { overlaysSvg } from "./overlays.ts";
+import { redrawOverlays } from "./overlays.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapAcross, wrapOffsets } from "./wrap.ts";
@@ -276,14 +276,9 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       options = { ...options, ...patch };
       if (patch.zoom !== undefined) zoom = patch.zoom;
       // New overlays alone: only their group is drawn again, not the land under them.
-      const group = stage.querySelector("svg > .cz-overlays");
-      const svg = stage.querySelector("svg");
-      if (Object.keys(patch).every((key) => key === "overlays") && svg) {
-        const drawn = overlaysSvg(shown(), options.overlays ?? [], box(), drawnOffsets.split(",").map(Number));
-        if (group) group.outerHTML = drawn;
-        else svg.insertAdjacentHTML("beforeend", drawn);
+      const alone = Object.keys(patch).every((key) => key === "overlays");
+      if (alone && redrawOverlays(stage, shown(), options.overlays ?? [], box(), drawnOffsets.split(",").map(Number)))
         return;
-      }
       draw();
     },
     setMap(next) {
