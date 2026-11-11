@@ -65,6 +65,10 @@ const pageParts = {
     "Draw the map's named water (its seas, bays and straits, lakes and rivers), its capitals (a country's capital, and on a map of its regions each region's seat), or everything named on it, deserts, mountain ranges and peaks too. Off, the map is as it always was. Each map's features are a file of their own, fetched the first time you turn them on.",
     "地図に、名前のある水（海、湾、海峡、湖、川）を重ねて描きます。「首都」にすると、国の首都と、地方の地図では各地方の中心地（日本では県庁所在地）を描きます。「すべて」にすると、砂漠、山脈、山など、名前のあるものをすべて描きます。「なし」なら、いつもの地図のままです。描くものは地図ごとに別のファイルで、はじめて表示するときに読み込みます。",
   ]),
+  rowCities: row("cities", "cities", [
+    "Name the cities on the world and on a country's own map: the biggest on the whole world, more as you zoom in, each name beside its dot where it covers no other. Off, the map is as it always was. The cities are kuni's, fetched the first time you turn them on. A map of a country's regions has no cities.",
+    "世界地図と国の地図に、都市の名前を表示します。世界全体では大きな都市だけを、拡大するにつれて多くの都市を、ほかの名前に重ならない位置に表示します。「オフ」なら、いつもの地図のままです。都市のデータはkuniのもので、はじめてオンにしたときに読み込みます。地方に分けた地図には都市を表示しません。",
+  ]),
   rowModes: row("modes", "mode", [
     "Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.",
     "地図を見てなまえを調べる、クイズで遊ぶ、番号つきの目印をつける、自分の数値で色を塗る、のどれかを選びます。",
@@ -112,6 +116,16 @@ mkdirSync("site", { recursive: true });
 cpSync("demo", "site", { recursive: true });
 // The declarations and source maps are for editors, not for a browser.
 cpSync("dist", "site/dist", { recursive: true, filter: (from) => !/\.(d\.ts|map)$/.test(from) });
+// The cities' entry needs kuni, which the page cannot import by name: bundled here, each of kuni's tiers a file of its own, fetched when asked for.
+await build({
+  entryPoints: { "kuni-cities": "dist/cities-entry.js" },
+  outdir: "site/cities",
+  bundle: true,
+  splitting: true,
+  format: "esm",
+  minify: true,
+  logLevel: "silent",
+});
 writeFileSync("site/index.html", page);
 // The family's card, dark card and icon, at <site>/thumbnail.png, thumbnail-dark.png and icon.png.
 publishThumbnails(".", "site");

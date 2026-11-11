@@ -120,6 +120,7 @@ const state = {
   partKey: params.get("part"),
   mode: MODES.includes(params.get("mode")) ? params.get("mode") : "explore",
   features: FEATURE_MODES.includes(params.get("features")) ? params.get("features") : "off",
+  cities: params.get("cities") === "on",
   /** The named features of the map shown, once fetched: null before, and for a map with none. */
   layer: null,
   map: world,
@@ -958,6 +959,17 @@ function chooseStyle(style) {
   void startRound();
 }
 
+/** kuni's cities, bundled with the site and fetched the first time they are turned on. */
+const loadDemoCities = () => import("./cities/kuni-cities.js").then((entry) => entry.loadKuniCities());
+const cityOptions = () => ({ cities: state.cities ? loadDemoCities : null });
+
+function chooseCities(value) {
+  state.cities = value;
+  remember({ cities: value ? "on" : null });
+  settings();
+  mount.set(cityOptions());
+}
+
 function chooseFeatures(value) {
   state.features = value;
   remember({ features: value === "off" ? null : value });
@@ -1455,6 +1467,7 @@ function settings() {
     (value) => say("modes")[value],
   );
   seg($("features"), FEATURE_MODES, state.features, chooseFeatures, (value) => say("featureModes")[value]);
+  seg($("cities"), [false, true], state.cities, chooseCities, (value) => say(value ? "on" : "off"));
   seg(
     $("polish"),
     [false, true],
@@ -1570,6 +1583,7 @@ mount = mountChizu(host, {
   // Each map's seas, lakes and rivers, fetched the first time they are drawn.
   featureLayer: loadFeatures,
   ...featureOptions(),
+  ...cityOptions(),
   onSelect: (code) => {
     if (state.mode === "quiz") {
       // Finding a place, a press on the sea is not an answer; finding the water, a press on the land is a wrong one.
