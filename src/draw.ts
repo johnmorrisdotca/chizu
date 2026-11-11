@@ -8,6 +8,7 @@ import { type CalloutRequest, layoutCallouts } from "./layout.ts";
 import { mapOutlines, mapRegionPieces } from "./outlines.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
+import { escapeXml, num } from "./svgText.ts";
 import type { ChizuFeature, ChizuFeatureGroup, ChizuFeatureLayer, ChizuInset, ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround, wrapOffsets } from "./wrap.ts";
 
@@ -65,9 +66,10 @@ export type ChizuDrawOptions = {
   /**
    * Cities to name on the map: kuni's (`loadKuniCities` from `@johnmorrisdotca/chizu/cities`) or any list of the same
    * shape. More are named as the window shows less ground, the most populous first, each name beside its dot where it
-   * covers no other; a city that does not fit is left out. Drawn only on a map that can place a point (the world, a
-   * country alone, a local map), never on a country's regions. When given, it names the capitals itself, so the
-   * features' `capitals` group is not drawn as well. Default none.
+   * covers no other city's name or dot; a city that does not fit is left out. City names are not kept clear of the
+   * regions' names, the features' names or the callouts. Drawn only on a map that can place a point (the world, a country
+   * alone, a local map), never on a country's regions. Where any city is named, the cities name the capitals, so the
+   * features' `capitals` group is not drawn as well; a map that names none keeps it. Default none.
    */
   cities?: readonly ChizuCity[] | null;
   /** How the cities are drawn: a population floor, and whether their names are printed. */
@@ -93,9 +95,7 @@ const SAFE_COLOUR = /^(#[0-9a-f]{3,8}|[a-z]{3,30}|(?:rgb|hsl)a?\([0-9a-z.,%\s/+-
  */
 export const isChizuColour = (colour: string): boolean => SAFE_COLOUR.test(colour.trim());
 
-const escapeHtml = (text: string) =>
-  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const num = (value: number) => String(Math.round(value * 100) / 100);
+const escapeHtml = escapeXml;
 
 /** The label's font size, as a share of the window's width. */
 const LABEL_RATIO = 0.016;
@@ -132,8 +132,14 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
   const interactive = options.interactive === true;
   const tones = options.tones ?? {};
   const colors = options.colors ?? {};
+  // The cities, placed first: where any is named they name the capitals, so the features' capitals are not drawn as well;
+  // a map that names none (a country's regions) keeps its capitals and seats.
+  const placedCities =
+    options.cities && options.cities.length > 0
+      ? citiesSvg(map, options.cities, box, offsets, { language, ...options.cityOptions })
+      : "";
+  const citiesNamed = placedCities !== "";
   // The features chosen, and any other that is given a tone: a sea chosen from a list is drawn though its group is off.
-  const cities = options.cities && options.cities.length > 0 ? options.cities : null;
   const shown: ChizuFeature[] =
     options.featureLayer && options.featureLayer.map === map.id
       ? (() => {
@@ -141,7 +147,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
           return options.featureLayer.features.filter(
             (feature) =>
               (chosen.has(feature) || tones[feature.code] !== undefined) &&
-              !(cities !== null && feature.group === "capitals" && tones[feature.code] === undefined),
+              !(citiesNamed && feature.group === "capitals" && tones[feature.code] === undefined),
           );
         })()
       : [];
@@ -248,7 +254,6 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
     : "";
   const named =
     shown.length > 0 && options.featureLabels !== false ? featureLabels(shown, box, offsets, { language, tones }) : "";
-  const placedCities = cities ? citiesSvg(map, cities, box, offsets, { language, ...options.cityOptions }) : "";
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" class="chizu" viewBox="${num(box.x)} ${num(box.y)} ${num(box.width)} ${num(box.height)}" role="${interactive ? "group" : "img"}" aria-label="${escapeHtml(label)}" data-map="${escapeHtml(map.id)}">` +
     style +
