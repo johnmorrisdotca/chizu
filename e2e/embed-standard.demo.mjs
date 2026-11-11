@@ -248,7 +248,9 @@ test("the cities switch names kuni's cities in the preview, its code imports the
   await expect(page.locator("#bld-code")).not.toContainText('setAttribute("cities"');
   for (const format of ["react", "vue", "svelte", "angular"]) {
     await page.locator(`#bld-formats [data-format="${format}"]`).click();
-    await expect(page.locator("#bld-code"), format).toContainText('import { loadKuniCities } from "@johnmorrisdotca/chizu/cities";');
+    await expect(page.locator("#bld-code"), format).toContainText(
+      'import { loadKuniCities } from "@johnmorrisdotca/chizu/cities";',
+    );
   }
   await page.locator('#bld-formats [data-format="element"]').click();
   await expect(page.locator("#bld-code")).toContainText("/cities/+esm");
@@ -262,4 +264,3 @@ test("the cities switch names kuni's cities in the preview, its code imports the
   await expect(page.locator("chizu-map .cz-city")).toHaveCount(0);
   expect(errors).toEqual([]);
 });
-
