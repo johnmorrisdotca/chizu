@@ -40,9 +40,9 @@ On `<chizu-map>`, set `options.cities` the same way. The embed builder has no ci
 ## What is named, and where
 
 - **More as you zoom in.** A window that shows the whole world names cities of five million people or more; the floor falls with the ground the window shows, to 15,000 at 400 km across. `cityOptions.minPopulation` fixes it instead.
-- **The biggest first.** Cities are placed in order of population, a country's capital counted double, and each name goes to the right of its dot, else the left, above or below. A city whose name fits on no side is left out, dot and all, so no name covers another name or a dot, and no two dots touch.
+- **The biggest first.** Cities are placed in order of population, a country's capital counted double, and each name goes to the right of its dot, else the left, above or below. A city whose name fits on no side is left out, dot and all, so no name covers another city's name or dot, and no two dots touch. City names are not kept clear of the regions' names, the features' names or the callouts.
 - **English or Japanese**, with the drawing's `language`. A city with no Japanese name is named in English on a Japanese page; nothing is made up.
 - **Where a point can be placed.** The world, a country alone and a local map name cities. A map of a country's regions was fitted with a projection that cannot be read back, so it names none.
-- **The features' capitals.** With `cities` given, the cities name the capitals, and the features' `capitals` group is not drawn as well.
+- **The features' capitals.** Where any city is named, the cities name the capitals, and the features' `capitals` group is not drawn as well. A map that names no city (a country's regions) keeps its capitals and seats.
 
 `placeCities`, `cityPopulationFloor` and `windowKilometres` in `@johnmorrisdotca/chizu` give the same choices without drawing, for a list beside the map or a test of your own.

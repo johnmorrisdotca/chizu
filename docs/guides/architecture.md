@@ -40,6 +40,7 @@ src/
 ├── groups.ts           continents and other groups: cut, framed, toned
 ├── features.ts         seas, lakes, rivers and the rest: chosen, searched, made a map
 ├── cities.ts           city names: the ground a window shows, the floor, the placing, the layer
+├── svgText.ts          text into a drawing: escaped, and numbers to two places
 ├── fromText.ts         pasted names to places
 ├── countries.ts        the table of countries, looked up
 ├── project.ts          longitude and latitude on a canvas

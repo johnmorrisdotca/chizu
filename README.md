@@ -11,7 +11,7 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="19.0 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-19.0%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="19.1 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-19.1%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -567,6 +567,8 @@ drawChizu(map, {
   callouts: ["BY", "NW", "SL"],             // or a full request, as layoutCallouts takes it
   labels: true,                             // names on the land, where they fit; or a list of codes
   interactive: true,                        // every region a thing to press
+  cities: await loadKuniCities(),           // dots and names, more as the window closes in; from /cities
+  cityOptions: { minPopulation: 500_000 },  // a fixed floor; labels: false draws the dots alone
   style: true,                              // carry CHIZU_STYLE inside, so the drawing stands alone as an image
 });
 ```
@@ -596,7 +598,7 @@ mount.destroy();
 | A press | chooses a region (and a second press on it, none) |
 | Arrow keys, `+`, `-`, `0` | move, zoom, and show the whole map, with the map focused |
 
-`selectable: false` makes the map only looked at, which a quiz wants. Callouts are placed again for the window as it is after each move, and keep out from under the buttons.
+`cities` and `cityOptions` are as `drawChizu` takes them; `cities` may also be a function such as `loadKuniCities`, called once. `selectable: false` makes the map only looked at, which a quiz wants. Callouts are placed again for the window as it is after each move, and keep out from under the buttons.
 
 ## API
 
@@ -614,7 +616,7 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 | `@johnmorrisdotca/chizu/draw` | `drawChizu`, `CHIZU_STYLE` |
 | `@johnmorrisdotca/chizu/mount` | `mountChizu`, `ensureChizuMapStyle`, `CHIZU_MAP_STYLE` |
 | `@johnmorrisdotca/chizu/names` | `CHIZU_COUNTRIES`, `CHIZU_SOURCE`, `countryByCode`, `countriesFromText` |
-| `@johnmorrisdotca/chizu/cities` | `loadKuniCities`, `CHIZU_CITY_TIERS`: kuni's cities for `drawChizu`'s `cities` (needs the optional peer `@johnmorrisdotca/kuni` 1.6.0 or later) |
+| `@johnmorrisdotca/chizu/cities` | `loadKuniCities`, `CHIZU_CITY_TIERS`: kuni's cities for `drawChizu`'s `cities` (needs the optional peer `@johnmorrisdotca/kuni` 1.6.0 or later; its size is measured with kuni bundled in) |
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
 | `@johnmorrisdotca/chizu/world-geo` | the world as longitude/latitude GeoJSON for a spherical projection, as the default export and as `WORLD_GEO` |

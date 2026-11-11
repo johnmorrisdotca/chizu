@@ -67,7 +67,7 @@ const pageParts = {
   ]),
   rowCities: row("cities", "cities", [
     "Name the cities on the world and on a country's own map: the biggest on the whole world, more as you zoom in, each name beside its dot where it covers no other. Off, the map is as it always was. The cities are kuni's, fetched the first time you turn them on. A map of a country's regions has no cities.",
-    "世界地図と国の地図に、都市の名前を表示します。世界全体では大きな都市だけを、拡大するにつれて多くの都市を、ほかの名前に重ならない位置に表示します。「オフ」なら、いつもの地図のままです。都市のデータはkuniのもので、はじめてオンにしたときに読み込みます。地方に分けた地図には都市を表示しません。",
+    "世界地図と国の地図に、都市の名前を表示します。世界全体では大きな都市だけを表示し、拡大するほど多くの都市を表示します。名前は点の横の、ほかの名前に重ならない位置に置きます。「なし」なら、いつもの地図のままです。都市のデータはkuniのもので、はじめて「あり」にしたときに読み込みます。地方に分けた地図には都市を表示しません。",
   ]),
   rowModes: row("modes", "mode", [
     "Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.",
