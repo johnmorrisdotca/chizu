@@ -17,6 +17,14 @@ import {
   familyUnreviewed,
 } from "./family-template.mjs";
 import { publishThumbnails, thumbnailHead } from "./family-thumbnail.mjs";
+import {
+  BUILDER_DESCRIPTION,
+  EMBED_CREDITS,
+  FRAME_CREDITS,
+  FRAME_TEXTS,
+  INDEX_DESCRIPTION,
+  NOTICE,
+} from "./page-frame.mjs";
 
 const id = "chizu";
 const ALT =
@@ -43,43 +51,13 @@ const row = (testid, label, help) =>
   `<div class="setup fam-row" data-help-en="${escapeHtml(help[0])}" data-help-ja="${escapeHtml(help[1])}"><span class="fam-label" data-say="${label}"></span><div class="fam-seg" role="group" data-say-label="${label}" id="${testid}" data-testid="${testid}"></div></div>`;
 
 // The family's page frame on each page (kazoku-ui's page-frame): one line saying what the page is, with a way home, and the
-// data's credit line above the footer. One table of words per page makes the header line, the built <title> and the
-// title the header keeps in the reader's language, so they cannot disagree.
-const NOTICE = "https://github.com/johnmorrisdotca/chizu/blob/main/NOTICE.md";
-const INDEX_DESCRIPTION =
-  "Japan's 47 prefectures, the world, its continents and 32 countries' regions, with their seas, lakes, rivers and mountains: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.";
-const BUILDER_DESCRIPTION = "Preview an embeddable map, named place or geography quiz and copy the code.";
-const FRAME_TEXTS = {
-  "index.html": {
-    en: { name: "Chizu 地図", what: "maps to explore, quiz and colour", description: INDEX_DESCRIPTION },
-    ja: {
-      name: "地図 Chizu",
-      what: "見て、クイズをして、色を塗る地図",
-      description:
-        "日本の47都道府県、世界、大陸、32か国の地方と、その海、湖、川、山。ドラッグして拡大縮小できる地図、遊んで共有できるクイズ、印刷できる番号つきの地図、自分の数値で色を塗った地図です。",
-    },
-  },
-  "builder.html": {
-    en: { name: "Chizu 地図", what: "embed builder", description: BUILDER_DESCRIPTION },
-    ja: {
-      name: "地図 Chizu",
-      what: "埋め込みを作る",
-      description: "埋め込む地図、場所の表示、地理のクイズをプレビューして、コードをコピーできます。",
-    },
-  },
-};
-const FRAME_CREDITS = pageCreditsHtml(
-  {
-    en: "Outlines from Natural Earth (public domain); names from kuni (Unicode CLDR and Wikidata).",
-    ja: "輪郭はNatural Earth（パブリックドメイン）、地名はkuni（Unicode CLDRとWikidata）のデータです。",
-  },
-  { href: NOTICE },
-);
+// data's credit line above the footer; its words are scripts/page-frame.mjs.
+const FRAME_CREDITS_HTML = pageCreditsHtml(FRAME_CREDITS, { href: NOTICE });
 /** A page's <!--frame:header--> and <!--frame:credits--> filled with its frame. */
 const framed = (html, file) =>
   html
     .replace("<!--frame:header-->", pageHeaderHtml(FRAME_TEXTS[file], { meta: true }))
-    .replace("<!--frame:credits-->", FRAME_CREDITS);
+    .replace("<!--frame:credits-->", FRAME_CREDITS_HTML);
 
 // The page is demo/index.html; each <!-- family:key --> in it is replaced by the text below.
 const pageParts = {
@@ -201,6 +179,23 @@ console.log("site/ is ready: serve it, or let the Pages workflow publish it.");
 
 for (const file of ["builder.js", "builder.css", "embed-options.js"]) cpSync(`demo/${file}`, `site/${file}`);
 cpSync("demo/embed", "site/embed", { recursive: true });
+// Each embed page's small credit line, in its corner, from the same words.
+for (const file of ["site/embed/index.html", "site/embed/locator/index.html", "site/embed/quiz/index.html"])
+  writeFileSync(
+    file,
+    readFileSync(file, "utf8").replace(
+      "<!--frame:credits-->",
+      pageCreditsHtml(EMBED_CREDITS, { href: NOTICE, embed: true }),
+    ),
+  );
+await build({
+  stdin: { contents: 'import "@johnmorrisdotca/kazoku-ui/page-frame/define";\n', resolveDir: process.cwd() },
+  outfile: "site/kazoku-page-frame.js",
+  bundle: true,
+  format: "esm",
+  minify: true,
+  logLevel: "silent",
+});
 writeFileSync(
   "site/family-embed-builder.js",
   `export const FAMILY_EMBED_BUILDER_WORDS = ${JSON.stringify(FAMILY_EMBED_BUILDER_WORDS)};\nexport ${familyEmbedBuilder.toString()};\n`,

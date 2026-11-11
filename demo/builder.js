@@ -300,8 +300,8 @@ const builder = familyEmbedBuilder({
   groups: { map: { en: "The map", ja: "地図の設定" } },
   credits: ({ lang }) =>
     lang === "ja"
-      ? "輪郭はNatural Earth（パブリックドメイン）、地名はkuni（Unicode CLDRとWikidata）のデータです。"
-      : "Outlines from Natural Earth (public domain); names from kuni (Unicode CLDR and Wikidata).",
+      ? "輪郭と地物の名前はNatural Earth（パブリックドメイン）、国名はkuni（Unicode CLDR）とWikidataのものです。"
+      : "Outlines and feature names from Natural Earth (public domain); country names from kuni (Unicode CLDR) and Wikidata.",
   code: (context) => {
     const { maker, format, settings } = context;
     if (readMapColors(settings.colors ?? null) === null) return null;

@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light dark"><title>Chizu · map</title>
-<style>html,body{margin:0;width:100%;height:100%;background:transparent;overflow:hidden}body{display:flex;align-items:center;justify-content:center;padding:8px;box-sizing:border-box}</style></head><body><script type="module">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="description" content="A map from Chizu for another site's iframe; its address says which map and how it looks."><meta name="color-scheme" content="light dark"><title>Chizu · map</title>
+<style>html,body{margin:0;width:100%;height:100%;background:transparent;overflow:hidden}kazoku-page-credits{position:fixed;right:4px;bottom:2px;max-width:calc(100% - 8px)}body{display:flex;align-items:center;justify-content:center;padding:8px;box-sizing:border-box}</style></head><body><script type="module">
 import { ChizuMapElement } from "../dist/element.js";
 import "../dist/element-define.js";
 import { validatedAttributes } from "../embed-options.js";
@@ -12,4 +12,6 @@ for (const type of ["chizu-load","chizu-error","chizu-select","chizu-view","chiz
 // cities=1 names kuni's cities, from the site's own copy, fetched only then.
 if (["1","on","true"].includes((query.get("cities") ?? "").toLowerCase())) import("../city-names.js").then(({cityOptions})=>{element.options=cityOptions(true);});
 document.body.append(element);
-</script></body></html>
+</script>
+<!--frame:credits-->
+<script type="module">import "../kazoku-page-frame.js";</script></body></html>

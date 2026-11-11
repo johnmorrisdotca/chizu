@@ -54,7 +54,7 @@ test("the code section is the embed panel, with every item it had and the guide,
   await expect(panel(page).getByTestId("bld-link")).toHaveText("この設定へのリンクをコピー");
   await expect(panel(page).locator("[part=docs]")).toHaveAttribute("href", "docs/ja/guides/embed-maps.html");
   await expect(panel(page).locator("[part=credits]")).toContainText(
-    "輪郭はNatural Earth（パブリックドメイン）、地名はkuni（Unicode CLDRとWikidata）のデータです。",
+    "輪郭と地物の名前はNatural Earth（パブリックドメイン）、国名はkuni（Unicode CLDR）とWikidataのものです。",
   );
   expect(errors).toEqual([]);
 });
@@ -83,6 +83,6 @@ test("a page opened in Japanese gives the panel its Japanese tabs, note, buttons
   await expect(panel(page).getByTestId("bld-link")).toHaveText("この設定へのリンクをコピー");
   await expect(panel(page).locator("[part=docs]")).toHaveAttribute("href", "docs/ja/guides/embed-maps.html");
   await expect(panel(page).locator("[part=credits]")).toContainText(
-    "輪郭はNatural Earth（パブリックドメイン）、地名はkuni（Unicode CLDRとWikidata）のデータです。",
+    "輪郭と地物の名前はNatural Earth（パブリックドメイン）、国名はkuni（Unicode CLDR）とWikidataのものです。",
   );
 });
