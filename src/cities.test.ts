@@ -36,9 +36,9 @@ function nameBoxes(svg: string, box: MapBox, ja: boolean): Rect[] {
   return [
     ...svg.matchAll(/<text class="cz-city-label" x="([\d.-]+)" y="([\d.-]+)"[^>]*text-anchor="(\w+)"[^>]*>([^<]*)</g),
   ].map(([, x, y, anchor, name]) => {
-    const wide = [...(name ?? "")].length * size * (ja ? 1 : 0.56);
+    const wide = [...(name ?? "")].length * size * (ja ? 1.05 : 0.62);
     const left = anchor === "start" ? Number(x) : anchor === "end" ? Number(x) - wide : Number(x) - wide / 2;
-    return { x0: left, y0: Number(y) - size / 2, x1: left + wide, y1: Number(y) + size / 2 };
+    return { x0: left, y0: Number(y) - (size * 1.3) / 2, x1: left + wide, y1: Number(y) + (size * 1.3) / 2 };
   });
 }
 
@@ -94,6 +94,21 @@ describe("placing cities", () => {
     expect(
       placeCities(world, [tokyo], zoomBox(world, 10, { x: paris[0], y: paris[1] }), [0], { language: "en" }),
     ).toEqual([]);
+  });
+
+  it("names only a country's own cities on a map of that country alone", () => {
+    const seoul: ChizuCity = {
+      id: "Q8684",
+      name: { en: "Seoul" },
+      lat: 37.57,
+      lon: 126.98,
+      population: 9_500_000,
+      country: "KR",
+    };
+    const named = placeCities(japan, [{ ...tokyo, country: "JP" }, seoul], wholeMapBox(japan), [0], { language: "en" });
+    expect(named.map((one) => one.city.id)).toEqual(["Q1490"]);
+    expect(placeCities(japan, [tokyo], wholeMapBox(japan), [0], { language: "en" })).toEqual([]);
+    expect(placeCities(world, [seoul], wholeMapBox(world), [0], { language: "en" })).toHaveLength(1);
   });
 
   it("places nothing on a country's regions", () => {

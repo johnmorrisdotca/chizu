@@ -34,6 +34,8 @@ export type ChizuCity = {
   population?: number | null;
   /** `national` for a country's capital, drawn with a ring; any other value, or none, is a plain dot. */
   capital?: string | null;
+  /** Its country's ISO 3166-1 alpha-2 code, `JP`: a map of one country alone names only that country's cities. */
+  country?: string;
 };
 
 /**
@@ -83,6 +85,17 @@ export type ChizuCityPlaced = {
 
 const EARTH_KM_PER_DEGREE = 111.32;
 const RAD = Math.PI / 180;
+
+/** The city names' font size, and a dot's radius, as a share of the window's width. */
+const CITY_LABEL_RATIO = 0.0115;
+const CITY_DOT_RATIO = 0.0032;
+/** A name's width per letter (Latin, and Japanese), its line's height, and its halo's spill, each in ems. */
+const CITY_EM_LATIN = 0.62;
+const CITY_EM_JA = 1.05;
+const CITY_LINE = 1.3;
+const CITY_PAD = 0.18;
+/** The halo round a name, in ems: set on each name, so it keeps its weight at every zoom as the name does. */
+const CITY_HALO = 0.22;
 
 /**
  * How many kilometres of ground the window shows from side to side, at its middle; `null` for a map whose canvas
@@ -135,6 +148,17 @@ export function cityPopulationFloor(kilometres: number): number {
   return Math.round(Math.min(5_000_000, Math.max(15_000, floor)));
 }
 
+/**
+ * The countries whose cities a map may name: `null` for any (the world, a local map); on a map of one country alone,
+ * that country's code, since the land round it is not drawn and a neighbour's city would sit in an empty sea.
+ */
+function countriesNamed(
+  map: Pick<ChizuMap, "projection"> & Partial<Pick<ChizuMap, "kind" | "regions">>,
+): Set<string> | null {
+  if (map.kind !== "country") return null;
+  return new Set((map.regions ?? []).map((region) => String(region.code)).filter((code) => /^[A-Z]{2}$/.test(code)));
+}
+
 /** The order cities are placed in: national capitals that clear the floor and the most populous before the rest. */
 const rankOf = (city: ChizuCity) => (city.population ?? 0) * (city.capital === "national" ? 2 : 1);
 
@@ -143,7 +167,8 @@ const overlaps = (a: Box, b: Box) => a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 &
 
 /**
  * Which cities a window names, and where each name goes: in rank order, each name on the first free side of its dot
- * (right, left, above, below), and a city left out when none is free. A name never covers another name or another
+ * (right, left, above, below), and a city left out when none is free. On a map of one country alone, only that
+ * country's cities are named. A name never covers another name or another
  * city's dot, and no two dots touch. Cities off the window, or on a map that cannot place a point, are left out.
  *
  * @example
@@ -164,7 +189,7 @@ const overlaps = (a: Box, b: Box) => a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 &
  * @returns The cities named, with their place and side.
  */
 export function placeCities(
-  map: Pick<ChizuMap, "projection">,
+  map: Pick<ChizuMap, "projection"> & Partial<Pick<ChizuMap, "kind" | "regions">>,
   cities: readonly ChizuCity[],
   box: MapBox,
   offsets: readonly number[],
@@ -177,8 +202,15 @@ export function placeCities(
   const dot = box.width * CITY_DOT_RATIO;
   const gap = dot * 1.6;
   const ja = options.language === "ja";
+  const countries = countriesNamed(map);
   const order = cities
-    .filter((city) => (city.population ?? 0) >= floor && Number.isFinite(city.lat) && Number.isFinite(city.lon))
+    .filter(
+      (city) =>
+        (city.population ?? 0) >= floor &&
+        Number.isFinite(city.lat) &&
+        Number.isFinite(city.lon) &&
+        (countries === null || (city.country !== undefined && countries.has(city.country.toUpperCase()))),
+    )
     .sort((a, b) => rankOf(b) - rankOf(a) || a.id.localeCompare(b.id));
   const labels: Box[] = [];
   const dots: Box[] = [];
@@ -187,7 +219,10 @@ export function placeCities(
     const point = projectPoint(map, city.lon, city.lat);
     if (!point) continue;
     const name = ja ? (city.name.ja ?? city.name.en) : city.name.en;
-    const wide = [...name].length * size * (ja ? 1 : 0.56);
+    // The room a name takes as a browser draws it: a line is taller than the font's size, and its halo spills over.
+    const wide = [...name].length * size * (ja ? CITY_EM_JA : CITY_EM_LATIN);
+    const tall = size * CITY_LINE;
+    const pad = size * CITY_PAD;
     for (const offset of offsets) {
       const x = point[0] + offset;
       const y = point[1];
@@ -195,10 +230,10 @@ export function placeCities(
       const own: Box = { x0: x - dot, y0: y - dot, x1: x + dot, y1: y + dot };
       if (labels.some((other) => overlaps(own, other)) || dots.some((other) => overlaps(own, other))) continue;
       const sides: [ChizuCityPlaced["side"], Box][] = [
-        ["right", { x0: x + gap, y0: y - size / 2, x1: x + gap + wide, y1: y + size / 2 }],
-        ["left", { x0: x - gap - wide, y0: y - size / 2, x1: x - gap, y1: y + size / 2 }],
-        ["above", { x0: x - wide / 2, y0: y - gap - size, x1: x + wide / 2, y1: y - gap }],
-        ["below", { x0: x - wide / 2, y0: y + gap, x1: x + wide / 2, y1: y + gap + size }],
+        ["right", { x0: x + gap - pad, y0: y - tall / 2, x1: x + gap + wide + pad, y1: y + tall / 2 }],
+        ["left", { x0: x - gap - wide - pad, y0: y - tall / 2, x1: x - gap + pad, y1: y + tall / 2 }],
+        ["above", { x0: x - wide / 2 - pad, y0: y - gap - tall, x1: x + wide / 2 + pad, y1: y - gap }],
+        ["below", { x0: x - wide / 2 - pad, y0: y + gap, x1: x + wide / 2 + pad, y1: y + gap + tall }],
       ];
       const free = sides.find(
         ([, rect]) =>
@@ -218,10 +253,6 @@ export function placeCities(
   return placed;
 }
 
-/** The city names' font size, and a dot's radius, as a share of the window's width. */
-const CITY_LABEL_RATIO = 0.0115;
-const CITY_DOT_RATIO = 0.0032;
-
 const escapeXml = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const num = (value: number) => String(Math.round(value * 100) / 100);
@@ -239,7 +270,7 @@ const num = (value: number) => String(Math.round(value * 100) / 100);
  * @returns The SVG text, or "".
  */
 export function citiesSvg(
-  map: Pick<ChizuMap, "projection">,
+  map: Pick<ChizuMap, "projection"> & Partial<Pick<ChizuMap, "kind" | "regions">>,
   cities: readonly ChizuCity[],
   box: MapBox,
   offsets: readonly number[],
@@ -262,10 +293,10 @@ export function citiesSvg(
         : side === "left"
           ? { x: x - gap, y, anchor: "end" }
           : side === "above"
-            ? { x, y: y - gap - size / 2, anchor: "middle" }
-            : { x, y: y + gap + size / 2, anchor: "middle" };
+            ? { x, y: y - gap - (size * CITY_LINE) / 2, anchor: "middle" }
+            : { x, y: y + gap + (size * CITY_LINE) / 2, anchor: "middle" };
     const text = showNames
-      ? `<text class="cz-city-label" x="${num(at.x)}" y="${num(at.y)}" font-size="${num(size)}" text-anchor="${at.anchor}" data-side="${side}">${escapeXml(name)}</text>`
+      ? `<text class="cz-city-label" x="${num(at.x)}" y="${num(at.y)}" font-size="${num(size)}" stroke-width="${num(size * CITY_HALO)}" text-anchor="${at.anchor}" data-side="${side}">${escapeXml(name)}</text>`
       : "";
     return `<g class="cz-city${city.capital === "national" ? " cz-city-capital" : ""}" data-city="${escapeXml(city.id)}"><title>${escapeXml(name)}</title>${ring}<circle class="cz-city-dot" cx="${num(x)}" cy="${num(y)}" r="${num(dot)}"/>${text}</g>`;
   });
