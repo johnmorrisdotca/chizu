@@ -1,3 +1,4 @@
+import type { ChizuCity, ChizuCityOptions } from "./cities.ts";
 import type { ChizuDrawOptions } from "./draw.ts";
 import type { ChizuFeatureChoice } from "./features.ts";
 import type { MapZoom } from "./frame.ts";
@@ -62,6 +63,14 @@ export type ChizuMountOptions = {
   featureLayer?: ChizuFeatureLayer | null | ((mapId: string) => Promise<ChizuFeatureLayer | null>);
   /** Print the features' names. Default true. */
   featureLabels?: boolean;
+  /**
+   * Cities to name (`drawChizu`'s `cities`): a list, or a function that gives one (`loadKuniCities` from
+   * `@johnmorrisdotca/chizu/cities`), called once, the first time the map is drawn with it. More are named as the map
+   * is zoomed in. Default none.
+   */
+  cities?: readonly ChizuCity[] | null | (() => Promise<readonly ChizuCity[]>);
+  /** How the cities are drawn (`drawChizu`'s `cityOptions`). */
+  cityOptions?: ChizuCityOptions;
 };
 
 /**

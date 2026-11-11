@@ -1,3 +1,4 @@
+import type { ChizuCity } from "./cities.ts";
 import { type ChizuDrawOptions, drawChizu } from "./draw.ts";
 import {
   boxCentre,
@@ -173,6 +174,28 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     }
     return null;
   }
+  /** The cities, once a function that gives them has answered; the function asked, so a new one is asked again. */
+  let cityList: readonly ChizuCity[] | null = null;
+  let citiesAsked: (() => Promise<readonly ChizuCity[]>) | null = null;
+  function cities(): readonly ChizuCity[] | null {
+    const wanted = options.cities;
+    if (!wanted) return null;
+    if (typeof wanted !== "function") return wanted;
+    if (citiesAsked === wanted) return cityList;
+    citiesAsked = wanted;
+    cityList = null;
+    wanted().then(
+      (list) => {
+        if (citiesAsked !== wanted) return;
+        cityList = list;
+        draw();
+      },
+      () => {
+        if (citiesAsked === wanted) citiesAsked = null;
+      },
+    );
+    return null;
+  }
   /** The map with its features among its regions, for framing, choosing and naming: a feature's code is never a region's. */
   function frameable(): ChizuMap {
     const loaded = layer();
@@ -198,6 +221,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     drawnOffsets = (mapWrapsAround(map) ? wrapOffsets(window_, map.width) : [0]).join(",");
     const drawing = shown();
     const features = layer();
+    const named = cities();
     stage.innerHTML = drawChizu(drawing, {
       box: window_,
       language: language(),
@@ -213,6 +237,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
             featureLabels: options.featureLabels,
           }
         : {}),
+      ...(named ? { cities: named, ...(options.cityOptions ? { cityOptions: options.cityOptions } : {}) } : {}),
     });
     stage.dataset.detail = String(drawing !== map);
     stage.style.aspectRatio = `${map.width} / ${map.height}`;

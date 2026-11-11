@@ -82,6 +82,8 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
   features: true,
   featureLayer: true,
   featureLabels: true,
+  cities: true,
+  cityOptions: true,
   data: true,
 } satisfies Record<keyof ChizuElementOptions, boolean>);
 
@@ -363,6 +365,7 @@ export class ChizuElement extends ElementBase {
       language: this.language,
       tones,
       labels: this.hasAttribute("labels") ? on(this, "labels") : this.options_.labels,
+      cities: this.hasAttribute("cities") && !on(this, "cities") ? null : (this.options_.cities ?? null),
       controls: on(this, "controls", this.options_.controls ?? true),
       selectable,
       zoom: Math.round(number(this.getAttribute("zoom"), this.options_.zoom ?? 1, 1, 10)) as MapZoom,
