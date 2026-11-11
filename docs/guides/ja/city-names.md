@@ -35,7 +35,7 @@ import { loadKuniCities } from "@johnmorrisdotca/chizu/cities";
 mountChizu(document.querySelector("#map")!, { map: WORLD, cities: loadKuniCities });
 ```
 
-`<chizu-map>`では、同じように`options.cities`を設定します。埋め込みビルダーには、まだ都市の設定がありません。ビルダーは都市のデータを読み込まないためです。
+`<chizu-map>`では、同じように`options.cities`を設定します。埋め込みビルダーの「都市」スイッチを使うと、これを代わりに行います。プレビューに都市名を表示し、モジュールとフレームワーク用のコードは`loadKuniCities`を読み込みます（kuni をインストールする行も付きます）。iframe とリンクには`cities=1`が付き、埋め込みページがこれを読み取ります。
 
 ## 表示する都市と、名前の位置
 

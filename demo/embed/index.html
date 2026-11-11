@@ -9,5 +9,7 @@ const element = document.createElement("chizu-map");
 for (const [name,value] of validatedAttributes(query,ChizuMapElement.observedAttributes)) element.setAttribute(name,value);
 if (query.get("lang") === "ja") document.documentElement.lang = "ja";
 for (const type of ["chizu-load","chizu-error","chizu-select","chizu-view","chizu-locate","chizu-answer"]) element.addEventListener(type,event=>{if(parent!==window)parent.postMessage({type:event.type,detail:JSON.parse(JSON.stringify(event.detail))},"*");});
+// cities=1 names kuni's cities, from the site's own copy, fetched only then.
+if (["1","on","true"].includes((query.get("cities") ?? "").toLowerCase())) import("../city-names.js").then(({cityOptions})=>{element.options=cityOptions(true);});
 document.body.append(element);
 </script></body></html>

@@ -232,3 +232,34 @@ test("map colours and capital switches survive builder links and validated frame
   await expect(page.locator("chizu-map")).not.toHaveAttribute("colors", /.*/);
   await expect(page.locator("chizu-map")).not.toHaveAttribute("capital", /.*/);
 });
+
+test("the cities switch names kuni's cities in the preview, its code imports them, and the frame's page names them too", async ({
+  page,
+}) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(String(error)));
+  await serve(page);
+  await page.goto("http://chizu.test/builder.html?lang=en#make=map&cities=1");
+  await expect(page.locator('#bld-stage chizu-map .cz-city[data-city="Q1490"]')).toHaveCount(1);
+  await expect(page.locator("#bld-stage chizu-map")).not.toHaveAttribute("cities");
+  await page.locator('#bld-formats [data-format="module"]').click();
+  await expect(page.locator("#bld-code")).toContainText("npm install @johnmorrisdotca/chizu @johnmorrisdotca/kuni");
+  await expect(page.locator("#bld-code")).toContainText("element.options = { cities: loadKuniCities };");
+  await expect(page.locator("#bld-code")).not.toContainText('setAttribute("cities"');
+  for (const format of ["react", "vue", "svelte", "angular"]) {
+    await page.locator(`#bld-formats [data-format="${format}"]`).click();
+    await expect(page.locator("#bld-code"), format).toContainText('import { loadKuniCities } from "@johnmorrisdotca/chizu/cities";');
+  }
+  await page.locator('#bld-formats [data-format="element"]').click();
+  await expect(page.locator("#bld-code")).toContainText("/cities/+esm");
+  await page.locator('#bld-formats [data-format="url"]').click();
+  await expect(page.locator("#bld-code")).toContainText("cities=1");
+  // The frame's own page reads cities=1 and names them from the site's copy of kuni.
+  await page.goto("http://chizu.test/embed/?region=world&cities=1");
+  await expect(page.locator('chizu-map .cz-city[data-city="Q1490"]')).toHaveCount(1);
+  await page.goto("http://chizu.test/embed/?region=world");
+  await expect(page.locator("chizu-map")).toHaveAttribute("data-ready", "true");
+  await expect(page.locator("chizu-map .cz-city")).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+

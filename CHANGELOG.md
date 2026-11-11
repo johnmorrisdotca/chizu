@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **A Cities switch in the embed builder** (map maker): the preview names kuni's cities, the module, React, Vue, Svelte and Angular code imports `loadKuniCities` from `@johnmorrisdotca/chizu/cities` with kuni's install line, the element code takes them from the CDN, and the iframe and link add `cities=1`, which the embed page reads.
+
 ## [1.9.1] - 2026-11-11
 
 ### Changed

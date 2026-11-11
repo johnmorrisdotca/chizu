@@ -8,6 +8,7 @@ import {
 } from "./dist/element.js";
 import { VERSION } from "./dist/index.js";
 import "./dist/element-define.js";
+import { cityOptions } from "./city-names.js";
 import { CHIZU_COUNTRIES } from "./dist/names-entry.js";
 import { choices } from "./embed-options.js";
 import { FAMILY_EMBED_BUILDER_WORDS, familyEmbedBuilder } from "./family-embed-builder.js";
@@ -156,6 +157,20 @@ const options = [
     default: false,
   }),
   row(
+    "cities",
+    "boolean",
+    { map: "cities" },
+    [
+      "Cities",
+      "Name the cities on the world or a country: the biggest first, more as you zoom in. The code imports kuni's cities (npm install @johnmorrisdotca/kuni).",
+    ],
+    [
+      "都市",
+      "世界や国の地図に都市名を表示します。大きな都市から表示し、拡大するほど増えます。コードは kuni の都市を読み込みます（npm install @johnmorrisdotca/kuni）。",
+    ],
+    { default: false },
+  ),
+  row(
     "controls",
     "boolean",
     all("controls"),
@@ -232,7 +247,7 @@ const leftOut = {
   "options.selectable": "The selection switch writes selectable.",
   "options.zoom": "The zoom control writes zoom.",
   "options.cities":
-    "City names need a list of cities from the host (loadKuniCities from @johnmorrisdotca/chizu/cities); the static builder loads none.",
+    "The cities switch sets options.cities to loadKuniCities from @johnmorrisdotca/chizu/cities; a host's own list belongs to host code.",
   "options.cityOptions": "How cities are drawn belongs with the host's list of cities.",
 };
 const formats = ["element", "iframe", "module", "react", "vue", "svelte", "angular", "html", "url"];
@@ -279,11 +294,14 @@ const builder = familyEmbedBuilder({
   leftOut,
   makers,
   groups: { map: { en: "The map", ja: "地図の設定" } },
-  code: ({ maker, format, settings }) => {
+  code: (context) => {
+    const { maker, format, settings } = context;
     if (readMapColors(settings.colors ?? null) === null) return null;
     if (maker === "map" && readMapData(settings.data ?? null) === null) return null;
     if ((format === "iframe" || format === "url") && settings.lang === undefined)
       return builder.codeFor(maker, format, options, { ...settings, lang: page.lang });
+    if (maker === "map" && settings.cities === true && format !== "iframe" && format !== "url")
+      return cityCode(context);
     return undefined;
   },
 });
@@ -311,7 +329,9 @@ mounted = builder.mount({
       return { destroy() {} };
     }
     const element = globalThis.document.createElement(`chizu-${maker}`);
-    for (const [name, value] of attrs) element.setAttribute(name, value);
+    for (const [name, value] of attrs) if (name !== "cities") element.setAttribute(name, value);
+    // The site's own copy of kuni's cities, fetched the first time the switch is on.
+    if (maker === "map" && settings.cities === true) element.options = cityOptions(true);
     element.addEventListener("chizu-load", (event) => {
       mapRatios[settings.region ?? "world"] = event.detail.height / event.detail.width;
       const map = element.shadowRoot.querySelector(".czm-stage");
@@ -327,6 +347,33 @@ mounted = builder.mount({
     };
   },
 });
+
+// The code for a map that names cities: kuni's cities are not an attribute but a host option, set once the element is
+// made. Bundled code imports them from @johnmorrisdotca/chizu/cities, which needs kuni installed beside chizu; a page
+// with no bundler takes them from the CDN's ES module build, which resolves kuni too. The iframe and the link name them
+// through the embed page itself (cities=1).
+function cityCode({ format, attrs, spec, packageName, quote, tagOf }) {
+  const plain = attrs.filter(([name]) => name !== "cities");
+  const install = `// npm install ${packageName} @johnmorrisdotca/kuni`;
+  const imports = `import "${packageName}/element/define";\nimport { loadKuniCities } from "${packageName}/cities";`;
+  const tag = tagOf(spec, plain);
+  const major = VERSION.split(".")[0];
+  if (format === "element" || format === "html")
+    return `<script type="module" src="https://cdn.jsdelivr.net/npm/${packageName}@${major}/dist/element-define.js"></script>\n${tag}\n<script type="module">\n  import { loadKuniCities } from "https://cdn.jsdelivr.net/npm/${packageName}@${major}/cities/+esm";\n  document.querySelector(${quote(spec.tag)}).options = { cities: loadKuniCities };\n</script>`;
+  if (format === "module")
+    return `${install}\n${imports}\n\nconst element = globalThis.document.createElement(${quote(spec.tag)});\n${plain.map(([name, value]) => `element.setAttribute(${quote(name)}, ${quote(value)});`).join("\n")}\nelement.options = { cities: loadKuniCities };\ndocument.body.append(element);`;
+  if (format === "react") {
+    const props = plain.map(([name, value]) => (value === "" ? name : `${name}=${quote(value)}`));
+    return `${install}\n// React 19 sets a custom element's properties: options names the cities.\n${imports}\n\nconst options = { cities: loadKuniCities };\n\nexport function Example() {\n  return <${spec.tag} ${[...props, "options={options}"].join(" ")} />;\n}`;
+  }
+  if (format === "vue")
+    return `<script setup>\n${install}\n${imports}\nconst options = { cities: loadKuniCities };\n// In vite.config: vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith("chizu-") } } })\n</script>\n\n<template>\n  ${tagOf(spec, [...plain], "  ").replace(`<${spec.tag}`, `<${spec.tag} :options.prop="options"`)}\n</template>`;
+  if (format === "svelte")
+    return `<script>\n  ${install}\n  ${imports.replace("\n", "\n  ")}\n  const options = { cities: loadKuniCities };\n</script>\n\n${tag.replace(`<${spec.tag}`, `<${spec.tag} {options}`)}`;
+  if (format === "angular")
+    return `${install}\nimport { CUSTOM_ELEMENTS_SCHEMA, Component } from "@angular/core";\n${imports}\n\n@Component({\n  selector: "app-example",\n  schemas: [CUSTOM_ELEMENTS_SCHEMA],\n  template: \`${tagOf(spec, plain, "    ").replace(`<${spec.tag}`, `<${spec.tag} [options]="options"`)}\`,\n})\nexport class ExampleComponent {\n  options = { cities: loadKuniCities };\n}`;
+  return null;
+}
 
 function docsLink() {
   document

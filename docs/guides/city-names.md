@@ -35,7 +35,7 @@ import { loadKuniCities } from "@johnmorrisdotca/chizu/cities";
 mountChizu(document.querySelector("#map")!, { map: WORLD, cities: loadKuniCities });
 ```
 
-On `<chizu-map>`, set `options.cities` the same way. The embed builder has no city control yet: it loads no city data of its own.
+On `<chizu-map>`, set `options.cities` the same way. The embed builder's Cities switch does it for you: its preview names the cities, its module and framework code import `loadKuniCities` (with kuni's install line), and its iframe and link add `cities=1`, which the embed page reads.
 
 ## What is named, and where
 
