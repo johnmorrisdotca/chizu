@@ -276,7 +276,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
     labels +
     named +
     placedCities +
-    (options.overlays && options.overlays.length > 0 ? overlaysSvg(map, options.overlays, box, offsets) : "") +
+    (options.overlays && options.overlays.length > 0 ? overlaysSvg(map, options.overlays, box) : "") +
     callouts +
     `</svg>`
   );

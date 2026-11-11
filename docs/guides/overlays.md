@@ -9,9 +9,9 @@ description: Hand the world map numbers, a track, a place, the night side, and i
 
 `drawChizu`'s `overlays` takes a list of shapes given as `[latitude, longitude]` in degrees. Chizu knows nothing of what they mean: a satellite's track, a city, the night side are numbers some other code works out. There are three kinds:
 
-- `line`: `points`, in order. It is split where it crosses the date line (a step of more than 180 degrees of longitude), so a track that goes round the world is never drawn across it. Give each part its own line for a colour of its own (the part flown, and the part to come).
+- `line`: `points`, in order. Each step is taken the short way round, so a track crosses the date line without a gap (170 to -170 is 20 degrees east, as is 350 to 10) and a track that goes round the world is one line. Give each part its own line for a colour of its own (the part flown, and the part to come).
 - `mark`: a dot `at` a point, with an optional `label`.
-- `area`: a `ring` of points, filled. It is drawn as given: a ring round a pole runs along its edge from -180 to 180 and back along the pole.
+- `area`: a `ring` of points, filled, at `opacity` (0 to 1). It is drawn as given, so its longitudes must run on without a jump (170 to 190, not 170 to -170, which would fill a band round the whole map); a ring round a pole runs along its edge from -180 to 180 and back along the pole.
 
 Colours are CSS colours or `var(--name)`; `width` and `size` are in pixels, so a map 240 pixels wide reads as well as a large one. An `id` is kept as `data-id` on the shape.
 
@@ -33,7 +33,7 @@ console.log(svg.includes('class="cz-overlays"'), svg.includes('data-id="here"'))
 
 ## On a mounted map, replace them
 
-A map from `mountChizu`, or a `<chizu-map>` element through its `options`, takes the same `overlays`. Setting `overlays` alone draws only them again, not the land, so a track can move every few seconds.
+A map from `mountChizu` takes the same `overlays`; `map.set({ overlays })` alone draws only them again, not the land, and keeps the zoom and the window, so a track can move every few seconds. A `<chizu-map>` element has an `overlays` property that does the same (`element.overlays = [...]`); setting its `options` instead builds the map again.
 
 ```ts no-run
 import WORLD from "@johnmorrisdotca/chizu/world";

@@ -18,7 +18,7 @@ export function nightRing(date) {
   const [declination, sunLon] = subsolar(date);
   const tilt = Math.tan((Math.abs(declination) < 0.1 ? 0.1 : declination) * RAD);
   const edge = [];
-  for (let lon = -180; lon <= 180; lon += 4) edge.push([Math.atan(-Math.cos((lon - sunLon) * RAD) / tilt) / RAD, lon]);
+  for (let lon = -180; lon <= 180; lon += 1) edge.push([Math.atan(-Math.cos((lon - sunLon) * RAD) / tilt) / RAD, lon]);
   const pole = declination > 0 ? -90 : 90;
   return [...edge, [pole, 180], [pole, -180]];
 }
