@@ -146,6 +146,15 @@ await build({
   minify: true,
   logLevel: "silent",
 });
+// kazoku-ui's embed panel, for the builder's code section only.
+await build({
+  stdin: { contents: 'import "@johnmorrisdotca/kazoku-ui/embed-panel/define";\n', resolveDir: process.cwd() },
+  outfile: "site/kazoku-embed-panel.js",
+  bundle: true,
+  format: "esm",
+  minify: true,
+  logLevel: "silent",
+});
 // The API reference, made from the source: every export of every entry point.
 writeFileSync("site/api.css", API_CSS);
 writeFileSync("site/api.html", apiPage({ id, name: "Chizu", icon: ICON }));

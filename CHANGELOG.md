@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- **The builder's code is in the family's embed panel** (kazoku-ui 0.38, family template 2026-11-11). The nine tabs, Copy, "Copy a link to this setup" and "Start again" are all kept, and the panel adds a link that opens the embed page with the choices, the embed guide in the page's language, and the credit for the outlines (Natural Earth) and the names (kuni). The tab chosen stays in the address.
+
 ## [1.11.0] - 2026-11-11
 
 ### Added

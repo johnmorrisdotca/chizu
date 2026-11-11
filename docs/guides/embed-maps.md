@@ -9,6 +9,8 @@ description: Choose a native custom element, frame or module mount and handle ev
 
 The builder previews the real map, locator or quiz. Its output includes the custom element, a version-pinned iframe, module and framework recipes. Choose the map first, then language, sizing, feature/capital display, colours and the native options for that maker. A locator accepts a named feature or geographic point; it does not ask the browser for a visitor’s location.
 
+The code is in the family's embed panel: a tab for each way to put it in a page (custom element, iframe, ES module, React 19, Vue, Svelte, Angular, plain HTML and the iframe address), Copy, a link that opens the embed page with your choices, this guide and the credit for the outlines and names. Only the choices that differ from the defaults are in the code. "Copy a link to this setup" and "Start again" sit beside Copy, and the tab you chose is kept in the address.
+
 ```ts no-run
 import "@johnmorrisdotca/chizu/element/define";
 import { ChizuMapElement } from "@johnmorrisdotca/chizu/element";

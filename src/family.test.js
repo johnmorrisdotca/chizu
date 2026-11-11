@@ -18,7 +18,7 @@ const id = pkg.name.replace(/^@[^/]+\//, "");
 // list of the family, are the same text.
 // The template of 2026-10-15d groups thirty-two packages by kind: the sports packages (Dougu Sports, Kyogijo Stadiums, Senshu Jerseys, Taisen Brackets) are a group of their own. The family's list is swept again, in every
 // repository at once, when a package is added to it, and this hash is then the new one.
-const TEMPLATE = { version: "2026-11-09", sha256: "75ca7e7da99092f360e5a539e34b109b14c92e9c04e7ad98f9e4b1e715c9240e" };
+const TEMPLATE = { version: "2026-11-11", sha256: "3683ae7db0afb26ce3bfe2a48eec421d999c06eadef8f4148c0de96292094edc" };
 const FILES = {
   "scripts/family-readme.mjs": "dfd4c27b70fe5d7d5f82724180cc739812f0dd13d209c41c053dbdc61bf90188",
   "scripts/release-notes.mjs": "efab0fb78ad05973a8885624c0d2ce3b458b55799c11eabaa5176603ce8cd1e9",

@@ -11,8 +11,8 @@ test("the shared builder previews all three makers and writes every host format"
     await page.locator(`#bld-makers [data-maker="${maker}"]`).click();
     await expect(page.locator(`#bld-stage chizu-${maker}`)).toHaveAttribute("data-ready", "true");
     for (const format of ["element", "iframe", "module", "react", "vue", "svelte", "angular", "html", "url"]) {
-      await page.locator(`#bld-formats [data-format="${format}"]`).click();
-      await expect(page.locator("#bld-code")).not.toHaveText("");
+      await page.locator(`[data-testid="bld-embed"] button[data-kind="${format}"]`).click();
+      await expect(page.locator('[data-testid="bld-embed"] [part="code"]')).not.toHaveText("");
     }
   }
   await page.locator('kazoku-language-picker [data-v="ja"]').click();
@@ -132,8 +132,8 @@ test("copied iframe code fits a narrow article with visible zoom controls and no
       await expect(page.locator("#bld-stage chizu-locator p").last()).toHaveText("Lake Biwa");
       await expect(page.locator("#bld-stage chizu-locator")).toHaveAttribute("data-ready", "true");
     }
-    await page.locator('#bld-formats [data-format="iframe"]').click();
-    const code = (await page.locator("#bld-code").textContent()).replaceAll(
+    await page.locator('[data-testid="bld-embed"] button[data-kind="iframe"]').click();
+    const code = (await page.locator('[data-testid="bld-embed"] [part="code"]').textContent()).replaceAll(
       "https://johnmorrisdotca.github.io/chizu/",
       "http://chizu.test/",
     );
@@ -208,8 +208,8 @@ test("map colours and capital switches survive builder links and validated frame
   await page.goto(link);
   await expect(page.locator("#opt-colors")).toHaveValue("JP:#2f6b4f,GB:#8a3b3b");
   await expect(page.locator("#opt-capital")).toHaveAttribute("aria-pressed", "false");
-  await page.locator('#bld-formats [data-format="url"]').click();
-  const frame = (await page.locator("#bld-code").textContent()).replace(
+  await page.locator('[data-testid="bld-embed"] button[data-kind="url"]').click();
+  const frame = (await page.locator('[data-testid="bld-embed"] [part="code"]').textContent()).replace(
     "https://johnmorrisdotca.github.io/chizu/",
     "http://chizu.test/",
   );
@@ -242,20 +242,24 @@ test("the cities switch names kuni's cities in the preview, its code imports the
   await page.goto("http://chizu.test/builder.html?lang=en#make=map&cities=1");
   await expect(page.locator('#bld-stage chizu-map .cz-city[data-city="Q1490"]')).toHaveCount(1);
   await expect(page.locator("#bld-stage chizu-map")).not.toHaveAttribute("cities");
-  await page.locator('#bld-formats [data-format="module"]').click();
-  await expect(page.locator("#bld-code")).toContainText("npm install @johnmorrisdotca/chizu @johnmorrisdotca/kuni");
-  await expect(page.locator("#bld-code")).toContainText("element.options = { cities: loadKuniCities };");
-  await expect(page.locator("#bld-code")).not.toContainText('setAttribute("cities"');
+  await page.locator('[data-testid="bld-embed"] button[data-kind="module"]').click();
+  await expect(page.locator('[data-testid="bld-embed"] [part="code"]')).toContainText(
+    "npm install @johnmorrisdotca/chizu @johnmorrisdotca/kuni",
+  );
+  await expect(page.locator('[data-testid="bld-embed"] [part="code"]')).toContainText(
+    "element.options = { cities: loadKuniCities };",
+  );
+  await expect(page.locator('[data-testid="bld-embed"] [part="code"]')).not.toContainText('setAttribute("cities"');
   for (const format of ["react", "vue", "svelte", "angular"]) {
-    await page.locator(`#bld-formats [data-format="${format}"]`).click();
-    await expect(page.locator("#bld-code"), format).toContainText(
+    await page.locator(`[data-testid="bld-embed"] button[data-kind="${format}"]`).click();
+    await expect(page.locator('[data-testid="bld-embed"] [part="code"]'), format).toContainText(
       'import { loadKuniCities } from "@johnmorrisdotca/chizu/cities";',
     );
   }
-  await page.locator('#bld-formats [data-format="element"]').click();
-  await expect(page.locator("#bld-code")).toContainText("/cities/+esm");
-  await page.locator('#bld-formats [data-format="url"]').click();
-  await expect(page.locator("#bld-code")).toContainText("cities=1");
+  await page.locator('[data-testid="bld-embed"] button[data-kind="element"]').click();
+  await expect(page.locator('[data-testid="bld-embed"] [part="code"]')).toContainText("/cities/+esm");
+  await page.locator('[data-testid="bld-embed"] button[data-kind="url"]').click();
+  await expect(page.locator('[data-testid="bld-embed"] [part="code"]')).toContainText("cities=1");
   // The frame's own page reads cities=1 and names them from the site's copy of kuni.
   await page.goto("http://chizu.test/embed/?region=world&cities=1");
   await expect(page.locator('chizu-map .cz-city[data-city="Q1490"]')).toHaveCount(1);

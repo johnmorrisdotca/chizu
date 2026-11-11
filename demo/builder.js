@@ -12,6 +12,8 @@ import { cityOptions } from "./city-names.js";
 import { CHIZU_COUNTRIES } from "./dist/names-entry.js";
 import { choices } from "./embed-options.js";
 import { FAMILY_EMBED_BUILDER_WORDS, familyEmbedBuilder } from "./family-embed-builder.js";
+// kazoku-ui's embed panel, the code section the builder fills: defined before the builder mounts.
+import "./kazoku-embed-panel.js";
 
 const words = {
   en: {
@@ -296,6 +298,11 @@ const builder = familyEmbedBuilder({
   leftOut,
   makers,
   groups: { map: { en: "The map", ja: "地図の設定" } },
+  docsHref: "docs/guides/embed-maps.html",
+  credits: ({ lang }) =>
+    lang === "ja"
+      ? "輪郭は Natural Earth（パブリックドメイン）、地名は kuni（Unicode CLDR と Wikidata）のものです。"
+      : "Outlines from Natural Earth (public domain); names from kuni (Unicode CLDR and Wikidata).",
   code: (context) => {
     const { maker, format, settings } = context;
     if (readMapColors(settings.colors ?? null) === null) return null;
@@ -381,5 +388,9 @@ function docsLink() {
   document
     .querySelector('[data-say="pageDocs"]')
     ?.setAttribute("href", page.lang === "ja" ? "docs/ja/index.html" : "docs/index.html");
+  // the panel's docs link, the embed guide in the page's language
+  document
+    .getElementById("bld-embed")
+    ?.setAttribute("docs-href", page.lang === "ja" ? "docs/ja/guides/embed-maps.html" : "docs/guides/embed-maps.html");
 }
 docsLink();
