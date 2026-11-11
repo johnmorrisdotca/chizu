@@ -10,8 +10,8 @@
       "gzip": 19193
     },
     "./mount": {
-      "minified": 56546,
-      "gzip": 20384
+      "minified": 56602,
+      "gzip": 20425
     },
     "./names": {
       "minified": 49510,
@@ -34,12 +34,12 @@
       "gzip": 44294
     },
     "./element": {
-      "minified": 17378542,
-      "gzip": 6267366
+      "minified": 17378598,
+      "gzip": 6267406
     },
     "./element/define": {
-      "minified": 17378557,
-      "gzip": 6267473
+      "minified": 17378613,
+      "gzip": 6267505
     },
     "./countries/ad": {
       "minified": 1370,
