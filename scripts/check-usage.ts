@@ -152,6 +152,12 @@ await step("node", () => {
   if (!/^true [1-9]\d*$/.test(out)) throw new Error(`unexpected output: ${out}`);
 });
 
+// Overlays drawn in Node from the package as installed: the overlays guide's own example, word for word.
+await step("overlays", () => {
+  const out = execFileSync(process.execPath, [join(examples("node"), "overlays.mjs")], { cwd: usage, encoding: "utf8" }).trim();
+  if (out !== "true true") throw new Error(`unexpected output: ${out}`);
+});
+
 await step("typescript", () => {
   writeFileSync(
     join(examples("typescript"), "tsconfig.json"),
@@ -358,6 +364,7 @@ const FILES: Record<string, string[]> = {
   "react/chizu-map.d.ts": guide("frameworks"),
   "angular/main.ts": guide("frameworks"),
   "typescript/index.ts": guide("typescript-and-node"),
+  "node/overlays.mjs": guide("overlays"),
   "node/server.mjs": guide("typescript-and-node"),
 };
 const normal = (text: string) => text.replace(/\r\n/g, "\n").trim();
