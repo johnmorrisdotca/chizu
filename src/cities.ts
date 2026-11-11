@@ -1,5 +1,6 @@
 import { projectPoint, unprojectPoint } from "./project.ts";
 import type { ChizuLanguage } from "./strings.ts";
+import { escapeXml, num } from "./svgText.ts";
 import type { ChizuMap, MapBox } from "./types.ts";
 
 /**
@@ -162,6 +163,34 @@ function countriesNamed(
 /** The order cities are placed in: national capitals that clear the floor and the most populous before the rest. */
 const rankOf = (city: ChizuCity) => (city.population ?? 0) * (city.capital === "national" ? 2 : 1);
 
+/**
+ * A list of cities in placing order, with each one's rank, made once per list: a mounted map draws on every pan and zoom
+ * step, and a list of kuni's has about 9,000 cities.
+ */
+const ranked = new WeakMap<readonly ChizuCity[], { city: ChizuCity; rank: number }[]>();
+function rankedCities(cities: readonly ChizuCity[]): { city: ChizuCity; rank: number }[] {
+  let list = ranked.get(cities);
+  if (list === undefined) {
+    list = cities
+      .map((city) => ({ city, rank: rankOf(city) }))
+      .sort((a, b) => b.rank - a.rank || (a.city.id < b.city.id ? -1 : a.city.id > b.city.id ? 1 : 0));
+    ranked.set(cities, list);
+  }
+  return list;
+}
+
+/** How many of a ranked list have a rank of at least `floor`: they are all at its start. */
+function countAtLeast(list: readonly { rank: number }[], floor: number): number {
+  let low = 0;
+  let high = list.length;
+  while (low < high) {
+    const middle = (low + high) >> 1;
+    if (list[middle]!.rank >= floor) low = middle + 1;
+    else high = middle;
+  }
+  return low;
+}
+
 type Box = { x0: number; y0: number; x1: number; y1: number };
 const overlaps = (a: Box, b: Box) => a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0;
 
@@ -203,32 +232,35 @@ export function placeCities(
   const gap = dot * 1.6;
   const ja = options.language === "ja";
   const countries = countriesNamed(map);
-  const order = cities
-    .filter(
-      (city) =>
-        (city.population ?? 0) >= floor &&
-        Number.isFinite(city.lat) &&
-        Number.isFinite(city.lon) &&
-        (countries === null || (city.country !== undefined && countries.has(city.country.toUpperCase()))),
-    )
-    .sort((a, b) => rankOf(b) - rankOf(a) || a.id.localeCompare(b.id));
+  const list = rankedCities(cities);
+  // A city of `floor` people or more has a rank of at least `floor` (a capital's counts double), so the rest of the
+  // sorted list is never looked at.
+  const reach = countAtLeast(list, floor);
   const labels: Box[] = [];
   const dots: Box[] = [];
   const placed: ChizuCityPlaced[] = [];
-  for (const city of order) {
+  for (let at = 0; at < reach; at += 1) {
+    const city = list[at]!.city;
+    if ((city.population ?? 0) < floor || !Number.isFinite(city.lat) || !Number.isFinite(city.lon)) continue;
+    if (countries !== null && (typeof city.country !== "string" || !countries.has(city.country.toUpperCase())))
+      continue;
     const point = projectPoint(map, city.lon, city.lat);
     if (!point) continue;
-    const name = ja ? (city.name.ja ?? city.name.en) : city.name.en;
-    // The room a name takes as a browser draws it: a line is taller than the font's size, and its halo spills over.
-    const wide = [...name].length * size * (ja ? CITY_EM_JA : CITY_EM_LATIN);
-    const tall = size * CITY_LINE;
-    const pad = size * CITY_PAD;
+    // A national capital's ring is the dot it is kept clear by.
+    const reachOf = city.capital === "national" ? dot * 1.7 : dot;
     for (const offset of offsets) {
       const x = point[0] + offset;
       const y = point[1];
       if (x < box.x || x > box.x + box.width || y < box.y || y > box.y + box.height) continue;
-      const own: Box = { x0: x - dot, y0: y - dot, x1: x + dot, y1: y + dot };
+      const own: Box = { x0: x - reachOf, y0: y - reachOf, x1: x + reachOf, y1: y + reachOf };
       if (labels.some((other) => overlaps(own, other)) || dots.some((other) => overlaps(own, other))) continue;
+      // The name, only once the city is in the window: Japanese where there is one (an empty one is none), else English.
+      const name = (ja && city.name?.ja) || city.name?.en;
+      if (!name) break;
+      // The room a name takes as a browser draws it: a line is taller than the font's size, and its halo spills over.
+      const wide = [...name].length * size * (ja ? CITY_EM_JA : CITY_EM_LATIN);
+      const tall = size * CITY_LINE;
+      const pad = size * CITY_PAD;
       const sides: [ChizuCityPlaced["side"], Box][] = [
         ["right", { x0: x + gap - pad, y0: y - tall / 2, x1: x + gap + wide + pad, y1: y + tall / 2 }],
         ["left", { x0: x - gap - wide - pad, y0: y - tall / 2, x1: x - gap + pad, y1: y + tall / 2 }],
@@ -252,10 +284,6 @@ export function placeCities(
   }
   return placed;
 }
-
-const escapeXml = (text: string) =>
-  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const num = (value: number) => String(Math.round(value * 100) / 100);
 
 /**
  * The city layer as SVG, for `drawChizu`: a `<g class="cz-cities">` holding a `<g class="cz-city" data-city="…">` for
