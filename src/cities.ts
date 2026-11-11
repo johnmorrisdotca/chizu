@@ -25,8 +25,12 @@ import type { ChizuMap, MapBox } from "./types.ts";
 export type ChizuCity = {
   /** Stable and unique in the list: the drawing's `data-city`. */
   id: string;
-  /** Its name in English, and in Japanese where it is known; a Japanese page prints the English name where there is none. */
-  name: { en: string; ja?: string };
+  /**
+   * Its name in English, and in Japanese where it is known; a Japanese page prints the English name where there is none.
+   * `jaShort` is the Japanese name a map labels it by (東京 for 東京都, 大阪 for 大阪市: kuni 1.6.3 gives it); where it is
+   * given, the label is it and the full name is the dot's title.
+   */
+  name: { en: string; ja?: string; jaShort?: string };
   /** Latitude in degrees, north positive. */
   lat: number;
   /** Longitude in degrees, east positive. */
@@ -78,7 +82,7 @@ export type ChizuCityPlaced = {
   /** Its dot's place on the canvas, in the copy of the canvas it was named in. */
   x: number;
   y: number;
-  /** The name printed: Japanese on a Japanese page where the city has one, else English. */
+  /** The name printed: Japanese on a Japanese page where the city has one (its short form, `jaShort`, where given), else English. */
   name: string;
   /** Which side of the dot the name is on: tried right, left, above, below in that order. */
   side: "right" | "left" | "above" | "below";
@@ -86,6 +90,10 @@ export type ChizuCityPlaced = {
 
 const EARTH_KM_PER_DEGREE = 111.32;
 const RAD = Math.PI / 180;
+
+/** A dot's title: the full Japanese name where the label is its short form (東京都 under 東京), else the label. */
+const titleOf = (city: ChizuCity, label: string, language: ChizuLanguage): string =>
+  language === "ja" && city.name?.jaShort && city.name.ja && label === city.name.jaShort ? city.name.ja : label;
 
 /** The city names' font size, and a dot's radius, as a share of the window's width. */
 const CITY_LABEL_RATIO = 0.0115;
@@ -255,7 +263,7 @@ export function placeCities(
       const own: Box = { x0: x - reachOf, y0: y - reachOf, x1: x + reachOf, y1: y + reachOf };
       if (labels.some((other) => overlaps(own, other)) || dots.some((other) => overlaps(own, other))) continue;
       // The name, only once the city is in the window: Japanese where there is one (an empty one is none), else English.
-      const name = (ja && city.name?.ja) || city.name?.en;
+      const name = (ja && (city.name?.jaShort || city.name?.ja)) || city.name?.en;
       if (!name) break;
       // The room a name takes as a browser draws it: a line is taller than the font's size, and its halo spills over.
       const wide = [...name].length * size * (ja ? CITY_EM_JA : CITY_EM_LATIN);
@@ -326,7 +334,7 @@ export function citiesSvg(
     const text = showNames
       ? `<text class="cz-city-label" x="${num(at.x)}" y="${num(at.y)}" font-size="${num(size)}" stroke-width="${num(size * CITY_HALO)}" text-anchor="${at.anchor}" data-side="${side}">${escapeXml(name)}</text>`
       : "";
-    return `<g class="cz-city${city.capital === "national" ? " cz-city-capital" : ""}" data-city="${escapeXml(city.id)}"><title>${escapeXml(name)}</title>${ring}<circle class="cz-city-dot" cx="${num(x)}" cy="${num(y)}" r="${num(dot)}"/>${text}</g>`;
+    return `<g class="cz-city${city.capital === "national" ? " cz-city-capital" : ""}" data-city="${escapeXml(city.id)}"><title>${escapeXml(titleOf(city, name, options.language))}</title>${ring}<circle class="cz-city-dot" cx="${num(x)}" cy="${num(y)}" r="${num(dot)}"/>${text}</g>`;
   });
   return `<g class="cz-cities">${parts.join("")}</g>`;
 }

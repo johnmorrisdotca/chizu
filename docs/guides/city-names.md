@@ -41,7 +41,7 @@ On `<chizu-map>`, set `options.cities` the same way. The embed builder has no ci
 
 - **More as you zoom in.** A window that shows the whole world names cities of five million people or more; the floor falls with the ground the window shows, to 15,000 at 400 km across. `cityOptions.minPopulation` fixes it instead.
 - **The biggest first.** Cities are placed in order of population, a country's capital counted double, and each name goes to the right of its dot, else the left, above or below. A city whose name fits on no side is left out, dot and all, so no name covers another city's name or dot, and no two dots touch. City names are not kept clear of the regions' names, the features' names or the callouts.
-- **English or Japanese**, with the drawing's `language`. A city with no Japanese name is named in English on a Japanese page; nothing is made up.
+- **English or Japanese**, with the drawing's `language`. A Japanese page labels a city by its short name where the list gives one (`name.jaShort`, as kuni 1.6.3 does: 東京 for 東京都, 大阪 for 大阪市), with the full name as the dot's title. A city with no Japanese name is named in English on a Japanese page; nothing is made up.
 - **Where a point can be placed.** The world, a country alone and a local map name cities. A map of a country's regions was fitted with a projection that cannot be read back, so it names none.
 - **The features' capitals.** Where any city is named, the cities name the capitals, and the features' `capitals` group is not drawn as well. A map that names no city (a country's regions) keeps its capitals and seats.
 

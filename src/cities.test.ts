@@ -116,6 +116,16 @@ describe("placing cities", () => {
     expect(placeCities(world, [seoul], wholeMapBox(world), [0], { language: "en" })).toHaveLength(1);
   });
 
+  it("labels a city by its short Japanese name where given, with the full name as its title", () => {
+    const short: ChizuCity = { ...tokyo, name: { en: "Tokyo", ja: "東京都", jaShort: "東京" } };
+    expect(placeCities(world, [short], wholeMapBox(world), [0], { language: "ja" })[0]?.name).toBe("東京");
+    const svg = drawChizu(world, { cities: [short], language: "ja" });
+    expect(svg).toContain("<title>東京都</title>");
+    expect(svg).toMatch(/<text class="cz-city-label"[^>]*>東京<\/text>/);
+    // English is unchanged.
+    expect(placeCities(world, [short], wholeMapBox(world), [0], { language: "en" })[0]?.name).toBe("Tokyo");
+  });
+
   it("prints English for an empty Japanese name, and skips a city with no name", () => {
     const blank: ChizuCity = { ...tokyo, name: { en: "Tokyo", ja: "" } };
     expect(placeCities(world, [blank], wholeMapBox(world), [0], { language: "ja" })[0]?.name).toBe("Tokyo");
