@@ -15,7 +15,7 @@
     },
     "./names": {
       "minified": 49510,
-      "gzip": 9772
+      "gzip": 9771
     },
     "./cities": {
       "minified": 5992867,
@@ -34,12 +34,12 @@
       "gzip": 44294
     },
     "./element": {
-      "minified": 17374570,
-      "gzip": 6265988
+      "minified": 17374561,
+      "gzip": 6265984
     },
     "./element/define": {
-      "minified": 17374585,
-      "gzip": 6266097
+      "minified": 17374576,
+      "gzip": 6266094
     },
     "./countries/ad": {
       "minified": 1370,

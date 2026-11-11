@@ -116,18 +116,7 @@ export class ChizuMapElement extends ChizuElement {
     write(this, "selectable", value);
   }
   static get observedAttributes(): readonly string[] {
-    return [
-      ...COMMON,
-      "capital",
-      "highlight",
-      "labels",
-      "zoom",
-      "data",
-      "features",
-      "controls",
-      "selectable",
-      "cities",
-    ];
+    return [...COMMON, "capital", "highlight", "labels", "zoom", "data", "features", "controls", "selectable"];
   }
 }
 
