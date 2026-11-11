@@ -11,7 +11,7 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="19.1 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-19.1%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="20.2 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-20.2%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -569,6 +569,7 @@ drawChizu(map, {
   interactive: true,                        // every region a thing to press
   cities: await loadKuniCities(),           // dots and names, more as the window closes in; from /cities
   cityOptions: { minPopulation: 500_000 },  // a fixed floor; labels: false draws the dots alone
+  overlays: [{ kind: "mark", at: [35.68, 139.69], label: "Tokyo" }], // lines, marks and areas from lat/lon; docs/guides/overlays.md
   style: true,                              // carry CHIZU_STYLE inside, so the drawing stands alone as an image
 });
 ```
@@ -598,7 +599,7 @@ mount.destroy();
 | A press | chooses a region (and a second press on it, none) |
 | Arrow keys, `+`, `-`, `0` | move, zoom, and show the whole map, with the map focused |
 
-`cities` and `cityOptions` are as `drawChizu` takes them; `cities` may also be a function such as `loadKuniCities`, called once. `selectable: false` makes the map only looked at, which a quiz wants. Callouts are placed again for the window as it is after each move, and keep out from under the buttons.
+`cities` and `cityOptions` are as `drawChizu` takes them; `cities` may also be a function such as `loadKuniCities`, called once. `overlays` too: setting them alone (`map.set({ overlays })`) draws only them again, not the land. `selectable: false` makes the map only looked at, which a quiz wants. Callouts are placed again for the window as it is after each move, and keep out from under the buttons.
 
 ## API
 
@@ -610,7 +611,7 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 
 | Entry | What it holds |
 | --- | --- |
-| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `placeCities`, `cityPopulationFloor`, `windowKilometres`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
+| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `overlaysSvg`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `placeCities`, `cityPopulationFloor`, `windowKilometres`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
 | `@johnmorrisdotca/chizu/element` | `ChizuMapElement`, `ChizuLocator`, `ChizuQuiz`, `defineMap`, `defineLocator`, `defineQuiz`, `loadElementMap`, `readMapData`, `CHIZU_ELEMENT_OPTION_KEYS`; `ChizuElementOptions` |
 | `@johnmorrisdotca/chizu/element/define` | registers `<chizu-map>`, `<chizu-locator>` and `<chizu-quiz>` |
 | `@johnmorrisdotca/chizu/draw` | `drawChizu`, `CHIZU_STYLE` |
