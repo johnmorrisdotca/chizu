@@ -365,7 +365,6 @@ export class ChizuElement extends ElementBase {
       language: this.language,
       tones,
       labels: this.hasAttribute("labels") ? on(this, "labels") : this.options_.labels,
-      cities: this.hasAttribute("cities") && !on(this, "cities") ? null : (this.options_.cities ?? null),
       controls: on(this, "controls", this.options_.controls ?? true),
       selectable,
       zoom: Math.round(number(this.getAttribute("zoom"), this.options_.zoom ?? 1, 1, 10)) as MapZoom,

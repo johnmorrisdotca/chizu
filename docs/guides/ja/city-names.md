@@ -35,7 +35,7 @@ import { loadKuniCities } from "@johnmorrisdotca/chizu/cities";
 mountChizu(document.querySelector("#map")!, { map: WORLD, cities: loadKuniCities });
 ```
 
-`<chizu-map>`では、同じように`options.cities`を設定します。`cities`属性を`off`にすると、ふたたび非表示になります。
+`<chizu-map>`では、同じように`options.cities`を設定します。埋め込みビルダーには、まだ都市の設定がありません。ビルダーは都市のデータを読み込まないためです。
 
 ## 表示する都市と、名前の位置
 

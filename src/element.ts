@@ -115,13 +115,6 @@ export class ChizuMapElement extends ChizuElement {
   set selectable(value: string | number | boolean | null | undefined) {
     write(this, "selectable", value);
   }
-  /** The `cities` attribute, reflected: `off` hides the cities given in `options.cities`; absent or `on` shows them. */
-  get cities(): string | null {
-    return this.getAttribute("cities");
-  }
-  set cities(value: string | number | boolean | null | undefined) {
-    write(this, "cities", value);
-  }
   static get observedAttributes(): readonly string[] {
     return [
       ...COMMON,

@@ -35,7 +35,7 @@ import { loadKuniCities } from "@johnmorrisdotca/chizu/cities";
 mountChizu(document.querySelector("#map")!, { map: WORLD, cities: loadKuniCities });
 ```
 
-On `<chizu-map>`, set `options.cities` the same way; the `cities` attribute set to `off` hides them again.
+On `<chizu-map>`, set `options.cities` the same way. The embed builder has no city control yet: it loads no city data of its own.
 
 ## What is named, and where
 

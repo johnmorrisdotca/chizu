@@ -231,6 +231,9 @@ const leftOut = {
   "options.controls": "The controls switch writes controls.",
   "options.selectable": "The selection switch writes selectable.",
   "options.zoom": "The zoom control writes zoom.",
+  "options.cities":
+    "City names need a list of cities from the host (loadKuniCities from @johnmorrisdotca/chizu/cities); the static builder loads none.",
+  "options.cityOptions": "How cities are drawn belongs with the host's list of cities.",
 };
 const formats = ["element", "iframe", "module", "react", "vue", "svelte", "angular", "html", "url"];
 let mounted;
