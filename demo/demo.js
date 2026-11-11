@@ -4,14 +4,16 @@
 // figures; and the code that draws the map as it is. Every name in English and Japanese. The working parts that need
 // no page are in tools.js; the words are in words.js. Each panel is a module of its own (demo-core.js holds the shared
 // state, demo-maps.js, demo-info.js, demo-save.js, demo-quiz.js, demo-callouts.js and demo-colour.js); this file sets
-// the page up, keeps the address and writes the code panel.
+// the page up, keeps the address and writes the code panel. Imports run one way, down to demo-core.js: what one panel
+// calls in another goes through demo-core's `calls`, which this file fills in.
 
 import { initCity } from "./city.js";
 import { cityOptions } from "./city-names.js";
 import { applyCallouts, calloutRequest } from "./demo-callouts.js";
-import { colourExample, readFigures, renderColour } from "./demo-colour.js";
+import { colourExample, colourTones, readFigures, renderColour } from "./demo-colour.js";
 import {
   $,
+  calls,
   el,
   FEATURE_MODES,
   featureOptions,
@@ -55,8 +57,11 @@ import { loadFeatures, loadWorldDetail } from "./dist/load-entry.js";
 import { mountChizu } from "./dist/mount-entry.js";
 import { codeFor } from "./tools.js";
 
+// What the panels call in each other, given to demo-core before anything runs.
+Object.assign(calls, { colourTones, docsLink, refreshAll, renderCode, renderInfo, renderNames, settings, startRound });
+
 // ---- the code for this view ------------------------------------------------------------------------------
-export function renderCode() {
+function renderCode() {
   if (!live.mount) return;
   const shownTones = Object.fromEntries(
     Object.entries(state.tones).filter(
@@ -105,7 +110,7 @@ async function copyText(text, button) {
 }
 
 // ---- the page --------------------------------------------------------------------------------------------
-export function settings() {
+function settings() {
   seg(
     $("modes"),
     MODES,
@@ -166,7 +171,7 @@ function chooseMode(mode) {
   renderCode();
 }
 
-export function refreshAll() {
+function refreshAll() {
   language.say();
   populateMaps();
   populateParts();
@@ -256,7 +261,7 @@ chooseMode(state.mode);
 if (state.mode === "explore" && regionOf(params.get("select"))) choosePlace(params.get("select"));
 host.dataset.ready = "true";
 
-export function docsLink() {
+function docsLink() {
   document
     .querySelector('[data-say="pageDocs"]')
     ?.setAttribute("href", language.lang === "ja" ? "docs/ja/index.html" : "docs/index.html");

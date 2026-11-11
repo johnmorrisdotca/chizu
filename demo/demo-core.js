@@ -1,8 +1,7 @@
 // The demo page's shared state, words and small DOM helpers, used by every panel. Split from demo.js; the panels share one state object (demo-core.js).
 
-import { docsLink, refreshAll } from "./demo.js";
-import { partsOf } from "./demo-maps.js";
-import { nameOf } from "./dist/index.js";
+import { nameOf, regionGroups } from "./dist/index.js";
+import { CHIZU_CONTINENTS, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
 import world from "./dist/world-entry.js";
 import { foldAnswer } from "./tools.js";
 import { WORDS } from "./words.js";
@@ -50,12 +49,28 @@ export const GROUP_COLOURS = {
   dark: ["#7a4e2e", "#2d5375", "#4d6a2c", "#73405a", "#776a26", "#4a4380", "#2c6b62", "#6e4734", "#55554a", "#3d5266"],
 };
 
+/**
+ * The entry points one panel calls in another (the code panel, a fresh round, the names list), filled in by demo.js
+ * before the page starts. A panel imports this module and the helpers below it, never a panel above it, so no import
+ * runs in a cycle.
+ */
+export const calls = {
+  colourTones: () => ({}),
+  docsLink: () => {},
+  refreshAll: () => {},
+  renderCode: () => {},
+  renderInfo: () => {},
+  renderNames: () => {},
+  settings: () => {},
+  startRound: async () => {},
+};
+
 export const language = familyLanguage({
   id: "chizu",
   words: WORDS,
   onChange: () => {
-    docsLink();
-    refreshAll();
+    calls.docsLink();
+    calls.refreshAll();
   },
 });
 export const say = (key, ...args) => {
@@ -154,6 +169,42 @@ export const inPart = () =>
     ? state.map.regions.filter((region) => state.part.codes.includes(region.code))
     : state.map.regions
   ).filter((region) => !region.unnamed);
+/** The parts a map may be cut to: the continents and subregions on the world, a country's own groups on its regions. */
+export function partsOf(map) {
+  const present = (codes) => codes.filter((code) => map.regions.some((region) => region.code === code));
+  if (map.kind === "world") {
+    const continents = CHIZU_CONTINENTS.map((one) => ({
+      key: one.code,
+      kind: "continent",
+      name: one.name,
+      nameJa: one.nameJa,
+      codes: present(one.codes),
+    })).filter((one) => one.codes.length > 1);
+    const subregions = CHIZU_SUBREGIONS.map((one) => ({
+      key: one.code,
+      kind: "subregion",
+      name: one.name,
+      nameJa: one.nameJa,
+      codes: present(one.codes),
+    })).filter((one) => one.codes.length > 1);
+    return [...continents, ...subregions];
+  }
+  if (map.kind === "divisions") {
+    const groups = regionGroups(map);
+    return groups.length > 1
+      ? groups.map((group) => ({
+          key: group.code,
+          kind: "group",
+          name: group.name,
+          nameJa: group.nameJa,
+          aliases: group.aliases,
+          codes: group.codes,
+        }))
+      : [];
+  }
+  return [];
+}
+
 /** The part of this map a key names: its code, or any of its names in either language (Kansai finds Kinki). */
 export const findPart = (map, key) =>
   (key

@@ -1,13 +1,23 @@
 // The demo page's map and part choosers, loading a map and painting it. Split from demo.js; the panels share one state object (demo-core.js).
 
-import { refreshAll, renderCode } from "./demo.js";
-import { colourTones } from "./demo-colour.js";
-import { $, el, featureOptions, findPart, host, language, live, nameIn, remember, say, state } from "./demo-core.js";
-import { renderInfo, renderNames } from "./demo-info.js";
-import { startRound } from "./demo-quiz.js";
-import { groupTones, nameOf, regionGroups } from "./dist/index.js";
+import {
+  $,
+  calls,
+  el,
+  featureOptions,
+  findPart,
+  host,
+  language,
+  live,
+  nameIn,
+  partsOf,
+  remember,
+  say,
+  state,
+} from "./demo-core.js";
+import { groupTones, nameOf } from "./dist/index.js";
 import { loadCountry, loadDivisions, loadFeatures } from "./dist/load-entry.js";
-import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
+import { CHIZU_CONTINENTS, CHIZU_COUNTRIES } from "./dist/names-entry.js";
 import world from "./dist/world-entry.js";
 
 // ---- the map and its part ------------------------------------------------------------------------------------
@@ -49,42 +59,6 @@ export function populateMaps() {
   );
   select.value =
     state.mapKey === "world" && state.part?.kind === "continent" ? `continent:${state.part.key}` : state.mapKey;
-}
-
-/** The parts a map may be cut to: the continents and subregions on the world, a country's own groups on its regions. */
-export function partsOf(map) {
-  const present = (codes) => codes.filter((code) => map.regions.some((region) => region.code === code));
-  if (map.kind === "world") {
-    const continents = CHIZU_CONTINENTS.map((one) => ({
-      key: one.code,
-      kind: "continent",
-      name: one.name,
-      nameJa: one.nameJa,
-      codes: present(one.codes),
-    })).filter((one) => one.codes.length > 1);
-    const subregions = CHIZU_SUBREGIONS.map((one) => ({
-      key: one.code,
-      kind: "subregion",
-      name: one.name,
-      nameJa: one.nameJa,
-      codes: present(one.codes),
-    })).filter((one) => one.codes.length > 1);
-    return [...continents, ...subregions];
-  }
-  if (map.kind === "divisions") {
-    const groups = regionGroups(map);
-    return groups.length > 1
-      ? groups.map((group) => ({
-          key: group.code,
-          kind: "group",
-          name: group.name,
-          nameJa: group.nameJa,
-          aliases: group.aliases,
-          codes: group.codes,
-        }))
-      : [];
-  }
-  return [];
 }
 
 export function populateParts() {
@@ -138,9 +112,9 @@ export async function chooseMap(key, partKey = null) {
   host.dataset.map = state.map.id;
   live.mount.setMap(state.map);
   remember({ map: currentKey, part: state.part?.key ?? null });
-  refreshAll();
+  calls.refreshAll();
   showPart();
-  if (state.mode === "quiz") void startRound();
+  if (state.mode === "quiz") void calls.startRound();
   else paint();
 }
 
@@ -150,9 +124,9 @@ export function choosePart(key) {
   remember({ part: state.part?.key ?? null });
   populateMaps();
   showPart();
-  renderNames();
-  renderInfo();
-  if (state.mode === "quiz") void startRound();
+  calls.renderNames();
+  calls.renderInfo();
+  if (state.mode === "quiz") void calls.startRound();
   else paint();
 }
 
@@ -168,7 +142,7 @@ export const partTones = () => (state.part ? groupTones(state.map, state.part.co
 export function setTones(tones, extra = {}) {
   state.tones = tones;
   live.mount.set({ tones, ...featureOptions(), ...extra });
-  renderCode();
+  calls.renderCode();
 }
 
 /** The features of the map shown, fetched the first time they are wanted (the switch is on, a list is shown, a round of water is asked). */
@@ -186,7 +160,7 @@ export function paint() {
     setTones(partTones(), { callouts: undefined, selectable: true, selected: state.selected });
   else if (state.mode === "callouts") setTones(partTones(), { selected: null, selectable: false });
   else if (state.mode === "colour")
-    setTones({ ...partTones(), ...colourTones() }, { callouts: undefined, selected: null, selectable: false });
+    setTones({ ...partTones(), ...calls.colourTones() }, { callouts: undefined, selected: null, selectable: false });
 }
 
 // ---- explore: the card for the chosen place, and the table of names --------------------------------------
