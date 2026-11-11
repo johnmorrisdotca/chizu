@@ -1,7 +1,6 @@
 // The demo page's callout sheets: the numbered places and their list. Split from demo.js; the panels share one state object (demo-core.js).
 
-import { renderCode } from "./demo.js";
-import { $, el, inPart, live, nameIn, regionOf, say, state, TWENTY } from "./demo-core.js";
+import { $, calls, el, inPart, live, nameIn, regionOf, say, state, TWENTY } from "./demo-core.js";
 import { currentSvg, downloadRow, svgToPng, viewName } from "./demo-save.js";
 import { toMarkdown, toSql } from "./downloads.js";
 import { toCsv, toJson, toText } from "./tools.js";
@@ -46,14 +45,14 @@ export function orderedCallouts() {
 export function applyCallouts() {
   if (state.mode !== "callouts") {
     live.mount.set({ callouts: undefined });
-    renderCode();
+    calls.renderCode();
     return;
   }
   live.mount.set({ callouts: calloutRequest() });
   $("legend").replaceChildren(
     ...orderedCallouts().map((code) => el("li", { "data-code": code, text: nameIn(regionOf(code)) })),
   );
-  renderCode();
+  calls.renderCode();
   const legendRows = () =>
     orderedCallouts().map((code, index) => ({
       number: index + 1,

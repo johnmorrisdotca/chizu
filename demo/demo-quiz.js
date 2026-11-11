@@ -1,9 +1,9 @@
 // The demo page's quiz: the rounds, the questions, the answers and the summary. Split from demo.js; the panels share one state object (demo-core.js).
 
 import { cityOptions } from "./city-names.js";
-import { renderCode, settings } from "./demo.js";
 import {
   $,
+  calls,
   el,
   featureOptions,
   inPart,
@@ -188,18 +188,18 @@ export function chooseStyle(style) {
 export function chooseCities(value) {
   state.cities = value;
   remember({ cities: value ? "on" : null });
-  settings();
+  calls.settings();
   live.mount.set(cityOptions(value));
 }
 
 export function chooseFeatures(value) {
   state.features = value;
   remember({ features: value === "off" ? null : value });
-  settings();
+  calls.settings();
   void ensureLayer().then(() => {
     live.mount.set(featureOptions());
     renderFeatures();
-    renderCode();
+    calls.renderCode();
   });
 }
 

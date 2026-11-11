@@ -1,7 +1,20 @@
 // The demo page's explore panel: the chosen place, the features and the list of names. Split from demo.js; the panels share one state object (demo-core.js).
 
-import { $, el, featureOf, inPart, language, live, nameIn, placeOf, regionOf, say, state } from "./demo-core.js";
-import { choosePart, coordinateText, groupIn, partsOf } from "./demo-maps.js";
+import {
+  $,
+  el,
+  featureOf,
+  inPart,
+  language,
+  live,
+  nameIn,
+  partsOf,
+  placeOf,
+  regionOf,
+  say,
+  state,
+} from "./demo-core.js";
+import { choosePart, coordinateText, groupIn } from "./demo-maps.js";
 import { downloadRow, viewName } from "./demo-save.js";
 import { featureKindOf, findFeatures, unprojectPoint } from "./dist/index.js";
 import { toMarkdown, toSql } from "./downloads.js";
