@@ -9,6 +9,7 @@ All notable changes to this project are written here. The format follows
 ### Added
 
 - **A Cities switch in the embed builder** (map maker): the preview names kuni's cities, the module, React, Vue, Svelte and Angular code imports `loadKuniCities` from `@johnmorrisdotca/chizu/cities` with kuni's install line, the element code takes them from the CDN, and the iframe and link add `cities=1`, which the embed page reads.
+- **Overlays from latitude and longitude** (`overlays` in `drawChizu`, `mountChizu` and `<chizu-map>`'s options): a `line` through points, split where it crosses the date line; a `mark` at a point with an optional label; an `area` filled from a ring (the night side). Widths and sizes are in pixels, so a 240 by 120 inset reads well. Setting `overlays` alone on a mounted map draws only them again, not the land. `overlaysSvg` draws them on their own. Chizu knows nothing of what they mean: it draws the numbers it is handed.
 
 ## [1.9.1] - 2026-11-11
 
