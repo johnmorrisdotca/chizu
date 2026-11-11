@@ -5,6 +5,7 @@
 // no page are in tools.js; the words are in words.js.
 
 import { initCity } from "./city.js";
+import { cityOptions } from "./city-names.js";
 import { drawChizu } from "./dist/draw-entry.js";
 import {
   featureKindName,
@@ -23,6 +24,7 @@ import { mountChizu } from "./dist/mount-entry.js";
 import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
 import world from "./dist/world-entry.js";
 import { toMarkdown, toSql } from "./downloads.js";
+import { keep } from "./keep.js";
 import {
   codeFor,
   figureSteps,
@@ -97,23 +99,6 @@ const say = (key, ...args) => {
   return typeof word === "function" ? word(...args) : word;
 };
 const nameIn = (region) => nameOf(region, language.lang);
-
-const keep = {
-  get(key) {
-    try {
-      return localStorage.getItem(key);
-    } catch {
-      return null;
-    }
-  },
-  set(key, value) {
-    try {
-      localStorage.setItem(key, value);
-    } catch {
-      /* A browser that keeps nothing: the best streak lasts the visit. */
-    }
-  },
-};
 
 const state = {
   mapKey: params.get("map") ?? "divisions:jp",
@@ -959,15 +944,11 @@ function chooseStyle(style) {
   void startRound();
 }
 
-/** kuni's cities, bundled with the site and fetched the first time they are turned on. */
-const loadDemoCities = () => import("./cities/kuni-cities.js").then((entry) => entry.loadKuniCities());
-const cityOptions = () => ({ cities: state.cities ? loadDemoCities : null });
-
 function chooseCities(value) {
   state.cities = value;
   remember({ cities: value ? "on" : null });
   settings();
-  mount.set(cityOptions());
+  mount.set(cityOptions(value));
 }
 
 function chooseFeatures(value) {
@@ -1583,7 +1564,7 @@ mount = mountChizu(host, {
   // Each map's seas, lakes and rivers, fetched the first time they are drawn.
   featureLayer: loadFeatures,
   ...featureOptions(),
-  ...cityOptions(),
+  ...cityOptions(state.cities),
   onSelect: (code) => {
     if (state.mode === "quiz") {
       // Finding a place, a press on the sea is not an answer; finding the water, a press on the land is a wrong one.

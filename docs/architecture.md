@@ -48,6 +48,7 @@ src/
 ├── drawLocal.ts        a local map as SVG text
 ├── drawCallouts.ts     the numbered circles, as SVG
 ├── mount.ts            a map in a page
+├── mountCities.ts      a mounted map's cities, asked for once
 ├── mountTypes.ts       what a mounted map is told and what it gives back
 ├── mountStyle.ts       the page's colours
 ├── random.ts           the seeded stream

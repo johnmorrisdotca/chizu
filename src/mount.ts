@@ -1,4 +1,3 @@
-import type { ChizuCity } from "./cities.ts";
 import { type ChizuDrawOptions, drawChizu } from "./draw.ts";
 import {
   boxCentre,
@@ -10,6 +9,7 @@ import {
   zoomBox,
   zoomToFit,
 } from "./frame.ts";
+import { mountCities } from "./mountCities.ts";
 import { ensureChizuMapStyle } from "./mountStyle.ts";
 import type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
 import { DRAG_PIXELS, KEY_STEP, WHEEL_GESTURE_MS, WHEEL_PAUSE_MS } from "./mountTypes.ts";
@@ -174,28 +174,10 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     }
     return null;
   }
-  /** The cities, once a function that gives them has answered; the function asked, so a new one is asked again. */
-  let cityList: readonly ChizuCity[] | null = null;
-  let citiesAsked: (() => Promise<readonly ChizuCity[]>) | null = null;
-  function cities(): readonly ChizuCity[] | null {
-    const wanted = options.cities;
-    if (!wanted) return null;
-    if (typeof wanted !== "function") return wanted;
-    if (citiesAsked === wanted) return cityList;
-    citiesAsked = wanted;
-    cityList = null;
-    wanted().then(
-      (list) => {
-        if (citiesAsked !== wanted) return;
-        cityList = list;
-        draw();
-      },
-      () => {
-        if (citiesAsked === wanted) citiesAsked = null;
-      },
-    );
-    return null;
-  }
+  const cities = mountCities(
+    () => options,
+    () => draw(),
+  );
   /** The map with its features among its regions, for framing, choosing and naming: a feature's code is never a region's. */
   function frameable(): ChizuMap {
     const loaded = layer();
