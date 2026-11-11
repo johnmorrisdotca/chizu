@@ -70,6 +70,7 @@ export const state = {
   mode: MODES.includes(params.get("mode")) ? params.get("mode") : "explore",
   features: FEATURE_MODES.includes(params.get("features")) ? params.get("features") : "off",
   cities: params.get("cities") === "on",
+  overlays: params.get("overlays") === "on",
   /** The named features of the map shown, once fetched: null before, and for a map with none. */
   layer: null,
   map: world,

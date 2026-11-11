@@ -249,6 +249,8 @@ const leftOut = {
   "options.cities":
     "The cities switch sets options.cities to loadKuniCities from @johnmorrisdotca/chizu/cities; a host's own list belongs to host code.",
   "options.cityOptions": "How cities are drawn belongs with the host's list of cities.",
+  "options.overlays":
+    "Overlays are numbers a host works out (a track, the night side) and hands the map; a static page has none to hand.",
 };
 const formats = ["element", "iframe", "module", "react", "vue", "svelte", "angular", "html", "url"];
 let mounted;
