@@ -22,6 +22,10 @@ jobs:
       - run: pnpm build
   demo:
     runs-on: ubuntu-latest
+    # The Playwright image of the version the lockfile holds: the browsers and their system libraries are in it, no apt.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -30,7 +34,6 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium webkit
       - name: The demo, played in Chromium and WebKit at a phone's width and a desk's
         run: pnpm test:demo
       - name: Every way to use it (a script tag, Vite, webpack, React, Vue, Svelte, Angular, an iframe, TypeScript, Node), from the package as npm packs it
