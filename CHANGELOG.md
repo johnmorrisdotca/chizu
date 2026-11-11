@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.9.1] - 2026-11-11
+
 ### Changed
 
 - **City names in Japanese are the short form a map prints** where the list gives one (`name.jaShort`, from kuni 1.6.3): 東京 for 東京都, 大阪 for 大阪市, 札幌 for 札幌市. The full name stays as the dot's title. `ChizuCity.name` takes `jaShort`.
