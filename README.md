@@ -11,7 +11,7 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="18.2 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-18.2%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="18.9 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-18.9%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -608,12 +608,13 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 
 | Entry | What it holds |
 | --- | --- |
-| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
+| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `placeCities`, `cityPopulationFloor`, `windowKilometres`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
 | `@johnmorrisdotca/chizu/element` | `ChizuMapElement`, `ChizuLocator`, `ChizuQuiz`, `defineMap`, `defineLocator`, `defineQuiz`, `loadElementMap`, `readMapData`, `CHIZU_ELEMENT_OPTION_KEYS`; `ChizuElementOptions` |
 | `@johnmorrisdotca/chizu/element/define` | registers `<chizu-map>`, `<chizu-locator>` and `<chizu-quiz>` |
 | `@johnmorrisdotca/chizu/draw` | `drawChizu`, `CHIZU_STYLE` |
 | `@johnmorrisdotca/chizu/mount` | `mountChizu`, `ensureChizuMapStyle`, `CHIZU_MAP_STYLE` |
 | `@johnmorrisdotca/chizu/names` | `CHIZU_COUNTRIES`, `CHIZU_SOURCE`, `countryByCode`, `countriesFromText` |
+| `@johnmorrisdotca/chizu/cities` | `loadKuniCities`, `CHIZU_CITY_TIERS`: kuni's cities for `drawChizu`'s `cities` (needs the optional peer `@johnmorrisdotca/kuni` 1.6.0 or later) |
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
 | `@johnmorrisdotca/chizu/world-geo` | the world as longitude/latitude GeoJSON for a spherical projection, as the default export and as `WORLD_GEO` |
@@ -834,7 +835,7 @@ The code is [MIT](./LICENSE) © John Morris. The outlines and the names are data
 | Data | Made from | Terms |
 | --- | --- | --- |
 | The outlines of the world, of each country and of 32 countries' regions; the seas, lakes, rivers, landforms and peaks | [Natural Earth](https://www.naturalearthdata.com/) 5.1.2, admin-0 countries at 1:110m, 1:50m and 1:10m, admin-1 states and provinces and the physical vectors at 1:10m | Public domain. Crediting the authors is unnecessary; it is done here anyway |
-| The countries' names, short names, readings and continents; the regions' ISO 3166-2 codes; the names of Japan's prefectures and of the regions that are one ISO subdivision | [kuni 国](https://github.com/johnmorrisdotca/kuni) 1.1.0, read at build time, whose names are [Unicode CLDR](https://cldr.unicode.org/)'s and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, whose notice is in NOTICE.md. Wikidata: CC0 |
+| The countries' names, short names, readings and continents; the regions' ISO 3166-2 codes; the names of Japan's prefectures and of the regions that are one ISO subdivision | [kuni 国](https://github.com/johnmorrisdotca/kuni) 1.6.0, read at build time, whose names are [Unicode CLDR](https://cldr.unicode.org/)'s and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, whose notice is in NOTICE.md. Wikidata: CC0 |
 | The other regions' names in Japanese; the features' names | Natural Earth's names, which are Wikidata's, and Wikidata's | CC0 |
 | The readings of three places kuni does not have, and the names that tell two regions of one map apart | Written for this package | MIT |
 

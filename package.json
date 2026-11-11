@@ -63,6 +63,11 @@
       "import": "./dist/names-entry.js",
       "default": "./dist/names-entry.js"
     },
+    "./cities": {
+      "types": "./dist/cities-entry.d.ts",
+      "import": "./dist/cities-entry.js",
+      "default": "./dist/cities-entry.js"
+    },
     "./load": {
       "types": "./dist/load-entry.d.ts",
       "import": "./dist/load-entry.js",
@@ -2829,6 +2834,14 @@
     "test:usage": "pnpm site && node scripts/check-usage.ts",
     "check:standard": "node scripts/check-standard.mjs"
   },
+  "peerDependencies": {
+    "@johnmorrisdotca/kuni": ">=1.6.0"
+  },
+  "peerDependenciesMeta": {
+    "@johnmorrisdotca/kuni": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@angular/common": "^22.2.4",
     "@angular/compiler": "^22.2.4",
@@ -2836,7 +2849,7 @@
     "@angular/platform-browser": "^22.2.4",
     "@biomejs/biome": "2.6.4",
     "@johnmorrisdotca/kazoku-ui": "^0.10.0",
-    "@johnmorrisdotca/kuni": "1.1.0",
+    "@johnmorrisdotca/kuni": "1.6.0",
     "@playwright/test": "^1.63.0",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@types/d3-geo": "^3.1.1",

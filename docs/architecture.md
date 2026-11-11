@@ -8,6 +8,7 @@ src/
 ├── draw-entry.ts       the drawing's entry
 ├── mount-entry.ts      the page's entry
 ├── names-entry.ts      the table of countries' entry
+├── cities-entry.ts     the cities' entry: kuni's cities for the city layer
 ├── element.ts          the map, locator and quiz as custom elements
 ├── element-base.ts     the shared element: loading a map and drawing it
 ├── element-define.ts   registers them as tags
@@ -31,6 +32,7 @@ src/
 ├── quiz.ts             a question and its choices
 ├── groups.ts           continents and other groups: cut, framed, toned
 ├── features.ts         seas, lakes, rivers and the rest: chosen, searched, made a map
+├── cities.ts           city names: the ground a window shows, the floor, the placing, the layer
 ├── fromText.ts         pasted names to places
 ├── countries.ts        the table of countries, looked up
 ├── project.ts          longitude and latitude on a canvas

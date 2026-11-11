@@ -94,4 +94,8 @@ export const CHIZU_STYLE = `
 .chizu .cz-landform-label { font-weight: 600; fill: var(--cz-feature-line); letter-spacing: .12em; text-transform: uppercase; }
 .chizu .cz-peak-label { font-weight: 500; fill: var(--cz-feature-line); text-anchor: start; }
 .chizu .cz-capital-label { font-weight: 600; fill: var(--cz-ink); text-anchor: start; }
+.chizu .cz-city-dot { fill: var(--cz-ink); stroke: var(--cz-halo); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.chizu .cz-city-ring { fill: var(--cz-halo); stroke: var(--cz-ink); stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
+.chizu .cz-city-label { font-family: var(--cz-font); font-weight: 500; fill: var(--cz-ink); dominant-baseline: central; paint-order: stroke; stroke: var(--cz-halo); stroke-width: 2.5px; stroke-linejoin: round; pointer-events: none; }
+.chizu .cz-city-capital .cz-city-label { font-weight: 600; }
 `;

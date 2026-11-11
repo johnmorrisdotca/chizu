@@ -27,8 +27,8 @@ importers:
         specifier: ^0.10.0
         version: 0.10.0
       '@johnmorrisdotca/kuni':
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.6.0
+        version: 1.6.0
       '@playwright/test':
         specifier: ^1.63.0
         version: 1.63.0
@@ -378,8 +378,8 @@ packages:
       three:
         optional: true
 
-  '@johnmorrisdotca/kuni@1.1.0':
-    resolution: {integrity: sha512-5GFfOXNtd0VOSAqp43wHc9vxS1VLMReHdgRBWmcdfbrJW9dVY+0fWxOBIXeGrWQoy4ZF7IhFGJbg8PZKfMMqCw==}
+  '@johnmorrisdotca/kuni@1.6.0':
+    resolution: {integrity: sha512-QDVaAR2UTf337mjY5o+/+ID729k7DlGcB+Ga1icy4qeKo8z5UCsx89NKQjn0KALakvh5U0D9UIJUgoOJXr6mlw==}
     engines: {node: '>=24'}
 
   '@jridgewell/gen-mapping@0.3.13':
@@ -1493,7 +1493,7 @@ snapshots:
 
   '@johnmorrisdotca/kazoku-ui@0.10.0': {}
 
-  '@johnmorrisdotca/kuni@1.1.0': {}
+  '@johnmorrisdotca/kuni@1.6.0': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:

@@ -1,3 +1,4 @@
+import { type ChizuCity, type ChizuCityOptions, citiesSvg } from "./cities.ts";
 import { calloutsSvg } from "./drawCallouts.ts";
 import { featureLabels, featureShapes } from "./drawFeatures.ts";
 import { type ChizuFeatureChoice, featuresShown } from "./features.ts";
@@ -61,6 +62,16 @@ export type ChizuDrawOptions = {
   featureLayer?: ChizuFeatureLayer | null;
   /** Print the features' names. Default true. */
   featureLabels?: boolean;
+  /**
+   * Cities to name on the map: kuni's (`loadKuniCities` from `@johnmorrisdotca/chizu/cities`) or any list of the same
+   * shape. More are named as the window shows less ground, the most populous first, each name beside its dot where it
+   * covers no other; a city that does not fit is left out. Drawn only on a map that can place a point (the world, a
+   * country alone, a local map), never on a country's regions. When given, it names the capitals itself, so the
+   * features' `capitals` group is not drawn as well. Default none.
+   */
+  cities?: readonly ChizuCity[] | null;
+  /** How the cities are drawn: a population floor, and whether their names are printed. */
+  cityOptions?: ChizuCityOptions;
 };
 
 /** A colour a drawing will carry: hex, a CSS name, `rgb()`, `hsl()` (and their `a` forms) or `var(--name)`. Nothing else, so none of it can end the attribute or the style it sits in. */
@@ -122,12 +133,15 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
   const tones = options.tones ?? {};
   const colors = options.colors ?? {};
   // The features chosen, and any other that is given a tone: a sea chosen from a list is drawn though its group is off.
+  const cities = options.cities && options.cities.length > 0 ? options.cities : null;
   const shown: ChizuFeature[] =
     options.featureLayer && options.featureLayer.map === map.id
       ? (() => {
           const chosen = new Set(featuresShown(options.featureLayer, options.features ?? []));
           return options.featureLayer.features.filter(
-            (feature) => chosen.has(feature) || tones[feature.code] !== undefined,
+            (feature) =>
+              (chosen.has(feature) || tones[feature.code] !== undefined) &&
+              !(cities !== null && feature.group === "capitals" && tones[feature.code] === undefined),
           );
         })()
       : [];
@@ -234,6 +248,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
     : "";
   const named =
     shown.length > 0 && options.featureLabels !== false ? featureLabels(shown, box, offsets, { language, tones }) : "";
+  const placedCities = cities ? citiesSvg(map, cities, box, offsets, { language, ...options.cityOptions }) : "";
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" class="chizu" viewBox="${num(box.x)} ${num(box.y)} ${num(box.width)} ${num(box.height)}" role="${interactive ? "group" : "img"}" aria-label="${escapeHtml(label)}" data-map="${escapeHtml(map.id)}">` +
     style +
@@ -249,6 +264,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
     frames +
     labels +
     named +
+    placedCities +
     callouts +
     `</svg>`
   );

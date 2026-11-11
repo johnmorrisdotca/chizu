@@ -20,6 +20,8 @@ export {
 } from "./calloutSpace.ts";
 export type { HandleLayout } from "./callouts.ts";
 export { HANDLE_LAYOUTS, placeCallouts } from "./callouts.ts";
+export type { ChizuCity, ChizuCityOptions, ChizuCityPlaced } from "./cities.ts";
+export { cityPopulationFloor, placeCities, windowKilometres } from "./cities.ts";
 export type { DistractorOptions, Scorable } from "./distractors.ts";
 export { DISTRACTOR_SCORES, distractorScore, mapDiagonal, pickDistractors } from "./distractors.ts";
 export type { ChizuFeatureChoice } from "./features.ts";
