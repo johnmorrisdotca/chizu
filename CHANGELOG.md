@@ -8,6 +8,7 @@ All notable changes to this project are written here. The format follows
 
 ### Changed
 
+- The must-have check is kazoku-ui's check-standard 2026-11-11b (`scripts/check-standard.mjs`, copied unchanged, its new hash recorded in `src/standard.test.js`). Its new item, `playwright-image`, holds CI's Playwright image to the version `pnpm-lock.yaml` pins for `@playwright/test`; here both are 1.63.0.
 - **Every demo page says what it is and credits its data** (kazoku-ui's page frame, check-standard 2026-11-11). The demo and the embed builder each have a header line ("Chizu 地図: embed builder", with a way home) and a credit line above the footer (the outlines and features' names from Natural Earth, the countries' names from kuni and Wikidata, and a link to `NOTICE.md`), in English and Japanese, and a title of their own made from the same words. Each embed page has the small credit line in its corner. The builder's panel credit says the same.
 - **The builder's code is in the family's embed panel** (kazoku-ui 0.38, family template 2026-11-11). The nine tabs, Copy, "Copy a link to this setup" and "Start again" are all kept, and the panel adds a link that opens the embed page with the choices, the embed guide in the page's language, and the credit for the outlines (Natural Earth) and the names (kuni). The tab chosen stays in the address.
 
