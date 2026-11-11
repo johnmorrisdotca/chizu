@@ -192,3 +192,30 @@ export function overlaysSvg(
   }
   return `<g class="cz-overlays">${areas.join("")}${lines.join("")}${marks.join("")}</g>`;
 }
+
+/**
+ * Draw a mounted map's overlays again in place, leaving the land as it is: the `cz-overlays` group of the drawing in
+ * `stage` is replaced, or added after the rest. False where the stage has no drawing yet.
+ *
+ * @param stage - The element the map is drawn in.
+ * @param map - The map drawn.
+ * @param overlays - The overlays now.
+ * @param box - The window shown.
+ * @param offsets - The shifts the land is drawn at.
+ * @returns Whether they were drawn.
+ */
+export function redrawOverlays(
+  stage: Element,
+  map: ChizuMap,
+  overlays: readonly ChizuOverlay[],
+  box: MapBox,
+  offsets: readonly number[],
+): boolean {
+  const svg = stage.querySelector("svg");
+  if (!svg) return false;
+  const drawn = overlaysSvg(map, overlays, box, offsets);
+  const group = svg.querySelector(":scope > .cz-overlays");
+  if (group) group.outerHTML = drawn;
+  else svg.insertAdjacentHTML("beforeend", drawn);
+  return true;
+}
