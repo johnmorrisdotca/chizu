@@ -36,7 +36,8 @@ test("the world names no cities until they are turned on, then names more as it 
   await expect(page.locator(`${at("board")} .cz-city[data-city="Q1490"]`)).toHaveCount(1);
   expect(page.url()).toContain("cities=on");
   const whole = await cityIds(page);
-  expect(whole.length).toBeGreaterThan(5);
+  expect(whole.length).toBeGreaterThanOrEqual(30);
+  expect(whole.length).toBeLessThanOrEqual(50);
   expect(await crossingNames(page)).toEqual([]);
   for (let step = 0; step < 3; step += 1) await page.locator(`${at("board")} [data-action="zoom-in"]`).click();
   await expect(page.locator(at("board")).locator(".czm-stage")).toHaveAttribute("data-zoom", "4");

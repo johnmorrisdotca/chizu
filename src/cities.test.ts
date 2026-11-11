@@ -1,4 +1,5 @@
 import { cities1m } from "@johnmorrisdotca/kuni/cities/1m";
+import { cities100k } from "@johnmorrisdotca/kuni/cities/100k";
 import { capitalCities } from "@johnmorrisdotca/kuni/cities/capitals";
 import { describe, expect, it } from "vitest";
 import { type ChizuCity, cityPopulationFloor, placeCities, windowKilometres } from "./cities.ts";
@@ -12,6 +13,10 @@ import type { MapBox } from "./types.ts";
 
 const KUNI: readonly ChizuCity[] = [
   ...new Map([...capitalCities(), ...cities1m()].map((one) => [one.id, one])).values(),
+];
+// kuni's cities as loadKuniCities gives them by default: every capital, and every city of 100,000 or more.
+const KUNI_DEFAULT: readonly ChizuCity[] = [
+  ...new Map([...capitalCities(), ...cities1m(), ...cities100k()].map((one) => [one.id, one])).values(),
 ];
 const tokyo: ChizuCity = {
   id: "Q1490",
@@ -111,6 +116,19 @@ describe("placing cities", () => {
     expect(placeCities(world, [seoul], wholeMapBox(world), [0], { language: "en" })).toHaveLength(1);
   });
 
+  it("prints English for an empty Japanese name, and skips a city with no name", () => {
+    const blank: ChizuCity = { ...tokyo, name: { en: "Tokyo", ja: "" } };
+    expect(placeCities(world, [blank], wholeMapBox(world), [0], { language: "ja" })[0]?.name).toBe("Tokyo");
+    const nameless = { ...tokyo, name: undefined } as unknown as ChizuCity;
+    expect(placeCities(world, [nameless], wholeMapBox(world), [0], { language: "en" })).toEqual([]);
+  });
+
+  it("gives the same answer from the same list, drawn again and again", () => {
+    const first = placeCities(world, KUNI, wholeMapBox(world), [0], { language: "en" });
+    const again = placeCities(world, KUNI, wholeMapBox(world), [0], { language: "en" });
+    expect(again).toEqual(first);
+  });
+
   it("places nothing on a country's regions", () => {
     expect(placeCities(japanRegions, [tokyo], wholeMapBox(japanRegions), [0], { language: "en" })).toEqual([]);
   });
@@ -122,6 +140,9 @@ describe("placing cities", () => {
     }).length;
     const japanAlone = placeCities(japan, KUNI, wholeMapBox(japan), [0], { language: "ja" }).length;
     expect(whole).toBeGreaterThan(10);
+    const wholeDefault = placeCities(world, KUNI_DEFAULT, wholeMapBox(world), [0], { language: "en" }).length;
+    expect(wholeDefault).toBeGreaterThanOrEqual(30);
+    expect(wholeDefault).toBeLessThanOrEqual(50);
     expect(europe).toBeGreaterThan(10);
     expect(japanAlone).toBeGreaterThan(5);
   });
@@ -157,6 +178,14 @@ describe("the city layer in a drawing", () => {
             expect(overlap(rects[i]!, rects[j]!), `${map.id} ${language}`).toBe(false);
       }
     }
+  });
+
+  it("keeps a regions map's capitals and seats when the cities name nothing there", async () => {
+    const { loadFeatures } = await import("./load-entry.ts");
+    const layer = await loadFeatures("divisions-jp");
+    const svg = drawChizu(japanRegions, { features: ["capitals"], featureLayer: layer, cities: KUNI });
+    expect(svg).not.toContain("cz-cities");
+    expect(svg).toContain('data-group="capitals"');
   });
 
   it("names the capitals itself, so the features' capitals are not drawn twice", async () => {
