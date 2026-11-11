@@ -12,9 +12,9 @@ what it was made from.
 | `divisions/<code>`, Japan's prefectures among them | Natural Earth 5.1.2, admin-1 states and provinces at 1:10m (`ne_10m_admin_1_states_provinces`) | Public domain |
 | `features/<map>`: the seas, lakes, rivers, landforms and peaks of each map | Natural Earth 5.1.2's physical vectors at 1:10m: marine areas, lakes, rivers and lake centre-lines, geographic regions and elevation points (`ne_10m_geography_marine_polys`, `ne_10m_lakes`, `ne_10m_rivers_lake_centerlines`, `ne_10m_geography_regions_polys`, `ne_10m_geography_regions_elevation_points`) | Public domain |
 | The features' Japanese names where Natural Earth has none, the English names of lakes and rivers, the readings Wikidata gives (its "name in kana", P1814, and aliases in hiragana), and which Wikidata item each of Natural Earth's rivers is | Wikidata (https://www.wikidata.org/), asked by `scripts/wikidata.mjs` and kept in `scripts/data-wikidata.json` | CC0 |
-| `features/<map>`: the capitals of the countries and the seats of their regions, with their names, readings and places | kuni 国 1.1.0's `/facts` and `/subdivision-facts`, whose figures are Wikidata's | kuni: MIT. Wikidata: CC0 |
+| `features/<map>`: the capitals of the countries and the seats of their regions, with their names, readings and places | kuni 国 1.6.0's `/facts` and `/subdivision-facts`, whose figures are Wikidata's | kuni: MIT. Wikidata: CC0 |
 | The readings of feature names no source reads, and the river names Natural Earth spells otherwise (Rhein for the Rhine) matched to their Wikidata items | Written for this package, in `scripts/features-config.mjs` | MIT |
-| The countries' names in English and Japanese, their everyday short names (アメリカ for アメリカ合衆国), their readings in kana, continents and three-letter codes; the regions' ISO 3166-2 codes; the names of the regions that are exactly one ISO subdivision; Japan's prefectures' names and readings | kuni 国 (`@johnmorrisdotca/kuni` 1.1.0, read at build time), whose names are Unicode CLDR 48.2's and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, below. Wikidata: CC0 |
+| The countries' names in English and Japanese, their everyday short names (アメリカ for アメリカ合衆国), their readings in kana, continents and three-letter codes; the regions' ISO 3166-2 codes; the names of the regions that are exactly one ISO subdivision; Japan's prefectures' names and readings | kuni 国 (`@johnmorrisdotca/kuni` 1.6.0, read at build time), whose names are Unicode CLDR 48.2's and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, below. Wikidata: CC0 |
 | The other regions' names in English and Japanese | Natural Earth's name columns, which are Wikidata's | CC0 |
 | The readings of the three places kuni does not have, the names that tell two regions of one map apart (Cork City), and the table of which ISO code a region has when Natural Earth's is out of date | Written for this package, in `scripts/data-config.mjs` | MIT |
 
@@ -76,7 +76,7 @@ SPDX-License-Identifier: Unicode-3.0
 Japanese name (except the United Kingdom's 英国, CLDR's written abbreviation, where イギリス is kept), its reading,
 continent and three-letter code. A region of a country takes its ISO 3166-2 code from Natural Earth when kuni has
 the same code, or from the table `ISO_JOIN` in `scripts/data-config.mjs`, which says for each of the rest what the
-code is now or why there is none. A region that is exactly one ISO subdivision takes kuni's names (with kuni 1.1.0 there is
+code is now or why there is none. A region that is exactly one ISO subdivision takes kuni's names (with kuni 1.6.0 there is
 no exception left in `KUNI_NAMES_KEPT_FROM_NATURAL_EARTH`); `NAME_FIXES` tells apart two regions of one map that
 would otherwise share a name. Japan's prefectures take kuni's names and readings, and their eight regions are kuni's
 grouping `jp-regions-8`.

@@ -2,7 +2,7 @@
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run `pnpm data` to make it again.
  * Every country Natural Earth 5.1.2 draws at 1:50m (238 of them): its names in English and
  * Japanese, which continent it is in, and which of the maps has it. The names, readings, continents and three-letter
- * codes are kuni's (@johnmorrisdotca/kuni 1.1.0), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
+ * codes are kuni's (@johnmorrisdotca/kuni 1.6.0), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
  */
 import type { ChizuCountry, ChizuGroup } from "../types.ts";
 
@@ -2946,7 +2946,7 @@ export const CHIZU_SUBREGIONS: readonly ChizuGroup[] = [
  * import { CHIZU_SOURCE } from "@johnmorrisdotca/chizu/names";
  *
  * console.log(CHIZU_SOURCE.name, CHIZU_SOURCE.version, CHIZU_SOURCE.licence, "·", CHIZU_SOURCE.names.name, CHIZU_SOURCE.names.version);
- * // Natural Earth 5.1.2 Public domain · kuni 1.1.0
+ * // Natural Earth 5.1.2 Public domain · kuni 1.6.0
  * ```
  */
 export const CHIZU_SOURCE = {
@@ -2970,7 +2970,7 @@ export const CHIZU_SOURCE = {
   names: {
     name: "kuni",
     package: "@johnmorrisdotca/kuni",
-    version: "1.1.0",
+    version: "1.6.0",
     licence: "MIT; its names are Unicode CLDR's (Unicode-3.0) and Wikidata's (CC0)",
   },
 };

@@ -29,7 +29,7 @@ rivers), `all`, a group or a single kind: `features: ["water"]`, `["lakes", "pea
 | `rivers` | `river` | Natural Earth's rivers (`ne_10m_rivers_lake_centerlines`) | a line whose width follows the river's rank, the same on the screen at every zoom; the name along it |
 | `landforms` | `desert`, `range`, `plateau`, `plain`, `peninsula`, `cape`, `basin`, `delta`, `valley`, `wetland`, `tundra`, `isthmus`, `depression`, `lowland`, `gorge`, `foothills` | Natural Earth's geographic regions (`ne_10m_geography_regions_polys`) | only its name, spaced out, until it is chosen or toned, when its outline is drawn |
 | `peaks` | `peak` | Natural Earth's elevation points (`ne_10m_geography_regions_elevation_points`), with each peak's height in metres | a small triangle and its name |
-| `capitals` | `capital`, `seat` | kuni 国 1.1.0's `/facts` (a country's capital) and `/subdivision-facts` (the seat of each of its regions) | a ring round a dot for a capital, a dot for a seat, and the name |
+| `capitals` | `capital`, `seat` | kuni 国 1.6.0's `/facts` (a country's capital) and `/subdivision-facts` (the seat of each of its regions) | a ring round a dot for a capital, a dot for a seat, and the name |
 
 Left out, with the reason (`FEATURE_FILES` in `scripts/features-config.mjs`): Natural Earth's unnamed pieces of sea;
 the three river mouths it draws as sea and names as the river (the Amazon, the Yangtze, the Columbia), which the

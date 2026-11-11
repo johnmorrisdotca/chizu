@@ -50,4 +50,4 @@ export const EXCLUDED = new Set(["AQ", "TF", "CYN", "SOL"]);
  * version: the package itself imports nothing of kuni's, and a newer kuni changes chizu's names only when this pin
  * and the data are moved together.
  */
-export const KUNI = { package: "@johnmorrisdotca/kuni", version: "1.1.0" };
+export const KUNI = { package: "@johnmorrisdotca/kuni", version: "1.6.0" };
