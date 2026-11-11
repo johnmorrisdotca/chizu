@@ -84,6 +84,12 @@ mkdirSync(project);
 writeFileSync(join(project, "package.json"), JSON.stringify({ name: "scratch", private: true, version: "0.0.0" }));
 run("npm", ["install", "--no-audit", "--no-fund", "--silent", tarball], project, true);
 console.log("ok   npm install of the tarball");
+// The entries that need an optional peer (kuni, for /cities) are tried last, once the peer is installed beside the
+// package as a page that uses them installs it; every other entry is imported first without it, so none reaches for it.
+const optionalPeers = Object.entries(pkg.peerDependenciesMeta ?? {})
+  .filter(([, meta]) => meta.optional)
+  .map(([name]) => `${name}@${pkg.peerDependencies[name]}`);
+const PEER_ENTRIES = new Set([`${pkg.name}/cities`]);
 
 // What the built package in this checkout makes: the installed one must make the same.
 const local = await import(new URL("../dist/index.js", import.meta.url).href);
@@ -97,11 +103,13 @@ const SAMPLES = {
   "./divisions/*": ["de", "us", "fr"],
   "./features/*": ["world", "divisions-jp", "country-fr"],
 };
-const entries = Object.keys(pkg.exports).flatMap((key) => {
-  if (key === ".") return [pkg.name];
-  if (key.includes("*")) return SAMPLES[key].map((one) => `${pkg.name}/${key.slice(2).replace("*", one)}`);
-  return [`${pkg.name}/${key.slice(2)}`];
-});
+const entries = Object.keys(pkg.exports)
+  .flatMap((key) => {
+    if (key === ".") return [pkg.name];
+    if (key.includes("*")) return SAMPLES[key].map((one) => `${pkg.name}/${key.slice(2).replace("*", one)}`);
+    return [`${pkg.name}/${key.slice(2)}`];
+  })
+  .filter((entry) => !PEER_ENTRIES.has(entry));
 writeFileSync(
   join(project, "esm.mjs"),
   `${entries.map((entry, i) => `import * as m${i} from ${JSON.stringify(entry)};`).join("\n")}
@@ -146,6 +154,23 @@ console.log(names.join(" "));
 );
 console.log(`ok   import:  ${run(process.execPath, ["esm.mjs"], project).trim()}`);
 console.log(`ok   require: ${run(process.execPath, ["cjs.cjs"], project).trim()}`);
+
+// 4b. The optional peers, installed beside the package, and the entries that need them.
+if (optionalPeers.length > 0) {
+  run("npm", ["install", "--no-audit", "--no-fund", "--silent", ...optionalPeers], project, true);
+  writeFileSync(
+    join(project, "peers.mjs"),
+    `const { loadKuniCities } = await import(${JSON.stringify(`${pkg.name}/cities`)});
+const { drawChizu } = await import(${JSON.stringify(`${pkg.name}/draw`)});
+const world = (await import(${JSON.stringify(`${pkg.name}/world`)})).default;
+const capitals = await loadKuniCities("capitals");
+if (!capitals.some((one) => one.id === "Q1490")) throw new Error("kuni's capitals have no Tokyo");
+if (!drawChizu(world, { cities: capitals }).includes('data-city="Q1490"')) throw new Error("the cities are not drawn");
+console.log(${JSON.stringify([...PEER_ENTRIES].join(" "))}, "with", ${JSON.stringify(optionalPeers.join(" "))});
+`,
+  );
+  console.log(`ok   peers:   ${run(process.execPath, ["peers.mjs"], project).trim()}`);
+}
 
 // 5. Each command in `bin`, as installed.
 for (const name of Object.keys(pkg.bin ?? {})) {
