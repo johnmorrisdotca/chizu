@@ -40,6 +40,7 @@ import {
   populateParts,
   showPart,
 } from "./demo-maps.js";
+import { chooseOverlays, overlayOptions } from "./demo-overlays.js";
 import {
   answer,
   checkTyped,
@@ -114,6 +115,7 @@ export function settings() {
   );
   seg($("features"), FEATURE_MODES, state.features, chooseFeatures, (value) => say("featureModes")[value]);
   seg($("cities"), [false, true], state.cities, chooseCities, (value) => say(value ? "on" : "off"));
+  seg($("overlays"), [false, true], state.overlays, chooseOverlays, (value) => say(value ? "on" : "off"));
   seg(
     $("polish"),
     [false, true],
@@ -230,6 +232,7 @@ live.mount = mountChizu(host, {
   featureLayer: loadFeatures,
   ...featureOptions(),
   ...cityOptions(state.cities),
+  ...overlayOptions(state.overlays),
   onSelect: (code) => {
     if (state.mode === "quiz") {
       // Finding a place, a press on the sea is not an answer; finding the water, a press on the land is a wrong one.

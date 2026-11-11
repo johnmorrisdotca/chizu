@@ -69,6 +69,10 @@ const pageParts = {
     "Name the cities on the world and on a country's own map: the biggest on the whole world, more as you zoom in, each name beside its dot where it covers no other. Off, the map is as it always was. The cities are kuni's, fetched the first time you turn them on. A map of a country's regions has no cities.",
     "世界地図と国の地図に、都市の名前を表示します。世界全体では大きな都市だけを表示し、拡大するほど多くの都市を表示します。名前は点の横の、ほかの名前に重ならない位置に置きます。「なし」なら、いつもの地図のままです。都市のデータはkuniのもので、はじめて「あり」にしたときに読み込みます。地方に分けた地図には都市を表示しません。",
   ]),
+  rowOverlays: row("overlays", "overlays", [
+    "Draw lines, a mark and a shaded area over the map from numbers: the night side as it is now, a sample satellite's last half orbit and its next one (split where they cross the date line), and where it is. The page works the numbers out; the map only draws them, and draws only them again when they change.",
+    "数値から、線、点、塗りつぶした範囲を地図に重ねて描きます。いまの夜の側、例として人工衛星のさっきの半周と次の1周（日付変更線で分けて描きます）、いまの位置です。数値はページが計算し、地図は描くだけです。数値が変わったときは、それだけを描き直します。",
+  ]),
   rowModes: row("modes", "mode", [
     "Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.",
     "地図を見てなまえを調べる、クイズで遊ぶ、番号つきの目印をつける、自分の数値で色を塗る、のどれかを選びます。",
