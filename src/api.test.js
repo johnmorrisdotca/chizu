@@ -17,13 +17,15 @@ describe("the API reference", () => {
     expect(api.map((entry) => entry.entry).sort()).toEqual(entries.map(([key]) => key).sort());
   });
 
+  // Imports every entry from source, the world's and the elements' data among them: about 4 s on a quiet machine, and
+  // several times that while another repository's tests run, so it is given a minute.
   it("lists every name each entry point really exports", async () => {
     for (const [key, entry] of entries) {
       const module = await import(/* @vite-ignore */ source(entry));
       const listed = api.find((one) => one.entry === key).exports.map((one) => one.name);
       for (const name of Object.keys(module)) expect(listed, `${key} exports ${name}`).toContain(name);
     }
-  });
+  }, 60_000);
 
   it("gives every export a kind and a signature", () => {
     for (const entry of api) for (const one of entry.exports) {
