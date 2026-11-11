@@ -154,7 +154,10 @@ await step("node", () => {
 
 // Overlays drawn in Node from the package as installed: the overlays guide's own example, word for word.
 await step("overlays", () => {
-  const out = execFileSync(process.execPath, [join(examples("node"), "overlays.mjs")], { cwd: usage, encoding: "utf8" }).trim();
+  const out = execFileSync(process.execPath, [join(examples("node"), "overlays.mjs")], {
+    cwd: usage,
+    encoding: "utf8",
+  }).trim();
   if (out !== "true true") throw new Error(`unexpected output: ${out}`);
 });
 
