@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.9.0] - 2026-11-11
+
 ### Added
 
 - **City names on the map.** `drawChizu` takes `cities`: a dot and a name for each city a window has room for, more as it shows less ground (five million people and up on the whole world, down to 15,000 at 400 km across), the most populous first, each name right of its dot, else left, above or below, and a city left out when no side is free, so no city name covers another city's name or dot (they are not kept clear of the regions' names, the features' names or the callouts). English or Japanese. A map of one country alone names only its own cities; a map of a country's regions names none. Off by default: a map drawn without `cities` is unchanged. `mountChizu` and `<chizu-map>`'s `options` take `cities` too (a list, or a function called once), and `placeCities`, `cityPopulationFloor` and `windowKilometres` give the choices without drawing. Guide: docs/guides/city-names.md.
