@@ -3,6 +3,7 @@
 // compiled library beside it.
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
+import { pageCreditsHtml, pageHeaderHtml, pageTitle } from "@johnmorrisdotca/kazoku-ui/page-frame";
 import { build } from "esbuild";
 
 import { API_CSS, apiPage } from "./api.mjs";
@@ -41,13 +42,51 @@ const escapeHtml = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").r
 const row = (testid, label, help) =>
   `<div class="setup fam-row" data-help-en="${escapeHtml(help[0])}" data-help-ja="${escapeHtml(help[1])}"><span class="fam-label" data-say="${label}"></span><div class="fam-seg" role="group" data-say-label="${label}" id="${testid}" data-testid="${testid}"></div></div>`;
 
+// The family's page frame on each page (kazoku-ui's page-frame): one line saying what the page is, with a way home, and the
+// data's credit line above the footer. One table of words per page makes the header line, the built <title> and the
+// title the header keeps in the reader's language, so they cannot disagree.
+const NOTICE = "https://github.com/johnmorrisdotca/chizu/blob/main/NOTICE.md";
+const INDEX_DESCRIPTION =
+  "Japan's 47 prefectures, the world, its continents and 32 countries' regions, with their seas, lakes, rivers and mountains: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.";
+const BUILDER_DESCRIPTION = "Preview an embeddable map, named place or geography quiz and copy the code.";
+const FRAME_TEXTS = {
+  "index.html": {
+    en: { name: "Chizu 地図", what: "maps to explore, quiz and colour", description: INDEX_DESCRIPTION },
+    ja: {
+      name: "地図 Chizu",
+      what: "見て、クイズをして、色を塗る地図",
+      description:
+        "日本の47都道府県、世界、大陸、32か国の地方と、その海、湖、川、山。ドラッグして拡大縮小できる地図、遊んで共有できるクイズ、印刷できる番号つきの地図、自分の数値で色を塗った地図です。",
+    },
+  },
+  "builder.html": {
+    en: { name: "Chizu 地図", what: "embed builder", description: BUILDER_DESCRIPTION },
+    ja: {
+      name: "地図 Chizu",
+      what: "埋め込みを作る",
+      description: "埋め込む地図、場所の表示、地理のクイズをプレビューして、コードをコピーできます。",
+    },
+  },
+};
+const FRAME_CREDITS = pageCreditsHtml(
+  {
+    en: "Outlines from Natural Earth (public domain); names from kuni (Unicode CLDR and Wikidata).",
+    ja: "輪郭はNatural Earth（パブリックドメイン）、地名はkuni（Unicode CLDRとWikidata）のデータです。",
+  },
+  { href: NOTICE },
+);
+/** A page's <!--frame:header--> and <!--frame:credits--> filled with its frame. */
+const framed = (html, file) =>
+  html
+    .replace("<!--frame:header-->", pageHeaderHtml(FRAME_TEXTS[file], { meta: true }))
+    .replace("<!--frame:credits-->", FRAME_CREDITS);
+
 // The page is demo/index.html; each <!-- family:key --> in it is replaced by the text below.
 const pageParts = {
   head: familyHead({
     id,
-    title: "Chizu 地図 — SVG maps for JavaScript",
-    description:
-      "Japan's 47 prefectures, the world, its continents and 32 countries' regions, with their seas, lakes, rivers and mountains: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.",
+    title: pageTitle(FRAME_TEXTS["index.html"].en),
+    description: INDEX_DESCRIPTION,
     ogTitle: "Chizu maps",
     ogDescription:
       "Japan's prefectures, the world and 32 countries' regions: quizzes, callout sheets and coloured maps, in English and Japanese.",
@@ -110,9 +149,9 @@ const pageParts = {
   footer: familyFooter({ id }),
   script: `<script>${FAMILY_SCRIPT}</script>\n    <script type="module" src="kazoku-parts.js"></script>`,
 };
-const page = readFileSync("demo/index.html", "utf8").replace(
-  /<!-- family:([A-Za-z]+) -->/g,
-  (_match, key) => pageParts[key],
+const page = framed(
+  readFileSync("demo/index.html", "utf8").replace(/<!-- ?family:([A-Za-z]+) ?-->/g, (_match, key) => pageParts[key]),
+  "index.html",
 );
 
 rmSync("site", { recursive: true, force: true });
@@ -137,7 +176,7 @@ publishThumbnails(".", "site");
 await build({
   stdin: {
     contents:
-      'import "@johnmorrisdotca/kazoku-ui/language-picker/define";\nimport "@johnmorrisdotca/kazoku-ui/theme-switch/define";\n',
+      'import "@johnmorrisdotca/kazoku-ui/language-picker/define";\nimport "@johnmorrisdotca/kazoku-ui/theme-switch/define";\nimport "@johnmorrisdotca/kazoku-ui/page-frame/define";\n',
     resolveDir: process.cwd(),
   },
   outfile: "site/kazoku-parts.js",
@@ -167,10 +206,10 @@ writeFileSync(
   `export const FAMILY_EMBED_BUILDER_WORDS = ${JSON.stringify(FAMILY_EMBED_BUILDER_WORDS)};\nexport ${familyEmbedBuilder.toString()};\n`,
 );
 const builderParts = {
-  builderHead: familyHead({
+  head: familyHead({
     id,
-    title: "Chizu 地図 — SVG maps for JavaScript",
-    description: "Preview an embeddable map, named place or geography quiz and copy the code.",
+    title: pageTitle(FRAME_TEXTS["builder.html"].en),
+    description: BUILDER_DESCRIPTION,
   }),
   builderHeader: familyHeader({
     id,
@@ -186,5 +225,11 @@ const builderParts = {
 };
 writeFileSync(
   "site/builder.html",
-  readFileSync("demo/builder.html", "utf8").replace(/<!-- family:([A-Za-z]+) -->/g, (_match, key) => builderParts[key]),
+  framed(
+    readFileSync("demo/builder.html", "utf8").replace(
+      /<!-- ?family:([A-Za-z]+) ?-->/g,
+      (_match, key) => builderParts[key],
+    ),
+    "builder.html",
+  ),
 );
