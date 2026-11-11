@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 
 /**
  * kazoku-ui's check-standard (STANDARD_VERSION 2026-11-11, item embed-panel) asks that a demo page hold
- * <kazoku-embed-panel>; this package still carries an older check (MODULES-1049 moves it), so the item is held here.
+ * <kazoku-embed-panel>; this package still carries an older check, so the item is held here.
  */
 describe("the embed panel", () => {
   it("is the builder's code section, defined by the builder's script", () => {

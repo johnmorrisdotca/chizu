@@ -1,5 +1,5 @@
-// The builder's code section is kazoku-ui's <kazoku-embed-panel>, and it holds everything the code section held before
-// (MODULES-349): the nine ways a page is made, Copy, "Copy a link to this setup" and "Start again", and adds the embed
+// The builder's code section is kazoku-ui's <kazoku-embed-panel>, and it holds everything the code section held before:
+// the nine ways a page is made, Copy, "Copy a link to this setup" and "Start again", and adds the embed
 // page, the guide and the credit. The builder's preview and its choices stay the package's, so the panel shows neither.
 import { expect, test } from "@playwright/test";
 import { serve } from "./demo.mjs";
@@ -68,4 +68,17 @@ test("the panel's tab follows the address, and Start again sets the choices back
   await panel(page).getByTestId("bld-reset").click();
   await expect(react).toHaveAttribute("aria-selected", "true");
   await expect(panel(page).locator("[part=code]")).toContainText('<chizu-map region="world" lang="en" />');
+});
+
+test("a page opened in Japanese gives the panel its Japanese tabs, note, buttons, guide and credit", async ({
+  page,
+}) => {
+  await serve(page);
+  await page.goto("http://chizu.test/builder.html?lang=ja");
+  await expect(page.locator("#bld-stage chizu-map")).toHaveAttribute("data-ready", "true");
+  await expect(panel(page).getByRole("tab").first()).toHaveText("カスタム要素");
+  await expect(panel(page).locator("[part=note]")).toHaveText("初期値と異なる選択だけがコードに含まれます。");
+  await expect(panel(page).getByTestId("bld-link")).toHaveText("この設定へのリンクをコピー");
+  await expect(panel(page).locator("[part=docs]")).toHaveAttribute("href", "docs/ja/guides/embed-maps.html");
+  await expect(panel(page).locator("[part=credits]")).toContainText("輪郭は Natural Earth");
 });

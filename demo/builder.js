@@ -298,7 +298,6 @@ const builder = familyEmbedBuilder({
   leftOut,
   makers,
   groups: { map: { en: "The map", ja: "地図の設定" } },
-  docsHref: "docs/guides/embed-maps.html",
   credits: ({ lang }) =>
     lang === "ja"
       ? "輪郭は Natural Earth（パブリックドメイン）、地名は kuni（Unicode CLDR と Wikidata）のものです。"
