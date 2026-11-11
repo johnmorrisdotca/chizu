@@ -97,7 +97,7 @@ export const CHIZU_STYLE = `
 .chizu .cz-city-dot { fill: var(--cz-ink); stroke: var(--cz-halo); stroke-width: 1px; vector-effect: non-scaling-stroke; }
 .chizu .cz-city-ring { fill: var(--cz-halo); stroke: var(--cz-ink); stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
 .chizu .cz-city-label { font-family: var(--cz-font); font-weight: 500; fill: var(--cz-ink); dominant-baseline: central; paint-order: stroke; stroke: var(--cz-halo); stroke-linejoin: round; pointer-events: none; }
-.chizu .cz-overlay-area { fill: var(--cz-overlay, #0d1b2a); fill-opacity: 0.35; stroke: none; pointer-events: none; }
+.chizu .cz-overlay-area { fill: var(--cz-overlay, #0d1b2a); fill-opacity: var(--cz-overlay-opacity, 0.35); stroke: none; pointer-events: none; }
 .chizu .cz-overlay-line { fill: none; stroke: var(--cz-overlay, var(--cz-ink)); stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .chizu .cz-overlay-mark path { stroke: var(--cz-overlay, var(--cz-ink)); }
 .chizu .cz-overlay-mark text { font-family: var(--cz-font); font-weight: 600; fill: var(--cz-ink); dominant-baseline: auto; paint-order: stroke; stroke: var(--cz-halo); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }

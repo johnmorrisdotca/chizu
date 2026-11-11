@@ -9,7 +9,8 @@ import type { ChizuMap, MapBox } from "./types.ts";
 import { mapWrapsAround } from "./wrap.ts";
 
 /**
- * A point as latitude and longitude, in degrees: north and east positive.
+ * A point as latitude and longitude, in degrees: north and east positive. Latitude first, the reverse of
+ * `projectPoint(map, lon, lat)`.
  *
  * @example
  * ```ts
@@ -23,11 +24,14 @@ import { mapWrapsAround } from "./wrap.ts";
 export type ChizuLatLon = readonly [lat: number, lon: number];
 
 /**
- * One overlay. A `line` runs through its points in order and is split where it crosses the date line (a step of more than
- * 180 degrees of longitude); give each part of a track its own line for a style of its own. A `mark` is a dot at a point,
- * with an optional label. An `area` is a ring of points filled (the night side): it is drawn as given, so a ring round a
- * pole runs from -180 to 180 along its edge and back along the pole. Colours are CSS colours or `var(--name)`; widths and
- * sizes are in CSS pixels, so a small map reads as well as a large one.
+ * One overlay. A `line` runs through its points in order, unbroken across the date line: each step is taken the short
+ * way round (170 to -170 is 20 degrees east, and 350 to 10 is 20 degrees too), so a track that goes round the world is
+ * one line; give each part of a track its own line for a style of its own. A `mark` is a dot at a point, with an optional
+ * label; its longitude may be any number of turns round. An `area` is a ring of points filled (the night side), drawn
+ * as given: its longitudes must run on without a jump (170 to 190, not 170 to -170, which fills a band round the
+ * whole map), and a ring round a pole runs along its edge from -180 to 180 and back along the pole. Latitudes past a
+ * pole are held to it. Colours are CSS colours or `var(--name)`; widths and sizes are in CSS pixels, so a small map reads
+ * as well as a large one; `opacity` is the area's fill opacity, 0 to 1.
  *
  * @example
  * ```ts
@@ -58,7 +62,24 @@ const RAD = Math.PI / 180;
 const MARK_LABEL_RATIO = 0.035;
 
 const finite = (point: ChizuLatLon | undefined): point is ChizuLatLon =>
-  Array.isArray(point) && Number.isFinite(point[0]) && Number.isFinite(point[1]) && Math.abs(point[0]) <= 90;
+  Array.isArray(point) && Number.isFinite(point[0]) && Number.isFinite(point[1]);
+
+// A longitude folded into the half-turn either side of a centre: 350 about 0 is -10.
+const fold = (lon: number, centre: number): number => centre + ((((lon - centre + 180) % 360) + 360) % 360) - 180;
+
+/**
+ * A run of points made continuous in longitude: the first folded about the map's centre, each next one moved a whole
+ * turn so no step is more than half of one (170, 190, 210, not 170, -170, -150). The latitude is held to the poles.
+ */
+function unwrap(points: readonly ChizuLatLon[], centre: number): ChizuLatLon[] {
+  const out: ChizuLatLon[] = [];
+  for (const [lat, lon] of points) {
+    const held = Math.max(-90, Math.min(90, lat));
+    const last = out[out.length - 1];
+    out.push([held, last === undefined ? fold(lon, centre) : fold(lon, last[1])]);
+  }
+  return out;
+}
 
 /**
  * Where a point falls on the map's canvas. On a world map that goes round (Miller's projection), the longitude is taken as
@@ -73,22 +94,20 @@ function place(map: ChizuMap, [lat, lon]: ChizuLatLon): [number, number] | null 
     const y = 1.25 * Math.log(Math.tan(Math.PI / 4 + 0.4 * clamped * RAD));
     return [p.translate[0] + p.scale * (lon - p.centre) * RAD, p.translate[1] - p.scale * y];
   }
-  return projectPoint(map, lon, lat);
+  return projectPoint(map, lon, Math.max(-90, Math.min(90, lat)));
 }
 
-/** A line's parts: a new part where it crosses the date line, or where a point cannot be drawn. */
+/** A line's parts: one continuous run across the date line, a new part only where a point cannot be drawn. */
 function lineParts(map: ChizuMap, points: readonly ChizuLatLon[]): [number, number][][] {
   const parts: [number, number][][] = [];
   let part: [number, number][] = [];
-  let last: ChizuLatLon | null = null;
-  for (const point of points) {
-    const at = finite(point) ? place(map, point) : null;
-    if (at === null || (last !== null && Math.abs(point[1] - last[1]) > 180)) {
+  const centre = map.projection.kind === "miller" ? map.projection.centre : 0;
+  for (const point of unwrap(points.filter(finite), centre)) {
+    const at = place(map, point);
+    if (at === null) {
       if (part.length > 1) parts.push(part);
       part = [];
-    }
-    if (at !== null) part.push(at);
-    last = at === null ? null : point;
+    } else part.push(at);
   }
   if (part.length > 1) parts.push(part);
   return parts;
@@ -105,56 +124,68 @@ const pixels = (value: number | undefined, fallback: number, most: number): numb
 
 /**
  * The overlays as SVG: one group, `cz-overlays`, the areas first, then the lines, then the marks, each repeated at the
- * offsets a world map is drawn at. Points that are not numbers are left out.
+ * whole-width shifts round a world map that reach the window. Points that are not numbers are left out; a latitude past
+ * a pole is held to it.
  *
  * @param map - The map they are drawn on.
  * @param overlays - The overlays, in the order they are drawn within their kind.
- * @param box - The window shown, for the size of a mark's label.
- * @param offsets - The shifts the land is drawn at (`wrapOffsets`), so the overlays go round the world with it.
+ * @param box - The window shown: the copies round a world map reach it, and a mark's label is sized to it.
  * @returns The group, empty when there is nothing to draw.
  * @example
  * ```ts
  * import WORLD from "@johnmorrisdotca/chizu/world";
  * import { overlaysSvg, wholeMapBox } from "@johnmorrisdotca/chizu";
  *
- * const svg = overlaysSvg(WORLD, [{ kind: "mark", at: [0, 0], label: "0, 0" }], wholeMapBox(WORLD), [0]);
+ * const svg = overlaysSvg(WORLD, [{ kind: "mark", at: [0, 0], label: "0, 0" }], wholeMapBox(WORLD));
  * console.log(svg.includes('class="cz-overlay-mark"'));
  * // true
  * ```
  */
-export function overlaysSvg(
-  map: ChizuMap,
-  overlays: readonly ChizuOverlay[],
-  box: MapBox,
-  offsets: readonly number[],
-): string {
+export function overlaysSvg(map: ChizuMap, overlays: readonly ChizuOverlay[], box: MapBox): string {
   const wraps = mapWrapsAround(map);
-  // A track given across the date line runs past the map's edge: one more copy each side keeps it drawn.
-  const shifts = wraps
-    ? [
-        ...new Set([
-          ...offsets,
-          ...offsets.map((offset) => offset - map.width),
-          ...offsets.map((offset) => offset + map.width),
-        ]),
-      ]
-    : [0];
+  const centre = map.projection.kind === "miller" ? map.projection.centre : 0;
+  // The whole-width shifts at which a shape spanning these x values shows in the window: a track two orbits long
+  // spans two widths and is drawn at each shift that reaches the window.
+  const copies = (xs: readonly number[]): number[] => {
+    if (!wraps || xs.length === 0) return [0];
+    const least = Math.min(...xs);
+    const most = Math.max(...xs);
+    const out: number[] = [];
+    for (
+      let k = Math.floor((box.x - most) / map.width);
+      k <= Math.ceil((box.x + box.width - least) / map.width);
+      k += 1
+    )
+      out.push(k * map.width);
+    return out;
+  };
+  const shifted = (shift: number) => (shift === 0 ? "" : ` transform="translate(${num(shift)} 0)"`);
   const areas: string[] = [];
   const lines: string[] = [];
   const marks: string[] = [];
   const idOf = (id: string | undefined) => (typeof id === "string" && id !== "" ? ` data-id="${escapeXml(id)}"` : "");
+  const styleOf = (colour: string | null, opacity: number | null) => {
+    const parts = [
+      ...(colour ? [`--cz-overlay:${escapeXml(colour)}`] : []),
+      ...(opacity === null ? [] : [`--cz-overlay-opacity:${num(opacity)}`]),
+    ];
+    return parts.length === 0 ? "" : ` style="${parts.join(";")}"`;
+  };
   for (const overlay of overlays ?? []) {
     if (overlay === null || typeof overlay !== "object") continue;
     if (overlay.kind === "area" && Array.isArray(overlay.ring)) {
-      const ring = overlay.ring.filter(finite).map((point) => place(map, point));
+      // Drawn as given, moved as a whole so its first point lies within half a turn of the map's centre.
+      const given = overlay.ring.filter(finite);
+      const move = given.length > 0 ? fold(given[0]![1], centre) - given[0]![1] : 0;
+      const ring = given.map(([lat, lon]) => place(map, [Math.max(-90, Math.min(90, lat)), lon + move]));
       if (ring.length < 3 || ring.some((at) => at === null)) continue;
-      const colour = colourOf(overlay.color);
+      const points = ring as [number, number][];
       const opacity =
         typeof overlay.opacity === "number" && overlay.opacity >= 0 && overlay.opacity <= 1 ? overlay.opacity : null;
-      const d = pathOf(ring as [number, number][], true);
-      for (const shift of shifts)
+      const d = pathOf(points, true);
+      for (const shift of copies(points.map(([x]) => x)))
         areas.push(
-          `<path class="cz-overlay-area" d="${d}"${shift === 0 ? "" : ` transform="translate(${num(shift)} 0)"`}${idOf(overlay.id)}${colour ? ` style="--cz-overlay:${escapeXml(colour)}"` : ""}${opacity === null ? "" : ` fill-opacity="${num(opacity)}"`}/>`,
+          `<path class="cz-overlay-area" d="${d}"${shifted(shift)}${idOf(overlay.id)}${styleOf(colourOf(overlay.color), opacity)}/>`,
         );
     } else if (overlay.kind === "line" && Array.isArray(overlay.points)) {
       const colour = colourOf(overlay.color);
@@ -168,24 +199,23 @@ export function overlaysSvg(
           : "";
       for (const part of lineParts(map, overlay.points)) {
         const d = pathOf(part, false);
-        for (const shift of shifts)
+        for (const shift of copies(part.map(([x]) => x)))
           lines.push(
-            `<path class="cz-overlay-line" d="${d}"${shift === 0 ? "" : ` transform="translate(${num(shift)} 0)"`}${idOf(overlay.id)} stroke-width="${num(width)}"${dash ? ` stroke-dasharray="${dash}"` : ""}${colour ? ` style="--cz-overlay:${escapeXml(colour)}"` : ""} vector-effect="non-scaling-stroke"/>`,
+            `<path class="cz-overlay-line" d="${d}"${shifted(shift)}${idOf(overlay.id)} stroke-width="${num(width)}"${dash ? ` stroke-dasharray="${dash}"` : ""}${styleOf(colour, null)} vector-effect="non-scaling-stroke"/>`,
           );
       }
     } else if (overlay.kind === "mark" && finite(overlay.at)) {
-      const at = place(map, overlay.at);
+      const at = place(map, [Math.max(-90, Math.min(90, overlay.at[0])), fold(overlay.at[1], centre)]);
       if (at === null) continue;
-      const colour = colourOf(overlay.color);
       const size = pixels(overlay.size, 8, 32);
       const label =
         typeof overlay.label === "string" && overlay.label.trim() !== "" ? overlay.label.trim().slice(0, 80) : null;
       const font = box.width * MARK_LABEL_RATIO;
-      for (const shift of shifts) {
+      for (const shift of copies([at[0]])) {
         const x = at[0] + shift;
         // A zero-length stroke with round ends is a dot of `size` pixels whatever the map's scale.
         marks.push(
-          `<g class="cz-overlay-mark"${idOf(overlay.id)}${colour ? ` style="--cz-overlay:${escapeXml(colour)}"` : ""}><path d="M${num(x)} ${num(at[1])}h0" stroke-width="${num(size)}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>${label ? `<text x="${num(x + font * 0.6)}" y="${num(at[1] - font * 0.4)}" font-size="${num(font)}">${escapeXml(label)}</text>` : ""}</g>`,
+          `<g class="cz-overlay-mark"${idOf(overlay.id)}${styleOf(colourOf(overlay.color), null)}><path d="M${num(x)} ${num(at[1])}h0" stroke-width="${num(size)}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>${label ? `<text x="${num(x + font * 0.6)}" y="${num(at[1] - font * 0.4)}" font-size="${num(font)}">${escapeXml(label)}</text>` : ""}</g>`,
         );
       }
     }
@@ -201,19 +231,12 @@ export function overlaysSvg(
  * @param map - The map drawn.
  * @param overlays - The overlays now.
  * @param box - The window shown.
- * @param offsets - The shifts the land is drawn at.
  * @returns Whether they were drawn.
  */
-export function redrawOverlays(
-  stage: Element,
-  map: ChizuMap,
-  overlays: readonly ChizuOverlay[],
-  box: MapBox,
-  offsets: readonly number[],
-): boolean {
+export function redrawOverlays(stage: Element, map: ChizuMap, overlays: readonly ChizuOverlay[], box: MapBox): boolean {
   const svg = stage.querySelector("svg");
   if (!svg) return false;
-  const drawn = overlaysSvg(map, overlays, box, offsets);
+  const drawn = overlaysSvg(map, overlays, box);
   const group = svg.querySelector(":scope > .cz-overlays");
   if (group) group.outerHTML = drawn;
   else svg.insertAdjacentHTML("beforeend", drawn);

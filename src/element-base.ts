@@ -185,6 +185,19 @@ export class ChizuElement extends ElementBase {
     this.refresh();
   }
 
+  /**
+   * Lines, marks and shaded areas from latitude and longitude (`ChizuOverlay`). Setting them draws only them again: the
+   * map, its zoom and its window stay as they are, so a track can move every few seconds. Kept in `options.overlays`.
+   */
+  get overlays(): ChizuElementOptions["overlays"] {
+    return this.options_.overlays;
+  }
+  set overlays(value: ChizuElementOptions["overlays"]) {
+    this.options_ = { ...this.options_, overlays: value ?? [] };
+    if (this.mount) this.mount.set({ overlays: value ?? [] });
+    else this.refresh();
+  }
+
   /** Per-region colours as comma-separated code:colour pairs; a present attribute overrides host colours. */
   get colors(): string | null {
     return this.getAttribute("colors");

@@ -277,8 +277,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       if (patch.zoom !== undefined) zoom = patch.zoom;
       // New overlays alone: only their group is drawn again, not the land under them.
       const alone = Object.keys(patch).every((key) => key === "overlays");
-      if (alone && redrawOverlays(stage, shown(), options.overlays ?? [], box(), drawnOffsets.split(",").map(Number)))
-        return;
+      if (alone && redrawOverlays(stage, shown(), options.overlays ?? [], box())) return;
       draw();
     },
     setMap(next) {
