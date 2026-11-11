@@ -2,6 +2,7 @@ import type { ChizuCity, ChizuCityOptions } from "./cities.ts";
 import type { ChizuDrawOptions } from "./draw.ts";
 import type { ChizuFeatureChoice } from "./features.ts";
 import type { MapZoom } from "./frame.ts";
+import type { ChizuOverlay } from "./overlays.ts";
 import type { ChizuLanguage } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
 
@@ -71,6 +72,8 @@ export type ChizuMountOptions = {
   cities?: readonly ChizuCity[] | null | (() => Promise<readonly ChizuCity[]>);
   /** How the cities are drawn (`drawChizu`'s `cityOptions`). */
   cityOptions?: ChizuCityOptions;
+  /** Lines, marks and shaded areas given as latitude and longitude (`ChizuOverlay`). Setting them alone redraws only them, not the land. */
+  overlays?: readonly ChizuOverlay[];
 };
 
 /**

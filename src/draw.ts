@@ -6,6 +6,7 @@ import { wholeMapBox } from "./frame.ts";
 import { insetTransformAttribute } from "./insets.ts";
 import { type CalloutRequest, layoutCallouts } from "./layout.ts";
 import { mapOutlines, mapRegionPieces } from "./outlines.ts";
+import { type ChizuOverlay, overlaysSvg } from "./overlays.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
 import { escapeXml, num } from "./svgText.ts";
@@ -74,6 +75,11 @@ export type ChizuDrawOptions = {
   cities?: readonly ChizuCity[] | null;
   /** How the cities are drawn: a population floor, and whether their names are printed. */
   cityOptions?: ChizuCityOptions;
+  /**
+   * Lines, marks and shaded areas given as latitude and longitude (a satellite's track, a place, the night side), drawn over
+   * the land in a group of their own (`cz-overlays`). The map draws what it is handed and knows nothing of what it means.
+   */
+  overlays?: readonly ChizuOverlay[];
 };
 
 /** A colour a drawing will carry: hex, a CSS name, `rgb()`, `hsl()` (and their `a` forms) or `var(--name)`. Nothing else, so none of it can end the attribute or the style it sits in. */
@@ -270,6 +276,7 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
     labels +
     named +
     placedCities +
+    (options.overlays && options.overlays.length > 0 ? overlaysSvg(map, options.overlays, box, offsets) : "") +
     callouts +
     `</svg>`
   );

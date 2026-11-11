@@ -84,6 +84,7 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
   featureLabels: true,
   cities: true,
   cityOptions: true,
+  overlays: true,
   data: true,
 } satisfies Record<keyof ChizuElementOptions, boolean>);
 

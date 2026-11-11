@@ -92,6 +92,8 @@ export {
   segmentMeetsRing,
   shiftedOutlines,
 } from "./outlines.ts";
+export type { ChizuLatLon, ChizuOverlay } from "./overlays.ts";
+export { overlaysSvg } from "./overlays.ts";
 export { projectPoint, unprojectPoint } from "./project.ts";
 export type { FindQuestion } from "./quiz.ts";
 export { findQuestion } from "./quiz.ts";
