@@ -27,6 +27,7 @@ src/
 ├── insets.ts           regions drawn in boxes of their own
 ├── wrap.ts             the world that goes round
 ├── outlines.ts         paths as rings, land under a point, a point on a region's land
+├── overlays.ts         lines, marks and shaded areas from latitude and longitude, drawn over the land
 ├── ringGeometry.ts     rings: the point in a ring, the distance to one, a circle or a segment meeting one
 ├── handles.ts          numbers beside regions, and in order across the map
 ├── callouts.ts         numbered circles in open water
