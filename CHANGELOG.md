@@ -6,6 +6,16 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **City names on the map.** `drawChizu` takes `cities`: a dot and a name for each city a window has room for, more as it shows less ground (five million people and up on the whole world, down to 15,000 at 400 km across), the most populous first, each name right of its dot, else left, above or below, and a city left out when no side is free, so no name covers another. English or Japanese. A map of one country alone names only its own cities; a map of a country's regions names none. Off by default: a map drawn without `cities` is unchanged. `mountChizu` and `<chizu-map>` take `cities` too (a list, or a function called once), and `placeCities`, `cityPopulationFloor` and `windowKilometres` give the choices without drawing. Guide: docs/guides/city-names.md.
+- **`@johnmorrisdotca/chizu/cities`**: `loadKuniCities` gives kuni's cities (every capital and every city of 100,000 or more by default) for the layer. kuni 1.6.0 or later is an optional peer, needed only by this entry.
+- **The demo** has a Cities switch beside Features, kept in the address as `cities=on`.
+
+### Changed
+
+- The data build reads kuni 1.6.0 (from 1.1.0). No name, code or outline changes.
+
 ## [1.8.0] - 2026-11-04
 
 ### Changed
