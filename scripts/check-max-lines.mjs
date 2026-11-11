@@ -24,7 +24,6 @@ const NOT_COUNTED = [
 const KNOWN_OVER = {
   // Family files, copied from johnmorrisdotca/.github; split there and synced (MODULES-276, MODULES-277).
   "scripts/docs-site.mjs": 1382,
-  // A page script whose state is shared by its render functions (MODULES-303).
 };
 
 const files = execFileSync("git", ["ls-files", "-z"], { encoding: "utf8" })
