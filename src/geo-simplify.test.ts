@@ -71,4 +71,62 @@ describe("simplifying regions that share borders", () => {
     expect((result.geometries[0] as { coordinates: number[][][] }).coordinates[0]).toContainEqual([1, 0]);
     expect(result.geometries[1]!.type, "a feature's largest piece is never left out").toBe("Polygon");
   });
+
+  it("takes the spike out of an outline, so a point one region has and the next does not cannot make two borders of one", () => {
+    // the left region's border has a spike (it goes out to (1.02, 0.5) and back along itself), the right one's does not
+    const spiked: Feature = {
+      geometry: {
+        type: "Polygon",
+        coordinates: [
+          [
+            [0, 0],
+            [1, 0],
+            [1, 0.5],
+            [1.02, 0.5],
+            [1, 0.5],
+            [1, 1],
+            [0, 1],
+            [0, 0],
+          ],
+        ],
+      },
+    };
+    const plain: Feature = {
+      geometry: {
+        type: "Polygon",
+        coordinates: [
+          [
+            [1, 0],
+            [2, 0],
+            [2, 1],
+            [1, 1],
+            [1, 0.5],
+            [1, 0],
+          ],
+        ],
+      },
+    };
+    const { geometries, stats } = simplifyShared([spiked, plain], { toleranceKm: 0, precision: 2 });
+    expect(points(geometries[0])).not.toContain("1.02,0.5");
+    expect(stats.notShared.after).toBeLessThanOrEqual(stats.notShared.before);
+  });
+
+  it("refuses a feature that comes out with no outline, and an outline that has edges its neighbour does not share more than it had", () => {
+    const speck: Feature = {
+      geometry: {
+        type: "Polygon",
+        coordinates: [
+          [
+            [5, 5],
+            [5.001, 5],
+            [5.001, 5.001],
+            [5, 5],
+          ],
+        ],
+      },
+    };
+    expect(() => simplifyShared([speck], { toleranceKm: 0, precision: 2 })).toThrow(/no outline/);
+    const result = simplifyShared([left, right], { toleranceKm: 0.5, precision: 2 });
+    expect(result.stats.notShared).toEqual({ before: 0, after: 0 });
+  });
 });

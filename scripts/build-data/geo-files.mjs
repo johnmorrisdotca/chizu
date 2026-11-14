@@ -105,14 +105,14 @@ ${loaders.map((file) => `  ${JSON.stringify(file)}: () => import("./divisions-ge
 }
 
 /** Writes the 1:50m world as longitude and latitude. */
-export function writeWorldGeoDetail(out, countriesSource) {
+export function writeWorldGeoDetail(out, countriesSource, coarse) {
   const { collection, stats } = buildWorldGeoDetail(countriesSource, GEO_TOLERANCE_KM.world);
   const japan = collection.features.find((feature) => feature.properties.code === "JP").properties;
   write(
     join(out, "world-geo-detail.data.ts"),
     `${HEADER} * The world: ${collection.features.length} countries, ${collection.source}.\n${LICENCE}\n${TYPE.replace("../../geo-types.ts", "../geo-types.ts")}
 /**
- * The world as longitude and latitude in degrees from the 1:50m outlines, for a globe zoomed in: the same ${collection.features.length} countries and properties as the 1:110m \`world-geo\`, simplified with the borders between countries kept identical.
+ * The world as longitude and latitude in degrees from the 1:50m outlines, for a globe zoomed in: ${collection.features.length} countries, the ${coarse} of the 1:110m \`world-geo\` with the same properties and the ${collection.features.length - coarse} smaller ones that file leaves off, simplified with the borders between countries kept identical.
  *
  * @example
  * \`\`\`ts

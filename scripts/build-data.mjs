@@ -480,7 +480,7 @@ ${loaders.features.map((id) => `  ${JSON.stringify(id)}: () => import("./feature
   formatData();
   writeWorldGeo();
   const geoTotals = writeDivisionsGeo(out, builtDivisions);
-  const worldGeoStats = writeWorldGeoDetail(out, countriesSource);
+  const worldGeoStats = writeWorldGeoDetail(out, countriesSource, worldGeo.features.length);
   console.log(
     `longitude and latitude: regions ${geoTotals.before} to ${geoTotals.after} points (worst ${geoTotals.worstKm.toFixed(2)} km) · world ${worldGeoStats.before} to ${worldGeoStats.after} (worst ${worldGeoStats.worstKm.toFixed(2)} km)`,
   );

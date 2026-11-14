@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+// @ts-expect-error the generator is plain JavaScript
+import { edgesNotShared } from "../scripts/build-data/geo.mjs";
 
 import { DIVISIONS_LOADERS } from "./data/loaders.data.ts";
 import { DIVISIONS_GEO_CODES, loadDivisionsGeo } from "./divisions-geo-entry.ts";
@@ -13,31 +15,31 @@ function eachPosition(coordinates: unknown, at: (position: number[]) => void): v
 }
 
 /**
- * The most points of one region that lie on the middle of an edge of another region without being a point of it, in each
- * country's file. A border simplified on one side only leaves such points (a simplifying that does not share its borders
- * makes hundreds in a country). Natural Earth has a few of its own: these are the counts it has, rounded to the grid and
- * before any simplifying, and a border simplified away takes them with it, so a country may have fewer. Spain's one is
- * a coincidence of the grid: a coast point of A Coruña lies exactly half way along an edge of Pontevedra's, at an inlet.
+ * The most points of one region that lie on the middle of an edge of another region without being a point of it, in each country's file. A border simplified on one side only leaves such points (a simplifying that does
+ * not share its borders makes hundreds in a country). These are the counts the outlines have when they are only rounded to the grid, and simplifying a border away takes some with it, so a country may have fewer; the
+ * two it may have one more of (Great Britain, Vietnam) are coincidences of the grid, a point that falls exactly on a straight line kept between two others.
  */
 const MOST: Record<string, number> = {
-  AR: 6,
+  AR: 1,
   BR: 3,
-  CA: 4,
+  CA: 3,
   CH: 1,
-  CO: 8,
-  DE: 9,
-  ES: 1,
-  GB: 10,
-  IE: 4,
+  GB: 8,
+  IE: 2,
   IT: 6,
-  MX: 6,
-  PE: 2,
-  PH: 4,
-  RU: 4,
-  SE: 2,
-  TH: 6,
+  MX: 2,
+  PH: 1,
+  SE: 1,
+  TH: 3,
   US: 1,
+  VN: 1,
 };
+
+/**
+ * The most edges one region has that the region next to it does not share though that region has both ends of them, in each country's file: an edge a region has between two points another region has and goes between
+ * another way. A border that is one line in both has none. These are the counts the outlines have when only rounded to the grid (Natural Earth's own points that do not quite agree), and the build refuses to simplify to more.
+ */
+const NOT_SHARED: Record<string, number> = { CH: 10, ES: 7, GB: 4, MX: 1, TH: 1, US: 2 };
 
 describe("the regions as longitude and latitude", () => {
   it("has the 32 countries that have regions, and says nothing of one that has none", async () => {
@@ -145,6 +147,37 @@ describe("the regions as longitude and latitude", () => {
         });
         expect(found).toBeLessThanOrEqual(MOST[code] ?? 0);
       });
+
+      it("adds no edge that its two regions do not share: no more than the rounded outlines have", async () => {
+        const geo = (await loadDivisionsGeo(code))!;
+        const rings = geo.features.map(
+          (feature) =>
+            (feature.geometry.type === "Polygon"
+              ? [feature.geometry.coordinates]
+              : feature.geometry.coordinates
+            ).flat() as number[][][],
+        );
+        expect(edgesNotShared(rings)).toBeLessThanOrEqual(NOT_SHARED[code] ?? 0);
+      });
     });
   }
+
+  it("keeps Schleswig-Holstein's border with Mecklenburg-Vorpommern one line in both: the outline of Schleswig-Holstein goes by a point (10.91, 53.96) that Mecklenburg-Vorpommern's does not, and the two borders still agree", async () => {
+    const geo = (await loadDivisionsGeo("DE"))!;
+    const rings = (code: string) => {
+      const feature = geo.features.find((one) => one.properties.code === code)!;
+      return (
+        feature.geometry.type === "Polygon" ? [feature.geometry.coordinates] : feature.geometry.coordinates
+      ).flat() as number[][][];
+    };
+    const undirected = (list: number[][][]) =>
+      new Set(
+        list.flatMap((ring) => ring.slice(1).map((point, i) => [String(ring[i]), String(point)].sort().join("|"))),
+      );
+    const [sh, mv] = [rings("SH"), rings("MV")];
+    expect(edgesNotShared([sh, mv])).toBe(0);
+    const inMv = undirected(mv);
+    const shared = [...undirected(sh)].filter((edge) => inMv.has(edge));
+    expect(shared.length, "their border has edges both have").toBeGreaterThan(10);
+  });
 });

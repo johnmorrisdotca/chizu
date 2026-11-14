@@ -58,8 +58,60 @@ function douglasPeucker(points, toleranceKm) {
   return kept;
 }
 
+/** A ring with its spikes taken out: a point whose two neighbours are the same point (the line goes out and comes back along itself) is no part of the outline. */
+function withoutSpikes(ring) {
+  let out = ring;
+  for (let again = true; again && out.length >= 3; ) {
+    again = false;
+    const n = out.length;
+    for (let i = 0; i < n; i += 1) {
+      if (sameXY(out[(i + n - 1) % n], out[(i + 1) % n])) {
+        // drop the point and one of the two equal neighbours
+        out = out.filter((_, k) => k !== i && k !== (i + 1) % n);
+        again = true;
+        break;
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * How many edges there are that no outline shares with the region next to it though that region has both ends of it: a region has the edge between two points, and another region has both points but goes between them another
+ * way. A border that is one line in both regions has none of these; a few come from Natural Earth's own outlines (two regions' points that do not quite agree), and simplifying must not add one.
+ *
+ * @param regions Each region's rings (arrays of points; a ring may or may not repeat its first point at the end).
+ */
+export function edgesNotShared(regions) {
+  const edgeOf = (a, b) => (compare(a, b) <= 0 ? `${keyOf(a)}|${keyOf(b)}` : `${keyOf(b)}|${keyOf(a)}`);
+  const points = regions.map(() => new Set());
+  const edges = regions.map(() => new Set());
+  regions.forEach((rings, f) => {
+    for (const ring of rings) {
+      const n = ring.length > 1 && sameXY(ring[0], ring[ring.length - 1]) ? ring.length - 1 : ring.length;
+      for (let i = 0; i < n; i += 1) {
+        points[f].add(keyOf(ring[i]));
+        edges[f].add(edgeOf(ring[i], ring[(i + 1) % n]));
+      }
+    }
+  });
+  let count = 0;
+  edges.forEach((own, f) => {
+    for (const edge of own) {
+      const [a, b] = edge.split("|");
+      for (let g = 0; g < regions.length; g += 1) {
+        if (g !== f && points[g].has(a) && points[g].has(b) && !edges[g].has(edge)) {
+          count += 1;
+          break;
+        }
+      }
+    }
+  });
+  return count;
+}
+
 /** The rings of a geometry: `[polygon index, ring index, points]`, a ring's points without the closing point. */
-function ringsOf(geometry, round) {
+function ringsOf(geometry, round, despike = true) {
   const polygons = geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates;
   return polygons.map((polygon) =>
     polygon
@@ -70,7 +122,7 @@ function ringsOf(geometry, round) {
           if (out.length === 0 || !sameXY(out[out.length - 1], p)) out.push(p);
         }
         if (out.length > 1 && sameXY(out[0], out[out.length - 1])) out.pop();
-        return out;
+        return despike ? withoutSpikes(out) : out;
       })
       .filter((ring) => ring.length >= 3),
   );
@@ -99,10 +151,11 @@ function areaKm2(ring) {
  * @returns The geometries in the order of `features`, and what was done: the points before and after, and the most any
  * original point lies from the simplified line, in km.
  */
-export function simplifyShared(features, { toleranceKm, precision = 2, minRingKm2 = 0 }) {
+export function simplifyShared(features, { toleranceKm, precision = 2, minRingKm2 = 0, check = true }) {
   const factor = 10 ** precision;
   const round = (value) => Math.round(value * factor) / factor;
   const rings = features.map((feature) => ringsOf(feature.geometry, round));
+  const roughly = features.map((feature) => ringsOf(feature.geometry, round, false).flat());
   // which regions each point belongs to
   const owners = new Map();
   rings.forEach((polygons, f) => {
@@ -125,8 +178,26 @@ export function simplifyShared(features, { toleranceKm, precision = 2, minRingKm
     }
     return k;
   };
+  // The points a border begins or ends at: a point is one wherever it is in any ring, where the regions that have it differ from those that have the point before or after it. The same set of points cuts every ring,
+  // so two regions that have the same border cut it at the same places, and the chains between are the same in both however the rings go round.
+  const pins = new Set();
+  for (const polygons of rings)
+    for (const polygon of polygons)
+      for (const ring of polygon) {
+        const n = ring.length;
+        const keys = ring.map(setOf);
+        for (let i = 0; i < n; i += 1)
+          if (keys[i] !== keys[(i + n - 1) % n] || keys[i] !== keys[(i + 1) % n]) pins.add(keyOf(ring[i]));
+      }
   const memo = new Map();
-  const stats = { before: 0, after: 0, worstKm: 0, droppedRings: 0, droppedKm2: 0 };
+  const stats = {
+    before: 0,
+    after: 0,
+    worstKm: 0,
+    droppedRings: 0,
+    droppedKm2: 0,
+    notShared: { before: edgesNotShared(roughly), after: 0 },
+  };
 
   /** A chain simplified once, in the direction its end points fix, and given back in the direction it came in. */
   const simplifyChain = (chain) => {
@@ -161,10 +232,8 @@ export function simplifyShared(features, { toleranceKm, precision = 2, minRingKm
   const simplifyRing = (ring) => {
     stats.before += ring.length;
     const n = ring.length;
-    const keys = ring.map(setOf);
     const pinned = [];
-    for (let i = 0; i < n; i += 1)
-      if (keys[i] !== keys[(i + n - 1) % n] || keys[i] !== keys[(i + 1) % n]) pinned.push(i);
+    for (let i = 0; i < n; i += 1) if (pins.has(keyOf(ring[i]))) pinned.push(i);
     let out;
     if (pinned.length === 0) {
       // a ring nothing else touches: cut at its lowest point and the point furthest from it, the same cut for any copy of it
@@ -225,6 +294,18 @@ export function simplifyShared(features, { toleranceKm, precision = 2, minRingKm
     }
     return kept.length === 1 ? { type: "Polygon", coordinates: kept[0] } : { type: "MultiPolygon", coordinates: kept };
   });
+  // no region comes out empty
+  geometries.forEach((geometry, index) => {
+    if (geometry.coordinates.length === 0) throw new Error(`simplifying left feature ${index} with no outline`);
+  });
+  stats.notShared.after = edgesNotShared(
+    geometries.map((geometry) => (geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates).flat()),
+  );
+  // simplifying never adds an edge that is not shared: a border is one line in both regions it divides, as it was
+  if (check && stats.notShared.after > stats.notShared.before)
+    throw new Error(
+      `simplifying added edges that the regions do not share: ${stats.notShared.after} where there were ${stats.notShared.before}`,
+    );
   return { geometries, stats };
 }
 
