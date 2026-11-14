@@ -15,7 +15,7 @@
     },
     "./names": {
       "minified": 49510,
-      "gzip": 9771
+      "gzip": 9772
     },
     "./cities": {
       "minified": 5992867,
@@ -32,6 +32,14 @@
     "./world-geo": {
       "minified": 166276,
       "gzip": 44294
+    },
+    "./world-geo-detail": {
+      "minified": 1369811,
+      "gzip": 407493
+    },
+    "./divisions-geo": {
+      "minified": 3956870,
+      "gzip": 965848
     },
     "./element": {
       "minified": 17379268,

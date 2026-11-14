@@ -18,7 +18,7 @@ for (const [title, tree] of Object.entries(trees))
           (path) =>
             path.endsWith(".ts") &&
             !/\.(test|fixture)\./.test(path) &&
-            !/^data\/(countries|divisions|features)\//.test(path),
+            !/^data\/(countries|divisions|divisions-geo|features)\//.test(path),
         )
         .map((path) => path.split("/").at(-1))
         .sort();
@@ -29,6 +29,7 @@ for (const [title, tree] of Object.entries(trees))
       const count = (folder) => files(`src/data/${folder}`).filter((path) => path.endsWith(".ts")).length;
       expect(tree).toContain(`countries/<code>.data.ts   ${count("countries")} countries, each alone`);
       expect(tree).toContain(`divisions/<code>.data.ts   ${count("divisions")} countries' regions`);
+      expect(tree).toContain(`divisions-geo/<code>.data.ts   ${count("divisions-geo")} countries' regions in degrees`);
       expect(tree).toContain(`features/<map>.data.ts     ${count("features")} maps' named features`);
     });
   });

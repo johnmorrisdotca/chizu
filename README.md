@@ -528,7 +528,7 @@ A group of places is a list of codes, and `groupMap`, `groupBox` and `groupTones
 
 `projectPoint(WORLD, 139.69, 35.69)` is Tokyo on the world's canvas, `[457.5, 212.5]`, and `unprojectPoint` goes back. A map keeps how its canvas was made (`projection`). Two are closed formulas, done here with no dependency: Miller's cylindrical round a centre longitude (the world) and Lambert azimuthal equal-area round a centre (a country alone). A country's regions were fitted with a projection of their own, and `projectPoint` answers `null` for them, never a guess. The tests hold both formulas to d3-geo's own.
 
-`@johnmorrisdotca/chizu/world-geo` is the same world before any projection: a GeoJSON `FeatureCollection` of 177 features (Natural Earth 5.1.2, 1:110m) in WGS84 `[longitude, latitude]` degrees, `Polygon` and `MultiPolygon`, rings whole through the date line and down to the south pole, for d3-geo's `geoOrthographic` or any spherical view. It is the 173 countries of `WORLD` and the four it leaves out: Antarctica (`AQ`), the French Southern Lands (`TF`), Northern Cyprus (`CYN`) and Somaliland (`SOL`). Each feature's `properties` are `code`, `iso3`, `name`, `nameJa`, `group` and `groupJa`; the collection has a `source`. It has no dependency, and is its own entry (166 kB minified, 44 kB gzipped), so a flat map never loads it.
+`@johnmorrisdotca/chizu/world-geo` is the same world before any projection: a GeoJSON `FeatureCollection` of 177 features (Natural Earth 5.1.2, 1:110m) in WGS84 `[longitude, latitude]` degrees, `Polygon` and `MultiPolygon`, rings whole through the date line and down to the south pole, for d3-geo's `geoOrthographic` or any spherical view. It is the 173 countries of `WORLD` and the four it leaves out: Antarctica (`AQ`), the French Southern Lands (`TF`), Northern Cyprus (`CYN`) and Somaliland (`SOL`). Each feature's `properties` are `code`, `iso3`, `name`, `nameJa`, `group` and `groupJa`; the collection has a `source`. It has no dependency, and is its own entry (166 kB minified, 44 kB gzipped), so a flat map never loads it. Zoomed in, `world-geo-detail` (1:50m) and `divisions-geo/<code>` (32 countries' regions) are the same in degrees, simplified with shared borders kept: [docs/maps.md](./docs/maps.md).
 
 ```ts
 import WORLD_GEO from "@johnmorrisdotca/chizu/world-geo";
@@ -621,6 +621,9 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
 | `@johnmorrisdotca/chizu/world-geo` | the world as longitude/latitude GeoJSON for a spherical projection, as the default export and as `WORLD_GEO` |
+| `@johnmorrisdotca/chizu/world-geo-detail` | the 1:50m world in degrees, as the default export and as `WORLD_GEO_DETAIL` |
+| `@johnmorrisdotca/chizu/divisions-geo` | `loadDivisionsGeo`, `DIVISIONS_GEO_CODES` |
+| `@johnmorrisdotca/chizu/divisions-geo/<code>` | one country's regions in degrees, as the default export |
 | `@johnmorrisdotca/chizu/countries/<code>` | one country alone, as the default export |
 | `@johnmorrisdotca/chizu/divisions/<code>` | one country's regions, as the default export |
 | `@johnmorrisdotca/chizu/features/<map>` | one map's seas, lakes, rivers, landforms, peaks and capitals (`world`, `divisions-jp`), as the default export |

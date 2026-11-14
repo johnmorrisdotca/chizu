@@ -83,6 +83,16 @@
       "import": "./dist/world-geo-entry.js",
       "default": "./dist/world-geo-entry.js"
     },
+    "./world-geo-detail": {
+      "types": "./dist/world-geo-detail-entry.d.ts",
+      "import": "./dist/world-geo-detail-entry.js",
+      "default": "./dist/world-geo-detail-entry.js"
+    },
+    "./divisions-geo": {
+      "types": "./dist/divisions-geo-entry.d.ts",
+      "import": "./dist/divisions-geo-entry.js",
+      "default": "./dist/divisions-geo-entry.js"
+    },
     "./countries/*": {
       "types": "./dist/data/countries/*.data.d.ts",
       "import": "./dist/data/countries/*.data.js",
@@ -1457,6 +1467,11 @@
       "types": "./dist/data/divisions/vn.data.d.ts",
       "import": "./dist/data/divisions/vn.data.js",
       "default": "./dist/data/divisions/vn.data.js"
+    },
+    "./divisions-geo/*": {
+      "types": "./dist/data/divisions-geo/*.data.d.ts",
+      "import": "./dist/data/divisions-geo/*.data.js",
+      "default": "./dist/data/divisions-geo/*.data.js"
     },
     "./features/country-ad": {
       "types": "./dist/data/features/country-ad.data.d.ts",

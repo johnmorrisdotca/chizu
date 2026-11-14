@@ -22,6 +22,9 @@ src/
 ├── load-entry.ts       loadCountry and loadDivisions
 ├── world-entry.ts      the world's entry
 ├── world-geo-entry.ts  the world as longitude and latitude, for a spherical projection
+├── world-geo-detail-entry.ts  the same from the 1:50m outlines, for a globe zoomed in
+├── divisions-geo-entry.ts  a country's regions as longitude and latitude, loaded on demand
+├── geo-types.ts        ChizuGeoCollection, ChizuGeoFeature, ChizuGeoProperties
 ├── types.ts            ChizuMap, ChizuRegion, MapBox and the rest
 ├── frame.ts            windows, zoom steps, fits
 ├── insets.ts           regions drawn in boxes of their own
@@ -65,11 +68,14 @@ src/
 └── data/               generated, never edited
     ├── world.data.ts            the world
     ├── world-geo.data.ts        the world as longitude and latitude
+    ├── world-geo-detail.data.ts the world as longitude and latitude, from the 1:50m outlines
     ├── world-detail.data.ts     the world drawn finer, for a map zoomed in
     ├── countries.data.ts        the table of every country
     ├── loaders.data.ts          one import for each country's map
+    ├── divisions-geo-loaders.data.ts  one import for each country's regions in degrees
     ├── countries/<code>.data.ts   238 countries, each alone
     ├── divisions/<code>.data.ts   32 countries' regions
+    ├── divisions-geo/<code>.data.ts   32 countries' regions in degrees
     └── features/<map>.data.ts     268 maps' named features
 ```
 
