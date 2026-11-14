@@ -1,6 +1,8 @@
 // The files in longitude and latitude: `src/data/divisions-geo/<xx>.data.ts` (a country's regions), the table of loaders
 // for them, and `src/data/world-geo-detail.data.ts` (the 1:50m world). Written unformatted, like `world-geo.data.ts`: the
-// size of the file is the size of the data. See geo.mjs for how the outlines are simplified.
+// size of the file is the size of the data. See geo.mjs for how the outlines are simplified. The data is a string given to
+// JSON.parse, not an object literal: a parser reads a string of 1.3 MB far faster than the same data as code, which is
+// what a bundler, the docs-site's size measure and a browser each do with it.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { GEO_TOLERANCE_KM, NATURAL_EARTH } from "../data-config.mjs";
@@ -77,7 +79,7 @@ export function writeDivisionsGeo(out, builtDivisions) {
  * // ${collection.features.length} ${first.code} ${first.name}
  * \`\`\`
  */
-const divisionsGeo: ChizuGeoCollection = ${JSON.stringify(collection)};
+const divisionsGeo = JSON.parse(${JSON.stringify(JSON.stringify(collection))}) as ChizuGeoCollection;
 
 export default divisionsGeo;
 `,
@@ -121,7 +123,7 @@ export function writeWorldGeoDetail(out, countriesSource) {
  * // ${collection.features.length} ${japan.iso3} ${japan.nameJa}
  * \`\`\`
  */
-const worldGeoDetail: ChizuGeoCollection = ${JSON.stringify(collection)};
+const worldGeoDetail = JSON.parse(${JSON.stringify(JSON.stringify(collection))}) as ChizuGeoCollection;
 
 export default worldGeoDetail;
 `,

@@ -34,12 +34,12 @@
       "gzip": 44294
     },
     "./world-geo-detail": {
-      "minified": 1369811,
-      "gzip": 407493
+      "minified": 1377007,
+      "gzip": 407915
     },
     "./divisions-geo": {
-      "minified": 3956870,
-      "gzip": 965848
+      "minified": 3987765,
+      "gzip": 967107
     },
     "./element": {
       "minified": 17379268,
