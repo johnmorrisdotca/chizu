@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.12.0] - 2026-11-14
+
 ### Added
 
 - **The regions and the 1:50m world as longitude and latitude, for a globe** (MODULES-1142). `@johnmorrisdotca/chizu/divisions-geo/<code>` is each of the 32 countries' regions (Natural Earth admin-1 at 1:10m) as a GeoJSON `FeatureCollection` in WGS84 `[longitude, latitude]` degrees, no projection and no boxes, with `code` (the same as in `divisions/<code>`), `iso`, `name` and `nameJa`; `@johnmorrisdotca/chizu/divisions-geo` has `DIVISIONS_GEO_CODES` and `loadDivisionsGeo(code)`, one dynamic import for each country, so a page pays only for the countries it loads (and a page that imports none pays nothing); `@johnmorrisdotca/chizu/world-geo-detail` is the 1:50m world, 242 features (the 177 of `world-geo` with the same properties and the smaller ones the 1:110m file leaves off), as the default export and `WORLD_GEO_DETAIL`. Points are rounded to 0.01 degree and the lines simplified to 0.7 km (regions) and 0.3 km (world); the border two regions share is cut out and simplified once, so both have the same points on it. Packed and gzipped: each country 4 to 172 kB (Russia the largest), the 32 together 970 kB, the world 400 kB, the data a `JSON.parse` string; the tests hold them under 1.0 MB in all, 200 kB for any country and 0.45 MB. Types: `ChizuGeoCollection`, `ChizuGeoFeature`, `ChizuGeoProperties`. Natural Earth, public domain, from the same cached files as the rest (`pnpm data`; nothing new is fetched). Tests: `src/divisions-geo.test.ts`, `src/world-geo-detail.test.ts`, `src/geo-simplify.test.ts`, `src/geo-size.test.js`.
