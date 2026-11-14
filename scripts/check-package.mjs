@@ -101,6 +101,7 @@ const spots = local.layoutCallouts(localWorld, { codes: ["JP", "BR", "EG", "AU"]
 const SAMPLES = {
   "./countries/*": ["fr", "jp", "sg"],
   "./divisions/*": ["de", "us", "fr"],
+  "./divisions-geo/*": ["jp", "gb", "us"],
   "./features/*": ["world", "divisions-jp", "country-fr"],
 };
 const entries = Object.keys(pkg.exports)
@@ -134,6 +135,15 @@ if (CHIZU_COUNTRIES.length !== 238 || countryByCode("jp").nameJa !== "日本") t
 const { loadCountry, loadDivisions, loadWorldDetail } = await import(${JSON.stringify(`${pkg.name}/load`)});
 const france = await loadDivisions("fr");
 if (france.regions.length !== 96 || (await loadCountry("jp")).regions[0].nameJa !== "日本" || (await loadDivisions("jp")).regions.length !== 47 || (await loadDivisions("xx")) !== null || (await loadWorldDetail()).id !== "world-detail") throw new Error("the loaders are wrong");
+const { DIVISIONS_GEO_CODES, loadDivisionsGeo } = await import(${JSON.stringify(`${pkg.name}/divisions-geo`)});
+const japanGeo = (await import(${JSON.stringify(`${pkg.name}/divisions-geo/jp`)})).default;
+if (DIVISIONS_GEO_CODES.length !== 32 || japanGeo.features.length !== 47 || (await loadDivisionsGeo("GB")) === null || (await loadDivisionsGeo("jp")) !== japanGeo || (await loadDivisionsGeo("xx")) !== null) throw new Error("the regions in degrees are wrong");
+const detail = await import(${JSON.stringify(`${pkg.name}/world-geo-detail`)});
+if (detail.default.features.length !== 242 || detail.default !== detail.WORLD_GEO_DETAIL) throw new Error("the world in degrees, finer, is wrong");
+for (const bad of ["divisions-geo/xx", "divisions-geo/../world", "world-geo-detail/jp"]) {
+  const refused = await import(${JSON.stringify(`${pkg.name}/`)} + bad).then(() => false, () => true);
+  if (!refused) throw new Error(bad + " was not refused");
+}
 if (zoomBox(world, 2, { x: 500, y: 244 }).width !== 500) throw new Error("zoom is wrong");
 const { loadFeatures } = await import(${JSON.stringify(`${pkg.name}/load`)});
 const water = await loadFeatures("divisions-jp");
