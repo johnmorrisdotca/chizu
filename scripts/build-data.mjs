@@ -2,6 +2,8 @@
 //
 //   src/data/world.data.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
 //   src/data/world-geo.data.ts            the same world in longitude and latitude, unprojected, with the four it leaves out (177); the one table kept unformatted
+//   src/data/world-geo-detail.data.ts    the same world from the 1:50m outlines in longitude and latitude, simplified (177)
+//   src/data/divisions-geo/<xx>.data.ts   the regions of the 32 countries in longitude and latitude, simplified, shared borders identical
 //   src/data/countries/<xx>.data.ts  each country alone, finer (admin-0 at 1:50m, and at 1:10m for the small ones), on a canvas of its own
 //   src/data/divisions/<xx>.data.ts  the provinces, states, prefectures or départements of 32 countries (admin-1 at 1:10m)
 //   src/data/countries.data.ts            the table of every country: names in English and Japanese, and what it has
@@ -31,6 +33,7 @@ import {
 } from "@johnmorrisdotca/kuni";
 import { geoDistance } from "d3-geo";
 import { buildCountry, buildDivisions, buildUnitedStates, DEGREES } from "./build-data/divisions.mjs";
+import { writeDivisionsGeo, writeWorldGeoDetail } from "./build-data/geo-files.mjs";
 import { literal, neighboursBySharedPoints, out, writeFeatures, writeMap } from "./build-data/geometry.mjs";
 import { buildJapan } from "./build-data/japan.mjs";
 import {
@@ -476,6 +479,11 @@ ${loaders.features.map((id) => `  ${JSON.stringify(id)}: () => import("./feature
   );
   formatData();
   writeWorldGeo();
+  const geoTotals = writeDivisionsGeo(out, builtDivisions);
+  const worldGeoStats = writeWorldGeoDetail(out, countriesSource);
+  console.log(
+    `longitude and latitude: regions ${geoTotals.before} to ${geoTotals.after} points (worst ${geoTotals.worstKm.toFixed(2)} km) · world ${worldGeoStats.before} to ${worldGeoStats.after} (worst ${worldGeoStats.worstKm.toFixed(2)} km)`,
+  );
   console.log(
     `world: ${world.regions.length} countries · countries: ${loaders.countries.length} · divisions: ${loaders.divisions.length}`,
   );

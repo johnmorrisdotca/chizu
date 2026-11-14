@@ -12,7 +12,7 @@ import {
   regionOf,
   SMALL_KM2,
 } from "./geometry.mjs";
-import { identityOf, insetProjections, namesOf, projections } from "./world.mjs";
+import { geoSources, identityOf, insetProjections, namesOf, projections } from "./world.mjs";
 
 // ---- Each country alone -----------------------------------------------------------------------------------------
 
@@ -114,6 +114,7 @@ function regionsOf(draw, features, config) {
 export function buildDivisions(config, rawFeatures, countryNames) {
   const features = withRegionCodes(config, rawFeatures);
   if (features.length === 0) throw new Error(`no regions for ${config.code}`);
+  geoSources.set(`divisions-${config.code.toLowerCase()}`, features);
   const projection = config
     .projection()
     .fitSize([config.width, config.height], { type: "FeatureCollection", features });
@@ -154,6 +155,7 @@ export function buildUnitedStates(rawFeatures, countryNames) {
     { filter: (f) => f.properties.iso_a2 === "US", codeFn: (f) => f.properties.postal },
     rawFeatures,
   );
+  geoSources.set("divisions-us", states);
   const lower = states.filter((f) => f.properties.__code !== "AK" && f.properties.__code !== "HI");
   const width = 1000;
   const mainHeight = 600;

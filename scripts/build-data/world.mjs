@@ -16,6 +16,7 @@ import {
   SHORT_NAME_READINGS,
   SHORT_NAMES_NOT_EVERYDAY,
 } from "../data-config.mjs";
+import { simplifyShared } from "./geo.mjs";
 import {
   CENTRE_LONGITUDE,
   CONTINENTS,
@@ -127,6 +128,8 @@ export function regionNames(country, feature, iso, shared) {
 let worldProjection = null;
 /** Each map's projection, by its id, for drawing its features on the same canvas (build-features.mjs). */
 export const projections = new Map();
+/** The features each divisions map is made from (Natural Earth's own geometry, with the codes the map gives them), for the files in longitude and latitude. */
+export const geoSources = new Map();
 /** The projections of the regions a map draws whole in a box of its own, by map and region code: a feature of such a region is projected by its region's, not the map's. */
 export const insetProjections = new Map();
 
@@ -200,6 +203,20 @@ export function buildWorldDetail(collection, world) {
   };
 }
 
+/** The properties a country carries in the longitude-and-latitude world: its code, names in English and Japanese, three-letter code and group. */
+function geoProperties(p) {
+  const names = kuniCountry(p.__code) ? namesOf(p, p.__code) : { name: p.NAME, nameJa: p.NAME_JA };
+  const identity = identityOf(p, p.__code);
+  return {
+    code: p.__code,
+    name: names.name,
+    nameJa: names.nameJa,
+    iso3: identity.iso3,
+    group: identity.group,
+    groupJa: identity.groupJa,
+  };
+}
+
 /**
  * The world as longitude and latitude in degrees: every feature of Natural Earth's 1:110m countries a GeoJSON feature,
  * no projection. Unlike the flat world, it keeps Antarctica, the French Southern Lands, Northern Cyprus and
@@ -212,26 +229,36 @@ export function buildWorldGeo(collection) {
     if (typeof node[0] === "number") return node.map(oneDecimal);
     return node.map(roundCoordinates);
   };
-  const geoFeatures = features.map((feature) => {
-    const p = feature.properties;
-    const names = kuniCountry(p.__code) ? namesOf(p, p.__code) : { name: p.NAME, nameJa: p.NAME_JA };
-    const identity = identityOf(p, p.__code);
-    return {
-      type: "Feature",
-      properties: {
-        code: p.__code,
-        name: names.name,
-        nameJa: names.nameJa,
-        iso3: identity.iso3,
-        group: identity.group,
-        groupJa: identity.groupJa,
-      },
-      geometry: { ...feature.geometry, coordinates: roundCoordinates(feature.geometry.coordinates) },
-    };
-  });
+  const geoFeatures = features.map((feature) => ({
+    type: "Feature",
+    properties: geoProperties(feature.properties),
+    geometry: { ...feature.geometry, coordinates: roundCoordinates(feature.geometry.coordinates) },
+  }));
   return {
     type: "FeatureCollection",
     features: geoFeatures,
     source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, 1:110m, longitude and latitude`,
+  };
+}
+
+/**
+ * The world as longitude and latitude from the 1:50m outlines, for a page zoomed in on a globe: the same 177 features and
+ * properties as the 1:110m `buildWorldGeo`, the outlines rounded to 0.01 degree and simplified by `toleranceKm` with the
+ * borders between countries kept identical (see geo.mjs).
+ */
+export function buildWorldGeoDetail(collection, toleranceKm) {
+  const features = countriesFrom(collection, true);
+  const { geometries, stats } = simplifyShared(features, { toleranceKm, precision: 2 });
+  return {
+    collection: {
+      type: "FeatureCollection",
+      features: features.map((feature, index) => ({
+        type: "Feature",
+        properties: geoProperties(feature.properties),
+        geometry: geometries[index],
+      })),
+      source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, 1:50m, longitude and latitude, rounded to 0.01 degree and simplified to ${toleranceKm} km`,
+    },
+    stats,
   };
 }

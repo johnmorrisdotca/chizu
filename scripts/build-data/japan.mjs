@@ -4,7 +4,7 @@ import { geoMercator, geoPath } from "d3-geo";
 import { isoCodes, polygonsOf } from "../build-data.mjs";
 import { AMAMI, JAPAN_GROUPING, JAPAN_OUTLYING, NATURAL_EARTH } from "../data-config.mjs";
 import { keepScale, keepTranslate, neighboursBySharedPoints, regionOf, round } from "./geometry.mjs";
-import { projections } from "./world.mjs";
+import { geoSources, projections } from "./world.mjs";
 
 /** Okinawa's pieces that are the Amami Islands, which Natural Earth draws inside Okinawa, moved to Kagoshima (see AMAMI in data-config.mjs). */
 function withAmamiInKagoshima(features) {
@@ -79,6 +79,7 @@ export function buildJapan(rawFeatures, countryNames) {
     ...feature,
     properties: { ...feature.properties, __code: String(Number(feature.properties.iso_3166_2.slice(3))) },
   }));
+  geoSources.set("divisions-jp", features);
   const mainland = features
     .filter((feature) => feature.properties.__code !== "47")
     .map((feature) => {
