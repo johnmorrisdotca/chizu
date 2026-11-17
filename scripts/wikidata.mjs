@@ -25,7 +25,7 @@ import { FEATURE_FILES, HINT_KM, RIVER_LABELS } from "./features-config.mjs";
 import { lowerProperties, root, source } from "./natural-earth.mjs";
 
 const ENDPOINT = "https://query.wikidata.org/sparql";
-const USER_AGENT = "chizu-data-build/1.2 (https://github.com/johnmorrisdotca/chizu; john@johnmorris.ca)";
+const USER_AGENT = "chizu-data-build/1.2 (https://github.com/johnmorrisdotca/chizu)";
 /** How close a river item's coordinates must come to Natural Earth's line, in kilometres, for the two to be one river. */
 export const MATCH_KM = 120;
 export const FAR_KM = 600;
