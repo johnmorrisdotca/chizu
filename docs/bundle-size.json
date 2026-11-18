@@ -2,8 +2,8 @@
   "measured": "esbuild 0.28.2, bundled, minified, ES2020, gzip level 9",
   "entries": {
     ".": {
-      "minified": 51585,
-      "gzip": 20616
+      "minified": 51627,
+      "gzip": 20633
     },
     "./draw": {
       "minified": 57734,
@@ -14,16 +14,16 @@
       "gzip": 21915
     },
     "./names": {
-      "minified": 49510,
-      "gzip": 9771
+      "minified": 53083,
+      "gzip": 9831
     },
     "./cities": {
       "minified": 5992867,
       "gzip": 1565154
     },
     "./load": {
-      "minified": 18407152,
-      "gzip": 6613965
+      "minified": 18407203,
+      "gzip": 6614022
     },
     "./world": {
       "minified": 177893,
@@ -42,12 +42,12 @@
       "gzip": 965428
     },
     "./element": {
-      "minified": 17382670,
-      "gzip": 6252989
+      "minified": 17382758,
+      "gzip": 6253024
     },
     "./element/define": {
-      "minified": 17382685,
-      "gzip": 6253020
+      "minified": 17382773,
+      "gzip": 6253097
     },
     "./countries/ad": {
       "minified": 1370,
@@ -94,8 +94,8 @@
       "gzip": 2261
     },
     "./countries/atc": {
-      "minified": 917,
-      "gzip": 521
+      "minified": 934,
+      "gzip": 534
     },
     "./countries/au": {
       "minified": 24398,
@@ -446,8 +446,8 @@
       "gzip": 1131
     },
     "./countries/ioa": {
-      "minified": 1498,
-      "gzip": 815
+      "minified": 1515,
+      "gzip": 829
     },
     "./countries/iq": {
       "minified": 3808,
@@ -482,8 +482,8 @@
       "gzip": 7108
     },
     "./countries/kas": {
-      "minified": 1236,
-      "gzip": 754
+      "minified": 1253,
+      "gzip": 767
     },
     "./countries/ke": {
       "minified": 3667,

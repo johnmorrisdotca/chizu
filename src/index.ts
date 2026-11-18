@@ -112,6 +112,7 @@ export type {
   ChizuInset,
   ChizuMap,
   ChizuPlace,
+  ChizuPlaceKind,
   ChizuProjection,
   ChizuRegion,
   MapBox,

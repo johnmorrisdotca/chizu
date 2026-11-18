@@ -2,7 +2,7 @@
 
 ### The canvas and the codes
 
-A map's canvas is `0 0 width height`, `viewBox` says so, and a region's `path` is `M x,y L x,y … Z` with one piece for each part (an island is a piece), to two decimals. A region's `code` is its ISO 3166-1 alpha-2 code on the world, and on a country's regions the code Natural Earth gives (a postal code, the ISO 3166-2 part, or a number), or the prefecture number in Japan. On a country's regions, `iso` is the full ISO 3166-2 code (`CA-ON`), the one kuni has: see [ISO codes](#iso-codes) below. `neighbors` lists the regions that share a border point with it. `group` is the continent on the world and the larger part of the country on a map of regions, and is what quiz distractors use.
+A map's canvas is `0 0 width height`, `viewBox` says so, and a region's `path` is `M x,y L x,y … Z` with one piece for each part (an island is a piece), to two decimals. A region's `code` is its ISO 3166-1 alpha-2 code on the world, and on a country's regions the code Natural Earth gives (a postal code, the ISO 3166-2 part, or a number), or the prefecture number in Japan. On a country's regions, `iso` is the full ISO 3166-2 code (`CA-ON`), the one kuni has: see [ISO codes](#iso-codes) below. `neighbors` lists the regions that share a border point with it. `group` is the continent on the world and the larger part of the country on a map of regions, and is what quiz distractors use. `territoryPart` is true on a region that is drawn but is no country (Siachen Glacier, `KAS`; Ashmore and Cartier Islands, `ATC`; the Indian Ocean Territories, `IOA`, which have no ISO 3166-1 code): quizzes never ask about it or offer it, and a map's drawing is the same.
 
 ### ISO codes
 

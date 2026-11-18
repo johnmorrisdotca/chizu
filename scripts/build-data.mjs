@@ -40,6 +40,7 @@ import {
   buildWorld,
   buildWorldDetail,
   buildWorldGeo,
+  checkTerritoryParts,
   countriesFrom,
   insetProjections,
   namesOf,
@@ -56,6 +57,7 @@ import {
   KUNI,
   NATURAL_EARTH,
   REGION_GROUPS,
+  TERRITORY_PARTS,
 } from "./data-config.mjs";
 import { root, source } from "./natural-earth.mjs";
 
@@ -277,6 +279,7 @@ export async function main() {
       ...names,
       nameJa: names.nameJa ?? names.name,
       group: map.regions[0].group,
+      kind: TERRITORY_PARTS[p.__code] ? "territory-part" : "country",
       onWorld: onWorld.has(p.__code),
       hasDivisions: false,
     });
@@ -331,6 +334,8 @@ export async function main() {
 
   table.sort((a, b) => a.code.localeCompare(b.code));
   const inTable = new Set(table.map((entry) => entry.code));
+  checkTerritoryParts(table);
+  const countriesOnly = table.filter((entry) => entry.kind === "country");
   const groupsTable = (kind) => {
     const codes =
       kind === "continent"
@@ -352,10 +357,10 @@ export async function main() {
         name: kind === "continent" ? continentName(code, "en") : subregionName(code, "en"),
         nameJa,
         reading,
-        // A continent's members are the table's own (the three places kuni does not have are placed by Natural Earth's continent), a subregion's are kuni's.
+        // A continent's members are the table's own (the three places kuni does not have are left out: they are not countries, `kind: "territory-part"`), a subregion's are kuni's.
         codes:
           kind === "continent"
-            ? table.filter((entry) => entry.group === CONTINENT_NAMES[code]).map((entry) => entry.code)
+            ? countriesOnly.filter((entry) => entry.group === CONTINENT_NAMES[code]).map((entry) => entry.code)
             : kuniCountries()
                 .filter((one) => one.subregion === code && inTable.has(one.alpha2))
                 .map((one) => one.alpha2)
@@ -389,7 +394,7 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = ${literal(table)};
 
 /**
  * The seven continents, as kuni has them (UN M49 by way of CLDR): the Americas are two, and Central America and the
- * Caribbean are in North America. Each with the countries of this table in it; every country is in exactly one.
+ * Caribbean are in North America. Each with the countries of this table in it, the three places that are not countries (\`kind: "territory-part"\`) left out; every country is in exactly one.
  *
  * @example
  * \`\`\`ts

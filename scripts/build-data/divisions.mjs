@@ -1,6 +1,6 @@
 import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoPath } from "d3-geo";
 import { gapBetween, isoCodes, polygonsOf, regionFields, withRegionCodes } from "../build-data.mjs";
-import { NATURAL_EARTH } from "../data-config.mjs";
+import { NATURAL_EARTH, TERRITORY_PARTS } from "../data-config.mjs";
 import {
   COUNTRY_SIDE,
   EARTH_RADIUS_KM,
@@ -70,6 +70,7 @@ export function buildCountry(feature, near, fine) {
     code,
     ...namesOf(p, code),
     ...identityOf(p, code),
+    ...(TERRITORY_PARTS[code] ? { territoryPart: true } : {}),
     path: "",
     neighbors: near,
   });

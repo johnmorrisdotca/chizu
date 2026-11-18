@@ -14,7 +14,7 @@ const question=findQuestion(WORLD,"JP",seededRandom(42),{count:3});
 console.log(question?.target,question?.choices,question?.answerIndex);
 ```
 
-`count` requests wrong answers; the shuffled choices include the correct target. `answerIndex` indexes that shuffled list. An unknown or explicitly unnamed target yields `null`. A smaller candidate pool gives fewer choices. The distractor score favours neighbours, members of the same group and nearby shapes.
+`count` requests wrong answers; the shuffled choices include the correct target. `answerIndex` indexes that shuffled list. An unknown or explicitly unnamed target yields `null`, and so does a `territoryPart` (Siachen Glacier, which is no country): such a region is drawn but never asked about or offered as a choice. A smaller candidate pool gives fewer choices. The distractor score favours neighbours, members of the same group and nearby shapes.
 
 ## Pin the inputs
 

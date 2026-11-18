@@ -8,6 +8,18 @@ export const KANJI_READINGS = {
   シアチェン氷河: "しあちぇんひょうが",
 };
 
+/*
+ * The places Natural Earth draws as countries that are not: leftover polygons with no ISO 3166-1 code, each a part of
+ * a territory some other country holds or a disputed area. They are drawn as before, each alone, but no quiz asks about
+ * them or offers them, and the continents do not list them (`kind: "territory-part"`). It is the same three places kuni
+ * does not have (the build stops if it is not); Kosovo (XK) has the user-assigned code XK, which kuni has, and stays a country.
+ */
+export const TERRITORY_PARTS = {
+  ATC: "Ashmore and Cartier Islands, an external territory of Australia, drawn by Natural Earth as a country; it has no ISO 3166-1 code of its own",
+  IOA: "Natural Earth's polygon for Australia's Indian Ocean Territories (drawn on Christmas Island, which ISO 3166-1 codes as CX, with the Cocos Islands, CC); the polygon itself has no ISO 3166-1 code",
+  KAS: "the Siachen Glacier, a disputed area between India and Pakistan that no country is coded for in ISO 3166-1",
+};
+
 /** kuni's continents, by the English names chizu's `group` has always used. */
 export const CONTINENT_NAMES = {
   AF: "Africa",

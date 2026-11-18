@@ -43,7 +43,8 @@ export function quizPool() {
       .filter((feature) => WATER.has(feature.group) && pressable(feature))
       .map((feature) => feature.code);
   const regions = inPart();
-  return (state.quiz.style === "kana" ? regions.filter(hasKanjiReading) : regions).map((region) => region.code);
+  const askable = regions.filter((region) => !region.territoryPart);
+  return (state.quiz.style === "kana" ? askable.filter(hasKanjiReading) : askable).map((region) => region.code);
 }
 
 export async function startRound() {

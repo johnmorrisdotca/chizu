@@ -12,6 +12,7 @@ export {
   SHORT_ENGLISH_NOT_FOR_MAPS,
   SHORT_NAME_READINGS,
   SHORT_NAMES_NOT_EVERYDAY,
+  TERRITORY_PARTS,
 } from "./data-config/names.mjs";
 
 /** Where Natural Earth is read from: a release tag of its own repository, and the file's SHA-256 at that tag. */
