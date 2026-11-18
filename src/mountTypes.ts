@@ -23,6 +23,8 @@ export type ChizuMountOptions = {
   map: ChizuMap;
   /** The language of the names and of the buttons. Default: the page's `lang`, or English. */
   language?: ChizuLanguage;
+  /** Draw the world's smallest countries as dots (`drawChizu`'s `smallStates`, `withSmallStates`), in the finer drawing too. Default false. */
+  smallStates?: boolean;
   /** The zoom step to start at (1 to 10). Default 1. */
   zoom?: MapZoom;
   /** Tones by code (`drawChizu`'s `tones`). The chosen region is `selected` unless it is given a tone here. */

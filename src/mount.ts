@@ -16,6 +16,7 @@ import { ensureChizuMapStyle } from "./mountStyle.ts";
 import type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
 import { DRAG_PIXELS, KEY_STEP, WHEEL_GESTURE_MS, WHEEL_PAUSE_MS } from "./mountTypes.ts";
 import { redrawOverlays } from "./overlays.ts";
+import { withSmallStates } from "./smallStates.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 import { mapWrapsAround, wrapAcross, wrapOffsets } from "./wrap.ts";
@@ -48,7 +49,8 @@ export type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
 export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): ChizuMount {
   ensureChizuMapStyle(host);
   let options: ChizuMountOptions = { ...initial };
-  let map = options.map;
+  const dotted = (one: ChizuMap): ChizuMap => (options.smallStates ? withSmallStates(one) : one);
+  let map = dotted(options.map);
   let zoom: MapZoom = options.zoom ?? 1;
   let centre = boxCentre(wholeMapBox(map));
   let clampNext = true;
@@ -125,13 +127,13 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   function shown(): ChizuMap {
     const wanted = options.detail;
     if (!wanted || zoom < (options.detailFrom ?? 4)) return map;
-    if (typeof wanted !== "function") return wanted.id === `${map.id}-detail` ? wanted : map;
+    if (typeof wanted !== "function") return wanted.id === `${map.id}-detail` ? dotted(wanted) : map;
     if (detailed && detailed.id === `${map.id}-detail`) return detailed;
     if (fetching !== wanted) {
       fetching = wanted;
       wanted().then(
         (loaded) => {
-          detailed = loaded;
+          detailed = dotted(loaded);
           if (loaded.id === `${map.id}-detail` && zoom >= (options.detailFrom ?? 4)) draw();
         },
         () => {
@@ -264,6 +266,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   const api: ChizuMount = {
     set(patch) {
       options = { ...options, ...patch };
+      if (patch.smallStates !== undefined) map = dotted(options.map);
       if (patch.zoom !== undefined) zoom = patch.zoom;
       // New overlays alone: only their group is drawn again, not the land under them.
       const alone = Object.keys(patch).every((key) => key === "overlays");
@@ -271,8 +274,8 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       draw();
     },
     setMap(next) {
-      map = next;
       options = { ...options, map: next, selected: null };
+      map = dotted(next);
       waitingToFrame = null;
       zoom = 1;
       centre = boxCentre(wholeMapBox(map));

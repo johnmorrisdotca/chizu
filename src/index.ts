@@ -99,6 +99,7 @@ export type { FindQuestion } from "./quiz.ts";
 export { findQuestion } from "./quiz.ts";
 export type { Random } from "./random.ts";
 export { seededRandom, shuffled } from "./random.ts";
+export { withSmallStates } from "./smallStates.ts";
 export type { ChizuLanguage } from "./strings.ts";
 export { CHIZU_STRINGS, chizuLanguageOf, chizuSay, featureKindName, featureKindOf, nameOf } from "./strings.ts";
 export type {

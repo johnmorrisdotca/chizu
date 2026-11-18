@@ -25,9 +25,9 @@ The `@johnmorrisdotca/chizu/element` entry exports the three classes, `ChizuMapE
 
 | Element | Additional attributes |
 | --- | --- |
-| `<chizu-map>` | `highlight`: codes or ISO codes separated by spaces; `zoom`: 1–10; `data`: JSON object of finite figures keyed by code or ISO code; `selectable`: on by default |
+| `<chizu-map>` | `highlight`: codes or ISO codes separated by spaces; `zoom`: 1–10; `data`: JSON object of finite figures keyed by code or ISO code; `selectable`: on by default; `small-states`: the world's 62 smallest countries as dots, off by default |
 | `<chizu-locator>` | `place`: a region/feature code on the map, such as `Q200239` (Lake Biwa) on `country-jp`, or a `latitude,longitude` pair; `zoom`: 1–10 for a coordinate pin |
-| `<chizu-quiz>` | `seed`: integer 0–4294967295, default 1; each next question comes from the same seeded sequence |
+| `<chizu-quiz>` | `seed`: integer 0–4294967295, default 1; each next question comes from the same seeded sequence; `small-states`: the world's smallest countries are asked as dots, on by default (`off` for the 173 outlines alone) |
 
 Every observed attribute is reflected as a property. Native `lang` retains its browser property. Booleans accept `off`, `false`, `no` and `0`; assigning `false` writes the off value, and `null` or `undefined` removes an attribute. The host-only `options` property accepts existing mounted-map options and a `data` object; the builder lists every attribute or explains why an option belongs to host code. Assigning options or changing an attribute redraws the element. Disconnecting destroys the mounted map; a late map load cannot replace a newer configuration.
 

@@ -1,5 +1,6 @@
 import { type DistractorOptions, pickDistractors } from "./distractors.ts";
 import { type Random, shuffled } from "./random.ts";
+import { withSmallStates } from "./smallStates.ts";
 import type { ChizuMap } from "./types.ts";
 
 /**
@@ -27,7 +28,7 @@ export type FindQuestion = {
 /**
  * Makes the question: the target, `count` of the most tempting wrong answers for it (`pickDistractors`), and all of them
  * put in a random order. The same seed asks the same question. A map with fewer other places than `count` offers fewer
- * choices rather than failing.
+ * choices rather than failing. On the world, the 62 smallest countries (dots, `withSmallStates`) can be asked and offered unless `smallStates: false`.
  *
  * @example
  * ```ts
@@ -45,15 +46,16 @@ export type FindQuestion = {
  * @returns The seeded target and shuffled answer choices, or null for an unknown or explicitly unnamed target.
  */
 export function findQuestion(
-  map: Pick<ChizuMap, "width" | "height" | "regions">,
+  map: Pick<ChizuMap, "width" | "height" | "regions"> & Partial<Pick<ChizuMap, "id" | "kind" | "projection">>,
   targetCode: string | number,
   random: Random,
   options: Omit<DistractorOptions, "random"> = {},
 ): FindQuestion | null {
-  const target = map.regions.find((region) => String(region.code) === String(targetCode));
+  const place = options.smallStates === false ? map : withSmallStates(map as ChizuMap);
+  const target = place.regions.find((region) => String(region.code) === String(targetCode));
   // A piece drawn with no name is not a place to ask about.
   if (!target || (target as { unnamed?: boolean }).unnamed) return null;
-  const wrong = pickDistractors(map, targetCode, { ...options, random });
+  const wrong = pickDistractors(place, targetCode, { ...options, random });
   const choices = shuffled([target.code, ...wrong], random);
   return { target: target.code, choices, answerIndex: choices.indexOf(target.code) };
 }

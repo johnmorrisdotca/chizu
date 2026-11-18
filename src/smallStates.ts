@@ -213,30 +213,52 @@ function dotPath(x: number, y: number): string {
   return `M${points.join("L")}Z`;
 }
 
-const made = new WeakMap<object, ChizuMap>();
+const made = new WeakMap<object, unknown>();
+
+/** What `withSmallStates` reads of a map: its regions, and which map it is. */
+type SmallStatesMap = Pick<ChizuMap, "regions"> & Partial<Pick<ChizuMap, "id" | "kind" | "projection" | "source">>;
 
 /**
- * The world with its smallest countries put back as dots: every region the map already draws is kept as it is, and
- * each small country it lacks is added after them, a `small: true` region of a dot at its place, with its names, group
- * and the codes it touches, so it is drawn, framed, labelled, called out and asked in a quiz as any other country.
- * A map that is not a world on Miller's projection, and a country the map already draws, are left as they are, so it is
- * safe to ask twice: the same map comes back. Internal: `@johnmorrisdotca/chizu/world` and `loadWorldDetail` use it.
+ * The world with its smallest countries put back as dots. The 1:110m world has no outline for 62 of the 238 countries
+ * (Singapore, Malta, Bahrain, most of the Caribbean and the Pacific); this adds each as a `small: true` region, a
+ * small round shape at the middle of its largest island or piece, with its code, names, reading, continent and the
+ * countries it touches. Every region the map already has is kept as it is and the dots come after them, so the world
+ * is drawn, framed, labelled, called out and asked in a quiz as before, with the 62 as countries like any other. Only
+ * the world (`id` `world`) and its finer drawing (`world-detail`) get dots: any other map, and a world cut down to a
+ * group (`groupMap`), come back as they are, as does a world that already has every dot. The same map is returned
+ * for the same input, and the map given is never changed.
  *
- * @param map - The world, or its finer drawing (the same canvas and projection), as the data files hold it.
- * @returns The same map with a dot added for each small country it does not draw, or `map` when it needs none.
+ * `drawChizu` and `mountChizu` call it for `smallStates: true`, `<chizu-map small-states>` too; `findQuestion`,
+ * `pickDistractors` and `<chizu-quiz>` call it for the world unless told `smallStates: false`.
+ *
+ * @example
+ * ```ts
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { withSmallStates } from "@johnmorrisdotca/chizu";
+ *
+ * const withDots = withSmallStates(WORLD);
+ * const singapore = withDots.regions.find((region) => region.code === "SG")!;
+ * console.log(WORLD.regions.length, withDots.regions.length, singapore.small, singapore.nameJa);
+ * // 173 235 true シンガポール
+ * ```
+ *
+ * @param map - The world map, or its finer drawing; any other map is returned unchanged.
+ * @returns The map with a dot added for each small country it does not draw, or `map` itself when there is nothing to add.
  */
-export function withSmallStates<M extends ChizuMap>(map: M): M {
+export function withSmallStates<M extends SmallStatesMap>(map: M): M {
   const known = made.get(map);
   if (known) return known as M;
+  if ((map.id !== "world" && map.id !== "world-detail") || map.kind !== "world" || map.projection?.kind !== "miller")
+    return map;
+  const projection = map.projection!;
   const have = new Set(map.regions.map((region) => region.code));
-  if (map.kind !== "world" || map.projection.kind !== "miller") return map;
   const groupJa = new Map<string, string>();
   for (const region of map.regions) if (region.groupJa) groupJa.set(region.group, region.groupJa);
   const added = new Set(SMALL_STATES.map((state) => state[0]));
   const dots: ChizuRegion[] = [];
   for (const [code, iso3, name, nameJa, reading, group, lon, lat, neighbors, nameShortJa] of SMALL_STATES) {
     if (have.has(code)) continue;
-    const at = projectPoint(map, lon, lat);
+    const at = projectPoint({ projection }, lon, lat);
     if (!at) continue;
     const x = hundredth(at[0]);
     const y = hundredth(at[1]);
@@ -266,8 +288,8 @@ export function withSmallStates<M extends ChizuMap>(map: M): M {
   const withDots = {
     ...map,
     regions: [...map.regions, ...dots],
-    source: `${map.source}; ${dots.length} smaller countries as dots`,
-  };
+    source: `${map.source ?? "world"}; ${dots.length} smaller countries as dots`,
+  } as M;
   made.set(map, withDots);
   return withDots;
 }

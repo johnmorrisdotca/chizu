@@ -17,7 +17,7 @@ export function validatedAttributes(query, observed) {
   const available = new Set(observed);
   for (const [name, values] of Object.entries(choices))
     if (available.has(name) && values.includes(query.get(name))) attrs.push([name, query.get(name)]);
-  for (const name of ["labels", "controls", "selectable", "capital"])
+  for (const name of ["labels", "controls", "selectable", "capital", "small-states"])
     if (available.has(name) && query.has(name)) {
       const value = query.get(name).trim().toLowerCase();
       if (["", "on", "true", "1", "off", "false", "no", "0"].includes(value))

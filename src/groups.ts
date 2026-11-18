@@ -24,7 +24,7 @@ type Groupable = Pick<ChizuMap, "regions">;
  *
  * const groups = regionGroups(WORLD);
  * console.log(groups.map((group) => `${group.name} ${group.codes.length}`).join(", "));
- * // Asia 51, Europe 50, Africa 57, North America 38, South America 14, Oceania 25
+ * // Asia 46, Europe 39, Africa 50, North America 18, South America 13, Oceania 7
  * ```
  *
  * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.
@@ -66,7 +66,7 @@ export function regionGroups(map: Pick<ChizuMap, "regions">): ChizuGroup[] {
  * const africa = CHIZU_CONTINENTS.find((continent) => continent.code === "AF")!;
  * const map = groupMap(WORLD, africa.codes, { name: africa.name, nameJa: africa.nameJa });
  * console.log(map.regions.length, findQuestion(map, "KE", seededRandom(1))?.choices.length);
- * // 57 4
+ * // 50 4
  * ```
  *
  * @param map - The native map or map fields required by this signature; coordinates and region codes belong to its canvas.

@@ -1,4 +1,5 @@
 import { type Random, shuffled } from "./random.ts";
+import { withSmallStates } from "./smallStates.ts";
 import type { ChizuMap } from "./types.ts";
 
 /**
@@ -120,6 +121,12 @@ export type DistractorOptions = {
   random?: Random;
   /** Codes that may be offered, if only some may be (the countries a school names). The target's own code is never offered. Default: every region. */
   among?: ReadonlyArray<string | number>;
+  /**
+   * Whether the world has its smallest countries as dots to offer and ask about (`withSmallStates`): the 1:110m world
+   * has no outline for 62 countries, and a quiz that left them off would never ask for Singapore or Malta. Only the
+   * world (and its finer drawing) gets them; any other map, and a world cut to a group, is unchanged. Default true.
+   */
+  smallStates?: boolean;
 };
 
 /**
@@ -142,11 +149,15 @@ export type DistractorOptions = {
  * @returns The wrong answers to "which one is this?": the codes of `count` places, drawn from the most tempting ones for the target, never the target itself. With `random` the pool is shuffled and cut, so the same target is asked with different company; without it the answer is simply the best `count`, the same every time.
  */
 export function pickDistractors(
-  map: Pick<ChizuMap, "width" | "height" | "regions">,
+  map: Pick<ChizuMap, "width" | "height" | "regions"> & Partial<Pick<ChizuMap, "id" | "kind" | "projection">>,
   targetCode: string | number,
   options: DistractorOptions = {},
 ): string[] {
   const count = options.count ?? 3;
+  if (options.smallStates !== false) {
+    const dotted = withSmallStates(map as ChizuMap);
+    if (dotted !== map) return pickDistractors(dotted, targetCode, { ...options, smallStates: false });
+  }
   const target = map.regions.find((region) => String(region.code) === String(targetCode));
   if (!target || count <= 0) return [];
   const allowed = options.among === undefined ? null : new Set(options.among.map(String));

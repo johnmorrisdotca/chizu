@@ -7,6 +7,7 @@ import { insetTransformAttribute } from "./insets.ts";
 import { type CalloutRequest, layoutCallouts } from "./layout.ts";
 import { mapOutlines, mapRegionPieces } from "./outlines.ts";
 import { type ChizuOverlay, overlaysSvg } from "./overlays.ts";
+import { withSmallStates } from "./smallStates.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
 import { escapeXml, num } from "./svgText.ts";
@@ -27,6 +28,12 @@ import { mapWrapsAround, wrapOffsets } from "./wrap.ts";
  * ```
  */
 export type ChizuDrawOptions = {
+  /**
+   * Draw the world's 62 smallest countries as dots (`withSmallStates`): the 1:110m world has no outline for Singapore,
+   * Malta, Bahrain and the rest, so a world map leaves them off unless asked. Only the world gets them; any other map
+   * is drawn as it is. A country the map already draws gets no dot. Default false, which draws the map as given.
+   */
+  smallStates?: boolean;
   /** The window to show: a part of the map, as `focusBox`, `zoomBox` or `regionBox` frame it. Default: the whole map. */
   box?: MapBox;
   /** The language of the names a screen reader hears, and of the labels. Default `en`. */
@@ -131,6 +138,10 @@ const LABEL_RATIO = 0.016;
  * @returns The SVG text of the native map, with the requested layers, tones, labels and callouts.
  */
 export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string {
+  return drawMap(options.smallStates ? withSmallStates(map) : map, options);
+}
+
+function drawMap(map: ChizuMap, options: ChizuDrawOptions): string {
   const language = options.language ?? "en";
   const box = options.box ?? wholeMapBox(map);
   const outlines = mapOutlines(map);

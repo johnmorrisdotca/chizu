@@ -18,13 +18,12 @@ console.log(question?.target,question?.choices,question?.answerIndex);
 
 ## Small countries are asked too
 
-The world is drawn from 1:110m outlines, which are too coarse for 62 of the 238 countries (Singapore, Malta, Bahrain, most of the Caribbean and the Pacific). The world draws each as a dot at its place, a region with `small: true`, and it is a country like any other: it can be the target and it is offered among the choices. Leave the dots out of a quiz or a list with `regions.filter((region) => !region.small)`, or give `among` the codes you want.
+The world is drawn from 1:110m outlines, which are too coarse for 62 of the 238 countries (Singapore, Malta, Bahrain, most of the Caribbean and the Pacific), so `WORLD` has 173 regions. A quiz puts the other 62 back as dots, regions with `small: true`: `findQuestion` and `pickDistractors` ask and offer them on the world by default, and so does `<chizu-quiz>`. Pass `smallStates: false` (`small-states="off"` on the element) for the 173 alone. To draw the dots on a map, use `withSmallStates(WORLD)`, or `smallStates: true` on `drawChizu` and `mountChizu`.
 
 ```ts
 import WORLD from "@johnmorrisdotca/chizu/world";
-import { findQuestion, seededRandom } from "@johnmorrisdotca/chizu";
-const small = WORLD.regions.filter((region) => region.small);
-console.log(small.length, findQuestion(WORLD, "SG", seededRandom(1))?.target);
+import { findQuestion, seededRandom, withSmallStates } from "@johnmorrisdotca/chizu";
+console.log(WORLD.regions.length, withSmallStates(WORLD).regions.length, findQuestion(WORLD, "SG", seededRandom(1))?.target);
 ```
 
 ## Pin the inputs

@@ -79,11 +79,11 @@ export interface ChizuRegion {
    */
   unnamed?: boolean;
   /**
-   * True for a country too small to be an outline on the world at this scale, which the world draws as a dot at its
+   * True for a country too small to be an outline on the 1:110m world, which `withSmallStates` adds as a dot at its
    * place instead (Singapore, Malta, Bahrain): `path` is a small round shape, `centroid` is the place itself, and the
    * country's own map (`loadCountry`) has its real outline. It is a country like any other: named, framed, labelled,
-   * called out, tapped and asked in a quiz. A page that wants only the outlines leaves them out with
-   * `regions.filter((region) => !region.small)`.
+   * called out, tapped and asked in a quiz. The plain `WORLD` has none; `regions.filter((region) => !region.small)`
+   * leaves them out of a map that has them.
    */
   small?: boolean;
   /** Other names `group` goes by, in either language, where it has them: Kansai and 関西 for Japan's Kinki (近畿地方). */
@@ -168,7 +168,7 @@ export type ChizuProjection =
  *
  * const map: ChizuMap = WORLD;
  * console.log(map.id, map.kind, map.viewBox, map.regions.length, map.wraps);
- * // world world 0 0 1000 489 235 true
+ * // world world 0 0 1000 489 173 true
  * ```
  */
 export interface ChizuMap {
@@ -242,7 +242,7 @@ export interface ChizuCountry {
   reading?: string;
   /** The continent. */
   group: string;
-  /** Whether the coarse world map draws its outline (the smallest places are dots there, and their outline is in the country's own file). */
+  /** Whether the coarse world map draws its outline (the smallest places are left off, or are dots with `withSmallStates`, and their outline is in the country's own file). */
   onWorld: boolean;
   /** Whether it has a map of its own regions: its provinces, states or departments. */
   hasDivisions: boolean;

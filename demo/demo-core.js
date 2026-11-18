@@ -1,6 +1,6 @@
 // The demo page's shared state, words and small DOM helpers, used by every panel. Split from demo.js; the panels share one state object (demo-core.js).
 
-import { nameOf, regionGroups } from "./dist/index.js";
+import { nameOf, regionGroups, withSmallStates } from "./dist/index.js";
 import { CHIZU_CONTINENTS, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
 import world from "./dist/world-entry.js";
 import { foldAnswer } from "./tools.js";
@@ -88,7 +88,15 @@ export const state = {
   overlays: params.get("overlays") === "on",
   /** The named features of the map shown, once fetched: null before, and for a map with none. */
   layer: null,
-  map: world,
+  /** The map as loaded: the world has 173 countries drawn as outlines. */
+  base: world,
+  /** The map in use: the same, but in a quiz the world's 62 smallest countries are on it as dots, so they are asked too. */
+  get map() {
+    return this.mode === "quiz" ? withSmallStates(this.base) : this.base;
+  },
+  set map(value) {
+    this.base = value;
+  },
   part: null,
   selected: null,
   tones: {},

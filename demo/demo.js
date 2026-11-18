@@ -149,6 +149,10 @@ function settings() {
 
 function chooseMode(mode) {
   state.mode = mode;
+  // In a quiz the world has its smallest countries as dots; out of one it does not.
+  state.part = findPart(state.map, state.part?.key ?? null);
+  live.mount.set({ smallStates: mode === "quiz" });
+  populateParts();
   for (const name of MODES) $(`panel-${name}`).hidden = name !== mode;
   remember({ mode: mode === "explore" ? null : mode });
   live.mount.set({ fit: true });
@@ -238,7 +242,8 @@ const showPointing = () => {
     : "";
 };
 live.mount = mountChizu(host, {
-  map: state.map,
+  map: state.base,
+  smallStates: state.mode === "quiz",
   language: language.lang,
   // From 4× in, the world is drawn from the finer 1:50m outlines, fetched the first time they are wanted.
   detail: loadWorldDetail,

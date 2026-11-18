@@ -18,13 +18,12 @@ console.log(question?.target,question?.choices,question?.answerIndex);
 
 ## 小さな国も出題されます
 
-世界地図は1:110mの輪郭を使うため、238か国のうち62か国（シンガポール、マルタ、バーレーン、カリブ海や太平洋の多くの国）は輪郭では描けません。世界地図はこれらを、場所に置いた点（`small: true`の地域）として描きます。点も他の国と同じ国なので、正解にも選択肢にもなります。クイズや一覧から点を除くには`regions.filter((region) => !region.small)`を使うか、`among`に使いたいコードだけを渡します。
+世界地図は1:110mの輪郭を使うため、238か国のうち62か国（シンガポール、マルタ、バーレーン、カリブ海や太平洋の多くの国）は輪郭で描けず、`WORLD`は173地域です。クイズでは、この62か国を点（`small: true`の地域）として加えます。`findQuestion`と`pickDistractors`は世界地図で標準でこれらを出題し、選択肢にも入れます。`<chizu-quiz>`も同じです。173か国だけにするには`smallStates: false`（要素では`small-states="off"`）を渡します。地図に点を描くには、`withSmallStates(WORLD)`を使うか、`drawChizu`と`mountChizu`に`smallStates: true`を渡します。
 
 ```ts
 import WORLD from "@johnmorrisdotca/chizu/world";
-import { findQuestion, seededRandom } from "@johnmorrisdotca/chizu";
-const small = WORLD.regions.filter((region) => region.small);
-console.log(small.length, findQuestion(WORLD, "SG", seededRandom(1))?.target);
+import { findQuestion, seededRandom, withSmallStates } from "@johnmorrisdotca/chizu";
+console.log(WORLD.regions.length, withSmallStates(WORLD).regions.length, findQuestion(WORLD, "SG", seededRandom(1))?.target);
 ```
 
 ## 入力を固定する
