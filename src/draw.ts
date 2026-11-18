@@ -7,6 +7,7 @@ import { insetTransformAttribute } from "./insets.ts";
 import { type CalloutRequest, layoutCallouts } from "./layout.ts";
 import { mapOutlines, mapRegionPieces } from "./outlines.ts";
 import { type ChizuOverlay, overlaysSvg } from "./overlays.ts";
+import { type ChizuPort, type ChizuPortOptions, portsSvg } from "./ports.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
 import { escapeXml, num } from "./svgText.ts";
@@ -75,6 +76,16 @@ export type ChizuDrawOptions = {
   cities?: readonly ChizuCity[] | null;
   /** How the cities are drawn: a population floor, and whether their names are printed. */
   cityOptions?: ChizuCityOptions;
+  /**
+   * Airports and harbours to mark: `@johnmorrisdotca/chizu/airports` and `/harbours` have them, or any list of the same
+   * shape, most important first. More are marked as the window shows less ground, an airport as a diamond and a harbour
+   * as a ring, each with its name as its title and none printed; a mark is left out where it would sit on one already
+   * drawn. Drawn on a map that can place a point (the world, a country alone, a local map), never on a country's regions.
+   * Default none.
+   */
+  ports?: readonly ChizuPort[] | null;
+  /** How the airports and harbours are chosen: a tier, and the kinds. */
+  portOptions?: ChizuPortOptions;
   /**
    * Lines, marks and shaded areas given as latitude and longitude (a satellite's track, a place, the night side), drawn over
    * the land in a group of their own (`cz-overlays`). The map draws what it is handed and knows nothing of what it means.
@@ -276,6 +287,9 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
     labels +
     named +
     placedCities +
+    (options.ports && options.ports.length > 0
+      ? portsSvg(map, options.ports, box, offsets, { language, ...options.portOptions })
+      : "") +
     (options.overlays && options.overlays.length > 0 ? overlaysSvg(map, options.overlays, box) : "") +
     callouts +
     `</svg>`

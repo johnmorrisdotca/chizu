@@ -94,6 +94,8 @@ export {
 } from "./outlines.ts";
 export type { ChizuLatLon, ChizuOverlay } from "./overlays.ts";
 export { overlaysSvg } from "./overlays.ts";
+export type { ChizuPort, ChizuPortOptions, ChizuPortPlaced } from "./ports.ts";
+export { placePorts, portName, portsInTier, portTierFor } from "./ports.ts";
 export { projectPoint, unprojectPoint } from "./project.ts";
 export type { FindQuestion } from "./quiz.ts";
 export { findQuestion } from "./quiz.ts";

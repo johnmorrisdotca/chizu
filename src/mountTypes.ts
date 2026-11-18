@@ -3,6 +3,7 @@ import type { ChizuDrawOptions } from "./draw.ts";
 import type { ChizuFeatureChoice } from "./features.ts";
 import type { MapZoom } from "./frame.ts";
 import type { ChizuOverlay } from "./overlays.ts";
+import type { ChizuPort, ChizuPortOptions } from "./ports.ts";
 import type { ChizuLanguage } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
 
@@ -85,6 +86,10 @@ export type ChizuMountOptions = {
   cities?: readonly ChizuCity[] | null | (() => Promise<readonly ChizuCity[]>);
   /** How the cities are drawn (`drawChizu`'s `cityOptions`). */
   cityOptions?: ChizuCityOptions;
+  /** Airports and harbours to mark (`drawChizu`'s `ports`): `@johnmorrisdotca/chizu/airports` and `/harbours` have lists. More are marked as the map is zoomed in. Default none. */
+  ports?: readonly ChizuPort[] | null;
+  /** How the airports and harbours are chosen (`drawChizu`'s `portOptions`). */
+  portOptions?: ChizuPortOptions;
   /** Lines, marks and shaded areas given as latitude and longitude (`ChizuOverlay`). Setting them alone redraws only them, not the land. */
   overlays?: readonly ChizuOverlay[];
 };

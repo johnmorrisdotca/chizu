@@ -26,6 +26,7 @@ export const CHIZU_STYLE = `
   --cz-selected: #ffd23f; --cz-correct: #9bd6a8; --cz-wrong: #f0a99b; --cz-hint: #b7dcf4; --cz-muted: #d9d5c6; --cz-faint: #f3efe4;
   --cz-callout: #ffffff; --cz-callout-ink: #1f2320; --cz-leader: #3a3d38; --cz-halo: #f7f3e8;
   --cz-marine: #cfe3ee; --cz-water: #a6cde6; --cz-water-ink: #2b5d84; --cz-feature-line: #6b5d45; --cz-feature-selected: #4f9bd6;
+  --cz-airport: #2f78b5; --cz-harbour: #1f8a6a;
   --cz-font: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
   display: block; width: 100%; height: auto;
   user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
@@ -36,6 +37,7 @@ export const CHIZU_STYLE = `
     --cz-selected: #a8841a; --cz-correct: #2f6b45; --cz-wrong: #8a3a2c; --cz-hint: #2d5a78; --cz-muted: #3a3a30; --cz-faint: #55554a;
     --cz-callout: #ece8dc; --cz-callout-ink: #1f2320; --cz-leader: #ece8dc; --cz-halo: #1d201e;
     --cz-marine: #18303d; --cz-water: #2f6283; --cz-water-ink: #9fcbe8; --cz-feature-line: #cdbd97; --cz-feature-selected: #3f8cc6;
+    --cz-airport: #7cc4ff; --cz-harbour: #5fd3a6;
   }
 }
 :root[data-theme="dark"] .chizu {
@@ -43,6 +45,7 @@ export const CHIZU_STYLE = `
   --cz-selected: #a8841a; --cz-correct: #2f6b45; --cz-wrong: #8a3a2c; --cz-hint: #2d5a78; --cz-muted: #3a3a30; --cz-faint: #55554a;
   --cz-callout: #ece8dc; --cz-callout-ink: #1f2320; --cz-leader: #ece8dc; --cz-halo: #1d201e;
   --cz-marine: #18303d; --cz-water: #2f6283; --cz-water-ink: #9fcbe8; --cz-feature-line: #cdbd97; --cz-feature-selected: #3f8cc6;
+  --cz-airport: #7cc4ff; --cz-harbour: #5fd3a6;
 }
 .chizu * { user-select: none; -webkit-user-select: none; }
 .chizu .cz-sea { fill: var(--cz-sea); }
@@ -97,6 +100,9 @@ export const CHIZU_STYLE = `
 .chizu .cz-city-dot { fill: var(--cz-ink); stroke: var(--cz-halo); stroke-width: 1px; vector-effect: non-scaling-stroke; }
 .chizu .cz-city-ring { fill: var(--cz-halo); stroke: var(--cz-ink); stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
 .chizu .cz-city-label { font-family: var(--cz-font); font-weight: 500; fill: var(--cz-ink); dominant-baseline: central; paint-order: stroke; stroke: var(--cz-halo); stroke-linejoin: round; pointer-events: none; }
+.chizu .cz-ports { pointer-events: none; }
+.chizu .cz-airport path { fill: var(--cz-airport); stroke: var(--cz-halo); stroke-width: 1px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.chizu .cz-harbour circle { fill: var(--cz-halo); stroke: var(--cz-harbour); stroke-width: 1.8px; vector-effect: non-scaling-stroke; }
 .chizu .cz-overlay-area { fill: var(--cz-overlay, #0d1b2a); fill-opacity: var(--cz-overlay-opacity, 0.35); stroke: none; pointer-events: none; }
 .chizu .cz-overlay-line { fill: none; stroke: var(--cz-overlay, var(--cz-ink)); stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .chizu .cz-overlay-mark path { stroke: var(--cz-overlay, var(--cz-ink)); }
