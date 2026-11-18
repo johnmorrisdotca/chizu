@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- docs: the roadmap lists the outlines as longitude and latitude, cities on the maps and the `<chizu-map>` tag as shipped.
+
 ## [1.13.1] - 2026-11-18
 
 ### Changed
