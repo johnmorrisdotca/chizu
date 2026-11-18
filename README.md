@@ -11,7 +11,7 @@ The world and its 238 countries, each on its own, drawn from Natural Earth (publ
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="20.7 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-20.7%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="21.0 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-21.0%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -36,7 +36,7 @@ The world and its 238 countries, each on its own, drawn from Natural Earth (publ
 </tr>
 </table>
 
-Chizu is the world as SVG, and the things a person does with a map: look for a country, say which country a shape is, put a number on each of twenty places so a printed sheet can name them. It began in the geography quizzes of [Itsutsu](https://itsutsu.com) and a Japanese study app by the same author, and was taken out of both so that each can import it. Names are in English and Japanese today; Spanish, German and Chinese are planned, not started. It runs in [the demo](https://johnmorrisdotca.github.io/chizu/).
+Chizu is the world as SVG, and the things a person does with a map: look for a country, say which country a shape is, put a number on each of twenty places so a printed sheet can name them. It began in the geography quizzes of [Itsutsu](https://itsutsu.com) and a Japanese study app by the same author, and was taken out of both. Names are in English and Japanese today; Spanish, German and Chinese are planned, not started. It runs in [the demo](https://johnmorrisdotca.github.io/chizu/).
 
 ## In 30 seconds
 
@@ -102,7 +102,7 @@ const [caspian] = findFeatures((await loadFeatures("world"))!.features, "Caspian
 console.log(caspian!.code, caspian!.name, caspian!.kind);   // Q5484 Caspian Sea sea
 ```
 
-- **Airports and harbours**, `ports` marks the 600 busiest airports and 1,081 harbours, each list its own entry, named in English and Japanese, more of them as the window closes in. [docs/ports.md](./docs/ports.md).
+- **Airports and harbours**, `ports` marks the 600 busiest airports and 1,081 harbours, each list its own entry, named in English and Japanese, more of them as the window closes in; `runways` draws each airport's runways from their measured ends. [docs/ports.md](./docs/ports.md).
 
 ```ts
 import WORLD from "@johnmorrisdotca/chizu/world";
@@ -576,9 +576,9 @@ A group of places is a list of codes, and `groupMap`, `groupBox` and `groupTones
 
 ## Longitude and latitude
 
-`projectPoint(WORLD, 139.69, 35.69)` is Tokyo on the world's canvas, `[457.5, 212.5]`, and `unprojectPoint` goes back. A map keeps how its canvas was made (`projection`). Two are closed formulas, done here with no dependency: Miller's cylindrical round a centre longitude (the world) and Lambert azimuthal equal-area round a centre (a country alone). A country's regions were fitted with a projection of their own, and `projectPoint` answers `null` for them, never a guess. The tests hold both formulas to d3-geo's own.
+`projectPoint(WORLD, 139.69, 35.69)` is Tokyo on the world's canvas, `[457.5, 212.5]`, and `unprojectPoint` goes back. A map keeps how its canvas was made (`projection`). Two are closed formulas, done here with no dependency: Miller's cylindrical round a centre longitude (the world) and Lambert azimuthal equal-area round a centre (a country alone). A country's regions were fitted with a projection of their own, and `projectPoint` answers `null` for them, never a guess.
 
-`@johnmorrisdotca/chizu/world-geo` is the same world before any projection: a GeoJSON `FeatureCollection` of 177 features (Natural Earth 5.1.2, 1:110m) in WGS84 `[longitude, latitude]` degrees, for d3-geo's `geoOrthographic` or any spherical view: the 173 countries of `WORLD` and Antarctica (`AQ`), the French Southern Lands (`TF`), Northern Cyprus (`CYN`) and Somaliland (`SOL`), each with `code`, `iso3`, `name`, `nameJa`, `group` and `groupJa`. It is its own entry (166 kB minified, 44 kB gzipped), so a flat map never loads it. Zoomed in, `world-geo-detail` (1:50m) and `divisions-geo/<code>` (32 countries' regions) are the same in degrees: [docs/maps.md](./docs/maps.md).
+`@johnmorrisdotca/chizu/world-geo` is the same world before any projection: a GeoJSON `FeatureCollection` of 177 features (Natural Earth 5.1.2, 1:110m) in WGS84 `[longitude, latitude]` degrees, for d3-geo's `geoOrthographic` or any spherical view: the 173 countries of `WORLD` and four it leaves out (`AQ`, `TF`, `CYN`, `SOL`). It is its own entry (166 kB minified, 44 kB gzipped), so a flat map never loads it. Zoomed in, `world-geo-detail` (1:50m) and `divisions-geo/<code>` are the same in degrees: [docs/maps.md](./docs/maps.md).
 
 ```ts
 import WORLD_GEO from "@johnmorrisdotca/chizu/world-geo";
@@ -661,7 +661,7 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 
 | Entry | What it holds |
 | --- | --- |
-| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `overlaysSvg`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `placeCities`, `cityPopulationFloor`, `windowKilometres`; `placePorts`, `portsInTier`, `portTierFor`, `portName`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
+| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `overlaysSvg`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `placeCities`, `cityPopulationFloor`, `windowKilometres`; `placePorts`, `portsInTier`, `portTierFor`, `portName`, `runwaysSvg`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
 | `@johnmorrisdotca/chizu/element` | `ChizuMapElement`, `ChizuLocator`, `ChizuQuiz`, `defineMap`, `defineLocator`, `defineQuiz`, `loadElementMap`, `readMapData`, `CHIZU_ELEMENT_OPTION_KEYS`; `ChizuElementOptions` |
 | `@johnmorrisdotca/chizu/element/define` | registers `<chizu-map>`, `<chizu-locator>` and `<chizu-quiz>` |
 | `@johnmorrisdotca/chizu/draw` | `drawChizu`, `CHIZU_STYLE` |
@@ -670,6 +670,7 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 | `@johnmorrisdotca/chizu/cities` | `loadKuniCities`, `CHIZU_CITY_TIERS`: kuni's cities for `drawChizu`'s `cities` (needs the optional peer `@johnmorrisdotca/kuni` 1.6.0 or later; its size is measured with kuni bundled in) |
 | `@johnmorrisdotca/chizu/airports` | `AIRPORTS`, `AIRPORT_TIER_ENDS`, `AIRPORTS_CREDIT`: for `drawChizu`'s `ports` |
 | `@johnmorrisdotca/chizu/harbours` | `HARBOURS`, `HARBOURS_CREDIT`: for `ports` |
+| `@johnmorrisdotca/chizu/runways` | `RUNWAYS`, `RUNWAYS_CREDIT`: for `drawChizu`'s `runways` |
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
 | `@johnmorrisdotca/chizu/world-geo` | the world as longitude/latitude GeoJSON for a spherical projection, as the default export and as `WORLD_GEO` |
@@ -712,6 +713,7 @@ Nothing here is branded. The drawing and the mounted map are coloured by custom 
 | `--cz-feature-selected` | a chosen feature | `#4f9bd6` | `#3f8cc6` |
 | `--cz-airport` | an airport's mark | `#2f78b5` | `#7cc4ff` |
 | `--cz-harbour` | a harbour's ring | `#1f8a6a` | `#5fd3a6` |
+| `--cz-runway` | a runway | `#4b4f58` | `#b9bdc7` |
 | `--cz-font` | the font of names and numbers | the system's, with Hiragino and Noto Sans JP for Japanese | the same |
 
 **The mounted map** (`mountChizu`), custom properties on `.chizu-map`:
@@ -740,7 +742,7 @@ All of these are held by tests, and the ones with a name are exported.
 | Wrong answers | 3 unless asked otherwise, drawn from the best `count + 3` | `pickDistractors` |
 | Window copies drawn on the world | at most 4, however wrong the window | `wrapOffsets` |
 
-Placing callouts takes about 70 ms for twenty countries and 240 ms for France's 96 départements (on a laptop); `polish: true` adds up to a few seconds for a crowded sheet. Nothing here runs on a timer, and a mounted map draws only when it is moved, zoomed or told something new.
+Placing callouts takes about 70 ms for twenty countries and 240 ms for France's 96 départements (on a laptop); `polish: true` adds up to a few seconds. Nothing here runs on a timer, and a mounted map draws only when it is moved, zoomed or told something new.
 
 ## Accessibility
 
