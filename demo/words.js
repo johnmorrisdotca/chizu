@@ -198,7 +198,7 @@ export const WORDS = {
     colGroup: "グループ",
     nothingChosen: "地図の場所か、下の表の行を押してください。",
     pointingAt: (name) => `${name}を指しています`,
-    focusOn: (name) => `キーボードは${name}にあります（Enterで選びます）`,
+    focusOn: (name) => `${name}にフォーカスがあります（Enterキーで選びます）`,
     infoMap: (name, n, what) => `${name}：${n}${what}`,
     whatCountries: "か国",
     whatPlaces: "か所",

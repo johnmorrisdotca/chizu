@@ -92,7 +92,7 @@ export const CHIZU_STRINGS: Record<ChizuLanguage, Record<string, string>> = {
     zoomLevel: "{n}倍",
     selected: "{name}を選びました",
     none: "何も選んでいません",
-    keys: "ドラッグで動かし、プラスとマイナスのボタンかホイールで拡大縮小、矢印キーで動かし、プラスとマイナスのキーで拡大縮小、0で全体を表示します。Shiftと矢印キーで場所の間を移り、Enterで選びます。",
+    keys: "ドラッグで動かし、プラスとマイナスのボタンかホイールで拡大縮小、矢印キーで動かし、プラスとマイナスのキーで拡大縮小、0で全体を表示します。Shiftキーと矢印キーで場所の間を移動し、Enterキーで選びます。",
     callout: "{n}番：{name}",
     inset: "{name}、別枠に描いています",
     feature: "{name}（{kind}）",

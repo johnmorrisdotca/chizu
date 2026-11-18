@@ -17,7 +17,7 @@ open a *Fix a translation* issue with the string's name. `{name}` and the other 
 | `zoomLevel` | {n}× | {n}倍 |
 | `selected` | {name} chosen | {name}を選びました |
 | `none` | Nothing chosen | 何も選んでいません |
-| `keys` | Drag to move, the plus and minus buttons or the wheel zoom, arrow keys move, plus and minus zoom, 0 shows the whole map. Shift and an arrow key move between places, Enter chooses one. | ドラッグで動かし、プラスとマイナスのボタンかホイールで拡大縮小、矢印キーで動かし、プラスとマイナスのキーで拡大縮小、0で全体を表示します。Shiftと矢印キーで場所の間を移り、Enterで選びます。 |
+| `keys` | Drag to move, the plus and minus buttons or the wheel zoom, arrow keys move, plus and minus zoom, 0 shows the whole map. Shift and an arrow key move between places, Enter chooses one. | ドラッグで動かし、プラスとマイナスのボタンかホイールで拡大縮小、矢印キーで動かし、プラスとマイナスのキーで拡大縮小、0で全体を表示します。Shiftキーと矢印キーで場所の間を移動し、Enterキーで選びます。 |
 | `callout` | Number {n}: {name} | {n}番：{name} |
 | `inset` | {name}, drawn in a box of its own | {name}、別枠に描いています |
 | `feature` | {name}, {kind} | {name}（{kind}） |
