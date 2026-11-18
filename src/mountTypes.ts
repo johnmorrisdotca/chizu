@@ -4,6 +4,7 @@ import type { ChizuFeatureChoice } from "./features.ts";
 import type { MapZoom } from "./frame.ts";
 import type { ChizuOverlay } from "./overlays.ts";
 import type { ChizuPort, ChizuPortOptions } from "./ports.ts";
+import type { ChizuRunways } from "./runways.ts";
 import type { ChizuLanguage } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
 
@@ -90,6 +91,8 @@ export type ChizuMountOptions = {
   ports?: readonly ChizuPort[] | null;
   /** How the airports and harbours are chosen (`drawChizu`'s `portOptions`). */
   portOptions?: ChizuPortOptions;
+  /** The runways of the airports in `ports`, by airport id (`drawChizu`'s `runways`). Default none. */
+  runways?: ChizuRunways | null;
   /** Lines, marks and shaded areas given as latitude and longitude (`ChizuOverlay`). Setting them alone redraws only them, not the land. */
   overlays?: readonly ChizuOverlay[];
 };

@@ -78,6 +78,11 @@
       "import": "./dist/harbours-entry.js",
       "default": "./dist/harbours-entry.js"
     },
+    "./runways": {
+      "types": "./dist/runways-entry.d.ts",
+      "import": "./dist/runways-entry.js",
+      "default": "./dist/runways-entry.js"
+    },
     "./load": {
       "types": "./dist/load-entry.d.ts",
       "import": "./dist/load-entry.js",

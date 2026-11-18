@@ -210,6 +210,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
         : {}),
       ...(named ? { cities: named, ...(options.cityOptions ? { cityOptions: options.cityOptions } : {}) } : {}),
       ...(options.overlays ? { overlays: options.overlays } : {}),
+      ...(options.runways ? { runways: options.runways } : {}),
       ...(options.ports
         ? { ports: options.ports, ...(options.portOptions ? { portOptions: options.portOptions } : {}) }
         : {}),

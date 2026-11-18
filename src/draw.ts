@@ -8,6 +8,7 @@ import { type CalloutRequest, layoutCallouts } from "./layout.ts";
 import { mapOutlines, mapRegionPieces } from "./outlines.ts";
 import { type ChizuOverlay, overlaysSvg } from "./overlays.ts";
 import { type ChizuPort, type ChizuPortOptions, portsSvg } from "./ports.ts";
+import { type ChizuRunways, runwaysSvg } from "./runways.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import { CHIZU_STYLE } from "./style.ts";
 import { escapeXml, num } from "./svgText.ts";
@@ -86,6 +87,11 @@ export type ChizuDrawOptions = {
   ports?: readonly ChizuPort[] | null;
   /** How the airports and harbours are chosen: a tier, and the kinds. */
   portOptions?: ChizuPortOptions;
+  /**
+   * The runways of the airports in `ports`, by airport id (`@johnmorrisdotca/chizu/runways`): each drawn from its two
+   * measured ends, as wide as it is on the ground, and only once the window shows a few hundred kilometres or less. Default none.
+   */
+  runways?: ChizuRunways | null;
   /**
    * Lines, marks and shaded areas given as latitude and longitude (a satellite's track, a place, the night side), drawn over
    * the land in a group of their own (`cz-overlays`). The map draws what it is handed and knows nothing of what it means.
@@ -287,6 +293,9 @@ export function drawChizu(map: ChizuMap, options: ChizuDrawOptions = {}): string
     labels +
     named +
     placedCities +
+    (options.ports && options.runways
+      ? runwaysSvg(map, options.ports, options.runways, box, offsets, { ...options.portOptions })
+      : "") +
     (options.ports && options.ports.length > 0
       ? portsSvg(map, options.ports, box, offsets, { language, ...options.portOptions })
       : "") +

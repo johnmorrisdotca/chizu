@@ -257,6 +257,8 @@ const leftOut = {
   "options.cityOptions": "How cities are drawn belongs with the host's list of cities.",
   "options.ports":
     "Airports and harbours are lists a host loads from @johnmorrisdotca/chizu/airports and /harbours; the static builder has no switch for them.",
+  "options.runways":
+    "Runways are a list a host loads from @johnmorrisdotca/chizu/runways; the static builder has no switch for them.",
   "options.portOptions": "How airports and harbours are drawn belongs with the host's lists.",
   "options.overlays":
     "Overlays are numbers a host works out (a track, the night side) and hands the map; a static page has none to hand.",
