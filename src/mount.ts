@@ -12,7 +12,8 @@ import {
 import { buttonsKeepOut } from "./mountCallouts.ts";
 import { mountCities } from "./mountCities.ts";
 import { watchPlaces } from "./mountHover.ts";
-import { ensureChizuMapStyle } from "./mountStyle.ts";
+import { smallStateDots } from "./mountSmallStates.ts";
+import { ensureChizuMapStyle, selectedTones } from "./mountStyle.ts";
 import type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
 import { DRAG_PIXELS, KEY_STEP, WHEEL_GESTURE_MS, WHEEL_PAUSE_MS } from "./mountTypes.ts";
 import { redrawOverlays } from "./overlays.ts";
@@ -49,23 +50,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   ensureChizuMapStyle(host);
   let options: ChizuMountOptions = { ...initial };
   // The world's smallest countries are dots (`smallStates`): their table is its own chunk, fetched only when asked for.
-  let withDots: ((one: ChizuMap) => ChizuMap) | null = null;
-  let gone = false;
-  const dotted = (one: ChizuMap): ChizuMap => (options.smallStates && withDots ? withDots(one) : one);
-  function syncDots(): void {
-    if (!options.smallStates || withDots) {
-      map = dotted(options.map);
-      draw();
-      return;
-    }
-    import("./smallStates.ts").then(
-      (loaded) => {
-        withDots = loaded.withSmallStates;
-        if (!gone && options.smallStates) syncDots();
-      },
-      () => {},
-    );
-  }
+  const dots = smallStateDots(() => options.smallStates === true, redrawDots);
   let map = options.map;
   let zoom: MapZoom = options.zoom ?? 1;
   let centre = boxCentre(wholeMapBox(map));
@@ -110,10 +95,10 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   };
   const view = (): ChizuView => ({ zoom, centre: { ...centre }, box: box() });
 
-  function tones(): Record<string, string> {
-    const out: Record<string, string> = { ...(options.tones ?? {}) };
-    if (options.selected && out[options.selected] === undefined) out[options.selected] = "selected";
-    return out;
+  const tones = (): Record<string, string> => selectedTones(options);
+  function redrawDots(): void {
+    map = dots.dotted(options.map);
+    draw();
   }
 
   function words() {
@@ -143,13 +128,13 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   function shown(): ChizuMap {
     const wanted = options.detail;
     if (!wanted || zoom < (options.detailFrom ?? 4)) return map;
-    if (typeof wanted !== "function") return wanted.id === `${map.id}-detail` ? dotted(wanted) : map;
+    if (typeof wanted !== "function") return wanted.id === `${map.id}-detail` ? dots.dotted(wanted) : map;
     if (detailed && detailed.id === `${map.id}-detail`) return detailed;
     if (fetching !== wanted) {
       fetching = wanted;
       wanted().then(
         (loaded) => {
-          detailed = dotted(loaded);
+          detailed = dots.dotted(loaded);
           if (loaded.id === `${map.id}-detail` && zoom >= (options.detailFrom ?? 4)) draw();
         },
         () => {
@@ -282,7 +267,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   const api: ChizuMount = {
     set(patch) {
       options = { ...options, ...patch };
-      if (patch.smallStates !== undefined) syncDots();
+      if (patch.smallStates !== undefined) dots.sync();
       if (patch.zoom !== undefined) zoom = patch.zoom;
       // New overlays alone: only their group is drawn again, not the land under them.
       const alone = Object.keys(patch).every((key) => key === "overlays");
@@ -291,8 +276,8 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     },
     setMap(next) {
       options = { ...options, map: next, selected: null };
-      map = dotted(next);
-      if (options.smallStates && !withDots) syncDots();
+      map = dots.dotted(next);
+      dots.load();
       waitingToFrame = null;
       zoom = 1;
       centre = boxCentre(wholeMapBox(map));
@@ -356,7 +341,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     view,
     featureLayer: () => layer(),
     destroy() {
-      gone = true;
+      dots.stop();
       stage.remove();
       says.remove();
       host.classList.remove("chizu-map");
@@ -509,7 +494,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     }
   }
   draw();
-  if (options.smallStates) syncDots();
+  if (options.smallStates) dots.sync();
   host.dataset.ready = "true";
   return api;
 }

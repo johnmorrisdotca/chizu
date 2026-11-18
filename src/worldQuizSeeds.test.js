@@ -40,11 +40,13 @@ describe("a seeded world quiz is the quiz it was on main", () => {
       "quiz.ts",
       "distractors.ts",
       "mount.ts",
+      "mountSmallStates.ts",
       "element-base.ts",
       "world-entry.ts",
     ])
       expect(code(file), file).not.toMatch(/from "\.\/smallStates\.ts"/);
-    for (const file of ["mount.ts", "element-base.ts"])
+    // mountChizu fetches the table through mountSmallStates.ts, the elements on their own
+    for (const file of ["mountSmallStates.ts", "element-base.ts"])
       expect(code(file), file).toContain('import("./smallStates.ts")');
   });
 });

@@ -61,3 +61,13 @@ export function ensureChizuMapStyle(host: Element): void {
   style.textContent = CHIZU_MAP_STYLE;
   target.appendChild(style);
 }
+
+/** The tones a mounted map draws with: the page's own, and the chosen place marked `selected` unless the page tones it. */
+export function selectedTones(options: {
+  tones?: Record<string, string>;
+  selected?: string | null;
+}): Record<string, string> {
+  const out: Record<string, string> = { ...(options.tones ?? {}) };
+  if (options.selected && out[options.selected] === undefined) out[options.selected] = "selected";
+  return out;
+}
