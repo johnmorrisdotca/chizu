@@ -1,8 +1,8 @@
 {
   "job": "SVG maps for JavaScript",
   "pitch": {
-    "en": "Draw SVG maps, frame regions, place numbered callouts and build geography quizzes with English and Japanese names.",
-    "ja": "SVGの地図を描き、地域を表示範囲に収め、番号付きの注記や地理クイズを英語と日本語の名前で作れます。"
+    "en": "Draw SVG maps of the world, its 238 countries and the regions of 32 of them, frame them, place numbered callouts and build geography quizzes, with names in English and Japanese today (Spanish, German and Chinese are planned).",
+    "ja": "世界、238の国、32か国の州や県などの地域を、SVGの地図に描けます。表示する範囲を決めたり、番号付きの注記をつけたり、地理クイズを作ったりもできます。名前は今のところ英語と日本語で、スペイン語、ドイツ語、中国語は予定しています。"
   },
   "name": {
     "en": "Chizu is the Japanese word 地図 for map.",
