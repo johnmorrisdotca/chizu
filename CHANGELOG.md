@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.13.0] - 2026-11-17
+
 ### Added
 
 - **`onHover` and `onFocus` for a place** (MODULES-1492, for hata's world map, MODULES-1430). `mountChizu` takes `onHover(code | null)` (a mouse or pen resting on a region or feature; null on leaving it or the map, and while a button is held to drag; never from a finger) and `onFocus(code | null)` (the keyboard reached a place). `<chizu-map>` sends `chizu-hover` and `chizu-focus` with `detail` `{ region, code }`. The regions stay out of the tab order: the map is the one tab stop, and with it focused Shift and an arrow key move the focus to the nearest place in that direction, Enter or Space presses it, Escape gives the focus back (the bare arrow keys still move the map). The focused place is outlined. The demo names the place at the pointer or under the keyboard when exploring (not in a quiz).
