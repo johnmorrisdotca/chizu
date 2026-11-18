@@ -68,6 +68,15 @@ export function namesOf(properties, code) {
   return { name, nameJa: known.name.ja, ...(short ? { nameShortJa: short } : {}), reading };
 }
 
+/** The places kuni has no ISO 3166-1 code for are the territory parts (TERRITORY_PARTS in the config), and only they: a new Natural Earth leftover stops the build until it is placed. */
+export function checkTerritoryParts(table) {
+  for (const entry of table)
+    if (!kuniCountry(entry.code) !== (entry.kind === "territory-part"))
+      throw new Error(
+        `${entry.code} is ${entry.kind}, but ${kuniCountry(entry.code) ? "kuni has" : "kuni lacks"} its code: see TERRITORY_PARTS`,
+      );
+}
+
 /** A country's continent and three-letter code: kuni's, or Natural Earth's for the three places kuni does not have. */
 export function identityOf(properties, code) {
   const known = kuniCountry(code);

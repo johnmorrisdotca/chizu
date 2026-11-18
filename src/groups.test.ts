@@ -12,11 +12,12 @@ import { seededRandom } from "./random.ts";
 const continent = (code: string) => CHIZU_CONTINENTS.find((entry) => entry.code === code)!;
 
 describe("the continents and subregions", () => {
-  it("are kuni's seven continents, with every country in exactly one", () => {
+  it("are kuni's seven continents, with every country in exactly one and no territory part in any", () => {
     expect(CHIZU_CONTINENTS.map((entry) => entry.code)).toEqual(["AF", "AN", "AS", "EU", "NA", "OC", "SA"]);
     const placed = CHIZU_CONTINENTS.flatMap((entry) => entry.codes);
-    expect(placed.sort()).toEqual(CHIZU_COUNTRIES.map((country) => country.code).sort());
-    for (const country of CHIZU_COUNTRIES) {
+    const countries = CHIZU_COUNTRIES.filter((country) => country.kind === "country");
+    expect(placed.sort()).toEqual(countries.map((country) => country.code).sort());
+    for (const country of countries) {
       const home = CHIZU_CONTINENTS.find((entry) => entry.codes.includes(country.code))!;
       expect(home.name, country.code).toBe(country.group);
     }

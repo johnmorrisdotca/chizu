@@ -1,4 +1,4 @@
-import { type DistractorOptions, pickDistractors } from "./distractors.ts";
+import { type DistractorOptions, isAskable, pickDistractors } from "./distractors.ts";
 import { type Random, shuffled } from "./random.ts";
 import type { ChizuMap } from "./types.ts";
 
@@ -42,7 +42,7 @@ export type FindQuestion = {
  * @param targetCode - The native region code for the correct quiz answer.
  * @param random - A random source returning a value in [0, 1); use seededRandom for reproducible output.
  * @param options - The optional native drawing, matching, layout or quiz settings described by this signature.
- * @returns The seeded target and shuffled answer choices, or null for an unknown or explicitly unnamed target.
+ * @returns The seeded target and shuffled answer choices, or null for an unknown target, an explicitly unnamed one or a `territory-part`.
  */
 export function findQuestion(
   map: Pick<ChizuMap, "width" | "height" | "regions">,
@@ -51,8 +51,8 @@ export function findQuestion(
   options: Omit<DistractorOptions, "random"> = {},
 ): FindQuestion | null {
   const target = map.regions.find((region) => String(region.code) === String(targetCode));
-  // A piece drawn with no name is not a place to ask about.
-  if (!target || (target as { unnamed?: boolean }).unnamed) return null;
+  // A piece drawn with no name, or a leftover polygon that is no country, is not a place to ask about.
+  if (!target || !isAskable(target)) return null;
   const wrong = pickDistractors(map, targetCode, { ...options, random });
   const choices = shuffled([target.code, ...wrong], random);
   return { target: target.code, choices, answerIndex: choices.indexOf(target.code) };

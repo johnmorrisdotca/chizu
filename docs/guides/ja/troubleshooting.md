@@ -16,7 +16,7 @@ description: データがない場合、nullの結果、コードの対応、表
 | `insetFor`が`null` | 別枠がありません。通常は元の位置に描かれます。 |
 | `wrapIntoBox`が`null` | 表示範囲内に、その点の横方向の複製がありません。 |
 | `landAnchor` / `mainlandBounds`が`null` | 対象の輪郭がありません。 |
-| `findQuestion`が`null` | 正解の地域が不明、または名前のない地域です。 |
+| `findQuestion`が`null` | 正解の地域が不明、名前のない地域、または国ではない`territoryPart`です。 |
 | `projectPoint` / `unprojectPoint`が`null` | その投影は、この関数で変換できません。 |
 | `readMapData` / `readMapColors`が`null` | 入力がない、または読み取りの条件に合いません。 |
 

@@ -2,6 +2,14 @@ import { type Random, shuffled } from "./random.ts";
 import type { ChizuMap } from "./types.ts";
 
 /**
+ * Whether a quiz may ask about a place or offer it as a wrong answer: not a piece drawn with no name (`unnamed`), and not a
+ * leftover polygon that is no country (`territoryPart`). Drawing never asks.
+ */
+export function isAskable(region: { unnamed?: boolean; territoryPart?: boolean }): boolean {
+  return !region.unnamed && !region.territoryPart;
+}
+
+/**
  * What makes one place on a map a convincing wrong answer for another.
  *
  * Somewhere on the far side of the map is never tempting, so the choices are drawn from the target's own corner of it:
@@ -153,10 +161,7 @@ export function pickDistractors(
   const diagonal = mapDiagonal(map);
   const ranked = map.regions
     .filter(
-      (region) =>
-        region !== target &&
-        !(region as { unnamed?: boolean }).unnamed &&
-        (allowed === null || allowed.has(String(region.code))),
+      (region) => region !== target && isAskable(region) && (allowed === null || allowed.has(String(region.code))),
     )
     .map((region, order) => ({ code: region.code, order, score: distractorScore(target, region, diagonal) }))
     .sort((a, b) => b.score - a.score || a.order - b.order);

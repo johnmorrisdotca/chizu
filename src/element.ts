@@ -1,4 +1,5 @@
 /** Browser elements for maps, located places and seeded geography questions. Importing this entry is safe on a server. */
+import { isAskable } from "./distractors.ts";
 import { ChizuElement, COMMON, number, on, write } from "./element-base.ts";
 import { type ChizuFeatureChoice, featureMap } from "./features.ts";
 import type { MapZoom } from "./frame.ts";
@@ -360,7 +361,7 @@ export class ChizuQuiz extends ChizuElement {
     this.#random = seededRandom(seed);
     this.#round = 0;
     const pool = layer && features.length ? featureMap(map, layer, features) : map;
-    const places = pool.regions.filter((one) => !one.unnamed);
+    const places = pool.regions.filter((one) => isAskable(one));
     if (places.length < 2) throw new Error("Choose a map with at least two named places for a quiz.");
     const stage = this.text("div", "");
     stage.className = "map";

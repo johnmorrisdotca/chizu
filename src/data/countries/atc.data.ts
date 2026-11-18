@@ -44,6 +44,7 @@ const map: ChizuMap = {
       reading: "あしゅもあかるてぃえしょとう",
       group: "Oceania",
       iso3: "AUS",
+      territoryPart: true,
       path: "M967.78,77.08L1000,539.54L25.12,458.81L0,0Z",
       neighbors: [],
       bbox: [0, 0, 1000, 539.54],

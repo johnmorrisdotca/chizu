@@ -9,6 +9,7 @@ All notable changes to this project are written here. The format follows
 ### Changed
 
 - docs: the roadmap lists the outlines as longitude and latitude, cities on the maps and the `<chizu-map>` tag as shipped.
+- **Siachen Glacier, Ashmore and Cartier Islands and the Indian Ocean Territories are no longer asked about in a quiz** (MODULES-1616). Natural Earth draws them as countries but they have no ISO 3166-1 code. `CHIZU_COUNTRIES` has a new field `kind`, `"country"` or `"territory-part"` (type `ChizuPlaceKind`); `KAS`, `ATC` and `IOA` are `"territory-part"`, every other place, Kosovo (`XK`) included, `"country"`. Their country maps keep their shapes and are drawn as before, and their region has `territoryPart: true`; `findQuestion` returns null for such a region and `pickDistractors` never offers it. `CHIZU_CONTINENTS` no longer lists the three (Asia 51 and Oceania 25, were 53 and 26); a country's `group` is unchanged. The build (`TERRITORY_PARTS` in `scripts/data-config.mjs`) stops if the places kuni has no code for are not exactly those three. The demo's quiz leaves them out. Tests: `src/territory-parts.test.ts`.
 
 ## [1.13.1] - 2026-11-18
 

@@ -16,7 +16,7 @@ description: Explain missing resources, nullable geometry, code joins and browse
 | `insetFor` → `null` | The region has no inset; it is normally drawn in place. |
 | `wrapIntoBox` → `null` | This window shows no horizontally wrapped copy of the point. |
 | `landAnchor` / `mainlandBounds` → `null` | No outline ring exists to choose or frame. |
-| `findQuestion` → `null` | The target is unknown or explicitly unnamed. |
+| `findQuestion` → `null` | The target is unknown, explicitly unnamed or a `territoryPart` (not a country). |
 | `projectPoint` / `unprojectPoint` → `null` | The projection cannot be reversed by these helpers. |
 | `readMapData` / `readMapColors` → `null` | Attribute input is absent or invalid according to its parser. |
 

@@ -78,6 +78,12 @@ export interface ChizuRegion {
    * ask about it or offer it, `regionGroups` leaves it out, and a page leaves it out of its lists.
    */
   unnamed?: boolean;
+  /**
+   * True on a place Natural Earth draws as a country that is not one: a leftover polygon with no ISO 3166-1 code
+   * (`KAS`, `ATC`, `IOA`, each on its own country map; `kind: "territory-part"` in `CHIZU_COUNTRIES`). It is drawn exactly
+   * as any region, and named, but `findQuestion` and `pickDistractors` never ask about it or offer it. Absent on every country.
+   */
+  territoryPart?: boolean;
   /** Other names `group` goes by, in either language, where it has them: Kansai and 関西 for Japan's Kinki (近畿地方). */
   groupAliases?: string[];
   /** What kind of division it is, as Natural Earth names it, lower case: `province`, `state`, `prefecture`. */
@@ -212,6 +218,24 @@ export interface ChizuMap {
 export type ChizuPlace = Pick<ChizuRegion, "code" | "path" | "bbox" | "centroid" | "neighbors" | "group">;
 
 /**
+ * What a place in the table of every country is: a `"country"` (an ISO 3166-1 code, or Kosovo's `XK`), or a
+ * `"territory-part"`, a leftover polygon Natural Earth draws as a country that has no ISO 3166-1 code (Siachen Glacier,
+ * Ashmore and Cartier Islands, the Indian Ocean Territories). A territory part is drawn like any country, but is
+ * left out of quizzes and of the continents' lists.
+ *
+ * @example
+ * ```ts
+ * import { CHIZU_COUNTRIES } from "@johnmorrisdotca/chizu/names";
+ * import type { ChizuPlaceKind } from "@johnmorrisdotca/chizu";
+ *
+ * const kind: ChizuPlaceKind = "territory-part";
+ * console.log(CHIZU_COUNTRIES.filter((country) => country.kind === kind).map((country) => country.code).join(" "));
+ * // ATC IOA KAS
+ * ```
+ */
+export type ChizuPlaceKind = "country" | "territory-part";
+
+/**
  * One country in the table of every country: its names, and which of the maps has it.
  *
  * @example
@@ -234,6 +258,11 @@ export interface ChizuCountry {
   reading?: string;
   /** The continent. */
   group: string;
+  /**
+   * `"country"`, or `"territory-part"` for the three leftover polygons with no ISO 3166-1 code (`KAS`, `ATC`, `IOA`).
+   * A territory part keeps its map and its `group`, but no quiz asks about it and the continents do not list it.
+   */
+  kind: ChizuPlaceKind;
   /** Whether the coarse world map draws it (the smallest places are only in the country's own file). */
   onWorld: boolean;
   /** Whether it has a map of its own regions: its provinces, states or departments. */
