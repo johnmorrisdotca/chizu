@@ -22,7 +22,7 @@ test("a quiz of Polynesia, all dots on the 1:110m world, is a round of its nine 
     .getAttribute("data-code");
   const small = await page.evaluate(
     async (code) =>
-      (await import("./dist/index.js"))
+      (await import("./dist/small-states-entry.js"))
         .withSmallStates((await import("./dist/world-entry.js")).default)
         .regions.find((one) => one.code === code)?.small,
     target,
@@ -32,7 +32,9 @@ test("a quiz of Polynesia, all dots on the 1:110m world, is a round of its nine 
   expect(errors).toEqual([]);
 });
 
-test("mountChizu and the elements draw the dots only when asked, and the quiz element by default", async ({ page }) => {
+test("mountChizu and the elements draw the dots only when asked, and the quiz element too, off by default", async ({
+  page,
+}) => {
   await open(page, "?map=world");
   await page.evaluate(async () => {
     await import("./dist/element-define.js");
@@ -49,7 +51,7 @@ test("mountChizu and the elements draw the dots only when asked, and the quiz el
     add("chizu-map", "dotted", { "small-states": "" });
     add("chizu-map", "off", { "small-states": "off" });
     add("chizu-quiz", "quiz", { seed: "2" });
-    add("chizu-quiz", "quiz-off", { seed: "2", "small-states": "off" });
+    add("chizu-quiz", "quiz-dotted", { seed: "2", "small-states": "" });
     for (const [id, options] of [
       ["m-plain", {}],
       ["m-dotted", { smallStates: true }],
@@ -64,8 +66,8 @@ test("mountChizu and the elements draw the dots only when asked, and the quiz el
     ["plain", 173],
     ["dotted", 235],
     ["off", 173],
-    ["quiz", 235],
-    ["quiz-off", 173],
+    ["quiz", 173],
+    ["quiz-dotted", 235],
     ["m-plain", 173],
     ["m-dotted", 235],
   ]) {

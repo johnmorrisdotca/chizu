@@ -5,7 +5,6 @@ import type { MapZoom } from "./frame.ts";
 import { loadCountry, loadDivisions, loadFeatures } from "./load-entry.ts";
 import { type ChizuMount, type ChizuMountOptions, mountChizu } from "./mount.ts";
 import { CHIZU_MAP_STYLE } from "./mountStyle.ts";
-import { withSmallStates } from "./smallStates.ts";
 import { type ChizuLanguage, nameOf } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap as MapData } from "./types.ts";
 import WORLD from "./world-entry.ts";
@@ -262,9 +261,9 @@ export class ChizuElement extends ElementBase {
       const region = this.getAttribute("region") ?? "world";
       const loaded = this.options_.map ?? (await loadElementMap(region));
       if (!loaded) throw new Error("Choose world, country-<ISO> or divisions-<ISO>.");
-      // The world's smallest countries are dots when asked for (`small-states`); a quiz asks them unless it says `small-states="off"`.
-      const map = on(this, "small-states", this.options_.smallStates ?? this.kind === "quiz")
-        ? withSmallStates(loaded)
+      // The world's smallest countries are dots when asked for (`small-states`, off by default, a quiz too): their table is fetched only then.
+      const map = on(this, "small-states", this.options_.smallStates ?? false)
+        ? (await import("./smallStates.ts")).withSmallStates(loaded)
         : loaded;
       const features = this.featureChoices();
       let layer =
@@ -380,6 +379,7 @@ export class ChizuElement extends ElementBase {
     const selectable = on(this, "selectable", this.options_.selectable ?? true);
     this.mount = mountChizu(stage, {
       ...this.options_,
+      smallStates: false,
       colors: this.colourOptions(map),
       map,
       featureLayer: layer,

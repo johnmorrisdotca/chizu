@@ -31,7 +31,7 @@ test("a quiz asks the small countries the 1:110m world has only as dots: Microne
   const errors = await open(page, "?map=world&part=057&mode=quiz&seed=3");
   await expect(page.locator(at("progress"))).toHaveText("Question 1 of 7");
   const small = await page.evaluate(async () => {
-    const { withSmallStates } = await import("./dist/index.js");
+    const { withSmallStates } = await import("./dist/small-states-entry.js");
     const world = withSmallStates((await import("./dist/world-entry.js")).default);
     return world.regions.filter((one) => one.small).map((one) => one.code);
   });

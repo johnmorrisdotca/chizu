@@ -228,13 +228,15 @@ type SmallStatesMap = Pick<ChizuMap, "regions"> & Partial<Pick<ChizuMap, "id" | 
  * group (`groupMap`), come back as they are, as does a world that already has every dot. The same map is returned
  * for the same input, and the map given is never changed.
  *
- * `drawChizu` and `mountChizu` call it for `smallStates: true`, `<chizu-map small-states>` too; `findQuestion`,
- * `pickDistractors` and `<chizu-quiz>` call it for the world unless told `smallStates: false`.
+ * It is its own entry, so the table costs nothing until it is used. Draw or ask with the dots by giving the functions the
+ * map it returns: `drawChizu(withSmallStates(WORLD))`, `findQuestion(withSmallStates(WORLD), "SG", random)`,
+ * `pickDistractors(withSmallStates(WORLD), "SG")`. `mountChizu` (`smallStates: true`), `<chizu-map small-states>` and
+ * `<chizu-quiz small-states>` fetch the entry themselves, only when that is on.
  *
  * @example
  * ```ts
  * import WORLD from "@johnmorrisdotca/chizu/world";
- * import { withSmallStates } from "@johnmorrisdotca/chizu";
+ * import { withSmallStates } from "@johnmorrisdotca/chizu/small-states";
  *
  * const withDots = withSmallStates(WORLD);
  * const singapore = withDots.regions.find((region) => region.code === "SG")!;

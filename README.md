@@ -11,7 +11,7 @@ The world and its 238 countries, each on its own, drawn from Natural Earth (publ
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="23.9 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-23.9%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="20.6 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-20.6%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -79,7 +79,7 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 
 Each example is run in CI (`pnpm test:readme`). Pictures: [What's in it](#whats-in-it).
 
-- **The world, and 238 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut; the 62 too small for 1:110m are dots with `smallStates`, and quizzes ask them. Each of the 238 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
+- **The world, and 238 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut; 62 too small for 1:110m are opt-in dots (`/small-states`). Each of the 238 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
 - **The regions of 32 countries**, each its own file, 1,342 in all: the 50 states and Washington DC, Canada's 10 provinces and 3 territories, China's 31 provinces and municipalities, Germany's 16 states, Brazil's 27, Mexico's 32, Australia's 10 states and territories, France's 96 départements, the United Kingdom's 232 divisions, Japan's 47 prefectures and more.
 - **ISO 3166-2 codes on the regions** (`CA-ON`, `US-TX`, `JP-13`), 1,335 of the 1,342, joined at build time from kuni 国, so figures keyed by ISO code colour the map; the 7 without one are listed in [docs/iso-codes.md](./docs/iso-codes.md).
 
@@ -276,7 +276,7 @@ mount.zoomBy(1);
 
 ### 3. A bundler, and a framework
 
-Each country's map is its own file and its own dynamic import (`@johnmorrisdotca/chizu/load` holds one `import()` for each), so a bundler makes a chunk of every one and a page fetches only the one it draws. The world is 170 kB (61 kB gzipped). A map is a plain object with no functions in it, so it serialises, caches and crosses a worker boundary as it is.
+Each country's map is its own file and its own dynamic import (`@johnmorrisdotca/chizu/load` holds one `import()` for each), so a bundler makes a chunk of every one and a page fetches only the one it draws. The world is 170 kB (61 kB gzipped). A map is a plain object, so it serialises and caches as it is.
 
 ### What a developer gets
 
@@ -660,6 +660,7 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 | `@johnmorrisdotca/chizu/cities` | `loadKuniCities`, `CHIZU_CITY_TIERS`: kuni's cities for `drawChizu`'s `cities` (needs the optional peer `@johnmorrisdotca/kuni` 1.6.0 or later; its size is measured with kuni bundled in) |
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
+| `@johnmorrisdotca/chizu/small-states` | `withSmallStates`: 62 small countries as dots |
 | `@johnmorrisdotca/chizu/world-geo` | the world as longitude/latitude GeoJSON for a spherical projection, as the default export and as `WORLD_GEO` |
 | `@johnmorrisdotca/chizu/world-geo-detail` | the 1:50m world in degrees, as the default export and as `WORLD_GEO_DETAIL` |
 | `@johnmorrisdotca/chizu/divisions-geo` | `loadDivisionsGeo`, `DIVISIONS_GEO_CODES` |
@@ -726,7 +727,7 @@ All of these are held by tests, and the ones with a name are exported.
 | Wrong answers | 3 unless asked otherwise, drawn from the best `count + 3` | `pickDistractors` |
 | Window copies drawn on the world | at most 4, however wrong the window | `wrapOffsets` |
 
-Placing callouts takes about 70 ms for twenty countries on the world and about 240 ms for the 96 départements of France; `polish: true` adds a third of a second to a few seconds for a crowded sheet. Nothing here runs on a timer, and a mounted map draws only when it is moved, zoomed or told something new.
+Placing callouts takes about 70 ms for twenty countries on the world and about 240 ms for the 96 départements of France; `polish: true` adds a third of a second to a few seconds for a crowded sheet. Nothing runs on a timer: a mounted map draws only when moved, zoomed or told something new.
 
 ## Accessibility
 

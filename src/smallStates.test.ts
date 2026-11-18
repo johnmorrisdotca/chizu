@@ -168,7 +168,7 @@ describe("the smallest countries, as dots on the world", () => {
 
   it("is asked in a world quiz: any small country is a target, and turns up among the choices", () => {
     for (const code of ["SG", "MT", "BH"]) {
-      const question = findQuestion(plain, code, seededRandom(4))!;
+      const question = findQuestion(world, code, seededRandom(4))!;
       expect(question.target).toBe(code);
       expect(question.choices).toHaveLength(4);
       expect(question.choices[question.answerIndex]).toBe(code);
@@ -178,27 +178,27 @@ describe("the smallest countries, as dots on the world", () => {
     for (let seed = 1; seed <= 300; seed += 1) {
       const random = seededRandom(seed);
       const target = world.regions[Math.floor(random() * world.regions.length)]!;
-      const question = findQuestion(plain, target.code, random)!;
+      const question = findQuestion(world, target.code, random)!;
       if (target.small) asked.add(target.code);
       for (const choice of question.choices) if (regionOf(choice)!.small) offered.add(choice);
     }
     expect(asked.size).toBeGreaterThan(20);
     expect(offered.size).toBeGreaterThan(20);
     // Land neighbours are the best look-alikes, so Monaco is asked among France's and Italy's.
-    expect(pickDistractors(plain, "MC", { count: 1 })).toEqual(["FR"]);
+    expect(pickDistractors(world, "MC", { count: 1 })).toEqual(["FR"]);
   });
 
   it("never asks about the countries left off, nor a piece drawn with no name", () => {
-    for (const code of LEFT_OFF) expect(findQuestion(plain, code, seededRandom(1)), code).toBeNull();
+    for (const code of LEFT_OFF) expect(findQuestion(world, code, seededRandom(1)), code).toBeNull();
     const unnamed = { ...world.regions[0]!, code: "ZZ", unnamed: true };
-    const withPiece = { ...plain, regions: [...plain.regions, unnamed] };
+    const withPiece = { ...world, regions: [...world.regions, unnamed] };
     expect(findQuestion(withPiece, "ZZ", seededRandom(1))).toBeNull();
     for (let seed = 1; seed <= 100; seed += 1)
       for (const code of ["SG", "FR", "JP"])
         expect(pickDistractors(withPiece, code, { random: seededRandom(seed) })).not.toContain("ZZ");
     for (let seed = 1; seed <= 200; seed += 1)
       for (const code of ["SG", "MT", "FR", "HK"])
-        for (const choice of findQuestion(plain, code, seededRandom(seed))!.choices)
+        for (const choice of findQuestion(world, code, seededRandom(seed))!.choices)
           expect(LEFT_OFF, choice).not.toContain(choice);
   });
 
@@ -231,31 +231,29 @@ describe("the smallest countries, as dots on the world", () => {
     expect(plain.regions).toHaveLength(173);
     expect(plain).toBe(worldData);
     expect(plain.regions.some((region) => region.small)).toBe(false);
-    expect(drawChizu(plain)).toBe(drawChizu(worldData, { smallStates: false }));
+    expect(drawChizu(plain)).toBe(drawChizu(worldData));
     expect(drawChizu(plain)).not.toContain('data-code="SG"');
     expect(drawChizu(plain, { labels: ["JP"], tones: { JP: "selected" } })).toBe(
       drawChizu(worldData, { labels: ["JP"], tones: { JP: "selected" } }),
     );
   });
 
-  it("draws the dots when asked with smallStates: true, and nothing else changes", () => {
-    const asked = drawChizu(plain, { smallStates: true });
+  it("draws the dots when given the map with them, and nothing else changes", () => {
+    const asked = drawChizu(world);
     for (const dot of dots) expect(groupOf(asked, dot.code), dot.code).toBeDefined();
     expect(asked.match(/class="cz-region/g)).toHaveLength(235);
     let withoutDots = asked;
     for (const dot of dots) withoutDots = withoutDots.replace(groupOf(asked, dot.code)!, "");
     expect(withoutDots).toBe(drawChizu(plain));
-    expect(asked).toBe(drawChizu(world));
-    expect(drawChizu(plain, { smallStates: true, callouts: ["SG"] })).toContain('data-code="SG"');
+    expect(drawChizu(world, { callouts: ["SG"] })).toContain('data-code="SG"');
   });
 
-  it("asks and offers the small countries by default, and not with smallStates: false", () => {
-    expect(findQuestion(plain, "SG", seededRandom(1))).not.toBeNull();
-    expect(findQuestion(plain, "SG", seededRandom(1), { smallStates: false })).toBeNull();
+  it("asks nothing about a small country on the plain world, and does on the world with the dots", () => {
+    expect(findQuestion(plain, "SG", seededRandom(1))).toBeNull();
+    expect(findQuestion(world, "SG", seededRandom(1))).not.toBeNull();
     for (let seed = 1; seed <= 50; seed += 1)
-      for (const code of pickDistractors(plain, "MC", { random: seededRandom(seed), smallStates: false }))
+      for (const code of pickDistractors(plain, "MC", { random: seededRandom(seed) }))
         expect(regionOf(code)!.small, code).toBeUndefined();
-    expect(pickDistractors(plain, "FR", { count: 6 })).toEqual(pickDistractors(worldData, "FR", { count: 6 }));
   });
 
   it("makes a quiz of Micronesia and of Polynesia, which are all dots on the 1:110m world", () => {
@@ -273,8 +271,8 @@ describe("the smallest countries, as dots on the world", () => {
         for (const choice of question.choices) expect(group.codes).toContain(choice);
       }
       expect(asked.size).toBe(group.codes.length);
-      // Pointed at the plain world, with only these allowed, the same questions are asked.
-      const among = findQuestion(plain, group.codes[0]!, seededRandom(3), { among: group.codes })!;
+      // Pointed at the world with the dots, with only these allowed, the same questions are asked.
+      const among = findQuestion(world, group.codes[0]!, seededRandom(3), { among: group.codes })!;
       for (const choice of among.choices) expect(group.codes).toContain(choice);
     }
   });

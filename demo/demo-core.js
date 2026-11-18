@@ -1,7 +1,8 @@
 // The demo page's shared state, words and small DOM helpers, used by every panel. Split from demo.js; the panels share one state object (demo-core.js).
 
-import { nameOf, regionGroups, withSmallStates } from "./dist/index.js";
+import { nameOf, regionGroups } from "./dist/index.js";
 import { CHIZU_CONTINENTS, CHIZU_SUBREGIONS } from "./dist/names-entry.js";
+import { withSmallStates } from "./dist/small-states-entry.js";
 import world from "./dist/world-entry.js";
 import { foldAnswer } from "./tools.js";
 import { WORDS } from "./words.js";
