@@ -1,4 +1,4 @@
-import { type ChizuDrawOptions, drawChizu } from "./draw.ts";
+import { drawChizu } from "./draw.ts";
 import {
   boxCentre,
   focusRegionFit,
@@ -9,13 +9,15 @@ import {
   zoomBox,
   zoomToFit,
 } from "./frame.ts";
+import { buttonsKeepOut } from "./mountCallouts.ts";
 import { mountCities } from "./mountCities.ts";
+import { watchPlaces } from "./mountHover.ts";
 import { ensureChizuMapStyle } from "./mountStyle.ts";
 import type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
 import { DRAG_PIXELS, KEY_STEP, WHEEL_GESTURE_MS, WHEEL_PAUSE_MS } from "./mountTypes.ts";
 import { redrawOverlays } from "./overlays.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
-import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
+import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 import { mapWrapsAround, wrapAcross, wrapOffsets } from "./wrap.ts";
 
 export { ensureChizuMapStyle } from "./mountStyle.ts";
@@ -185,20 +187,6 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     return loaded ? { ...map, regions: [...map.regions, ...loaded.features] } : map;
   }
 
-  /** The corner the buttons sit in, in the map's own units, so that numbered callouts keep out from under them. */
-  function callouts(window_: MapBox): ChizuDrawOptions["callouts"] {
-    const wanted = options.callouts;
-    if (!wanted) return undefined;
-    const request = Array.isArray(wanted)
-      ? { codes: wanted as readonly string[] }
-      : (wanted as Exclude<ChizuDrawOptions["callouts"], readonly string[] | undefined>);
-    if (request.keepOut || options.controls === false) return request;
-    const pixels = stage.clientWidth > 0 ? stage.clientWidth : 640;
-    const unit = window_.width / pixels;
-    // Up the right edge as far as the three buttons reach, and along the bottom as far as they are wide.
-    return { ...request, keepOut: { bottom: 64 * unit, right: 170 * unit } };
-  }
-
   function draw() {
     const window_ = box();
     drawnOffsets = (mapWrapsAround(map) ? wrapOffsets(window_, map.width) : [0]).join(",");
@@ -210,7 +198,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       language: language(),
       tones: tones(),
       ...(options.colors ? { colors: options.colors } : {}),
-      callouts: callouts(window_),
+      callouts: buttonsKeepOut(options, window_, stage.clientWidth),
       labels: options.labels,
       interactive: true,
       ...(features
@@ -233,6 +221,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       level.remove();
     }
     words();
+    places.redrawn();
   }
 
   /** Move the window without redrawing, unless it has gone round the world far enough to need the other copy. */
@@ -253,6 +242,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
         rect.setAttribute("height", String(window_.height));
       }
     }
+    places.redrawn();
   }
 
   const changed = () => options.onView?.(view());
@@ -350,6 +340,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       says.remove();
       host.classList.remove("chizu-map");
       stage.removeEventListener("pointerdown", down);
+      places.destroy();
     },
   };
 
@@ -424,17 +415,19 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       const hit = host.ownerDocument
         .elementFromPoint(event.clientX, event.clientY)
         ?.closest?.("[data-code]") as HTMLElement | null;
-      const code = hit?.dataset.code ?? null;
-      if (code && options.selectable !== false && !hit?.classList.contains("cz-inset")) {
-        const next = options.selected === code ? null : code;
-        api.select(next);
-        options.onSelect?.(next);
-      }
+      if (!hit?.classList.contains("cz-inset")) press(hit?.dataset.code ?? null);
       return;
     }
     // A drag ended: callouts are placed for the window as it now is.
     if (options.callouts) draw();
     changed();
+  }
+  /** A place was pressed, by the pointer or by Enter on it with the keyboard: choose it, or let go of it if it is the chosen one. */
+  function press(code: string | null) {
+    if (!code || options.selectable === false) return;
+    const next = options.selected === code ? null : code;
+    api.select(next);
+    options.onSelect?.(next);
   }
   function wheel(event: WheelEvent) {
     // The wheel over the map zooms it, as does a pinch (Ctrl or ⌘ and the wheel). A wheel that starts with the zoom already at its end, or a
@@ -477,6 +470,8 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       api.reset();
     }
   }
+  // Before the key listener below: it takes Shift and an arrow, which move the focus between places and not the map.
+  const places = watchPlaces(stage, () => options, press);
   stage.addEventListener("pointerdown", down);
   stage.addEventListener("pointermove", move);
   stage.addEventListener("pointerup", up);

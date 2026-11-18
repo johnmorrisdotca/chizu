@@ -232,6 +232,10 @@ const leftOut = {
   "options.capital": "The capital switch writes capital.",
   "options.onSelect": "Native callbacks belong to host options; the element also dispatches composed events.",
   "options.onView": "Native view callbacks belong to host options; the element also dispatches composed events.",
+  "options.onHover":
+    "Native hover callbacks belong to host options; the element also dispatches composed chizu-hover events.",
+  "options.onFocus":
+    "Native focus callbacks belong to host options; the element also dispatches composed chizu-focus events.",
   "options.features": "The features control writes features; custom group and kind lists belong to host code.",
   "options.map": "Custom map data belongs to the host; built-in maps are selected by region.",
   "options.featureLayer": "The static builder loads each map's built-in layer locally.",

@@ -228,6 +228,15 @@ if (state.mapKey.startsWith("continent:")) {
 state.map = await loadMap(state.mapKey);
 await ensureLayer();
 state.part = findPart(state.map, state.partKey);
+// The name of the place the pointer rests on, or the keyboard has reached: only when exploring (a quiz must not name its answer).
+const pointing = { hover: null, focus: null };
+const showPointing = () => {
+  const code = pointing.hover ?? pointing.focus;
+  const place = state.mode === "explore" && code !== null ? placeOf(code) : undefined;
+  document.getElementById("pointing").textContent = place
+    ? say(pointing.hover !== null ? "pointingAt" : "focusOn", nameIn(place))
+    : "";
+};
 live.mount = mountChizu(host, {
   map: state.map,
   language: language.lang,
@@ -238,6 +247,14 @@ live.mount = mountChizu(host, {
   ...featureOptions(),
   ...cityOptions(state.cities),
   ...overlayOptions(state.overlays),
+  onHover: (code) => {
+    pointing.hover = code;
+    showPointing();
+  },
+  onFocus: (code) => {
+    pointing.focus = code;
+    showPointing();
+  },
   onSelect: (code) => {
     if (state.mode === "quiz") {
       // Finding a place, a press on the sea is not an answer; finding the water, a press on the land is a wrong one.

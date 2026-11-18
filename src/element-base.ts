@@ -71,6 +71,8 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
   capital: true,
   onSelect: true,
   onView: true,
+  onHover: true,
+  onFocus: true,
   callouts: true,
   labels: true,
   selected: true,
@@ -391,6 +393,14 @@ export class ChizuElement extends ElementBase {
       onView: (view) => {
         this.tell("chizu-view", { region: map.id, ...view });
         this.options_.onView?.(view);
+      },
+      onHover: (code) => {
+        this.tell("chizu-hover", { region: map.id, code });
+        this.options_.onHover?.(code);
+      },
+      onFocus: (code) => {
+        this.tell("chizu-focus", { region: map.id, code });
+        this.options_.onFocus?.(code);
       },
     });
     if (selectable) {

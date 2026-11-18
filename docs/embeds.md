@@ -41,10 +41,30 @@ The iframe routes are `embed/`, `embed/locator/` and `embed/quiz/`. Query keys a
 | `chizu-error` | `{ kind, message }` |
 | `chizu-select` | `{ region, code }`; null clears a selection |
 | `chizu-view` | `{ region, zoom, centre, box }` |
+| `chizu-hover` | `{ region, code }`; the place a mouse or pen rests on, null when it leaves; never from a finger |
+| `chizu-focus` | `{ region, code }`; the place the keyboard has reached (Shift and an arrow key), null when it leaves |
 | `chizu-locate` | `{ region, place, coordinates }`; coordinates are `{ latitude, longitude }` or null for a named place |
 | `chizu-answer` | `{ region, target, answer, correct, seed, round }` |
 
 All events bubble and cross shadow boundaries. The iframe forwards the identical detail in `{ type: event.type, detail: event.detail }`. A host must check both `event.origin === "https://johnmorrisdotca.github.io"` and `event.source === iframe.contentWindow` before using a message. No event includes visitor identity or persisted scores.
+
+## Hover and focus
+
+To show a place's name in a panel of your own, when the pointer rests on it or the keyboard has reached it, a mounted map takes `onHover` and `onFocus`; `<chizu-map>` sends `chizu-hover` and `chizu-focus` with the same code.
+
+```ts no-run
+import WORLD from "@johnmorrisdotca/chizu/world";
+import { mountChizu } from "@johnmorrisdotca/chizu/mount";
+
+mountChizu(document.querySelector<HTMLElement>("#map")!, {
+  map: WORLD,
+  onHover: (code) => console.log("pointer on", code), // a mouse or a pen; null on leaving, and while a button is held to drag
+  onFocus: (code) => console.log("keyboard on", code), // null when the focus leaves the place
+});
+```
+
+- **Pointer.** A mouse or pen resting on a region (or a drawn feature) says its code; null on leaving it, on leaving the map, and for as long as a button is held (a drag or a press). A finger never says anything, because touch has no hover: a page must also show what it needs on a press (`onSelect`).
+- **Keyboard.** The regions are not in the tab order (a world has too many); the map is the one tab stop. With it focused, Shift and an arrow key move the focus to the nearest place in that direction, Enter or Space presses it (`onSelect`), Escape gives the focus back to the map, and the bare arrow keys still move the map. The focused place has a three-pixel accent outline, and a screen reader says its name. A focus that a click gave to a place is not reported.
 
 Native released options remain available through the host options property,
 including colors, onSelect and onView. Callback details are the native values;

@@ -44,6 +44,19 @@ export type ChizuMountOptions = {
   /** A region was pressed (or its number): its code. Pressing the chosen one again passes null. */
   onSelect?: (code: string | null) => void;
   /**
+   * The pointer came to rest on a place (a region, or a feature when features are drawn): its code; and null when it
+   * leaves it, leaves the map, or a button is pressed to drag. A finger never calls it: touch has no hover, so a page
+   * must show what it needs on a press (`onSelect`) as well.
+   */
+  onHover?: (code: string | null) => void;
+  /**
+   * The keyboard reached a place: its code; and null when the focus leaves it. The map is one tab stop (the regions
+   * are not, there are too many): with it focused, Shift and an arrow key move the focus to the nearest place in that
+   * direction, Enter or Space presses it (`onSelect`) and Escape gives the focus back to the map. The bare arrow keys
+   * still move the map. A focus a click gave to a place is not reported.
+   */
+  onFocus?: (code: string | null) => void;
+  /**
    * A finer drawing of the same map, drawn from `detailFrom` in, where the map's own outlines would look angular: the
    * world's is `loadWorldDetail` (pass the function, and it is fetched the first time it is wanted). It is used only
    * when its `id` is the map's with `-detail` after it, so a detail left over from another map is never drawn.
