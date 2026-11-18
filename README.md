@@ -2,8 +2,8 @@
 
 <h1 align="center">Chizu <sub>地図</sub> — SVG maps for JavaScript</h1>
 
-<p align="center"><strong>Maps for JavaScript and TypeScript, in English and Japanese.</strong><br>
-The world and 32 countries' regions drawn from Natural Earth (public domain), Japan's 47 prefectures among them, with their seas, lakes, rivers, mountains and capitals on request, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing and zoom, insets, a world that wraps round the date line, quiz distractors, and a callout placer that puts numbered circles in open water with leader lines that never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
+<p align="center"><strong>The world as SVG maps for JavaScript and TypeScript, in English and Japanese.</strong><br>
+The world and its 238 countries, each on its own, drawn from Natural Earth (public domain), and the regions of 32 countries: US states, Canada's provinces and territories, China's provinces, Germany, Brazil, Mexico, Australia, France, the United Kingdom, Japan's 47 prefectures and more. Seas, lakes, rivers, mountains and capitals on request, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing, zoom, insets, quiz distractors and a callout placer whose leader lines never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
 
 <p align="center">
   <a href="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml/badge.svg"></a>
@@ -22,21 +22,21 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
 <td align="center" valign="top">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-desk-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-desk-light.webp" alt="The demo on a desk, in English, in Callouts mode: the page header with the language chooser, five cloth patches and the Help switch, the choice of map (the whole world), part, features and mode, the world on green felt with twenty countries numbered by white circles in the sea and a thin leader line from each circle to its country, and the start of the explanation under the map" width="600">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-desk-light.webp" alt="The demo on a desk, in English, in Callouts mode: the world on green felt with twenty countries numbered by white circles in the sea, each with a thin leader line to its country, under the page header and the choice of map" width="600">
 </picture>
 <br><em>The demo on a desk: the world with twenty countries numbered.</em>
 </td>
 <td align="center" valign="top">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-phone-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-phone-light.webp" alt="The demo on a phone, in Japanese: Germany's sixteen states on green felt, each numbered by a circle in the margin with a leader line, the zoom buttons in the corner, and the Japanese heading and explanation of the numbered callouts under the map" width="190">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/hero-phone-light.webp" alt="The demo on a phone, in Japanese: Germany's sixteen states on green felt, each numbered by a circle in the margin with a leader line, and the Japanese explanation under the map" width="190">
 </picture>
 <br><em>On a phone, in Japanese, in the device's light or dark.</em>
 </td>
 </tr>
 </table>
 
-Chizu is a map and the things a person does with one: look for a country, say which country a shape is, put a number on each of twenty places so a printed sheet can name them. It was made for the geography quizzes and study sheets of [Itsutsu](https://itsutsu.com), and for a Japanese study app by the same author, and taken out of both so that each can import it. It runs in [the demo](https://johnmorrisdotca.github.io/chizu/), with nothing to install.
+Chizu is the world as SVG, and the things a person does with a map: look for a country, say which country a shape is, put a number on each of twenty places so a printed sheet can name them. It began in the geography quizzes of [Itsutsu](https://itsutsu.com) and a Japanese study app by the same author, and was taken out of both so that each can import it. Names are in English and Japanese today; Spanish, German and Chinese are planned, not started. It runs in [the demo](https://johnmorrisdotca.github.io/chizu/).
 
 ## In 30 seconds
 
@@ -69,29 +69,102 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 
 ## Who it is for
 
+- **A site that shows the world**: where members live, a figure for every country. `projectPoint` puts a longitude and latitude on the canvas, and the world pans round without stopping.
+- **A site that shows a country's regions**: the states of the United States, Brazil or Germany, the provinces of Canada or China, the prefectures of Japan.
 - **Geography quiz and study sites** that want "which country is this?" with look-alike wrong answers built in (neighbours first, then the same continent, then whatever is nearest), questions that come out the same from the same seed, and names in English and Japanese.
 - **Printable sheets and worksheets**, where a map has to be labelled with numbers in the sea, never on the land, with leader lines that never cross and cross as little land as they can.
-- **A site that pins things on a map**: members' home countries, battles, photographs. `projectPoint` puts a longitude and latitude on a canvas, and the world pans round without stopping.
-- **Anyone who needs country outlines and names in Japanese** as plain data, rebuilt from a public-domain source by a script they can read, with its version beside them.
+- **Anyone who needs country and region outlines and names as plain data**, rebuilt from a public-domain source by a script they can read.
 
 ## Features
 
-- **The world, and 238 countries each on its own.** One canvas for the world, Miller's projection centred on 155°E (so Japan and the whole Pacific are in the middle, the way a Japanese classroom's wall map is drawn). Each country alone is a map of its own, from the 1:50m outlines, and from the 1:10m ones for the small ones, so that Singapore and Malta are shapes and not hexagons.
-- **Japan's 47 prefectures**, from Natural Earth's admin-1 file, framed as a Japanese school atlas frames them: Okinawa and the Amami Islands in boxes in the Sea of Japan, Tokyo's Ogasawara Islands in a box of their own, each prefecture named and read (東京都, とうきょうと) and grouped in its region (Kanto, Kyushu).
-- **32 countries' regions**, each its own file: the prefectures of Japan, the states of the United States, Germany and Brazil, the provinces of Canada, the départements of France, the counties of Ireland, and on to Vietnam. Names in Japanese for nearly every one.
-- **ISO 3166-2 codes on the regions** (`JP-13`, `CA-ON`, `US-TX`), 1,335 of the 1,342, joined at build time from kuni 国, so a table of figures keyed by ISO code colours the map; the 7 without one are listed below with the reason.
-- **Seas, lakes, rivers, mountains and capitals**, a layer each map turns on (`features: ["water"]`): the oceans, seas, bays and straits on its coasts, the lakes and rivers on its land, its deserts, ranges and peaks from Natural Earth's physical vectors, and its capitals from kuni, named in English and Japanese (Natural Earth's names, else Wikidata's) and read in kana; searched by name, framed, chosen, asked about and numbered like any place. Each map's are a file of their own, 29 kB for Japan.
-- **Names in English and Japanese for every country**, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time so the two packages never name a place two ways. The table of them, with the continents and subregions, is its own entry, 52 kB (10 kB gzipped), with no outlines. Nothing of kuni's is imported at run time: Chizu still depends on nothing.
-- **Framing and zoom in ten steps**, 1× to 10×, the lines as thin at 10× as at 1×, a window on a region, one tight on a shape, a square for an icon, and a fit for a group of regions. A region drawn in a box (Alaska, Hawaii, Okinawa) is framed where it is *drawn*, not out in the Pacific, and a prefecture whose far islands are boxed (Tokyo, Kagoshima) is framed on the part left in place.
-- **A world that goes round.** East and west never stop on the world: the canvas is drawn again either side of itself wherever the window overhangs.
-- **A callout placer.** Numbered circles in the water between and around the regions, no two leaders crossing, each crossing as little land as it can, with a slower pass for a printed sheet. The same arrangement every time.
+Each example is run in CI (`pnpm test:readme`). Pictures: [What's in it](#whats-in-it).
+
+- **The world, and 238 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut. Each of the 238 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
+- **The regions of 32 countries**, each its own file, 1,342 in all: the 50 states and Washington DC, Canada's 10 provinces and 3 territories, China's 31 provinces and municipalities, Germany's 16 states, Brazil's 27, Mexico's 32, Australia's 10 states and territories, France's 96 départements, the United Kingdom's 232 divisions, Japan's 47 prefectures and more.
+- **ISO 3166-2 codes on the regions** (`CA-ON`, `US-TX`, `JP-13`), 1,335 of the 1,342, joined at build time from kuni 国, so figures keyed by ISO code colour the map; the 7 without one are listed in [docs/iso-codes.md](./docs/iso-codes.md).
+
+```ts
+import WORLD from "@johnmorrisdotca/chizu/world";
+import { loadCountry, loadDivisions } from "@johnmorrisdotca/chizu/load";
+
+console.log(WORLD.regions.length, (await loadCountry("sg"))!.name);   // 173 Singapore
+const canada = (await loadDivisions("ca"))!;
+console.log(canada.regions.length, canada.regions.find((region) => region.iso === "CA-ON")!.name);   // 13 Ontario
+```
+
+- **Seas, lakes, rivers, mountains and capitals**, a layer each map turns on (`features: ["water"]`): oceans, seas, bays and straits, lakes, rivers, deserts, ranges, peaks and capitals, named in English and Japanese and read in kana; searched, framed, chosen and numbered like any place.
+
+```ts
+import { loadFeatures } from "@johnmorrisdotca/chizu/load";
+import { findFeatures } from "@johnmorrisdotca/chizu";
+
+const [caspian] = findFeatures((await loadFeatures("world"))!.features, "Caspian");
+console.log(caspian!.code, caspian!.name, caspian!.kind);   // Q5484 Caspian Sea sea
+```
+
+<!-- Airports and harbours: a bullet and a short example go here, when MODULES-1580 lands. -->
+
+- **Names in English and Japanese today.** Every country is named in both, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, and 1,341 of the 1,342 regions have a Japanese name, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time. **Spanish, German and Chinese names are planned and not started**; any other language is a table of your own ([Languages](#languages)). The table is its own entry, 52 kB (10 kB gzipped).
+
+```ts
+import { CHIZU_COUNTRIES, countryByCode } from "@johnmorrisdotca/chizu/names";
+
+const brazil = countryByCode("BR")!;
+console.log(CHIZU_COUNTRIES.length, brazil.name, brazil.nameJa);   // 238 Brazil ブラジル
+```
+
+- **Framing and zoom in ten steps**, 1× to 10×, a window on a region, a square for an icon, a fit for a group. A region drawn in a box is framed where it is *drawn*, not out in the Pacific.
+- **A world that goes round.** East and west never stop: the canvas is drawn again either side of itself wherever the window overhangs.
+
+```ts
+import WORLD from "@johnmorrisdotca/chizu/world";
+import { drawChizu } from "@johnmorrisdotca/chizu/draw";
+import { regionBox } from "@johnmorrisdotca/chizu";
+import { loadDivisions } from "@johnmorrisdotca/chizu/load";
+
+const hawaii = regionBox((await loadDivisions("us"))!, "HI", 1.5);
+console.log(Math.round(hawaii.width), Math.round(hawaii.height));    // 228 152
+const edge = drawChizu(WORLD, { box: { x: 700, y: 0, width: 600, height: 632 } });
+console.log(edge.match(/data-code="RU"/g)!.length);                  // 2: Russia again, past the edge
+```
+
+- **A callout placer.** Numbered circles in open water, no two leaders crossing, each crossing as little land as it can; the same every time.
 - **Quiz distractors.** The wrong answers for "which one is this?", tempting for a reason, the same for the same seed.
-- **Pasted names to places.** A list somebody typed (English, Japanese, short names, readings) becomes the regions it names, in the order written, with what matched nothing said back.
-- **Longitude and latitude to the canvas, and back**, for the world and for each country alone, held to d3-geo's own to a hundredth of a unit.
-- **The city scale.** A local projection (a canvas unit a stated number of metres) takes a map past the 10× step to a venue: your own GeoJSON, pictures at their true size and bearing, callouts, a scale bar and your credit lines, nothing fetched. [docs/city.md](./docs/city.md).
-- **Drawn as SVG text** in an entry of its own, with tones for right and wrong, a colour of your own for any region, labels, insets in dashed frames and numbered callouts, for a server, an email, a build step or `innerHTML`.
-- **Dragged and zoomed in any page**: drag to move, buttons, the wheel or a pinch to zoom, arrow keys, a press to choose; with the words in English and Japanese for a screen reader.
-- **No dependencies**, no network requests, and nothing stored outside the page it is in.
+- **Pasted names to places.** A list somebody typed becomes the regions it names, with what matched nothing said back.
+- **Longitude and latitude to the canvas, and back**, held to d3-geo's own to a hundredth of a unit.
+
+```ts
+import WORLD from "@johnmorrisdotca/chizu/world";
+import { layoutCallouts, pickDistractors, placesFromText, projectPoint } from "@johnmorrisdotca/chizu";
+
+console.log(layoutCallouts(WORLD, { codes: ["BR", "US", "EG", "AU"], radiusRatio: 0.02 }).map((spot) => spot.code));
+console.log(pickDistractors(WORLD, "DE", { count: 3 }));                // [ 'LU', 'NL', 'AT' ]: its neighbours first
+console.log(placesFromText("Brazil, フランス\nNarnia", WORLD.regions));   // { codes: [ 'BR', 'FR' ], missing: [ 'Narnia' ] }
+console.log(projectPoint(WORLD, -46.63, -23.55));                       // São Paulo on the canvas: [ 939.9, 382.7 ]
+```
+
+- **The city scale.** A local projection takes a map past the 10× step to a venue: your own GeoJSON, pictures at their true size, callouts and a scale bar. [docs/city.md](./docs/city.md).
+- **Drawn as SVG text**, with tones, a colour of your own for any region, labels, insets and callouts, for a server, an email, a build step or `innerHTML`.
+
+```ts
+import WORLD from "@johnmorrisdotca/chizu/world";
+import { localMap } from "@johnmorrisdotca/chizu";
+import { drawChizu, drawLocal } from "@johnmorrisdotca/chizu/draw";
+
+console.log(drawChizu(WORLD, { tones: { BR: "selected" }, language: "en" }).includes('data-code="BR"'));   // true
+console.log(drawLocal(localMap({ centre: [-0.1276, 51.5072], widthMetres: 300 }), {}).startsWith("<svg"));   // true
+```
+
+- **Dragged and zoomed in any page**: drag, buttons, the wheel or a pinch, arrow keys, a press to choose; words for a screen reader in English and Japanese.
+
+```ts no-run
+import WORLD from "@johnmorrisdotca/chizu/world";
+import { mountChizu } from "@johnmorrisdotca/chizu/mount";
+
+mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => console.log(code) });
+```
+
+- **No dependencies**, no network requests, nothing stored outside the page.
 
 ### What's in it
 
@@ -102,14 +175,14 @@ Each picture is the real map, drawn by the package and taken from [the demo](htt
 <td align="center" valign="top" width="50%">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/explore-desk-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/explore-desk-light.webp" alt="The demo's Explore mode on a desk: the world drawn with Japan in the middle and the sea round it, Japan filled yellow because it is chosen, the zoom buttons in the bottom corner and the words Japan chosen under the map" width="400">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/explore-desk-light.webp" alt="The demo's Explore mode on a desk: the world, Japan filled yellow because it is chosen, zoom buttons and the words Japan chosen" width="400">
 </picture>
 <br><em><strong>Explore.</strong> The world is drawn round 155°E, so Japan and the Pacific are in the middle; press a country to choose it.</em>
 </td>
 <td align="center" valign="top" width="50%">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/callouts-desk-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/callouts-desk-light.webp" alt="The demo's Callouts mode on a desk: Germany's sixteen states with a numbered circle for each in the sea or the margin, numbered 1 to 16, and a thin leader line from each circle to a dot on its state, none crossing" width="360">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/callouts-desk-light.webp" alt="The demo's Callouts mode: Germany's sixteen states, each with a numbered circle in the margin and a thin leader line, none crossing" width="360">
 </picture>
 <br><em><strong>Callouts.</strong> Germany's sixteen states: every circle is in open water or the margin, and no two leaders cross.</em>
 </td>
@@ -118,14 +191,14 @@ Each picture is the real map, drawn by the package and taken from [the demo](htt
 <td align="center" valign="top" width="50%">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/insets-desk-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/insets-desk-light.webp" alt="The fifty states of the United States in the demo on a desk: the lower forty-eight drawn large, with Alaska and Hawaii each in a dashed box of their own under the south-west, and the zoom buttons in the corner" width="400">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/insets-desk-light.webp" alt="The fifty states of the United States in the demo: the lower forty-eight large, Alaska and Hawaii in dashed boxes under the south-west" width="400">
 </picture>
 <br><em><strong>Insets.</strong> Alaska and Hawaii are drawn in boxes of their own, and everything that frames or numbers a map finds a region where it is drawn.</em>
 </td>
 <td align="center" valign="top" width="50%">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/country-phone-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/country-phone-light.webp" alt="Japan alone on a phone, from the 1:50m outlines, with its water drawn: the four main islands on a pale blue sea, the Sea of Japan, the Pacific and the straits named in blue italics, Lake Biwa and three rivers in blue, the zoom buttons in the corner and the words Nothing chosen under the map" width="240">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/country-phone-light.webp" alt="Japan alone on a phone, with its seas named in blue italics, Lake Biwa and three rivers, and the words Nothing chosen under the map" width="240">
 </picture>
 <br><em><strong>One country alone</strong>, with its seas, lakes and rivers turned on. Each of 238 countries is a map of its own.</em>
 </td>
@@ -134,14 +207,14 @@ Each picture is the real map, drawn by the package and taken from [the demo](htt
 <td align="center" valign="top" width="50%">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/quiz-phone-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/quiz-phone-light.webp" alt="The demo's Quiz mode on a phone: a world map at 6× with the Central African Republic lit in yellow among its neighbours, the four kinds of question with Pick a name chosen, the chips Question 1 of 10, 0 of 0, Streak 0 and Best 0, the question Which country is lit on the map, and four buttons: South Sudan, Central African Republic, Congo - Kinshasa, Chad" width="240">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/quiz-phone-light.webp" alt="The demo's Quiz mode on a phone: a world map with the Central African Republic lit among its neighbours and four answer buttons" width="240">
 </picture>
 <br><em><strong>Quiz.</strong> Rounds of ten from a seed, so a shared link asks the same ten; pick, type, read or find.</em>
 </td>
 <td align="center" valign="top" width="50%">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/japan-desk-dark.webp">
-<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/japan-desk-light.webp" alt="Japan's 47 prefectures in the demo's Colour mode on a desk, each of the eight regions in a colour of its own from Hokkaido in the north-east to Kyushu in the south-west, Okinawa's main islands large in a dashed box in the Sea of Japan with the Sakishima, Daito and Amami Islands in boxes round it, and Tokyo's far islands in three small boxes at the bottom right" width="400">
+<img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/japan-desk-light.webp" alt="Japan's 47 prefectures in the demo's Colour mode, each of the eight regions in a colour of its own, Okinawa and the far islands in dashed boxes" width="400">
 </picture>
 <br><em><strong>Japan.</strong> The 47 prefectures coloured by region (<code>regionGroups</code>), the far islands in boxes each fills.</em>
 </td>
@@ -346,21 +419,6 @@ console.log(sheet.includes("cz-callout"));
 true
 ```
 
-### Names pasted from a spreadsheet
-
-A list somebody typed becomes the places it names, in the order written, and what matched nothing is said back and never guessed at.
-
-```ts
-import WORLD from "@johnmorrisdotca/chizu/world";
-import { placesFromText } from "@johnmorrisdotca/chizu";
-
-console.log(placesFromText("Japan, フランス\nBrazil, Narnia", WORLD.regions));
-```
-
-```text
-{ codes: [ 'JP', 'FR', 'BR' ], missing: [ 'Narnia' ] }
-```
-
 ### Seas, lakes and rivers
 
 `loadFeatures` fetches a map's named features; `findFeatures` finds one by English, Japanese or kana; `drawChizu` draws the water and lights it; and `featureMap` makes the layer a map, so a quiz asks "which sea is this?".
@@ -381,24 +439,6 @@ console.log(svg.includes('data-tone="selected"'), findQuestion(featureMap(WORLD,
 ```text
 Q5484 Caspian Sea sea かすぴかい
 true 4
-```
-
-### Pin a member's town on the world
-
-`projectPoint` turns a longitude and latitude into a point on the map's canvas, and `unprojectPoint` goes back.
-
-```ts
-import WORLD from "@johnmorrisdotca/chizu/world";
-import { projectPoint, unprojectPoint } from "@johnmorrisdotca/chizu";
-
-const tokyo = projectPoint(WORLD, 139.69, 35.69)!;                 // [x, y] on the canvas
-console.log(tokyo.map((n) => Math.round(n * 10) / 10));            // [457.5, 212.5]
-console.log(unprojectPoint(WORLD, 456, 200)!.map((n) => Math.round(n * 10) / 10));
-```
-
-```text
-[ 457.5, 212.5 ]
-[ 139.2, 39.6 ]
 ```
 
 ### Every country's name, in two languages
@@ -522,7 +562,7 @@ A group of places is a list of codes, and `groupMap`, `groupBox` and `groupTones
 
 ## Pasted names
 
-`placesFromText(text, map.regions)` is shown under [Examples](#examples). Case and surrounding space never matter, a name may be English, Japanese, the short Japanese or the reading, and a line that matches nothing is said back and never guessed at: "Tokyo" does not quietly become Tochigi. `optionalEnding` lets a pasted prefecture leave off its 県 or 府 (`/[県府都道]$/u`). `countriesFromText` does the same over the table of every country.
+`placesFromText(text, map.regions)` is shown under [Features](#features). Case and surrounding space never matter, a name may be English, Japanese, the short Japanese or the reading, and a line that matches nothing is said back and never guessed at: "Tokyo" does not quietly become Tochigi. `optionalEnding` lets a pasted prefecture leave off its 県 or 府 (`/[県府都道]$/u`). `countriesFromText` does the same over the table of every country.
 
 ## Longitude and latitude
 
