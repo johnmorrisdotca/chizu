@@ -6,6 +6,15 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **Airports and harbours as map features** (MODULES-1580). `drawChizu` and `mountChizu` take `ports` (and `portOptions`: a `tier`, the `kinds`): an airport is a diamond and a harbour a ring, more of them as the window shows less ground (tier 1 across more than 3,000 km, 2 across more than 1,000 km, 3 below), the earlier in the list winning a crowded place, none printed (the name is the `<title>`). `@johnmorrisdotca/chizu/airports` is the 600 busiest airports by passengers a year (Wikidata, CC0; tiers end at the 150th, 300th and 600th), `@johnmorrisdotca/chizu/harbours` is Natural Earth's 1,081 ports (public domain) in its size order; both have English names and Japanese ones where Wikidata has a label (599 of 600 airports, 838 of 1,081 harbours) and a credit line in both languages. Each is its own entry with its own size in `docs/bundle-size.json` (149 kB and 157 kB minified), loaded only when imported. The engine has `placePorts`, `portsInTier`, `portTierFor` and `portName`; the drawing has `--cz-airport` and `--cz-harbour`. The data is written by `pnpm data:ports` from `scripts/data-wikidata-ports.json` (asked of Wikidata by `pnpm data:ports-wikidata`) and Natural Earth's `ne_10m_ports`, checked against a SHA-256, and is never made by `pnpm data`. [docs/ports.md](./docs/ports.md); `NOTICE.md` has each source and what its terms say.
+- **Not in this change: runways, and the World Port Index.** OurAirports' terms page (an expired certificate) and the NGA World Port Index's (503) could not be read on 2026-11-18, so no file of either is used; a harbour's size is Natural Earth's rank.
+
+### Changed
+
+- The README's world-in-degrees paragraph and its "Where it comes from" opening are shorter, to make room under its size limit.
+
 ## [1.13.1] - 2026-11-18
 
 ### Changed

@@ -11,7 +11,7 @@ The world and its 238 countries, each on its own, drawn from Natural Earth (publ
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="20.6 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-20.6%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="20.7 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-20.7%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -102,7 +102,17 @@ const [caspian] = findFeatures((await loadFeatures("world"))!.features, "Caspian
 console.log(caspian!.code, caspian!.name, caspian!.kind);   // Q5484 Caspian Sea sea
 ```
 
-<!-- An Airports and harbours section goes here. -->
+- **Airports and harbours**, `ports` marks the 600 busiest airports and 1,081 harbours, each list its own entry, named in English and Japanese, more of them as the window closes in. [docs/ports.md](./docs/ports.md).
+
+```ts
+import WORLD from "@johnmorrisdotca/chizu/world";
+import { drawChizu } from "@johnmorrisdotca/chizu/draw";
+import { AIRPORTS } from "@johnmorrisdotca/chizu/airports";
+import { HARBOURS } from "@johnmorrisdotca/chizu/harbours";
+
+const svg = drawChizu(WORLD, { ports: [...AIRPORTS, ...HARBOURS], language: "ja" });
+console.log(AIRPORTS.length, HARBOURS.length, svg.includes('data-port="hnd"'));   // 600 1081 true
+```
 
 - **Names in English and Japanese today.** Every country is named in both, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, and 1,341 of the 1,342 regions have a Japanese name, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time. **Spanish, German and Chinese names are planned and not started**; any other language is a table of your own ([Languages](#languages)). The table is its own entry, 52 kB (10 kB gzipped).
 
@@ -568,7 +578,7 @@ A group of places is a list of codes, and `groupMap`, `groupBox` and `groupTones
 
 `projectPoint(WORLD, 139.69, 35.69)` is Tokyo on the world's canvas, `[457.5, 212.5]`, and `unprojectPoint` goes back. A map keeps how its canvas was made (`projection`). Two are closed formulas, done here with no dependency: Miller's cylindrical round a centre longitude (the world) and Lambert azimuthal equal-area round a centre (a country alone). A country's regions were fitted with a projection of their own, and `projectPoint` answers `null` for them, never a guess. The tests hold both formulas to d3-geo's own.
 
-`@johnmorrisdotca/chizu/world-geo` is the same world before any projection: a GeoJSON `FeatureCollection` of 177 features (Natural Earth 5.1.2, 1:110m) in WGS84 `[longitude, latitude]` degrees, `Polygon` and `MultiPolygon`, rings whole through the date line and down to the south pole, for d3-geo's `geoOrthographic` or any spherical view. It is the 173 countries of `WORLD` and the four it leaves out: Antarctica (`AQ`), the French Southern Lands (`TF`), Northern Cyprus (`CYN`) and Somaliland (`SOL`). Each feature's `properties` are `code`, `iso3`, `name`, `nameJa`, `group` and `groupJa`; the collection has a `source`. It has no dependency, and is its own entry (166 kB minified, 44 kB gzipped), so a flat map never loads it. Zoomed in, `world-geo-detail` (1:50m) and `divisions-geo/<code>` (32 countries' regions) are the same in degrees, simplified with shared borders kept: [docs/maps.md](./docs/maps.md).
+`@johnmorrisdotca/chizu/world-geo` is the same world before any projection: a GeoJSON `FeatureCollection` of 177 features (Natural Earth 5.1.2, 1:110m) in WGS84 `[longitude, latitude]` degrees, for d3-geo's `geoOrthographic` or any spherical view: the 173 countries of `WORLD` and Antarctica (`AQ`), the French Southern Lands (`TF`), Northern Cyprus (`CYN`) and Somaliland (`SOL`), each with `code`, `iso3`, `name`, `nameJa`, `group` and `groupJa`. It is its own entry (166 kB minified, 44 kB gzipped), so a flat map never loads it. Zoomed in, `world-geo-detail` (1:50m) and `divisions-geo/<code>` (32 countries' regions) are the same in degrees: [docs/maps.md](./docs/maps.md).
 
 ```ts
 import WORLD_GEO from "@johnmorrisdotca/chizu/world-geo";
@@ -651,13 +661,15 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 
 | Entry | What it holds |
 | --- | --- |
-| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `overlaysSvg`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `placeCities`, `cityPopulationFloor`, `windowKilometres`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
+| `@johnmorrisdotca/chizu` | The engine: `wholeMapBox`, `zoomBox`, `focusBox`, `regionBox`, `zoomToFit`, `shapeGlyphBox`, `MAP_ZOOM_LEVELS`; `insetFor`, `insetTransform`; `wrapOffsets`, `wrapIntoBox`; `overlaysSvg`; `mapOutlines`, `parseMapRings`, `landAnchor`, `pointInRing`; `layoutCallouts`, `placeCallouts`, `calloutFaults`; `findQuestion`, `pickDistractors`, `distractorScore`; `placesFromText`; `featureMap`, `featuresShown`, `findFeatures`, `featureKindName`, `featureKindOf`; `placeCities`, `cityPopulationFloor`, `windowKilometres`; `placePorts`, `portsInTier`, `portTierFor`, `portName`; `projectPoint`, `unprojectPoint`; `nameOf`, `chizuSay`, `CHIZU_STRINGS`; `seededRandom`, `shuffled`; `VERSION` |
 | `@johnmorrisdotca/chizu/element` | `ChizuMapElement`, `ChizuLocator`, `ChizuQuiz`, `defineMap`, `defineLocator`, `defineQuiz`, `loadElementMap`, `readMapData`, `CHIZU_ELEMENT_OPTION_KEYS`; `ChizuElementOptions` |
 | `@johnmorrisdotca/chizu/element/define` | registers `<chizu-map>`, `<chizu-locator>` and `<chizu-quiz>` |
 | `@johnmorrisdotca/chizu/draw` | `drawChizu`, `CHIZU_STYLE` |
 | `@johnmorrisdotca/chizu/mount` | `mountChizu`, `ensureChizuMapStyle`, `CHIZU_MAP_STYLE` |
 | `@johnmorrisdotca/chizu/names` | `CHIZU_COUNTRIES`, `CHIZU_SOURCE`, `countryByCode`, `countriesFromText` |
 | `@johnmorrisdotca/chizu/cities` | `loadKuniCities`, `CHIZU_CITY_TIERS`: kuni's cities for `drawChizu`'s `cities` (needs the optional peer `@johnmorrisdotca/kuni` 1.6.0 or later; its size is measured with kuni bundled in) |
+| `@johnmorrisdotca/chizu/airports` | `AIRPORTS`, `AIRPORT_TIER_ENDS`, `AIRPORTS_CREDIT`: for `drawChizu`'s `ports` |
+| `@johnmorrisdotca/chizu/harbours` | `HARBOURS`, `HARBOURS_CREDIT`: for `ports` |
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
 | `@johnmorrisdotca/chizu/world-geo` | the world as longitude/latitude GeoJSON for a spherical projection, as the default export and as `WORLD_GEO` |
@@ -698,6 +710,8 @@ Nothing here is branded. The drawing and the mounted map are coloured by custom 
 | `--cz-water-ink` | the name of water | `#2b5d84` | `#9fcbe8` |
 | `--cz-feature-line` | a landform's name and outline, a peak | `#6b5d45` | `#cdbd97` |
 | `--cz-feature-selected` | a chosen feature | `#4f9bd6` | `#3f8cc6` |
+| `--cz-airport` | an airport's mark | `#2f78b5` | `#7cc4ff` |
+| `--cz-harbour` | a harbour's ring | `#1f8a6a` | `#5fd3a6` |
 | `--cz-font` | the font of names and numbers | the system's, with Hiragino and Noto Sans JP for Japanese | the same |
 
 **The mounted map** (`mountChizu`), custom properties on `.chizu-map`:
@@ -726,7 +740,7 @@ All of these are held by tests, and the ones with a name are exported.
 | Wrong answers | 3 unless asked otherwise, drawn from the best `count + 3` | `pickDistractors` |
 | Window copies drawn on the world | at most 4, however wrong the window | `wrapOffsets` |
 
-Placing callouts takes about 70 ms for twenty countries on the world and about 240 ms for the 96 départements of France (on a laptop); `polish: true` adds a third of a second to a few seconds for a crowded sheet. Nothing here runs on a timer, and a mounted map draws only when it is moved, zoomed or told something new.
+Placing callouts takes about 70 ms for twenty countries and 240 ms for France's 96 départements (on a laptop); `polish: true` adds up to a few seconds for a crowded sheet. Nothing here runs on a timer, and a mounted map draws only when it is moved, zoomed or told something new.
 
 ## Accessibility
 
@@ -761,7 +775,7 @@ The engine, generated resources and browser layers are explained in the [archite
 
 ## Where it comes from, and where it is used
 
-Chizu was built for [Itsutsu](https://itsutsu.com), a site for board games, puzzles, card games and dice games played at your own pace, and for UmaKuma, a Japanese study app by the same author, where the map engine began as a way to learn the prefectures and the countries of the world and to print sheets with numbered maps on them. Both import it, which makes it the family's first package with two homes. *Itsutsu* (五つ) is Japanese for "five", after five in a row, the game the site began with. [Tenka](https://github.com/johnmorrisdotca/tenka), the family's world-conquest game, draws a world of its own, built from the same Natural Earth file by its own script, and shares its source with this package.
+Chizu was built for [Itsutsu](https://itsutsu.com), a site for board, puzzle, card and dice games, and for UmaKuma, a Japanese study app by the same author, where the map engine began as a way to learn the prefectures and the countries and to print numbered map sheets. Both import it. [Tenka](https://github.com/johnmorrisdotca/tenka), the family's world-conquest game, draws a world of its own from the same Natural Earth file, by its own script.
 
 ### Used by
 

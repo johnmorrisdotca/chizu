@@ -95,6 +95,7 @@ Bug reports and ideas go in the [issues](https://github.com/johnmorrisdotca/chiz
 ```sh
 pnpm check          # lint, types and tests
 pnpm data           # make src/data again from Natural Earth (downloads once into .cache/)
+pnpm data:ports     # make src/ports-data/ again from scripts/data-wikidata-ports.json and Natural Earth
 pnpm test:package   # pack it as npm does, install it in an empty project, import every entry
 pnpm test:demo      # build the demo and play it in a real browser
 pnpm docs:make      # rewrite docs/strings-ja.md after changing a word of the board
