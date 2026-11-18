@@ -20,7 +20,7 @@ import { MAP_ZOOM_LEVELS } from "./frame.ts";
 import { placesFromText } from "./fromText.ts";
 import { CALLOUT_RADIUS_RATIO, layoutCallouts } from "./layout.ts";
 import { CHIZU_MAP_STYLE } from "./mountStyle.ts";
-import { projectPoint, unprojectPoint } from "./project.ts";
+import { projectPoint } from "./project.ts";
 import { findQuestion } from "./quiz.ts";
 import { seededRandom } from "./random.ts";
 import { CHIZU_STRINGS } from "./strings.ts";
@@ -281,8 +281,8 @@ describe("the README's promises", () => {
     );
     const [x, y] = projectPoint(world, 139.69, 35.69);
     expect(readme).toContain(`is Tokyo on the world's canvas, \`[${x.toFixed(1)}, ${y.toFixed(1)}]\``);
-    const [lon, lat] = unprojectPoint(world, 456, 200);
-    expect(readme).toContain(`[ ${lon.toFixed(1)}, ${lat.toFixed(1)} ]`);
+    const [saoX, saoY] = projectPoint(world, -46.63, -23.55);
+    expect(readme).toContain(`[ ${saoX.toFixed(1)}, ${saoY.toFixed(1)} ]`);
     const [first] = layoutCallouts(world, { codes: ["JP", "BR", "EG", "AU"], radiusRatio: 0.02 });
     const r1 = (n) => String(Math.round(n * 10) / 10);
     expect(readme).toContain(
@@ -292,7 +292,11 @@ describe("the README's promises", () => {
       codes: ["JP", "FR", "BR"],
       missing: ["Narnia"],
     });
-    expect(readme).toContain("{ codes: [ 'JP', 'FR', 'BR' ], missing: [ 'Narnia' ] }");
+    expect(placesFromText("Brazil, フランス\nNarnia", world.regions)).toEqual({
+      codes: ["BR", "FR"],
+      missing: ["Narnia"],
+    });
+    expect(readme).toContain("{ codes: [ 'BR', 'FR' ], missing: [ 'Narnia' ] }");
   });
 
   it("says where the data comes from as NOTICE.md and the build script do, with the hashes the script checks", () => {

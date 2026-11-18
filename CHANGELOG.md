@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- **The README and the docs home read as a world package** (MODULES-1593). The opening, "Who it is for" and "Features" lead with the world and its 238 countries, then the regions of 32 countries with their counts from the data, and every feature has a short example the README check runs. They say plainly that names are English and Japanese today and that Spanish, German and Chinese are planned, not started. The docs home's one-line pitch says the same, in both languages. `docs/roadmap.md` lists the planned names. The two examples "Names pasted from a spreadsheet" and "Pin a member's town on the world" moved into Features as shorter ones, to keep the README under its size limit.
+
 ## [1.13.0] - 2026-11-17
 
 ### Added
