@@ -84,6 +84,14 @@ export interface ChizuRegion {
    * as any region, and named, but `findQuestion` and `pickDistractors` never ask about it or offer it. Absent on every country.
    */
   territoryPart?: boolean;
+  /**
+   * True for a country too small to be an outline on the 1:110m world, which `withSmallStates` adds as a dot at its
+   * place instead (Singapore, Malta, Bahrain): `path` is a small round shape, `centroid` is the place itself, and the
+   * country's own map (`loadCountry`) has its real outline. It is a country like any other: named, framed, labelled,
+   * called out, tapped and asked in a quiz. The plain `WORLD` has none; `regions.filter((region) => !region.small)`
+   * leaves them out of a map that has them.
+   */
+  small?: boolean;
   /** Other names `group` goes by, in either language, where it has them: Kansai and 関西 for Japan's Kinki (近畿地方). */
   groupAliases?: string[];
   /** What kind of division it is, as Natural Earth names it, lower case: `province`, `state`, `prefecture`. */
@@ -263,7 +271,7 @@ export interface ChizuCountry {
    * A territory part keeps its map and its `group`, but no quiz asks about it and the continents do not list it.
    */
   kind: ChizuPlaceKind;
-  /** Whether the coarse world map draws it (the smallest places are only in the country's own file). */
+  /** Whether the coarse world map draws its outline (the smallest places are left off, or are dots with `withSmallStates`, and their outline is in the country's own file). */
   onWorld: boolean;
   /** Whether it has a map of its own regions: its provinces, states or departments. */
   hasDivisions: boolean;

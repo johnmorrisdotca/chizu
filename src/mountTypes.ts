@@ -23,6 +23,12 @@ export type ChizuMountOptions = {
   map: ChizuMap;
   /** The language of the names and of the buttons. Default: the page's `lang`, or English. */
   language?: ChizuLanguage;
+  /**
+   * Draw the world's 62 smallest countries as dots (`withSmallStates` from `@johnmorrisdotca/chizu/small-states`), in the
+   * finer drawing too. Their table is fetched, as a chunk of its own, only when this is on: the map is drawn at once
+   * without them and again with them when they arrive. Only the world gets them. Default false.
+   */
+  smallStates?: boolean;
   /** The zoom step to start at (1 to 10). Default 1. */
   zoom?: MapZoom;
   /** Tones by code (`drawChizu`'s `tones`). The chosen region is `selected` unless it is given a tone here. */

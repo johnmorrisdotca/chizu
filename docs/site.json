@@ -34,6 +34,10 @@
       "en": "The world map",
       "ja": "世界地図"
     },
+    "./small-states": {
+      "en": "The world's smallest countries as dots",
+      "ja": "世界の小さな国を点で表示"
+    },
     "./element": {
       "en": "Map, locator and quiz elements",
       "ja": "地図・場所・クイズの要素"

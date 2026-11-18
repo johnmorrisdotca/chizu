@@ -25,6 +25,30 @@ test("a question lights one country, offers it among four look-alikes, and does 
   expect(errors).toEqual([]);
 });
 
+test("a quiz asks the small countries the 1:110m world has only as dots: Micronesia, all of it dots, is a round of ten", async ({
+  page,
+}) => {
+  const errors = await open(page, "?map=world&part=057&mode=quiz&seed=3");
+  await expect(page.locator(at("progress"))).toHaveText("Question 1 of 7");
+  const small = await page.evaluate(async () => {
+    const { withSmallStates } = await import("./dist/small-states-entry.js");
+    const world = withSmallStates((await import("./dist/world-entry.js")).default);
+    return world.regions.filter((one) => one.small).map((one) => one.code);
+  });
+  const asked = [];
+  for (let n = 0; n < 7; n += 1) {
+    const target = await lit(page);
+    asked.push(target);
+    await expect(page.locator(`${at("choices")} button`)).toHaveCount(4);
+    await page.locator(at(`choice-${target}`)).click();
+    if (n < 6) await page.locator(at("next")).click();
+  }
+  await expect(page.locator(at("score"))).toHaveText("7 of 7");
+  expect(new Set(asked).size).toBe(7);
+  for (const code of asked) expect(small).toContain(code);
+  expect(errors).toEqual([]);
+});
+
 test("the same seed asks the same questions in the same order, and another seed others", async ({ page }) => {
   const firstThree = async (query) => {
     await open(page, query);

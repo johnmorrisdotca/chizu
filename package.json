@@ -78,6 +78,11 @@
       "import": "./dist/world-entry.js",
       "default": "./dist/world-entry.js"
     },
+    "./small-states": {
+      "types": "./dist/small-states-entry.d.ts",
+      "import": "./dist/small-states-entry.js",
+      "default": "./dist/small-states-entry.js"
+    },
     "./world-geo": {
       "types": "./dist/world-geo-entry.d.ts",
       "import": "./dist/world-geo-entry.js",

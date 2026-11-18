@@ -3,7 +3,7 @@
 <h1 align="center">Chizu <sub>地図</sub> — SVG maps for JavaScript</h1>
 
 <p align="center"><strong>The world as SVG maps for JavaScript and TypeScript, in English and Japanese.</strong><br>
-The world and its 238 countries, each on its own, drawn from Natural Earth (public domain), and the regions of 32 countries: US states, Canada's provinces and territories, China's provinces, Germany, Brazil, Mexico, Australia, France, the United Kingdom, Japan's 47 prefectures and more. Seas, lakes, rivers, mountains and capitals on request, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing, zoom, insets, quiz distractors and a callout placer whose leader lines never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
+The world and its 238 countries, each on its own, drawn from Natural Earth (public domain), and the regions of 32 countries: US states, Canada's provinces and territories, China's provinces, Germany, Brazil, Mexico, Australia, France, the United Kingdom, Japan's 47 prefectures. Seas, lakes, rivers, mountains and capitals on request, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing, zoom, insets, quiz distractors and a callout placer whose leader lines never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
 
 <p align="center">
   <a href="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml/badge.svg"></a>
@@ -73,13 +73,13 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 - **A site that shows a country's regions**: the states of the United States, Brazil or Germany, the provinces of Canada or China, the prefectures of Japan.
 - **Geography quiz and study sites** that want "which country is this?" with look-alike wrong answers built in (neighbours first, then the same continent, then whatever is nearest), questions that come out the same from the same seed, and names in English and Japanese.
 - **Printable sheets and worksheets**, where a map has to be labelled with numbers in the sea, never on the land, with leader lines that never cross and cross as little land as they can.
-- **Anyone who needs country and region outlines and names as plain data**, rebuilt from a public-domain source by a script they can read.
+- **Anyone who needs country and region outlines and names as plain data**, rebuilt from a public-domain source.
 
 ## Features
 
 Each example is run in CI (`pnpm test:readme`). Pictures: [What's in it](#whats-in-it).
 
-- **The world, and 238 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut. Each of the 238 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
+- **The world, and 238 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut; 62 too small for 1:110m are opt-in dots (`/small-states`). Each of the 238 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
 - **The regions of 32 countries**, each its own file, 1,342 in all: the 50 states and Washington DC, Canada's 10 provinces and 3 territories, China's 31 provinces and municipalities, Germany's 16 states, Brazil's 27, Mexico's 32, Australia's 10 states and territories, France's 96 départements, the United Kingdom's 232 divisions, Japan's 47 prefectures and more.
 - **ISO 3166-2 codes on the regions** (`CA-ON`, `US-TX`, `JP-13`), 1,335 of the 1,342, joined at build time from kuni 国, so figures keyed by ISO code colour the map; the 7 without one are listed in [docs/iso-codes.md](./docs/iso-codes.md).
 
@@ -276,7 +276,7 @@ mount.zoomBy(1);
 
 ### 3. A bundler, and a framework
 
-Each country's map is its own file and its own dynamic import (`@johnmorrisdotca/chizu/load` holds one `import()` for each), so a bundler makes a chunk of every one and a page fetches only the one it draws. The world is 170 kB (61 kB gzipped). A map is a plain object with no functions in it, so it serialises, caches and crosses a worker boundary as it is.
+Each country's map is its own file and its own dynamic import (`@johnmorrisdotca/chizu/load` holds one `import()` for each), so a bundler makes a chunk of every one and a page fetches only the one it draws. The world is 170 kB (61 kB gzipped). A map is a plain object, so it serialises and caches as it is.
 
 ### What a developer gets
 
@@ -660,6 +660,7 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 | `@johnmorrisdotca/chizu/cities` | `loadKuniCities`, `CHIZU_CITY_TIERS`: kuni's cities for `drawChizu`'s `cities` (needs the optional peer `@johnmorrisdotca/kuni` 1.6.0 or later; its size is measured with kuni bundled in) |
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
+| `@johnmorrisdotca/chizu/small-states` | `withSmallStates`: 62 small countries as dots |
 | `@johnmorrisdotca/chizu/world-geo` | the world as longitude/latitude GeoJSON for a spherical projection, as the default export and as `WORLD_GEO` |
 | `@johnmorrisdotca/chizu/world-geo-detail` | the 1:50m world in degrees, as the default export and as `WORLD_GEO_DETAIL` |
 | `@johnmorrisdotca/chizu/divisions-geo` | `loadDivisionsGeo`, `DIVISIONS_GEO_CODES` |
@@ -726,7 +727,7 @@ All of these are held by tests, and the ones with a name are exported.
 | Wrong answers | 3 unless asked otherwise, drawn from the best `count + 3` | `pickDistractors` |
 | Window copies drawn on the world | at most 4, however wrong the window | `wrapOffsets` |
 
-Placing callouts takes about 70 ms for twenty countries on the world and about 240 ms for the 96 départements of France (on a laptop); `polish: true` adds a third of a second to a few seconds for a crowded sheet. Nothing here runs on a timer, and a mounted map draws only when it is moved, zoomed or told something new.
+Placing callouts takes about 70 ms for twenty countries on the world and about 240 ms for the 96 départements of France; `polish: true` adds a third of a second to a few seconds for a crowded sheet. Nothing runs on a timer: a mounted map draws only when moved, zoomed or told something new.
 
 ## Accessibility
 

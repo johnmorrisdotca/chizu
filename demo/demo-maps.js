@@ -110,7 +110,7 @@ export async function chooseMap(key, partKey = null) {
   state.part = findPart(state.map, currentPart);
   state.selected = null;
   host.dataset.map = state.map.id;
-  live.mount.setMap(state.map);
+  live.mount.setMap(state.base);
   remember({ map: currentKey, part: state.part?.key ?? null });
   calls.refreshAll();
   showPart();

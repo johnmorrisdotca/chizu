@@ -78,6 +78,7 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
   selected: true,
   fit: true,
   selectable: true,
+  smallStates: true,
   controls: true,
   detail: true,
   detailFrom: true,
@@ -258,8 +259,12 @@ export class ChizuElement extends ElementBase {
     this.removeAttribute("data-ready");
     try {
       const region = this.getAttribute("region") ?? "world";
-      const map = this.options_.map ?? (await loadElementMap(region));
-      if (!map) throw new Error("Choose world, country-<ISO> or divisions-<ISO>.");
+      const loaded = this.options_.map ?? (await loadElementMap(region));
+      if (!loaded) throw new Error("Choose world, country-<ISO> or divisions-<ISO>.");
+      // The world's smallest countries are dots when asked for (`small-states`, off by default, a quiz too): their table is fetched only then.
+      const map = on(this, "small-states", this.options_.smallStates ?? false)
+        ? (await import("./smallStates.ts")).withSmallStates(loaded)
+        : loaded;
       const features = this.featureChoices();
       let layer =
         typeof this.options_.featureLayer === "function"
@@ -374,6 +379,7 @@ export class ChizuElement extends ElementBase {
     const selectable = on(this, "selectable", this.options_.selectable ?? true);
     this.mount = mountChizu(stage, {
       ...this.options_,
+      smallStates: false,
       colors: this.colourOptions(map),
       map,
       featureLayer: layer,

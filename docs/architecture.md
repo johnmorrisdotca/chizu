@@ -14,6 +14,8 @@ src/
 ├── element-define.ts   registers them as tags
 ├── load-entry.ts       loadCountry and loadDivisions
 ├── world-entry.ts      the world's entry
+├── small-states-entry.ts  the smallest countries as dots, its own entry
+├── smallStates.ts      the table of them and `withSmallStates`
 ├── world-geo-entry.ts  the world as longitude and latitude, for a spherical projection
 ├── world-geo-detail-entry.ts  the same from the 1:50m outlines, for a globe zoomed in
 ├── divisions-geo-entry.ts  a country's regions as longitude and latitude, loaded on demand

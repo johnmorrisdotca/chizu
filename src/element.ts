@@ -116,8 +116,26 @@ export class ChizuMapElement extends ChizuElement {
   set selectable(value: string | number | boolean | null | undefined) {
     write(this, "selectable", value);
   }
+  /** The `small-states` attribute, reflected: the world's smallest countries drawn as dots. Off by default. */
+  get smallStates(): string | null {
+    return this.getAttribute("small-states");
+  }
+  set smallStates(value: string | number | boolean | null | undefined) {
+    write(this, "small-states", value);
+  }
   static get observedAttributes(): readonly string[] {
-    return [...COMMON, "capital", "highlight", "labels", "zoom", "data", "features", "controls", "selectable"];
+    return [
+      ...COMMON,
+      "capital",
+      "highlight",
+      "labels",
+      "zoom",
+      "data",
+      "features",
+      "controls",
+      "selectable",
+      "small-states",
+    ];
   }
 }
 
@@ -346,7 +364,7 @@ export class ChizuQuiz extends ChizuElement {
   }
   protected override kind = "quiz" as const;
   static get observedAttributes(): readonly string[] {
-    return [...COMMON, "seed", "features", "labels", "controls"];
+    return [...COMMON, "seed", "features", "labels", "controls", "small-states"];
   }
   #question: FindQuestion | null = null;
   #random: Random = seededRandom(1);

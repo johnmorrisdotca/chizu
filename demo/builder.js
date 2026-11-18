@@ -211,6 +211,20 @@ const options = [
     { default: true },
   ),
   row(
+    "small-states",
+    "boolean",
+    { map: "small-states", quiz: "small-states" },
+    [
+      "Small countries",
+      "Draw the world's 62 smallest countries as dots, and ask them in a quiz. Off by default: a seed then gives different questions.",
+    ],
+    [
+      "小さな国",
+      "世界の小さな62か国を点で表示し、クイズでも出題します。標準ではオフです。オンにすると、同じシードでも問題が変わります。",
+    ],
+    { default: false },
+  ),
+  row(
     "place",
     "text",
     { locator: "place" },
@@ -251,6 +265,7 @@ const leftOut = {
   "options.labels": "The labels control writes labels.",
   "options.controls": "The controls switch writes controls.",
   "options.selectable": "The selection switch writes selectable.",
+  "options.smallStates": "The small countries switch writes small-states.",
   "options.zoom": "The zoom control writes zoom.",
   "options.cities":
     "The cities switch sets options.cities to loadKuniCities from @johnmorrisdotca/chizu/cities; a host's own list belongs to host code.",
