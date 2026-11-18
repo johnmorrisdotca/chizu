@@ -10,7 +10,7 @@ test("a continent from the map chooser is the world framed on it, with the rest 
   await expect(page.locator(at("part"))).toHaveValue("AF");
   await expect(region(page, "KE")).not.toHaveClass(/cz-tone-faint/);
   await expect(region(page, "FR")).toHaveClass(/cz-tone-faint/);
-  await expect(page.locator("#names tbody tr")).toHaveCount(50);
+  await expect(page.locator("#names tbody tr")).toHaveCount(57);
   await expect(page.locator(`${at("board")} .czm-stage`)).not.toHaveAttribute("data-zoom", "1");
   await expect(page).toHaveURL(/part=AF/);
   expect(errors).toEqual([]);
@@ -23,7 +23,7 @@ test("the world's parts are its continents and the UN's subregions, named in Jap
   await expect(groups.nth(0)).toHaveAttribute("label", "大陸");
   await expect(groups.nth(0).locator("option").first()).toHaveText(/^アフリカ \(\d+\)$/);
   await page.locator(at("part")).selectOption("030");
-  await expect(page.locator("#names tbody tr")).toHaveCount(6);
+  await expect(page.locator("#names tbody tr")).toHaveCount(8);
 });
 
 test("a quiz on a continent offers only its countries, and callouts number only them", async ({ page }) => {

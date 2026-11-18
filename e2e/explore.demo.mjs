@@ -10,7 +10,7 @@ const viewBox = (page) =>
 
 test("the world is drawn with every country when asked for, and nothing is chosen at first", async ({ page }) => {
   const errors = await open(page, "?map=world");
-  await expect(page.locator(`${at("board")} .cz-region`)).toHaveCount(173);
+  await expect(page.locator(`${at("board")} .cz-region`)).toHaveCount(235);
   await expect(svg(page)).toHaveAttribute("aria-label", "Map of World");
   await expect(page.locator(`${at("board")} .czm-says`)).toHaveText("Nothing chosen");
   await expect(page.locator(at("info"))).toContainText("Press a place");
@@ -54,7 +54,7 @@ test("the table of names lists every place in both languages, narrows as you typ
 }) => {
   await open(page, "?map=world");
   const rows = page.locator("#names tbody tr");
-  await expect(rows).toHaveCount(173);
+  await expect(rows).toHaveCount(235);
   await expect(page.locator("#names tbody tr[data-code='US'] td").nth(3)).toHaveText("アメリカ（アメリカ合衆国）");
   await page.locator(at("filter")).fill("korea");
   await expect(rows).toHaveCount(2);
@@ -64,6 +64,26 @@ test("the table of names lists every place in both languages, narrows as you typ
   await expect(page.locator(at("info-name"))).toHaveText("Japan · 日本");
   await expect(page.locator(at("info-reading"))).toHaveText("にほん");
   await expect(rows.first()).toHaveAttribute("aria-selected", "true");
+});
+
+test("the small countries the 1:110m outlines lack are on the world as dots, listed and pressable like any country", async ({
+  page,
+}) => {
+  await open(page, "?map=world");
+  const dots = await page.evaluate(async () =>
+    (await import("./dist/world-entry.js")).default.regions.filter((one) => one.small).map((one) => one.code),
+  );
+  expect(dots).toHaveLength(62);
+  for (const code of ["SG", "MT", "BH"]) {
+    expect(dots).toContain(code);
+    await expect(page.locator(`${at("board")} .cz-region[data-code="${code}"] path.cz-land`)).toHaveCount(1);
+  }
+  await expect(page.locator("#names tbody tr[data-code='SG'] td").nth(3)).toHaveText("シンガポール");
+  await page.locator(at("filter")).fill("malta");
+  await expect(page.locator("#names tbody tr")).toHaveCount(1);
+  await page.locator("#names tbody tr[data-code='MT']").click();
+  await expect(page.locator(at("info-name"))).toHaveText("Malta · マルタ");
+  await expect(region(page, "MT")).toHaveClass(/cz-tone-selected/);
 });
 
 test("the map chooser offers Japan first, the world, its continents, 31 other countries' regions and every country alone", async ({

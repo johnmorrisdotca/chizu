@@ -5,6 +5,7 @@
  */
 
 import { COUNTRY_LOADERS, DIVISIONS_LOADERS, FEATURE_LOADERS, WORLD_DETAIL_LOADER } from "./data/loaders.data.ts";
+import { withSmallStates } from "./smallStates.ts";
 import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 
 /**
@@ -75,7 +76,7 @@ export async function loadDivisions(code: string): Promise<ChizuMap | null> {
 }
 
 /**
- * The world drawn finer: the same 173 countries on the same canvas, in the same projection, from Natural Earth's
+ * The world drawn finer: the same 235 countries (the 173 drawn as outlines and the 62 small ones as dots) on the same canvas, in the same projection, from Natural Earth's
  * 1:50m outlines rather than its 1:110m ones, about 1.3 MB. For `mountChizu`'s `detail`, which draws it from the
  * fourth zoom step in, where the coarse coasts would look angular; everything else (framing, quizzes, callouts) keeps
  * to the world itself, whose codes, names and neighbours it shares.
@@ -94,7 +95,7 @@ export async function loadDivisions(code: string): Promise<ChizuMap | null> {
  * @returns The finer world map with the same canvas and country codes as the coarse world map.
  */
 export async function loadWorldDetail(): Promise<ChizuMap> {
-  return (await WORLD_DETAIL_LOADER()).default;
+  return withSmallStates((await WORLD_DETAIL_LOADER()).default);
 }
 
 /**

@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- **The world draws its 62 smallest countries as dots** (MODULES-1618). The flat world is 1:110m, which has no outline for Singapore, Malta, Bahrain, most of the Caribbean and most of the Pacific, so a world quiz never asked for them. `@johnmorrisdotca/chizu/world` (and `loadWorldDetail()`, so a map zoomed in keeps them) now adds each as a small round region marked `small: true`, at the middle of its largest island or piece, read from the 1:50m outlines and put on the canvas when the world is made: no generated data changed and the 173 outlines are the same, region for region and byte for byte in a drawing. A dot has its code, names, reading, continent and (for Monaco, San Marino and the like) the countries it touches, so it is framed, labelled, numbered, pressed and asked in a quiz like any country, and is offered as a wrong answer. `WORLD.regions` is now 235 long, not 173; `regions.filter((region) => !region.small)` gives the outlines alone. Ashmore and Cartier, the Indian Ocean Territories and Siachen stay off the world. New: `ChizuRegion.small`.
+
 ## [1.13.1] - 2026-11-18
 
 ### Changed
