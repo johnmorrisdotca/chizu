@@ -27,6 +27,8 @@ export const CHIZU_MAP_STYLE = `${CHIZU_STYLE}
 .chizu-map .czm-stage { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; position: relative; overflow: hidden; border: 1px solid var(--czm-rule); border-radius: 10px; touch-action: none; cursor: grab; background: var(--cz-sea, #cfe3ee); }
 .chizu-map .czm-stage[data-dragging="true"] { cursor: grabbing; }
 .chizu-map .czm-stage:focus-visible { outline: 3px solid var(--czm-accent); outline-offset: 2px; }
+.chizu-map .czm-stage [data-interactive]:focus { outline: none; }
+.chizu-map .czm-stage [data-interactive]:focus-visible > :not(title) { stroke: var(--czm-accent); stroke-width: 3px; vector-effect: non-scaling-stroke; }
 .chizu-map .czm-stage svg { display: block; width: 100%; height: 100%; }
 .chizu-map .czm-controls { position: absolute; bottom: 8px; right: 8px; display: grid; gap: 6px; }
 .chizu-map .czm-button { width: 44px; height: 44px; min-width: 44px; border-radius: 10px; border: 1px solid var(--czm-rule); background: var(--czm-surface); color: var(--czm-ink); font: inherit; font-size: 1.3rem; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; }

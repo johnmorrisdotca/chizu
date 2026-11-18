@@ -11,7 +11,7 @@ The world and 32 countries' regions drawn from Natural Earth (public domain), Ja
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="20.3 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-20.3%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="20.4 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-20.4%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -696,7 +696,7 @@ Placing callouts takes about 70 ms for twenty countries on the world and about 2
 - **Touch targets.** The zoom buttons are 44 by 44 pixels. A drag moves the map and not the page (`touch-action: none` on the stage only); the wheel over the map zooms it and anywhere else scrolls the page.
 - **Reduced motion.** Nothing in the package animates, so there is nothing for `prefers-reduced-motion` to change.
 - **Colour.** Land, sea and the six tones follow the device's light or dark setting. A tone (`correct`, `wrong`, `selected`) is a fill colour and a `data-tone` attribute and nothing more, so a page says so in words as well, as the demo's quiz does. The colour pairs in [Theming](#theming) have not been measured against WCAG contrast ratios.
-- **Not yet: choosing a place from the keyboard inside the map.** The arrow keys do not move between regions, and they are not in the tab order. A page that needs it offers its own list that calls `mount.select(code)`, as the demo's table of names does.
+- **Keyboard choice inside the map.** Shift and an arrow key move the focus between places, Enter chooses one, Escape returns to the map; `onHover` and `onFocus` name the place ([docs/embeds.md](./docs/embeds.md#hover-and-focus)).
 - **Not yet: Japanese read by a native reader.** The words are listed beside their English in [docs/strings-ja.md](./docs/strings-ja.md) (see [Languages](#languages)).
 
 ## Browser and runtime support
