@@ -6,13 +6,16 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.14.0] - 2026-11-18
+
+### Added
+
+- **The world's 62 smallest countries, as dots, when asked for** (MODULES-1618). The flat world is 1:110m, which has no outline for Singapore, Malta, Bahrain, most of the Caribbean and most of the Pacific, so a world quiz never asked for them. `withSmallStates(WORLD)`, from the new entry `@johnmorrisdotca/chizu/small-states`, adds each as a small round region marked `small: true`, at the middle of its largest island or piece (read from the 1:50m outlines, put on the canvas at run time: no generated data changed), with its code, names, reading, continent and the countries it touches. Nothing adds them by itself: `WORLD` is still 173 regions, and `drawChizu`, `findQuestion` and `pickDistractors` are as before, so a seeded quiz asks the same questions for the same seed; give them `withSmallStates(WORLD)` for the dots, and a seed then gives different rounds. `mountChizu` takes `smallStates: true`, and `<chizu-map>` and `<chizu-quiz>` take `small-states` (off by default); they fetch the entry, as a chunk of its own, only when it is on. A quiz of Micronesia or Polynesia, which are all dots, works with them. The demo's quiz turns them on. Ashmore and Cartier, the Indian Ocean Territories and Siachen stay off. New: `ChizuRegion.small`, `ChizuMountOptions.smallStates`.
+
 ### Changed
 
 - docs: the roadmap lists the outlines as longitude and latitude, cities on the maps and the `<chizu-map>` tag as shipped.
 - **Siachen Glacier, Ashmore and Cartier Islands and the Indian Ocean Territories are no longer asked about in a quiz** (MODULES-1616). Natural Earth draws them as countries but they have no ISO 3166-1 code. `CHIZU_COUNTRIES` has a new field `kind`, `"country"` or `"territory-part"` (type `ChizuPlaceKind`); `KAS`, `ATC` and `IOA` are `"territory-part"`, every other place, Kosovo (`XK`) included, `"country"`. Their country maps keep their shapes and are drawn as before, and their region has `territoryPart: true`; `findQuestion` returns null for such a region and `pickDistractors` never offers it. `CHIZU_CONTINENTS` no longer lists the three (Asia 51 and Oceania 25, were 53 and 26); a country's `group` is unchanged. The build (`TERRITORY_PARTS` in `scripts/data-config.mjs`) stops if the places kuni has no code for are not exactly those three. The demo's quiz leaves them out. Tests: `src/territory-parts.test.ts`.
-### Added
-
-- **The world's 62 smallest countries, as dots, when asked for** (MODULES-1618). The flat world is 1:110m, which has no outline for Singapore, Malta, Bahrain, most of the Caribbean and most of the Pacific, so a world quiz never asked for them. `withSmallStates(WORLD)`, from the new entry `@johnmorrisdotca/chizu/small-states`, adds each as a small round region marked `small: true`, at the middle of its largest island or piece (read from the 1:50m outlines, put on the canvas at run time: no generated data changed), with its code, names, reading, continent and the countries it touches. Nothing adds them by itself: `WORLD` is still 173 regions, and `drawChizu`, `findQuestion` and `pickDistractors` are as before, so a seeded quiz asks the same questions for the same seed; give them `withSmallStates(WORLD)` for the dots, and a seed then gives different rounds. `mountChizu` takes `smallStates: true`, and `<chizu-map>` and `<chizu-quiz>` take `small-states` (off by default); they fetch the entry, as a chunk of its own, only when it is on. A quiz of Micronesia or Polynesia, which are all dots, works with them. The demo's quiz turns them on. Ashmore and Cartier, the Indian Ocean Territories and Siachen stay off. New: `ChizuRegion.small`, `ChizuMountOptions.smallStates`.
 
 ## [1.13.1] - 2026-11-18
 

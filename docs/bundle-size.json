@@ -46,12 +46,12 @@
       "gzip": 965428
     },
     "./element": {
-      "minified": 17393615,
-      "gzip": 6273188
+      "minified": 17393703,
+      "gzip": 6256210
     },
     "./element/define": {
-      "minified": 17393630,
-      "gzip": 6273215
+      "minified": 17393718,
+      "gzip": 6256223
     },
     "./countries/ad": {
       "minified": 1370,
