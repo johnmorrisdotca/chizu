@@ -49,7 +49,7 @@ import WORLD from "@johnmorrisdotca/chizu/world";
 import { drawChizu } from "@johnmorrisdotca/chizu/draw";
 import { findQuestion, layoutCallouts, seededRandom } from "@johnmorrisdotca/chizu";
 
-drawChizu(WORLD, { tones: { JP: "selected" }, language: "ja" });   // the world as SVG text, Japan lit, names in Japanese
+drawChizu(WORLD, { tones: { BR: "selected" }, language: "en" });   // the world as SVG text, Brazil lit, names in English
 
 findQuestion(WORLD, "FR", seededRandom(7));
 // { target: "FR", choices: ["BE", "FR", "DE", "CH"], answerIndex: 1 }: France among its look-alikes, the same every time
@@ -102,7 +102,7 @@ const [caspian] = findFeatures((await loadFeatures("world"))!.features, "Caspian
 console.log(caspian!.code, caspian!.name, caspian!.kind);   // Q5484 Caspian Sea sea
 ```
 
-<!-- Airports and harbours: a bullet and a short example go here, when MODULES-1580 lands. -->
+<!-- An Airports and harbours section goes here. -->
 
 - **Names in English and Japanese today.** Every country is named in both, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, and 1,341 of the 1,342 regions have a Japanese name, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time. **Spanish, German and Chinese names are planned and not started**; any other language is a table of your own ([Languages](#languages)). The table is its own entry, 52 kB (10 kB gzipped).
 
