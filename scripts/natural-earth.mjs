@@ -14,7 +14,7 @@ export const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const cache = resolve(root, process.env.CHIZU_CACHE ?? ".cache");
 
 /** Natural Earth's file, from the cache, fetched once and checked against the hash this version of the script was written for. */
-export async function source(file) {
+export async function source(file, files = NATURAL_EARTH.files) {
   const path = join(cache, file);
   if (!existsSync(path)) {
     mkdirSync(cache, { recursive: true });
@@ -26,8 +26,7 @@ export async function source(file) {
   }
   const bytes = readFileSync(path);
   const hash = createHash("sha256").update(bytes).digest("hex");
-  if (hash !== NATURAL_EARTH.files[file])
-    throw new Error(`${file} is not the file this script was written for (sha256 ${hash})`);
+  if (hash !== files[file]) throw new Error(`${file} is not the file this script was written for (sha256 ${hash})`);
   return JSON.parse(bytes.toString("utf8"));
 }
 

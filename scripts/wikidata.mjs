@@ -34,7 +34,7 @@ const EARTH_KM = 6371;
 /** Wikidata's classes for a river and its kin, which a river item is an instance of. */
 const RIVER_CLASSES = ["Q4022", "Q55659167", "Q47521", "Q1437299", "Q159675", "Q12284", "Q573344"];
 
-async function sparql(query) {
+export async function sparql(query) {
   for (let attempt = 1; ; attempt += 1) {
     let response;
     try {
@@ -66,8 +66,8 @@ async function sparql(query) {
   }
 }
 
-const qid = (uri) => uri.slice(uri.lastIndexOf("/") + 1);
-const chunks = (list, size) =>
+export const qid = (uri) => uri.slice(uri.lastIndexOf("/") + 1);
+export const chunks = (list, size) =>
   Array.from({ length: Math.ceil(list.length / size) }, (_, i) => list.slice(i * size, i * size + size));
 const hiraganaOnly = (text) => /^[\p{Script=Hiragana}ー]+$/u.test(text);
 
