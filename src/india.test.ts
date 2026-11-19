@@ -22,7 +22,7 @@ describe("India's states and union territories", () => {
   });
 
   it("have Himachal Pradesh and Gujarat as states, which Natural Earth gets wrong and leaves empty", () => {
-    expect(Object.keys(TYPE_FIXES).sort()).toEqual(["IN:GJ", "IN:HP"]);
+    expect(Object.keys(TYPE_FIXES).filter((key) => /^IN:/.test(key))).toEqual(["IN:HP", "IN:GJ"]);
     expect(byCode("HP").type).toBe("state");
     expect(byCode("GJ").type).toBe("state");
   });
