@@ -23,4 +23,18 @@ console.log(COUNTRY_CODES.length,DIVISIONS_CODES.length,country?.id,divisions?.r
 
 いつも同じ地図を描くページでは、データを直接importできます。利用者が選ぶ場合は`loadCountry`、`loadDivisions`、`loadFeatures`を使います。今回一覧に加えた名前付きのエクスポートは、既存のワイルドカードと同じパスです。データと並び順は変えていません。
 
+## ベトナム：63の省と2025年の34の省・市
+
+ベトナムには行政区画の地図が2つあります。`/divisions/vn`はNatural Earthの63の省・市で、2025年6月30日までの区分です。`/divisions/vn-2025`は決議202/2025/QH15による34の省・市で、こちらが今の法律に合っています（新しい省・市は2025年7月1日から動いています）。同じ輪郭を古い境界でつないで作っているので、2つの地図のキャンバスと投影は同じです。
+
+```ts
+import { loadDivisions } from "@johnmorrisdotca/chizu/load";
+const now = (await loadDivisions("vn-2025"))!;
+const before = (await loadDivisions("vn"))!;
+console.log(now.regions.length, before.regions.length);
+// 34 63
+```
+
+`vn`は次のメジャーバージョンまで63のままで、そこで34に変わります。ISO 3166-2はまだ63のままなので、34のうち合併した23には、ISOが更新されるまで`iso`がありません。ISOコードで結びつけたデータでは、この23は色がつきません。このようなデータは`code`で結びつけてください。合併した省・市は、名前を受け継いだ元の省のコードを`code`として使います（トゥエンクアン省は`07`）。一覧は[ISOコード](../../iso-codes.md)にあります。
+
 [地図データ](../../map-data.md)、[ISOコード](../../iso-codes.md)、[国名の扱い](../../names.md)も参照してください。

@@ -1,6 +1,7 @@
 import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoPath } from "d3-geo";
 import { gapBetween, isoCodes, polygonsOf, regionFields, withRegionCodes } from "../build-data.mjs";
 import { NATURAL_EARTH, TERRITORY_PARTS } from "../data-config.mjs";
+import { dissolve } from "./dissolve.mjs";
 import {
   COUNTRY_SIDE,
   EARTH_RADIUS_KM,
@@ -112,17 +113,33 @@ function regionsOf(draw, features, config) {
   return regions;
 }
 
+/** A country's regions joined into the units of a reform (`config.units`, Vietnam's of 2025), matched on their codes. */
+function joined(config, rawFeatures) {
+  const { unchanged, merged, cities } = config.units;
+  const units = [
+    ...unchanged.map((code) => ({ code, from: [code] })),
+    ...merged.map((unit) => ({ code: unit.code, from: unit.from.map(([code]) => code) })),
+  ].map((unit) => ({ ...unit, properties: { type_en: cities.includes(unit.code) ? "City" : "Province" } }));
+  return dissolve(rawFeatures.filter(config.filter), units, config.codeFn);
+}
+
+/**
+ * One map of a country's regions. A dated map of a country that has one already (`key`, Vietnam's `vn-2025`) is a
+ * file of its own, and its lines in ISO_JOIN and NAME_FIXES are keyed by its key (`VN-2025:07`), not the country's.
+ */
 export function buildDivisions(config, rawFeatures, countryNames) {
-  const features = withRegionCodes(config, rawFeatures);
+  const key = config.key ?? config.code.toLowerCase();
+  const id = `divisions-${key}`;
+  const features = withRegionCodes(config, config.units ? joined(config, rawFeatures) : rawFeatures);
   if (features.length === 0) throw new Error(`no regions for ${config.code}`);
-  geoSources.set(`divisions-${config.code.toLowerCase()}`, features);
+  geoSources.set(id, features);
   const projection = config
     .projection()
     .fitSize([config.width, config.height], { type: "FeatureCollection", features });
-  const regions = regionsOf(geoPath(projection), features, config);
-  projections.set(`divisions-${config.code.toLowerCase()}`, projection);
+  const regions = regionsOf(geoPath(projection), features, { ...config, code: key.toUpperCase() });
+  projections.set(id, projection);
   return {
-    id: `divisions-${config.code.toLowerCase()}`,
+    id,
     kind: "divisions",
     name: config.countryName,
     ...(countryNames.get(config.code)?.nameJa ? { nameJa: countryNames.get(config.code).nameJa } : {}),
@@ -140,7 +157,7 @@ export function buildDivisions(config, rawFeatures, countryNames) {
         .replace(/\s+/g, " ")}, fitted to ${config.width}x${config.height}`,
     },
     insets: [],
-    source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, fitted to ${config.width}x${config.height}`,
+    source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, ${config.units ? `${config.units.note}, ` : ""}fitted to ${config.width}x${config.height}`,
     regions,
   };
 }

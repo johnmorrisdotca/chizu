@@ -281,6 +281,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/divisions/tw` | [Taiwan regions](entry:divisions-tw) |
 | `@johnmorrisdotca/chizu/divisions/us` | [United States regions](entry:divisions-us) |
 | `@johnmorrisdotca/chizu/divisions/vn` | [Vietnam regions](entry:divisions-vn) |
+| `@johnmorrisdotca/chizu/divisions/vn-2025` | [Vietnam regions, 2025 (34 provinces and cities)](entry:divisions-vn-2025) |
 | `@johnmorrisdotca/chizu/features/country-ad` | [Features: country-ad](entry:features-country-ad) |
 | `@johnmorrisdotca/chizu/features/country-ae` | [Features: country-ae](entry:features-country-ae) |
 | `@johnmorrisdotca/chizu/features/country-af` | [Features: country-af](entry:features-country-af) |
@@ -548,6 +549,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/divisions-tw` | [Features: divisions-tw](entry:features-divisions-tw) |
 | `@johnmorrisdotca/chizu/features/divisions-us` | [Features: divisions-us](entry:features-divisions-us) |
 | `@johnmorrisdotca/chizu/features/divisions-vn` | [Features: divisions-vn](entry:features-divisions-vn) |
+| `@johnmorrisdotca/chizu/features/divisions-vn-2025` | [Features: divisions-vn-2025](entry:features-divisions-vn-2025) |
 | `@johnmorrisdotca/chizu/features/world` | [Features: world](entry:features-world) |
 
 See [loading maps](loading-maps.md) and [the preserved map-data reference](../map-data.md).

@@ -66,7 +66,7 @@ test("the table of names lists every place in both languages, narrows as you typ
   await expect(rows.first()).toHaveAttribute("aria-selected", "true");
 });
 
-test("the map chooser offers Japan first, the world, its continents, 31 other countries' regions and every country alone", async ({
+test("the map chooser offers Japan first, the world, its continents, 31 other countries' regions (Vietnam's of 2025 after Vietnam's) and every country alone", async ({
   page,
 }) => {
   await open(page, "?map=world");
@@ -75,7 +75,9 @@ test("the map chooser offers Japan first, the world, its continents, 31 other co
   await expect(groups.nth(0).locator("option")).toHaveCount(1);
   await expect(groups.nth(0).locator("option")).toHaveAttribute("value", "divisions:jp");
   await expect(groups.nth(2).locator("option")).toHaveCount(6);
-  await expect(groups.nth(3).locator("option")).toHaveCount(31);
+  await expect(groups.nth(3).locator("option")).toHaveCount(32);
+  const vietnam = groups.nth(3).locator('option[value="divisions:vn"]');
+  await expect(vietnam.locator("xpath=following-sibling::option[1]")).toHaveAttribute("value", "divisions:vn-2025");
   await expect(groups.nth(4).locator("option")).toHaveCount(238);
   await page.locator(at("map")).selectOption("divisions:de");
   await expect(page.locator(`${at("board")} .cz-region`)).toHaveCount(16);

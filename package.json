@@ -1473,6 +1473,11 @@
       "import": "./dist/data/divisions/vn.data.js",
       "default": "./dist/data/divisions/vn.data.js"
     },
+    "./divisions/vn-2025": {
+      "types": "./dist/data/divisions/vn-2025.data.d.ts",
+      "import": "./dist/data/divisions/vn-2025.data.js",
+      "default": "./dist/data/divisions/vn-2025.data.js"
+    },
     "./divisions-geo/*": {
       "types": "./dist/data/divisions-geo/*.data.d.ts",
       "import": "./dist/data/divisions-geo/*.data.js",
@@ -2812,6 +2817,11 @@
       "types": "./dist/data/features/divisions-vn.data.d.ts",
       "import": "./dist/data/features/divisions-vn.data.js",
       "default": "./dist/data/features/divisions-vn.data.js"
+    },
+    "./features/divisions-vn-2025": {
+      "types": "./dist/data/features/divisions-vn-2025.data.d.ts",
+      "import": "./dist/data/features/divisions-vn-2025.data.js",
+      "default": "./dist/data/features/divisions-vn-2025.data.js"
     },
     "./features/world": {
       "types": "./dist/data/features/world.data.d.ts",

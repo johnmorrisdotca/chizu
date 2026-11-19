@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **Vietnam's 34 provinces and cities of 2025, as a map of their own: `divisions/vn-2025`** (MODULES-1615). Resolution 202/2025/QH15 of the National Assembly (passed 2025-06-12, Official Gazette issue 773+774; in force from 2025-07-01) merged the 63 into 34: 28 provinces and 6 cities (Huế a city since 2025-01-01, Resolution 175/2024/QH15). The build joins Natural Earth's 63 outlines along their shared borders into the 34 (`scripts/build-data/dissolve.mjs`, the table in `scripts/data-config/vietnam.mjs`), matching the old provinces on their ISO 3166-2 codes, since Natural Earth names VN-39, VN-53 and VN-66 after regions; it checks each union's area against its parts'. `loadDivisions("vn-2025")`, `DIVISIONS_CODES` (now 33, with `VN-2025`), `@johnmorrisdotca/chizu/divisions/vn-2025`, `divisions-geo/vn-2025` and `features/divisions-vn-2025`; `<chizu-map region="divisions-vn-2025">`; the demo lists it under Vietnam. **`divisions/vn` is unchanged** (the 63, byte for byte); it becomes the 34 in the next major version. The 11 units that were not merged keep their code and ISO code. Each of the 23 merged units keeps, as its `code`, the code of the old province whose name it took (Tuyên Quang `07`, made of Hà Giang `03` and Tuyên Quang `07`), and has no `iso`: ISO 3166-2:VN still lists the 63, so its codes are held until ISO updates, none is made up, and a figure keyed by ISO code does not colour them. Their names in English and Japanese are kuni's for that province; Huế is printed Huế. `type` is `province` or `city`. The seats are kuni's, matched to a merged unit by the code it kept. The guide "Load only the maps you need" says which map is current law. NOTICE.md credits both Resolutions. Tests: `src/vietnam.test.js`.
+
 ## [1.14.0] - 2026-11-18
 
 ### Added

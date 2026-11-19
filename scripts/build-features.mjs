@@ -30,6 +30,7 @@ import {
   touching,
 } from "./build-features/geometry.mjs";
 import { featureReading, titleCase } from "./build-features/readings.mjs";
+import { ISO_JOIN } from "./data-config.mjs";
 import {
   COUNTRY_RANKS,
   FEATURE_FILES,
@@ -337,7 +338,13 @@ export function featuresOn(map, projection, sources, options = {}) {
   const kept = [];
   const country = options.country ?? null;
   const onWorld = new Set(map.regions.map((region) => region.code));
-  const regionByIso = new Map(map.regions.filter((region) => region.iso).map((region) => [region.iso, region]));
+  // A region whose ISO code is held (Vietnam's merged provinces) takes the seat of the code it kept.
+  const regionByIso = new Map(
+    map.regions.map((region) => [
+      region.iso ?? ISO_JOIN[`${map.id.replace(/^divisions-/, "").toUpperCase()}:${region.code}`]?.held,
+      region,
+    ]),
+  );
   for (const one of sources.features) {
     if (one.group === "capitals") {
       // The world's capitals on the world; a country's own capital on its maps, and on its regions' map the seats of its regions.

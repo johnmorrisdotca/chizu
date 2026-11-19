@@ -10,14 +10,15 @@ import type { ChizuGeoCollection } from "./geo-types.ts";
 export type { ChizuGeoCollection, ChizuGeoFeature, ChizuGeoProperties } from "./geo-types.ts";
 
 /**
- * Every country that has its regions as longitude and latitude, by code.
+ * Every map of a country's regions as longitude and latitude, by code: the country's for the 32 countries that have
+ * one, and `VN-2025` for Vietnam's of 2025, as in `DIVISIONS_CODES`.
  *
  * @example
  * ```ts
  * import { DIVISIONS_GEO_CODES } from "@johnmorrisdotca/chizu/divisions-geo";
  *
  * console.log(DIVISIONS_GEO_CODES.length, DIVISIONS_GEO_CODES.includes("JP"));
- * // 32 true
+ * // 33 true
  * ```
  */
 export const DIVISIONS_GEO_CODES: readonly string[] = Object.keys(DIVISIONS_GEO_LOADERS).map((code) =>
