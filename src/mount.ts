@@ -16,7 +16,7 @@ import { smallStateDots } from "./mountSmallStates.ts";
 import { ensureChizuMapStyle, selectedTones } from "./mountStyle.ts";
 import type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
 import { DRAG_PIXELS, KEY_STEP, WHEEL_GESTURE_MS, WHEEL_PAUSE_MS } from "./mountTypes.ts";
-import { redrawOverlays } from "./overlays.ts";
+import { drawnOver, redrawOverlays } from "./overlays.ts";
 import { type ChizuLanguage, chizuSay, nameOf } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 import { mapWrapsAround, wrapAcross, wrapOffsets } from "./wrap.ts";
@@ -212,11 +212,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
           }
         : {}),
       ...(named ? { cities: named, ...(options.cityOptions ? { cityOptions: options.cityOptions } : {}) } : {}),
-      ...(options.overlays ? { overlays: options.overlays } : {}),
-      ...(options.runways ? { runways: options.runways } : {}),
-      ...(options.ports
-        ? { ports: options.ports, ...(options.portOptions ? { portOptions: options.portOptions } : {}) }
-        : {}),
+      ...drawnOver(options),
     });
     stage.dataset.detail = String(drawing !== map);
     stage.style.aspectRatio = `${map.width} / ${map.height}`;

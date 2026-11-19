@@ -2,7 +2,8 @@
 // in a group of their own, so they can be replaced without redrawing the map. The map knows nothing of what they mean
 // (a satellite's track, the night side): it draws what it is given.
 
-import { isChizuColour } from "./draw.ts";
+import { type ChizuDrawOptions, isChizuColour } from "./draw.ts";
+import type { ChizuMountOptions } from "./mountTypes.ts";
 import { projectPoint } from "./project.ts";
 import { escapeXml, num } from "./svgText.ts";
 import type { ChizuMap, MapBox } from "./types.ts";
@@ -241,4 +242,17 @@ export function redrawOverlays(stage: Element, map: ChizuMap, overlays: readonly
   if (group) group.outerHTML = drawn;
   else svg.insertAdjacentHTML("beforeend", drawn);
   return true;
+}
+
+/** What a mounted map hands `drawChizu` to draw over the land: its overlays, runways, airports and harbours. */
+export function drawnOver(
+  options: ChizuMountOptions,
+): Pick<ChizuDrawOptions, "overlays" | "runways" | "ports" | "portOptions"> {
+  return {
+    ...(options.overlays ? { overlays: options.overlays } : {}),
+    ...(options.runways ? { runways: options.runways } : {}),
+    ...(options.ports
+      ? { ports: options.ports, ...(options.portOptions ? { portOptions: options.portOptions } : {}) }
+      : {}),
+  };
 }
