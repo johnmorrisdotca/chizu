@@ -109,7 +109,7 @@ const map: ChizuMap = {
     {
       code: "CT",
       iso: "IN-CG",
-      name: "Chhattīsgarh",
+      name: "Chhattisgarh",
       nameJa: "チャッティースガル州",
       group: "Central",
       type: "state",
@@ -121,7 +121,7 @@ const map: ChizuMap = {
     {
       code: "DH",
       iso: "IN-DH",
-      name: "Dādra and Nagar Haveli and Damān and Diu",
+      name: "Dadra and Nagar Haveli and Daman and Diu",
       nameJa: "ダードラー・ナガル・ハヴェーリーおよびダマン・ディーウ連邦直轄領",
       group: "West",
       type: "union territory",
@@ -397,7 +397,7 @@ const map: ChizuMap = {
     {
       code: "TG",
       iso: "IN-TS",
-      name: "Telangāna",
+      name: "Telangana",
       nameJa: "テランガーナ州",
       group: "South",
       type: "state",
@@ -445,7 +445,7 @@ const map: ChizuMap = {
     {
       code: "UT",
       iso: "IN-UK",
-      name: "Uttarākhand",
+      name: "Uttarakhand",
       nameJa: "ウッタラーカンド州",
       group: "Central",
       type: "state",

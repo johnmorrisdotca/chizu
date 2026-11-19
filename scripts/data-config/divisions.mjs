@@ -449,6 +449,7 @@ export const DIVISION_CONFIGS = [
     filter: (f) => f.properties.iso_a2 === "IN",
     codeFn: (f) => f.properties.iso_3166_2?.replace(/^IN-/, "") || f.properties.postal,
     projection: () => geoConicConformal().parallels([12, 28]).rotate([-80, 0]),
+    // Natural Earth gives Ladakh and the Andaman and Nicobar Islands no region: Ladakh joins the North, the islands the South.
     regionFn: (f) => f.properties.region || (f.properties.postal === "LA" ? "North" : "South"),
     divisionType: "state",
   },

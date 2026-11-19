@@ -42,6 +42,20 @@ describe("India's states and union territories", () => {
     });
   });
 
+  it("are named with Natural Earth's plain spellings where kuni's have macrons", () => {
+    expect([byCode("CT").name, byCode("TG").name, byCode("UT").name, byCode("DH").name]).toEqual([
+      "Chhattisgarh",
+      "Telangana",
+      "Uttarakhand",
+      "Dadra and Nagar Haveli and Daman and Diu",
+    ]);
+    expect(india.regions.every((region) => /^[\x20-\x7e]+$/.test(region.name))).toBe(true);
+  });
+
+  it("have Ladakh in the North and the Andaman and Nicobar Islands in the South, which Natural Earth does not group", () => {
+    expect([byCode("LA").group, byCode("AN").group]).toEqual(["North", "South"]);
+  });
+
   it("have a code each, and no two the same", () => {
     expect(isos.every((iso) => /^IN-[A-Z]{2}$/.test(iso ?? ""))).toBe(true);
     expect(new Set(isos).size).toBe(36);

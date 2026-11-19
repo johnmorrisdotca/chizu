@@ -16,6 +16,7 @@ describe("the size of the maps in longitude and latitude", () => {
       total += size;
       expect(size, file).toBeLessThan(200 * 1024);
     }
+    // A page loads one country, not all 33, so the all-regions total is a budget and not a cost; raising it from 1.0 MB for India changes less than simplifying all 33 maps again.
     expect(total).toBeLessThan(1100 * 1024);
   });
 
