@@ -73,12 +73,31 @@ describe("Vietnam's 34 provinces and cities of 2025", () => {
     const byCode = new Map(VN.regions.map((region) => [region.code, region]));
     // Natural Earth names VN-39 and VN-66 after the regions they are in; the map names the provinces.
     expect(byCode.get("39")?.name).toBe("Đồng Nai");
+    expect(byCode.get("39")?.group).toBe("Đông Nam Bộ");
+    expect(byCode.get("66")?.group).toBe("Đồng Bằng Sông Hồng");
+    expect(byCode.get("CT")?.group).toBe("đồng bằng sông Cửu Long");
+    expect(byCode.get("69")?.group).toBe("Đông Bắc");
     expect(byCode.get("66")?.name).toBe("Hưng Yên");
     expect(byCode.get("SG")?.nameJa).toBe("ホーチミン市");
     expect(byCode.get("26")?.name).toBe("Huế");
     expect(VN_2025_GEO.features.map((feature) => feature.properties.code).sort()).toEqual(
       units.map((unit) => unit.code).sort(),
     );
+  });
+
+  it("gives every province a region, with Thái Nguyên's garbled name repaired", () => {
+    const groups = new Set(VN.regions.map((region) => region.group));
+    expect(groups.has("Vietnam")).toBe(false);
+    expect([...groups].some((group) => group.includes("?") || group.includes("Ð"))).toBe(false);
+    const byCode = new Map(VN.regions.map((region) => [region.code, region.group]));
+    expect(byCode.get("69")).toBe("Đông Bắc");
+    expect(byCode.get("53")).toBe("Đông Bắc");
+    expect(byCode.get("66")).toBe("Đồng Bằng Sông Hồng");
+    expect(byCode.get("27")).toBe("Nam Trung Bộ");
+    expect(byCode.get("39")).toBe("Đông Nam Bộ");
+    expect(byCode.get("73")).toBe("đồng bằng sông Cửu Long");
+    expect(byCode.get("CT")).toBe("đồng bằng sông Cửu Long");
+    expect(VN_2025.regions.every((region) => region.group !== "Vietnam")).toBe(true);
   });
 
   it("joins squares along the edges they share, and keeps a hole", () => {
