@@ -80,8 +80,8 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 Each example is run in CI (`pnpm test:readme`). Pictures: [What's in it](#whats-in-it).
 
 - **The world, and 238 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut; 62 too small for 1:110m are opt-in dots (`/small-states`). Each of the 238 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
-- **The regions of 32 countries**, each its own file, 1,342 in all: the 50 states and Washington DC, Canada's 10 provinces and 3 territories, China's 31 provinces and municipalities, Germany's 16 states, Brazil's 27, Mexico's 32, Australia's 10 states and territories, France's 96 départements, the United Kingdom's 232 divisions, Japan's 47 prefectures and more.
-- **ISO 3166-2 codes on the regions** (`CA-ON`, `US-TX`, `JP-13`), 1,335 of the 1,342, joined at build time from kuni 国, so figures keyed by ISO code colour the map; the 7 without one are listed in [docs/iso-codes.md](./docs/iso-codes.md).
+- **The regions of 32 countries**, each its own file, 1,313 in all: the 50 states and Washington DC, Canada's 10 provinces and 3 territories, China's 31 provinces and municipalities, Germany's 16 states, Brazil's 27, Mexico's 32, Australia's 10 states and territories, France's 96 départements, the United Kingdom's 232 divisions, Japan's 47 prefectures, Vietnam's 34 provinces and cities of 2025 and more.
+- **ISO 3166-2 codes on the regions** (`CA-ON`, `US-TX`, `JP-13`), 1,283 of the 1,313, joined at build time from kuni 国, so figures keyed by ISO code colour the map; the 30 without one (23 of them Vietnam's merged provinces of 2025, which ISO 3166-2 has not coded yet) are listed in [docs/iso-codes.md](./docs/iso-codes.md).
 
 ```ts
 import WORLD from "@johnmorrisdotca/chizu/world";
@@ -104,7 +104,7 @@ console.log(caspian!.code, caspian!.name, caspian!.kind);   // Q5484 Caspian Sea
 
 <!-- An Airports and harbours section goes here. -->
 
-- **Names in English and Japanese today.** Every country is named in both, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, and 1,341 of the 1,342 regions have a Japanese name, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time. **Spanish, German and Chinese names are planned and not started**; any other language is a table of your own ([Languages](#languages)). The table is its own entry, 52 kB (10 kB gzipped).
+- **Names in English and Japanese today.** Every country is named in both, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, and 1,312 of the 1,313 regions have a Japanese name, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time. **Spanish, German and Chinese names are planned and not started**; any other language is a table of your own ([Languages](#languages)). The table is its own entry, 52 kB (10 kB gzipped).
 
 ```ts
 import { CHIZU_COUNTRIES, countryByCode } from "@johnmorrisdotca/chizu/names";

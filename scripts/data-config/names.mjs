@@ -1,3 +1,5 @@
+import { VIETNAM_2025 } from "./vietnam.mjs";
+
 /*
  * How the three places Natural Earth draws that kuni does not have (they have no ISO 3166 code) are read, in
  * hiragana: every other country's names and reading are kuni's. Hand-written, for review by a native reader.
@@ -122,4 +124,8 @@ export const NAME_FIXES = {
   "IE:TA": { name: "North Tipperary", nameJa: "ノース・ティペラリー" },
   "IE:TA_2": { name: "South Tipperary", nameJa: "サウス・ティペラリー" },
   "PH:SUN": { name: "Surigao del Norte", nameJa: "北スリガオ州" },
+  // Vietnam's merged provinces and cities of 2025, named as the province whose name each kept (vietnam.mjs).
+  ...Object.fromEntries(VIETNAM_2025.merged.map(({ code, name, nameJa }) => [`VN:${code}`, { name, nameJa }])),
+  // A city since 2025-01-01, Thừa Thiên–Huế province before: the Resolution of 2025 names it thành phố Huế.
+  "VN:26": { name: "Huế" },
 };

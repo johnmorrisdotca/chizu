@@ -6,6 +6,8 @@
  * district from before 2015), each carries the code of the subdivision it lies in, and `why` says so: a test
  * holds every region to having a code or a line here, and every code two regions share to a line here.
  */
+import { VIETNAM_2025 } from "./vietnam.mjs";
+
 const NI_2015 = (code, name) => ({
   iso: `GB-${code}`,
   why: `a district of Northern Ireland before 2015, now part of ${name}`,
@@ -162,4 +164,20 @@ export const ISO_JOIN = {
     iso: null,
     why: "a piece of the Yamal coast, 38 km², that Natural Earth draws without a name or a code",
   },
+  // Vietnam's 23 merged provinces and cities of 2025 (vietnam.mjs): ISO 3166-2:VN has not coded them yet. `held` is
+  // the code of the province whose name each kept, which kuni's facts already give the new unit's seat under.
+  ...Object.fromEntries(
+    VIETNAM_2025.merged.map(({ code, name, from }) => {
+      const parts = from.map(([old, oldName]) => `${oldName} (VN-${old})`);
+      const list = `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}`;
+      return [
+        `VN:${code}`,
+        {
+          iso: null,
+          held: `VN-${code}`,
+          why: `${name} since 2025-07-01, made of ${list} by Resolution 202/2025/QH15; ISO 3166-2 has no code for it yet`,
+        },
+      ];
+    }),
+  ),
 };

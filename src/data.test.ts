@@ -319,7 +319,7 @@ describe("the regions of a country", () => {
   it("has ISO 3166-2 codes for nearly every region", async () => {
     const regions = (await divisions()).flatMap((map) => map.regions);
     const coded = regions.filter((region) => region.iso !== undefined).length;
-    expect(coded / regions.length).toBeGreaterThan(0.98);
+    expect(coded / regions.length).toBeGreaterThan(0.97);
   }, 60000);
 
   /* A quiz that asks for “Cork” cannot have two right answers. */

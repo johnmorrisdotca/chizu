@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- **Vietnam is drawn as its 34 provinces and cities of 2025** (MODULES-1615). Resolution 202/2025/QH15 of the National Assembly (passed 2025-06-12, Official Gazette issue 773+774; in force from 2025-07-01) merged the 63 into 34: 28 provinces and 6 cities. The build joins Natural Earth's 63 outlines along their shared borders into the 34 (`scripts/build-data/dissolve.mjs`, the table in `scripts/data-config/vietnam.mjs`), matching the old provinces on their ISO 3166-2 codes, since Natural Earth names VN-39, VN-53 and VN-66 after regions. `divisions/vn` and `divisions-geo/vn` have 34 regions (were 63); the 63 are not kept as a second map (chizu 1.14.0 has them). The 11 that were not merged keep their code and ISO code. Each of the 23 merged units keeps, as its `code`, the code of the old province whose name it took (Tuyên Quang `07`, made of Hà Giang `03` and Tuyên Quang `07`), and has no `iso`: ISO 3166-2:VN still lists the 63, so its codes are held until ISO updates, and none is made up. Their names in English and Japanese are kuni's for that province; Huế is printed Huế (a city since 2025-01-01). `type` is `province` or `city` as the Resolution says. The seats on the map are kuni's, as before, matched to a merged unit by the code it kept; some of them kuni already gives as the seats of 2025 (Gia Lai's at Quy Nhơn, Đồng Tháp's at Mỹ Tho), which now fall inside their provinces. Regions in all: 1,313 (were 1,342); with an ISO code 1,283. NOTICE.md credits the Resolution. Tests: `src/vietnam.test.ts`.
+
 ## [1.14.0] - 2026-11-18
 
 ### Added

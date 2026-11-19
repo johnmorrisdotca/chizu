@@ -20,6 +20,8 @@ kuni 1.1.0 took over every name, continent and correction chizu 1.1.0 kept here,
 
 Where two regions of one map would share a name, or a region is not the ISO subdivision kuni names, the name is written here (`NAME_FIXES`):
 
+Vietnam's 23 merged provinces and cities of 2025 have no ISO code yet, so kuni does not name them: each is written here with kuni's names for the old province whose name it kept, which a test holds to kuni's (`src/vietnam.test.ts`).
+
 | Region | English | Japanese |
 | --- | --- | --- |
 | RU:X01~ | Unnamed piece of the Yamal coast | Natural Earth's (drawn, but left out of quizzes and lists: `unnamed`) |
@@ -36,6 +38,30 @@ Where two regions of one map would share a name, or a region is not the ISO subd
 | IE:TA | North Tipperary | ノース・ティペラリー |
 | IE:TA_2 | South Tipperary | サウス・ティペラリー |
 | PH:SUN | Surigao del Norte | 北スリガオ州 |
+| VN:07 | Tuyên Quang | トゥエンクアン省 |
+| VN:02 | Lào Cai | ラオカイ省 |
+| VN:69 | Thái Nguyên | タイグエン省 |
+| VN:68 | Phú Thọ | フート省 |
+| VN:56 | Bắc Ninh | バクニン省 |
+| VN:66 | Hưng Yên | フンイエン省 |
+| VN:HP | Haiphong | ハイフォン |
+| VN:18 | Ninh Bình | ニンビン省 |
+| VN:25 | Quảng Trị | クアンチ省 |
+| VN:DN | Da Nang | ダナン |
+| VN:29 | Quảng Ngãi | クアンガイ省 |
+| VN:30 | Gia Lai | ザライ省 |
+| VN:34 | Khánh Hòa | カインホア省 |
+| VN:35 | Lâm Đồng | ラムドン省 |
+| VN:33 | Đắk Lắk | ダクラク省 |
+| VN:SG | Ho Chi Minh City | ホーチミン市 |
+| VN:39 | Đồng Nai | ドンナイ省 |
+| VN:37 | Tây Ninh | タイニン省 |
+| VN:CT | Cần Thơ | カントー |
+| VN:49 | Vĩnh Long | ヴィンロン省 |
+| VN:45 | Đồng Tháp | ドンタップ省 |
+| VN:59 | Cà Mau | カマウ省 |
+| VN:44 | An Giang | アンザン省 |
+| VN:26 | Huế, a city since 2025-01-01 (kuni: Thừa Thiên–Huế) | kuni's (フエ市) |
 
 ## Other names
 

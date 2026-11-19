@@ -22,8 +22,8 @@
       "gzip": 1565154
     },
     "./load": {
-      "minified": 18407203,
-      "gzip": 6614022
+      "minified": 18381729,
+      "gzip": 6606917
     },
     "./world": {
       "minified": 177893,
@@ -42,16 +42,16 @@
       "gzip": 406535
     },
     "./divisions-geo": {
-      "minified": 3982255,
-      "gzip": 965428
+      "minified": 3966206,
+      "gzip": 962406
     },
     "./element": {
-      "minified": 17393812,
-      "gzip": 6256272
+      "minified": 17368338,
+      "gzip": 6249803
     },
     "./element/define": {
-      "minified": 17393827,
-      "gzip": 6256272
+      "minified": 17368353,
+      "gzip": 6249804
     },
     "./countries/ad": {
       "minified": 1370,
@@ -1130,8 +1130,8 @@
       "gzip": 265817
     },
     "./divisions/vn": {
-      "minified": 145858,
-      "gzip": 52497
+      "minified": 120384,
+      "gzip": 45323
     },
     "./features/country-ad": {
       "minified": 731,

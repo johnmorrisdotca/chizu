@@ -1,6 +1,7 @@
 import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoPath } from "d3-geo";
 import { gapBetween, isoCodes, polygonsOf, regionFields, withRegionCodes } from "../build-data.mjs";
 import { NATURAL_EARTH, TERRITORY_PARTS } from "../data-config.mjs";
+import { dissolve } from "./dissolve.mjs";
 import {
   COUNTRY_SIDE,
   EARTH_RADIUS_KM,
@@ -112,8 +113,18 @@ function regionsOf(draw, features, config) {
   return regions;
 }
 
+/** A country's regions joined into the units of a reform (`config.units`, Vietnam's of 2025), matched on their codes. */
+function joined(config, rawFeatures) {
+  const { unchanged, merged, cities } = config.units;
+  const units = [
+    ...unchanged.map((code) => ({ code, from: [code] })),
+    ...merged.map((unit) => ({ code: unit.code, from: unit.from.map(([code]) => code) })),
+  ].map((unit) => ({ ...unit, properties: { type_en: cities.includes(unit.code) ? "City" : "Province" } }));
+  return dissolve(rawFeatures.filter(config.filter), units, config.codeFn);
+}
+
 export function buildDivisions(config, rawFeatures, countryNames) {
-  const features = withRegionCodes(config, rawFeatures);
+  const features = withRegionCodes(config, config.units ? joined(config, rawFeatures) : rawFeatures);
   if (features.length === 0) throw new Error(`no regions for ${config.code}`);
   geoSources.set(`divisions-${config.code.toLowerCase()}`, features);
   const projection = config
@@ -140,7 +151,7 @@ export function buildDivisions(config, rawFeatures, countryNames) {
         .replace(/\s+/g, " ")}, fitted to ${config.width}x${config.height}`,
     },
     insets: [],
-    source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, fitted to ${config.width}x${config.height}`,
+    source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, ${config.units ? `${config.units.note}, ` : ""}fitted to ${config.width}x${config.height}`,
     regions,
   };
 }

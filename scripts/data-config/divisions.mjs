@@ -1,4 +1,5 @@
 import { geoAlbers, geoConicConformal, geoConicEqualArea, geoConicEquidistant, geoTransverseMercator } from "d3-geo";
+import { VIETNAM_2025 } from "./vietnam.mjs";
 
 export const DIVISION_CONFIGS = [
   {
@@ -159,6 +160,7 @@ export const DIVISION_CONFIGS = [
     projection: () => geoTransverseMercator().rotate([-106.5, -16]),
     regionFn: (f) => f.properties.region || "Vietnam",
     divisionType: "province",
+    units: VIETNAM_2025,
   },
   {
     code: "TW",
