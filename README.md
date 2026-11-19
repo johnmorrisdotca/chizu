@@ -11,7 +11,7 @@ The world and its 253 countries and territories, each on its own, drawn from Nat
   <a href="./LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-2f5d4a"></a>
   <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-0-2f5d4a">
   <img alt="TypeScript" src="https://img.shields.io/badge/types-TypeScript-3178c6">
-  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="21.0 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-21.0%20kB-2f5d4a"></a>
+  <a href="https://johnmorrisdotca.github.io/chizu/docs/api/main/index.html"><img alt="21.2 kB minified and gzipped" src="https://img.shields.io/badge/min%2Bgzip-21.2%20kB-2f5d4a"></a>
   <a href="https://www.npmjs.com/package/@johnmorrisdotca/chizu#provenance"><img alt="Published with npm provenance" src="https://img.shields.io/badge/npm-provenance-2f5d4a"></a>
 </p>
 
@@ -80,7 +80,7 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 Each example is run in CI (`pnpm test:readme`). Pictures: [What's in it](#whats-in-it).
 
 - **The world, and 253 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut; 62 too small for 1:110m are opt-in dots (`/small-states`). Each of the 253 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
-- **The regions of 33 countries**, each its own file, 1,378 in all: the 50 states and Washington DC, Canada's 10 provinces and 3 territories, China's 31 provinces and municipalities, Germany's 16 states, Brazil's 27, Mexico's 32, Australia's 10 states and territories, France's 96 départements, the United Kingdom's 232 divisions, Japan's 47 prefectures and more.
+- **The regions of 33 countries**, each its own file, 1,378 in all, from the 50 states and Washington DC to Japan's 47 prefectures ([docs/maps.md](./docs/maps.md) counts each).
 - **ISO 3166-2 codes on the regions** (`CA-ON`, `US-TX`, `JP-13`), 1,371 of the 1,378, joined at build time from kuni 国, so figures keyed by ISO code colour the map; the 7 without one are listed in [docs/iso-codes.md](./docs/iso-codes.md).
 
 ```ts
@@ -114,7 +114,7 @@ const svg = drawChizu(WORLD, { ports: [...AIRPORTS, ...HARBOURS], language: "ja"
 console.log(AIRPORTS.length, HARBOURS.length, svg.includes('data-port="hnd"'));   // 600 1081 true
 ```
 
-- **Names in English and Japanese today.** Every country is named in both, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, and 1,377 of the 1,378 regions have a Japanese name, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time. **Spanish, German and Chinese names are planned and not started**; any other language is a table of your own ([Languages](#languages)). The table is its own entry, 52 kB (10 kB gzipped).
+- **Names in English and Japanese today.** Every country is named in both, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, and 1,377 of the 1,378 regions have a Japanese name, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time. **Spanish, German and Chinese names are planned and not started**; any other language is a table of your own ([Languages](#languages)).
 
 ```ts
 import { CHIZU_COUNTRIES, countryByCode } from "@johnmorrisdotca/chizu/names";
@@ -528,15 +528,13 @@ country-ie country 253 35
 | The world | `@johnmorrisdotca/chizu/world` | 173 countries, Natural Earth at 1:110m | 170 kB |
 | The world drawn finer | `loadWorldDetail()` from `@johnmorrisdotca/chizu/load` | the same 173 countries on the same canvas, at 1:50m, for a map zoomed in (`mountChizu`'s `detail`) | 1.3 MB, fetched only when asked for |
 | A country alone | `@johnmorrisdotca/chizu/countries/<code>` or `loadCountry("<code>")` | 253 countries and territories at 1:50m (1:10m under 60,000 km²), on a canvas of their own whose longer side is 1,000 | 16 kB for Japan, 157 kB for Canada |
-| A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 33 countries, Natural Earth admin-1 at 1:10m; also `vn-2025` and `gb-2025` (UK councils of 2025) | 203 kB for Germany, 1.8 MB for Russia |
+| A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 33 countries, Natural Earth admin-1 at 1:10m; dated maps `vn-2025`, `gb-2025` ([docs/maps.md](./docs/maps.md)) | 203 kB for Germany, 1.8 MB for Russia |
 | Japan's prefectures | `divisions/jp` or `loadDivisions("jp")` | 47 prefectures, Natural Earth admin-1 at 1:10m, with Okinawa and the outlying islands in boxes | 186 kB |
-| A map's seas, lakes, rivers, mountains and capitals | `@johnmorrisdotca/chizu/features/<map>` or `loadFeatures("<map id>")` | 284 maps' named features on their own canvases: [docs/features.md](./docs/features.md) | 203 kB for the world, 29 kB for Japan's prefectures |
+| A map's seas, lakes, rivers, mountains and capitals | `@johnmorrisdotca/chizu/features/<map>` or `loadFeatures("<map id>")` | 286 maps' named features on their own canvases: [docs/features.md](./docs/features.md) | 203 kB for the world, 29 kB for Japan's prefectures |
 
 The codes are ISO 3166-1 alpha-2, in lower case in a file's name (`fr`), and Natural Earth's own three letters for the few places that have none. `CHIZU_COUNTRIES` (from `@johnmorrisdotca/chizu/names`) lists every country with its names, and says which have a map of their own regions.
 
 The **33 countries with regions** are Argentina, Australia, Austria, Belgium, Brazil, Canada, Chile, China, Colombia, France, Germany, India, Ireland, Italy, Japan, Malaysia, Mexico, the Netherlands, New Zealand, Norway, Peru, the Philippines, Poland, Russia, South Korea, Spain, Sweden, Switzerland, Taiwan, Thailand, the United Kingdom, the United States and Vietnam.
-
-**Vietnam has two maps**: `vn`, the 63 provinces before 2025-07-01, and `vn-2025`, the 34 of current law, which `vn` becomes in the next major version. ISO 3166-2 has no codes for 23 of the 34 yet: [docs/iso-codes.md](./docs/iso-codes.md).
 
 **Notes on the maps**: how Japan's prefectures are numbered, grouped and boxed, what a country alone leaves out (France is the mainland and Corsica) and what the world leaves out, in [docs/maps.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/maps.md).
 
@@ -578,7 +576,7 @@ A group of places is a list of codes, and `groupMap`, `groupBox` and `groupTones
 
 ## Longitude and latitude
 
-`projectPoint(WORLD, 139.69, 35.69)` is Tokyo on the world's canvas, `[457.5, 212.5]`, and `unprojectPoint` goes back. A map keeps how its canvas was made (`projection`). Two are closed formulas, done here with no dependency: Miller's cylindrical round a centre longitude (the world) and Lambert azimuthal equal-area round a centre (a country alone). A country's regions were fitted with a projection of their own, and `projectPoint` answers `null` for them, never a guess.
+`projectPoint(WORLD, 139.69, 35.69)` is Tokyo on the world's canvas, `[457.5, 212.5]`, and `unprojectPoint` goes back. A map keeps how its canvas was made (`projection`). How each canvas was projected, and why `projectPoint` answers `null` on a country's regions: [docs/map-data.md](./docs/map-data.md).
 
 `@johnmorrisdotca/chizu/world-geo` is the same world before any projection: a GeoJSON `FeatureCollection` of 177 features (Natural Earth 5.1.2, 1:110m) in WGS84 `[longitude, latitude]` degrees, for d3-geo's `geoOrthographic` or any spherical view: the 173 countries of `WORLD` and four it leaves out (`AQ`, `TF`, `CYN`, `SOL`). It is its own entry (166 kB minified, 44 kB gzipped), so a flat map never loads it. Zoomed in, `world-geo-detail` (1:50m) and `divisions-geo/<code>` are the same in degrees: [docs/maps.md](./docs/maps.md).
 
@@ -651,7 +649,7 @@ mount.destroy();
 | A press | chooses a region (and a second press on it, none) |
 | Arrow keys, `+`, `-`, `0` | move, zoom, and show the whole map, with the map focused |
 
-`cities` and `cityOptions` are as `drawChizu` takes them; `cities` may also be a function such as `loadKuniCities`, called once. `overlays` too: setting them alone (`map.set({ overlays })`) draws only them again, not the land. `selectable: false` makes the map only looked at, which a quiz wants. Callouts are placed again for the window as it is after each move, and keep out from under the buttons.
+`cities`, `cityOptions` and `overlays` are as `drawChizu` takes them ([cities](docs/guides/city-names.md), [overlays](docs/guides/overlays.md)). `selectable: false` makes the map only looked at, which a quiz wants. Callouts are placed again for the window as it is after each move, and keep out from under the buttons.
 
 ## API
 
@@ -740,7 +738,7 @@ All of these are held by tests, and the ones with a name are exported.
 | The world | 173 countries on a canvas 1,000 wide and 489 tall | `WORLD` |
 | Countries alone | 253, on a canvas whose longer side is 1,000 | `CHIZU_COUNTRIES` |
 | Countries with regions | 33 | `DIVISIONS_CODES` |
-| Dated maps of regions | 2, Vietnam's and the United Kingdom's of 2025 (`VN-2025`, `GB-2025`) | `DIVISIONS_CODES` |
+| Dated maps of regions | 2 (`VN-2025`, `GB-2025`) | `DIVISIONS_CODES` |
 | A callout's circle | 3% of the window's width unless asked otherwise | `CALLOUT_RADIUS_RATIO` |
 | Callouts that cross | none, for the maps and lists the tests place, polished or not | `calloutFaults` |
 | Wrong answers | 3 unless asked otherwise, drawn from the best `count + 3` | `pickDistractors` |
@@ -892,7 +890,7 @@ Please follow the [code of conduct](./CODE_OF_CONDUCT.md). A way to make the cal
 
 ## Changes
 
-See [CHANGELOG.md](./CHANGELOG.md). The latest release, 1.7.0, changes the demo, the docs and the release tooling only; 1.6.0 added the world's outlines as longitude and latitude for spherical projections.
+Every release, and what it adds, changes and fixes: [CHANGELOG.md](./CHANGELOG.md).
 
 ## Licence
 
@@ -901,7 +899,7 @@ The code is [MIT](./LICENSE) © John Morris. The outlines and the names are data
 | Data | Made from | Terms |
 | --- | --- | --- |
 | The outlines of the world, of each country and of 33 countries' regions; the seas, lakes, rivers, landforms and peaks | [Natural Earth](https://www.naturalearthdata.com/) 5.1.2, admin-0 countries at 1:110m, 1:50m and 1:10m, admin-1 states and provinces and the physical vectors at 1:10m | Public domain. Crediting the authors is unnecessary; it is done here anyway |
-| England, Scotland and Wales on `gb-2025` | [ONS](https://geoportal.statistics.gov.uk/datasets/ac443ef4c1de497a9675a6e72290f9cc) Counties and Unitary Authorities (December 2025) Boundaries UK BGC | OGL v3.0: "Source: Office for National Statistics licensed under the Open Government Licence v.3.0", "Contains OS data © Crown copyright and database right 2025" |
+| England, Scotland and Wales on `gb-2025` | [ONS](https://geoportal.statistics.gov.uk/datasets/ac443ef4c1de497a9675a6e72290f9cc) councils of December 2025 | OGL v3.0: "Source: Office for National Statistics licensed under the Open Government Licence v.3.0", "Contains OS data © Crown copyright and database right 2025" |
 | The countries' names, short names, readings and continents; the regions' ISO 3166-2 codes; the names of Japan's prefectures and of the regions that are one ISO subdivision | [kuni 国](https://github.com/johnmorrisdotca/kuni) 1.6.0, read at build time, whose names are [Unicode CLDR](https://cldr.unicode.org/)'s and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, whose notice is in NOTICE.md. Wikidata: CC0 |
 | The other regions' names in Japanese; the features' names | Natural Earth's names, which are Wikidata's, and Wikidata's | CC0 |
 | The readings of three places kuni does not have, and the names that tell two regions of one map apart | Written for this package | MIT |
