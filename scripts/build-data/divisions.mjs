@@ -1,3 +1,4 @@
+import { subdivisionByName } from "@johnmorrisdotca/kuni/subdivisions";
 import {
   geoAlbers,
   geoArea,
@@ -8,8 +9,10 @@ import {
   geoPath,
 } from "d3-geo";
 import { gapBetween, isoCodes, polygonsOf, regionFields, withRegionCodes } from "../build-data.mjs";
-import { NATURAL_EARTH, TERRITORY_PARTS } from "../data-config.mjs";
+import { NATURAL_EARTH, ONS, ONS_ISO, ONS_TYPES, TERRITORY_PARTS } from "../data-config.mjs";
+import { source } from "../natural-earth.mjs";
 import { dissolve } from "./dissolve.mjs";
+import { simplifyShared } from "./geo.mjs";
 import {
   COUNTRY_SIDE,
   EARTH_RADIUS_KM,
@@ -111,6 +114,60 @@ export function buildCountry(feature, near, fine) {
   };
 }
 
+// ---- Great Britain from the ONS ----------------------------------------------------------------------------------
+
+/** Where `gb-2025`'s regions are drawn from, written on its maps: the ONS's two lines of attribution with it. */
+export const GB_SOURCE = `${ONS.name}, simplified to ${ONS.simplify.toleranceKm} km, for England, Scotland and Wales (${ONS.attribution.join(". ")}); Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, for Northern Ireland`;
+
+/**
+ * A geometry with each hole in the polygon around it. The ONS's file gives one hole (Nottingham's, in Nottinghamshire)
+ * as a polygon of its own, wound as a hole, which d3-geo would draw as all the earth but Nottingham.
+ */
+function holesInPlace(geometry) {
+  if (geometry.type !== "MultiPolygon") return geometry;
+  const isHole = (polygon) => geoArea({ type: "Polygon", coordinates: [polygon[0]] }) > 2 * Math.PI;
+  const outer = geometry.coordinates.filter((polygon) => !isHole(polygon)).map((polygon) => [...polygon]);
+  for (const hole of geometry.coordinates.filter(isHole)) {
+    const around = outer.find((polygon) => geoContains({ type: "Polygon", coordinates: [polygon[0]] }, hole[0][0]));
+    if (!around) throw new Error("the ONS's file has a hole with no polygon around it");
+    around.push(hole[0]);
+  }
+  return { type: "MultiPolygon", coordinates: outer };
+}
+
+/**
+ * Natural Earth's admin-1 file with Great Britain's councils (England, Scotland and Wales) from the ONS added, for
+ * `gb-2025` (data-config/ons.mjs): simplified with the borders kept one line, marked `ons`, and given the fields
+ * Natural Earth's regions have but `iso_a2`, so that no other map takes them. A unit's ISO code is kuni's subdivision
+ * of exactly its name, or ONS_ISO's; one with neither has none, and the build stops unless ISO_JOIN says why.
+ */
+export async function withOns(collection) {
+  const ons = (await source(ONS.file)).features
+    .filter((feature) => !feature.properties.CTYUA25CD.startsWith("N"))
+    .map((feature) => ({ ...feature, geometry: holesInPlace(feature.geometry) }));
+  const { geometries } = simplifyShared(ons, ONS.simplify);
+  const britain = ons.map((feature, index) => {
+    const { CTYUA25CD: code, CTYUA25NM: name } = feature.properties;
+    const byName = subdivisionByName(name, { country: "GB", level: 2 });
+    const type = ONS_TYPES[code.slice(0, 3)];
+    if (!type) throw new Error(`${code} (${name}): no kind in ONS_TYPES`);
+    return {
+      type: "Feature",
+      properties: {
+        ons: true,
+        adm1_code: code,
+        iso_3166_2: ONS_ISO[code] ?? (byName?.name.en === name ? byName.code : null),
+        name,
+        name_en: name,
+        type_en: type,
+        geonunit: { E: "England", S: "Scotland", W: "Wales" }[code[0]],
+      },
+      geometry: geometries[index],
+    };
+  });
+  return { ...collection, features: [...collection.features, ...britain] };
+}
+
 function regionsOf(draw, features, config) {
   const near = neighboursBySharedPoints(features, (feature) => feature.properties.__code);
   const isos = isoCodes(config.code, features);
@@ -135,8 +192,9 @@ function joined(config, rawFeatures) {
 }
 
 /**
- * One map of a country's regions. A dated map of a country that has one already (`key`, Vietnam's `vn-2025`) is a
- * file of its own, and its lines in ISO_JOIN and NAME_FIXES are keyed by its key (`VN-2025:07`), not the country's.
+ * One map of a country's regions. A dated map of a country that has one already (`key`, Vietnam's `vn-2025`; or a
+ * `code` with the year and its `country`, the United Kingdom's `GB-2025`) is a file of its own, and its lines in
+ * ISO_JOIN and NAME_FIXES are keyed by it (`VN-2025:07`, `GB-2025:E06000063`), not by the country's code.
  */
 export function buildDivisions(config, rawFeatures, countryNames) {
   const key = config.key ?? config.code.toLowerCase();
@@ -153,7 +211,9 @@ export function buildDivisions(config, rawFeatures, countryNames) {
     id,
     kind: "divisions",
     name: config.countryName,
-    ...(countryNames.get(config.code)?.nameJa ? { nameJa: countryNames.get(config.code).nameJa } : {}),
+    ...(countryNames.get(config.country ?? config.code)?.nameJa
+      ? { nameJa: countryNames.get(config.country ?? config.code).nameJa }
+      : {}),
     regionName: config.divisionTypeName,
     regionNamePlural: config.divisionTypePlural,
     viewBox: `0 0 ${config.width} ${config.height}`,
@@ -168,7 +228,7 @@ export function buildDivisions(config, rawFeatures, countryNames) {
         .replace(/\s+/g, " ")}, fitted to ${config.width}x${config.height}`,
     },
     insets: [],
-    source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, ${config.units ? `${config.units.note}, ` : ""}fitted to ${config.width}x${config.height}`,
+    source: `${config.code === "GB-2025" ? GB_SOURCE : `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m`}, ${config.units ? `${config.units.note}, ` : ""}fitted to ${config.width}x${config.height}`,
     regions,
   };
 }

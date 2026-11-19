@@ -1,4 +1,4 @@
-// Builds every file of map data under src/data/ from Natural Earth: `pnpm data`.
+// Builds every file of map data under src/data/ from Natural Earth (gb-2025's councils from the ONS): `pnpm data`.
 //
 //   src/data/world.data.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
 //   src/data/world-geo.data.ts            the same world in longitude and latitude, unprojected, with the four it leaves out (177); the one table kept unformatted
@@ -32,7 +32,7 @@ import {
   subregionName,
 } from "@johnmorrisdotca/kuni";
 import { geoDistance } from "d3-geo";
-import { buildCountry, buildDivisions, buildUnitedStates, DEGREES } from "./build-data/divisions.mjs";
+import { buildCountry, buildDivisions, buildUnitedStates, DEGREES, withOns } from "./build-data/divisions.mjs";
 import { writeDivisionsGeo, writeWorldGeoDetail } from "./build-data/geo-files.mjs";
 import { literal, out, writeFeatures, writeMap } from "./build-data/geometry.mjs";
 import { buildJapan } from "./build-data/japan.mjs";
@@ -205,7 +205,7 @@ export async function main() {
   const countriesSource = await source("ne_50m_admin_0_countries.geojson");
   const fineSource = await source("ne_10m_admin_0_countries.geojson");
   const fine = new Map(fineSource.features.map((feature) => [feature.properties.ADM0_A3, feature]));
-  const divisionsSource = await source("ne_10m_admin_1_states_provinces.geojson");
+  const divisionsSource = await withOns(await source("ne_10m_admin_1_states_provinces.geojson"));
 
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
@@ -285,7 +285,7 @@ export async function main() {
   }
 
   const configs = [...DIVISION_CONFIGS];
-  const divisionCodes = new Set([...configs.map((c) => c.code), "US", "JP"]);
+  const divisionCodes = new Set([...configs.map((c) => c.country ?? c.code), "US", "JP"]);
   for (const entry of table) entry.hasDivisions = divisionCodes.has(entry.code);
   const missing = [...divisionCodes].filter((code) => !table.some((entry) => entry.code === code));
   if (missing.length > 0)
@@ -470,7 +470,7 @@ ${lines(loaders.countries, "countries")}
 /** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
 export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.data.ts");
 
-/** The ${loaders.divisions.length} maps of a country's regions, by lower-case code: the country's, or the country's and a year for a dated map (\`vn-2025\`). */
+/** The ${loaders.divisions.length} maps of a country's regions, by lower-case code: the country's, or the country's and a year for a dated map (\`vn-2025\`, \`gb-2025\`). */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
 ${lines(loaders.divisions, "divisions")}
 };

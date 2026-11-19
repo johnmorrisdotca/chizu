@@ -128,6 +128,12 @@ export const ISO_JOIN = {
     iso: null,
     why: "Northamptonshire was split in 2021 into North (GB-NNH) and West Northamptonshire (GB-WNH)",
   },
+  // gb-2025 (data-config/ons.mjs): its councils are the ONS's, coded by kuni's name or ONS_ISO; these two, made from Cumbria in 2023, have their ONS codes.
+  "GB-2025:E06000063": { iso: null, why: "Cumberland, a unitary authority since 2023, has no ISO 3166-2 code yet" },
+  "GB-2025:E06000064": {
+    iso: null,
+    why: "Westmorland and Furness, a unitary authority since 2023, has no ISO 3166-2 code yet",
+  },
   "NO:X01~": {
     iso: null,
     why: "Bouvet Island is a country code of its own in ISO 3166-1 (BV), with no subdivision code",
@@ -185,3 +191,8 @@ export const ISO_JOIN = {
     }),
   ),
 };
+
+// gb-2025 draws Northern Ireland's districts of before 2015 as gb does, so each has gb's line.
+for (const [key, join] of Object.entries(ISO_JOIN))
+  if (key.startsWith("GB:") && join.why.startsWith("a district of Northern Ireland before 2015"))
+    ISO_JOIN[`GB-2025:${key.slice("GB:".length)}`] = join;

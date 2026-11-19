@@ -22,15 +22,16 @@ export const COUNTRY_CODES: readonly string[] = Object.keys(COUNTRY_LOADERS).map
 
 /**
  * Every map of a country's regions (provinces, states, départements), by code: the country's for the 33 countries
- * that have one, and the country's with a year for a dated map, `VN-2025` (Vietnam's 34 provinces and cities of 2025;
- * `VN` is its 63 until the next major version).
+ * that have one, and the country's with a year for a dated map: `VN-2025` (Vietnam's 34 provinces and cities of 2025;
+ * `VN` is its 63 until the next major version) and `GB-2025` (the United Kingdom's councils of 2025, from the ONS;
+ * `GB` is Natural Earth's until the next major version).
  *
  * @example
  * ```ts
  * import { DIVISIONS_CODES } from "@johnmorrisdotca/chizu/load";
  *
- * console.log(DIVISIONS_CODES.length, DIVISIONS_CODES.includes("JP"), DIVISIONS_CODES.includes("VN-2025"));
- * // 34 true true
+ * console.log(DIVISIONS_CODES.length, DIVISIONS_CODES.includes("JP"), DIVISIONS_CODES.includes("VN-2025"), DIVISIONS_CODES.includes("GB-2025"));
+ * // 35 true true true
  * ```
  */
 export const DIVISIONS_CODES: readonly string[] = Object.keys(DIVISIONS_LOADERS).map((code) => code.toUpperCase());
@@ -57,6 +58,7 @@ export async function loadCountry(code: string): Promise<ChizuMap | null> {
 
 /**
  * The regions of one country, from Natural Earth's 1:10m states and provinces; `null` for a country that has none.
+ * `"gb-2025"` is the United Kingdom's councils of 2025, from the ONS (see NOTICE.md).
  *
  * @example
  * ```ts

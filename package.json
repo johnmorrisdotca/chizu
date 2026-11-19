@@ -1458,6 +1458,11 @@
       "import": "./dist/data/divisions/gb.data.js",
       "default": "./dist/data/divisions/gb.data.js"
     },
+    "./divisions/gb-2025": {
+      "types": "./dist/data/divisions/gb-2025.data.d.ts",
+      "import": "./dist/data/divisions/gb-2025.data.js",
+      "default": "./dist/data/divisions/gb-2025.data.js"
+    },
     "./divisions/ie": {
       "types": "./dist/data/divisions/ie.data.d.ts",
       "import": "./dist/data/divisions/ie.data.js",
@@ -2882,6 +2887,11 @@
       "types": "./dist/data/features/divisions-gb.data.d.ts",
       "import": "./dist/data/features/divisions-gb.data.js",
       "default": "./dist/data/features/divisions-gb.data.js"
+    },
+    "./features/divisions-gb-2025": {
+      "types": "./dist/data/features/divisions-gb-2025.data.d.ts",
+      "import": "./dist/data/features/divisions-gb-2025.data.js",
+      "default": "./dist/data/features/divisions-gb-2025.data.js"
     },
     "./features/divisions-ie": {
       "types": "./dist/data/features/divisions-ie.data.d.ts",

@@ -1,4 +1,6 @@
-export { DIVISION_CONFIGS } from "./data-config/divisions.mjs";
+import { DIVISION_CONFIGS as COUNTRY_DIVISIONS } from "./data-config/divisions.mjs";
+import { GB_2025 } from "./data-config/ons.mjs";
+
 export { ISO_JOIN } from "./data-config/iso-join.mjs";
 export { AMAMI, JAPAN_GROUPING, JAPAN_OUTLYING, REGION_GROUPS } from "./data-config/japan.mjs";
 export {
@@ -16,6 +18,10 @@ export {
   TYPE_FIXES,
 } from "./data-config/names.mjs";
 export { CUT_OUTLINES } from "./data-config/outlines.mjs";
+export { GB_2025, ONS, ONS_ISO, ONS_TYPES } from "./data-config/ons.mjs";
+
+/** Every map of regions: each country's, and the United Kingdom's councils of 2025 (`gb-2025`) beside its own. */
+export const DIVISION_CONFIGS = [...COUNTRY_DIVISIONS, GB_2025];
 
 /** Where Natural Earth is read from: a release tag of its own repository, and the file's SHA-256 at that tag. */
 export const NATURAL_EARTH = {

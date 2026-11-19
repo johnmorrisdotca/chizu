@@ -1121,6 +1121,10 @@
       "minified": 336578,
       "gzip": 125479
     },
+    "./divisions/gb-2025": {
+      "minified": 298771,
+      "gzip": 111411
+    },
     "./divisions/ie": {
       "minified": 117704,
       "gzip": 46073
@@ -2256,6 +2260,10 @@
     "./features/divisions-gb": {
       "minified": 58019,
       "gzip": 15177
+    },
+    "./features/divisions-gb-2025": {
+      "minified": 59157,
+      "gzip": 15768
     },
     "./features/divisions-ie": {
       "minified": 14255,

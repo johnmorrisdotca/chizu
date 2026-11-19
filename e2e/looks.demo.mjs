@@ -93,3 +93,10 @@ test("a long name in the table scrolls inside its own box, never the page", asyn
   await noSidewaysScroll(page);
   await expect(page.locator("#names tbody tr")).toHaveCount(232);
 });
+
+test("the United Kingdom's councils of 2025 are a map of their own, beside its own", async ({ page }) => {
+  await open(page, "?map=divisions:gb-2025");
+  await expect(page.locator("#map")).toHaveValue("divisions:gb-2025");
+  await expect(page.locator("#names tbody tr")).toHaveCount(233);
+  await expect(page.locator("#names")).toContainText("Westmorland and Furness");
+});

@@ -224,7 +224,7 @@ describe("the README's promises", () => {
     );
     expect(limits).toContain(`| Countries alone | ${CHIZU_COUNTRIES.length},`);
     expect(limits).toContain(
-      `| Countries with regions | ${Object.keys(DIVISIONS_LOADERS).filter((key) => !key.includes("-")).length} |`,
+      `| Countries with regions | ${CHIZU_COUNTRIES.filter((one) => one.hasDivisions).length} |`,
     );
     expect(limits).toContain(`${CALLOUT_RADIUS_RATIO * 100}% of the window's width`);
     expect(readFileSync("src/wrap.ts", "utf8")).toContain("const MOST_COPIES = 4;");

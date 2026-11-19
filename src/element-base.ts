@@ -91,7 +91,7 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
   data: true,
 } satisfies Record<keyof ChizuElementOptions, boolean>);
 
-/** Load a built-in map by `world`, `country-<ISO>` or `divisions-<ISO>`. Invalid names return null.
+/** Load a built-in map by `world`, `country-<ISO>`, `divisions-<ISO>` or `divisions-gb-2025`. Invalid names return null.
  *
  * @example
  * ```ts

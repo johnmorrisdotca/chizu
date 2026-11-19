@@ -508,7 +508,7 @@ console.log(ireland.id, ireland.kind, COUNTRY_CODES.length, DIVISIONS_CODES.leng
 
 ```text
 France 96 Ain
-country-ie country 253 34
+country-ie country 253 35
 ```
 
 ## Maps
@@ -518,7 +518,7 @@ country-ie country 253 34
 | The world | `@johnmorrisdotca/chizu/world` | 173 countries, Natural Earth at 1:110m | 170 kB |
 | The world drawn finer | `loadWorldDetail()` from `@johnmorrisdotca/chizu/load` | the same 173 countries on the same canvas, at 1:50m, for a map zoomed in (`mountChizu`'s `detail`) | 1.3 MB, fetched only when asked for |
 | A country alone | `@johnmorrisdotca/chizu/countries/<code>` or `loadCountry("<code>")` | 253 countries and territories at 1:50m (1:10m under 60,000 km²), on a canvas of their own whose longer side is 1,000 | 16 kB for Japan, 157 kB for Canada |
-| A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 33 countries, Natural Earth admin-1 at 1:10m | 203 kB for Germany, 1.8 MB for Russia |
+| A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 33 countries, Natural Earth admin-1 at 1:10m; also `vn-2025` and `gb-2025` (UK councils of 2025) | 203 kB for Germany, 1.8 MB for Russia |
 | Japan's prefectures | `divisions/jp` or `loadDivisions("jp")` | 47 prefectures, Natural Earth admin-1 at 1:10m, with Okinawa and the outlying islands in boxes | 186 kB |
 | A map's seas, lakes, rivers, mountains and capitals | `@johnmorrisdotca/chizu/features/<map>` or `loadFeatures("<map id>")` | 284 maps' named features on their own canvases: [docs/features.md](./docs/features.md) | 203 kB for the world, 29 kB for Japan's prefectures |
 
@@ -724,7 +724,7 @@ All of these are held by tests, and the ones with a name are exported.
 | The world | 173 countries on a canvas 1,000 wide and 489 tall | `WORLD` |
 | Countries alone | 253, on a canvas whose longer side is 1,000 | `CHIZU_COUNTRIES` |
 | Countries with regions | 33 | `DIVISIONS_CODES` |
-| Dated maps of regions | 1, Vietnam's of 2025 (`VN-2025`) | `DIVISIONS_CODES` |
+| Dated maps of regions | 2, Vietnam's and the United Kingdom's of 2025 (`VN-2025`, `GB-2025`) | `DIVISIONS_CODES` |
 | A callout's circle | 3% of the window's width unless asked otherwise | `CALLOUT_RADIUS_RATIO` |
 | Callouts that cross | none, for the maps and lists the tests place, polished or not | `calloutFaults` |
 | Wrong answers | 3 unless asked otherwise, drawn from the best `count + 3` | `pickDistractors` |
@@ -885,6 +885,7 @@ The code is [MIT](./LICENSE) © John Morris. The outlines and the names are data
 | Data | Made from | Terms |
 | --- | --- | --- |
 | The outlines of the world, of each country and of 33 countries' regions; the seas, lakes, rivers, landforms and peaks | [Natural Earth](https://www.naturalearthdata.com/) 5.1.2, admin-0 countries at 1:110m, 1:50m and 1:10m, admin-1 states and provinces and the physical vectors at 1:10m | Public domain. Crediting the authors is unnecessary; it is done here anyway |
+| England, Scotland and Wales on `gb-2025` | [ONS](https://geoportal.statistics.gov.uk/datasets/ac443ef4c1de497a9675a6e72290f9cc) Counties and Unitary Authorities (December 2025) Boundaries UK BGC | OGL v3.0: "Source: Office for National Statistics licensed under the Open Government Licence v.3.0", "Contains OS data © Crown copyright and database right 2025" |
 | The countries' names, short names, readings and continents; the regions' ISO 3166-2 codes; the names of Japan's prefectures and of the regions that are one ISO subdivision | [kuni 国](https://github.com/johnmorrisdotca/kuni) 1.6.0, read at build time, whose names are [Unicode CLDR](https://cldr.unicode.org/)'s and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, whose notice is in NOTICE.md. Wikidata: CC0 |
 | The other regions' names in Japanese; the features' names | Natural Earth's names, which are Wikidata's, and Wikidata's | CC0 |
 | The readings of three places kuni does not have, and the names that tell two regions of one map apart | Written for this package | MIT |
