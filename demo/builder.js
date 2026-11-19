@@ -79,9 +79,12 @@ const options = [
         ja: Object.fromEntries(
           choices.region.map((value) => {
             if (value === "world") return [value, "世界"];
-            const code = value.split("-")[1].toUpperCase();
-            const country = CHIZU_COUNTRIES.find((one) => one.code === code);
-            return [value, `${country?.nameJa ?? code}${value.startsWith("divisions-") ? "の行政区画" : ""}`];
+            const [, code, year] = value.split("-");
+            const country = CHIZU_COUNTRIES.find((one) => one.code === code.toUpperCase());
+            return [
+              value,
+              `${country?.nameJa ?? code.toUpperCase()}${value.startsWith("divisions-") ? "の行政区画" : ""}${year ? `（${year}年）` : ""}`,
+            ];
           }),
         ),
       },

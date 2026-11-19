@@ -28,8 +28,8 @@ for (const [title, tree] of Object.entries(trees))
     it("counts the generated maps as the folders have them", () => {
       const count = (folder) => files(`src/data/${folder}`).filter((path) => path.endsWith(".ts")).length;
       expect(tree).toContain(`countries/<code>.data.ts   ${count("countries")} countries, each alone`);
-      expect(tree).toContain(`divisions/<code>.data.ts   ${count("divisions")} countries' regions`);
-      expect(tree).toContain(`divisions-geo/<code>.data.ts   ${count("divisions-geo")} countries' regions in degrees`);
+      expect(tree).toContain(`divisions/<code>.data.ts   ${count("divisions")} maps of regions`);
+      expect(tree).toContain(`divisions-geo/<code>.data.ts   ${count("divisions-geo")} maps of regions in degrees`);
       expect(tree).toContain(`features/<map>.data.ts     ${count("features")} maps' named features`);
     });
   });

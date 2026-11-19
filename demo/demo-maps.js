@@ -49,7 +49,11 @@ export function populateMaps() {
     el(
       "optgroup",
       { label: say("groupDivisions") },
-      ...withDivisions.map((country) => option(`divisions:${country.code.toLowerCase()}`, mapLabel(country))),
+      // The United Kingdom's councils of 2025 (gb-2025) come after its own map, which they replace at the next major release.
+      ...withDivisions.flatMap((country) => [
+        option(`divisions:${country.code.toLowerCase()}`, mapLabel(country)),
+        ...(country.code === "GB" ? [option("divisions:gb-2025", `${mapLabel(country)} 2025`)] : []),
+      ]),
     ),
     el(
       "optgroup",

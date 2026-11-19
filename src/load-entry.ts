@@ -21,14 +21,15 @@ import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 export const COUNTRY_CODES: readonly string[] = Object.keys(COUNTRY_LOADERS).map((code) => code.toUpperCase());
 
 /**
- * Every country that has a map of its own regions (provinces, states, départements), by code.
+ * Every map of regions (provinces, states, départements), by code: each country that has one, and `GB-2025`, the
+ * United Kingdom's councils of 2025 beside its own map `GB` (which it replaces at the next major release).
  *
  * @example
  * ```ts
  * import { DIVISIONS_CODES } from "@johnmorrisdotca/chizu/load";
  *
- * console.log(DIVISIONS_CODES.length, DIVISIONS_CODES.includes("JP"));
- * // 32 true
+ * console.log(DIVISIONS_CODES.length, DIVISIONS_CODES.includes("JP"), DIVISIONS_CODES.includes("GB-2025"));
+ * // 33 true true
  * ```
  */
 export const DIVISIONS_CODES: readonly string[] = Object.keys(DIVISIONS_LOADERS).map((code) => code.toUpperCase());
@@ -55,6 +56,7 @@ export async function loadCountry(code: string): Promise<ChizuMap | null> {
 
 /**
  * The regions of one country, from Natural Earth's 1:10m states and provinces; `null` for a country that has none.
+ * `"gb-2025"` is the United Kingdom's councils of 2025, from the ONS (see NOTICE.md).
  *
  * @example
  * ```ts

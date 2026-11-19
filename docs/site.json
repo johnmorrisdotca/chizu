@@ -1054,6 +1054,10 @@
       "en": "United Kingdom regions",
       "ja": "イギリスの行政区画"
     },
+    "./divisions/gb-2025": {
+      "en": "United Kingdom regions, councils of 2025",
+      "ja": "イギリスの行政区画（2025年）"
+    },
     "./divisions/ie": {
       "en": "Ireland regions",
       "ja": "アイルランドの行政区画"
@@ -2121,6 +2125,10 @@
     "./features/divisions-gb": {
       "en": "Features: divisions-gb",
       "ja": "地物：divisions-gb"
+    },
+    "./features/divisions-gb-2025": {
+      "en": "Features: divisions-gb-2025",
+      "ja": "地物：divisions-gb-2025"
     },
     "./features/divisions-ie": {
       "en": "Features: divisions-ie",

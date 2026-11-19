@@ -8,7 +8,7 @@
 
 import type { ChizuGeoCollection } from "../geo-types.ts";
 
-/** The regions of the 32 countries that have them, as longitude and latitude, by lower-case code. */
+/** The 33 maps of regions as longitude and latitude, by lower-case code: each country's, and the United Kingdom's councils of 2025 (gb-2025). */
 export const DIVISIONS_GEO_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuGeoCollection }>>> = {
   "ar": () => import("./divisions-geo/ar.data.ts"),
   "at": () => import("./divisions-geo/at.data.ts"),
@@ -24,6 +24,7 @@ export const DIVISIONS_GEO_LOADERS: Readonly<Record<string, () => Promise<{ defa
   "es": () => import("./divisions-geo/es.data.ts"),
   "fr": () => import("./divisions-geo/fr.data.ts"),
   "gb": () => import("./divisions-geo/gb.data.ts"),
+  "gb-2025": () => import("./divisions-geo/gb-2025.data.ts"),
   "ie": () => import("./divisions-geo/ie.data.ts"),
   "it": () => import("./divisions-geo/it.data.ts"),
   "jp": () => import("./divisions-geo/jp.data.ts"),

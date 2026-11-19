@@ -46,7 +46,7 @@ export function divisionsGeo(map) {
     collection: {
       type: "FeatureCollection",
       features,
-      source: `${map.id === "divisions-gb" ? GB_SOURCE : `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m`}, longitude and latitude, rounded to 0.01 degree and simplified to ${GEO_TOLERANCE_KM.divisions} km`,
+      source: `${map.id === "divisions-gb-2025" ? GB_SOURCE : `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m`}, longitude and latitude, rounded to 0.01 degree and simplified to ${GEO_TOLERANCE_KM.divisions} km`,
     },
     stats,
   };
@@ -96,7 +96,7 @@ export default divisionsGeo;
 ${LICENCE}
 import type { ChizuGeoCollection } from "../geo-types.ts";
 
-/** The regions of the ${loaders.length} countries that have them, as longitude and latitude, by lower-case code. */
+/** The ${loaders.length} maps of regions as longitude and latitude, by lower-case code: each country's, and the United Kingdom's councils of 2025 (gb-2025). */
 export const DIVISIONS_GEO_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuGeoCollection }>>> = {
 ${loaders.map((file) => `  ${JSON.stringify(file)}: () => import("./divisions-geo/${file}.data.ts"),`).join("\n")}
 };

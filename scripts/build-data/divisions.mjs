@@ -112,7 +112,7 @@ export function buildCountry(feature, near, fine) {
 
 // ---- Great Britain from the ONS ----------------------------------------------------------------------------------
 
-/** Where the United Kingdom's regions are drawn from, written on its maps: the ONS's two lines of attribution with it. */
+/** Where `gb-2025`'s regions are drawn from, written on its maps: the ONS's two lines of attribution with it. */
 export const GB_SOURCE = `${ONS.name}, simplified to ${ONS.simplify.toleranceKm} km, for England, Scotland and Wales (${ONS.attribution.join(". ")}); Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, for Northern Ireland`;
 
 /**
@@ -132,10 +132,10 @@ function holesInPlace(geometry) {
 }
 
 /**
- * Natural Earth's admin-1 file with Great Britain's councils (England, Scotland and Wales) taken from the ONS instead
- * (data-config/ons.mjs), simplified with the borders kept one line and given the fields Natural Earth's regions have.
- * A unit's ISO code is kuni's subdivision of exactly its name, or ONS_ISO's; one with neither has none, and the build
- * stops unless ISO_JOIN says why. Northern Ireland's regions are Natural Earth's own.
+ * Natural Earth's admin-1 file with Great Britain's councils (England, Scotland and Wales) from the ONS added, for
+ * `gb-2025` (data-config/ons.mjs): simplified with the borders kept one line, marked `ons`, and given the fields
+ * Natural Earth's regions have but `iso_a2`, so that no other map takes them. A unit's ISO code is kuni's subdivision
+ * of exactly its name, or ONS_ISO's; one with neither has none, and the build stops unless ISO_JOIN says why.
  */
 export async function withOns(collection) {
   const ons = (await source(ONS.file)).features
@@ -150,7 +150,7 @@ export async function withOns(collection) {
     return {
       type: "Feature",
       properties: {
-        iso_a2: "GB",
+        ons: true,
         adm1_code: code,
         iso_3166_2: ONS_ISO[code] ?? (byName?.name.en === name ? byName.code : null),
         name,
@@ -161,10 +161,7 @@ export async function withOns(collection) {
       geometry: geometries[index],
     };
   });
-  const kept = collection.features.filter(
-    (feature) => feature.properties.iso_a2 !== "GB" || feature.properties.geonunit === "Northern Ireland",
-  );
-  return { ...collection, features: [...kept, ...britain] };
+  return { ...collection, features: [...collection.features, ...britain] };
 }
 
 function regionsOf(draw, features, config) {
@@ -193,7 +190,9 @@ export function buildDivisions(config, rawFeatures, countryNames) {
     id: `divisions-${config.code.toLowerCase()}`,
     kind: "divisions",
     name: config.countryName,
-    ...(countryNames.get(config.code)?.nameJa ? { nameJa: countryNames.get(config.code).nameJa } : {}),
+    ...(countryNames.get(config.country ?? config.code)?.nameJa
+      ? { nameJa: countryNames.get(config.country ?? config.code).nameJa }
+      : {}),
     regionName: config.divisionTypeName,
     regionNamePlural: config.divisionTypePlural,
     viewBox: `0 0 ${config.width} ${config.height}`,
@@ -208,7 +207,7 @@ export function buildDivisions(config, rawFeatures, countryNames) {
         .replace(/\s+/g, " ")}, fitted to ${config.width}x${config.height}`,
     },
     insets: [],
-    source: `${config.code === "GB" ? GB_SOURCE : `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m`}, fitted to ${config.width}x${config.height}`,
+    source: `${config.code === "GB-2025" ? GB_SOURCE : `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m`}, fitted to ${config.width}x${config.height}`,
     regions,
   };
 }

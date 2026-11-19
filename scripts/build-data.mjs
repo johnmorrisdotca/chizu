@@ -1,4 +1,4 @@
-// Builds every file of map data under src/data/ from Natural Earth (Great Britain's councils from the ONS): `pnpm data`.
+// Builds every file of map data under src/data/ from Natural Earth (gb-2025's councils from the ONS): `pnpm data`.
 //
 //   src/data/world.data.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
 //   src/data/world-geo.data.ts            the same world in longitude and latitude, unprojected, with the four it leaves out (177); the one table kept unformatted
@@ -286,7 +286,7 @@ export async function main() {
   }
 
   const configs = [...DIVISION_CONFIGS];
-  const divisionCodes = new Set([...configs.map((c) => c.code), "US", "JP"]);
+  const divisionCodes = new Set([...configs.map((c) => c.country ?? c.code), "US", "JP"]);
   for (const entry of table) entry.hasDivisions = divisionCodes.has(entry.code);
   const missing = [...divisionCodes].filter((code) => !table.some((entry) => entry.code === code));
   if (missing.length > 0)
@@ -312,11 +312,7 @@ export async function main() {
   for (const map of allMaps) {
     const avoid = map.insets.map((inset) => inset.box);
     const country =
-      map.id === "world"
-        ? null
-        : map.kind === "country"
-          ? map.regions[0].code
-          : map.id.slice("divisions-".length).toUpperCase();
+      map.id === "world" ? null : map.kind === "country" ? map.regions[0].code : map.id.split("-")[1].toUpperCase();
     const features = featuresOn(map, projections.get(map.id), sources, {
       world: map.id === "world",
       avoid,
@@ -451,7 +447,7 @@ export const CHIZU_SOURCE = ${literal({
 `,
   );
   const lines = (list, folder) =>
-    list.map((file) => `  ${file}: () => import("./${folder}/${file}.data.ts"),`).join("\n");
+    list.map((file) => `  ${JSON.stringify(file)}: () => import("./${folder}/${file}.data.ts"),`).join("\n");
   writeFileSync(
     join(out, "loaders.data.ts"),
     `/*
@@ -471,7 +467,7 @@ ${lines(loaders.countries, "countries")}
 /** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
 export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.data.ts");
 
-/** The regions of the ${loaders.divisions.length} countries that have them, by lower-case code. */
+/** The ${loaders.divisions.length} maps of regions, by lower-case code: each country's, and the United Kingdom's councils of 2025 (gb-2025). */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
 ${lines(loaders.divisions, "divisions")}
 };

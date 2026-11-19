@@ -91,7 +91,7 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
   data: true,
 } satisfies Record<keyof ChizuElementOptions, boolean>);
 
-/** Load a built-in map by `world`, `country-<ISO>` or `divisions-<ISO>`. Invalid names return null.
+/** Load a built-in map by `world`, `country-<ISO>`, `divisions-<ISO>` or `divisions-gb-2025`. Invalid names return null.
  *
  * @example
  * ```ts
@@ -104,7 +104,7 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
  */
 export async function loadElementMap(region: string): Promise<MapData | null> {
   if (region === "world") return WORLD;
-  const match = /^(country|divisions)-([a-z]{2,3})$/i.exec(region);
+  const match = /^(country|divisions)-([a-z]{2,3}(?:-\d{4})?)$/i.exec(region);
   const kind = match?.[1];
   const code = match?.[2];
   if (kind === undefined || code === undefined) return null;

@@ -99,6 +99,8 @@ export const ISO_JOIN = {
   "GB:MFT": NI_2015("MUL", "Mid Ulster"),
   "GB:DOW": NI_2015("NMD", "Newry, Mourne and Down"),
   "GB:NYM": NI_2015("NMD", "Newry, Mourne and Down"),
+  "GB:BMH": { iso: "GB-BCP", why: "Bournemouth, part of Bournemouth, Christchurch and Poole (GB-BCP) since 2019" },
+  "GB:POL": { iso: "GB-BCP", why: "Poole, part of Bournemouth, Christchurch and Poole (GB-BCP) since 2019" },
   "IT:CI": { iso: "IT-SU", why: "Carbonia-Iglesias, abolished in 2016 and now part of Sud Sardegna (IT-SU)" },
   "IT:VS": { iso: "IT-SU", why: "Medio Campidano, abolished in 2016 and now part of Sud Sardegna (IT-SU)" },
   "IT:OT": { iso: "IT-SS", why: "Olbia-Tempio, abolished in 2016 and now part of Sassari (IT-SS)" },
@@ -116,9 +118,13 @@ export const ISO_JOIN = {
   },
   // No code.
   "AU:X02~": { iso: null, why: "Jervis Bay Territory has no ISO 3166-2 code of its own" },
-  // Great Britain's councils are the ONS's (data-config/ons.mjs); these two, made from Cumbria in 2023, are coded by their ONS code.
-  "GB:E06000063": { iso: null, why: "Cumberland, a unitary authority since 2023, has no ISO 3166-2 code yet" },
-  "GB:E06000064": {
+  "GB:NTH": {
+    iso: null,
+    why: "Northamptonshire was split in 2021 into North (GB-NNH) and West Northamptonshire (GB-WNH)",
+  },
+  // gb-2025 (data-config/ons.mjs): its councils are the ONS's, coded by kuni's name or ONS_ISO; these two, made from Cumbria in 2023, have their ONS codes.
+  "GB-2025:E06000063": { iso: null, why: "Cumberland, a unitary authority since 2023, has no ISO 3166-2 code yet" },
+  "GB-2025:E06000064": {
     iso: null,
     why: "Westmorland and Furness, a unitary authority since 2023, has no ISO 3166-2 code yet",
   },
@@ -163,3 +169,8 @@ export const ISO_JOIN = {
     why: "a piece of the Yamal coast, 38 km², that Natural Earth draws without a name or a code",
   },
 };
+
+// gb-2025 draws Northern Ireland's districts of before 2015 as gb does, so each has gb's line.
+for (const [key, join] of Object.entries(ISO_JOIN))
+  if (key.startsWith("GB:") && join.why.startsWith("a district of Northern Ireland before 2015"))
+    ISO_JOIN[`GB-2025:${key.slice("GB:".length)}`] = join;

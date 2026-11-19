@@ -263,6 +263,7 @@ description: 既存の公開パスから作る、地図と地物の固定import�
 | `@johnmorrisdotca/chizu/divisions/es` | [スペインの行政区画](entry:divisions-es) |
 | `@johnmorrisdotca/chizu/divisions/fr` | [フランスの行政区画](entry:divisions-fr) |
 | `@johnmorrisdotca/chizu/divisions/gb` | [イギリスの行政区画](entry:divisions-gb) |
+| `@johnmorrisdotca/chizu/divisions/gb-2025` | [イギリスの行政区画（2025年）](entry:divisions-gb-2025) |
 | `@johnmorrisdotca/chizu/divisions/ie` | [アイルランドの行政区画](entry:divisions-ie) |
 | `@johnmorrisdotca/chizu/divisions/it` | [イタリアの行政区画](entry:divisions-it) |
 | `@johnmorrisdotca/chizu/divisions/jp` | [日本の行政区画](entry:divisions-jp) |
@@ -530,6 +531,7 @@ description: 既存の公開パスから作る、地図と地物の固定import�
 | `@johnmorrisdotca/chizu/features/divisions-es` | [地物：divisions-es](entry:features-divisions-es) |
 | `@johnmorrisdotca/chizu/features/divisions-fr` | [地物：divisions-fr](entry:features-divisions-fr) |
 | `@johnmorrisdotca/chizu/features/divisions-gb` | [地物：divisions-gb](entry:features-divisions-gb) |
+| `@johnmorrisdotca/chizu/features/divisions-gb-2025` | [地物：divisions-gb-2025](entry:features-divisions-gb-2025) |
 | `@johnmorrisdotca/chizu/features/divisions-ie` | [地物：divisions-ie](entry:features-divisions-ie) |
 | `@johnmorrisdotca/chizu/features/divisions-it` | [地物：divisions-it](entry:features-divisions-it) |
 | `@johnmorrisdotca/chizu/features/divisions-jp` | [地物：divisions-jp](entry:features-divisions-jp) |

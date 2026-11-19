@@ -223,7 +223,9 @@ describe("the README's promises", () => {
       `${world.regions.length} countries on a canvas ${world.width.toLocaleString("en-US")} wide and ${world.height} tall`,
     );
     expect(limits).toContain(`| Countries alone | ${CHIZU_COUNTRIES.length},`);
-    expect(limits).toContain(`| Countries with regions | ${Object.keys(DIVISIONS_LOADERS).length} |`);
+    expect(limits).toContain(
+      `| Countries with regions | ${CHIZU_COUNTRIES.filter((one) => one.hasDivisions).length} |`,
+    );
     expect(limits).toContain(`${CALLOUT_RADIUS_RATIO * 100}% of the window's width`);
     expect(readFileSync("src/wrap.ts", "utf8")).toContain("const MOST_COPIES = 4;");
     expect(limits).toContain("at most 4");
@@ -236,7 +238,8 @@ describe("the README's promises", () => {
     expect(maps).toContain("**32 countries with regions**");
     for (const country of CHIZU_COUNTRIES.filter((one) => one.hasDivisions))
       expect(maps, country.code).toContain(country.name.replace(" of America", ""));
-    expect(Object.keys(DIVISIONS_LOADERS)).toHaveLength(32);
+    // The 32 countries' maps, and the United Kingdom's councils of 2025 beside its own.
+    expect(Object.keys(DIVISIONS_LOADERS)).toHaveLength(33);
   });
 
   it("lists every name the map prints that is not kuni's, with the reason, so that kuni can take each over", () => {

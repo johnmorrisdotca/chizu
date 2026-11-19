@@ -22,8 +22,8 @@
       "gzip": 1565154
     },
     "./load": {
-      "minified": 18370519,
-      "gzip": 6600974
+      "minified": 18765335,
+      "gzip": 6741252
     },
     "./world": {
       "minified": 177893,
@@ -42,16 +42,16 @@
       "gzip": 406535
     },
     "./divisions-geo": {
-      "minified": 4027666,
-      "gzip": 975896
+      "minified": 4212471,
+      "gzip": 1016498
     },
     "./element": {
-      "minified": 17357128,
-      "gzip": 6243871
+      "minified": 17751955,
+      "gzip": 6383567
     },
     "./element/define": {
-      "minified": 17357143,
-      "gzip": 6243865
+      "minified": 17751970,
+      "gzip": 6383568
     },
     "./countries/ad": {
       "minified": 1370,
@@ -1058,8 +1058,12 @@
       "gzip": 123837
     },
     "./divisions/gb": {
-      "minified": 298766,
-      "gzip": 111408
+      "minified": 336578,
+      "gzip": 125479
+    },
+    "./divisions/gb-2025": {
+      "minified": 298771,
+      "gzip": 111411
     },
     "./divisions/ie": {
       "minified": 117704,
@@ -2126,8 +2130,12 @@
       "gzip": 18655
     },
     "./features/divisions-gb": {
-      "minified": 59147,
-      "gzip": 15764
+      "minified": 58019,
+      "gzip": 15177
+    },
+    "./features/divisions-gb-2025": {
+      "minified": 59157,
+      "gzip": 15768
     },
     "./features/divisions-ie": {
       "minified": 14255,

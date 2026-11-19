@@ -6,14 +6,15 @@ import { describe, expect, it } from "vitest";
 const gzipped = (url) => gzipSync(readFileSync(url), { level: 9 }).length;
 
 describe("the size of the maps in longitude and latitude", () => {
+  // gb-2025, the United Kingdom's councils of 2025 beside its own map, is held to the 200 kB of any one file, and is not one of the 32 countries.
   it("is no more than 1.0 MB gzipped for the regions of all 32 countries together, and no more than 200 kB for any one a page loads", () => {
     const folder = new URL("./data/divisions-geo/", import.meta.url);
     let total = 0;
     const files = readdirSync(folder);
-    expect(files).toHaveLength(32);
+    expect(files).toHaveLength(33);
     for (const file of files) {
       const size = gzipped(new URL(file, folder));
-      total += size;
+      if (file !== "gb-2025.data.ts") total += size;
       expect(size, file).toBeLessThan(200 * 1024);
     }
     expect(total).toBeLessThan(1000 * 1024);

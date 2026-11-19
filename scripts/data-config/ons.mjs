@@ -1,12 +1,15 @@
+import { DIVISION_CONFIGS } from "./divisions.mjs";
+
 /*
- * GREAT BRITAIN'S REGIONS FROM THE OFFICE FOR NATIONAL STATISTICS. Natural Earth draws England's, Scotland's and Wales's
- * councils as they were before the reforms of 2019 to 2023 (Dorset and Bournemouth, Christchurch and Poole in 2019,
- * Buckinghamshire in 2020, Northamptonshire in 2021, Cumbria, North Yorkshire and Somerset in 2023), so those three are
- * drawn from the ONS's counties and unitary authorities instead, every one of them, so that the borders between them
- * are one survey's lines. Northern Ireland stays Natural Earth's: its 26 districts of before 2015, each with the code
- * of the district it lies in now (ISO_JOIN), until there is a decision on Land and Property Services' terms for its
- * 11 districts of today. The ONS's file is under the Open Government Licence v3.0, whose one condition is the two
- * lines in `attribution`, carried by the map's `source` and by NOTICE.md.
+ * THE UNITED KINGDOM'S COUNCILS OF 2025, A MAP OF THEIR OWN (`gb-2025`). Natural Earth draws England's, Scotland's and
+ * Wales's councils as they were before the reforms of 2019 to 2023 (Dorset and Bournemouth, Christchurch and Poole in
+ * 2019, Buckinghamshire in 2020, Northamptonshire in 2021, Cumbria, North Yorkshire and Somerset in 2023). The map `gb`
+ * stays Natural Earth's as it was, since taking codes off it is for a major release; `gb-2025` beside it draws all of
+ * those three from the ONS's counties and unitary authorities, so that the borders between them are one survey's lines,
+ * and becomes `gb` at the next major. Northern Ireland on `gb-2025` is Natural Earth's, as on `gb`: its 26 districts of
+ * before 2015, each with the code of the district it lies in now (ISO_JOIN), until there is a decision on Land and
+ * Property Services' terms for its 11 districts of today. The ONS's file is under the Open Government Licence v3.0,
+ * whose one condition is the two lines in `attribution`, carried by the map's `source` and by NOTICE.md.
  */
 export const ONS = {
   name: "Counties and Unitary Authorities (December 2025) Boundaries UK BGC",
@@ -27,11 +30,24 @@ export const ONS = {
   /*
    * The ONS's lines are generalised to 20 m: 466,000 points for Great Britain, where Natural Earth's 1:10m has 18,500.
    * They are simplified with the borders kept one line (scripts/build-data/geo.mjs) to about Natural Earth's detail: on
-   * a grid of 0.001 degree, no line more than 0.7 km from the ONS's (the tolerance of the files in longitude and
+   * a grid of 0.0001 degree, no line more than 0.7 km from the ONS's (the tolerance of the files in longitude and
    * latitude), and islands under 2 km² left out, as small as Natural Earth's smallest but one (a council's largest
-   * piece is always kept). About 16,000 points are left.
+   * piece is always kept). About 15,500 points are left.
    */
   simplify: { toleranceKm: 0.7, precision: 4, minRingKm2: 2 },
+};
+
+/**
+ * The map: the United Kingdom's own settings (canvas, projection, groups), with the ONS's councils (marked `ons` by
+ * withOns in scripts/build-data/divisions.mjs) and Natural Earth's Northern Ireland. Its ISO_JOIN and NAME_FIXES
+ * lines are keyed `GB-2025:`; `country` is the country it is a map of.
+ */
+export const GB_2025 = {
+  ...DIVISION_CONFIGS.find((config) => config.code === "GB"),
+  code: "GB-2025",
+  country: "GB",
+  filter: (f) =>
+    f.properties.ons === true || (f.properties.iso_a2 === "GB" && f.properties.geonunit === "Northern Ireland"),
 };
 
 /** The kind of each unit, by the first three characters of its ONS code (the GSS entity), in the ONS's words. */

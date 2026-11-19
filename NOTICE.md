@@ -11,7 +11,7 @@ what it was made from.
 | `countries/<code>`, `names` | Natural Earth 5.1.2, admin-0 countries at 1:50m, and at 1:10m for countries under 60,000 km² (`ne_50m_admin_0_countries`, `ne_10m_admin_0_countries`) | Public domain |
 | `divisions-geo/<code>`, `world-geo-detail` | The same Natural Earth 5.1.2 files, admin-1 states and provinces at 1:10m and admin-0 countries at 1:50m, as longitude and latitude, rounded to 0.01 degree and simplified to 0.7 km (regions) and 0.3 km (world) by `scripts/build-data/geo.mjs` | Public domain |
 | `divisions/<code>`, Japan's prefectures among them | Natural Earth 5.1.2, admin-1 states and provinces at 1:10m (`ne_10m_admin_1_states_provinces`) | Public domain |
-| `divisions/gb`, `divisions-geo/gb`: the regions of England, Scotland and Wales (207 councils) | The Office for National Statistics' "Counties and Unitary Authorities (December 2025) Boundaries UK BGC", simplified to 0.7 km by `scripts/build-data/geo.mjs` (see [The ONS](#the-ons) below). Northern Ireland's 26 regions in the same files are Natural Earth's, as in the row above | Open Government Licence v3.0: "Source: Office for National Statistics licensed under the Open Government Licence v.3.0" and "Contains OS data © Crown copyright and database right 2025" |
+| `divisions/gb-2025`, `divisions-geo/gb-2025`: the United Kingdom's councils of 2025, beside `divisions/gb` (which is Natural Earth's, as in the row above); its regions of England, Scotland and Wales (207 councils) | The Office for National Statistics' "Counties and Unitary Authorities (December 2025) Boundaries UK BGC", simplified to 0.7 km by `scripts/build-data/geo.mjs` (see [The ONS](#the-ons) below). Northern Ireland's 26 regions in the same files are Natural Earth's, as on `divisions/gb` | Open Government Licence v3.0: "Source: Office for National Statistics licensed under the Open Government Licence v.3.0" and "Contains OS data © Crown copyright and database right 2025" |
 | `features/<map>`: the seas, lakes, rivers, landforms and peaks of each map | Natural Earth 5.1.2's physical vectors at 1:10m: marine areas, lakes, rivers and lake centre-lines, geographic regions and elevation points (`ne_10m_geography_marine_polys`, `ne_10m_lakes`, `ne_10m_rivers_lake_centerlines`, `ne_10m_geography_regions_polys`, `ne_10m_geography_regions_elevation_points`) | Public domain |
 | The features' Japanese names where Natural Earth has none, the English names of lakes and rivers, the readings Wikidata gives (its "name in kana", P1814, and aliases in hiragana), and which Wikidata item each of Natural Earth's rivers is | Wikidata (https://www.wikidata.org/), asked by `scripts/wikidata.mjs` and kept in `scripts/data-wikidata.json` | CC0 |
 | `features/<map>`: the capitals of the countries and the seats of their regions, with their names, readings and places | kuni 国 1.6.0's `/facts` and `/subdivision-facts`, whose figures are Wikidata's | kuni: MIT. Wikidata: CC0 |
@@ -85,13 +85,16 @@ grouping `jp-regions-8`.
 
 ## The ONS
 
-The regions of England, Scotland and Wales on the United Kingdom's map (`divisions/gb` and `divisions-geo/gb`) are
-the only outlines in this package that are not Natural Earth's. Natural Earth draws Great Britain's councils as they
-were before the reforms of 2019 to 2023 (Dorset and Bournemouth, Christchurch and Poole; Buckinghamshire;
-Northamptonshire, now North and West Northamptonshire; Cumbria, now Cumberland and Westmorland and Furness; North
-Yorkshire; Somerset), so all 207 of them are drawn instead from the Office for National Statistics' "Counties and
-Unitary Authorities (December 2025) Boundaries UK BGC" (generalised to 20 m, clipped to the coast at mean high
-water), on its Open Geography Portal (https://geoportal.statistics.gov.uk/datasets/ac443ef4c1de497a9675a6e72290f9cc).
+This section is for `gb-2025`, the United Kingdom's map of its councils of 2025 (`divisions/gb-2025`,
+`divisions-geo/gb-2025`, and its features, `features/divisions-gb-2025`, which are Natural Earth's). Its regions of
+England, Scotland and Wales are the only outlines in this package that are not Natural Earth's. Natural Earth draws
+Great Britain's councils as they were before the reforms of 2019 to 2023 (Dorset and Bournemouth, Christchurch and
+Poole; Buckinghamshire; Northamptonshire, now North and West Northamptonshire; Cumbria, now Cumberland and Westmorland
+and Furness; North Yorkshire; Somerset), so on `gb-2025` all 207 of them are drawn instead from the Office for
+National Statistics' "Counties and Unitary Authorities (December 2025) Boundaries UK BGC" (generalised to 20 m,
+clipped to the coast at mean high water), on its Open Geography Portal
+(https://geoportal.statistics.gov.uk/datasets/ac443ef4c1de497a9675a6e72290f9cc). The United Kingdom's default map,
+`divisions/gb`, is still Natural Earth's alone, as it was; `gb-2025` takes its place at the next major release.
 
 Source: Office for National Statistics licensed under the Open Government Licence v.3.0
 
@@ -101,7 +104,7 @@ The ONS supplies its digital boundaries under the Open Government Licence v3.0
 (https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/), whose one condition is the
 acknowledgement above; the two lines also travel with the data, in the `source` of both files.
 
-**Northern Ireland is not from the ONS.** Its 26 regions on the same map are still Natural Earth's (its districts
+**Northern Ireland is not from the ONS.** Its 26 regions on `gb-2025` are Natural Earth's, as on `gb` (its districts
 from before 2015, each with the ISO code of the district it lies in now), until there is a decision on Land and
 Property Services' terms for the 11 districts of today; the ONS's 11 (codes `N09…`) are left out of the build.
 
@@ -118,7 +121,7 @@ against the SHA-256 in `scripts/data-config/ons.mjs` before it reads it:
 
 **What was changed.** The 11 units of Northern Ireland are left out. Nottingham's hole in Nottinghamshire, which the
 file gives as a polygon of its own, is put back in Nottinghamshire. The outlines are simplified with the border two
-councils share kept one line, on a grid of 0.001 degree, to no more than 0.7 km from the ONS's line, and islands
+councils share kept one line, on a grid of 0.0001 degree, to no more than 0.7 km from the ONS's line, and islands
 under 2 km² are left out (a council's largest piece is kept); the files in longitude and latitude are then rounded and
 simplified like every other country's. Each council's ISO 3166-2 code is kuni's subdivision of the same English name
 (or, for the 13 the ONS names otherwise, the table `ONS_ISO`), and its names are kuni's; Cumberland and Westmorland
@@ -127,7 +130,7 @@ entity names (unitary authority, metropolitan district, London borough, county, 
 
 ## Natural Earth
 
-The outlines and the names, but for the regions of England, Scotland and Wales (above), are from [Natural Earth](https://www.naturalearthdata.com/),
+The outlines and the names, but for the regions of England, Scotland and Wales on `gb-2025` (above), are from [Natural Earth](https://www.naturalearthdata.com/),
 made by volunteers and supported by the North American Cartographic Information
 Society. Its terms of use (https://www.naturalearthdata.com/about/terms-of-use/,
 read on 2026-10-01) say:
