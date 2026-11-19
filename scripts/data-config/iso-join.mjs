@@ -15,6 +15,10 @@ export const ISO_JOIN = {
   "FR:75": { iso: "FR-75C", why: "Paris has been FR-75C, the city as a collectivity, since 2019" },
   "MX:DIF": { iso: "MX-CMX", why: "the Distrito Federal has been Mexico City, MX-CMX, since 2016" },
   "TW:TPQ": { iso: "TW-NWT", why: "New Taipei has been TW-NWT since 2022" },
+  "IN:OR": { iso: "IN-OD", why: "Odisha has been IN-OD since 2023-11-23 (it was IN-OR)" },
+  "IN:CT": { iso: "IN-CG", why: "Chhattisgarh has been IN-CG since 2023-11-23 (it was IN-CT)" },
+  "IN:TG": { iso: "IN-TS", why: "Telangana has been IN-TS since 2023-11-23 (it was IN-TG)" },
+  "IN:UT": { iso: "IN-UK", why: "Uttarakhand has been IN-UK since 2023-11-23 (it was IN-UT)" },
   "IT:AO": { iso: "IT-23", why: "the Aosta Valley has no provinces; IT-AO was withdrawn and the region is IT-23" },
   ...Object.fromEntries(
     Object.entries({

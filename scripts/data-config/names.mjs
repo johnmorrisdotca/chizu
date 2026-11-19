@@ -123,3 +123,12 @@ export const NAME_FIXES = {
   "IE:TA_2": { name: "South Tipperary", nameJa: "サウス・ティペラリー" },
   "PH:SUN": { name: "Surigao del Norte", nameJa: "北スリガオ州" },
 };
+
+/*
+ * THE KIND OF A REGION, where Natural Earth's `type_en` is wrong or empty. Keyed like ISO_JOIN. In Natural Earth 5.1.2
+ * India's Himachal Pradesh is a "Union Territory" and Gujarat has no type; both are states.
+ */
+export const TYPE_FIXES = {
+  "IN:HP": "state",
+  "IN:GJ": "state",
+};

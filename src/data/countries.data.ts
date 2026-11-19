@@ -1098,7 +1098,7 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     group: "Asia",
     kind: "country",
     onWorld: true,
-    hasDivisions: false,
+    hasDivisions: true,
   },
   {
     code: "IO",

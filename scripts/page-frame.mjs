@@ -6,7 +6,7 @@
 export const NOTICE = "https://github.com/johnmorrisdotca/chizu/blob/main/NOTICE.md";
 
 export const INDEX_DESCRIPTION =
-  "Japan's 47 prefectures, the world, its continents and 32 countries' regions, with their seas, lakes, rivers and mountains: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.";
+  "Japan's 47 prefectures, the world, its continents and 33 countries' regions, with their seas, lakes, rivers and mountains: pan and zoom, play and share geography quizzes, print numbered callout sheets, and colour a map from your own figures. Natural Earth outlines, names in English and Japanese. Free and open source.";
 export const BUILDER_DESCRIPTION = "Preview an embeddable map, named place or geography quiz and copy the code.";
 
 /** What each page is: its header line, its title and its description, in both languages. */
@@ -17,7 +17,7 @@ export const FRAME_TEXTS = {
       name: "地図 Chizu",
       what: "見て、クイズをして、色を塗る地図",
       description:
-        "日本の47都道府県、世界、大陸、32か国の地方と、その海、湖、川、山。ドラッグして拡大縮小できる地図、遊んで共有できるクイズ、印刷できる番号つきの地図、自分の数値で色を塗った地図です。輪郭はNatural Earthのもので、名前は英語と日本語です。無料のオープンソースです。",
+        "日本の47都道府県、世界、大陸、33か国の地方と、その海、湖、川、山。ドラッグして拡大縮小できる地図、遊んで共有できるクイズ、印刷できる番号つきの地図、自分の数値で色を塗った地図です。輪郭はNatural Earthのもので、名前は英語と日本語です。無料のオープンソースです。",
     },
   },
   "builder.html": {

@@ -247,9 +247,9 @@ describe("each country alone", () => {
 });
 
 describe("the regions of a country", () => {
-  it("has 32 countries, each a real map", async () => {
+  it("has 33 countries, each a real map", async () => {
     const maps = await divisions();
-    expect(maps).toHaveLength(32);
+    expect(maps).toHaveLength(33);
     for (const map of maps) {
       checkMap(map);
       expect(map.kind).toBe("divisions");

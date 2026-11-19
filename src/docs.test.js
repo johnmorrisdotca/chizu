@@ -231,12 +231,12 @@ describe("the README's promises", () => {
     expect(readFileSync("src/distractors.ts", "utf8")).toContain("count + 3");
   });
 
-  it("names the 32 countries that have regions, and says how many", () => {
+  it("names the 33 countries that have regions, and says how many", () => {
     const maps = section("Maps");
-    expect(maps).toContain("**32 countries with regions**");
+    expect(maps).toContain("**33 countries with regions**");
     for (const country of CHIZU_COUNTRIES.filter((one) => one.hasDivisions))
       expect(maps, country.code).toContain(country.name.replace(" of America", ""));
-    expect(Object.keys(DIVISIONS_LOADERS)).toHaveLength(32);
+    expect(Object.keys(DIVISIONS_LOADERS)).toHaveLength(33);
   });
 
   it("lists every name the map prints that is not kuni's, with the reason, so that kuni can take each over", () => {

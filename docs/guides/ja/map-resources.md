@@ -2,12 +2,12 @@
 title: 地図と地物のデータ一覧
 section: explanation
 order: 12
-description: 既存の公開パスから作る、地図と地物の固定importの一覧です。
+description: 既存の公開パスから作る、地図と地物の固定 import の一覧です。
 ---
 
 ## 固定のデータ
 
-この一覧は、国・行政区画・地物のワイルドカードと同じファイルを指します。表示に使うキャンバスに対応するデータを選んでください。動的に選ぶ場合は読み込みの関数を使い、未対応のコードはnullになります。データのID、形、順序は変えていません。
+この一覧は、国・行政区画・地物のワイルドカードと同じファイルを指します。表示に使うキャンバスに対応するデータを選んでください。動的に選ぶ場合は読み込みの関数を使い、未対応のコードは null になります。データの ID、形、順序は変えていません。
 
 | Import | データ |
 | --- | --- |
@@ -264,6 +264,7 @@ description: 既存の公開パスから作る、地図と地物の固定import�
 | `@johnmorrisdotca/chizu/divisions/fr` | [フランスの行政区画](entry:divisions-fr) |
 | `@johnmorrisdotca/chizu/divisions/gb` | [イギリスの行政区画](entry:divisions-gb) |
 | `@johnmorrisdotca/chizu/divisions/ie` | [アイルランドの行政区画](entry:divisions-ie) |
+| `@johnmorrisdotca/chizu/divisions/in` | [インドの行政区画](entry:divisions-in) |
 | `@johnmorrisdotca/chizu/divisions/it` | [イタリアの行政区画](entry:divisions-it) |
 | `@johnmorrisdotca/chizu/divisions/jp` | [日本の行政区画](entry:divisions-jp) |
 | `@johnmorrisdotca/chizu/divisions/kr` | [韓国の行政区画](entry:divisions-kr) |
@@ -531,6 +532,7 @@ description: 既存の公開パスから作る、地図と地物の固定import�
 | `@johnmorrisdotca/chizu/features/divisions-fr` | [地物：divisions-fr](entry:features-divisions-fr) |
 | `@johnmorrisdotca/chizu/features/divisions-gb` | [地物：divisions-gb](entry:features-divisions-gb) |
 | `@johnmorrisdotca/chizu/features/divisions-ie` | [地物：divisions-ie](entry:features-divisions-ie) |
+| `@johnmorrisdotca/chizu/features/divisions-in` | [地物：divisions-in](entry:features-divisions-in) |
 | `@johnmorrisdotca/chizu/features/divisions-it` | [地物：divisions-it](entry:features-divisions-it) |
 | `@johnmorrisdotca/chizu/features/divisions-jp` | [地物：divisions-jp](entry:features-divisions-jp) |
 | `@johnmorrisdotca/chizu/features/divisions-kr` | [地物：divisions-kr](entry:features-divisions-kr) |

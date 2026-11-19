@@ -1,5 +1,5 @@
 /**
- * The regions of the 32 countries that have them, each as longitude and latitude in degrees (Natural Earth admin-1,
+ * The regions of the 33 countries that have them, each as longitude and latitude in degrees (Natural Earth admin-1,
  * 1:10m, simplified), for a globe or any spherical view: no projection, no boxes, and the border two regions share is
  * the same list of points in both. Its own entry, and each country its own file behind a dynamic import, so a page
  * pays only for the countries it loads.
@@ -17,7 +17,7 @@ export type { ChizuGeoCollection, ChizuGeoFeature, ChizuGeoProperties } from "./
  * import { DIVISIONS_GEO_CODES } from "@johnmorrisdotca/chizu/divisions-geo";
  *
  * console.log(DIVISIONS_GEO_CODES.length, DIVISIONS_GEO_CODES.includes("JP"));
- * // 32 true
+ * // 33 true
  * ```
  */
 export const DIVISIONS_GEO_CODES: readonly string[] = Object.keys(DIVISIONS_GEO_LOADERS).map((code) =>

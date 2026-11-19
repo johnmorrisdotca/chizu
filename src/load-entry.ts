@@ -28,7 +28,7 @@ export const COUNTRY_CODES: readonly string[] = Object.keys(COUNTRY_LOADERS).map
  * import { DIVISIONS_CODES } from "@johnmorrisdotca/chizu/load";
  *
  * console.log(DIVISIONS_CODES.length, DIVISIONS_CODES.includes("JP"));
- * // 32 true
+ * // 33 true
  * ```
  */
 export const DIVISIONS_CODES: readonly string[] = Object.keys(DIVISIONS_LOADERS).map((code) => code.toUpperCase());

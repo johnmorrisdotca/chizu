@@ -252,7 +252,7 @@ export const COUNTRY_LOADERS: Readonly<Record<string, Load>> = {
 /** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
 export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.data.ts");
 
-/** The regions of the 32 countries that have them, by lower-case code. */
+/** The regions of the 33 countries that have them, by lower-case code. */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   ar: () => import("./divisions/ar.data.ts"),
   at: () => import("./divisions/at.data.ts"),
@@ -269,6 +269,7 @@ export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   fr: () => import("./divisions/fr.data.ts"),
   gb: () => import("./divisions/gb.data.ts"),
   ie: () => import("./divisions/ie.data.ts"),
+  in: () => import("./divisions/in.data.ts"),
   it: () => import("./divisions/it.data.ts"),
   jp: () => import("./divisions/jp.data.ts"),
   kr: () => import("./divisions/kr.data.ts"),
@@ -288,7 +289,7 @@ export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   vn: () => import("./divisions/vn.data.ts"),
 };
 
-/** The named physical features drawn on 268 maps (seas, lakes, rivers, landforms, peaks), by the map's id. */
+/** The named physical features drawn on 269 maps (seas, lakes, rivers, landforms, peaks), by the map's id. */
 export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuFeatureLayer }>>> = {
   "country-ad": () => import("./features/country-ad.data.ts"),
   "country-ae": () => import("./features/country-ae.data.ts"),
@@ -540,6 +541,7 @@ export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: C
   "divisions-fr": () => import("./features/divisions-fr.data.ts"),
   "divisions-gb": () => import("./features/divisions-gb.data.ts"),
   "divisions-ie": () => import("./features/divisions-ie.data.ts"),
+  "divisions-in": () => import("./features/divisions-in.data.ts"),
   "divisions-it": () => import("./features/divisions-it.data.ts"),
   "divisions-jp": () => import("./features/divisions-jp.data.ts"),
   "divisions-kr": () => import("./features/divisions-kr.data.ts"),

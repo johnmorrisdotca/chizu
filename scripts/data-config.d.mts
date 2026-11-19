@@ -10,3 +10,4 @@ export declare const KUNI_NAMES_KEPT_FROM_NATURAL_EARTH: Readonly<
   Record<string, { en?: boolean; ja?: boolean; why: string }>
 >;
 export declare const NAME_FIXES: Readonly<Record<string, { name?: string; nameJa?: string; unnamed?: boolean }>>;
+export declare const TYPE_FIXES: Readonly<Record<string, string>>;

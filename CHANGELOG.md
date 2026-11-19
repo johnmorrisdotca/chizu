@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **India's 36 states and union territories** (MODULES-1620): `@johnmorrisdotca/chizu/divisions/in`, `loadDivisions("in")`, `loadDivisionsGeo("in")` and `features/divisions-in`, from Natural Earth 5.1.2's admin-1, which already has Ladakh and Jammu and Kashmir apart and Dadra and Nagar Haveli and Daman and Diu as one region (`IN-DH`). Four codes are the ones ISO 3166-2:IN has had since 2023-11-23 (`IN-OD`, `IN-CG`, `IN-TS`, `IN-UK`; the region's `code` stays Natural Earth's `OR`, `CT`, `TG`, `UT`). `type` is `state` for 28 and `union territory` for 8: Natural Earth has Himachal Pradesh wrong and Gujarat empty, which `TYPE_FIXES` in `scripts/data-config.mjs` corrects. The shapes are Natural Earth's de facto lines. The regions are now of 33 countries, 1,378 in all; the longitude-and-latitude files together are 1,016 kB gzipped, and the test's limit is 1.1 MB (it was 1.0 MB). Tests: `src/india.test.ts`.
+
 ## [1.14.0] - 2026-11-18
 
 ### Added
