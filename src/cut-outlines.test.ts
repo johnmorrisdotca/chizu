@@ -4,7 +4,7 @@ import { CUT_OUTLINES } from "../scripts/data-config.mjs";
 import { CHIZU_COUNTRIES } from "./data/countries.data.ts";
 import world from "./data/world.data.ts";
 import { loadCountry } from "./load-entry.ts";
-import { unprojectPoint } from "./project.ts";
+import { projectPoint, unprojectPoint } from "./project.ts";
 import { findQuestion } from "./quiz.ts";
 import { seededRandom } from "./random.ts";
 import { withSmallStates } from "./smallStates.ts";
@@ -82,6 +82,18 @@ describe("the ISO codes cut from Natural Earth's map units", () => {
         }
       }
     }
+  });
+
+  it("draws Antarctica as polar maps do: the South Pole in the middle, 0° (Greenwich) up and 90°E to the right", async () => {
+    const map = (await loadCountry("aq"))!;
+    expect(map.projection).toMatchObject({ kind: "azimuthal-equal-area", centre: [0, -90] });
+    const [px, py] = projectPoint(map, 0, -90)!;
+    const [gx, gy] = projectPoint(map, 0, -70)!;
+    const [ex, ey] = projectPoint(map, 90, -70)!;
+    expect(gy).toBeLessThan(py - 100);
+    expect(Math.abs(gx - px)).toBeLessThan(1);
+    expect(ex).toBeGreaterThan(px + 100);
+    expect(Math.abs(ey - py)).toBeLessThan(1);
   });
 
   it("leaves the world and its quiz as they were, with Antarctica and the French Southern Lands still off", () => {

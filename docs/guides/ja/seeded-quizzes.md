@@ -28,6 +28,8 @@ const withDots = withSmallStates(WORLD);
 console.log(WORLD.regions.length, withDots.regions.length, findQuestion(withDots, "SG", seededRandom(1))?.target);
 ```
 
+南極、仏領ギアナ、レユニオン、ジブラルタルなど、自分の地図だけで描く15の場所も、`CHIZU_COUNTRIES`の`group`には大陸の名前があります。ただし、`CHIZU_CONTINENTS`と`CHIZU_SUBREGIONS`の一覧には、世界地図のクイズで出題できる場所だけが入ります。そのため、この15の場所はどの`codes`にも入りません。`groupMap`で大陸に絞ったクイズの出題は、今までと同じです。
+
 ## 入力を固定する
 
 同じシードから乱数を作り直すと、同じ問題を再現できます。1つの乱数を続けて使うと、値は先へ進みます。シードだけでなく、データの版、候補の制限、正解の順序、誤答の数もそろえます。地物のクイズには、対応するキャンバス上で地物を地域として扱う地図を作ります。点数や解答の保存はアプリ側の役割です。

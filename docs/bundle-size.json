@@ -22,7 +22,7 @@
       "gzip": 1565154
     },
     "./load": {
-      "minified": 18593028,
+      "minified": 18590674,
       "gzip": 6683561
     },
     "./world": {
@@ -46,11 +46,11 @@
       "gzip": 965428
     },
     "./element": {
-      "minified": 17579637,
+      "minified": 17577283,
       "gzip": 6326704
     },
     "./element/define": {
-      "minified": 17579652,
+      "minified": 17577298,
       "gzip": 6326710
     },
     "./countries/ad": {
@@ -86,8 +86,8 @@
       "gzip": 2631
     },
     "./countries/aq": {
-      "minified": 62847,
-      "gzip": 27215
+      "minified": 61982,
+      "gzip": 27004
     },
     "./countries/ar": {
       "minified": 14408,
@@ -1226,8 +1226,8 @@
       "gzip": 9789
     },
     "./features/country-aq": {
-      "minified": 61206,
-      "gzip": 21756
+      "minified": 59717,
+      "gzip": 21324
     },
     "./features/country-ar": {
       "minified": 50172,

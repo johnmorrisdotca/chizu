@@ -1,4 +1,12 @@
-import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoPath } from "d3-geo";
+import {
+  geoAlbers,
+  geoArea,
+  geoAzimuthalEqualArea,
+  geoCentroid,
+  geoConicEqualArea,
+  geoContains,
+  geoPath,
+} from "d3-geo";
 import { gapBetween, isoCodes, polygonsOf, regionFields, withRegionCodes } from "../build-data.mjs";
 import { NATURAL_EARTH, TERRITORY_PARTS } from "../data-config.mjs";
 import {
@@ -51,7 +59,8 @@ export function buildCountry(feature, near, fine) {
   const [, scale, layer] = p.__file?.match(/^ne_(\d+m)_admin_0_(\w+)\.geojson$/) ?? [];
   const pieces = corePieces((finer ?? feature).geometry);
   const geometry = { type: "MultiPolygon", coordinates: pieces };
-  const [lon, lat] = geoCentroid(geometry);
+  // A country round the South Pole (Antarctica) is centred on it, 0° up, as polar maps draw it.
+  const [lon, lat] = geoContains(geometry, [0, -90]) ? [0, -90] : geoCentroid(geometry);
   const projection = geoAzimuthalEqualArea()
     .rotate([-lon, -lat])
     .fitExtent(

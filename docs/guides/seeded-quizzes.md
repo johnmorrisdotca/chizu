@@ -28,6 +28,8 @@ const withDots = withSmallStates(WORLD);
 console.log(WORLD.regions.length, withDots.regions.length, findQuestion(withDots, "SG", seededRandom(1))?.target);
 ```
 
+The fifteen places drawn only on a map of their own (Antarctica, French Guiana, Réunion, Gibraltar and the rest) still name a continent in their `group` in `CHIZU_COUNTRIES`, but `CHIZU_CONTINENTS` and `CHIZU_SUBREGIONS` list only the quiz pool, the places the world can ask, so they are in no group's `codes`. A quiz cut to a continent with `groupMap` asks the same places as before.
+
 ## Pin the inputs
 
 Recreate the random source from the same seed to recreate the question. Reusing one source for several questions advances its stream. Pin the resource version, candidate restrictions, target sequence and count as well as the seed. A feature quiz first makes a native feature map on the corresponding canvas. Host applications own scores and answer submission; the pure engine does not store them.
