@@ -139,10 +139,26 @@ export const NAME_FIXES = {
 };
 
 /*
+ * COUNTIES NAMED AS THE COUNTY THEY LIE IN. Natural Earth 5.1.2 draws Norway's counties as they were before 2020, and
+ * four of the 2024 counties (Innlandet, Agder, Vestland, Trøndelag) are two of those shapes each, which carry the
+ * county's ISO code (ISO_JOIN) and so would keep their old names. Each of these is named as the county, from kuni, with
+ * the old part in brackets ("Innlandet (Hedmark)"): two regions of a map must not share a name, a quiz cannot ask
+ * for "Innlandet" twice, and the brackets say which shape is which. The shapes are Natural Earth's and unchanged.
+ * Keyed like ISO_JOIN.
+ */
+const NO_2020 = "a county before Norway's 2020 reform, joined into a larger county; drawn as Natural Earth draws it";
+export const NAMED_AS_COUNTY_WITH_PART = Object.fromEntries(
+  ["04", "05", "09", "10", "12", "14", "16", "17"].map((code) => [`NO:${code}`, { why: NO_2020 }]),
+);
+
+/*
  * THE KIND OF A REGION, where Natural Earth's `type_en` is wrong or empty. Keyed like ISO_JOIN. In Natural Earth 5.1.2
- * India's Himachal Pradesh is a "Union Territory" and Gujarat has no type; both are states.
+ * India's Himachal Pradesh is a "Union Territory" and Gujarat has no type; both are states. Norway's Bouvet Island has none.
  */
 export const TYPE_FIXES = {
   "IN:HP": "state",
   "IN:GJ": "state",
+  // Svalbard and Bouvet Island are drawn on Norway's map but are not counties: kuni's type for Svalbard is territory, and Bouvet has none.
+  "NO:21": "territory",
+  "NO:X01~": "territory",
 };

@@ -11,6 +11,7 @@ import {
   KUNI,
   KUNI_NAMES_KEPT_FROM_NATURAL_EARTH,
   NAME_FIXES,
+  NAMED_AS_COUNTY_WITH_PART,
   NATURAL_EARTH,
   SHORT_ENGLISH_NOT_FOR_MAPS,
   SHORT_NAME_READINGS,
@@ -127,6 +128,15 @@ export function regionNames(country, feature, iso, shared) {
     const kept = KUNI_NAMES_KEPT_FROM_NATURAL_EARTH[iso] ?? {};
     if (!kept.en) name = known.name.en;
     if (!kept.ja && known.name.ja) nameJa = known.name.ja;
+  }
+  // Natural Earth's pre-2020 county that now lies in a larger one: the larger one's name from kuni, and the old part in brackets.
+  const whole = NAMED_AS_COUNTY_WITH_PART[`${country}:${p.__code}`] && iso ? kuniSubdivision(iso) : null;
+  if (whole) {
+    const part = p.name_en || p.name || p.__code;
+    name = `${whole.name.en} (${part})`;
+    const partJa = p.name_ja?.replace(/県$/u, "");
+    if (whole.name.ja && partJa) nameJa = `${whole.name.ja}（${partJa}）`;
+    else if (whole.name.ja) nameJa = whole.name.ja;
   }
   const fix = NAME_FIXES[`${country}:${p.__code}`];
   if (fix?.name) name = fix.name;
