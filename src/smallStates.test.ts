@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { CUT_OUTLINES } from "../scripts/data-config.mjs";
 import { CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./data/countries.data.ts";
 import worldData from "./data/world.data.ts";
 import worldGeoDetail from "./data/world-geo-detail.data.ts";
@@ -18,6 +19,8 @@ const world = withSmallStates(plain);
 
 /* The countries the world leaves off on purpose, and the ones the 1:110m outlines leave off because they are too small. */
 const LEFT_OFF = ["AQ", "TF", "CYN", "SOL", "KAS", "ATC", "IOA"];
+/* Drawn alone only (CUT_OUTLINES): on the world they are inside the country that holds them, or too small to draw. */
+const ALONE_ONLY = Object.keys(CUT_OUTLINES).filter((code) => !LEFT_OFF.includes(code));
 const drawn = new Set(worldData.regions.map((region) => region.code));
 const dots = world.regions.filter((region) => region.small);
 const regionOf = (code: string) => world.regions.find((region) => region.code === code);
@@ -44,13 +47,15 @@ describe("the smallest countries, as dots on the world", () => {
     }
   });
 
-  it("puts every country but the seven left off on the world, and flags exactly the 62 the 1:110m outlines lack", () => {
-    const expected = CHIZU_COUNTRIES.map((country) => country.code).filter((code) => !LEFT_OFF.includes(code));
+  it("puts every country but the seven left off and the thirteen drawn alone only on the world, and flags exactly the 62 the 1:110m outlines lack", () => {
+    const expected = CHIZU_COUNTRIES.map((country) => country.code).filter(
+      (code) => !LEFT_OFF.includes(code) && !ALONE_ONLY.includes(code),
+    );
     expect(world.regions.map((region) => region.code).sort()).toEqual([...expected].sort());
     expect(world.regions).toHaveLength(235);
     expect(dots).toHaveLength(62);
     expect(dots.map((region) => region.code).sort()).toEqual(expected.filter((code) => !drawn.has(code)).sort());
-    for (const code of LEFT_OFF) expect(regionOf(code), code).toBeUndefined();
+    for (const code of [...LEFT_OFF, ...ALONE_ONLY]) expect(regionOf(code), code).toBeUndefined();
   });
 
   it("gives a dot the names, reading and codes the country table holds", () => {

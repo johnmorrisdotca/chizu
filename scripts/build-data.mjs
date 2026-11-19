@@ -34,14 +34,14 @@ import {
 import { geoDistance } from "d3-geo";
 import { buildCountry, buildDivisions, buildUnitedStates, DEGREES } from "./build-data/divisions.mjs";
 import { writeDivisionsGeo, writeWorldGeoDetail } from "./build-data/geo-files.mjs";
-import { literal, neighboursBySharedPoints, out, writeFeatures, writeMap } from "./build-data/geometry.mjs";
+import { literal, out, writeFeatures, writeMap } from "./build-data/geometry.mjs";
 import { buildJapan } from "./build-data/japan.mjs";
+import { withCutOutlines } from "./build-data/outlines.mjs";
 import {
   buildWorld,
   buildWorldDetail,
   buildWorldGeo,
   checkTerritoryParts,
-  countriesFrom,
   insetProjections,
   namesOf,
   projections,
@@ -259,8 +259,7 @@ export async function main() {
   );
 
   const allMaps = [world];
-  const countries = countriesFrom(countriesSource);
-  const near = neighboursBySharedPoints(countries, (feature) => feature.properties.__code);
+  const { countries, near, cutCodes } = await withCutOutlines(countriesSource, fineSource);
   const table = [];
   const loaders = { countries: [], divisions: [] };
   const countryNames = new Map();
@@ -333,9 +332,9 @@ export async function main() {
   );
 
   table.sort((a, b) => a.code.localeCompare(b.code));
-  const inTable = new Set(table.map((entry) => entry.code));
   checkTerritoryParts(table);
-  const countriesOnly = table.filter((entry) => entry.kind === "country");
+  const inTable = new Set(table.filter((entry) => !cutCodes.has(entry.code)).map((entry) => entry.code));
+  const countriesOnly = table.filter((entry) => entry.kind === "country" && inTable.has(entry.code));
   const groupsTable = (kind) => {
     const codes =
       kind === "continent"
@@ -357,7 +356,7 @@ export async function main() {
         name: kind === "continent" ? continentName(code, "en") : subregionName(code, "en"),
         nameJa,
         reading,
-        // A continent's members are the table's own (the three places kuni does not have are left out: they are not countries, `kind: "territory-part"`), a subregion's are kuni's.
+        // A continent's members are the table's own (the three places kuni does not have are left out: they are not countries, `kind: "territory-part"`), a subregion's are kuni's. The places cut from other files are on no world, so no group lists them: a group is what a world quiz can ask.
         codes:
           kind === "continent"
             ? countriesOnly.filter((entry) => entry.group === CONTINENT_NAMES[code]).map((entry) => entry.code)
@@ -372,9 +371,9 @@ export async function main() {
     join(out, "countries.data.ts"),
     `/*
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.
- * Every country Natural Earth ${NATURAL_EARTH.version} draws at 1:50m (${table.length} of them): its names in English and
- * Japanese, which continent it is in, and which of the maps has it. The names, readings, continents and three-letter
- * codes are kuni's (${KUNI.package} ${KUNI.version}), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
+ * Every country Natural Earth ${NATURAL_EARTH.version} draws at 1:50m and ${cutCodes.size} cut from its other files (${table.length} in all): its
+ * names in English and Japanese, which continent it is in, and which of the maps has it. The names, readings, continents
+ * and three-letter codes are kuni's (${KUNI.package} ${KUNI.version}), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
  */
 import type { ChizuCountry, ChizuGroup } from "../types.ts";
 
@@ -394,7 +393,7 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = ${literal(table)};
 
 /**
  * The seven continents, as kuni has them (UN M49 by way of CLDR): the Americas are two, and Central America and the
- * Caribbean are in North America. Each with the countries of this table in it, the three places that are not countries (\`kind: "territory-part"\`) left out; every country is in exactly one.
+ * Caribbean are in North America. Each with the countries of this table in it, the three places that are not countries (\`kind: "territory-part"\`) left out, and the ${cutCodes.size} drawn alone only (cut from the map units, on no world) too; every other country is in exactly one.
  *
  * @example
  * \`\`\`ts
@@ -409,7 +408,7 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = ${literal(table)};
 export const CHIZU_CONTINENTS: readonly ChizuGroup[] = ${literal(groupsTable("continent"))};
 
 /**
- * The twenty-two subregions of UN M49, as kuni has them, each with the countries of this table in it.
+ * The twenty-two subregions of UN M49, as kuni has them, each with the countries of this table in it but those drawn alone only.
  *
  * @example
  * \`\`\`ts

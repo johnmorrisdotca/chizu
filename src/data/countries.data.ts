@@ -1,8 +1,8 @@
 /*
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run `pnpm data` to make it again.
- * Every country Natural Earth 5.1.2 draws at 1:50m (238 of them): its names in English and
- * Japanese, which continent it is in, and which of the maps has it. The names, readings, continents and three-letter
- * codes are kuni's (@johnmorrisdotca/kuni 1.6.0), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
+ * Every country Natural Earth 5.1.2 draws at 1:50m and 15 cut from its other files (253 in all): its
+ * names in English and Japanese, which continent it is in, and which of the maps has it. The names, readings, continents
+ * and three-letter codes are kuni's (@johnmorrisdotca/kuni 1.6.0), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
  */
 import type { ChizuCountry, ChizuGroup } from "../types.ts";
 
@@ -15,7 +15,7 @@ import type { ChizuCountry, ChizuGroup } from "../types.ts";
  *
  * const asia = CHIZU_COUNTRIES.filter((country) => country.group === "Asia");
  * console.log(CHIZU_COUNTRIES.length, asia.length, asia.find((country) => country.code === "KR")?.nameJa);
- * // 238 53 韓国
+ * // 253 53 韓国
  * ```
  */
 export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
@@ -105,6 +105,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     group: "Africa",
     kind: "country",
     onWorld: true,
+    hasDivisions: false,
+  },
+  {
+    code: "AQ",
+    iso3: "ATA",
+    name: "Antarctica",
+    nameJa: "南極",
+    reading: "なんきょく",
+    group: "Antarctica",
+    kind: "country",
+    onWorld: false,
     hasDivisions: false,
   },
   {
@@ -339,6 +350,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     hasDivisions: false,
   },
   {
+    code: "BQ",
+    iso3: "BES",
+    name: "Caribbean Netherlands",
+    nameJa: "オランダ領カリブ",
+    reading: "おらんだりょうかりぶ",
+    group: "North America",
+    kind: "country",
+    onWorld: false,
+    hasDivisions: false,
+  },
+  {
     code: "BR",
     iso3: "BRA",
     name: "Brazil",
@@ -369,6 +391,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     group: "Asia",
     kind: "country",
     onWorld: true,
+    hasDivisions: false,
+  },
+  {
+    code: "BV",
+    iso3: "BVT",
+    name: "Bouvet Island",
+    nameJa: "ブーベ島",
+    reading: "ぶーべとう",
+    group: "South America",
+    kind: "country",
+    onWorld: false,
     hasDivisions: false,
   },
   {
@@ -414,6 +447,18 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     kind: "country",
     onWorld: true,
     hasDivisions: true,
+  },
+  {
+    code: "CC",
+    iso3: "CCK",
+    name: "Cocos Islands",
+    nameJa: "ココス(キーリング)諸島",
+    nameShortJa: "ココス諸島",
+    reading: "ここすしょとう",
+    group: "Oceania",
+    kind: "country",
+    onWorld: false,
+    hasDivisions: false,
   },
   {
     code: "CD",
@@ -567,6 +612,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     nameJa: "キュラソー",
     reading: "キュラソー",
     group: "North America",
+    kind: "country",
+    onWorld: false,
+    hasDivisions: false,
+  },
+  {
+    code: "CX",
+    iso3: "CXR",
+    name: "Christmas Island",
+    nameJa: "クリスマス島",
+    reading: "くりすますとう",
+    group: "Oceania",
     kind: "country",
     onWorld: false,
     hasDivisions: false,
@@ -847,6 +903,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     hasDivisions: false,
   },
   {
+    code: "GF",
+    iso3: "GUF",
+    name: "French Guiana",
+    nameJa: "仏領ギアナ",
+    reading: "ふつりょうぎあな",
+    group: "South America",
+    kind: "country",
+    onWorld: false,
+    hasDivisions: false,
+  },
+  {
     code: "GG",
     iso3: "GGY",
     name: "Guernsey",
@@ -866,6 +933,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     group: "Africa",
     kind: "country",
     onWorld: true,
+    hasDivisions: false,
+  },
+  {
+    code: "GI",
+    iso3: "GIB",
+    name: "Gibraltar",
+    nameJa: "ジブラルタル",
+    reading: "ジブラルタル",
+    group: "Europe",
+    kind: "country",
+    onWorld: false,
     hasDivisions: false,
   },
   {
@@ -899,6 +977,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     group: "Africa",
     kind: "country",
     onWorld: true,
+    hasDivisions: false,
+  },
+  {
+    code: "GP",
+    iso3: "GLP",
+    name: "Guadeloupe",
+    nameJa: "グアドループ",
+    reading: "グアドループ",
+    group: "North America",
+    kind: "country",
+    onWorld: false,
     hasDivisions: false,
   },
   {
@@ -1609,6 +1698,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     hasDivisions: false,
   },
   {
+    code: "MQ",
+    iso3: "MTQ",
+    name: "Martinique",
+    nameJa: "マルティニーク",
+    reading: "マルティニーク",
+    group: "North America",
+    kind: "country",
+    onWorld: false,
+    hasDivisions: false,
+  },
+  {
     code: "MR",
     iso3: "MRT",
     name: "Mauritania",
@@ -2017,6 +2117,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     hasDivisions: false,
   },
   {
+    code: "RE",
+    iso3: "REU",
+    name: "Réunion",
+    nameJa: "レユニオン",
+    reading: "レユニオン",
+    group: "Africa",
+    kind: "country",
+    onWorld: false,
+    hasDivisions: false,
+  },
+  {
     code: "RO",
     iso3: "ROU",
     name: "Romania",
@@ -2146,6 +2257,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     group: "Europe",
     kind: "country",
     onWorld: true,
+    hasDivisions: false,
+  },
+  {
+    code: "SJ",
+    iso3: "SJM",
+    name: "Svalbard & Jan Mayen",
+    nameJa: "スバールバル諸島・ヤンマイエン島",
+    reading: "すばーるばるしょとうやんまいえんとう",
+    group: "Europe",
+    kind: "country",
+    onWorld: false,
     hasDivisions: false,
   },
   {
@@ -2303,6 +2425,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     hasDivisions: false,
   },
   {
+    code: "TF",
+    iso3: "ATF",
+    name: "French Southern Territories",
+    nameJa: "仏領極南諸島",
+    reading: "ふつりょうきょくなんしょとう",
+    group: "Africa",
+    kind: "country",
+    onWorld: false,
+    hasDivisions: false,
+  },
+  {
     code: "TG",
     iso3: "TGO",
     name: "Togo",
@@ -2333,6 +2466,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     group: "Asia",
     kind: "country",
     onWorld: true,
+    hasDivisions: false,
+  },
+  {
+    code: "TK",
+    iso3: "TKL",
+    name: "Tokelau",
+    nameJa: "トケラウ",
+    reading: "トケラウ",
+    group: "Oceania",
+    kind: "country",
+    onWorld: false,
     hasDivisions: false,
   },
   {
@@ -2454,6 +2598,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     group: "Africa",
     kind: "country",
     onWorld: true,
+    hasDivisions: false,
+  },
+  {
+    code: "UM",
+    iso3: "UMI",
+    name: "U.S. Outlying Islands",
+    nameJa: "合衆国領有小離島",
+    reading: "がっしゅうこくりょうゆうしょうりとう",
+    group: "Oceania",
+    kind: "country",
+    onWorld: false,
     hasDivisions: false,
   },
   {
@@ -2612,6 +2767,17 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
     hasDivisions: false,
   },
   {
+    code: "YT",
+    iso3: "MYT",
+    name: "Mayotte",
+    nameJa: "マヨット",
+    reading: "マヨット",
+    group: "Africa",
+    kind: "country",
+    onWorld: false,
+    hasDivisions: false,
+  },
+  {
     code: "ZA",
     iso3: "ZAF",
     name: "South Africa",
@@ -2648,7 +2814,7 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
 
 /**
  * The seven continents, as kuni has them (UN M49 by way of CLDR): the Americas are two, and Central America and the
- * Caribbean are in North America. Each with the countries of this table in it, the three places that are not countries (`kind: "territory-part"`) left out; every country is in exactly one.
+ * Caribbean are in North America. Each with the countries of this table in it, the three places that are not countries (`kind: "territory-part"`) left out, and the 15 drawn alone only (cut from the map units, on no world) too; every other country is in exactly one.
  *
  * @example
  * ```ts
@@ -2937,7 +3103,7 @@ export const CHIZU_CONTINENTS: readonly ChizuGroup[] = [
 ];
 
 /**
- * The twenty-two subregions of UN M49, as kuni has them, each with the countries of this table in it.
+ * The twenty-two subregions of UN M49, as kuni has them, each with the countries of this table in it but those drawn alone only.
  *
  * @example
  * ```ts
@@ -3201,6 +3367,8 @@ export const CHIZU_SOURCE = {
     "ne_10m_rivers_lake_centerlines.geojson",
     "ne_10m_geography_regions_polys.geojson",
     "ne_10m_geography_regions_elevation_points.geojson",
+    "ne_50m_admin_0_map_units.geojson",
+    "ne_10m_admin_0_map_units.geojson",
   ],
   names: {
     name: "kuni",

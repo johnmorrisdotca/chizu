@@ -18,7 +18,7 @@ console.log(question?.target,question?.choices,question?.answerIndex);
 
 ## 小さな国も、指定すれば出題されます
 
-世界地図は1:110mの輪郭を使うため、238か国のうち62か国（シンガポール、マルタ、バーレーン、カリブ海や太平洋の多くの国）は輪郭で描けません。そのため`WORLD`は173地域で、残りの62か国はクイズに出ません。`@johnmorrisdotca/chizu/small-states`の`withSmallStates(WORLD)`は、この62か国を点（`small: true`の地域）として加えます。`findQuestion`と`pickDistractors`は、ほかの国と同じようにこれらを出題し、選択肢に入れます。何も自動では加わらないので、この地図を渡すまで、同じシードは今までと同じ問題を出します。渡すと、出題できる国が62か国増えるため、同じシードでも別の問題になります。`drawChizu`にも同じ地図を渡せます。`mountChizu`には`smallStates: true`、`<chizu-map>`と`<chizu-quiz>`には`small-states`があり、オンのときだけ表を読み込みます。
+世界地図は1:110mの輪郭を使うため、1:50mで描く238か国のうち62か国（シンガポール、マルタ、バーレーン、カリブ海や太平洋の多くの国）は輪郭で描けません。そのため`WORLD`は173地域で、残りの62か国はクイズに出ません。`@johnmorrisdotca/chizu/small-states`の`withSmallStates(WORLD)`は、この62か国を点（`small: true`の地域）として加えます。`findQuestion`と`pickDistractors`は、ほかの国と同じようにこれらを出題し、選択肢に入れます。何も自動では加わらないので、この地図を渡すまで、同じシードは今までと同じ問題を出します。渡すと、出題できる国が62か国増えるため、同じシードでも別の問題になります。`drawChizu`にも同じ地図を渡せます。`mountChizu`には`smallStates: true`、`<chizu-map>`と`<chizu-quiz>`には`small-states`があり、オンのときだけ表を読み込みます。
 
 ```ts
 import WORLD from "@johnmorrisdotca/chizu/world";
@@ -27,6 +27,8 @@ import { findQuestion, seededRandom } from "@johnmorrisdotca/chizu";
 const withDots = withSmallStates(WORLD);
 console.log(WORLD.regions.length, withDots.regions.length, findQuestion(withDots, "SG", seededRandom(1))?.target);
 ```
+
+南極、仏領ギアナ、レユニオン、ジブラルタルなど、自分の地図だけで描く15の場所も、`CHIZU_COUNTRIES`の`group`には大陸の名前があります。ただし、`CHIZU_CONTINENTS`と`CHIZU_SUBREGIONS`の一覧には、世界地図のクイズで出題できる場所だけが入ります。そのため、この15の場所はどの`codes`にも入りません。`groupMap`で大陸に絞ったクイズの出題は、今までと同じです。
 
 ## 入力を固定する
 

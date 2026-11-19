@@ -1,5 +1,6 @@
 import { country as kuniCountry } from "@johnmorrisdotca/kuni";
 import { describe, expect, it } from "vitest";
+import { CUT_OUTLINES } from "../scripts/data-config.mjs";
 import atc from "./data/countries/atc.data.ts";
 import ioa from "./data/countries/ioa.data.ts";
 import kas from "./data/countries/kas.data.ts";
@@ -42,7 +43,7 @@ describe("the places that are not countries", () => {
         .map((country) => country.code)
         .sort(),
     ).toEqual(PARTS);
-    expect(CHIZU_COUNTRIES.filter((country) => country.kind === "country")).toHaveLength(235);
+    expect(CHIZU_COUNTRIES.filter((country) => country.kind === "country")).toHaveLength(250);
     for (const map of partMaps) expect(map.regions.map((region) => region.territoryPart)).toEqual([true]);
     expect(CHIZU_COUNTRIES.find((country) => country.code === "XK")?.kind).toBe("country");
     for (const region of world.regions) expect(region.territoryPart, region.code).toBeUndefined();
@@ -107,7 +108,8 @@ describe("the places that are not countries", () => {
     expect(counts).toEqual({ AF: 57, AN: 0, AS: 51, EU: 50, NA: 38, OC: 25, SA: 14 });
     const listed = CHIZU_CONTINENTS.flatMap((continent) => continent.codes);
     for (const code of PARTS) expect(listed).not.toContain(code);
-    expect(listed.length + PARTS.length).toBe(CHIZU_COUNTRIES.length);
+    // The places drawn alone only (CUT_OUTLINES) are in no continent either.
+    expect(listed.length + PARTS.length + Object.keys(CUT_OUTLINES).length).toBe(CHIZU_COUNTRIES.length);
     // Their own continent stays on the table, for a page that draws a map of Asia with them.
     expect(
       CHIZU_COUNTRIES.filter((country) => PARTS.includes(country.code))

@@ -135,9 +135,9 @@ describe("the world", () => {
 });
 
 describe("the table of countries", () => {
-  it("holds 238 countries, each once, with its names", () => {
-    expect(CHIZU_COUNTRIES).toHaveLength(238);
-    expect(new Set(CHIZU_COUNTRIES.map((country) => country.code)).size).toBe(238);
+  it("holds 253 countries, each once, with its names", () => {
+    expect(CHIZU_COUNTRIES).toHaveLength(253);
+    expect(new Set(CHIZU_COUNTRIES.map((country) => country.code)).size).toBe(253);
     for (const country of CHIZU_COUNTRIES) {
       expect(country.name.length, country.code).toBeGreaterThan(0);
       expect(country.nameJa.length, country.code).toBeGreaterThan(0);

@@ -78,7 +78,7 @@ test("the map chooser offers Japan first, the world, its continents, 31 other co
   await expect(groups.nth(3).locator("option")).toHaveCount(32);
   const vietnam = groups.nth(3).locator('option[value="divisions:vn"]');
   await expect(vietnam.locator("xpath=following-sibling::option[1]")).toHaveAttribute("value", "divisions:vn-2025");
-  await expect(groups.nth(4).locator("option")).toHaveCount(238);
+  await expect(groups.nth(4).locator("option")).toHaveCount(253);
   await page.locator(at("map")).selectOption("divisions:de");
   await expect(page.locator(`${at("board")} .cz-region`)).toHaveCount(16);
   await expect(svg(page)).toHaveAttribute("data-map", "divisions-de");

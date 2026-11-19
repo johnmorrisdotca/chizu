@@ -3,7 +3,7 @@
 <h1 align="center">Chizu <sub>地図</sub> — SVG maps for JavaScript</h1>
 
 <p align="center"><strong>The world as SVG maps for JavaScript and TypeScript, in English and Japanese.</strong><br>
-The world and its 238 countries, each on its own, drawn from Natural Earth (public domain), and the regions of 32 countries: US states, Canada's provinces and territories, China's provinces, Germany, Brazil, Mexico, Australia, France, the United Kingdom, Japan's 47 prefectures. Seas, lakes, rivers, mountains and capitals on request, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing, zoom, insets, quiz distractors and a callout placer whose leader lines never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
+The world and its 253 countries and territories, each on its own, drawn from Natural Earth (public domain), and the regions of 32 countries: US states, Canada's provinces and territories, China's provinces, Germany, Brazil, Mexico, Australia, France, the United Kingdom, Japan's 47 prefectures. Seas, lakes, rivers, mountains and capitals on request, every country and region named in English and Japanese from kuni 国 and coded by ISO 3166, and the engine around them: framing, zoom, insets, quiz distractors and a callout placer whose leader lines never cross. Drawn as SVG text, or dragged and zoomed in any page, as one call. No dependencies.</p>
 
 <p align="center">
   <a href="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/johnmorrisdotca/chizu/actions/workflows/ci.yml/badge.svg"></a>
@@ -79,7 +79,7 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 
 Each example is run in CI (`pnpm test:readme`). Pictures: [What's in it](#whats-in-it).
 
-- **The world, and 238 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut; 62 too small for 1:110m are opt-in dots (`/small-states`). Each of the 238 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
+- **The world, and 253 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut; 62 too small for 1:110m are opt-in dots (`/small-states`). Each of the 253 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
 - **The regions of 32 countries**, each its own file, 1,342 in all: the 50 states and Washington DC, Canada's 10 provinces and 3 territories, China's 31 provinces and municipalities, Germany's 16 states, Brazil's 27, Mexico's 32, Australia's 10 states and territories, France's 96 départements, the United Kingdom's 232 divisions, Japan's 47 prefectures and more.
 - **ISO 3166-2 codes on the regions** (`CA-ON`, `US-TX`, `JP-13`), 1,335 of the 1,342, joined at build time from kuni 国, so figures keyed by ISO code colour the map; the 7 without one are listed in [docs/iso-codes.md](./docs/iso-codes.md).
 
@@ -110,7 +110,7 @@ console.log(caspian!.code, caspian!.name, caspian!.kind);   // Q5484 Caspian Sea
 import { CHIZU_COUNTRIES, countryByCode } from "@johnmorrisdotca/chizu/names";
 
 const brazil = countryByCode("BR")!;
-console.log(CHIZU_COUNTRIES.length, brazil.name, brazil.nameJa);   // 238 Brazil ブラジル
+console.log(CHIZU_COUNTRIES.length, brazil.name, brazil.nameJa);   // 253 Brazil ブラジル
 ```
 
 - **Framing and zoom in ten steps**, 1× to 10×, a window on a region, a square for an icon, a fit for a group. A region drawn in a box is framed where it is *drawn*, not out in the Pacific.
@@ -200,7 +200,7 @@ Each picture is the real map, drawn by the package and taken from [the demo](htt
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/country-phone-dark.webp">
 <img src="https://raw.githubusercontent.com/johnmorrisdotca/chizu/main/docs/images/country-phone-light.webp" alt="Japan alone on a phone, with its seas named in blue italics, Lake Biwa and three rivers, and the words Nothing chosen under the map" width="240">
 </picture>
-<br><em><strong>One country alone</strong>, with its seas, lakes and rivers turned on. Each of 238 countries is a map of its own.</em>
+<br><em><strong>One country alone</strong>, with its seas, lakes and rivers turned on. Each of 253 countries is a map of its own.</em>
 </td>
 </tr>
 <tr>
@@ -443,7 +443,7 @@ true 4
 
 ### Every country's name, in two languages
 
-The table of countries has no outlines, so a page that only needs names loads 52 kB (10 kB gzipped). `nameOf` picks the language; `reading` is the kana.
+The table of countries has no outlines, so a page that only needs names loads 55 kB (10 kB gzipped). `nameOf` picks the language; `reading` is the kana.
 
 ```ts
 import { CHIZU_COUNTRIES, countryByCode } from "@johnmorrisdotca/chizu/names";
@@ -455,7 +455,7 @@ console.log(CHIZU_COUNTRIES.length, CHIZU_COUNTRIES.filter((country) => country.
 
 ```text
 Japan 日本 にほん Asia
-238 32
+253 32
 ```
 
 ### A look of your own
@@ -508,7 +508,7 @@ console.log(ireland.id, ireland.kind, COUNTRY_CODES.length, DIVISIONS_CODES.leng
 
 ```text
 France 96 Ain
-country-ie country 238 32
+country-ie country 253 32
 ```
 
 ## Maps
@@ -517,10 +517,10 @@ country-ie country 238 32
 | --- | --- | --- | --- |
 | The world | `@johnmorrisdotca/chizu/world` | 173 countries, Natural Earth at 1:110m | 170 kB |
 | The world drawn finer | `loadWorldDetail()` from `@johnmorrisdotca/chizu/load` | the same 173 countries on the same canvas, at 1:50m, for a map zoomed in (`mountChizu`'s `detail`) | 1.3 MB, fetched only when asked for |
-| A country alone | `@johnmorrisdotca/chizu/countries/<code>` or `loadCountry("<code>")` | 238 countries and territories at 1:50m (1:10m under 60,000 km²), on a canvas of their own whose longer side is 1,000 | 16 kB for Japan, 157 kB for Canada |
+| A country alone | `@johnmorrisdotca/chizu/countries/<code>` or `loadCountry("<code>")` | 253 countries and territories at 1:50m (1:10m under 60,000 km²), on a canvas of their own whose longer side is 1,000 | 16 kB for Japan, 157 kB for Canada |
 | A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 32 countries, Natural Earth admin-1 at 1:10m | 203 kB for Germany, 1.8 MB for Russia |
 | Japan's prefectures | `divisions/jp` or `loadDivisions("jp")` | 47 prefectures, Natural Earth admin-1 at 1:10m, with Okinawa and the outlying islands in boxes | 186 kB |
-| A map's seas, lakes, rivers, mountains and capitals | `@johnmorrisdotca/chizu/features/<map>` or `loadFeatures("<map id>")` | 269 maps' named features on their own canvases: [docs/features.md](./docs/features.md) | 203 kB for the world, 29 kB for Japan's prefectures |
+| A map's seas, lakes, rivers, mountains and capitals | `@johnmorrisdotca/chizu/features/<map>` or `loadFeatures("<map id>")` | 284 maps' named features on their own canvases: [docs/features.md](./docs/features.md) | 203 kB for the world, 29 kB for Japan's prefectures |
 
 The codes are ISO 3166-1 alpha-2, in lower case in a file's name (`fr`), and Natural Earth's own three letters for the few places that have none. `CHIZU_COUNTRIES` (from `@johnmorrisdotca/chizu/names`) lists every country with its names, and says which have a map of their own regions.
 
@@ -722,7 +722,7 @@ All of these are held by tests, and the ones with a name are exported.
 | --- | --- | --- |
 | Zoom | ten steps, 1× to 10× | `MAP_ZOOM_LEVELS` |
 | The world | 173 countries on a canvas 1,000 wide and 489 tall | `WORLD` |
-| Countries alone | 238, on a canvas whose longer side is 1,000 | `CHIZU_COUNTRIES` |
+| Countries alone | 253, on a canvas whose longer side is 1,000 | `CHIZU_COUNTRIES` |
 | Countries with regions | 32 | `DIVISIONS_CODES` |
 | Dated maps of regions | 1, Vietnam's of 2025 (`VN-2025`) | `DIVISIONS_CODES` |
 | A callout's circle | 3% of the window's width unless asked otherwise | `CALLOUT_RADIUS_RATIO` |

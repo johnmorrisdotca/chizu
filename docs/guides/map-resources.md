@@ -19,6 +19,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/al` | [Albania outline](entry:countries-al) |
 | `@johnmorrisdotca/chizu/countries/am` | [Armenia outline](entry:countries-am) |
 | `@johnmorrisdotca/chizu/countries/ao` | [Angola outline](entry:countries-ao) |
+| `@johnmorrisdotca/chizu/countries/aq` | [Antarctica outline](entry:countries-aq) |
 | `@johnmorrisdotca/chizu/countries/ar` | [Argentina outline](entry:countries-ar) |
 | `@johnmorrisdotca/chizu/countries/as` | [American Samoa outline](entry:countries-as) |
 | `@johnmorrisdotca/chizu/countries/at` | [Austria outline](entry:countries-at) |
@@ -40,13 +41,16 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/bm` | [Bermuda outline](entry:countries-bm) |
 | `@johnmorrisdotca/chizu/countries/bn` | [Brunei outline](entry:countries-bn) |
 | `@johnmorrisdotca/chizu/countries/bo` | [Bolivia outline](entry:countries-bo) |
+| `@johnmorrisdotca/chizu/countries/bq` | [Caribbean Netherlands outline](entry:countries-bq) |
 | `@johnmorrisdotca/chizu/countries/br` | [Brazil outline](entry:countries-br) |
 | `@johnmorrisdotca/chizu/countries/bs` | [Bahamas outline](entry:countries-bs) |
 | `@johnmorrisdotca/chizu/countries/bt` | [Bhutan outline](entry:countries-bt) |
+| `@johnmorrisdotca/chizu/countries/bv` | [Bouvet Island outline](entry:countries-bv) |
 | `@johnmorrisdotca/chizu/countries/bw` | [Botswana outline](entry:countries-bw) |
 | `@johnmorrisdotca/chizu/countries/by` | [Belarus outline](entry:countries-by) |
 | `@johnmorrisdotca/chizu/countries/bz` | [Belize outline](entry:countries-bz) |
 | `@johnmorrisdotca/chizu/countries/ca` | [Canada outline](entry:countries-ca) |
+| `@johnmorrisdotca/chizu/countries/cc` | [Cocos Islands outline](entry:countries-cc) |
 | `@johnmorrisdotca/chizu/countries/cd` | [DR Congo outline](entry:countries-cd) |
 | `@johnmorrisdotca/chizu/countries/cf` | [Central African Republic outline](entry:countries-cf) |
 | `@johnmorrisdotca/chizu/countries/cg` | [Congo outline](entry:countries-cg) |
@@ -61,6 +65,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/cu` | [Cuba outline](entry:countries-cu) |
 | `@johnmorrisdotca/chizu/countries/cv` | [Cape Verde outline](entry:countries-cv) |
 | `@johnmorrisdotca/chizu/countries/cw` | [Curaçao outline](entry:countries-cw) |
+| `@johnmorrisdotca/chizu/countries/cx` | [Christmas Island outline](entry:countries-cx) |
 | `@johnmorrisdotca/chizu/countries/cy` | [Cyprus outline](entry:countries-cy) |
 | `@johnmorrisdotca/chizu/countries/cz` | [Czechia outline](entry:countries-cz) |
 | `@johnmorrisdotca/chizu/countries/de` | [Germany outline](entry:countries-de) |
@@ -86,11 +91,14 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/gb` | [United Kingdom outline](entry:countries-gb) |
 | `@johnmorrisdotca/chizu/countries/gd` | [Grenada outline](entry:countries-gd) |
 | `@johnmorrisdotca/chizu/countries/ge` | [Georgia outline](entry:countries-ge) |
+| `@johnmorrisdotca/chizu/countries/gf` | [French Guiana outline](entry:countries-gf) |
 | `@johnmorrisdotca/chizu/countries/gg` | [Guernsey outline](entry:countries-gg) |
 | `@johnmorrisdotca/chizu/countries/gh` | [Ghana outline](entry:countries-gh) |
+| `@johnmorrisdotca/chizu/countries/gi` | [Gibraltar outline](entry:countries-gi) |
 | `@johnmorrisdotca/chizu/countries/gl` | [Greenland outline](entry:countries-gl) |
 | `@johnmorrisdotca/chizu/countries/gm` | [Gambia outline](entry:countries-gm) |
 | `@johnmorrisdotca/chizu/countries/gn` | [Guinea outline](entry:countries-gn) |
+| `@johnmorrisdotca/chizu/countries/gp` | [Guadeloupe outline](entry:countries-gp) |
 | `@johnmorrisdotca/chizu/countries/gq` | [Equatorial Guinea outline](entry:countries-gq) |
 | `@johnmorrisdotca/chizu/countries/gr` | [Greece outline](entry:countries-gr) |
 | `@johnmorrisdotca/chizu/countries/gs` | [South Georgia & South Sandwich Islands outline](entry:countries-gs) |
@@ -155,6 +163,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/mn` | [Mongolia outline](entry:countries-mn) |
 | `@johnmorrisdotca/chizu/countries/mo` | [Macao outline](entry:countries-mo) |
 | `@johnmorrisdotca/chizu/countries/mp` | [Northern Mariana Islands outline](entry:countries-mp) |
+| `@johnmorrisdotca/chizu/countries/mq` | [Martinique outline](entry:countries-mq) |
 | `@johnmorrisdotca/chizu/countries/mr` | [Mauritania outline](entry:countries-mr) |
 | `@johnmorrisdotca/chizu/countries/ms` | [Montserrat outline](entry:countries-ms) |
 | `@johnmorrisdotca/chizu/countries/mt` | [Malta outline](entry:countries-mt) |
@@ -192,6 +201,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/pw` | [Palau outline](entry:countries-pw) |
 | `@johnmorrisdotca/chizu/countries/py` | [Paraguay outline](entry:countries-py) |
 | `@johnmorrisdotca/chizu/countries/qa` | [Qatar outline](entry:countries-qa) |
+| `@johnmorrisdotca/chizu/countries/re` | [Réunion outline](entry:countries-re) |
 | `@johnmorrisdotca/chizu/countries/ro` | [Romania outline](entry:countries-ro) |
 | `@johnmorrisdotca/chizu/countries/rs` | [Serbia outline](entry:countries-rs) |
 | `@johnmorrisdotca/chizu/countries/ru` | [Russia outline](entry:countries-ru) |
@@ -204,6 +214,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/sg` | [Singapore outline](entry:countries-sg) |
 | `@johnmorrisdotca/chizu/countries/sh` | [St. Helena outline](entry:countries-sh) |
 | `@johnmorrisdotca/chizu/countries/si` | [Slovenia outline](entry:countries-si) |
+| `@johnmorrisdotca/chizu/countries/sj` | [Svalbard & Jan Mayen outline](entry:countries-sj) |
 | `@johnmorrisdotca/chizu/countries/sk` | [Slovakia outline](entry:countries-sk) |
 | `@johnmorrisdotca/chizu/countries/sl` | [Sierra Leone outline](entry:countries-sl) |
 | `@johnmorrisdotca/chizu/countries/sm` | [San Marino outline](entry:countries-sm) |
@@ -218,9 +229,11 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/sz` | [Eswatini outline](entry:countries-sz) |
 | `@johnmorrisdotca/chizu/countries/tc` | [Turks & Caicos Islands outline](entry:countries-tc) |
 | `@johnmorrisdotca/chizu/countries/td` | [Chad outline](entry:countries-td) |
+| `@johnmorrisdotca/chizu/countries/tf` | [French Southern Territories outline](entry:countries-tf) |
 | `@johnmorrisdotca/chizu/countries/tg` | [Togo outline](entry:countries-tg) |
 | `@johnmorrisdotca/chizu/countries/th` | [Thailand outline](entry:countries-th) |
 | `@johnmorrisdotca/chizu/countries/tj` | [Tajikistan outline](entry:countries-tj) |
+| `@johnmorrisdotca/chizu/countries/tk` | [Tokelau outline](entry:countries-tk) |
 | `@johnmorrisdotca/chizu/countries/tl` | [Timor-Leste outline](entry:countries-tl) |
 | `@johnmorrisdotca/chizu/countries/tm` | [Turkmenistan outline](entry:countries-tm) |
 | `@johnmorrisdotca/chizu/countries/tn` | [Tunisia outline](entry:countries-tn) |
@@ -232,6 +245,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/tz` | [Tanzania outline](entry:countries-tz) |
 | `@johnmorrisdotca/chizu/countries/ua` | [Ukraine outline](entry:countries-ua) |
 | `@johnmorrisdotca/chizu/countries/ug` | [Uganda outline](entry:countries-ug) |
+| `@johnmorrisdotca/chizu/countries/um` | [U.S. Outlying Islands outline](entry:countries-um) |
 | `@johnmorrisdotca/chizu/countries/us` | [United States outline](entry:countries-us) |
 | `@johnmorrisdotca/chizu/countries/uy` | [Uruguay outline](entry:countries-uy) |
 | `@johnmorrisdotca/chizu/countries/uz` | [Uzbekistan outline](entry:countries-uz) |
@@ -246,6 +260,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/countries/ws` | [Samoa outline](entry:countries-ws) |
 | `@johnmorrisdotca/chizu/countries/xk` | [Kosovo outline](entry:countries-xk) |
 | `@johnmorrisdotca/chizu/countries/ye` | [Yemen outline](entry:countries-ye) |
+| `@johnmorrisdotca/chizu/countries/yt` | [Mayotte outline](entry:countries-yt) |
 | `@johnmorrisdotca/chizu/countries/za` | [South Africa outline](entry:countries-za) |
 | `@johnmorrisdotca/chizu/countries/zm` | [Zambia outline](entry:countries-zm) |
 | `@johnmorrisdotca/chizu/countries/zw` | [Zimbabwe outline](entry:countries-zw) |
@@ -290,6 +305,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-al` | [Features: country-al](entry:features-country-al) |
 | `@johnmorrisdotca/chizu/features/country-am` | [Features: country-am](entry:features-country-am) |
 | `@johnmorrisdotca/chizu/features/country-ao` | [Features: country-ao](entry:features-country-ao) |
+| `@johnmorrisdotca/chizu/features/country-aq` | [Features: country-aq](entry:features-country-aq) |
 | `@johnmorrisdotca/chizu/features/country-ar` | [Features: country-ar](entry:features-country-ar) |
 | `@johnmorrisdotca/chizu/features/country-as` | [Features: country-as](entry:features-country-as) |
 | `@johnmorrisdotca/chizu/features/country-at` | [Features: country-at](entry:features-country-at) |
@@ -311,13 +327,16 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-bm` | [Features: country-bm](entry:features-country-bm) |
 | `@johnmorrisdotca/chizu/features/country-bn` | [Features: country-bn](entry:features-country-bn) |
 | `@johnmorrisdotca/chizu/features/country-bo` | [Features: country-bo](entry:features-country-bo) |
+| `@johnmorrisdotca/chizu/features/country-bq` | [Features: country-bq](entry:features-country-bq) |
 | `@johnmorrisdotca/chizu/features/country-br` | [Features: country-br](entry:features-country-br) |
 | `@johnmorrisdotca/chizu/features/country-bs` | [Features: country-bs](entry:features-country-bs) |
 | `@johnmorrisdotca/chizu/features/country-bt` | [Features: country-bt](entry:features-country-bt) |
+| `@johnmorrisdotca/chizu/features/country-bv` | [Features: country-bv](entry:features-country-bv) |
 | `@johnmorrisdotca/chizu/features/country-bw` | [Features: country-bw](entry:features-country-bw) |
 | `@johnmorrisdotca/chizu/features/country-by` | [Features: country-by](entry:features-country-by) |
 | `@johnmorrisdotca/chizu/features/country-bz` | [Features: country-bz](entry:features-country-bz) |
 | `@johnmorrisdotca/chizu/features/country-ca` | [Features: country-ca](entry:features-country-ca) |
+| `@johnmorrisdotca/chizu/features/country-cc` | [Features: country-cc](entry:features-country-cc) |
 | `@johnmorrisdotca/chizu/features/country-cd` | [Features: country-cd](entry:features-country-cd) |
 | `@johnmorrisdotca/chizu/features/country-cf` | [Features: country-cf](entry:features-country-cf) |
 | `@johnmorrisdotca/chizu/features/country-cg` | [Features: country-cg](entry:features-country-cg) |
@@ -332,6 +351,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-cu` | [Features: country-cu](entry:features-country-cu) |
 | `@johnmorrisdotca/chizu/features/country-cv` | [Features: country-cv](entry:features-country-cv) |
 | `@johnmorrisdotca/chizu/features/country-cw` | [Features: country-cw](entry:features-country-cw) |
+| `@johnmorrisdotca/chizu/features/country-cx` | [Features: country-cx](entry:features-country-cx) |
 | `@johnmorrisdotca/chizu/features/country-cy` | [Features: country-cy](entry:features-country-cy) |
 | `@johnmorrisdotca/chizu/features/country-cz` | [Features: country-cz](entry:features-country-cz) |
 | `@johnmorrisdotca/chizu/features/country-de` | [Features: country-de](entry:features-country-de) |
@@ -357,11 +377,14 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-gb` | [Features: country-gb](entry:features-country-gb) |
 | `@johnmorrisdotca/chizu/features/country-gd` | [Features: country-gd](entry:features-country-gd) |
 | `@johnmorrisdotca/chizu/features/country-ge` | [Features: country-ge](entry:features-country-ge) |
+| `@johnmorrisdotca/chizu/features/country-gf` | [Features: country-gf](entry:features-country-gf) |
 | `@johnmorrisdotca/chizu/features/country-gg` | [Features: country-gg](entry:features-country-gg) |
 | `@johnmorrisdotca/chizu/features/country-gh` | [Features: country-gh](entry:features-country-gh) |
+| `@johnmorrisdotca/chizu/features/country-gi` | [Features: country-gi](entry:features-country-gi) |
 | `@johnmorrisdotca/chizu/features/country-gl` | [Features: country-gl](entry:features-country-gl) |
 | `@johnmorrisdotca/chizu/features/country-gm` | [Features: country-gm](entry:features-country-gm) |
 | `@johnmorrisdotca/chizu/features/country-gn` | [Features: country-gn](entry:features-country-gn) |
+| `@johnmorrisdotca/chizu/features/country-gp` | [Features: country-gp](entry:features-country-gp) |
 | `@johnmorrisdotca/chizu/features/country-gq` | [Features: country-gq](entry:features-country-gq) |
 | `@johnmorrisdotca/chizu/features/country-gr` | [Features: country-gr](entry:features-country-gr) |
 | `@johnmorrisdotca/chizu/features/country-gs` | [Features: country-gs](entry:features-country-gs) |
@@ -424,6 +447,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-mm` | [Features: country-mm](entry:features-country-mm) |
 | `@johnmorrisdotca/chizu/features/country-mn` | [Features: country-mn](entry:features-country-mn) |
 | `@johnmorrisdotca/chizu/features/country-mp` | [Features: country-mp](entry:features-country-mp) |
+| `@johnmorrisdotca/chizu/features/country-mq` | [Features: country-mq](entry:features-country-mq) |
 | `@johnmorrisdotca/chizu/features/country-mr` | [Features: country-mr](entry:features-country-mr) |
 | `@johnmorrisdotca/chizu/features/country-ms` | [Features: country-ms](entry:features-country-ms) |
 | `@johnmorrisdotca/chizu/features/country-mt` | [Features: country-mt](entry:features-country-mt) |
@@ -461,6 +485,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-pw` | [Features: country-pw](entry:features-country-pw) |
 | `@johnmorrisdotca/chizu/features/country-py` | [Features: country-py](entry:features-country-py) |
 | `@johnmorrisdotca/chizu/features/country-qa` | [Features: country-qa](entry:features-country-qa) |
+| `@johnmorrisdotca/chizu/features/country-re` | [Features: country-re](entry:features-country-re) |
 | `@johnmorrisdotca/chizu/features/country-ro` | [Features: country-ro](entry:features-country-ro) |
 | `@johnmorrisdotca/chizu/features/country-rs` | [Features: country-rs](entry:features-country-rs) |
 | `@johnmorrisdotca/chizu/features/country-ru` | [Features: country-ru](entry:features-country-ru) |
@@ -473,6 +498,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-sg` | [Features: country-sg](entry:features-country-sg) |
 | `@johnmorrisdotca/chizu/features/country-sh` | [Features: country-sh](entry:features-country-sh) |
 | `@johnmorrisdotca/chizu/features/country-si` | [Features: country-si](entry:features-country-si) |
+| `@johnmorrisdotca/chizu/features/country-sj` | [Features: country-sj](entry:features-country-sj) |
 | `@johnmorrisdotca/chizu/features/country-sk` | [Features: country-sk](entry:features-country-sk) |
 | `@johnmorrisdotca/chizu/features/country-sl` | [Features: country-sl](entry:features-country-sl) |
 | `@johnmorrisdotca/chizu/features/country-sm` | [Features: country-sm](entry:features-country-sm) |
@@ -487,9 +513,11 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-sz` | [Features: country-sz](entry:features-country-sz) |
 | `@johnmorrisdotca/chizu/features/country-tc` | [Features: country-tc](entry:features-country-tc) |
 | `@johnmorrisdotca/chizu/features/country-td` | [Features: country-td](entry:features-country-td) |
+| `@johnmorrisdotca/chizu/features/country-tf` | [Features: country-tf](entry:features-country-tf) |
 | `@johnmorrisdotca/chizu/features/country-tg` | [Features: country-tg](entry:features-country-tg) |
 | `@johnmorrisdotca/chizu/features/country-th` | [Features: country-th](entry:features-country-th) |
 | `@johnmorrisdotca/chizu/features/country-tj` | [Features: country-tj](entry:features-country-tj) |
+| `@johnmorrisdotca/chizu/features/country-tk` | [Features: country-tk](entry:features-country-tk) |
 | `@johnmorrisdotca/chizu/features/country-tl` | [Features: country-tl](entry:features-country-tl) |
 | `@johnmorrisdotca/chizu/features/country-tm` | [Features: country-tm](entry:features-country-tm) |
 | `@johnmorrisdotca/chizu/features/country-tn` | [Features: country-tn](entry:features-country-tn) |
@@ -501,6 +529,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-tz` | [Features: country-tz](entry:features-country-tz) |
 | `@johnmorrisdotca/chizu/features/country-ua` | [Features: country-ua](entry:features-country-ua) |
 | `@johnmorrisdotca/chizu/features/country-ug` | [Features: country-ug](entry:features-country-ug) |
+| `@johnmorrisdotca/chizu/features/country-um` | [Features: country-um](entry:features-country-um) |
 | `@johnmorrisdotca/chizu/features/country-us` | [Features: country-us](entry:features-country-us) |
 | `@johnmorrisdotca/chizu/features/country-uy` | [Features: country-uy](entry:features-country-uy) |
 | `@johnmorrisdotca/chizu/features/country-uz` | [Features: country-uz](entry:features-country-uz) |
@@ -514,6 +543,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/country-ws` | [Features: country-ws](entry:features-country-ws) |
 | `@johnmorrisdotca/chizu/features/country-xk` | [Features: country-xk](entry:features-country-xk) |
 | `@johnmorrisdotca/chizu/features/country-ye` | [Features: country-ye](entry:features-country-ye) |
+| `@johnmorrisdotca/chizu/features/country-yt` | [Features: country-yt](entry:features-country-yt) |
 | `@johnmorrisdotca/chizu/features/country-za` | [Features: country-za](entry:features-country-za) |
 | `@johnmorrisdotca/chizu/features/country-zm` | [Features: country-zm](entry:features-country-zm) |
 | `@johnmorrisdotca/chizu/features/country-zw` | [Features: country-zw](entry:features-country-zw) |

@@ -1,8 +1,8 @@
 {
   "job": "SVG maps for JavaScript",
   "pitch": {
-    "en": "Draw SVG maps of the world, its 238 countries and the regions of 32 of them, frame them, place numbered callouts and build geography quizzes, with names in English and Japanese today (Spanish, German and Chinese are planned).",
-    "ja": "世界、238の国、32か国の州や県などの地域を、SVGの地図に描けます。表示する範囲を決めたり、番号付きの注記をつけたり、地理クイズを作ったりもできます。名前は今のところ英語と日本語で、スペイン語、ドイツ語、中国語にも対応する予定です。"
+    "en": "Draw SVG maps of the world, its 253 countries and the regions of 32 of them, frame them, place numbered callouts and build geography quizzes, with names in English and Japanese today (Spanish, German and Chinese are planned).",
+    "ja": "世界、253の国、32か国の州や県などの地域を、SVGの地図に描けます。表示する範囲を決めたり、番号付きの注記をつけたり、地理クイズを作ったりもできます。名前は今のところ英語と日本語で、スペイン語、ドイツ語、中国語にも対応する予定です。"
   },
   "name": {
     "en": "Chizu is the Japanese word 地図 for map.",
@@ -77,6 +77,10 @@
     "./countries/ao": {
       "en": "Angola outline",
       "ja": "アンゴラの輪郭"
+    },
+    "./countries/aq": {
+      "en": "Antarctica outline",
+      "ja": "南極の輪郭"
     },
     "./countries/ar": {
       "en": "Argentina outline",
@@ -162,6 +166,10 @@
       "en": "Bolivia outline",
       "ja": "ボリビアの輪郭"
     },
+    "./countries/bq": {
+      "en": "Caribbean Netherlands outline",
+      "ja": "オランダ領カリブの輪郭"
+    },
     "./countries/br": {
       "en": "Brazil outline",
       "ja": "ブラジルの輪郭"
@@ -173,6 +181,10 @@
     "./countries/bt": {
       "en": "Bhutan outline",
       "ja": "ブータンの輪郭"
+    },
+    "./countries/bv": {
+      "en": "Bouvet Island outline",
+      "ja": "ブーベ島の輪郭"
     },
     "./countries/bw": {
       "en": "Botswana outline",
@@ -189,6 +201,10 @@
     "./countries/ca": {
       "en": "Canada outline",
       "ja": "カナダの輪郭"
+    },
+    "./countries/cc": {
+      "en": "Cocos Islands outline",
+      "ja": "ココス諸島の輪郭"
     },
     "./countries/cd": {
       "en": "DR Congo outline",
@@ -245,6 +261,10 @@
     "./countries/cw": {
       "en": "Curaçao outline",
       "ja": "キュラソーの輪郭"
+    },
+    "./countries/cx": {
+      "en": "Christmas Island outline",
+      "ja": "クリスマス島の輪郭"
     },
     "./countries/cy": {
       "en": "Cyprus outline",
@@ -346,6 +366,10 @@
       "en": "Georgia outline",
       "ja": "ジョージアの輪郭"
     },
+    "./countries/gf": {
+      "en": "French Guiana outline",
+      "ja": "仏領ギアナの輪郭"
+    },
     "./countries/gg": {
       "en": "Guernsey outline",
       "ja": "ガーンジーの輪郭"
@@ -353,6 +377,10 @@
     "./countries/gh": {
       "en": "Ghana outline",
       "ja": "ガーナの輪郭"
+    },
+    "./countries/gi": {
+      "en": "Gibraltar outline",
+      "ja": "ジブラルタルの輪郭"
     },
     "./countries/gl": {
       "en": "Greenland outline",
@@ -365,6 +393,10 @@
     "./countries/gn": {
       "en": "Guinea outline",
       "ja": "ギニアの輪郭"
+    },
+    "./countries/gp": {
+      "en": "Guadeloupe outline",
+      "ja": "グアドループの輪郭"
     },
     "./countries/gq": {
       "en": "Equatorial Guinea outline",
@@ -622,6 +654,10 @@
       "en": "Northern Mariana Islands outline",
       "ja": "北マリアナ諸島の輪郭"
     },
+    "./countries/mq": {
+      "en": "Martinique outline",
+      "ja": "マルティニークの輪郭"
+    },
     "./countries/mr": {
       "en": "Mauritania outline",
       "ja": "モーリタニアの輪郭"
@@ -770,6 +806,10 @@
       "en": "Qatar outline",
       "ja": "カタールの輪郭"
     },
+    "./countries/re": {
+      "en": "Réunion outline",
+      "ja": "レユニオンの輪郭"
+    },
     "./countries/ro": {
       "en": "Romania outline",
       "ja": "ルーマニアの輪郭"
@@ -817,6 +857,10 @@
     "./countries/si": {
       "en": "Slovenia outline",
       "ja": "スロベニアの輪郭"
+    },
+    "./countries/sj": {
+      "en": "Svalbard & Jan Mayen outline",
+      "ja": "スバールバル諸島・ヤンマイエン島の輪郭"
     },
     "./countries/sk": {
       "en": "Slovakia outline",
@@ -874,6 +918,10 @@
       "en": "Chad outline",
       "ja": "チャドの輪郭"
     },
+    "./countries/tf": {
+      "en": "French Southern Territories outline",
+      "ja": "仏領極南諸島の輪郭"
+    },
     "./countries/tg": {
       "en": "Togo outline",
       "ja": "トーゴの輪郭"
@@ -885,6 +933,10 @@
     "./countries/tj": {
       "en": "Tajikistan outline",
       "ja": "タジキスタンの輪郭"
+    },
+    "./countries/tk": {
+      "en": "Tokelau outline",
+      "ja": "トケラウの輪郭"
     },
     "./countries/tl": {
       "en": "Timor-Leste outline",
@@ -929,6 +981,10 @@
     "./countries/ug": {
       "en": "Uganda outline",
       "ja": "ウガンダの輪郭"
+    },
+    "./countries/um": {
+      "en": "U.S. Outlying Islands outline",
+      "ja": "合衆国領有小離島の輪郭"
     },
     "./countries/us": {
       "en": "United States outline",
@@ -985,6 +1041,10 @@
     "./countries/ye": {
       "en": "Yemen outline",
       "ja": "イエメンの輪郭"
+    },
+    "./countries/yt": {
+      "en": "Mayotte outline",
+      "ja": "マヨットの輪郭"
     },
     "./countries/za": {
       "en": "South Africa outline",
@@ -1162,6 +1222,10 @@
       "en": "Features: country-ao",
       "ja": "地物：country-ao"
     },
+    "./features/country-aq": {
+      "en": "Features: country-aq",
+      "ja": "地物：country-aq"
+    },
     "./features/country-ar": {
       "en": "Features: country-ar",
       "ja": "地物：country-ar"
@@ -1246,6 +1310,10 @@
       "en": "Features: country-bo",
       "ja": "地物：country-bo"
     },
+    "./features/country-bq": {
+      "en": "Features: country-bq",
+      "ja": "地物：country-bq"
+    },
     "./features/country-br": {
       "en": "Features: country-br",
       "ja": "地物：country-br"
@@ -1257,6 +1325,10 @@
     "./features/country-bt": {
       "en": "Features: country-bt",
       "ja": "地物：country-bt"
+    },
+    "./features/country-bv": {
+      "en": "Features: country-bv",
+      "ja": "地物：country-bv"
     },
     "./features/country-bw": {
       "en": "Features: country-bw",
@@ -1273,6 +1345,10 @@
     "./features/country-ca": {
       "en": "Features: country-ca",
       "ja": "地物：country-ca"
+    },
+    "./features/country-cc": {
+      "en": "Features: country-cc",
+      "ja": "地物：country-cc"
     },
     "./features/country-cd": {
       "en": "Features: country-cd",
@@ -1329,6 +1405,10 @@
     "./features/country-cw": {
       "en": "Features: country-cw",
       "ja": "地物：country-cw"
+    },
+    "./features/country-cx": {
+      "en": "Features: country-cx",
+      "ja": "地物：country-cx"
     },
     "./features/country-cy": {
       "en": "Features: country-cy",
@@ -1430,6 +1510,10 @@
       "en": "Features: country-ge",
       "ja": "地物：country-ge"
     },
+    "./features/country-gf": {
+      "en": "Features: country-gf",
+      "ja": "地物：country-gf"
+    },
     "./features/country-gg": {
       "en": "Features: country-gg",
       "ja": "地物：country-gg"
@@ -1437,6 +1521,10 @@
     "./features/country-gh": {
       "en": "Features: country-gh",
       "ja": "地物：country-gh"
+    },
+    "./features/country-gi": {
+      "en": "Features: country-gi",
+      "ja": "地物：country-gi"
     },
     "./features/country-gl": {
       "en": "Features: country-gl",
@@ -1449,6 +1537,10 @@
     "./features/country-gn": {
       "en": "Features: country-gn",
       "ja": "地物：country-gn"
+    },
+    "./features/country-gp": {
+      "en": "Features: country-gp",
+      "ja": "地物：country-gp"
     },
     "./features/country-gq": {
       "en": "Features: country-gq",
@@ -1698,6 +1790,10 @@
       "en": "Features: country-mp",
       "ja": "地物：country-mp"
     },
+    "./features/country-mq": {
+      "en": "Features: country-mq",
+      "ja": "地物：country-mq"
+    },
     "./features/country-mr": {
       "en": "Features: country-mr",
       "ja": "地物：country-mr"
@@ -1846,6 +1942,10 @@
       "en": "Features: country-qa",
       "ja": "地物：country-qa"
     },
+    "./features/country-re": {
+      "en": "Features: country-re",
+      "ja": "地物：country-re"
+    },
     "./features/country-ro": {
       "en": "Features: country-ro",
       "ja": "地物：country-ro"
@@ -1893,6 +1993,10 @@
     "./features/country-si": {
       "en": "Features: country-si",
       "ja": "地物：country-si"
+    },
+    "./features/country-sj": {
+      "en": "Features: country-sj",
+      "ja": "地物：country-sj"
     },
     "./features/country-sk": {
       "en": "Features: country-sk",
@@ -1950,6 +2054,10 @@
       "en": "Features: country-td",
       "ja": "地物：country-td"
     },
+    "./features/country-tf": {
+      "en": "Features: country-tf",
+      "ja": "地物：country-tf"
+    },
     "./features/country-tg": {
       "en": "Features: country-tg",
       "ja": "地物：country-tg"
@@ -1961,6 +2069,10 @@
     "./features/country-tj": {
       "en": "Features: country-tj",
       "ja": "地物：country-tj"
+    },
+    "./features/country-tk": {
+      "en": "Features: country-tk",
+      "ja": "地物：country-tk"
     },
     "./features/country-tl": {
       "en": "Features: country-tl",
@@ -2005,6 +2117,10 @@
     "./features/country-ug": {
       "en": "Features: country-ug",
       "ja": "地物：country-ug"
+    },
+    "./features/country-um": {
+      "en": "Features: country-um",
+      "ja": "地物：country-um"
     },
     "./features/country-us": {
       "en": "Features: country-us",
@@ -2057,6 +2173,10 @@
     "./features/country-ye": {
       "en": "Features: country-ye",
       "ja": "地物：country-ye"
+    },
+    "./features/country-yt": {
+      "en": "Features: country-yt",
+      "ja": "地物：country-yt"
     },
     "./features/country-za": {
       "en": "Features: country-za",

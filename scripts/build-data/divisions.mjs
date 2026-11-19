@@ -1,4 +1,12 @@
-import { geoAlbers, geoArea, geoAzimuthalEqualArea, geoCentroid, geoConicEqualArea, geoPath } from "d3-geo";
+import {
+  geoAlbers,
+  geoArea,
+  geoAzimuthalEqualArea,
+  geoCentroid,
+  geoConicEqualArea,
+  geoContains,
+  geoPath,
+} from "d3-geo";
 import { gapBetween, isoCodes, polygonsOf, regionFields, withRegionCodes } from "../build-data.mjs";
 import { NATURAL_EARTH, TERRITORY_PARTS } from "../data-config.mjs";
 import { dissolve } from "./dissolve.mjs";
@@ -43,14 +51,17 @@ function corePieces(geometry) {
   return polygons.filter((_, i) => kept.has(i));
 }
 
+/** One country on its own canvas. A place cut from another file (`cutOutlines`) is drawn from that file as it is, its `__file` naming the layer and scale. */
 export function buildCountry(feature, near, fine) {
   const p = feature.properties;
   const code = p.__code;
   const area = geoArea(feature) * EARTH_RADIUS_KM ** 2;
-  const finer = area < SMALL_KM2 ? fine.get(p.ADM0_A3) : undefined;
+  const finer = !p.__file && area < SMALL_KM2 ? fine.get(p.ADM0_A3) : undefined;
+  const [, scale, layer] = p.__file?.match(/^ne_(\d+m)_admin_0_(\w+)\.geojson$/) ?? [];
   const pieces = corePieces((finer ?? feature).geometry);
   const geometry = { type: "MultiPolygon", coordinates: pieces };
-  const [lon, lat] = geoCentroid(geometry);
+  // A country round the South Pole (Antarctica) is centred on it, 0° up, as polar maps draw it.
+  const [lon, lat] = geoContains(geometry, [0, -90]) ? [0, -90] : geoCentroid(geometry);
   const projection = geoAzimuthalEqualArea()
     .rotate([-lon, -lat])
     .fitExtent(
@@ -95,7 +106,7 @@ export function buildCountry(feature, near, fine) {
       translate: projection.translate().map(keepTranslate),
     },
     insets: [],
-    source: `Natural Earth ${NATURAL_EARTH.version} admin-0 countries, ${finer ? "1:10m" : "1:50m"}, Lambert azimuthal equal-area centred on the country, longer side ${COUNTRY_SIDE}`,
+    source: `Natural Earth ${NATURAL_EARTH.version} admin-0 ${layer ? layer.replace("_", " ") : "countries"}, ${scale ? `1:${scale}` : finer ? "1:10m" : "1:50m"}, Lambert azimuthal equal-area centred on the country, longer side ${COUNTRY_SIDE}`,
     regions: [region],
   };
 }

@@ -19,6 +19,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/al` | [アルバニアの輪郭](entry:countries-al) |
 | `@johnmorrisdotca/chizu/countries/am` | [アルメニアの輪郭](entry:countries-am) |
 | `@johnmorrisdotca/chizu/countries/ao` | [アンゴラの輪郭](entry:countries-ao) |
+| `@johnmorrisdotca/chizu/countries/aq` | [南極の輪郭](entry:countries-aq) |
 | `@johnmorrisdotca/chizu/countries/ar` | [アルゼンチンの輪郭](entry:countries-ar) |
 | `@johnmorrisdotca/chizu/countries/as` | [米領サモアの輪郭](entry:countries-as) |
 | `@johnmorrisdotca/chizu/countries/at` | [オーストリアの輪郭](entry:countries-at) |
@@ -40,13 +41,16 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/bm` | [バミューダの輪郭](entry:countries-bm) |
 | `@johnmorrisdotca/chizu/countries/bn` | [ブルネイの輪郭](entry:countries-bn) |
 | `@johnmorrisdotca/chizu/countries/bo` | [ボリビアの輪郭](entry:countries-bo) |
+| `@johnmorrisdotca/chizu/countries/bq` | [オランダ領カリブの輪郭](entry:countries-bq) |
 | `@johnmorrisdotca/chizu/countries/br` | [ブラジルの輪郭](entry:countries-br) |
 | `@johnmorrisdotca/chizu/countries/bs` | [バハマの輪郭](entry:countries-bs) |
 | `@johnmorrisdotca/chizu/countries/bt` | [ブータンの輪郭](entry:countries-bt) |
+| `@johnmorrisdotca/chizu/countries/bv` | [ブーベ島の輪郭](entry:countries-bv) |
 | `@johnmorrisdotca/chizu/countries/bw` | [ボツワナの輪郭](entry:countries-bw) |
 | `@johnmorrisdotca/chizu/countries/by` | [ベラルーシの輪郭](entry:countries-by) |
 | `@johnmorrisdotca/chizu/countries/bz` | [ベリーズの輪郭](entry:countries-bz) |
 | `@johnmorrisdotca/chizu/countries/ca` | [カナダの輪郭](entry:countries-ca) |
+| `@johnmorrisdotca/chizu/countries/cc` | [ココス諸島の輪郭](entry:countries-cc) |
 | `@johnmorrisdotca/chizu/countries/cd` | [コンゴ民主共和国の輪郭](entry:countries-cd) |
 | `@johnmorrisdotca/chizu/countries/cf` | [中央アフリカ共和国の輪郭](entry:countries-cf) |
 | `@johnmorrisdotca/chizu/countries/cg` | [コンゴ共和国の輪郭](entry:countries-cg) |
@@ -61,6 +65,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/cu` | [キューバの輪郭](entry:countries-cu) |
 | `@johnmorrisdotca/chizu/countries/cv` | [カーボベルデの輪郭](entry:countries-cv) |
 | `@johnmorrisdotca/chizu/countries/cw` | [キュラソーの輪郭](entry:countries-cw) |
+| `@johnmorrisdotca/chizu/countries/cx` | [クリスマス島の輪郭](entry:countries-cx) |
 | `@johnmorrisdotca/chizu/countries/cy` | [キプロスの輪郭](entry:countries-cy) |
 | `@johnmorrisdotca/chizu/countries/cz` | [チェコの輪郭](entry:countries-cz) |
 | `@johnmorrisdotca/chizu/countries/de` | [ドイツの輪郭](entry:countries-de) |
@@ -86,11 +91,14 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/gb` | [イギリスの輪郭](entry:countries-gb) |
 | `@johnmorrisdotca/chizu/countries/gd` | [グレナダの輪郭](entry:countries-gd) |
 | `@johnmorrisdotca/chizu/countries/ge` | [ジョージアの輪郭](entry:countries-ge) |
+| `@johnmorrisdotca/chizu/countries/gf` | [仏領ギアナの輪郭](entry:countries-gf) |
 | `@johnmorrisdotca/chizu/countries/gg` | [ガーンジーの輪郭](entry:countries-gg) |
 | `@johnmorrisdotca/chizu/countries/gh` | [ガーナの輪郭](entry:countries-gh) |
+| `@johnmorrisdotca/chizu/countries/gi` | [ジブラルタルの輪郭](entry:countries-gi) |
 | `@johnmorrisdotca/chizu/countries/gl` | [グリーンランドの輪郭](entry:countries-gl) |
 | `@johnmorrisdotca/chizu/countries/gm` | [ガンビアの輪郭](entry:countries-gm) |
 | `@johnmorrisdotca/chizu/countries/gn` | [ギニアの輪郭](entry:countries-gn) |
+| `@johnmorrisdotca/chizu/countries/gp` | [グアドループの輪郭](entry:countries-gp) |
 | `@johnmorrisdotca/chizu/countries/gq` | [赤道ギニアの輪郭](entry:countries-gq) |
 | `@johnmorrisdotca/chizu/countries/gr` | [ギリシャの輪郭](entry:countries-gr) |
 | `@johnmorrisdotca/chizu/countries/gs` | [サウスジョージア・サウスサンドウィッチ諸島の輪郭](entry:countries-gs) |
@@ -155,6 +163,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/mn` | [モンゴルの輪郭](entry:countries-mn) |
 | `@johnmorrisdotca/chizu/countries/mo` | [マカオの輪郭](entry:countries-mo) |
 | `@johnmorrisdotca/chizu/countries/mp` | [北マリアナ諸島の輪郭](entry:countries-mp) |
+| `@johnmorrisdotca/chizu/countries/mq` | [マルティニークの輪郭](entry:countries-mq) |
 | `@johnmorrisdotca/chizu/countries/mr` | [モーリタニアの輪郭](entry:countries-mr) |
 | `@johnmorrisdotca/chizu/countries/ms` | [モントセラトの輪郭](entry:countries-ms) |
 | `@johnmorrisdotca/chizu/countries/mt` | [マルタの輪郭](entry:countries-mt) |
@@ -192,6 +201,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/pw` | [パラオの輪郭](entry:countries-pw) |
 | `@johnmorrisdotca/chizu/countries/py` | [パラグアイの輪郭](entry:countries-py) |
 | `@johnmorrisdotca/chizu/countries/qa` | [カタールの輪郭](entry:countries-qa) |
+| `@johnmorrisdotca/chizu/countries/re` | [レユニオンの輪郭](entry:countries-re) |
 | `@johnmorrisdotca/chizu/countries/ro` | [ルーマニアの輪郭](entry:countries-ro) |
 | `@johnmorrisdotca/chizu/countries/rs` | [セルビアの輪郭](entry:countries-rs) |
 | `@johnmorrisdotca/chizu/countries/ru` | [ロシアの輪郭](entry:countries-ru) |
@@ -204,6 +214,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/sg` | [シンガポールの輪郭](entry:countries-sg) |
 | `@johnmorrisdotca/chizu/countries/sh` | [セントヘレナの輪郭](entry:countries-sh) |
 | `@johnmorrisdotca/chizu/countries/si` | [スロベニアの輪郭](entry:countries-si) |
+| `@johnmorrisdotca/chizu/countries/sj` | [スバールバル諸島・ヤンマイエン島の輪郭](entry:countries-sj) |
 | `@johnmorrisdotca/chizu/countries/sk` | [スロバキアの輪郭](entry:countries-sk) |
 | `@johnmorrisdotca/chizu/countries/sl` | [シエラレオネの輪郭](entry:countries-sl) |
 | `@johnmorrisdotca/chizu/countries/sm` | [サンマリノの輪郭](entry:countries-sm) |
@@ -218,9 +229,11 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/sz` | [エスワティニの輪郭](entry:countries-sz) |
 | `@johnmorrisdotca/chizu/countries/tc` | [タークス・カイコス諸島の輪郭](entry:countries-tc) |
 | `@johnmorrisdotca/chizu/countries/td` | [チャドの輪郭](entry:countries-td) |
+| `@johnmorrisdotca/chizu/countries/tf` | [仏領極南諸島の輪郭](entry:countries-tf) |
 | `@johnmorrisdotca/chizu/countries/tg` | [トーゴの輪郭](entry:countries-tg) |
 | `@johnmorrisdotca/chizu/countries/th` | [タイの輪郭](entry:countries-th) |
 | `@johnmorrisdotca/chizu/countries/tj` | [タジキスタンの輪郭](entry:countries-tj) |
+| `@johnmorrisdotca/chizu/countries/tk` | [トケラウの輪郭](entry:countries-tk) |
 | `@johnmorrisdotca/chizu/countries/tl` | [東ティモールの輪郭](entry:countries-tl) |
 | `@johnmorrisdotca/chizu/countries/tm` | [トルクメニスタンの輪郭](entry:countries-tm) |
 | `@johnmorrisdotca/chizu/countries/tn` | [チュニジアの輪郭](entry:countries-tn) |
@@ -232,6 +245,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/tz` | [タンザニアの輪郭](entry:countries-tz) |
 | `@johnmorrisdotca/chizu/countries/ua` | [ウクライナの輪郭](entry:countries-ua) |
 | `@johnmorrisdotca/chizu/countries/ug` | [ウガンダの輪郭](entry:countries-ug) |
+| `@johnmorrisdotca/chizu/countries/um` | [合衆国領有小離島の輪郭](entry:countries-um) |
 | `@johnmorrisdotca/chizu/countries/us` | [アメリカの輪郭](entry:countries-us) |
 | `@johnmorrisdotca/chizu/countries/uy` | [ウルグアイの輪郭](entry:countries-uy) |
 | `@johnmorrisdotca/chizu/countries/uz` | [ウズベキスタンの輪郭](entry:countries-uz) |
@@ -246,6 +260,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/countries/ws` | [サモアの輪郭](entry:countries-ws) |
 | `@johnmorrisdotca/chizu/countries/xk` | [コソボの輪郭](entry:countries-xk) |
 | `@johnmorrisdotca/chizu/countries/ye` | [イエメンの輪郭](entry:countries-ye) |
+| `@johnmorrisdotca/chizu/countries/yt` | [マヨットの輪郭](entry:countries-yt) |
 | `@johnmorrisdotca/chizu/countries/za` | [南アフリカの輪郭](entry:countries-za) |
 | `@johnmorrisdotca/chizu/countries/zm` | [ザンビアの輪郭](entry:countries-zm) |
 | `@johnmorrisdotca/chizu/countries/zw` | [ジンバブエの輪郭](entry:countries-zw) |
@@ -290,6 +305,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-al` | [地物：country-al](entry:features-country-al) |
 | `@johnmorrisdotca/chizu/features/country-am` | [地物：country-am](entry:features-country-am) |
 | `@johnmorrisdotca/chizu/features/country-ao` | [地物：country-ao](entry:features-country-ao) |
+| `@johnmorrisdotca/chizu/features/country-aq` | [地物：country-aq](entry:features-country-aq) |
 | `@johnmorrisdotca/chizu/features/country-ar` | [地物：country-ar](entry:features-country-ar) |
 | `@johnmorrisdotca/chizu/features/country-as` | [地物：country-as](entry:features-country-as) |
 | `@johnmorrisdotca/chizu/features/country-at` | [地物：country-at](entry:features-country-at) |
@@ -311,13 +327,16 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-bm` | [地物：country-bm](entry:features-country-bm) |
 | `@johnmorrisdotca/chizu/features/country-bn` | [地物：country-bn](entry:features-country-bn) |
 | `@johnmorrisdotca/chizu/features/country-bo` | [地物：country-bo](entry:features-country-bo) |
+| `@johnmorrisdotca/chizu/features/country-bq` | [地物：country-bq](entry:features-country-bq) |
 | `@johnmorrisdotca/chizu/features/country-br` | [地物：country-br](entry:features-country-br) |
 | `@johnmorrisdotca/chizu/features/country-bs` | [地物：country-bs](entry:features-country-bs) |
 | `@johnmorrisdotca/chizu/features/country-bt` | [地物：country-bt](entry:features-country-bt) |
+| `@johnmorrisdotca/chizu/features/country-bv` | [地物：country-bv](entry:features-country-bv) |
 | `@johnmorrisdotca/chizu/features/country-bw` | [地物：country-bw](entry:features-country-bw) |
 | `@johnmorrisdotca/chizu/features/country-by` | [地物：country-by](entry:features-country-by) |
 | `@johnmorrisdotca/chizu/features/country-bz` | [地物：country-bz](entry:features-country-bz) |
 | `@johnmorrisdotca/chizu/features/country-ca` | [地物：country-ca](entry:features-country-ca) |
+| `@johnmorrisdotca/chizu/features/country-cc` | [地物：country-cc](entry:features-country-cc) |
 | `@johnmorrisdotca/chizu/features/country-cd` | [地物：country-cd](entry:features-country-cd) |
 | `@johnmorrisdotca/chizu/features/country-cf` | [地物：country-cf](entry:features-country-cf) |
 | `@johnmorrisdotca/chizu/features/country-cg` | [地物：country-cg](entry:features-country-cg) |
@@ -332,6 +351,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-cu` | [地物：country-cu](entry:features-country-cu) |
 | `@johnmorrisdotca/chizu/features/country-cv` | [地物：country-cv](entry:features-country-cv) |
 | `@johnmorrisdotca/chizu/features/country-cw` | [地物：country-cw](entry:features-country-cw) |
+| `@johnmorrisdotca/chizu/features/country-cx` | [地物：country-cx](entry:features-country-cx) |
 | `@johnmorrisdotca/chizu/features/country-cy` | [地物：country-cy](entry:features-country-cy) |
 | `@johnmorrisdotca/chizu/features/country-cz` | [地物：country-cz](entry:features-country-cz) |
 | `@johnmorrisdotca/chizu/features/country-de` | [地物：country-de](entry:features-country-de) |
@@ -357,11 +377,14 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-gb` | [地物：country-gb](entry:features-country-gb) |
 | `@johnmorrisdotca/chizu/features/country-gd` | [地物：country-gd](entry:features-country-gd) |
 | `@johnmorrisdotca/chizu/features/country-ge` | [地物：country-ge](entry:features-country-ge) |
+| `@johnmorrisdotca/chizu/features/country-gf` | [地物：country-gf](entry:features-country-gf) |
 | `@johnmorrisdotca/chizu/features/country-gg` | [地物：country-gg](entry:features-country-gg) |
 | `@johnmorrisdotca/chizu/features/country-gh` | [地物：country-gh](entry:features-country-gh) |
+| `@johnmorrisdotca/chizu/features/country-gi` | [地物：country-gi](entry:features-country-gi) |
 | `@johnmorrisdotca/chizu/features/country-gl` | [地物：country-gl](entry:features-country-gl) |
 | `@johnmorrisdotca/chizu/features/country-gm` | [地物：country-gm](entry:features-country-gm) |
 | `@johnmorrisdotca/chizu/features/country-gn` | [地物：country-gn](entry:features-country-gn) |
+| `@johnmorrisdotca/chizu/features/country-gp` | [地物：country-gp](entry:features-country-gp) |
 | `@johnmorrisdotca/chizu/features/country-gq` | [地物：country-gq](entry:features-country-gq) |
 | `@johnmorrisdotca/chizu/features/country-gr` | [地物：country-gr](entry:features-country-gr) |
 | `@johnmorrisdotca/chizu/features/country-gs` | [地物：country-gs](entry:features-country-gs) |
@@ -424,6 +447,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-mm` | [地物：country-mm](entry:features-country-mm) |
 | `@johnmorrisdotca/chizu/features/country-mn` | [地物：country-mn](entry:features-country-mn) |
 | `@johnmorrisdotca/chizu/features/country-mp` | [地物：country-mp](entry:features-country-mp) |
+| `@johnmorrisdotca/chizu/features/country-mq` | [地物：country-mq](entry:features-country-mq) |
 | `@johnmorrisdotca/chizu/features/country-mr` | [地物：country-mr](entry:features-country-mr) |
 | `@johnmorrisdotca/chizu/features/country-ms` | [地物：country-ms](entry:features-country-ms) |
 | `@johnmorrisdotca/chizu/features/country-mt` | [地物：country-mt](entry:features-country-mt) |
@@ -461,6 +485,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-pw` | [地物：country-pw](entry:features-country-pw) |
 | `@johnmorrisdotca/chizu/features/country-py` | [地物：country-py](entry:features-country-py) |
 | `@johnmorrisdotca/chizu/features/country-qa` | [地物：country-qa](entry:features-country-qa) |
+| `@johnmorrisdotca/chizu/features/country-re` | [地物：country-re](entry:features-country-re) |
 | `@johnmorrisdotca/chizu/features/country-ro` | [地物：country-ro](entry:features-country-ro) |
 | `@johnmorrisdotca/chizu/features/country-rs` | [地物：country-rs](entry:features-country-rs) |
 | `@johnmorrisdotca/chizu/features/country-ru` | [地物：country-ru](entry:features-country-ru) |
@@ -473,6 +498,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-sg` | [地物：country-sg](entry:features-country-sg) |
 | `@johnmorrisdotca/chizu/features/country-sh` | [地物：country-sh](entry:features-country-sh) |
 | `@johnmorrisdotca/chizu/features/country-si` | [地物：country-si](entry:features-country-si) |
+| `@johnmorrisdotca/chizu/features/country-sj` | [地物：country-sj](entry:features-country-sj) |
 | `@johnmorrisdotca/chizu/features/country-sk` | [地物：country-sk](entry:features-country-sk) |
 | `@johnmorrisdotca/chizu/features/country-sl` | [地物：country-sl](entry:features-country-sl) |
 | `@johnmorrisdotca/chizu/features/country-sm` | [地物：country-sm](entry:features-country-sm) |
@@ -487,9 +513,11 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-sz` | [地物：country-sz](entry:features-country-sz) |
 | `@johnmorrisdotca/chizu/features/country-tc` | [地物：country-tc](entry:features-country-tc) |
 | `@johnmorrisdotca/chizu/features/country-td` | [地物：country-td](entry:features-country-td) |
+| `@johnmorrisdotca/chizu/features/country-tf` | [地物：country-tf](entry:features-country-tf) |
 | `@johnmorrisdotca/chizu/features/country-tg` | [地物：country-tg](entry:features-country-tg) |
 | `@johnmorrisdotca/chizu/features/country-th` | [地物：country-th](entry:features-country-th) |
 | `@johnmorrisdotca/chizu/features/country-tj` | [地物：country-tj](entry:features-country-tj) |
+| `@johnmorrisdotca/chizu/features/country-tk` | [地物：country-tk](entry:features-country-tk) |
 | `@johnmorrisdotca/chizu/features/country-tl` | [地物：country-tl](entry:features-country-tl) |
 | `@johnmorrisdotca/chizu/features/country-tm` | [地物：country-tm](entry:features-country-tm) |
 | `@johnmorrisdotca/chizu/features/country-tn` | [地物：country-tn](entry:features-country-tn) |
@@ -501,6 +529,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-tz` | [地物：country-tz](entry:features-country-tz) |
 | `@johnmorrisdotca/chizu/features/country-ua` | [地物：country-ua](entry:features-country-ua) |
 | `@johnmorrisdotca/chizu/features/country-ug` | [地物：country-ug](entry:features-country-ug) |
+| `@johnmorrisdotca/chizu/features/country-um` | [地物：country-um](entry:features-country-um) |
 | `@johnmorrisdotca/chizu/features/country-us` | [地物：country-us](entry:features-country-us) |
 | `@johnmorrisdotca/chizu/features/country-uy` | [地物：country-uy](entry:features-country-uy) |
 | `@johnmorrisdotca/chizu/features/country-uz` | [地物：country-uz](entry:features-country-uz) |
@@ -514,6 +543,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/features/country-ws` | [地物：country-ws](entry:features-country-ws) |
 | `@johnmorrisdotca/chizu/features/country-xk` | [地物：country-xk](entry:features-country-xk) |
 | `@johnmorrisdotca/chizu/features/country-ye` | [地物：country-ye](entry:features-country-ye) |
+| `@johnmorrisdotca/chizu/features/country-yt` | [地物：country-yt](entry:features-country-yt) |
 | `@johnmorrisdotca/chizu/features/country-za` | [地物：country-za](entry:features-country-za) |
 | `@johnmorrisdotca/chizu/features/country-zm` | [地物：country-zm](entry:features-country-zm) |
 | `@johnmorrisdotca/chizu/features/country-zw` | [地物：country-zw](entry:features-country-zw) |
