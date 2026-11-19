@@ -1126,6 +1126,10 @@
       "en": "Vietnam regions",
       "ja": "ベトナムの行政区画"
     },
+    "./divisions/vn-2025": {
+      "en": "Vietnam regions, 2025 (34 provinces and cities)",
+      "ja": "ベトナムの行政区画（2025年、34の省・市）"
+    },
     "./features/country-ad": {
       "en": "Features: country-ad",
       "ja": "地物：country-ad"
@@ -2193,6 +2197,10 @@
     "./features/divisions-vn": {
       "en": "Features: divisions-vn",
       "ja": "地物：divisions-vn"
+    },
+    "./features/divisions-vn-2025": {
+      "en": "Features: divisions-vn-2025",
+      "ja": "地物：divisions-vn-2025"
     },
     "./features/world": {
       "en": "Features: world",

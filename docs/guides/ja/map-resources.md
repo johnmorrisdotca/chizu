@@ -2,12 +2,12 @@
 title: 地図と地物のデータ一覧
 section: explanation
 order: 12
-description: 既存の公開パスから作る、地図と地物の固定importの一覧です。
+description: 既存の公開パスから作る、地図と地物の固定 import の一覧です。
 ---
 
 ## 固定のデータ
 
-この一覧は、国・行政区画・地物のワイルドカードと同じファイルを指します。表示に使うキャンバスに対応するデータを選んでください。動的に選ぶ場合は読み込みの関数を使い、未対応のコードはnullになります。データのID、形、順序は変えていません。
+この一覧は、国・行政区画・地物のワイルドカードと同じファイルを指します。表示に使うキャンバスに対応するデータを選んでください。動的に選ぶ場合は読み込みの関数を使い、未対応のコードは null になります。データの ID、形、順序は変えていません。
 
 | Import | データ |
 | --- | --- |
@@ -281,6 +281,7 @@ description: 既存の公開パスから作る、地図と地物の固定import�
 | `@johnmorrisdotca/chizu/divisions/tw` | [台湾の行政区画](entry:divisions-tw) |
 | `@johnmorrisdotca/chizu/divisions/us` | [アメリカの行政区画](entry:divisions-us) |
 | `@johnmorrisdotca/chizu/divisions/vn` | [ベトナムの行政区画](entry:divisions-vn) |
+| `@johnmorrisdotca/chizu/divisions/vn-2025` | [ベトナムの行政区画（2025年、34の省・市）](entry:divisions-vn-2025) |
 | `@johnmorrisdotca/chizu/features/country-ad` | [地物：country-ad](entry:features-country-ad) |
 | `@johnmorrisdotca/chizu/features/country-ae` | [地物：country-ae](entry:features-country-ae) |
 | `@johnmorrisdotca/chizu/features/country-af` | [地物：country-af](entry:features-country-af) |
@@ -548,6 +549,7 @@ description: 既存の公開パスから作る、地図と地物の固定import�
 | `@johnmorrisdotca/chizu/features/divisions-tw` | [地物：divisions-tw](entry:features-divisions-tw) |
 | `@johnmorrisdotca/chizu/features/divisions-us` | [地物：divisions-us](entry:features-divisions-us) |
 | `@johnmorrisdotca/chizu/features/divisions-vn` | [地物：divisions-vn](entry:features-divisions-vn) |
+| `@johnmorrisdotca/chizu/features/divisions-vn-2025` | [地物：divisions-vn-2025](entry:features-divisions-vn-2025) |
 | `@johnmorrisdotca/chizu/features/world` | [地物：world](entry:features-world) |
 
 [地図の読み込み](loading-maps.md)と[地図データのリファレンス](../../map-data.md)も参照してください。

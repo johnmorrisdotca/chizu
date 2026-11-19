@@ -125,7 +125,7 @@ export const NAME_FIXES = {
   "IE:TA_2": { name: "South Tipperary", nameJa: "サウス・ティペラリー" },
   "PH:SUN": { name: "Surigao del Norte", nameJa: "北スリガオ州" },
   // Vietnam's merged provinces and cities of 2025, named as the province whose name each kept (vietnam.mjs).
-  ...Object.fromEntries(VIETNAM_2025.merged.map(({ code, name, nameJa }) => [`VN:${code}`, { name, nameJa }])),
-  // A city since 2025-01-01, Thừa Thiên–Huế province before: the Resolution of 2025 names it thành phố Huế.
-  "VN:26": { name: "Huế" },
+  ...Object.fromEntries(VIETNAM_2025.merged.map(({ code, name, nameJa }) => [`VN-2025:${code}`, { name, nameJa }])),
+  // A city since 2025-01-01 (Resolution 175/2024/QH15), made of the whole of Thừa Thiên–Huế province.
+  "VN-2025:26": { name: "Huế" },
 };

@@ -340,7 +340,10 @@ export function featuresOn(map, projection, sources, options = {}) {
   const onWorld = new Set(map.regions.map((region) => region.code));
   // A region whose ISO code is held (Vietnam's merged provinces) takes the seat of the code it kept.
   const regionByIso = new Map(
-    map.regions.map((region) => [region.iso ?? ISO_JOIN[`${country}:${region.code}`]?.held, region]),
+    map.regions.map((region) => [
+      region.iso ?? ISO_JOIN[`${map.id.replace(/^divisions-/, "").toUpperCase()}:${region.code}`]?.held,
+      region,
+    ]),
   );
   for (const one of sources.features) {
     if (one.group === "capitals") {

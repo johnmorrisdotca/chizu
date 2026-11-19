@@ -155,7 +155,11 @@ describe("the table of countries", () => {
       CHIZU_COUNTRIES.filter((country) => country.hasDivisions)
         .map((country) => country.code.toLowerCase())
         .sort(),
-    ).toEqual(Object.keys(DIVISIONS_LOADERS).sort());
+    ).toEqual(
+      Object.keys(DIVISIONS_LOADERS)
+        .filter((key) => !key.includes("-"))
+        .sort(),
+    );
     expect(Object.keys(COUNTRY_LOADERS).sort()).toEqual(
       CHIZU_COUNTRIES.map((country) => country.code.toLowerCase()).sort(),
     );
@@ -247,9 +251,9 @@ describe("each country alone", () => {
 });
 
 describe("the regions of a country", () => {
-  it("has 32 countries, each a real map", async () => {
+  it("has 32 countries and Vietnam's of 2025, each a real map", async () => {
     const maps = await divisions();
-    expect(maps).toHaveLength(32);
+    expect(maps).toHaveLength(33);
     for (const map of maps) {
       checkMap(map);
       expect(map.kind).toBe("divisions");

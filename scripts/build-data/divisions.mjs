@@ -123,17 +123,23 @@ function joined(config, rawFeatures) {
   return dissolve(rawFeatures.filter(config.filter), units, config.codeFn);
 }
 
+/**
+ * One map of a country's regions. A dated map of a country that has one already (`key`, Vietnam's `vn-2025`) is a
+ * file of its own, and its lines in ISO_JOIN and NAME_FIXES are keyed by its key (`VN-2025:07`), not the country's.
+ */
 export function buildDivisions(config, rawFeatures, countryNames) {
+  const key = config.key ?? config.code.toLowerCase();
+  const id = `divisions-${key}`;
   const features = withRegionCodes(config, config.units ? joined(config, rawFeatures) : rawFeatures);
   if (features.length === 0) throw new Error(`no regions for ${config.code}`);
-  geoSources.set(`divisions-${config.code.toLowerCase()}`, features);
+  geoSources.set(id, features);
   const projection = config
     .projection()
     .fitSize([config.width, config.height], { type: "FeatureCollection", features });
-  const regions = regionsOf(geoPath(projection), features, config);
-  projections.set(`divisions-${config.code.toLowerCase()}`, projection);
+  const regions = regionsOf(geoPath(projection), features, { ...config, code: key.toUpperCase() });
+  projections.set(id, projection);
   return {
-    id: `divisions-${config.code.toLowerCase()}`,
+    id,
     kind: "divisions",
     name: config.countryName,
     ...(countryNames.get(config.code)?.nameJa ? { nameJa: countryNames.get(config.code).nameJa } : {}),

@@ -316,7 +316,7 @@ export async function main() {
         ? null
         : map.kind === "country"
           ? map.regions[0].code
-          : map.id.slice("divisions-".length).toUpperCase();
+          : map.id.slice("divisions-".length).split("-")[0].toUpperCase();
     const features = featuresOn(map, projections.get(map.id), sources, {
       world: map.id === "world",
       avoid,
@@ -451,7 +451,7 @@ export const CHIZU_SOURCE = ${literal({
 `,
   );
   const lines = (list, folder) =>
-    list.map((file) => `  ${file}: () => import("./${folder}/${file}.data.ts"),`).join("\n");
+    list.map((file) => `  ${JSON.stringify(file)}: () => import("./${folder}/${file}.data.ts"),`).join("\n");
   writeFileSync(
     join(out, "loaders.data.ts"),
     `/*
@@ -471,7 +471,7 @@ ${lines(loaders.countries, "countries")}
 /** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
 export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.data.ts");
 
-/** The regions of the ${loaders.divisions.length} countries that have them, by lower-case code. */
+/** The ${loaders.divisions.length} maps of a country's regions, by lower-case code: the country's, or the country's and a year for a dated map (\`vn-2025\`). */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
 ${lines(loaders.divisions, "divisions")}
 };

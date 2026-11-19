@@ -80,8 +80,8 @@ mountChizu(document.getElementById("map")!, { map: WORLD, onSelect: (code) => co
 Each example is run in CI (`pnpm test:readme`). Pictures: [What's in it](#whats-in-it).
 
 - **The world, and 238 countries each on its own.** The world is one canvas of 173 countries, centred on 155°E so the Pacific is not cut; 62 too small for 1:110m are opt-in dots (`/small-states`). Each of the 238 countries and territories is also a map of its own, from 1:50m outlines (1:10m for the small ones, so Singapore and Malta are shapes, not hexagons).
-- **The regions of 32 countries**, each its own file, 1,313 in all: the 50 states and Washington DC, Canada's 10 provinces and 3 territories, China's 31 provinces and municipalities, Germany's 16 states, Brazil's 27, Mexico's 32, Australia's 10 states and territories, France's 96 départements, the United Kingdom's 232 divisions, Japan's 47 prefectures, Vietnam's 34 provinces and cities of 2025 and more.
-- **ISO 3166-2 codes on the regions** (`CA-ON`, `US-TX`, `JP-13`), 1,283 of the 1,313, joined at build time from kuni 国, so figures keyed by ISO code colour the map; the 30 without one (23 of them Vietnam's merged provinces of 2025, which ISO 3166-2 has not coded yet) are listed in [docs/iso-codes.md](./docs/iso-codes.md).
+- **The regions of 32 countries**, each its own file, 1,342 in all: the 50 states and Washington DC, Canada's 10 provinces and 3 territories, China's 31 provinces and municipalities, Germany's 16 states, Brazil's 27, Mexico's 32, Australia's 10 states and territories, France's 96 départements, the United Kingdom's 232 divisions, Japan's 47 prefectures and more.
+- **ISO 3166-2 codes on the regions** (`CA-ON`, `US-TX`, `JP-13`), 1,335 of the 1,342, joined at build time from kuni 国, so figures keyed by ISO code colour the map; the 7 without one are listed in [docs/iso-codes.md](./docs/iso-codes.md).
 
 ```ts
 import WORLD from "@johnmorrisdotca/chizu/world";
@@ -104,7 +104,7 @@ console.log(caspian!.code, caspian!.name, caspian!.kind);   // Q5484 Caspian Sea
 
 <!-- An Airports and harbours section goes here. -->
 
-- **Names in English and Japanese today.** Every country is named in both, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, and 1,312 of the 1,313 regions have a Japanese name, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time. **Spanish, German and Chinese names are planned and not started**; any other language is a table of your own ([Languages](#languages)). The table is its own entry, 52 kB (10 kB gzipped).
+- **Names in English and Japanese today.** Every country is named in both, with the everyday short name (アメリカ for アメリカ合衆国) and the reading in kana, and 1,341 of the 1,342 regions have a Japanese name, read from [kuni 国](https://github.com/johnmorrisdotca/kuni) at build time. **Spanish, German and Chinese names are planned and not started**; any other language is a table of your own ([Languages](#languages)). The table is its own entry, 52 kB (10 kB gzipped).
 
 ```ts
 import { CHIZU_COUNTRIES, countryByCode } from "@johnmorrisdotca/chizu/names";
@@ -520,11 +520,13 @@ country-ie country 238 32
 | A country alone | `@johnmorrisdotca/chizu/countries/<code>` or `loadCountry("<code>")` | 238 countries and territories at 1:50m (1:10m under 60,000 km²), on a canvas of their own whose longer side is 1,000 | 16 kB for Japan, 157 kB for Canada |
 | A country's regions | `@johnmorrisdotca/chizu/divisions/<code>` or `loadDivisions("<code>")` | 32 countries, Natural Earth admin-1 at 1:10m | 203 kB for Germany, 1.8 MB for Russia |
 | Japan's prefectures | `divisions/jp` or `loadDivisions("jp")` | 47 prefectures, Natural Earth admin-1 at 1:10m, with Okinawa and the outlying islands in boxes | 186 kB |
-| A map's seas, lakes, rivers, mountains and capitals | `@johnmorrisdotca/chizu/features/<map>` or `loadFeatures("<map id>")` | 268 maps' named features on their own canvases: [docs/features.md](./docs/features.md) | 203 kB for the world, 29 kB for Japan's prefectures |
+| A map's seas, lakes, rivers, mountains and capitals | `@johnmorrisdotca/chizu/features/<map>` or `loadFeatures("<map id>")` | 269 maps' named features on their own canvases: [docs/features.md](./docs/features.md) | 203 kB for the world, 29 kB for Japan's prefectures |
 
 The codes are ISO 3166-1 alpha-2, in lower case in a file's name (`fr`), and Natural Earth's own three letters for the few places that have none. `CHIZU_COUNTRIES` (from `@johnmorrisdotca/chizu/names`) lists every country with its names, and says which have a map of their own regions.
 
 The **32 countries with regions** are Argentina, Australia, Austria, Belgium, Brazil, Canada, Chile, China, Colombia, France, Germany, Ireland, Italy, Japan, Malaysia, Mexico, the Netherlands, New Zealand, Norway, Peru, the Philippines, Poland, Russia, South Korea, Spain, Sweden, Switzerland, Taiwan, Thailand, the United Kingdom, the United States and Vietnam.
+
+**Vietnam has two maps**: `vn`, the 63 provinces before 2025-07-01, and `vn-2025`, the 34 of current law, which `vn` becomes in the next major version. ISO 3166-2 has no codes for 23 of the 34 yet: [docs/iso-codes.md](./docs/iso-codes.md).
 
 **Notes on the maps**: how Japan's prefectures are numbered, grouped and boxed, what a country alone leaves out (France is the mainland and Corsica) and what the world leaves out, in [docs/maps.md](https://github.com/johnmorrisdotca/chizu/blob/main/docs/maps.md).
 
@@ -722,6 +724,7 @@ All of these are held by tests, and the ones with a name are exported.
 | The world | 173 countries on a canvas 1,000 wide and 489 tall | `WORLD` |
 | Countries alone | 238, on a canvas whose longer side is 1,000 | `CHIZU_COUNTRIES` |
 | Countries with regions | 32 | `DIVISIONS_CODES` |
+| Dated maps of regions | 1, Vietnam's of 2025 (`VN-2025`) | `DIVISIONS_CODES` |
 | A callout's circle | 3% of the window's width unless asked otherwise | `CALLOUT_RADIUS_RATIO` |
 | Callouts that cross | none, for the maps and lists the tests place, polished or not | `calloutFaults` |
 | Wrong answers | 3 unless asked otherwise, drawn from the best `count + 3` | `pickDistractors` |

@@ -252,7 +252,7 @@ export const COUNTRY_LOADERS: Readonly<Record<string, Load>> = {
 /** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
 export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.data.ts");
 
-/** The regions of the 32 countries that have them, by lower-case code. */
+/** The 33 maps of a country's regions, by lower-case code: the country's, or the country's and a year for a dated map (`vn-2025`). */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   ar: () => import("./divisions/ar.data.ts"),
   at: () => import("./divisions/at.data.ts"),
@@ -286,9 +286,10 @@ export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   tw: () => import("./divisions/tw.data.ts"),
   us: () => import("./divisions/us.data.ts"),
   vn: () => import("./divisions/vn.data.ts"),
+  "vn-2025": () => import("./divisions/vn-2025.data.ts"),
 };
 
-/** The named physical features drawn on 268 maps (seas, lakes, rivers, landforms, peaks), by the map's id. */
+/** The named physical features drawn on 269 maps (seas, lakes, rivers, landforms, peaks), by the map's id. */
 export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuFeatureLayer }>>> = {
   "country-ad": () => import("./features/country-ad.data.ts"),
   "country-ae": () => import("./features/country-ae.data.ts"),
@@ -557,5 +558,6 @@ export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: C
   "divisions-tw": () => import("./features/divisions-tw.data.ts"),
   "divisions-us": () => import("./features/divisions-us.data.ts"),
   "divisions-vn": () => import("./features/divisions-vn.data.ts"),
+  "divisions-vn-2025": () => import("./features/divisions-vn-2025.data.ts"),
   world: () => import("./features/world.data.ts"),
 };

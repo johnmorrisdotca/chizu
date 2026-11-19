@@ -3,11 +3,12 @@
  * Gazette, Công báo, issue 773+774 of 2025-06-23; signed text https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/6/202qh.signed.pdf),
  * merged the 63 provinces and cities into 34, whose governments began work on 2025-07-01. Each clause of its Article 1
  * merges the whole area of the units it names, so the build dissolves Natural Earth's 63 into the 34 along Natural
- * Earth's own lines. The old provinces are matched on their ISO 3166-2 code, never their name: Natural Earth names
+ * Earth's own lines, as a map of its own, `divisions/vn-2025`; `divisions/vn` stays the 63 until the next major
+ * version. The old provinces are matched on their ISO 3166-2 code, never their name: Natural Earth names
  * VN-39, VN-53 and VN-66 after regions (Đông Nam Bộ, Đông Bắc, Đồng Bằng Sông Hồng), not the provinces they are.
  *
  * ISO 3166-2:VN still lists the 63, so a merged unit has no ISO code yet (`iso` is left off, with the reason in
- * ISO_JOIN) and is not given one here. Its chizu `code` is the code of the old province whose name it took (every
+ * ISO_JOIN, keyed `VN-2025`) and is not given one here. Its chizu `code` is the code of the old province whose name it took (every
  * merged unit is named after one of the provinces in it): Tuyên Quang is `07`, Hồ Chí Minh City `SG`. The 11 that
  * were not merged keep their code and their ISO code. `name` and `nameJa` are kuni's for the province named, the
  * names the new unit kept; `from` is each old province's code and name.
@@ -232,6 +233,6 @@ export const VIETNAM_2025 = {
       ],
     },
   ],
-  /** The 6 of the 34 that are cities (thành phố); the other 28 are provinces (tỉnh). Huế has been a city since 2025-01-01. */
+  /** The 6 of the 34 that are cities (thành phố); the other 28 are provinces (tỉnh). Huế has been a city since 2025-01-01 (Resolution 175/2024/QH15). */
   cities: ["HN", "26", "HP", "DN", "SG", "CT"],
 };

@@ -6,7 +6,11 @@ import { dissolve, union } from "../scripts/build-data/dissolve.mjs";
 import { VIETNAM_2025 } from "../scripts/data-config/vietnam.mjs";
 
 import VN from "./data/divisions/vn.data.ts";
+import VN_2025 from "./data/divisions/vn-2025.data.ts";
 import VN_GEO from "./data/divisions-geo/vn.data.ts";
+import VN_2025_GEO from "./data/divisions-geo/vn-2025.data.ts";
+import { loadElementMap } from "./element-base.ts";
+import { DIVISIONS_CODES, loadDivisions } from "./load-entry.ts";
 
 const { unchanged, merged, cities } = VIETNAM_2025;
 const units = [
@@ -43,7 +47,20 @@ describe("Vietnam's 34 provinces and cities of 2025", () => {
     }
   });
 
+  it("keeps `vn` the 63 of Natural Earth, and draws the 34 as `vn-2025`, a map of its own", async () => {
+    expect(VN.id).toBe("divisions-vn");
+    expect(VN.regions).toHaveLength(63);
+    expect(VN_GEO.features).toHaveLength(63);
+    expect(VN.source).not.toContain("Resolution");
+    expect(VN_2025.id).toBe("divisions-vn-2025");
+    expect(await loadDivisions("VN-2025")).toBe(VN_2025);
+    expect(await loadDivisions("vn")).toBe(VN);
+    expect(DIVISIONS_CODES).toContain("VN-2025");
+    expect(await loadElementMap("divisions-vn-2025")).toBe(VN_2025);
+  });
+
   it("draws the 34, each named in English and Japanese, with ISO codes only on the 11 ISO still describes", () => {
+    const VN = VN_2025;
     expect(VN.regions).toHaveLength(34);
     expect(VN.source).toContain("Resolution 202/2025/QH15");
     expect(VN.regions.map((region) => region.code).sort()).toEqual(units.map((unit) => unit.code).sort());
@@ -59,7 +76,7 @@ describe("Vietnam's 34 provinces and cities of 2025", () => {
     expect(byCode.get("66")?.name).toBe("Hưng Yên");
     expect(byCode.get("SG")?.nameJa).toBe("ホーチミン市");
     expect(byCode.get("26")?.name).toBe("Huế");
-    expect(VN_GEO.features.map((feature) => feature.properties.code).sort()).toEqual(
+    expect(VN_2025_GEO.features.map((feature) => feature.properties.code).sort()).toEqual(
       units.map((unit) => unit.code).sort(),
     );
   });

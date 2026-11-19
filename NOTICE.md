@@ -11,7 +11,7 @@ what it was made from.
 | `countries/<code>`, `names` | Natural Earth 5.1.2, admin-0 countries at 1:50m, and at 1:10m for countries under 60,000 km² (`ne_50m_admin_0_countries`, `ne_10m_admin_0_countries`) | Public domain |
 | `divisions-geo/<code>`, `world-geo-detail` | The same Natural Earth 5.1.2 files, admin-1 states and provinces at 1:10m and admin-0 countries at 1:50m, as longitude and latitude, rounded to 0.01 degree and simplified to 0.7 km (regions) and 0.3 km (world) by `scripts/build-data/geo.mjs` | Public domain |
 | `divisions/<code>`, Japan's prefectures among them | Natural Earth 5.1.2, admin-1 states and provinces at 1:10m (`ne_10m_admin_1_states_provinces`) | Public domain |
-| `divisions/vn`, `divisions-geo/vn`: which of Vietnam's 63 old provinces make up each of its 34 provinces and cities of 2025 | Resolution 202/2025/QH15 of the National Assembly of Viet Nam, Article 1 (see [Vietnam's provinces of 2025](#vietnams-provinces-of-2025)); written out in `scripts/data-config/vietnam.mjs` | Not under copyright: a legal document (Law on Intellectual Property 50/2005/QH11, Art. 15(2)) |
+| `divisions/vn-2025`, `divisions-geo/vn-2025`, `features/divisions-vn-2025`: which of Vietnam's 63 old provinces make up each of its 34 provinces and cities of 2025, and that Huế is a city | Resolution 202/2025/QH15 of the National Assembly of Viet Nam, Article 1, and Resolution 175/2024/QH15 (see [Vietnam's provinces of 2025](#vietnams-provinces-of-2025)); written out in `scripts/data-config/vietnam.mjs` | Not under copyright: a legal document (Law on Intellectual Property 50/2005/QH11, Art. 15(2)) |
 | `features/<map>`: the seas, lakes, rivers, landforms and peaks of each map | Natural Earth 5.1.2's physical vectors at 1:10m: marine areas, lakes, rivers and lake centre-lines, geographic regions and elevation points (`ne_10m_geography_marine_polys`, `ne_10m_lakes`, `ne_10m_rivers_lake_centerlines`, `ne_10m_geography_regions_polys`, `ne_10m_geography_regions_elevation_points`) | Public domain |
 | The features' Japanese names where Natural Earth has none, the English names of lakes and rivers, the readings Wikidata gives (its "name in kana", P1814, and aliases in hiragana), and which Wikidata item each of Natural Earth's rivers is | Wikidata (https://www.wikidata.org/), asked by `scripts/wikidata.mjs` and kept in `scripts/data-wikidata.json` | CC0 |
 | `features/<map>`: the capitals of the countries and the seats of their regions, with their names, readings and places | kuni 国 1.6.0's `/facts` and `/subdivision-facts`, whose figures are Wikidata's | kuni: MIT. Wikidata: CC0 |
@@ -130,8 +130,8 @@ The five physical files were read on 2026-10-09, from the same tag.
 two decimals and drawn as `M`/`L`/`Z` paths. For a country alone, only its
 largest piece and the pieces within 9° of it are kept. Natural Earth draws the
 Amami Islands (Amami Ōshima, Kikai, Tokunoshima, Okinoerabu and Yoron) inside
-Okinawa; they are Kagoshima's, and the build moves them there. Vietnam's 63 provinces are joined into its 34 of
-2025 (above). The names, the codes and
+Okinawa; they are Kagoshima's, and the build moves them there. For Vietnam's map of 2025, its 63 provinces are joined
+into the 34 of that year (above). The names, the codes and
 the neighbours (regions that share a border point) are Natural Earth's own, with
 a few Natural Earth codes made unique where two entries claim one. Natural
 Earth's disputed-territory choices are its own and are not this package's.
@@ -144,7 +144,8 @@ Korea calls the East Sea (東海); the package takes no side and names it as its
 
 ## Vietnam's provinces of 2025
 
-Vietnam's map is drawn as its 34 provinces and cities of 2025. Resolution 202/2025/QH15 of the National Assembly
+Vietnam's map of 2025 (`divisions/vn-2025`) is its 34 provinces and cities; `divisions/vn` is still Natural Earth's 63.
+Resolution 202/2025/QH15 of the National Assembly
 (Quốc hội), passed on 12 June 2025, merged the 63 provinces and cities into 34, whose governments began work on
 1 July 2025 (Article 2). Each clause of its Article 1 merges the whole area of the provinces it names, so the build
 joins Natural Earth's 63 outlines along their shared borders (`scripts/build-data/dissolve.mjs`) and draws no new
@@ -155,14 +156,19 @@ line. Only the facts are carried (which old province is in which new one, and th
 - Signed text: https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/6/202qh.signed.pdf
 - Government legal-documents portal: https://vanban.chinhphu.vn/?pageid=27160&docid=213930
 
+Huế is one of the 6 cities: Resolution 175/2024/QH15 of the National Assembly, passed on 30 November 2024 and in
+force from 1 January 2025, made the whole of Thừa Thiên Huế province the city of Huế (Article 1). Official Gazette
+issue 1351+1352 of 17 December 2024, https://congbao.chinhphu.vn/van-ban/nghi-quyet-so-175-2024-qh15-43363.htm;
+signed text https://datafiles.chinhphu.vn/cpp/files/vbpq/2024/11/175-qh15.signed.pdf.
+
 Legal documents are not protected by copyright in Viet Nam: the Law on Intellectual Property 50/2005/QH11,
 Article 15(2), lists "Legal documents, administrative documents and other documents in the judicial domain" among
 the works it does not protect (English text on WIPO Lex, https://www.wipo.int/wipolex/en/text/449011). The portals ask that what is republished from them be credited, and it is:
 
 > Province merges from Resolution 202/2025/QH15 of the National Assembly of Viet Nam (12 June 2025), vanban.chinhphu.vn. Shapes: Natural Earth (public domain).
 
-ISO 3166-2 still lists Vietnam's 63 old codes, so the 23 merged units carry no ISO code until it is updated
-(`docs/iso-codes.md`).
+ISO 3166-2 still lists Vietnam's 63 old codes, so on the map of 2025 the 23 merged units carry no ISO code until it
+is updated (`docs/iso-codes.md`).
 
 ## Wikidata
 

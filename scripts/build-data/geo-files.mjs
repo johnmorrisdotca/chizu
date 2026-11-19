@@ -95,7 +95,7 @@ export default divisionsGeo;
 ${LICENCE}
 import type { ChizuGeoCollection } from "../geo-types.ts";
 
-/** The regions of the ${loaders.length} countries that have them, as longitude and latitude, by lower-case code. */
+/** The ${loaders.length} maps of a country's regions, as longitude and latitude, by lower-case code: the country's, or the country's and a year for a dated map (\`vn-2025\`). */
 export const DIVISIONS_GEO_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuGeoCollection }>>> = {
 ${loaders.map((file) => `  ${JSON.stringify(file)}: () => import("./divisions-geo/${file}.data.ts"),`).join("\n")}
 };

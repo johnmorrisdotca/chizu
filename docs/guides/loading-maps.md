@@ -23,4 +23,18 @@ Codes are case-insensitive in the country/division loaders. Unknown resources re
 
 Use a fixed resource import when the page always draws it. Use `loadCountry`, `loadDivisions` and `loadFeatures` when the visitor chooses. The explicit named resource exports document the same paths supported by the wildcard exports; their data and order are unchanged.
 
+## Vietnam: the 63 provinces and the 34 of 2025
+
+Vietnam has two maps of its regions. `/divisions/vn` is Natural Earth's 63 provinces and cities, as they were until 30 June 2025. `/divisions/vn-2025` is the 34 provinces and cities of Resolution 202/2025/QH15, which is current law: their governments began work on 1 July 2025. It is drawn from the same outlines, joined along the old borders, so the two maps share a canvas and a projection.
+
+```ts
+import { loadDivisions } from "@johnmorrisdotca/chizu/load";
+const now = (await loadDivisions("vn-2025"))!;
+const before = (await loadDivisions("vn"))!;
+console.log(now.regions.length, before.regions.length);
+// 34 63
+```
+
+`vn` stays the 63 until the next major version, when it becomes the 34. ISO 3166-2 still lists the 63, so 23 of the 34 (the merged ones) have no `iso` until it is updated, and a figure keyed by ISO code does not colour them: key such figures by `code`. Each merged unit keeps the code of the old province whose name it took (Tuyên Quang is `07`). [ISO codes](../iso-codes.md) lists them.
+
 See [map data](../map-data.md), [ISO codes](../iso-codes.md) and [the country naming rules](../names.md).

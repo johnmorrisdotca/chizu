@@ -21,14 +21,16 @@ import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 export const COUNTRY_CODES: readonly string[] = Object.keys(COUNTRY_LOADERS).map((code) => code.toUpperCase());
 
 /**
- * Every country that has a map of its own regions (provinces, states, départements), by code.
+ * Every map of a country's regions (provinces, states, départements), by code: the country's for the 32 countries
+ * that have one, and the country's with a year for a dated map, `VN-2025` (Vietnam's 34 provinces and cities of 2025;
+ * `VN` is its 63 until the next major version).
  *
  * @example
  * ```ts
  * import { DIVISIONS_CODES } from "@johnmorrisdotca/chizu/load";
  *
- * console.log(DIVISIONS_CODES.length, DIVISIONS_CODES.includes("JP"));
- * // 32 true
+ * console.log(DIVISIONS_CODES.length, DIVISIONS_CODES.includes("JP"), DIVISIONS_CODES.includes("VN-2025"));
+ * // 33 true true
  * ```
  */
 export const DIVISIONS_CODES: readonly string[] = Object.keys(DIVISIONS_LOADERS).map((code) => code.toUpperCase());

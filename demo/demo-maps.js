@@ -16,7 +16,7 @@ import {
   state,
 } from "./demo-core.js";
 import { groupTones, nameOf } from "./dist/index.js";
-import { loadCountry, loadDivisions, loadFeatures } from "./dist/load-entry.js";
+import { DIVISIONS_CODES, loadCountry, loadDivisions, loadFeatures } from "./dist/load-entry.js";
 import { CHIZU_CONTINENTS, CHIZU_COUNTRIES } from "./dist/names-entry.js";
 import world from "./dist/world-entry.js";
 
@@ -49,7 +49,12 @@ export function populateMaps() {
     el(
       "optgroup",
       { label: say("groupDivisions") },
-      ...withDivisions.map((country) => option(`divisions:${country.code.toLowerCase()}`, mapLabel(country))),
+      ...withDivisions.flatMap((country) => [
+        option(`divisions:${country.code.toLowerCase()}`, mapLabel(country)),
+        ...DIVISIONS_CODES.filter((code) => code.startsWith(`${country.code}-`)).map((code) =>
+          option(`divisions:${code.toLowerCase()}`, `${mapLabel(country)} ${code.slice(3)}`),
+        ),
+      ]),
     ),
     el(
       "optgroup",

@@ -164,14 +164,14 @@ export const ISO_JOIN = {
     iso: null,
     why: "a piece of the Yamal coast, 38 km², that Natural Earth draws without a name or a code",
   },
-  // Vietnam's 23 merged provinces and cities of 2025 (vietnam.mjs): ISO 3166-2:VN has not coded them yet. `held` is
+  // The 23 merged provinces and cities of Vietnam's map of 2025 (vn-2025, vietnam.mjs): ISO 3166-2:VN has not coded them yet. `held` is
   // the code of the province whose name each kept, which kuni's facts already give the new unit's seat under.
   ...Object.fromEntries(
     VIETNAM_2025.merged.map(({ code, name, from }) => {
       const parts = from.map(([old, oldName]) => `${oldName} (VN-${old})`);
       const list = `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}`;
       return [
-        `VN:${code}`,
+        `VN-2025:${code}`,
         {
           iso: null,
           held: `VN-${code}`,

@@ -33,6 +33,7 @@ const MOST: Record<string, number> = {
   TH: 3,
   US: 1,
   VN: 1,
+  "VN-2025": 1,
 };
 
 /**
@@ -42,9 +43,9 @@ const MOST: Record<string, number> = {
 const NOT_SHARED: Record<string, number> = { CH: 10, ES: 7, GB: 4, MX: 1, TH: 1, US: 2 };
 
 describe("the regions as longitude and latitude", () => {
-  it("has the 32 countries that have regions, and says nothing of one that has none", async () => {
+  it("has the 32 countries that have regions and Vietnam's of 2025, and says nothing of one that has none", async () => {
     expect(DIVISIONS_GEO_CODES).toEqual(Object.keys(DIVISIONS_LOADERS).map((code) => code.toUpperCase()));
-    expect(DIVISIONS_GEO_CODES).toHaveLength(32);
+    expect(DIVISIONS_GEO_CODES).toHaveLength(33);
     expect(await loadDivisionsGeo("xx")).toBeNull();
   });
 
