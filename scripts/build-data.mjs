@@ -1,4 +1,4 @@
-// Builds every file of map data under src/data/ from Natural Earth: `pnpm data`.
+// Builds every file of map data under src/data/ from Natural Earth (Great Britain's councils from the ONS): `pnpm data`.
 //
 //   src/data/world.data.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
 //   src/data/world-geo.data.ts            the same world in longitude and latitude, unprojected, with the four it leaves out (177); the one table kept unformatted
@@ -32,7 +32,7 @@ import {
   subregionName,
 } from "@johnmorrisdotca/kuni";
 import { geoDistance } from "d3-geo";
-import { buildCountry, buildDivisions, buildUnitedStates, DEGREES } from "./build-data/divisions.mjs";
+import { buildCountry, buildDivisions, buildUnitedStates, DEGREES, withOns } from "./build-data/divisions.mjs";
 import { writeDivisionsGeo, writeWorldGeoDetail } from "./build-data/geo-files.mjs";
 import { literal, neighboursBySharedPoints, out, writeFeatures, writeMap } from "./build-data/geometry.mjs";
 import { buildJapan } from "./build-data/japan.mjs";
@@ -205,7 +205,7 @@ export async function main() {
   const countriesSource = await source("ne_50m_admin_0_countries.geojson");
   const fineSource = await source("ne_10m_admin_0_countries.geojson");
   const fine = new Map(fineSource.features.map((feature) => [feature.properties.ADM0_A3, feature]));
-  const divisionsSource = await source("ne_10m_admin_1_states_provinces.geojson");
+  const divisionsSource = await withOns(await source("ne_10m_admin_1_states_provinces.geojson"));
 
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });

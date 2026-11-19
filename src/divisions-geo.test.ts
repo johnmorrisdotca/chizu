@@ -17,14 +17,15 @@ function eachPosition(coordinates: unknown, at: (position: number[]) => void): v
 /**
  * The most points of one region that lie on the middle of an edge of another region without being a point of it, in each country's file. A border simplified on one side only leaves such points (a simplifying that does
  * not share its borders makes hundreds in a country). These are the counts the outlines have when they are only rounded to the grid, and simplifying a border away takes some with it, so a country may have fewer; the
- * two it may have one more of (Great Britain, Vietnam) are coincidences of the grid, a point that falls exactly on a straight line kept between two others.
+ * one it may have one more of (Vietnam) is a coincidence of the grid, a point that falls exactly on a straight line kept between two others. Great Britain's are nearly all the two banks of a tidal river (the Thames,
+ * the Tamar, the Teifi, the Forth, the Tweed): the ONS's councils are cut to the coast at high water, and on the grid of 0.01 degree a point of one bank falls on the line of the other.
  */
 const MOST: Record<string, number> = {
   AR: 1,
   BR: 3,
   CA: 3,
   CH: 1,
-  GB: 8,
+  GB: 34,
   IE: 2,
   IT: 6,
   MX: 2,
@@ -37,9 +38,10 @@ const MOST: Record<string, number> = {
 
 /**
  * The most edges one region has that the region next to it does not share though that region has both ends of them, in each country's file: an edge a region has between two points another region has and goes between
- * another way. A border that is one line in both has none. These are the counts the outlines have when only rounded to the grid (Natural Earth's own points that do not quite agree), and the build refuses to simplify to more.
+ * another way. A border that is one line in both has none. These are the counts the outlines have when only rounded to the grid (Natural Earth's own points that do not quite agree), and the build refuses to simplify to more;
+ * Great Britain's are nearly all the two banks of a tidal river, as above.
  */
-const NOT_SHARED: Record<string, number> = { CH: 10, ES: 7, GB: 4, MX: 1, TH: 1, US: 2 };
+const NOT_SHARED: Record<string, number> = { CH: 10, ES: 7, GB: 13, MX: 1, TH: 1, US: 2 };
 
 describe("the regions as longitude and latitude", () => {
   it("has the 32 countries that have regions, and says nothing of one that has none", async () => {

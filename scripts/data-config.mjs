@@ -14,6 +14,7 @@ export {
   SHORT_NAMES_NOT_EVERYDAY,
   TERRITORY_PARTS,
 } from "./data-config/names.mjs";
+export { ONS, ONS_ISO, ONS_TYPES } from "./data-config/ons.mjs";
 
 /** Where Natural Earth is read from: a release tag of its own repository, and the file's SHA-256 at that tag. */
 export const NATURAL_EARTH = {

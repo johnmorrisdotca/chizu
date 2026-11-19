@@ -6,6 +6,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { GEO_TOLERANCE_KM, NATURAL_EARTH } from "../data-config.mjs";
+import { GB_SOURCE } from "./divisions.mjs";
 import { simplifyShared } from "./geo.mjs";
 import { buildWorldGeoDetail, geoSources } from "./world.mjs";
 
@@ -45,7 +46,7 @@ export function divisionsGeo(map) {
     collection: {
       type: "FeatureCollection",
       features,
-      source: `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m, longitude and latitude, rounded to 0.01 degree and simplified to ${GEO_TOLERANCE_KM.divisions} km`,
+      source: `${map.id === "divisions-gb" ? GB_SOURCE : `Natural Earth ${NATURAL_EARTH.version} admin-1 states and provinces, 1:10m`}, longitude and latitude, rounded to 0.01 degree and simplified to ${GEO_TOLERANCE_KM.divisions} km`,
     },
     stats,
   };

@@ -91,5 +91,5 @@ test("in Japanese the page, the map and the quiz speak Japanese, and nothing sti
 test("a long name in the table scrolls inside its own box, never the page", async ({ page }) => {
   await open(page, "?map=divisions:gb");
   await noSidewaysScroll(page);
-  await expect(page.locator("#names tbody tr")).toHaveCount(232);
+  await expect(page.locator("#names tbody tr")).toHaveCount(233);
 });

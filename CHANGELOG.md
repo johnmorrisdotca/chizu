@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- **The United Kingdom's map has England's, Scotland's and Wales's councils of today** (MODULES-1621). Natural Earth drew them as they were before the reforms of 2019 to 2023; all 207 are now drawn from the Office for National Statistics' "Counties and Unitary Authorities (December 2025) Boundaries UK BGC" (Open Government Licence v3.0), pinned by SHA-256 like the Natural Earth files and simplified with shared borders kept one line. New regions: Cumberland and Westmorland and Furness (from Cumbria), North and West Northamptonshire (from Northamptonshire), and Bournemouth, Christchurch and Poole (from Bournemouth and Poole, with Christchurch out of Dorset); North Yorkshire, Somerset, Dorset and Buckinghamshire are the unitary authorities they now are. `divisions/gb` and `divisions-geo/gb` have 233 regions (were 232); the codes `NTH`, `CMA`, `BMH` and `POL` are gone. Cumberland and Westmorland and Furness, which ISO 3166-2 has not coded, have no `iso`, and their `code` is their ONS code (`E06000063`, `E06000064`); they and North and West Northamptonshire have no Japanese name yet. A region's `type` in England, Scotland and Wales is the ONS's kind (`unitary authority`, `metropolitan district`, `london borough`, `county`, `council area`). The map's `source` carries the ONS's two lines of attribution, and NOTICE.md says which shapes come from where. Northern Ireland is unchanged: its 26 districts of before 2015 are still Natural Earth's, pending a decision on Land and Property Services' terms. The map is narrower: Natural Earth drew Rockall in the Outer Hebrides, which the ONS does not. Tests: `src/gb-ons.test.js`.
+
 ## [1.14.0] - 2026-11-18
 
 ### Added

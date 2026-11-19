@@ -99,8 +99,6 @@ export const ISO_JOIN = {
   "GB:MFT": NI_2015("MUL", "Mid Ulster"),
   "GB:DOW": NI_2015("NMD", "Newry, Mourne and Down"),
   "GB:NYM": NI_2015("NMD", "Newry, Mourne and Down"),
-  "GB:BMH": { iso: "GB-BCP", why: "Bournemouth, part of Bournemouth, Christchurch and Poole (GB-BCP) since 2019" },
-  "GB:POL": { iso: "GB-BCP", why: "Poole, part of Bournemouth, Christchurch and Poole (GB-BCP) since 2019" },
   "IT:CI": { iso: "IT-SU", why: "Carbonia-Iglesias, abolished in 2016 and now part of Sud Sardegna (IT-SU)" },
   "IT:VS": { iso: "IT-SU", why: "Medio Campidano, abolished in 2016 and now part of Sud Sardegna (IT-SU)" },
   "IT:OT": { iso: "IT-SS", why: "Olbia-Tempio, abolished in 2016 and now part of Sassari (IT-SS)" },
@@ -118,9 +116,11 @@ export const ISO_JOIN = {
   },
   // No code.
   "AU:X02~": { iso: null, why: "Jervis Bay Territory has no ISO 3166-2 code of its own" },
-  "GB:NTH": {
+  // Great Britain's councils are the ONS's (data-config/ons.mjs); these two, made from Cumbria in 2023, are coded by their ONS code.
+  "GB:E06000063": { iso: null, why: "Cumberland, a unitary authority since 2023, has no ISO 3166-2 code yet" },
+  "GB:E06000064": {
     iso: null,
-    why: "Northamptonshire was split in 2021 into North (GB-NNH) and West Northamptonshire (GB-WNH)",
+    why: "Westmorland and Furness, a unitary authority since 2023, has no ISO 3166-2 code yet",
   },
   "NO:X01~": {
     iso: null,
