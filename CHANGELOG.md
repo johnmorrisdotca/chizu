@@ -6,6 +6,12 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.16.1] - 2026-11-19
+
+### Fixed
+
+- **Vietnam's region groups** (MODULES-1675). Natural Earth 5.1.2's admin-1 file writes Thái Nguyên's region as `Ðông B?c` (Đông Bắc with two letters read as Latin-1 and one lost), and leaves six provinces with no region. The build now mends the garbled name and fills the blanks from Vietnam's Resolution 81/2023/QH15, in the spellings the file already uses: Thái Nguyên and Bắc Kạn are Đông Bắc (Northeast), Hưng Yên is Đồng Bằng Sông Hồng (Red River Delta), Quảng Nam is Nam Trung Bộ (South Central Coast), Đồng Nai is Đông Nam Bộ (Southeast), and Hậu Giang and Cần Thơ are đồng bằng sông Cửu Long (Mekong River Delta), lower case like the other eleven provinces of that group. Every province of both the 2025 and the earlier map now has a region.
+
 ## [1.16.0] - 2026-11-19
 
 ### Changed
