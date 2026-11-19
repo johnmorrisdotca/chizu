@@ -236,3 +236,27 @@ export const VIETNAM_2025 = {
   /** The 6 of the 34 that are cities (thành phố); the other 28 are provinces (tỉnh). Huế has been a city since 2025-01-01 (Resolution 175/2024/QH15). */
   cities: ["HN", "26", "HP", "DN", "SG", "CT"],
 };
+
+/*
+ * A region's group, where Natural Earth 5.1.2 (public domain, ne_10m_admin_1_states_provinces, the SHA-256 in
+ * data-config.mjs) does not give one the file can be built from. Thái Nguyên's `region` is "Ðông B?c": Đ and ô are
+ * the Windows-1258 bytes 0xD0 and 0xF4 read as Latin-1, and ắ was replaced by "?". The spelling kept is "Đông Bắc",
+ * the one the same file uses for that region eleven other times. A blank `region` is filled from Resolution
+ * 81/2023/QH15 of the National Assembly (the six socio-economic regions of the 63 provinces), written with the
+ * eight-way spelling the file already uses where it splits one of those regions in two. Keyed by the ISO 3166-2 part.
+ */
+export const VIETNAM_REGION_FILL = {
+  69: "Đông Bắc",
+  53: "Đông Bắc",
+  66: "Đồng Bằng Sông Hồng",
+  27: "Nam Trung Bộ",
+  39: "Đông Nam Bộ",
+  73: "đồng bằng sông Cửu Long",
+  CT: "đồng bằng sông Cửu Long",
+};
+
+/** The group a Vietnam province is drawn in: the fill above, else Natural Earth's own `region`. */
+export function vietnamRegion(feature) {
+  const code = feature.properties.iso_3166_2?.replace(/^VN-/, "");
+  return VIETNAM_REGION_FILL[code] ?? feature.properties.region ?? "Vietnam";
+}

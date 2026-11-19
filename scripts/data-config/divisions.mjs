@@ -1,5 +1,5 @@
 import { geoAlbers, geoConicConformal, geoConicEqualArea, geoConicEquidistant, geoTransverseMercator } from "d3-geo";
-import { VIETNAM_2025 } from "./vietnam.mjs";
+import { VIETNAM_2025, vietnamRegion } from "./vietnam.mjs";
 
 export const DIVISION_CONFIGS = [
   {
@@ -158,7 +158,7 @@ export const DIVISION_CONFIGS = [
     filter: (f) => f.properties.iso_a2 === "VN",
     codeFn: (f) => f.properties.iso_3166_2?.replace(/^VN-/, "") || f.properties.code_hasc?.replace(/^VN\./, ""),
     projection: () => geoTransverseMercator().rotate([-106.5, -16]),
-    regionFn: (f) => f.properties.region || "Vietnam",
+    regionFn: vietnamRegion,
     divisionType: "province",
   },
   {
@@ -172,7 +172,7 @@ export const DIVISION_CONFIGS = [
     filter: (f) => f.properties.iso_a2 === "VN",
     codeFn: (f) => f.properties.iso_3166_2?.replace(/^VN-/, ""),
     projection: () => geoTransverseMercator().rotate([-106.5, -16]),
-    regionFn: (f) => f.properties.region || "Vietnam",
+    regionFn: vietnamRegion,
     divisionType: "province",
     units: VIETNAM_2025,
   },
