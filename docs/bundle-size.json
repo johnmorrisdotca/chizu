@@ -22,7 +22,7 @@
       "gzip": 1565154
     },
     "./load": {
-      "minified": 18593029,
+      "minified": 18593028,
       "gzip": 6683561
     },
     "./world": {
@@ -46,11 +46,11 @@
       "gzip": 965428
     },
     "./element": {
-      "minified": 17579638,
+      "minified": 17579637,
       "gzip": 6326704
     },
     "./element/define": {
-      "minified": 17579653,
+      "minified": 17579652,
       "gzip": 6326710
     },
     "./countries/ad": {
@@ -386,7 +386,7 @@
       "gzip": 1852
     },
     "./countries/gi": {
-      "minified": 821,
+      "minified": 820,
       "gzip": 492
     },
     "./countries/gl": {
