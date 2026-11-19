@@ -63,6 +63,15 @@ The 23 merged provinces and cities of Vietnam's map of 2025 (`divisions/vn-2025`
 | VN-2025:44 | An Giang | アンザン省 |
 | VN-2025:26 | Huế, a city since 2025-01-01 (Resolution 175/2024/QH15; kuni: Thừa Thiên–Huế) | kuni's (フエ市) |
 
+Where kuni's English name has macrons, Natural Earth's plain spelling is kept (`KUNI_NAMES_KEPT_FROM_NATURAL_EARTH`); a kuni ticket will make them macron-free, and this list then empties:
+
+| Region | Kept | Reason |
+| --- | --- | --- |
+| IN-CG | Chhattisgarh, English | Chhattisgarh: kuni 1.6.0 writes its English name with macrons; Natural Earth's plain spelling is kept until kuni's is macron-free |
+| IN-TS | Telangana, English | Telangana: kuni 1.6.0 writes its English name with macrons; Natural Earth's plain spelling is kept until kuni's is macron-free |
+| IN-UK | Uttarakhand, English | Uttarakhand: kuni 1.6.0 writes its English name with macrons; Natural Earth's plain spelling is kept until kuni's is macron-free |
+| IN-DH | Dadra and Nagar Haveli and Daman and Diu, English | Dadra and Nagar Haveli and Daman and Diu: kuni 1.6.0 writes its English name with macrons; Natural Earth's plain spelling is kept until kuni's is macron-free |
+
 ## Other names
 
 Japan's eight regions are kuni's grouping `jp-regions-8`. Kinki (近畿地方) is its official name, and the one the map prints; Kansai (関西地方, 関西), the name it goes by in speech, is kuni's other name for it and is carried in `groupAliases`, so a search or a part named in an address finds it by either.

@@ -279,6 +279,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/divisions/fr` | [France regions](entry:divisions-fr) |
 | `@johnmorrisdotca/chizu/divisions/gb` | [United Kingdom regions](entry:divisions-gb) |
 | `@johnmorrisdotca/chizu/divisions/ie` | [Ireland regions](entry:divisions-ie) |
+| `@johnmorrisdotca/chizu/divisions/in` | [India regions](entry:divisions-in) |
 | `@johnmorrisdotca/chizu/divisions/it` | [Italy regions](entry:divisions-it) |
 | `@johnmorrisdotca/chizu/divisions/jp` | [Japan regions](entry:divisions-jp) |
 | `@johnmorrisdotca/chizu/divisions/kr` | [South Korea regions](entry:divisions-kr) |
@@ -562,6 +563,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/features/divisions-fr` | [Features: divisions-fr](entry:features-divisions-fr) |
 | `@johnmorrisdotca/chizu/features/divisions-gb` | [Features: divisions-gb](entry:features-divisions-gb) |
 | `@johnmorrisdotca/chizu/features/divisions-ie` | [Features: divisions-ie](entry:features-divisions-ie) |
+| `@johnmorrisdotca/chizu/features/divisions-in` | [Features: divisions-in](entry:features-divisions-in) |
 | `@johnmorrisdotca/chizu/features/divisions-it` | [Features: divisions-it](entry:features-divisions-it) |
 | `@johnmorrisdotca/chizu/features/divisions-jp` | [Features: divisions-jp](entry:features-divisions-jp) |
 | `@johnmorrisdotca/chizu/features/divisions-kr` | [Features: divisions-kr](entry:features-divisions-kr) |

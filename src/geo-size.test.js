@@ -6,17 +6,18 @@ import { describe, expect, it } from "vitest";
 const gzipped = (url) => gzipSync(readFileSync(url), { level: 9 }).length;
 
 describe("the size of the maps in longitude and latitude", () => {
-  it("is no more than 1.0 MB gzipped for the 33 maps of regions together (32 countries and Vietnam's of 2025), and no more than 200 kB for any one a page loads", () => {
+  it("is no more than 1.1 MB gzipped for the 34 maps of regions together (33 countries and Vietnam's of 2025), and no more than 200 kB for any one a page loads", () => {
     const folder = new URL("./data/divisions-geo/", import.meta.url);
     let total = 0;
     const files = readdirSync(folder);
-    expect(files).toHaveLength(33);
+    expect(files).toHaveLength(34);
     for (const file of files) {
       const size = gzipped(new URL(file, folder));
       total += size;
       expect(size, file).toBeLessThan(200 * 1024);
     }
-    expect(total).toBeLessThan(1000 * 1024);
+    // A page loads one map, not all 34, so the all-regions total is a budget and not a cost; raising it from 1.0 MB for India changes less than simplifying all 34 maps again.
+    expect(total).toBeLessThan(1100 * 1024);
   });
 
   it("is no more than 0.45 MB gzipped for the 1:50m world", () => {

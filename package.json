@@ -1,7 +1,7 @@
 {
   "name": "@johnmorrisdotca/chizu",
   "version": "1.14.0",
-  "description": "Chizu 地図 — SVG maps for JavaScript: world and country outlines, 32 countries' regions, English/Japanese names, pan and zoom, insets, geography quizzes and numbered callouts. Zero dependencies.",
+  "description": "Chizu 地図 — SVG maps for JavaScript: world and country outlines, 33 countries' regions, English/Japanese names, pan and zoom, insets, geography quizzes and numbered callouts. Zero dependencies.",
   "keywords": [
     "browser",
     "callouts",
@@ -1463,6 +1463,11 @@
       "import": "./dist/data/divisions/ie.data.js",
       "default": "./dist/data/divisions/ie.data.js"
     },
+    "./divisions/in": {
+      "types": "./dist/data/divisions/in.data.d.ts",
+      "import": "./dist/data/divisions/in.data.js",
+      "default": "./dist/data/divisions/in.data.js"
+    },
     "./divisions/it": {
       "types": "./dist/data/divisions/it.data.d.ts",
       "import": "./dist/data/divisions/it.data.js",
@@ -2882,6 +2887,11 @@
       "types": "./dist/data/features/divisions-ie.data.d.ts",
       "import": "./dist/data/features/divisions-ie.data.js",
       "default": "./dist/data/features/divisions-ie.data.js"
+    },
+    "./features/divisions-in": {
+      "types": "./dist/data/features/divisions-in.data.d.ts",
+      "import": "./dist/data/features/divisions-in.data.js",
+      "default": "./dist/data/features/divisions-in.data.js"
     },
     "./features/divisions-it": {
       "types": "./dist/data/features/divisions-it.data.d.ts",

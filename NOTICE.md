@@ -79,9 +79,9 @@ SPDX-License-Identifier: Unicode-3.0
 Japanese name (except the United Kingdom's 英国, CLDR's written abbreviation, where イギリス is kept), its reading,
 continent and three-letter code. A region of a country takes its ISO 3166-2 code from Natural Earth when kuni has
 the same code, or from the table `ISO_JOIN` in `scripts/data-config.mjs`, which says for each of the rest what the
-code is now or why there is none. A region that is exactly one ISO subdivision takes kuni's names (with kuni 1.6.0 there is
-no exception left in `KUNI_NAMES_KEPT_FROM_NATURAL_EARTH`); `NAME_FIXES` tells apart two regions of one map that
-would otherwise share a name. Japan's prefectures take kuni's names and readings, and their eight regions are kuni's
+code is now or why there is none. A region that is exactly one ISO subdivision takes kuni's names (with kuni 1.6.0 the only exceptions in
+`KUNI_NAMES_KEPT_FROM_NATURAL_EARTH` are four India names that kuni writes with macrons); `NAME_FIXES` tells apart two regions of one map that
+would otherwise share a name; `TYPE_FIXES` gives the kind (state) of the two Indian states whose Natural Earth type is wrong or empty. Japan's prefectures take kuni's names and readings, and their eight regions are kuni's
 grouping `jp-regions-8`.
 
 ## Natural Earth

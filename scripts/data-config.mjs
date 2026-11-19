@@ -13,6 +13,7 @@ export {
   SHORT_NAME_READINGS,
   SHORT_NAMES_NOT_EVERYDAY,
   TERRITORY_PARTS,
+  TYPE_FIXES,
 } from "./data-config/names.mjs";
 export { CUT_OUTLINES } from "./data-config/outlines.mjs";
 
@@ -59,7 +60,7 @@ export const KUNI = { package: "@johnmorrisdotca/kuni", version: "1.6.0" };
 /**
  * How far the longitude-and-latitude files (`divisions-geo/<code>`, `world-geo-detail`) are simplified: the most, in
  * kilometres, a simplified line may lie from the Natural Earth line it came from (on top of the 0.01 degree grid the
- * points are rounded to, about 0.8 km at the most). Chosen from the size each costs: all 32 countries' regions under
- * 1.0 MB gzipped with no country over 200 kB, the world under 0.45 MB.
+ * points are rounded to, about 0.8 km at the most). Chosen from the size each costs: all 33 countries' regions under
+ * 1.1 MB gzipped with no country over 200 kB, the world under 0.45 MB.
  */
 export const GEO_TOLERANCE_KM = { divisions: 0.7, world: 0.3 };

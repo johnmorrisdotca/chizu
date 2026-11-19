@@ -15,6 +15,7 @@ import {
   SHORT_ENGLISH_NOT_FOR_MAPS,
   SHORT_NAME_READINGS,
   SHORT_NAMES_NOT_EVERYDAY,
+  TYPE_FIXES,
 } from "../data-config.mjs";
 import { simplifyShared } from "./geo.mjs";
 import {
@@ -131,6 +132,13 @@ export function regionNames(country, feature, iso, shared) {
   if (fix?.name) name = fix.name;
   if (fix?.nameJa) nameJa = fix.nameJa;
   return { name, ...(nameJa ? { nameJa } : {}), ...(fix?.unnamed ? { unnamed: true } : {}) };
+}
+
+/** What kind of division a region is, lower case: Natural Earth's `type_en`, or TYPE_FIXES's where that is wrong or empty. */
+export function regionType(country, feature) {
+  const p = feature.properties;
+  const type = TYPE_FIXES[`${country}:${p.__code}`] ?? p.type_en;
+  return type ? { type: type.toLowerCase() } : {};
 }
 
 /** The projection the world was fitted with, which its finer drawing is made with too. */

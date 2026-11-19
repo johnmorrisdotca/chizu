@@ -1,8 +1,8 @@
 {
   "job": "SVG maps for JavaScript",
   "pitch": {
-    "en": "Draw SVG maps of the world, its 253 countries and the regions of 32 of them, frame them, place numbered callouts and build geography quizzes, with names in English and Japanese today (Spanish, German and Chinese are planned).",
-    "ja": "世界、253の国、32か国の州や県などの地域を、SVGの地図に描けます。表示する範囲を決めたり、番号付きの注記をつけたり、地理クイズを作ったりもできます。名前は今のところ英語と日本語で、スペイン語、ドイツ語、中国語にも対応する予定です。"
+    "en": "Draw SVG maps of the world, its 253 countries and the regions of 33 of them, frame them, place numbered callouts and build geography quizzes, with names in English and Japanese today (Spanish, German and Chinese are planned).",
+    "ja": "世界、253の国、33か国の州や県などの地域を、SVGの地図に描けます。表示する範囲を決めたり、番号付きの注記をつけたり、地理クイズを作ったりもできます。名前は今のところ英語と日本語で、スペイン語、ドイツ語、中国語にも対応する予定です。"
   },
   "name": {
     "en": "Chizu is the Japanese word 地図 for map.",
@@ -1117,6 +1117,10 @@
     "./divisions/ie": {
       "en": "Ireland regions",
       "ja": "アイルランドの行政区画"
+    },
+    "./divisions/in": {
+      "en": "India regions",
+      "ja": "インドの行政区画"
     },
     "./divisions/it": {
       "en": "Italy regions",
@@ -2249,6 +2253,10 @@
     "./features/divisions-ie": {
       "en": "Features: divisions-ie",
       "ja": "地物：divisions-ie"
+    },
+    "./features/divisions-in": {
+      "en": "Features: divisions-in",
+      "ja": "地物：divisions-in"
     },
     "./features/divisions-it": {
       "en": "Features: divisions-it",

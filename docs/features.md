@@ -64,7 +64,7 @@ these, and most of their names have no Japanese.
 | divisions-ca | 50 | 70 | 75 | 27 | 29 | 13 | 242 of 264 | 235 of 264 | 261 kB (91 kB) |
 | divisions-ru | 36 | 46 | 100 | 40 | 37 | 82 | 318 of 341 | 306 of 341 | 249 kB (85 kB) |
 
-284 maps have a file of features, 6.7 MB in all; the largest is Canada alone's, 280 kB. A test holds the world's to
+285 maps have a file of features, 6.7 MB in all; the largest is Canada alone's, 280 kB. A test holds the world's to
 210 kB and every other to 300 kB. None of it is in the default import: `@johnmorrisdotca/chizu/world` is unchanged.
 
 **Japan's prefectures** have the Pacific Ocean, the Sea of Japan, the Philippine Sea, the Sea of Okhotsk, the East

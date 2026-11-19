@@ -1,5 +1,5 @@
 /**
- * The regions of the 32 countries that have them, each as longitude and latitude in degrees (Natural Earth admin-1,
+ * The regions of the 33 countries that have them, each as longitude and latitude in degrees (Natural Earth admin-1,
  * 1:10m, simplified), for a globe or any spherical view: no projection, no boxes, and the border two regions share is
  * the same list of points in both. Its own entry, and each country its own file behind a dynamic import, so a page
  * pays only for the countries it loads.
@@ -10,7 +10,7 @@ import type { ChizuGeoCollection } from "./geo-types.ts";
 export type { ChizuGeoCollection, ChizuGeoFeature, ChizuGeoProperties } from "./geo-types.ts";
 
 /**
- * Every map of a country's regions as longitude and latitude, by code: the country's for the 32 countries that have
+ * Every map of a country's regions as longitude and latitude, by code: the country's for the 33 countries that have
  * one, and `VN-2025` for Vietnam's of 2025, as in `DIVISIONS_CODES`.
  *
  * @example
@@ -18,7 +18,7 @@ export type { ChizuGeoCollection, ChizuGeoFeature, ChizuGeoProperties } from "./
  * import { DIVISIONS_GEO_CODES } from "@johnmorrisdotca/chizu/divisions-geo";
  *
  * console.log(DIVISIONS_GEO_CODES.length, DIVISIONS_GEO_CODES.includes("JP"));
- * // 33 true
+ * // 34 true
  * ```
  */
 export const DIVISIONS_GEO_CODES: readonly string[] = Object.keys(DIVISIONS_GEO_LOADERS).map((code) =>

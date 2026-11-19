@@ -253,7 +253,7 @@ export type ChizuPlaceKind = "country" | "territory-part";
  *
  * const withRegions: ChizuCountry[] = CHIZU_COUNTRIES.filter((country) => country.hasDivisions);
  * console.log(withRegions.length, withRegions.map((country) => country.code).slice(0, 5).join(" "));
- * // 32 AR AT AU BE BR
+ * // 33 AR AT AU BE BR
  * ```
  */
 export interface ChizuCountry {

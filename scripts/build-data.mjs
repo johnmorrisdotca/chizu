@@ -3,9 +3,9 @@
 //   src/data/world.data.ts                the world, every country a region (Natural Earth admin-0 at 1:110m)
 //   src/data/world-geo.data.ts            the same world in longitude and latitude, unprojected, with the four it leaves out (177); the one table kept unformatted
 //   src/data/world-geo-detail.data.ts    the same world from the 1:50m outlines in longitude and latitude, simplified (177)
-//   src/data/divisions-geo/<xx>.data.ts   the regions of the 32 countries in longitude and latitude, simplified, shared borders identical
+//   src/data/divisions-geo/<xx>.data.ts   the regions of the 33 countries in longitude and latitude, simplified, shared borders identical
 //   src/data/countries/<xx>.data.ts  each country alone, finer (admin-0 at 1:50m, and at 1:10m for the small ones), on a canvas of its own
-//   src/data/divisions/<xx>.data.ts  the provinces, states, prefectures or départements of 32 countries (admin-1 at 1:10m)
+//   src/data/divisions/<xx>.data.ts  the provinces, states, prefectures or départements of 33 countries (admin-1 at 1:10m)
 //   src/data/countries.data.ts            the table of every country: names in English and Japanese, and what it has
 //   src/data/loaders.data.ts              one dynamic import for each file above
 //
@@ -47,6 +47,7 @@ import {
   projections,
   regionIso,
   regionNames,
+  regionType,
 } from "./build-data/world.mjs";
 import { featureSources, featuresOn } from "./build-features.mjs";
 import {
@@ -161,13 +162,12 @@ function groupOf(config, feature) {
 
 /** The fields a region of a country's map carries before its outline: its codes, names, larger part and kind. */
 export function regionFields(config, feature, iso, shared) {
-  const p = feature.properties;
   return {
-    code: p.__code,
+    code: feature.properties.__code,
     ...(iso ? { iso } : {}),
     ...regionNames(config.code, feature, iso, shared),
     ...groupOf(config, feature),
-    ...(p.type_en ? { type: p.type_en.toLowerCase() } : {}),
+    ...regionType(config.code, feature),
     path: "",
   };
 }

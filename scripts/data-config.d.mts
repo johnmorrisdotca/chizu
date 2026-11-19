@@ -11,3 +11,4 @@ export declare const KUNI_NAMES_KEPT_FROM_NATURAL_EARTH: Readonly<
 >;
 export declare const CUT_OUTLINES: Readonly<Record<string, { file: string; field: string; values: readonly string[] }>>;
 export declare const NAME_FIXES: Readonly<Record<string, { name?: string; nameJa?: string; unnamed?: boolean }>>;
+export declare const TYPE_FIXES: Readonly<Record<string, string>>;

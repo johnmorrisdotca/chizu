@@ -98,10 +98,18 @@ export const SHORT_NAME_READINGS = {
 /*
  * NAMES FROM KUNI. A region that is exactly one ISO subdivision takes its names from kuni, so a map and a form
  * name a place alike. Where kuni's name is wrong or tells two places apart worse than Natural Earth's, Natural Earth's
- * is kept here (`en`, `ja`: which of the two), with the reason. Empty since kuni 1.1.0, which corrected the twelve
- * chizu 1.1.0 kept (Peterborough, Marlborough, Chiayi, Bogotá, Davao de Oro, five Russian republics and Cần Thơ).
+ * is kept here (`en`, `ja`: which of the two), with the reason. Empty from kuni 1.1.0, which corrected the twelve
+ * chizu 1.1.0 kept (Peterborough, Marlborough, Chiayi, Bogotá, Davao de Oro, five Russian republics and Cần Thơ);
+ * India's four below are kuni's macron spellings, until kuni writes them without.
  */
-export const KUNI_NAMES_KEPT_FROM_NATURAL_EARTH = {};
+const MACRONS =
+  "kuni 1.6.0 writes its English name with macrons; Natural Earth's plain spelling is kept until kuni's is macron-free";
+export const KUNI_NAMES_KEPT_FROM_NATURAL_EARTH = {
+  "IN-CG": { en: true, why: `Chhattisgarh: ${MACRONS}` },
+  "IN-TS": { en: true, why: `Telangana: ${MACRONS}` },
+  "IN-UK": { en: true, why: `Uttarakhand: ${MACRONS}` },
+  "IN-DH": { en: true, why: `Dadra and Nagar Haveli and Daman and Diu: ${MACRONS}` },
+};
 
 /*
  * NAMES WRITTEN HERE, where two regions of one map would otherwise share a name (a quiz cannot ask for “Cork” when
@@ -128,4 +136,13 @@ export const NAME_FIXES = {
   ...Object.fromEntries(VIETNAM_2025.merged.map(({ code, name, nameJa }) => [`VN-2025:${code}`, { name, nameJa }])),
   // A city since 2025-01-01 (Resolution 175/2024/QH15), made of the whole of Thừa Thiên–Huế province.
   "VN-2025:26": { name: "Huế" },
+};
+
+/*
+ * THE KIND OF A REGION, where Natural Earth's `type_en` is wrong or empty. Keyed like ISO_JOIN. In Natural Earth 5.1.2
+ * India's Himachal Pradesh is a "Union Territory" and Gujarat has no type; both are states.
+ */
+export const TYPE_FIXES = {
+  "IN:HP": "state",
+  "IN:GJ": "state",
 };

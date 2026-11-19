@@ -8,7 +8,7 @@
 
 import type { ChizuGeoCollection } from "../geo-types.ts";
 
-/** The 33 maps of a country's regions, as longitude and latitude, by lower-case code: the country's, or the country's and a year for a dated map (`vn-2025`). */
+/** The 34 maps of a country's regions, as longitude and latitude, by lower-case code: the country's, or the country's and a year for a dated map (`vn-2025`). */
 export const DIVISIONS_GEO_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuGeoCollection }>>> = {
   "ar": () => import("./divisions-geo/ar.data.ts"),
   "at": () => import("./divisions-geo/at.data.ts"),
@@ -25,6 +25,7 @@ export const DIVISIONS_GEO_LOADERS: Readonly<Record<string, () => Promise<{ defa
   "fr": () => import("./divisions-geo/fr.data.ts"),
   "gb": () => import("./divisions-geo/gb.data.ts"),
   "ie": () => import("./divisions-geo/ie.data.ts"),
+  "in": () => import("./divisions-geo/in.data.ts"),
   "it": () => import("./divisions-geo/it.data.ts"),
   "jp": () => import("./divisions-geo/jp.data.ts"),
   "kr": () => import("./divisions-geo/kr.data.ts"),

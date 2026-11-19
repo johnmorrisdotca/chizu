@@ -67,7 +67,7 @@ const pageParts = {
     description: INDEX_DESCRIPTION,
     ogTitle: "Chizu maps",
     ogDescription:
-      "Japan's prefectures, the world and 32 countries' regions: quizzes, callout sheets and coloured maps, in English and Japanese.",
+      "Japan's prefectures, the world and 33 countries' regions: quizzes, callout sheets and coloured maps, in English and Japanese.",
   }),
   thumbnail: thumbnailHead(JSON.parse(readFileSync("package.json", "utf8")), { alt: ALT }),
   icon: ICON,

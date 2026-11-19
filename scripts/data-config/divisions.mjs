@@ -455,4 +455,18 @@ export const DIVISION_CONFIGS = [
     regionFn: (f) => f.properties.region || "Peru",
     divisionType: "department",
   },
+  {
+    code: "IN",
+    countryName: "India",
+    divisionTypeName: "State / union territory",
+    divisionTypePlural: "States and union territories",
+    width: 1000,
+    height: 1100,
+    filter: (f) => f.properties.iso_a2 === "IN",
+    codeFn: (f) => f.properties.iso_3166_2?.replace(/^IN-/, "") || f.properties.postal,
+    projection: () => geoConicConformal().parallels([12, 28]).rotate([-80, 0]),
+    // Natural Earth gives Ladakh and the Andaman and Nicobar Islands no region: Ladakh joins the North, the islands the South.
+    regionFn: (f) => f.properties.region || (f.properties.postal === "LA" ? "North" : "South"),
+    divisionType: "state",
+  },
 ];
