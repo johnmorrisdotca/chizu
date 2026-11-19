@@ -163,6 +163,11 @@
       "import": "./dist/data/countries/ao.data.js",
       "default": "./dist/data/countries/ao.data.js"
     },
+    "./countries/aq": {
+      "types": "./dist/data/countries/aq.data.d.ts",
+      "import": "./dist/data/countries/aq.data.js",
+      "default": "./dist/data/countries/aq.data.js"
+    },
     "./countries/ar": {
       "types": "./dist/data/countries/ar.data.d.ts",
       "import": "./dist/data/countries/ar.data.js",
@@ -268,6 +273,11 @@
       "import": "./dist/data/countries/bo.data.js",
       "default": "./dist/data/countries/bo.data.js"
     },
+    "./countries/bq": {
+      "types": "./dist/data/countries/bq.data.d.ts",
+      "import": "./dist/data/countries/bq.data.js",
+      "default": "./dist/data/countries/bq.data.js"
+    },
     "./countries/br": {
       "types": "./dist/data/countries/br.data.d.ts",
       "import": "./dist/data/countries/br.data.js",
@@ -282,6 +292,11 @@
       "types": "./dist/data/countries/bt.data.d.ts",
       "import": "./dist/data/countries/bt.data.js",
       "default": "./dist/data/countries/bt.data.js"
+    },
+    "./countries/bv": {
+      "types": "./dist/data/countries/bv.data.d.ts",
+      "import": "./dist/data/countries/bv.data.js",
+      "default": "./dist/data/countries/bv.data.js"
     },
     "./countries/bw": {
       "types": "./dist/data/countries/bw.data.d.ts",
@@ -302,6 +317,11 @@
       "types": "./dist/data/countries/ca.data.d.ts",
       "import": "./dist/data/countries/ca.data.js",
       "default": "./dist/data/countries/ca.data.js"
+    },
+    "./countries/cc": {
+      "types": "./dist/data/countries/cc.data.d.ts",
+      "import": "./dist/data/countries/cc.data.js",
+      "default": "./dist/data/countries/cc.data.js"
     },
     "./countries/cd": {
       "types": "./dist/data/countries/cd.data.d.ts",
@@ -372,6 +392,11 @@
       "types": "./dist/data/countries/cw.data.d.ts",
       "import": "./dist/data/countries/cw.data.js",
       "default": "./dist/data/countries/cw.data.js"
+    },
+    "./countries/cx": {
+      "types": "./dist/data/countries/cx.data.d.ts",
+      "import": "./dist/data/countries/cx.data.js",
+      "default": "./dist/data/countries/cx.data.js"
     },
     "./countries/cy": {
       "types": "./dist/data/countries/cy.data.d.ts",
@@ -498,6 +523,11 @@
       "import": "./dist/data/countries/ge.data.js",
       "default": "./dist/data/countries/ge.data.js"
     },
+    "./countries/gf": {
+      "types": "./dist/data/countries/gf.data.d.ts",
+      "import": "./dist/data/countries/gf.data.js",
+      "default": "./dist/data/countries/gf.data.js"
+    },
     "./countries/gg": {
       "types": "./dist/data/countries/gg.data.d.ts",
       "import": "./dist/data/countries/gg.data.js",
@@ -507,6 +537,11 @@
       "types": "./dist/data/countries/gh.data.d.ts",
       "import": "./dist/data/countries/gh.data.js",
       "default": "./dist/data/countries/gh.data.js"
+    },
+    "./countries/gi": {
+      "types": "./dist/data/countries/gi.data.d.ts",
+      "import": "./dist/data/countries/gi.data.js",
+      "default": "./dist/data/countries/gi.data.js"
     },
     "./countries/gl": {
       "types": "./dist/data/countries/gl.data.d.ts",
@@ -522,6 +557,11 @@
       "types": "./dist/data/countries/gn.data.d.ts",
       "import": "./dist/data/countries/gn.data.js",
       "default": "./dist/data/countries/gn.data.js"
+    },
+    "./countries/gp": {
+      "types": "./dist/data/countries/gp.data.d.ts",
+      "import": "./dist/data/countries/gp.data.js",
+      "default": "./dist/data/countries/gp.data.js"
     },
     "./countries/gq": {
       "types": "./dist/data/countries/gq.data.d.ts",
@@ -843,6 +883,11 @@
       "import": "./dist/data/countries/mp.data.js",
       "default": "./dist/data/countries/mp.data.js"
     },
+    "./countries/mq": {
+      "types": "./dist/data/countries/mq.data.d.ts",
+      "import": "./dist/data/countries/mq.data.js",
+      "default": "./dist/data/countries/mq.data.js"
+    },
     "./countries/mr": {
       "types": "./dist/data/countries/mr.data.d.ts",
       "import": "./dist/data/countries/mr.data.js",
@@ -1028,6 +1073,11 @@
       "import": "./dist/data/countries/qa.data.js",
       "default": "./dist/data/countries/qa.data.js"
     },
+    "./countries/re": {
+      "types": "./dist/data/countries/re.data.d.ts",
+      "import": "./dist/data/countries/re.data.js",
+      "default": "./dist/data/countries/re.data.js"
+    },
     "./countries/ro": {
       "types": "./dist/data/countries/ro.data.d.ts",
       "import": "./dist/data/countries/ro.data.js",
@@ -1087,6 +1137,11 @@
       "types": "./dist/data/countries/si.data.d.ts",
       "import": "./dist/data/countries/si.data.js",
       "default": "./dist/data/countries/si.data.js"
+    },
+    "./countries/sj": {
+      "types": "./dist/data/countries/sj.data.d.ts",
+      "import": "./dist/data/countries/sj.data.js",
+      "default": "./dist/data/countries/sj.data.js"
     },
     "./countries/sk": {
       "types": "./dist/data/countries/sk.data.d.ts",
@@ -1158,6 +1213,11 @@
       "import": "./dist/data/countries/td.data.js",
       "default": "./dist/data/countries/td.data.js"
     },
+    "./countries/tf": {
+      "types": "./dist/data/countries/tf.data.d.ts",
+      "import": "./dist/data/countries/tf.data.js",
+      "default": "./dist/data/countries/tf.data.js"
+    },
     "./countries/tg": {
       "types": "./dist/data/countries/tg.data.d.ts",
       "import": "./dist/data/countries/tg.data.js",
@@ -1172,6 +1232,11 @@
       "types": "./dist/data/countries/tj.data.d.ts",
       "import": "./dist/data/countries/tj.data.js",
       "default": "./dist/data/countries/tj.data.js"
+    },
+    "./countries/tk": {
+      "types": "./dist/data/countries/tk.data.d.ts",
+      "import": "./dist/data/countries/tk.data.js",
+      "default": "./dist/data/countries/tk.data.js"
     },
     "./countries/tl": {
       "types": "./dist/data/countries/tl.data.d.ts",
@@ -1227,6 +1292,11 @@
       "types": "./dist/data/countries/ug.data.d.ts",
       "import": "./dist/data/countries/ug.data.js",
       "default": "./dist/data/countries/ug.data.js"
+    },
+    "./countries/um": {
+      "types": "./dist/data/countries/um.data.d.ts",
+      "import": "./dist/data/countries/um.data.js",
+      "default": "./dist/data/countries/um.data.js"
     },
     "./countries/us": {
       "types": "./dist/data/countries/us.data.d.ts",
@@ -1297,6 +1367,11 @@
       "types": "./dist/data/countries/ye.data.d.ts",
       "import": "./dist/data/countries/ye.data.js",
       "default": "./dist/data/countries/ye.data.js"
+    },
+    "./countries/yt": {
+      "types": "./dist/data/countries/yt.data.d.ts",
+      "import": "./dist/data/countries/yt.data.js",
+      "default": "./dist/data/countries/yt.data.js"
     },
     "./countries/za": {
       "types": "./dist/data/countries/za.data.d.ts",
@@ -1518,6 +1593,11 @@
       "import": "./dist/data/features/country-ao.data.js",
       "default": "./dist/data/features/country-ao.data.js"
     },
+    "./features/country-aq": {
+      "types": "./dist/data/features/country-aq.data.d.ts",
+      "import": "./dist/data/features/country-aq.data.js",
+      "default": "./dist/data/features/country-aq.data.js"
+    },
     "./features/country-ar": {
       "types": "./dist/data/features/country-ar.data.d.ts",
       "import": "./dist/data/features/country-ar.data.js",
@@ -1623,6 +1703,11 @@
       "import": "./dist/data/features/country-bo.data.js",
       "default": "./dist/data/features/country-bo.data.js"
     },
+    "./features/country-bq": {
+      "types": "./dist/data/features/country-bq.data.d.ts",
+      "import": "./dist/data/features/country-bq.data.js",
+      "default": "./dist/data/features/country-bq.data.js"
+    },
     "./features/country-br": {
       "types": "./dist/data/features/country-br.data.d.ts",
       "import": "./dist/data/features/country-br.data.js",
@@ -1637,6 +1722,11 @@
       "types": "./dist/data/features/country-bt.data.d.ts",
       "import": "./dist/data/features/country-bt.data.js",
       "default": "./dist/data/features/country-bt.data.js"
+    },
+    "./features/country-bv": {
+      "types": "./dist/data/features/country-bv.data.d.ts",
+      "import": "./dist/data/features/country-bv.data.js",
+      "default": "./dist/data/features/country-bv.data.js"
     },
     "./features/country-bw": {
       "types": "./dist/data/features/country-bw.data.d.ts",
@@ -1657,6 +1747,11 @@
       "types": "./dist/data/features/country-ca.data.d.ts",
       "import": "./dist/data/features/country-ca.data.js",
       "default": "./dist/data/features/country-ca.data.js"
+    },
+    "./features/country-cc": {
+      "types": "./dist/data/features/country-cc.data.d.ts",
+      "import": "./dist/data/features/country-cc.data.js",
+      "default": "./dist/data/features/country-cc.data.js"
     },
     "./features/country-cd": {
       "types": "./dist/data/features/country-cd.data.d.ts",
@@ -1727,6 +1822,11 @@
       "types": "./dist/data/features/country-cw.data.d.ts",
       "import": "./dist/data/features/country-cw.data.js",
       "default": "./dist/data/features/country-cw.data.js"
+    },
+    "./features/country-cx": {
+      "types": "./dist/data/features/country-cx.data.d.ts",
+      "import": "./dist/data/features/country-cx.data.js",
+      "default": "./dist/data/features/country-cx.data.js"
     },
     "./features/country-cy": {
       "types": "./dist/data/features/country-cy.data.d.ts",
@@ -1853,6 +1953,11 @@
       "import": "./dist/data/features/country-ge.data.js",
       "default": "./dist/data/features/country-ge.data.js"
     },
+    "./features/country-gf": {
+      "types": "./dist/data/features/country-gf.data.d.ts",
+      "import": "./dist/data/features/country-gf.data.js",
+      "default": "./dist/data/features/country-gf.data.js"
+    },
     "./features/country-gg": {
       "types": "./dist/data/features/country-gg.data.d.ts",
       "import": "./dist/data/features/country-gg.data.js",
@@ -1862,6 +1967,11 @@
       "types": "./dist/data/features/country-gh.data.d.ts",
       "import": "./dist/data/features/country-gh.data.js",
       "default": "./dist/data/features/country-gh.data.js"
+    },
+    "./features/country-gi": {
+      "types": "./dist/data/features/country-gi.data.d.ts",
+      "import": "./dist/data/features/country-gi.data.js",
+      "default": "./dist/data/features/country-gi.data.js"
     },
     "./features/country-gl": {
       "types": "./dist/data/features/country-gl.data.d.ts",
@@ -1877,6 +1987,11 @@
       "types": "./dist/data/features/country-gn.data.d.ts",
       "import": "./dist/data/features/country-gn.data.js",
       "default": "./dist/data/features/country-gn.data.js"
+    },
+    "./features/country-gp": {
+      "types": "./dist/data/features/country-gp.data.d.ts",
+      "import": "./dist/data/features/country-gp.data.js",
+      "default": "./dist/data/features/country-gp.data.js"
     },
     "./features/country-gq": {
       "types": "./dist/data/features/country-gq.data.d.ts",
@@ -2188,6 +2303,11 @@
       "import": "./dist/data/features/country-mp.data.js",
       "default": "./dist/data/features/country-mp.data.js"
     },
+    "./features/country-mq": {
+      "types": "./dist/data/features/country-mq.data.d.ts",
+      "import": "./dist/data/features/country-mq.data.js",
+      "default": "./dist/data/features/country-mq.data.js"
+    },
     "./features/country-mr": {
       "types": "./dist/data/features/country-mr.data.d.ts",
       "import": "./dist/data/features/country-mr.data.js",
@@ -2373,6 +2493,11 @@
       "import": "./dist/data/features/country-qa.data.js",
       "default": "./dist/data/features/country-qa.data.js"
     },
+    "./features/country-re": {
+      "types": "./dist/data/features/country-re.data.d.ts",
+      "import": "./dist/data/features/country-re.data.js",
+      "default": "./dist/data/features/country-re.data.js"
+    },
     "./features/country-ro": {
       "types": "./dist/data/features/country-ro.data.d.ts",
       "import": "./dist/data/features/country-ro.data.js",
@@ -2432,6 +2557,11 @@
       "types": "./dist/data/features/country-si.data.d.ts",
       "import": "./dist/data/features/country-si.data.js",
       "default": "./dist/data/features/country-si.data.js"
+    },
+    "./features/country-sj": {
+      "types": "./dist/data/features/country-sj.data.d.ts",
+      "import": "./dist/data/features/country-sj.data.js",
+      "default": "./dist/data/features/country-sj.data.js"
     },
     "./features/country-sk": {
       "types": "./dist/data/features/country-sk.data.d.ts",
@@ -2503,6 +2633,11 @@
       "import": "./dist/data/features/country-td.data.js",
       "default": "./dist/data/features/country-td.data.js"
     },
+    "./features/country-tf": {
+      "types": "./dist/data/features/country-tf.data.d.ts",
+      "import": "./dist/data/features/country-tf.data.js",
+      "default": "./dist/data/features/country-tf.data.js"
+    },
     "./features/country-tg": {
       "types": "./dist/data/features/country-tg.data.d.ts",
       "import": "./dist/data/features/country-tg.data.js",
@@ -2517,6 +2652,11 @@
       "types": "./dist/data/features/country-tj.data.d.ts",
       "import": "./dist/data/features/country-tj.data.js",
       "default": "./dist/data/features/country-tj.data.js"
+    },
+    "./features/country-tk": {
+      "types": "./dist/data/features/country-tk.data.d.ts",
+      "import": "./dist/data/features/country-tk.data.js",
+      "default": "./dist/data/features/country-tk.data.js"
     },
     "./features/country-tl": {
       "types": "./dist/data/features/country-tl.data.d.ts",
@@ -2572,6 +2712,11 @@
       "types": "./dist/data/features/country-ug.data.d.ts",
       "import": "./dist/data/features/country-ug.data.js",
       "default": "./dist/data/features/country-ug.data.js"
+    },
+    "./features/country-um": {
+      "types": "./dist/data/features/country-um.data.d.ts",
+      "import": "./dist/data/features/country-um.data.js",
+      "default": "./dist/data/features/country-um.data.js"
     },
     "./features/country-us": {
       "types": "./dist/data/features/country-us.data.d.ts",
@@ -2637,6 +2782,11 @@
       "types": "./dist/data/features/country-ye.data.d.ts",
       "import": "./dist/data/features/country-ye.data.js",
       "default": "./dist/data/features/country-ye.data.js"
+    },
+    "./features/country-yt": {
+      "types": "./dist/data/features/country-yt.data.d.ts",
+      "import": "./dist/data/features/country-yt.data.js",
+      "default": "./dist/data/features/country-yt.data.js"
     },
     "./features/country-za": {
       "types": "./dist/data/features/country-za.data.d.ts",

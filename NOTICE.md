@@ -9,6 +9,7 @@ what it was made from.
 | --- | --- | --- |
 | `world` | Natural Earth 5.1.2, admin-0 countries at 1:110m (`ne_110m_admin_0_countries`) | Public domain |
 | `countries/<code>`, `names` | Natural Earth 5.1.2, admin-0 countries at 1:50m, and at 1:10m for countries under 60,000 km² (`ne_50m_admin_0_countries`, `ne_10m_admin_0_countries`) | Public domain |
+| `countries/<code>` for the fifteen ISO codes that had no map of their own (AQ, BQ, BV, CC, CX, GF, GI, GP, MQ, RE, SJ, TF, TK, UM, YT) | Natural Earth 5.1.2, admin-0 map units at 1:50m and 1:10m (`ne_50m_admin_0_map_units`, `ne_10m_admin_0_map_units`), and admin-0 countries for AQ, GI, TF and UM. Credit, as Natural Earth suggests it: "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com." | Public domain |
 | `divisions-geo/<code>`, `world-geo-detail` | The same Natural Earth 5.1.2 files, admin-1 states and provinces at 1:10m and admin-0 countries at 1:50m, as longitude and latitude, rounded to 0.01 degree and simplified to 0.7 km (regions) and 0.3 km (world) by `scripts/build-data/geo.mjs` | Public domain |
 | `divisions/<code>`, Japan's prefectures among them | Natural Earth 5.1.2, admin-1 states and provinces at 1:10m (`ne_10m_admin_1_states_provinces`) | Public domain |
 | `features/<map>`: the seas, lakes, rivers, landforms and peaks of each map | Natural Earth 5.1.2's physical vectors at 1:10m: marine areas, lakes, rivers and lake centre-lines, geographic regions and elevation points (`ne_10m_geography_marine_polys`, `ne_10m_lakes`, `ne_10m_rivers_lake_centerlines`, `ne_10m_geography_regions_polys`, `ne_10m_geography_regions_elevation_points`) | Public domain |
@@ -122,12 +123,16 @@ reads it, so it makes the same maps from the same files every time:
 | `geojson/ne_10m_rivers_lake_centerlines.geojson` | `bb854a900ecbd3b408df46d5e16e3e0f974ba55993f9d8b5c26e855273c0905a` |
 | `geojson/ne_10m_geography_regions_polys.geojson` | `b7b26e50ea917d3696aec87f932def2bf5f890f5770e441d59c162c6f4c92a77` |
 | `geojson/ne_10m_geography_regions_elevation_points.geojson` | `f98a16867867146ec4146d6d4b18c823eeedb2825947de666116cf9a4e3f43cb` |
+| `geojson/ne_50m_admin_0_map_units.geojson` | `b8d421aca6e9e08e8cdf09cc26af111cc3e0deba4fe915611d58ade71e8a4db0` |
+| `geojson/ne_10m_admin_0_map_units.geojson` | `57da82be755f4afccd8f3b14251bb2752f5df1395f47d2d86f817470c4a48862` |
 
-The five physical files were read on 2026-10-09, from the same tag.
+The five physical files were read on 2026-10-09, and the two map-units files on
+2026-11-18, from the same tag.
 
 **What was changed.** The outlines are projected onto a fixed canvas, rounded to
 two decimals and drawn as `M`/`L`/`Z` paths. For a country alone, only its
-largest piece and the pieces within 9° of it are kept. Natural Earth draws the
+largest piece and the pieces within 9° of it are kept; Antarctica's points along
+the antimeridian and the pole are taken out, so its map has no line from the coast to the pole. Natural Earth draws the
 Amami Islands (Amami Ōshima, Kikai, Tokunoshima, Okinoerabu and Yoron) inside
 Okinawa; they are Kagoshima's, and the build moves them there. The names, the codes and
 the neighbours (regions that share a border point) are Natural Earth's own, with

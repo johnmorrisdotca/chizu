@@ -9,4 +9,5 @@ export declare const CONTINENT_OVERRIDES: Readonly<Record<string, { continent: s
 export declare const KUNI_NAMES_KEPT_FROM_NATURAL_EARTH: Readonly<
   Record<string, { en?: boolean; ja?: boolean; why: string }>
 >;
+export declare const CUT_OUTLINES: Readonly<Record<string, { file: string; field: string; values: readonly string[] }>>;
 export declare const NAME_FIXES: Readonly<Record<string, { name?: string; nameJa?: string; unnamed?: boolean }>>;

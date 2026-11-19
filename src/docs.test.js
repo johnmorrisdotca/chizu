@@ -309,8 +309,8 @@ describe("the README's promises", () => {
       expect(notice, file).toContain(hash);
       expect(notice, file).toContain(file.replace(".geojson", ""));
     }
-    expect(config.match(/"ne_[0-9a-z_]+\.geojson":\s*"[0-9a-f]{64}"/g)).toHaveLength(9);
-    expect(CHIZU_SOURCE.files).toHaveLength(9);
+    expect(config.match(/"ne_[0-9a-z_]+\.geojson":\s*"[0-9a-f]{64}"/g)).toHaveLength(11);
+    expect(CHIZU_SOURCE.files).toHaveLength(11);
     expect(notice).toContain(`tree/${CHIZU_SOURCE.tag}`);
     expect(pkg.files).toContain("NOTICE.md");
   });

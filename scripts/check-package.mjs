@@ -131,7 +131,7 @@ const { drawChizu } = await import(${JSON.stringify(`${pkg.name}/draw`)});
 const svg = drawChizu(world, { tones: { JP: "selected" }, callouts: ["JP", "BR"], language: "ja" });
 if (!svg.startsWith("<svg") || !svg.includes("cz-tone-selected") || !svg.includes("cz-callout")) throw new Error("the drawing is " + String(svg).slice(0, 80));
 const { CHIZU_COUNTRIES, countryByCode } = await import(${JSON.stringify(`${pkg.name}/names`)});
-if (CHIZU_COUNTRIES.length !== 238 || countryByCode("jp").nameJa !== "日本") throw new Error("the names are wrong");
+if (CHIZU_COUNTRIES.length !== 253 || countryByCode("jp").nameJa !== "日本") throw new Error("the names are wrong");
 const { loadCountry, loadDivisions, loadWorldDetail } = await import(${JSON.stringify(`${pkg.name}/load`)});
 const france = await loadDivisions("fr");
 if (france.regions.length !== 96 || (await loadCountry("jp")).regions[0].nameJa !== "日本" || (await loadDivisions("jp")).regions.length !== 47 || (await loadDivisions("xx")) !== null || (await loadWorldDetail()).id !== "world-detail") throw new Error("the loaders are wrong");

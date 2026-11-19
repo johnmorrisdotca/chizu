@@ -14,6 +14,7 @@ export {
   SHORT_NAMES_NOT_EVERYDAY,
   TERRITORY_PARTS,
 } from "./data-config/names.mjs";
+export { CUT_OUTLINES } from "./data-config/outlines.mjs";
 
 /** Where Natural Earth is read from: a release tag of its own repository, and the file's SHA-256 at that tag. */
 export const NATURAL_EARTH = {
@@ -34,6 +35,8 @@ export const NATURAL_EARTH = {
     "ne_10m_geography_regions_polys.geojson": "b7b26e50ea917d3696aec87f932def2bf5f890f5770e441d59c162c6f4c92a77",
     "ne_10m_geography_regions_elevation_points.geojson":
       "f98a16867867146ec4146d6d4b18c823eeedb2825947de666116cf9a4e3f43cb",
+    "ne_50m_admin_0_map_units.geojson": "b8d421aca6e9e08e8cdf09cc26af111cc3e0deba4fe915611d58ade71e8a4db0",
+    "ne_10m_admin_0_map_units.geojson": "57da82be755f4afccd8f3b14251bb2752f5df1395f47d2d86f817470c4a48862",
   },
 };
 

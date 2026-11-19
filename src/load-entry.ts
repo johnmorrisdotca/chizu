@@ -15,7 +15,7 @@ import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
  * import { COUNTRY_CODES } from "@johnmorrisdotca/chizu/load";
  *
  * console.log(COUNTRY_CODES.length, COUNTRY_CODES.includes("JP"));
- * // 238 true
+ * // 253 true
  * ```
  */
 export const COUNTRY_CODES: readonly string[] = Object.keys(COUNTRY_LOADERS).map((code) => code.toUpperCase());

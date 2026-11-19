@@ -78,10 +78,10 @@ src/
     ├── countries.data.ts        the table of every country
     ├── loaders.data.ts          one import for each country's map
     ├── divisions-geo-loaders.data.ts  one import for each country's regions in degrees
-    ├── countries/<code>.data.ts   238 countries, each alone
+    ├── countries/<code>.data.ts   253 countries, each alone
     ├── divisions/<code>.data.ts   32 countries' regions
     ├── divisions-geo/<code>.data.ts   32 countries' regions in degrees
-    └── features/<map>.data.ts     268 maps' named features
+    └── features/<map>.data.ts     283 maps' named features
 ```
 
 ## Documentation and generated data

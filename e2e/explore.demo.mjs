@@ -76,7 +76,7 @@ test("the map chooser offers Japan first, the world, its continents, 31 other co
   await expect(groups.nth(0).locator("option")).toHaveAttribute("value", "divisions:jp");
   await expect(groups.nth(2).locator("option")).toHaveCount(6);
   await expect(groups.nth(3).locator("option")).toHaveCount(31);
-  await expect(groups.nth(4).locator("option")).toHaveCount(238);
+  await expect(groups.nth(4).locator("option")).toHaveCount(253);
   await page.locator(at("map")).selectOption("divisions:de");
   await expect(page.locator(`${at("board")} .cz-region`)).toHaveCount(16);
   await expect(svg(page)).toHaveAttribute("data-map", "divisions-de");

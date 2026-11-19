@@ -18,7 +18,7 @@ console.log(question?.target,question?.choices,question?.answerIndex);
 
 ## Small countries are asked too, when you ask for them
 
-The world is drawn from 1:110m outlines, which are too coarse for 62 of the 238 countries (Singapore, Malta, Bahrain, most of the Caribbean and the Pacific), so `WORLD` has 173 regions and a quiz never asks for the other 62. `withSmallStates(WORLD)` from `@johnmorrisdotca/chizu/small-states` adds them as dots, regions with `small: true`, and `findQuestion` and `pickDistractors` ask and offer them as any other country. Nothing adds them by itself, so a seed gives the questions it always gave until you pass the new map: with it, the same seed gives different rounds, because there are 62 more countries to ask. `drawChizu` takes the same map; `mountChizu` has `smallStates: true`, and `<chizu-map>` and `<chizu-quiz>` have `small-states`, which fetch the table only when it is on.
+The world is drawn from 1:110m outlines, which are too coarse for 62 of the 238 countries drawn at 1:50m (Singapore, Malta, Bahrain, most of the Caribbean and the Pacific), so `WORLD` has 173 regions and a quiz never asks for the other 62. `withSmallStates(WORLD)` from `@johnmorrisdotca/chizu/small-states` adds them as dots, regions with `small: true`, and `findQuestion` and `pickDistractors` ask and offer them as any other country. Nothing adds them by itself, so a seed gives the questions it always gave until you pass the new map: with it, the same seed gives different rounds, because there are 62 more countries to ask. `drawChizu` takes the same map; `mountChizu` has `smallStates: true`, and `<chizu-map>` and `<chizu-quiz>` have `small-states`, which fetch the table only when it is on.
 
 ```ts
 import WORLD from "@johnmorrisdotca/chizu/world";

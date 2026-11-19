@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { CUT_OUTLINES } from "../scripts/data-config.mjs";
 import { CHIZU_CONTINENTS, CHIZU_COUNTRIES, CHIZU_SUBREGIONS } from "./data/countries.data.ts";
 import { DIVISIONS_LOADERS } from "./data/loaders.data.ts";
 import world from "./data/world.data.ts";
@@ -12,10 +13,12 @@ import { seededRandom } from "./random.ts";
 const continent = (code: string) => CHIZU_CONTINENTS.find((entry) => entry.code === code)!;
 
 describe("the continents and subregions", () => {
-  it("are kuni's seven continents, with every country in exactly one and no territory part in any", () => {
+  it("are kuni's seven continents, with every country in exactly one and no territory part or place drawn alone only in any", () => {
     expect(CHIZU_CONTINENTS.map((entry) => entry.code)).toEqual(["AF", "AN", "AS", "EU", "NA", "OC", "SA"]);
     const placed = CHIZU_CONTINENTS.flatMap((entry) => entry.codes);
-    const countries = CHIZU_COUNTRIES.filter((country) => country.kind === "country");
+    const countries = CHIZU_COUNTRIES.filter(
+      (country) => country.kind === "country" && !(country.code in CUT_OUTLINES),
+    );
     expect(placed.sort()).toEqual(countries.map((country) => country.code).sort());
     for (const country of countries) {
       const home = CHIZU_CONTINENTS.find((entry) => entry.codes.includes(country.code))!;

@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **A map of its own for the fifteen ISO codes that had none** (MODULES-1617): Antarctica (`AQ`), the Caribbean Netherlands (`BQ`), Bouvet Island (`BV`), the Cocos Islands (`CC`), Christmas Island (`CX`), French Guiana (`GF`), Gibraltar (`GI`), Guadeloupe (`GP`), Martinique (`MQ`), Réunion (`RE`), Svalbard and Jan Mayen (`SJ`), the French Southern Lands (`TF`), Tokelau (`TK`), the US Minor Outlying Islands (`UM`) and Mayotte (`YT`). Each is cut from Natural Earth 5.1.2's admin-0 map units (two new files, pinned by SHA-256) or its admin-0 countries, at 1:50m or 1:10m by the usual 60,000 km² rule, so `countries/<code>` and `loadCountry` have 253 countries (were 238) and `CHIZU_COUNTRIES` lists them, with `onWorld: false`. The world, its quiz with or without the small states, `CHIZU_CONTINENTS` and `CHIZU_SUBREGIONS` are unchanged: Antarctica and the French Southern Lands are still off the world. The 9° rule keeps Kerguelen for `TF` and Palmyra, Kingman and Jarvis for `UM` (docs/maps.md). Brazil and Suriname now name French Guiana as a neighbour, and Spain Gibraltar.
+
 ## [1.14.0] - 2026-11-18
 
 ### Added
