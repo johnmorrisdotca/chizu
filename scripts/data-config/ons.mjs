@@ -9,7 +9,7 @@ import { DIVISION_CONFIGS } from "./divisions.mjs";
  * and becomes `gb` at the next major. Northern Ireland on `gb-2025` is Natural Earth's, as on `gb`: its 26 districts of
  * before 2015, each with the code of the district it lies in now (ISO_JOIN), until there is a decision on Land and
  * Property Services' terms for its 11 districts of today. The ONS's file is under the Open Government Licence v3.0,
- * whose one condition is the two lines in `attribution`, carried by the map's `source` and by NOTICE.md.
+ * whose one condition is the two lines in `attribution`, on the map's `source`, on `CHIZU_SOURCE.ons` and in NOTICE.md.
  */
 export const ONS = {
   name: "Counties and Unitary Authorities (December 2025) Boundaries UK BGC",
@@ -23,6 +23,8 @@ export const ONS = {
   file: "ons_ctyua_dec_2025_uk_bgc.geojson",
   sha256: "23269639209d1425df0a3fc052dec4d9c0dc04922d7ae641ca9ebe8e4dbc91cd",
   licence: "Open Government Licence v3.0",
+  /** The licence's own page. It asks for a link to this page where one can be given. */
+  licenceUrl: "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
   attribution: [
     "Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
     "Contains OS data © Crown copyright and database right 2025",
@@ -35,6 +37,19 @@ export const ONS = {
    * piece is always kept). About 15,500 points are left.
    */
   simplify: { toleranceKm: 0.7, precision: 4, minRingKm2: 2 },
+};
+
+/**
+ * The ONS as `CHIZU_SOURCE.ons` names it. `attribution` is the statement the Open Government Licence requires, in the
+ * ONS's own words. `nameJa` is the office's Japanese name. Those English lines are not translated.
+ */
+export const CHIZU_ONS_SOURCE = {
+  name: "Office for National Statistics",
+  nameJa: "英国国家統計局",
+  product: ONS.name,
+  licence: ONS.licence,
+  licenceUrl: ONS.licenceUrl,
+  attribution: ONS.attribution,
 };
 
 /**

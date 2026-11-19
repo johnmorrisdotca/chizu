@@ -3340,14 +3340,13 @@ export const CHIZU_SUBREGIONS: readonly ChizuGroup[] = [
 ];
 
 /**
- * Where the data came from: Natural Earth's release and files, and the version of kuni the names were read from.
- *
+ * Where the outlines came from: Natural Earth, the ONS for UK councils, and kuni. ons.attribution quotes the licence.
  * @example
  * ```ts
  * import { CHIZU_SOURCE } from "@johnmorrisdotca/chizu/names";
  *
- * console.log(CHIZU_SOURCE.name, CHIZU_SOURCE.version, CHIZU_SOURCE.licence, "·", CHIZU_SOURCE.names.name, CHIZU_SOURCE.names.version);
- * // Natural Earth 5.1.2 Public domain · kuni 1.6.0
+ * console.log(CHIZU_SOURCE.name, CHIZU_SOURCE.ons.nameJa);
+ * // Natural Earth 英国国家統計局
  * ```
  */
 export const CHIZU_SOURCE = {
@@ -3375,5 +3374,16 @@ export const CHIZU_SOURCE = {
     package: "@johnmorrisdotca/kuni",
     version: "1.6.0",
     licence: "MIT; its names are Unicode CLDR's (Unicode-3.0) and Wikidata's (CC0)",
+  },
+  ons: {
+    name: "Office for National Statistics",
+    nameJa: "英国国家統計局",
+    product: "Counties and Unitary Authorities (December 2025) Boundaries UK BGC",
+    licence: "Open Government Licence v3.0",
+    licenceUrl: "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    attribution: [
+      "Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
+      "Contains OS data © Crown copyright and database right 2025",
+    ],
   },
 };

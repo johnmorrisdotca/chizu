@@ -31,6 +31,8 @@ console.log(DIVISIONS_CODES.includes("GB-2025"),uk?.id,uk?.regions.some((region)
 
 経度・緯度のデータは`/divisions-geo/gb-2025`、地物は`/features/divisions-gb-2025`です。ISO 3166-2のコードがまだない2つの区画は、ONSのコード（`E06000063`、`E06000064`）を`code`に使い、`iso`はありません。
 
+その境界の出典は`CHIZU_SOURCE`（`@johnmorrisdotca/chizu/names`）です。Natural Earthと英国国家統計局（Office for National Statistics）の両方が入っています。Open Government Licence v3.0が求める表示は、データの提供者が指定した次の2行で、`CHIZU_SOURCE.ons.attribution`に英文のまま入っています。「Source: Office for National Statistics licensed under the Open Government Licence v.3.0」「Contains OS data © Crown copyright and database right 2025」。この英文は訳さずに載せてください。
+
 ## 固定のimportと動的な読み込み
 
 いつも同じ地図を描くページでは、データを直接importできます。利用者が選ぶ場合は`loadCountry`、`loadDivisions`、`loadFeatures`を使います。今回一覧に加えた名前付きのエクスポートは、既存のワイルドカードと同じパスです。データと並び順は変えていません。

@@ -31,6 +31,8 @@ console.log(DIVISIONS_CODES.includes("GB-2025"),uk?.id,uk?.regions.some((region)
 
 Its regions in degrees are `/divisions-geo/gb-2025`, its features `/features/divisions-gb-2025`. Its two councils that ISO 3166-2 has not coded have their ONS codes (`E06000063`, `E06000064`) and no `iso`.
 
+Where those boundaries come from is on `CHIZU_SOURCE` (`@johnmorrisdotca/chizu/names`): it names both Natural Earth and the Office for National Statistics. The Open Government Licence v3.0 requires the attribution statement the provider specifies, and `CHIZU_SOURCE.ons.attribution` quotes it: "Source: Office for National Statistics licensed under the Open Government Licence v.3.0" and "Contains OS data © Crown copyright and database right 2025".
+
 ## Fixed imports or dynamic loaders
 
 Use a fixed resource import when the page always draws it. Use `loadCountry`, `loadDivisions` and `loadFeatures` when the visitor chooses. The explicit named resource exports document the same paths supported by the wildcard exports; their data and order are unchanged.

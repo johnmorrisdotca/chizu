@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { ONS } from "../scripts/data-config.mjs";
+import { CHIZU_SOURCE } from "./data/countries.data.ts";
 import { loadDivisionsGeo } from "./divisions-geo-entry.ts";
 import { DIVISIONS_CODES, loadDivisions } from "./load-entry.ts";
 
@@ -111,6 +112,30 @@ describe("the United Kingdom's map gb-2025", () => {
       expect(notice).toContain(text);
     expect(notice).toContain("`divisions/gb-2025`");
     expect(notice).toContain("Northern Ireland");
+    expect(notice).toContain("`CHIZU_SOURCE.ons.attribution`");
+    expect(notice).toContain(ONS.licenceUrl);
+  });
+
+  it("names Natural Earth and the ONS on CHIZU_SOURCE, and quotes the Open Government Licence's lines", () => {
+    expect(CHIZU_SOURCE.name).toBe("Natural Earth");
+    expect(CHIZU_SOURCE.licence).toBe("Public domain");
+    expect(CHIZU_SOURCE.ons).toEqual({
+      name: "Office for National Statistics",
+      nameJa: "英国国家統計局",
+      product: ONS.name,
+      licence: ONS.licence,
+      licenceUrl: ONS.licenceUrl,
+      attribution: [...ONS.attribution],
+    });
+    const line = ONS.attribution[0];
+    const read = (path) => readFileSync(path, "utf8");
+    for (const path of ["README.md", "docs/guides/loading-maps.md", "docs/guides/ja/loading-maps.md"]) {
+      const text = read(path);
+      expect(text, path).toContain("CHIZU_SOURCE.ons");
+      expect(text, path).toContain(line);
+    }
+    expect(read("docs/guides/ja/loading-maps.md")).toContain(CHIZU_SOURCE.ons.nameJa);
+    expect(read("docs/guides/loading-maps.md")).toContain(ONS.attribution[1]);
   });
 
   it("draws Northern Ireland as gb does: the same regions, and the same outlines in degrees, point for point", async () => {

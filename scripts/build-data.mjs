@@ -51,6 +51,7 @@ import {
 } from "./build-data/world.mjs";
 import { featureSources, featuresOn } from "./build-features.mjs";
 import {
+  CHIZU_ONS_SOURCE,
   CONTINENT_NAMES,
   DIVISION_CONFIGS,
   GROUP_READINGS,
@@ -422,14 +423,13 @@ export const CHIZU_CONTINENTS: readonly ChizuGroup[] = ${literal(groupsTable("co
 export const CHIZU_SUBREGIONS: readonly ChizuGroup[] = ${literal(groupsTable("subregion"))};
 
 /**
- * Where the data came from: Natural Earth's release and files, and the version of kuni the names were read from.
- *
+ * Where the outlines came from: Natural Earth, the ONS for UK councils, and kuni. ons.attribution quotes the licence.
  * @example
  * \`\`\`ts
  * import { CHIZU_SOURCE } from "@johnmorrisdotca/chizu/names";
  *
- * console.log(CHIZU_SOURCE.name, CHIZU_SOURCE.version, CHIZU_SOURCE.licence, "·", CHIZU_SOURCE.names.name, CHIZU_SOURCE.names.version);
- * // Natural Earth ${NATURAL_EARTH.version} Public domain · kuni ${KUNI.version}
+ * console.log(CHIZU_SOURCE.name, CHIZU_SOURCE.ons.nameJa);
+ * // Natural Earth 英国国家統計局
  * \`\`\`
  */
 export const CHIZU_SOURCE = ${literal({
@@ -446,6 +446,7 @@ export const CHIZU_SOURCE = ${literal({
         version: KUNI.version,
         licence: "MIT; its names are Unicode CLDR's (Unicode-3.0) and Wikidata's (CC0)",
       },
+      ons: CHIZU_ONS_SOURCE,
     })};
 `,
   );

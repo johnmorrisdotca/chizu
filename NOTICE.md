@@ -106,6 +106,8 @@ Source: Office for National Statistics licensed under the Open Government Licenc
 
 Contains OS data © Crown copyright and database right 2025
 
+Those two lines are also `CHIZU_SOURCE.ons.attribution` (from `@johnmorrisdotca/chizu/names`), beside the office's Japanese name 英国国家統計局.
+
 The ONS supplies its digital boundaries under the Open Government Licence v3.0
 (https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/), whose one condition is the
 acknowledgement above; the two lines also travel with the data, in the `source` of both files.

@@ -453,7 +453,7 @@ true 4
 
 ### Every country's name, in two languages
 
-The table of countries has no outlines, so a page that only needs names loads 55 kB (10 kB gzipped). `nameOf` picks the language; `reading` is the kana.
+The table of countries has no outlines, so a page that only needs names loads 56 kB (10 kB gzipped). `nameOf` picks the language; `reading` is the kana.
 
 ```ts
 import { CHIZU_COUNTRIES, countryByCode } from "@johnmorrisdotca/chizu/names";
@@ -899,7 +899,7 @@ The code is [MIT](./LICENSE) © John Morris. The outlines and the names are data
 | Data | Made from | Terms |
 | --- | --- | --- |
 | The outlines of the world, of each country and of 33 countries' regions; the seas, lakes, rivers, landforms and peaks | [Natural Earth](https://www.naturalearthdata.com/) 5.1.2, admin-0 countries at 1:110m, 1:50m and 1:10m, admin-1 states and provinces and the physical vectors at 1:10m | Public domain. Crediting the authors is unnecessary; it is done here anyway |
-| England, Scotland and Wales on `gb-2025` | [ONS](https://geoportal.statistics.gov.uk/datasets/ac443ef4c1de497a9675a6e72290f9cc) councils of December 2025 | OGL v3.0: "Source: Office for National Statistics licensed under the Open Government Licence v.3.0", "Contains OS data © Crown copyright and database right 2025" |
+| England, Scotland and Wales on `gb-2025` | [ONS](https://geoportal.statistics.gov.uk/datasets/ac443ef4c1de497a9675a6e72290f9cc) councils of December 2025, named on `CHIZU_SOURCE.ons` | OGL v3.0: "Source: Office for National Statistics licensed under the Open Government Licence v.3.0", "Contains OS data © Crown copyright and database right 2025" |
 | The countries' names, short names, readings and continents; the regions' ISO 3166-2 codes; the names of Japan's prefectures and of the regions that are one ISO subdivision | [kuni 国](https://github.com/johnmorrisdotca/kuni) 1.6.0, read at build time, whose names are [Unicode CLDR](https://cldr.unicode.org/)'s and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, whose notice is in NOTICE.md. Wikidata: CC0 |
 | The other regions' names in Japanese; the features' names | Natural Earth's names, which are Wikidata's, and Wikidata's | CC0 |
 | The readings of three places kuni does not have, and the names that tell two regions of one map apart | Written for this package | MIT |
