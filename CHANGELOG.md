@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.15.0] - 2026-11-19
+
 ### Added
 
 - **All five together, in numbers.** `DIVISIONS_CODES` and `DIVISIONS_GEO_CODES` have 35 entries (were 32): 33 countries, India among them, and two dated maps, `VN-2025` and `GB-2025`, beside `VN` and `GB`. `countries/<code>` has 253 countries (were 238) and `features/<map>` 286 maps (were 268). `pnpm data` reads 11 Natural Earth files pinned by SHA-256 (were 9) and the ONS's file; `pnpm data:ports` reads Natural Earth's ports and OurAirports.
