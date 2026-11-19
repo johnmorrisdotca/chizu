@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.16.0] - 2026-11-19
+
 ### Changed
 
 - **Norway's regions are named as the 15 counties of 2024** (MODULES-1613). The shapes are still Natural Earth's pre-2020 counties, relabelled, not redrawn: Hedmark and Oppland are `Innlandet (Hedmark)` and `Innlandet (Oppland)` (`NO-34`), Aust- and Vest-Agder `Agder (...)` (`NO-42`), Hordaland and Sogn og Fjordane `Vestland (...)` (`NO-46`), Sør- and Nord-Trøndelag `Trøndelag (...)` (`NO-50`), with the county's name from kuni in English and Japanese and the old part in brackets, so no two regions share a name; their `code` and `iso` are unchanged. Svalbard and Bouvet Island are drawn as before but have `type` `territory`, so they are not counted as counties. The names come from `NAMED_AS_COUNTY_WITH_PART` and `TYPE_FIXES` in `scripts/data-config/names.mjs`; `src/data` is written again by `pnpm data`. Tests: `src/norway-names.test.js`.
