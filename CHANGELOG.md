@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.17.0] - 2026-11-19
+
 ### Added
 
 - **`CHIZU_SOURCE` names the ONS** (MODULES-1676). Beside Natural Earth, `CHIZU_SOURCE.ons` names the Office for National Statistics (英国国家統計局) and quotes the attribution the Open Government Licence v3.0 requires, in the ONS's words: "Source: Office for National Statistics licensed under the Open Government Licence v.3.0" and "Contains OS data © Crown copyright and database right 2025". The same lines stay on the `gb-2025` map's `source` and in NOTICE.md. The guide "Load only the maps you need" says so in English and in Japanese.
