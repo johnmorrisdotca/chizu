@@ -94,11 +94,15 @@ export {
 } from "./outlines.ts";
 export type { ChizuLatLon, ChizuOverlay } from "./overlays.ts";
 export { overlaysSvg } from "./overlays.ts";
+export type { ChizuPort, ChizuPortOptions, ChizuPortPlaced } from "./ports.ts";
+export { placePorts, portName, portsInTier, portTierFor } from "./ports.ts";
 export { projectPoint, unprojectPoint } from "./project.ts";
 export type { FindQuestion } from "./quiz.ts";
 export { findQuestion } from "./quiz.ts";
 export type { Random } from "./random.ts";
 export { seededRandom, shuffled } from "./random.ts";
+export type { ChizuRunway, ChizuRunways } from "./runways.ts";
+export { runwaysSvg } from "./runways.ts";
 export type { ChizuLanguage } from "./strings.ts";
 export { CHIZU_STRINGS, chizuLanguageOf, chizuSay, featureKindName, featureKindOf, nameOf } from "./strings.ts";
 export type {

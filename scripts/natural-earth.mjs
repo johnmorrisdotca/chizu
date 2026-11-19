@@ -15,9 +15,9 @@ export const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const cache = resolve(root, process.env.CHIZU_CACHE ?? ".cache");
 
 /** Natural Earth's file (or the ONS's), from the cache, fetched once and checked against the hash this version of the script was written for. */
-export async function source(file) {
+export async function source(file, files = NATURAL_EARTH.files) {
   const path = join(cache, file);
-  const expected = file === ONS.file ? ONS.sha256 : NATURAL_EARTH.files[file];
+  const expected = file === ONS.file ? ONS.sha256 : files[file];
   if (!existsSync(path)) {
     mkdirSync(cache, { recursive: true });
     const url = file === ONS.file ? ONS.query : `${NATURAL_EARTH.raw}/${file}`;

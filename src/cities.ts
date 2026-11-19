@@ -161,7 +161,7 @@ export function cityPopulationFloor(kilometres: number): number {
  * The countries whose cities a map may name: `null` for any (the world, a local map); on a map of one country alone,
  * that country's code, since the land round it is not drawn and a neighbour's city would sit in an empty sea.
  */
-function countriesNamed(
+export function countriesNamed(
   map: Pick<ChizuMap, "projection"> & Partial<Pick<ChizuMap, "kind" | "regions">>,
 ): Set<string> | null {
   if (map.kind !== "country") return null;

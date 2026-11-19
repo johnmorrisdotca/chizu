@@ -68,6 +68,21 @@
       "import": "./dist/cities-entry.js",
       "default": "./dist/cities-entry.js"
     },
+    "./airports": {
+      "types": "./dist/airports-entry.d.ts",
+      "import": "./dist/airports-entry.js",
+      "default": "./dist/airports-entry.js"
+    },
+    "./harbours": {
+      "types": "./dist/harbours-entry.d.ts",
+      "import": "./dist/harbours-entry.js",
+      "default": "./dist/harbours-entry.js"
+    },
+    "./runways": {
+      "types": "./dist/runways-entry.d.ts",
+      "import": "./dist/runways-entry.js",
+      "default": "./dist/runways-entry.js"
+    },
     "./load": {
       "types": "./dist/load-entry.d.ts",
       "import": "./dist/load-entry.js",
@@ -3028,6 +3043,8 @@
     "docs:make": "node scripts/docs.mjs",
     "data": "node scripts/build-data.mjs",
     "data:wikidata": "node scripts/wikidata.mjs",
+    "data:ports": "node scripts/build-ports.mjs",
+    "data:ports-wikidata": "node scripts/wikidata-ports.mjs",
     "docs:site": "pnpm build && node scripts/docs-site.mjs build",
     "docs:check": "pnpm build && node scripts/docs-site.mjs check",
     "size": "node scripts/docs-site.mjs size",

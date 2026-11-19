@@ -20,6 +20,10 @@ what it was made from.
 | The readings of feature names no source reads, and the river names Natural Earth spells otherwise (Rhein for the Rhine) matched to their Wikidata items | Written for this package, in `scripts/features-config.mjs` | MIT |
 | The countries' names in English and Japanese, their everyday short names (アメリカ for アメリカ合衆国), their readings in kana, continents and three-letter codes; the regions' ISO 3166-2 codes; the names of the regions that are exactly one ISO subdivision; Japan's prefectures' names and readings | kuni 国 (`@johnmorrisdotca/kuni` 1.6.0, read at build time), whose names are Unicode CLDR 48.2's and Wikidata's | kuni: MIT. CLDR: Unicode-3.0, below. Wikidata: CC0 |
 | The other regions' names in English and Japanese | Natural Earth's name columns, which are Wikidata's | CC0 |
+| `airports`: the 600 busiest airports, their tiers, codes, points and names | Wikidata (https://www.wikidata.org/), asked by `scripts/wikidata-ports.mjs` and kept in `scripts/data-wikidata-ports.json`: each airport's passengers a year (P3872) of 2015 or later, its IATA and ICAO codes, point, and English and Japanese labels. The country is the Natural Earth 1:50m country that holds the point | CC0 |
+| `runways`: the open runways of those airports, each from its two measured ends, with its width | OurAirports' `airports.csv` and `runways.csv` (https://github.com/davidmegginson/ourairports-data) at commit `13c732d99cd8a0147f3a42533bff671bcb8000cf`, read 2026-11-18, kept to the airports shipped; the airport is matched by its ICAO code (else IATA) and a point within 15 km of Wikidata's | The Unlicense (public domain) |
+| `harbours`: the 1,081 harbours, their tiers and places | Natural Earth 5.1.2 ports at 1:10m (`ne_10m_ports`), whose size rank (`scalerank`) gives the tier; the country is the Natural Earth 1:50m country that holds the point | Public domain |
+| `harbours`: the Japanese names | Wikidata, asked by `scripts/wikidata-ports.mjs` and kept in `scripts/data-wikidata-ports.json` | CC0 |
 | The readings of the three places kuni does not have, the names that tell two regions of one map apart (Cork City), and the table of which ISO code a region has when Natural Earth's is out of date | Written for this package, in `scripts/data-config.mjs` | MIT |
 
 ## kuni and Unicode CLDR
@@ -172,9 +176,10 @@ reads it, so it makes the same maps from the same files every time:
 | `geojson/ne_10m_geography_regions_elevation_points.geojson` | `f98a16867867146ec4146d6d4b18c823eeedb2825947de666116cf9a4e3f43cb` |
 | `geojson/ne_50m_admin_0_map_units.geojson` | `b8d421aca6e9e08e8cdf09cc26af111cc3e0deba4fe915611d58ade71e8a4db0` |
 | `geojson/ne_10m_admin_0_map_units.geojson` | `57da82be755f4afccd8f3b14251bb2752f5df1395f47d2d86f817470c4a48862` |
+| `geojson/ne_10m_ports.geojson` | `c5a5028f5187a5e1b9fe7f0fab99804a8be7482099a2365d404fb7e9dd6b5457` |
 
-The five physical files were read on 2026-10-09, and the two map-units files on
-2026-11-18, from the same tag.
+The five physical files were read on 2026-10-09, and the two map-units files and the ports file on 2026-11-18, from
+the same tag; the terms page above was read again on 2026-11-18.
 
 **What was changed.** The outlines are projected onto a fixed canvas, rounded to
 two decimals and drawn as `M`/`L`/`Z` paths. For a country alone, only its
@@ -228,6 +233,43 @@ domain under CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/): "You 
 perform the work, even for commercial purposes, all without asking permission." They were asked of Wikidata's query
 service on the day `scripts/data-wikidata.json` records, and are kept in that file so that the build makes the same
 maps every time.
+
+## Airports and harbours
+
+The airports (`@johnmorrisdotca/chizu/airports`), their runways (`/runways`) and the harbours (`/harbours`) are made by
+`scripts/build-ports.mjs` (`pnpm data:ports`) from three sources, and nothing else. The terms were read on 2026-11-18.
+
+**Wikidata** (https://www.wikidata.org/wiki/Wikidata:Licensing): "All structured data (i.e. the main, Property, Lexeme,
+and EntitySchema namespaces) is released into the public domain under Creative Commons Zero." The page does not ask for
+a credit for structured data; the entries carry one anyway (`AIRPORTS_CREDIT`, `HARBOURS_CREDIT`). No Wikipedia text is
+used, and no Wikidata item is carried but its codes, point, figure and labels. The airports are ranked by the highest
+passengers-a-year figure (P3872) an airport has for 2015 or later, so a closed year such as 2020 does not rank it; a
+figure that is a plan for an airport not yet open is left out (`NOT_TRAFFIC` in `scripts/ports-config.mjs`). A
+Japanese name is Wikidata's Japanese label; where there is none the name is English, never machine-translated.
+
+**Natural Earth** ports (https://www.naturalearthdata.com/about/terms-of-use/): public domain, as quoted above. Its file
+has a name, a size rank and a point for each port, no country and no Japanese name; the country comes from the
+Natural Earth countries already used here, and the Japanese name from Wikidata where an item of that name lies within
+60 km (a port item) or 40 km (a place).
+
+**OurAirports**, for the runways only (https://github.com/davidmegginson/ourairports-data, commit
+`13c732d99cd8a0147f3a42533bff671bcb8000cf`, made 2026-11-18 02:53 UTC). Its repository's `LICENSE` at that commit
+(SHA-256 `6b0382b16279f26ff69014300541967a356a666eb0b91b422f6862f6b7dad17e`) is the Unlicense and begins: "This is free
+and unencumbered software released into the public domain. Anyone is free to copy, modify, publish, use, compile, sell,
+or distribute this software, either in source code form or as a compiled binary, for any purpose, commercial or
+non-commercial, and by any means." The Unlicense in that repository is taken as the terms of its data. The site's
+own page (https://ourairports.com/data/) could not be read on 2026-11-18, an expired certificate, so what it adds is
+not known and none of it is relied on. The build fetches `airports.csv` and `runways.csv` from that commit once into
+the cache and checks each against its SHA-256 (`OURAIRPORTS` in `scripts/ports-config.mjs`), and refuses to run if the
+`LICENSE` no longer says the words above. Of the files it keeps each open runway (not `closed`) that has both ends'
+latitude and longitude, 1,057 runways at 575 of the 600 airports; the others are left out, not guessed from a heading.
+The ends are rounded to five places of a degree (about a metre) and the width to the metre.
+
+**Not used.**
+
+- **The NGA World Port Index** (https://msi.nga.mil/Publications/WPI): the page answered 503 on 2026-11-18, so its
+  terms were not read and no file of it is used. The harbours' size is Natural Earth's own rank, not the Index's classes.
+- **OpenStreetMap** and any share-alike or non-commercial list: left out, whatever its quality.
 
 ## Not carried
 

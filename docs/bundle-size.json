@@ -6,8 +6,8 @@
       "gzip": 20633
     },
     "./draw": {
-      "minified": 57734,
-      "gzip": 19675
+      "minified": 60227,
+      "gzip": 20264
     },
     "./mount": {
       "minified": 71255,
@@ -20,6 +20,18 @@
     "./cities": {
       "minified": 5992867,
       "gzip": 1565154
+    },
+    "./airports": {
+      "minified": 148750,
+      "gzip": 31495
+    },
+    "./harbours": {
+      "minified": 156511,
+      "gzip": 32541
+    },
+    "./runways": {
+      "minified": 45930,
+      "gzip": 19138
     },
     "./load": {
       "minified": 18556397,
