@@ -72,3 +72,15 @@ test("mountChizu draws a view when it arrives, goes back to the default on null,
   expect(result.back).toBe(result.first);
   expect(result.jpan).toBe(result.first);
 });
+
+test("a region whose status is disputed says so in its card, in both languages, and others do not", async ({
+  page,
+}) => {
+  const errors = await open(page, "?map=world&select=XK");
+  await expect(page.locator(at("info-disputed"))).toContainText("Kosovo declared independence in 2008");
+  await open(page, "?map=world&select=JP");
+  await expect(page.locator(at("info-disputed"))).toBeHidden();
+  await open(page, "?map=world&select=TW&lang=ja");
+  await expect(page.locator(at("info-disputed"))).toContainText("中華人民共和国");
+  expect(errors).toEqual([]);
+});

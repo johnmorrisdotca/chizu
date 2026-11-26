@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { coordinatesOf } from "../build-data.mjs";
-import { NATURAL_EARTH } from "../data-config.mjs";
+import { DISPUTED_REGIONS, NATURAL_EARTH } from "../data-config.mjs";
 import { featureReferenceDoc, mapReferenceDoc } from "../data-docs.mjs";
 import { root } from "../natural-earth.mjs";
 
@@ -90,8 +90,24 @@ export function regionOf(draw, feature, fields) {
 
 export const literal = (value) => JSON.stringify(value);
 
+/** The map with `disputed: true` and its two notes on the regions DISPUTED_REGIONS names for it; every one named must be there. */
+export function withDisputed(map) {
+  const named = DISPUTED_REGIONS.filter((entry) => entry.maps.includes(map.id));
+  for (const entry of named)
+    if (!map.regions.some((region) => region.code === entry.code)) throw new Error(`${map.id} has no ${entry.code}`);
+  if (named.length === 0) return map;
+  return {
+    ...map,
+    regions: map.regions.map((region) => {
+      const entry = named.find((one) => one.code === region.code);
+      return entry ? { ...region, disputed: true, disputedNote: entry.note, disputedNoteJa: entry.noteJa } : region;
+    }),
+  };
+}
+
 /** A data module: one map, exported as the default. */
-export function writeMap(path, header, map, doc = "") {
+export function writeMap(path, header, marked, doc = "") {
+  const map = withDisputed(marked);
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(
     path,

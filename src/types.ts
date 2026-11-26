@@ -92,6 +92,17 @@ export interface ChizuRegion {
    * leaves them out of a map that has them.
    */
   small?: boolean;
+  /**
+   * True on a region whose status is disputed (Kosovo, Taiwan, Western Sahara; Crimea, Sevastopol, Arunachal Pradesh,
+   * Jammu and Kashmir and Ladakh on their countries' regions): the places that are only part of another region are
+   * not marked, and docs/guides/disputed-areas.md lists every one. A page that wants to say so beside the map reads
+   * `disputedNote` (`disputedNoteJa` in Japanese). Absent everywhere else.
+   */
+  disputed?: boolean;
+  /** One line on why the region is disputed and what the map draws, in English: present with `disputed`. */
+  disputedNote?: string;
+  /** `disputedNote` in Japanese. */
+  disputedNoteJa?: string;
   /** Other names `group` goes by, in either language, where it has them: Kansai and 関西 for Japan's Kinki (近畿地方). */
   groupAliases?: string[];
   /** What kind of division it is, as Natural Earth names it, lower case: `province`, `state`, `prefecture`. */

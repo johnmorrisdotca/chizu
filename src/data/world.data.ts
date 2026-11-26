@@ -514,6 +514,11 @@ const map: ChizuMap = {
       neighbors: [],
       bbox: [403.07, 244.27, 408.2, 254.03],
       centroid: [405.49, 248.84],
+      disputed: true,
+      disputedNote:
+        'Taiwan is governed on its own, and the People\'s Republic of China claims it as a province; ISO 3166-1 lists it as "Taiwan, Province of China".',
+      disputedNoteJa:
+        "台湾は独自の政府が統治していますが、中華人民共和国は自国の省だと主張しています。ISO 3166-1では「Taiwan, Province of China」として載っています。",
     },
     {
       code: "TJ",
@@ -878,6 +883,11 @@ const map: ChizuMap = {
       neighbors: ["AL", "ME", "MK", "RS"],
       bbox: [125.2, 187.78, 129.93, 192.55],
       centroid: [127.49, 190.1],
+      disputed: true,
+      disputedNote:
+        "Kosovo declared independence in 2008 and many states recognise it, but Serbia and others do not; XK is a user-assigned code, not an ISO 3166-1 one.",
+      disputedNoteJa:
+        "コソボは2008年に独立を宣言しました。多くの国が承認していますが、セルビアなどは承認していません。XKはISO 3166-1に載っておらず、ユーザー割り当てコードです。",
     },
     {
       code: "LV",
@@ -1764,6 +1774,11 @@ const map: ChizuMap = {
       neighbors: ["DZ", "MA", "MR"],
       bbox: [22.05, 237.23, 45.37, 256.85],
       centroid: [35.77, 247.15],
+      disputed: true,
+      disputedNote:
+        "Western Sahara is a territory whose status the UN has not settled, and Morocco administers most of it; this region is the part Natural Earth draws apart from Morocco.",
+      disputedNoteJa:
+        "西サハラは、国連が非自治地域に挙げており、最終的な地位が決まっていない地域です。大部分をモロッコが統治しています。この地域は、Natural Earthがモロッコとは別に描いている部分です。",
     },
     {
       code: "ZM",

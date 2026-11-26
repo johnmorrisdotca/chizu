@@ -49,6 +49,11 @@ const map: ChizuMap = {
       neighbors: ["AL", "ME", "MK", "RS"],
       bbox: [0, 0, 905.57, 1000],
       centroid: [439.6, 486.87],
+      disputed: true,
+      disputedNote:
+        "Kosovo declared independence in 2008 and many states recognise it, but Serbia and others do not; XK is a user-assigned code, not an ISO 3166-1 one.",
+      disputedNoteJa:
+        "コソボは2008年に独立を宣言しました。多くの国が承認していますが、セルビアなどは承認していません。XKはISO 3166-1に載っておらず、ユーザー割り当てコードです。",
     },
   ],
 };

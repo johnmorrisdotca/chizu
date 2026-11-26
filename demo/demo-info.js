@@ -28,6 +28,10 @@ import { foldAnswer, toCsv, toJson, toText } from "./tools.js";
 export function renderInfo() {
   const info = $("info");
   const region = state.selected ? placeOf(state.selected) : null;
+  // Beside the card and not in it: the card's height never changes. Only a region says it, never a feature.
+  const note = $("disputed-note");
+  note.textContent = (language.lang === "ja" ? region?.disputedNoteJa : region?.disputedNote) ?? "";
+  note.hidden = note.textContent === "";
   const line = (props, text) => el("p", { ...props, text });
   const row = (label, ...chips) =>
     el("div", { class: "info-row" }, label ? el("span", { class: "fam-label", text: label }) : null, ...chips);

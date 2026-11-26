@@ -34,12 +34,12 @@
       "gzip": 18891
     },
     "./load": {
-      "minified": 19666643,
-      "gzip": 7066440
+      "minified": 19673430,
+      "gzip": 7070239
     },
     "./world": {
-      "minified": 177677,
-      "gzip": 59765
+      "minified": 179564,
+      "gzip": 60676
     },
     "./small-states": {
       "minified": 11774,
@@ -62,12 +62,12 @@
       "gzip": 1076373
     },
     "./element": {
-      "minified": 19116239,
-      "gzip": 6890056
+      "minified": 19123026,
+      "gzip": 6893288
     },
     "./element/define": {
-      "minified": 19116254,
-      "gzip": 6890107
+      "minified": 19123041,
+      "gzip": 6893323
     },
     "./countries/ad": {
       "minified": 1370,
@@ -334,8 +334,8 @@
       "gzip": 2099
     },
     "./countries/eh": {
-      "minified": 3804,
-      "gzip": 1994
+      "minified": 4521,
+      "gzip": 2322
     },
     "./countries/er": {
       "minified": 3263,
@@ -990,8 +990,8 @@
       "gzip": 864
     },
     "./countries/tw": {
-      "minified": 8171,
-      "gzip": 3991
+      "minified": 8718,
+      "gzip": 4293
     },
     "./countries/tz": {
       "minified": 5745,
@@ -1058,8 +1058,8 @@
       "gzip": 1337
     },
     "./countries/xk": {
-      "minified": 4330,
-      "gzip": 2241
+      "minified": 4953,
+      "gzip": 2564
     },
     "./countries/ye": {
       "minified": 3587,
@@ -1146,8 +1146,8 @@
       "gzip": 46073
     },
     "./divisions/in": {
-      "minified": 459373,
-      "gzip": 172397
+      "minified": 460926,
+      "gzip": 173206
     },
     "./divisions/it": {
       "minified": 288129,
@@ -1194,8 +1194,8 @@
       "gzip": 19733
     },
     "./divisions/ru": {
-      "minified": 1843909,
-      "gzip": 623152
+      "minified": 1845369,
+      "gzip": 623629
     },
     "./divisions/se": {
       "minified": 118888,

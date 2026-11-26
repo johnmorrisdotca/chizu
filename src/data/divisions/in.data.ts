@@ -69,6 +69,10 @@ const map: ChizuMap = {
       neighbors: ["AS", "NL"],
       bbox: [804.78, 221.76, 1000, 328.47],
       centroid: [908.67, 277.19],
+      disputed: true,
+      disputedNote: "Arunachal Pradesh is administered by India, and China claims it as South Tibet.",
+      disputedNoteJa:
+        "アルナーチャル・プラデーシュ州はインドが統治していますが、中国は「南チベット」として領有を主張しています。",
     },
     {
       code: "AS",
@@ -213,6 +217,11 @@ const map: ChizuMap = {
       neighbors: ["HP", "LA", "PB"],
       bbox: [211.51, 34.73, 306.6, 132.5],
       centroid: [252.84, 83.08],
+      disputed: true,
+      disputedNote:
+        "Jammu and Kashmir: India and Pakistan each claim all of Kashmir; Natural Earth draws the line of control as the border.",
+      disputedNoteJa:
+        "ジャンムー・カシミール：インドとパキスタンは、それぞれカシミール全体の領有を主張しています。Natural Earthは、実効支配線を境界線として描きます。",
     },
     {
       code: "KA",
@@ -249,6 +258,11 @@ const map: ChizuMap = {
       neighbors: ["HP", "JK"],
       bbox: [262.41, 8.92, 400.64, 132.6],
       centroid: [336.3, 72.02],
+      disputed: true,
+      disputedNote:
+        "Ladakh: India claims Aksai Chin as part of it, but China administers Aksai Chin, and Natural Earth draws it in China.",
+      disputedNoteJa:
+        "ラダック：インドはアクサイチンもラダックの一部だと主張していますが、アクサイチンは中国が統治しており、Natural Earthは中国側に描きます。",
     },
     {
       code: "LD",

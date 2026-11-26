@@ -49,6 +49,11 @@ const map: ChizuMap = {
       neighbors: [],
       bbox: [0, 0, 1000, 998.76],
       centroid: [716.92, 454.35],
+      disputed: true,
+      disputedNote:
+        'Taiwan is governed on its own, and the People\'s Republic of China claims it as a province; ISO 3166-1 lists it as "Taiwan, Province of China".',
+      disputedNoteJa:
+        "台湾は独自の政府が統治していますが、中華人民共和国は自国の省だと主張しています。ISO 3166-1では「Taiwan, Province of China」として載っています。",
     },
   ],
 };

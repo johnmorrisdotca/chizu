@@ -49,6 +49,11 @@ const map: ChizuMap = {
       neighbors: ["DZ", "MA", "MR"],
       bbox: [0, 0, 1000, 881.21],
       centroid: [583.07, 450.62],
+      disputed: true,
+      disputedNote:
+        "Western Sahara is a territory whose status the UN has not settled, and Morocco administers most of it; this region is the part Natural Earth draws apart from Morocco.",
+      disputedNoteJa:
+        "西サハラは、国連が非自治地域に挙げており、最終的な地位が決まっていない地域です。大部分をモロッコが統治しています。この地域は、Natural Earthがモロッコとは別に描いている部分です。",
     },
   ],
 };

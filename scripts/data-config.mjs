@@ -1,6 +1,7 @@
 import { DIVISION_CONFIGS as COUNTRY_DIVISIONS } from "./data-config/divisions.mjs";
 import { GB_2025 } from "./data-config/ons.mjs";
 
+export { DISPUTED_REGIONS } from "./data-config/disputed.mjs";
 export { ISO_JOIN } from "./data-config/iso-join.mjs";
 export { AMAMI, JAPAN_GROUPING, JAPAN_OUTLYING, REGION_GROUPS } from "./data-config/japan.mjs";
 export {
