@@ -518,7 +518,7 @@ console.log(ireland.id, ireland.kind, COUNTRY_CODES.length, DIVISIONS_CODES.leng
 
 ```text
 France 96 Ain
-country-ie country 253 35
+country-ie country 253 36
 ```
 
 ## Maps

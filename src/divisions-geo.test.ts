@@ -48,7 +48,12 @@ const NOT_SHARED: Record<string, number> = { CH: 10, ES: 7, GB: 4, "GB-2025": 13
 
 describe("the regions as longitude and latitude", () => {
   it("has the 33 countries that have regions, Vietnam's of 2025 and gb-2025, and says nothing of one that has none", async () => {
-    expect(DIVISIONS_GEO_CODES).toEqual(Object.keys(DIVISIONS_LOADERS).map((code) => code.toUpperCase()));
+    // `um-islands` (the nine places of UM, each in a box) is a map of the flat kind only: it has no file in degrees.
+    expect(DIVISIONS_GEO_CODES).toEqual(
+      Object.keys(DIVISIONS_LOADERS)
+        .filter((code) => code !== "um-islands")
+        .map((code) => code.toUpperCase()),
+    );
     expect(DIVISIONS_GEO_CODES).toHaveLength(35);
     expect(await loadDivisionsGeo("xx")).toBeNull();
   });

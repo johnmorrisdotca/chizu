@@ -34,8 +34,8 @@
       "gzip": 18891
     },
     "./load": {
-      "minified": 19673430,
-      "gzip": 7070239
+      "minified": 19678138,
+      "gzip": 7071226
     },
     "./world": {
       "minified": 179564,
@@ -62,12 +62,12 @@
       "gzip": 1076373
     },
     "./element": {
-      "minified": 19123026,
-      "gzip": 6893288
+      "minified": 19127734,
+      "gzip": 6895031
     },
     "./element/define": {
-      "minified": 19123041,
-      "gzip": 6893323
+      "minified": 19127749,
+      "gzip": 6895075
     },
     "./countries/ad": {
       "minified": 1370,
@@ -1208,6 +1208,10 @@
     "./divisions/tw": {
       "minified": 29326,
       "gzip": 10870
+    },
+    "./divisions/um-islands": {
+      "minified": 4608,
+      "gzip": 1855
     },
     "./divisions/us": {
       "minified": 722665,

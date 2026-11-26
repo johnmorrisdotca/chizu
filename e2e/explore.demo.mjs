@@ -82,7 +82,12 @@ test("the map chooser offers Japan first, the world, its continents, 32 other co
     "value",
     "divisions:gb-2025",
   );
-  await expect(groups.nth(4).locator("option")).toHaveCount(253);
+  // 253 countries alone, and after the Minor Outlying Islands' own the map of its nine islands each in a box.
+  await expect(groups.nth(4).locator("option")).toHaveCount(254);
+  await expect(groups.nth(4).locator('option[value="country:um"] + option')).toHaveAttribute(
+    "value",
+    "divisions:um-islands",
+  );
   await page.locator(at("map")).selectOption("divisions:de");
   await expect(page.locator(`${at("board")} .cz-region`)).toHaveCount(16);
   await expect(svg(page)).toHaveAttribute("data-map", "divisions-de");

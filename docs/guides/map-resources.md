@@ -296,6 +296,7 @@ These entries name the same files as the country, subdivision and feature wildca
 | `@johnmorrisdotca/chizu/divisions/se` | [Sweden regions](entry:divisions-se) |
 | `@johnmorrisdotca/chizu/divisions/th` | [Thailand regions](entry:divisions-th) |
 | `@johnmorrisdotca/chizu/divisions/tw` | [Taiwan regions](entry:divisions-tw) |
+| `@johnmorrisdotca/chizu/divisions/um-islands` | [U.S. Minor Outlying Islands, each place in a box](entry:divisions-um-islands) |
 | `@johnmorrisdotca/chizu/divisions/us` | [United States regions](entry:divisions-us) |
 | `@johnmorrisdotca/chizu/divisions/vn` | [Vietnam regions](entry:divisions-vn) |
 | `@johnmorrisdotca/chizu/divisions/vn-2025` | [Vietnam regions, 2025 (34 provinces and cities)](entry:divisions-vn-2025) |

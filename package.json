@@ -1568,6 +1568,11 @@
       "import": "./dist/data/divisions/tw.data.js",
       "default": "./dist/data/divisions/tw.data.js"
     },
+    "./divisions/um-islands": {
+      "types": "./dist/data/divisions/um-islands.data.d.ts",
+      "import": "./dist/data/divisions/um-islands.data.js",
+      "default": "./dist/data/divisions/um-islands.data.js"
+    },
     "./divisions/us": {
       "types": "./dist/data/divisions/us.data.d.ts",
       "import": "./dist/data/divisions/us.data.js",

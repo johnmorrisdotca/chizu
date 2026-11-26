@@ -59,7 +59,13 @@ export function populateMaps() {
     el(
       "optgroup",
       { label: say("groupCountry") },
-      ...everyone.map((country) => option(`country:${country.code.toLowerCase()}`, mapLabel(country))),
+      ...everyone.flatMap((country) => [
+        option(`country:${country.code.toLowerCase()}`, mapLabel(country)),
+        // The nine islands of the United States Minor Outlying Islands, each in a box, beside the country's own map.
+        ...(country.code === "UM"
+          ? [option("divisions:um-islands", `${mapLabel(country)} ${say("islandsInBoxes")}`)]
+          : []),
+      ]),
     ),
   );
   select.value =

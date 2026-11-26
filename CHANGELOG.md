@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **The United States Minor Outlying Islands, each place in a box: `divisions/um-islands`** (MODULES-1677). `countries/um` keeps only Palmyra, Kingman and Jarvis under the 9-degree rule. `@johnmorrisdotca/chizu/divisions/um-islands` (and `loadDivisions("um-islands")`; `DIVISIONS_CODES` has `UM-ISLANDS`) draws all nine places of ISO 3166-2:UM from Natural Earth's 1:10m map units: Johnston Atoll `67`, Midway `71`, Navassa `76`, Wake `79`, Baker `81`, Howland `84`, Jarvis `86`, Kingman Reef `89` and Palmyra Atoll `95`, each a region (`iso` `UM-67` and so on, names in English and Japanese from kuni) with an inset box of its own in a 3 by 3 grid, fitted to the box, so no two are at one scale. `countries/um` is unchanged. Like the dated maps it is beside the 33 countries' regions and not one of them, and it has no file in degrees and no features. The demo lists it under the country. Tests: `src/um-islands.test.ts`.
+
 ## [1.18.0] - 2026-11-26
 
 ### Added

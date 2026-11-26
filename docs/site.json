@@ -1190,6 +1190,10 @@
       "en": "Taiwan regions",
       "ja": "台湾の行政区画"
     },
+    "./divisions/um-islands": {
+      "en": "U.S. Minor Outlying Islands, each place in a box",
+      "ja": "アメリカ合衆国領有小離島（各島を枠内に表示）"
+    },
     "./divisions/us": {
       "en": "United States regions",
       "ja": "アメリカの行政区画"

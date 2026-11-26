@@ -268,7 +268,7 @@ export const COUNTRY_LOADERS: Readonly<Record<string, Load>> = {
 /** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
 export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.data.ts");
 
-/** The 35 maps of a country's regions, by lower-case code: the country's, or the country's and a year for a dated map (`vn-2025`, `gb-2025`). */
+/** The 36 maps of a country's regions, by lower-case code: the country's, or the country's and a year for a dated map (`vn-2025`, `gb-2025`). */
 export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   ar: () => import("./divisions/ar.data.ts"),
   at: () => import("./divisions/at.data.ts"),
@@ -302,6 +302,7 @@ export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
   se: () => import("./divisions/se.data.ts"),
   th: () => import("./divisions/th.data.ts"),
   tw: () => import("./divisions/tw.data.ts"),
+  "um-islands": () => import("./divisions/um-islands.data.ts"),
   us: () => import("./divisions/us.data.ts"),
   vn: () => import("./divisions/vn.data.ts"),
   "vn-2025": () => import("./divisions/vn-2025.data.ts"),

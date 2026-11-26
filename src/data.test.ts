@@ -57,7 +57,12 @@ function checkMap(map: ChizuMap) {
     const [x0, y0, x1, y1] = region.bbox;
     expect(x1, `${map.id} ${region.code}`).toBeGreaterThanOrEqual(x0);
     expect(y1, `${map.id} ${region.code}`).toBeGreaterThanOrEqual(y0);
-    if (Math.max(x1 - x0, y1 - y0) >= EXEMPT_BELOW_UNITS && vertexCount(region.path) < MINIMUM_VERTICES)
+    // The islands of UM are fitted to their boxes, so a one-kilometre island (Howland, seven points at 1:10m: honest at its scale) is as big as a country.
+    if (
+      map.id !== "divisions-um-islands" &&
+      Math.max(x1 - x0, y1 - y0) >= EXEMPT_BELOW_UNITS &&
+      vertexCount(region.path) < MINIMUM_VERTICES
+    )
       tooSimple.push(`${region.code} (${vertexCount(region.path)} points)`);
     // A region drawn in a box is projected at its own place and moved into its box, so only the others have to be on the canvas.
     if (!insetCodes.has(region.code) && (x0 < -1 || y0 < -1 || x1 > map.width + 1 || y1 > map.height + 1))
@@ -251,9 +256,9 @@ describe("each country alone", () => {
 });
 
 describe("the regions of a country", () => {
-  it("has 33 countries, Vietnam's of 2025 and gb-2025, each a real map", async () => {
+  it("has 33 countries, Vietnam's of 2025, gb-2025 and the islands of UM, each a real map", async () => {
     const maps = await divisions();
-    expect(maps).toHaveLength(35);
+    expect(maps).toHaveLength(36);
     for (const map of maps) {
       checkMap(map);
       expect(map.kind).toBe("divisions");
@@ -344,7 +349,8 @@ describe("the regions of a country", () => {
   }, 60000);
 
   it("gives most regions a neighbour to draw wrong answers from", async () => {
-    for (const map of await divisions()) {
+    // The nine islands of the United States Minor Outlying Islands are all alone in the sea, each in a box of its own.
+    for (const map of (await divisions()).filter((one) => one.id !== "divisions-um-islands")) {
       const orphans = map.regions.filter((region) => region.neighbors.length === 0);
       // An island may genuinely border nothing; a whole country of orphans means the wrong answers fall back to distance alone.
       expect(orphans.length, `${map.id}: ${orphans.map((region) => region.code).join(", ")}`).toBeLessThan(

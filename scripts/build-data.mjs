@@ -38,6 +38,7 @@ import { literal, out, writeFeatures, writeMap } from "./build-data/geometry.mjs
 import { buildJapan } from "./build-data/japan.mjs";
 import { writeLoaders } from "./build-data/loaders.mjs";
 import { withCutOutlines } from "./build-data/outlines.mjs";
+import { buildUmIslands } from "./build-data/um-islands.mjs";
 import { buildViews, writeViews } from "./build-data/views.mjs";
 import {
   buildWorld,
@@ -307,6 +308,14 @@ export async function main() {
     allMaps.push(map);
     loaders.divisions.push(file);
   }
+  // The nine islands of UM, each in a box: a map beside the countries' own, not one of the 33 countries' regions (it has no file in degrees and no features).
+  const umIslands = await buildUmIslands(countryNames);
+  writeMap(
+    join(out, "divisions", "um-islands.data.ts"),
+    `${umIslands.name}: ${umIslands.regions.length} ${umIslands.regionNamePlural.toLowerCase()}, ${umIslands.source}.`,
+    umIslands,
+  );
+  loaders.divisions.push("um-islands");
   loaders.divisions.sort();
 
   const sources = await featureSources({ divisions: [...divisionCodes] });
