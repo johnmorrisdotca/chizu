@@ -31,7 +31,7 @@ const map: ChizuMap = {
     kind: "azimuthal-equal-area",
     centre: [-5.3467, 36.129463],
     scale: 1871177.69,
-    translate: [308.229, 380.703],
+    translate: [308.23, 380.703],
   },
   insets: [],
   source:
