@@ -80,6 +80,7 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
   selectable: true,
   keepSelection: true,
   theme: true,
+  view: true,
   smallStates: true,
   controls: true,
   detail: true,

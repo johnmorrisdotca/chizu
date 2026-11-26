@@ -10,8 +10,8 @@
       "gzip": 20467
     },
     "./mount": {
-      "minified": 74162,
-      "gzip": 26706
+      "minified": 534056,
+      "gzip": 209900
     },
     "./names": {
       "minified": 56856,
@@ -35,7 +35,7 @@
     },
     "./load": {
       "minified": 19666643,
-      "gzip": 7066446
+      "gzip": 7066440
     },
     "./world": {
       "minified": 177677,
@@ -44,6 +44,10 @@
     "./small-states": {
       "minified": 11774,
       "gzip": 4186
+    },
+    "./views": {
+      "minified": 459479,
+      "gzip": 181992
     },
     "./world-geo": {
       "minified": 166060,
@@ -58,12 +62,12 @@
       "gzip": 1076373
     },
     "./element": {
-      "minified": 18656344,
-      "gzip": 6709629
+      "minified": 19116239,
+      "gzip": 6890056
     },
     "./element/define": {
-      "minified": 18656359,
-      "gzip": 6709648
+      "minified": 19116254,
+      "gzip": 6890107
     },
     "./countries/ad": {
       "minified": 1370,

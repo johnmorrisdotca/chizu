@@ -13,7 +13,7 @@ import { buttonsKeepOut } from "./mountCallouts.ts";
 import { mountCities } from "./mountCities.ts";
 import { watchPlaces } from "./mountHover.ts";
 import { keyAction } from "./mountKeys.ts";
-import { smallStateDots } from "./mountSmallStates.ts";
+import { mapSource } from "./mountSource.ts";
 import { ensureChizuMapStyle, selectedTones, wearTheme } from "./mountStyle.ts";
 import type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
 import { DRAG_PIXELS, KEY_STEP, WHEEL_GESTURE_MS, WHEEL_PAUSE_MS } from "./mountTypes.ts";
@@ -50,8 +50,8 @@ export type { ChizuMount, ChizuMountOptions, ChizuTheme, ChizuView } from "./mou
 export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): ChizuMount {
   ensureChizuMapStyle(host);
   let options: ChizuMountOptions = { ...initial };
-  // The world's smallest countries are dots (`smallStates`): their table is its own chunk, fetched only when asked for.
-  const dots = smallStateDots(() => options.smallStates === true, redrawDots);
+  // The point of view (`view`) and the world's smallest countries as dots (`smallStates`): each is its own chunk, fetched only when asked for.
+  const dots = mapSource(() => options, redrawDots);
   let map = options.map;
   let zoom: MapZoom = options.zoom ?? 1;
   let centre = boxCentre(wholeMapBox(map));
@@ -95,11 +95,22 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     centre = boxCentre(zoomBox(map, zoom, centre, true));
     if (mapWrapsAround(map)) centre = { x: wrapAcross(centre.x, map.width), y: centre.y };
   };
+  /** Look where a framing says, with the window not held to the map's edges until the next move. */
+  const take = (fit: { zoom: MapZoom; centre: { x: number; y: number } }) => {
+    zoom = fit.zoom;
+    centre = fit.centre;
+    clampNext = false;
+  };
   const view = (): ChizuView => ({ zoom, centre: { ...centre }, box: box() });
 
   const tones = (): Record<string, string> => selectedTones(options);
   function redrawDots(): void {
+    const before = map.viewBox;
     map = dots.dotted(options.map);
+    if (map.viewBox !== before) {
+      centre = boxCentre(wholeMapBox(map));
+      clampNext = true;
+    }
     draw();
   }
 
@@ -131,12 +142,12 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     const wanted = options.detail;
     if (!wanted || zoom < (options.detailFrom ?? 4)) return map;
     if (typeof wanted !== "function") return wanted.id === `${map.id}-detail` ? dots.dotted(wanted) : map;
-    if (detailed && detailed.id === `${map.id}-detail`) return detailed;
+    if (detailed && detailed.id === `${map.id}-detail`) return dots.dotted(detailed);
     if (fetching !== wanted) {
       fetching = wanted;
       wanted().then(
         (loaded) => {
-          detailed = dots.dotted(loaded);
+          detailed = loaded;
           if (loaded.id === `${map.id}-detail` && zoom >= (options.detailFrom ?? 4)) draw();
         },
         () => {
@@ -168,11 +179,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
           if (waitingToFrame !== null && options.selected === waitingToFrame) {
             const fit = focusRegionFit(frameable(), waitingToFrame);
             waitingToFrame = null;
-            if (fit) {
-              zoom = fit.zoom;
-              centre = fit.centre;
-              clampNext = false;
-            }
+            if (fit) take(fit);
             changed();
           }
           draw();
@@ -270,7 +277,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     set(patch) {
       options = { ...options, ...patch };
       if (patch.theme !== undefined) wearTheme(host, patch.theme);
-      if (patch.smallStates !== undefined) dots.sync();
+      if (patch.smallStates !== undefined || patch.view !== undefined) dots.sync();
       if (patch.zoom !== undefined) zoom = patch.zoom;
       // New overlays alone: only their group is drawn again, not the land under them.
       const alone = Object.keys(patch).every((key) => key === "overlays");
@@ -302,11 +309,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
           ? code
           : null;
       if (waitingToFrame !== null) layer();
-      if (fit) {
-        zoom = fit.zoom;
-        centre = fit.centre;
-        clampNext = false;
-      }
+      if (fit) take(fit);
       draw();
       changed();
     },
@@ -485,14 +488,10 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
 
   if (options.selected) {
     const fit = (options.fit ?? true) ? focusRegionFit(frameable(), options.selected) : null;
-    if (fit) {
-      zoom = fit.zoom;
-      centre = fit.centre;
-      clampNext = false;
-    }
+    if (fit) take(fit);
   }
   draw();
-  if (options.smallStates) dots.sync();
+  if (options.smallStates || options.view) dots.sync();
   host.dataset.ready = "true";
   return api;
 }

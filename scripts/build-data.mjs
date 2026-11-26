@@ -36,7 +36,9 @@ import { buildCountry, buildDivisions, buildUnitedStates, DEGREES, withOns } fro
 import { writeDivisionsGeo, writeWorldGeoDetail } from "./build-data/geo-files.mjs";
 import { literal, out, writeFeatures, writeMap } from "./build-data/geometry.mjs";
 import { buildJapan } from "./build-data/japan.mjs";
+import { writeLoaders } from "./build-data/loaders.mjs";
 import { withCutOutlines } from "./build-data/outlines.mjs";
+import { buildViews, writeViews } from "./build-data/views.mjs";
 import {
   buildWorld,
   buildWorldDetail,
@@ -328,6 +330,13 @@ export async function main() {
     loaders.features.push(map.id);
   }
   loaders.features.sort();
+  const views = await buildViews({ worldSource, countriesSource, maps: [...allMaps, worldDetail] });
+  writeViews(views);
+  loaders.views = Object.keys(views).sort();
+  const viewTable = loaders.views.map((id) => {
+    const { id: viewId, name, nameJa, note, noteJa, maps } = views[id];
+    return { id: viewId, name, nameJa, note, noteJa, maps: Object.keys(maps) };
+  });
   console.log(
     `features: ${loaders.features.length} maps · Japanese names ${JSON.stringify(sources.stats.japanese)} · readings ${JSON.stringify(sources.stats.readings)} · rivers ${JSON.stringify(sources.stats.rivers)}`,
   );
@@ -450,38 +459,7 @@ export const CHIZU_SOURCE = ${literal({
     })};
 `,
   );
-  const lines = (list, folder) =>
-    list.map((file) => `  ${JSON.stringify(file)}: () => import("./${folder}/${file}.data.ts"),`).join("\n");
-  writeFileSync(
-    join(out, "loaders.data.ts"),
-    `/*
- * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run \`pnpm data\` to make it again.
- * One dynamic import for each country's own map and each country's regions, so that a bundler makes each its own
- * chunk and a page loads only the ones it draws.
- */
-import type { ChizuFeatureLayer, ChizuMap } from "../types.ts";
-
-type Load = () => Promise<{ default: ChizuMap }>;
-
-/** Each country alone, by lower-case code. */
-export const COUNTRY_LOADERS: Readonly<Record<string, Load>> = {
-${lines(loaders.countries, "countries")}
-};
-
-/** The world drawn finer, from the 1:50m outlines, on the world's own canvas. */
-export const WORLD_DETAIL_LOADER: Load = () => import("./world-detail.data.ts");
-
-/** The ${loaders.divisions.length} maps of a country's regions, by lower-case code: the country's, or the country's and a year for a dated map (\`vn-2025\`, \`gb-2025\`). */
-export const DIVISIONS_LOADERS: Readonly<Record<string, Load>> = {
-${lines(loaders.divisions, "divisions")}
-};
-
-/** The named physical features drawn on ${loaders.features.length} maps (seas, lakes, rivers, landforms, peaks), by the map's id. */
-export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuFeatureLayer }>>> = {
-${loaders.features.map((id) => `  ${JSON.stringify(id)}: () => import("./features/${id}.data.ts"),`).join("\n")}
-};
-`,
-  );
+  writeLoaders(loaders, viewTable);
   formatData();
   writeWorldGeo();
   const geoTotals = writeDivisionsGeo(out, builtDivisions);

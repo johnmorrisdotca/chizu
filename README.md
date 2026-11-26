@@ -36,7 +36,7 @@ The world and its 253 countries and territories, each on its own, drawn from Nat
 </tr>
 </table>
 
-Chizu is the world as SVG, and the things a person does with a map: look for a country, say which country a shape is, put a number on each of twenty places so a printed sheet can name them. It began in the geography quizzes of [Itsutsu](https://itsutsu.com) and a Japanese study app by the same author, and was taken out of both. Names are in English and Japanese today; Spanish, German and Chinese are planned, not started. It runs in [the demo](https://johnmorrisdotca.github.io/chizu/).
+Chizu is the world as SVG, and the things a person does with a map: look for a country, say which country a shape is, put a number on each of twenty places so a printed sheet can name them. It began in the geography quizzes of [Itsutsu](https://itsutsu.com) and a Japanese study app. It runs in [the demo](https://johnmorrisdotca.github.io/chizu/).
 
 ## In 30 seconds
 
@@ -674,6 +674,8 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
 | `@johnmorrisdotca/chizu/small-states` | `withSmallStates`: 62 small countries as dots |
+| `@johnmorrisdotca/chizu/views` | `withView`, `loadView`, `CHIZU_VIEWS`: points of view |
+| `@johnmorrisdotca/chizu/views/*` | one view's changes (`ukr`, `jpn`), as the default export |
 | `@johnmorrisdotca/chizu/world-geo` | the world as longitude/latitude GeoJSON for a spherical projection, as the default export and as `WORLD_GEO` |
 | `@johnmorrisdotca/chizu/world-geo-detail` | the 1:50m world in degrees, as the default export and as `WORLD_GEO_DETAIL` |
 | `@johnmorrisdotca/chizu/divisions-geo` | `loadDivisionsGeo`, `DIVISIONS_GEO_CODES` |

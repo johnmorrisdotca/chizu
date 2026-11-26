@@ -20,6 +20,7 @@ export {
 } from "./data-config/names.mjs";
 export { CHIZU_ONS_SOURCE, GB_2025, ONS, ONS_ISO, ONS_TYPES } from "./data-config/ons.mjs";
 export { CUT_OUTLINES } from "./data-config/outlines.mjs";
+export { VIEW_FILES, VIEWS } from "./data-config/views.mjs";
 
 /** Every map of regions: each country's, and the United Kingdom's councils of 2025 (`gb-2025`) beside its own. */
 export const DIVISION_CONFIGS = [...COUNTRY_DIVISIONS, GB_2025];

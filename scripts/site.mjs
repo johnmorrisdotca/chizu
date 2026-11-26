@@ -90,6 +90,10 @@ const pageParts = {
     "Draw lines, a mark and a shaded area over the map from numbers: the night side as it is now, a sample satellite's last half orbit and its next one (unbroken across the date line), and where it is. The page works the numbers out; the map only draws them, and draws only them again when they change.",
     "数値から、線、点、塗りつぶした範囲を地図に重ねて描きます。いまの夜の側、例として人工衛星のさっきの半周と次の1周（日付変更線をまたいでも途切れません）、いまの位置です。数値はページが計算し、地図は描くだけです。数値が変わったときは、それだけを描き直します。",
   ]),
+  rowView: row("view", "view", [
+    "Draw a disputed place as one country has it, and not as Natural Earth's lines do (who holds it today). Ukraine's puts Crimea and Sevastopol in Ukraine, as the UN General Assembly and ISO 3166 have them; Japan's puts the Northern Territories in Japan. It changes the world, the finer world and the two countries' own maps, and the map of Russia's regions without Crimea. Each view's outlines are fetched the first time you choose it.",
+    "領土が争われている場所を、Natural Earthの実効支配の線ではなく、ある国の立場のとおりに描きます。ウクライナの立場では、国連総会とISO 3166のとおり、クリミアとセヴァストポリがウクライナに含まれます。日本の立場では、日本政府のとおり、北方領土が日本に含まれます。世界、細かい世界、関係する国の地図が変わり、ロシアの行政区画の地図からはクリミアとセヴァストポリが除かれます。それぞれの立場の輪郭は、はじめて選んだときに読み込みます。",
+  ]),
   rowModes: row("modes", "mode", [
     "Explore the map and read the names, play a quiz, see numbered callouts placed on it, or colour it from your own figures.",
     "地図を見てなまえを調べる、クイズで遊ぶ、番号つきの目印をつける、自分の数値で色を塗る、のどれかを選びます。",

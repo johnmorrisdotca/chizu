@@ -53,6 +53,7 @@ import {
   startRound,
 } from "./demo-quiz.js";
 import { extraStyle, renderExploreDownloads } from "./demo-save.js";
+import { chooseView, showViewNote, VIEW_CHOICES, viewOptions } from "./demo-view.js";
 import { loadFeatures, loadWorldDetail } from "./dist/load-entry.js";
 import { mountChizu } from "./dist/mount-entry.js";
 import { codeFor } from "./tools.js";
@@ -121,6 +122,14 @@ function settings() {
   seg($("features"), FEATURE_MODES, state.features, chooseFeatures, (value) => say("featureModes")[value]);
   seg($("cities"), [false, true], state.cities, chooseCities, (value) => say(value ? "on" : "off"));
   seg($("overlays"), [false, true], state.overlays, chooseOverlays, (value) => say(value ? "on" : "off"));
+  seg(
+    $("view"),
+    VIEW_CHOICES,
+    state.view,
+    (value) => chooseView(value, settings),
+    (value) => say("viewChoices")[value],
+  );
+  showViewNote();
   seg(
     $("polish"),
     [false, true],
@@ -252,6 +261,7 @@ live.mount = mountChizu(host, {
   ...featureOptions(),
   ...cityOptions(state.cities),
   ...overlayOptions(state.overlays),
+  ...viewOptions(state.view),
   onHover: (code) => {
     pointing.hover = code;
     showPointing();

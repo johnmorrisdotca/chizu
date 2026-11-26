@@ -38,6 +38,10 @@
       "en": "The world's smallest countries as dots",
       "ja": "世界の小さな国を点で表示"
     },
+    "./views": {
+      "en": "Points of view on disputed places",
+      "ja": "領土が争われている地域を立場別に表示"
+    },
     "./element": {
       "en": "Map, locator and quiz elements",
       "ja": "地図・場所・クイズの要素"

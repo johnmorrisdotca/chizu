@@ -21,6 +21,9 @@ src/
 ├── world-entry.ts      the world's entry
 ├── small-states-entry.ts  the smallest countries as dots, its own entry
 ├── smallStates.ts      the table of them and `withSmallStates`
+├── views-entry.ts      the points of view on disputed places, its own entry
+├── views.ts            the types of a view and `withView`
+├── viewsLoad.ts        the table of the views and `loadView`
 ├── world-geo-entry.ts  the world as longitude and latitude, for a spherical projection
 ├── world-geo-detail-entry.ts  the same from the 1:50m outlines, for a globe zoomed in
 ├── divisions-geo-entry.ts  a country's regions as longitude and latitude, loaded on demand
@@ -65,6 +68,7 @@ src/
 ├── mountHover.ts       the place under the pointer, and the place the keyboard reached
 ├── mountKeys.ts        what each key does to a mounted map
 ├── mountSmallStates.ts the small countries' dots on a mounted map, fetched when asked for
+├── mountSource.ts      the point of view and the small countries a mounted map is drawn with, fetched when asked for
 ├── mountTypes.ts       what a mounted map is told and what it gives back
 ├── mountStyle.ts       the page's colours
 ├── random.ts           the seeded stream
@@ -84,5 +88,6 @@ src/
     ├── countries/<code>.data.ts   253 countries, each alone
     ├── divisions/<code>.data.ts   35 maps of countries' regions
     ├── divisions-geo/<code>.data.ts   35 maps of countries' regions in degrees
+    ├── views/<id>.data.ts         2 points of view
     └── features/<map>.data.ts     286 maps' named features
 ```

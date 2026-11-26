@@ -18,7 +18,7 @@ for (const [title, tree] of Object.entries(trees))
           (path) =>
             path.endsWith(".ts") &&
             !/\.(test|fixture)\./.test(path) &&
-            !/^data\/(countries|divisions|divisions-geo|features)\//.test(path),
+            !/^data\/(countries|divisions|divisions-geo|features|views)\//.test(path),
         )
         .map((path) => path.split("/").at(-1))
         .sort();
@@ -33,5 +33,6 @@ for (const [title, tree] of Object.entries(trees))
         `divisions-geo/<code>.data.ts   ${count("divisions-geo")} maps of countries' regions in degrees`,
       );
       expect(tree).toContain(`features/<map>.data.ts     ${count("features")} maps' named features`);
+      expect(tree).toContain(`views/<id>.data.ts         ${count("views")} points of view`);
     });
   });

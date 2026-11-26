@@ -35,7 +35,7 @@ export const DEGREES = 180 / Math.PI;
  * of it, or of a piece that is. France's Corsica comes, its Guiana, Réunion and Pacific islands do not (they are on
  * the world map). A country that is one piece or a handful close together is drawn whole.
  */
-function corePieces(geometry) {
+export function corePieces(geometry) {
   const polygons = polygonsOf(geometry);
   const sizes = polygons.map((polygon) => geoArea({ type: "Polygon", coordinates: polygon }));
   const biggest = sizes.indexOf(Math.max(...sizes));

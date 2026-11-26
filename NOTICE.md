@@ -8,6 +8,7 @@ what it was made from.
 | Entry point | Made from | Terms |
 | --- | --- | --- |
 | `world` | Natural Earth 5.1.2, admin-0 countries at 1:110m (`ne_110m_admin_0_countries`) | Public domain |
+| `views/<id>`, `withView`: which pieces of Russia's outline belong to Ukraine (Crimea) or to Japan (the Northern Territories) in each view | Natural Earth 5.1.2's point-of-view files for Ukraine and Japan (`ne_10m_admin_0_countries_ukr`, `ne_10m_admin_0_countries_jpn`), used only to say which pieces of the default outlines move; the outlines drawn are the default files' own | Public domain |
 | `countries/<code>`, `names` | Natural Earth 5.1.2, admin-0 countries at 1:50m, and at 1:10m for countries under 60,000 km² (`ne_50m_admin_0_countries`, `ne_10m_admin_0_countries`) | Public domain |
 | `countries/<code>` for the fifteen ISO codes that had no map of their own (AQ, BQ, BV, CC, CX, GF, GI, GP, MQ, RE, SJ, TF, TK, UM, YT) | Natural Earth 5.1.2, admin-0 map units at 1:50m and 1:10m (`ne_50m_admin_0_map_units`, `ne_10m_admin_0_map_units`), and admin-0 countries for AQ, GI, TF and UM. Credit, as Natural Earth suggests it: "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com." | Public domain |
 | `divisions-geo/<code>`, `world-geo-detail` | The same Natural Earth 5.1.2 files, admin-1 states and provinces at 1:10m and admin-0 countries at 1:50m, as longitude and latitude, rounded to 0.01 degree and simplified to 0.7 km (regions) and 0.3 km (world) by `scripts/build-data/geo.mjs` | Public domain |
@@ -179,9 +180,11 @@ reads it, so it makes the same maps from the same files every time:
 | `geojson/ne_50m_admin_0_map_units.geojson` | `b8d421aca6e9e08e8cdf09cc26af111cc3e0deba4fe915611d58ade71e8a4db0` |
 | `geojson/ne_10m_admin_0_map_units.geojson` | `57da82be755f4afccd8f3b14251bb2752f5df1395f47d2d86f817470c4a48862` |
 | `geojson/ne_10m_ports.geojson` | `c5a5028f5187a5e1b9fe7f0fab99804a8be7482099a2365d404fb7e9dd6b5457` |
+| `geojson/ne_10m_admin_0_countries_ukr.geojson` | `28a1a17d7327cad576083d5122b867843f957468b1bb11168ded23fd5aea342e` |
+| `geojson/ne_10m_admin_0_countries_jpn.geojson` | `11bc047064a5cf2db03efc2aece341e657df2dd59ad715a8221cc1575697df1b` |
 
 The five physical files were read on 2026-10-09, and the two map-units files and the ports file on 2026-11-18, from
-the same tag; the terms page above was read again on 2026-11-18.
+the same tag; the terms page above was read again on 2026-11-18. The two point-of-view files (`_ukr`, `_jpn`) were read on 2026-11-26 from the same tag.
 
 **What was changed.** The outlines are projected onto a fixed canvas, rounded to
 two decimals and drawn as `M`/`L`/`Z` paths. For a country alone, only its

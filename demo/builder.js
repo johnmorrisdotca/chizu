@@ -269,6 +269,8 @@ const leftOut = {
   "options.keepSelection":
     "What a press keeps belongs to host code; the element also dispatches composed chizu-select events.",
   "options.theme": "The theme control writes theme.",
+  "options.view":
+    "A point of view on a disputed place belongs to host code: the host chooses whose lines it draws and says so beside the map.",
   "options.smallStates": "The small countries switch writes small-states.",
   "options.zoom": "The zoom control writes zoom.",
   "options.cities":

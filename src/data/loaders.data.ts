@@ -4,6 +4,7 @@
  * chunk and a page loads only the ones it draws.
  */
 import type { ChizuFeatureLayer, ChizuMap } from "../types.ts";
+import type { ChizuViewData, ChizuViewInfo } from "../views.ts";
 
 type Load = () => Promise<{ default: ChizuMap }>;
 
@@ -595,3 +596,31 @@ export const FEATURE_LOADERS: Readonly<Record<string, () => Promise<{ default: C
   "divisions-vn-2025": () => import("./features/divisions-vn-2025.data.ts"),
   world: () => import("./features/world.data.ts"),
 };
+
+/** The 2 points of view, by id: the pieces of a map that move and the regions it draws again. */
+export const VIEW_LOADERS: Readonly<Record<string, () => Promise<{ default: ChizuViewData }>>> = {
+  jpn: () => import("./views/jpn.data.ts"),
+  ukr: () => import("./views/ukr.data.ts"),
+};
+
+/** The 2 points of view with their names and notes, and the ids of the maps each changes. */
+export const VIEW_TABLE: readonly ChizuViewInfo[] = [
+  {
+    id: "jpn",
+    name: "Japan's point of view",
+    nameJa: "日本の立場",
+    note: "The Northern Territories (Etorofu, Kunashiri, Shikotan and the Habomai islets) are drawn in Japan, as Japan's government has them. The default drawing follows Natural Earth's de facto lines, which put them in Russia. They are too small for the 1:110m world, which is unchanged: the finer world and Japan's own map show them. The regions maps are unchanged.",
+    noteJa:
+      "北方領土（択捉島、国後島、色丹島、歯舞群島）は、日本政府の立場のとおり、日本の領土として描きます。標準の描き方は、いま実際に支配している国に基づくNatural Earthの線で、ロシア側に描かれます。最も粗い世界地図（1:110m）では島が小さすぎて描けないため、世界地図は変わりません。細かい世界地図と日本の地図には表示されます。行政区画の地図は変わりません。",
+    maps: ["world-detail", "country-jp", "country-ru"],
+  },
+  {
+    id: "ukr",
+    name: "Ukraine's point of view",
+    nameJa: "ウクライナの立場",
+    note: "Crimea and Sevastopol are drawn in Ukraine, as the UN General Assembly (resolution 68/262) and ISO 3166 have them. The default drawing follows Natural Earth's de facto lines, which put them in Russia. The Russian regions map drops its two entries for them.",
+    noteJa:
+      "クリミアとセヴァストポリは、国連総会決議68/262とISO 3166のとおり、ウクライナの領土として描きます。標準の描き方は、いま実際に支配している国に基づくNatural Earthの線で、この2つはロシア側に描かれます。ロシアの行政区画の地図からは、この2つの地域が除かれます。",
+    maps: ["world", "world-detail", "country-ua", "country-ru", "divisions-ru"],
+  },
+];

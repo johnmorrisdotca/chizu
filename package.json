@@ -98,6 +98,11 @@
       "import": "./dist/small-states-entry.js",
       "default": "./dist/small-states-entry.js"
     },
+    "./views": {
+      "types": "./dist/views-entry.d.ts",
+      "import": "./dist/views-entry.js",
+      "default": "./dist/views-entry.js"
+    },
     "./world-geo": {
       "types": "./dist/world-geo-entry.d.ts",
       "import": "./dist/world-geo-entry.js",
@@ -1582,6 +1587,11 @@
       "types": "./dist/data/divisions-geo/*.data.d.ts",
       "import": "./dist/data/divisions-geo/*.data.js",
       "default": "./dist/data/divisions-geo/*.data.js"
+    },
+    "./views/*": {
+      "types": "./dist/data/views/*.data.d.ts",
+      "import": "./dist/data/views/*.data.js",
+      "default": "./dist/data/views/*.data.js"
     },
     "./features/country-ad": {
       "types": "./dist/data/features/country-ad.data.d.ts",

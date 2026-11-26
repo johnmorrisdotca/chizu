@@ -7,6 +7,7 @@ import type { ChizuPort, ChizuPortOptions } from "./ports.ts";
 import type { ChizuRunways } from "./runways.ts";
 import type { ChizuLanguage } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
+import type { ChizuViewId } from "./views.ts";
 
 /**
  * The palette of a mounted map: the page's own ("auto"), or the light or the dark one whatever the page does.
@@ -45,6 +46,13 @@ export type ChizuMountOptions = {
    * without them and again with them when they arrive. Only the world gets them. Default false.
    */
   smallStates?: boolean;
+  /**
+   * A point of view on a disputed place: `"ukr"` (Crimea and Sevastopol in Ukraine) or `"jpn"` (the Northern Territories in
+   * Japan), drawn instead of Natural Earth's de facto lines on the maps the view changes (`CHIZU_VIEWS`): the world, its
+   * finer drawing, and the two countries' own maps. The view's table is fetched, as a chunk of its own, only when this is
+   * set: the map is drawn at once as it is and again with the view when it arrives. null or none: the default. Default none.
+   */
+  view?: ChizuViewId | null;
   /** The zoom step to start at (1 to 10). Default 1. */
   zoom?: MapZoom;
   /** Tones by code (`drawChizu`'s `tones`). The chosen region is `selected` unless it is given a tone here. */

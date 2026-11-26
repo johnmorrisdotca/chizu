@@ -102,6 +102,7 @@ const SAMPLES = {
   "./countries/*": ["fr", "jp", "sg"],
   "./divisions/*": ["de", "us", "fr"],
   "./divisions-geo/*": ["jp", "gb", "gb-2025", "us"],
+  "./views/*": ["ukr", "jpn"],
   "./features/*": ["world", "divisions-jp", "country-fr"],
 };
 const entries = Object.keys(pkg.exports)
