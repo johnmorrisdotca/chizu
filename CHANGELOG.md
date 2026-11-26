@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.17.1] - 2026-11-26
+
+- **The continents are written in one Japanese style, with no 大陸** (MODULES-1858). North America's `groupJa` was 北アメリカ大陸 (CLDR's name) while the other continents were アジア, アフリカ, ヨーロッパ, オセアニア and 南アメリカ. It is now 北アメリカ (きたあめりか) on the 59 countries and territories of the continent and in `CHIZU_CONTINENTS`, and UN M49's subregion Northern America, which kuni now calls 北部アメリカ (ほくぶあめりか) so the two are told apart, is that in `CHIZU_SUBREGIONS`. The data is built from kuni 1.17.2 (it was 1.6.0), so `scripts/data-config.mjs` reads that version and `GROUP_READINGS` has the readings. Test: `src/groups.test.ts`, which fails on the old data.
+
 ## [1.17.0] - 2026-11-19
 
 ### Added
