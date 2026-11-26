@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.19.0] - 2026-11-26
+
 ### Added
 
 - **The world in 1990: `@johnmorrisdotca/chizu/world-1990`** (MODULES-1622). The world of 1 January 1990 on the world's own canvas, 154 countries: the Soviet Union (`SUHH`), Yugoslavia (`YUCS`) and Czechoslovakia (`CSHH`) are the union of today's countries along their shared borders (15, 7 and 2, so no new line is drawn), East Germany (`DDDE`) and West Germany (`DE`) and South Yemen (`YDYE`) and North Yemen (`YE`) the unions of today's regions (Natural Earth's 1:10m admin-1), keyed by the ISO 3166-3 codes kuni and hata know. Names in English and Japanese (kuni's for the ones ISO lists; 西ドイツ and 北イエメン written here), with kana readings; `neighbors` follow the new borders. Berlin is drawn whole with the east and the border between the Yemens is approximate (today's governorates), as docs/maps.md says. `WORLD_1990` is the default export of the entry; `world` is unchanged. Tests: `src/world-1990.test.ts`.

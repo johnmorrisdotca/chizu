@@ -9,4 +9,4 @@
  * // true
  * ```
  */
-export const VERSION = "1.18.0";
+export const VERSION = "1.19.0";
