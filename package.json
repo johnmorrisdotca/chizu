@@ -1,6 +1,6 @@
 {
   "name": "@johnmorrisdotca/chizu",
-  "version": "1.17.0",
+  "version": "1.17.1",
   "description": "Chizu 地図 — SVG maps for JavaScript: world and country outlines, 33 countries' regions, English/Japanese names, pan and zoom, insets, geography quizzes and numbered callouts. Zero dependencies.",
   "keywords": [
     "browser",
@@ -3066,7 +3066,7 @@
     "@angular/platform-browser": "^22.2.4",
     "@biomejs/biome": "2.6.4",
     "@johnmorrisdotca/kazoku-ui": "^0.38.0",
-    "@johnmorrisdotca/kuni": "1.6.0",
+    "@johnmorrisdotca/kuni": "1.17.2",
     "@playwright/test": "^1.63.0",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@types/d3-geo": "^3.1.1",

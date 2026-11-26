@@ -2331,8 +2331,8 @@ const layer: ChizuFeatureLayer = {
       reading: "ルアンダ",
       rank: 0,
       path: "",
-      bbox: [106.2, 340.7, 106.2, 340.7],
-      centroid: [106.2, 340.7],
+      bbox: [106.2, 340.6, 106.2, 340.6],
+      centroid: [106.2, 340.6],
       neighbors: [],
     },
     {

@@ -68,9 +68,9 @@ export const CONTINENT_OVERRIDES = {};
 /** How the names of continents and subregions that kuni writes with kanji are read. */
 export const GROUP_READINGS = {
   南極: "なんきょく",
-  北アメリカ大陸: "きたあめりかたいりく",
   南アメリカ: "みなみあめりか",
   北アメリカ: "きたあめりか",
+  北部アメリカ: "ほくぶあめりか",
   西アフリカ: "にしあふりか",
   東アフリカ: "ひがしあふりか",
   北アフリカ: "きたあふりか",

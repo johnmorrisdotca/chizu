@@ -9,4 +9,4 @@
  * // true
  * ```
  */
-export const VERSION = "1.17.0";
+export const VERSION = "1.17.1";

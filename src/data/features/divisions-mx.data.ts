@@ -1056,6 +1056,8 @@ const layer: ChizuFeatureLayer = {
       kind: "seat",
       group: "capitals",
       name: "Mexicali",
+      nameJa: "メヒカリ",
+      reading: "メヒカリ",
       rank: 5,
       path: "",
       bbox: [99.8, 4.4, 99.8, 4.4],

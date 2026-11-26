@@ -1,6 +1,6 @@
 /*
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run `pnpm data` to make it again.
- * The named features of Poland (divisions-pl): 2 seas, 2 lakes, 4 rivers, 2 landforms, 1 peaks, 14 capitals and seats.
+ * The named features of Poland (divisions-pl): 2 seas, 2 lakes, 4 rivers, 2 landforms, 1 peaks, 15 capitals and seats.
  * Natural Earth is in the public domain (naturalearthdata.com); Wikidata's names are CC0. See NOTICE.md.
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
@@ -13,7 +13,7 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * ```ts
  * import layer from "@johnmorrisdotca/chizu/features/divisions-pl";
  * console.log(layer.map, layer.features.length);
- * // divisions-pl 25
+ * // divisions-pl 26
  * ```
  */
 const layer: ChizuFeatureLayer = {
@@ -204,6 +204,19 @@ const layer: ChizuFeatureLayer = {
       path: "",
       bbox: [824.2, 550.6, 824.2, 550.6],
       centroid: [824.2, 550.6],
+      neighbors: [],
+    },
+    {
+      code: "seat-PL-08",
+      kind: "seat",
+      group: "capitals",
+      name: "Gorzów Wielkopolski",
+      nameJa: "ゴジュフ・ヴィエルコポルスキ",
+      reading: "ゴジュフヴィエルコポルスキ",
+      rank: 5,
+      path: "",
+      bbox: [123.2, 319.6, 123.2, 319.6],
+      centroid: [123.2, 319.6],
       neighbors: [],
     },
     {

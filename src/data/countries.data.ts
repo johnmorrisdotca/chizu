@@ -2,7 +2,7 @@
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run `pnpm data` to make it again.
  * Every country Natural Earth 5.1.2 draws at 1:50m and 15 cut from its other files (253 in all): its
  * names in English and Japanese, which continent it is in, and which of the maps has it. The names, readings, continents
- * and three-letter codes are kuni's (@johnmorrisdotca/kuni 1.6.0), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
+ * and three-letter codes are kuni's (@johnmorrisdotca/kuni 1.17.2), which are Unicode CLDR's and Wikidata's: see NOTICE.md.
  */
 import type { ChizuCountry, ChizuGroup } from "../types.ts";
 
@@ -2821,7 +2821,7 @@ export const CHIZU_COUNTRIES: readonly ChizuCountry[] = [
  * import { CHIZU_CONTINENTS } from "@johnmorrisdotca/chizu/names";
  *
  * console.log(CHIZU_CONTINENTS.map((continent) => `${continent.code} ${continent.nameJa} ${continent.codes.length}`).join(", "));
- * // AF アフリカ 57, AN 南極 0, AS アジア 51, EU ヨーロッパ 50, NA 北アメリカ大陸 38, OC オセアニア 25, SA 南アメリカ 14
+ * // AF アフリカ 57, AN 南極 0, AS アジア 51, EU ヨーロッパ 50, NA 北アメリカ 38, OC オセアニア 25, SA 南アメリカ 14
  * ```
  */
 export const CHIZU_CONTINENTS: readonly ChizuGroup[] = [
@@ -3015,8 +3015,8 @@ export const CHIZU_CONTINENTS: readonly ChizuGroup[] = [
     code: "NA",
     kind: "continent",
     name: "North America",
-    nameJa: "北アメリカ大陸",
-    reading: "きたあめりかたいりく",
+    nameJa: "北アメリカ",
+    reading: "きたあめりか",
     codes: [
       "AG",
       "AI",
@@ -3195,8 +3195,8 @@ export const CHIZU_SUBREGIONS: readonly ChizuGroup[] = [
     code: "021",
     kind: "subregion",
     name: "Northern America",
-    nameJa: "北アメリカ",
-    reading: "きたあめりか",
+    nameJa: "北部アメリカ",
+    reading: "ほくぶあめりか",
     codes: ["BM", "CA", "GL", "PM", "US"],
   },
   {
@@ -3372,7 +3372,7 @@ export const CHIZU_SOURCE = {
   names: {
     name: "kuni",
     package: "@johnmorrisdotca/kuni",
-    version: "1.6.0",
+    version: "1.17.2",
     licence: "MIT; its names are Unicode CLDR's (Unicode-3.0) and Wikidata's (CC0)",
   },
   ons: {

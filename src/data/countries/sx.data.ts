@@ -43,7 +43,7 @@ const map: ChizuMap = {
       nameJa: "シント・マールテン",
       reading: "シントマールテン",
       group: "North America",
-      groupJa: "北アメリカ大陸",
+      groupJa: "北アメリカ",
       iso3: "SXM",
       path: "M117.29,0L325.7,37.49L1000,298.18L871.12,446.46L209.6,271.61L66.24,198.09L0,110.21L117.29,27.46Z",
       neighbors: ["MF"],

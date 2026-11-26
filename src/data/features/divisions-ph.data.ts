@@ -1,6 +1,6 @@
 /*
  * WRITTEN BY scripts/build-data.mjs, NEVER BY HAND: run `pnpm data` to make it again.
- * The named features of Philippines (divisions-ph): 13 seas, 2 lakes, 1 rivers, 0 landforms, 7 peaks, 70 capitals and seats.
+ * The named features of Philippines (divisions-ph): 13 seas, 2 lakes, 1 rivers, 0 landforms, 7 peaks, 69 capitals and seats.
  * Natural Earth is in the public domain (naturalearthdata.com); Wikidata's names are CC0. See NOTICE.md.
  */
 import type { ChizuFeatureLayer } from "../../types.ts";
@@ -13,7 +13,7 @@ import type { ChizuFeatureLayer } from "../../types.ts";
  * ```ts
  * import layer from "@johnmorrisdotca/chizu/features/divisions-ph";
  * console.log(layer.map, layer.features.length);
- * // divisions-ph 93
+ * // divisions-ph 92
  * ```
  */
 const layer: ChizuFeatureLayer = {
@@ -696,19 +696,6 @@ const layer: ChizuFeatureLayer = {
       path: "",
       bbox: [839.3, 1161.4, 839.3, 1161.4],
       centroid: [839.3, 1161.4],
-      neighbors: [],
-    },
-    {
-      code: "seat-PH-EAS",
-      kind: "seat",
-      group: "capitals",
-      name: "Borongan",
-      nameJa: "ボロンガン",
-      reading: "ボロンガン",
-      rank: 5,
-      path: "",
-      bbox: [804.5, 807.2, 804.5, 807.2],
-      centroid: [804.5, 807.2],
       neighbors: [],
     },
     {

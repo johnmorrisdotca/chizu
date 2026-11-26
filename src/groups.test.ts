@@ -43,6 +43,31 @@ describe("the continents and subregions", () => {
     ]).toEqual([true, true, true]);
   });
 
+  // MODULES-1858: the continents are written in one style, with no 大陸 (kuni 1.17.2), and UN M49's Northern America is 北部アメリカ, so that it is not the continent's 北アメリカ.
+  it("write the continents in one Japanese style, with no 大陸, and every country's groupJa is its continent's name", () => {
+    expect(CHIZU_CONTINENTS.map((entry) => entry.nameJa)).toEqual([
+      "アフリカ",
+      "南極",
+      "アジア",
+      "ヨーロッパ",
+      "北アメリカ",
+      "オセアニア",
+      "南アメリカ",
+    ]);
+    expect(continent("NA").reading).toBe("きたあめりか");
+    expect(continent("SA").reading).toBe("みなみあめりか");
+    for (const entry of CHIZU_CONTINENTS) expect(entry.nameJa, entry.code).not.toContain("大陸");
+    expect(CHIZU_SUBREGIONS.find((entry) => entry.name === "Northern America")).toMatchObject({
+      nameJa: "北部アメリカ",
+      reading: "ほくぶあめりか",
+    });
+    for (const region of world.regions) {
+      if (region.groupJa === undefined) continue;
+      expect(region.groupJa, region.code).not.toContain("大陸");
+      if (region.group === "North America") expect(region.groupJa, region.code).toBe("北アメリカ");
+    }
+  });
+
   it("put every country kuni places in a subregion in that one subregion only", () => {
     const seen = new Map<string, string>();
     for (const entry of CHIZU_SUBREGIONS) {

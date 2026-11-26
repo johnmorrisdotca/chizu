@@ -668,8 +668,8 @@ const layer: ChizuFeatureLayer = {
       reading: "クロイドン",
       rank: 5,
       path: "",
-      bbox: [819.5, 958.6, 819.5, 958.6],
-      centroid: [819.5, 958.6],
+      bbox: [820.1, 958.6, 820.1, 958.6],
+      centroid: [820.1, 958.6],
       neighbors: [],
     },
     {

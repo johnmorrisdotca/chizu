@@ -17,11 +17,11 @@ const BRITAIN = new Set(["England", "Scotland", "Wales"]);
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
 describe("the United Kingdom's map gb", () => {
-  it("is byte for byte the one of 1.14.0: its regions, the same in degrees, and its features", () => {
+  it("is the one of 1.14.0: its regions, the same in degrees, and its features (the Croydon seat marker moved 0.6 px with kuni 1.17.2's coordinates, MODULES-1858)", () => {
     const hashes = {
       "divisions/gb.data.ts": "9b50cfb21a14ed89e7ec697556e9eef5ee9ffc920b8290d2a95d7147eca377db",
       "divisions-geo/gb.data.ts": "6d5a1ea0dbfc81f89b3e0a7827564b92c90890d23677f48843c7fae4c1cfc004",
-      "features/divisions-gb.data.ts": "9db23c0c020de17cf91528464c3a0c4f524ca18ecbd9de5b449488e0388863d9",
+      "features/divisions-gb.data.ts": "50c8d9c0c392a84faf8717f9380d9fd2df1486e9099788e3bc6a56ef365d9563",
     };
     for (const [file, hash] of Object.entries(hashes))
       expect(sha256(readFileSync(new URL(`./data/${file}`, import.meta.url))), file).toBe(hash);

@@ -43,7 +43,7 @@ const map: ChizuMap = {
       nameJa: "サン・バルテルミー",
       reading: "サンバルテルミー",
       group: "North America",
-      groupJa: "北アメリカ大陸",
+      groupJa: "北アメリカ",
       iso3: "BLM",
       path: "M376.32,654.92L216.62,537.39L79.53,329.44L0,121.49L16.15,0L131.2,57.09L1000,189.83L903.78,342.42L755.96,511.96L574.75,637.41Z",
       neighbors: [],
