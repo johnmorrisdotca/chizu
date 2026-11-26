@@ -12,8 +12,9 @@ import {
 import { buttonsKeepOut } from "./mountCallouts.ts";
 import { mountCities } from "./mountCities.ts";
 import { watchPlaces } from "./mountHover.ts";
+import { keyAction } from "./mountKeys.ts";
 import { smallStateDots } from "./mountSmallStates.ts";
-import { ensureChizuMapStyle, selectedTones } from "./mountStyle.ts";
+import { ensureChizuMapStyle, selectedTones, wearTheme } from "./mountStyle.ts";
 import type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
 import { DRAG_PIXELS, KEY_STEP, WHEEL_GESTURE_MS, WHEEL_PAUSE_MS } from "./mountTypes.ts";
 import { drawnOver, redrawOverlays } from "./overlays.ts";
@@ -22,7 +23,7 @@ import type { ChizuFeatureLayer, ChizuMap } from "./types.ts";
 import { mapWrapsAround, wrapAcross, wrapOffsets } from "./wrap.ts";
 
 export { ensureChizuMapStyle } from "./mountStyle.ts";
-export type { ChizuMount, ChizuMountOptions, ChizuView } from "./mountTypes.ts";
+export type { ChizuMount, ChizuMountOptions, ChizuTheme, ChizuView } from "./mountTypes.ts";
 
 /**
  * Puts a map in an element, to look at by touch, mouse and keyboard: drag to move it, the buttons, the wheel or a pinch to
@@ -60,6 +61,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     options.language ?? (host.ownerDocument.documentElement.lang.toLowerCase().startsWith("ja") ? "ja" : "en");
 
   host.classList.add("chizu-map");
+  wearTheme(host, options.theme);
   host.replaceChildren();
   const stage = host.ownerDocument.createElement("div");
   stage.className = "czm-stage";
@@ -267,6 +269,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   const api: ChizuMount = {
     set(patch) {
       options = { ...options, ...patch };
+      if (patch.theme !== undefined) wearTheme(host, patch.theme);
       if (patch.smallStates !== undefined) dots.sync();
       if (patch.zoom !== undefined) zoom = patch.zoom;
       // New overlays alone: only their group is drawn again, not the land under them.
@@ -345,6 +348,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
       stage.remove();
       says.remove();
       host.classList.remove("chizu-map");
+      wearTheme(host, "auto");
       stage.removeEventListener("pointerdown", down);
       places.destroy();
     },
@@ -431,6 +435,7 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
   /** A place was pressed, by the pointer or by Enter on it with the keyboard: choose it, or let go of it if it is the chosen one. */
   function press(code: string | null) {
     if (!code || options.selectable === false) return;
+    if (options.keepSelection === false) return options.onSelect?.(code);
     const next = options.selected === code ? null : code;
     api.select(next);
     options.onSelect?.(next);
@@ -452,28 +457,21 @@ export function mountChizu(host: HTMLElement, initial: ChizuMountOptions): Chizu
     setZoom(stepMapZoom(zoom, by), toMap(event.clientX, event.clientY));
   }
   function key(event: KeyboardEvent) {
-    const window_ = box();
-    const step = (dx: number, dy: number) => {
-      event.preventDefault();
-      centre = { x: centre.x + dx * window_.width * KEY_STEP, y: centre.y + dy * window_.height * KEY_STEP };
+    const action = keyAction(event.key);
+    if (action === null) return;
+    event.preventDefault();
+    if (action === "whole") api.reset();
+    else if ("zoom" in action) api.zoomBy(action.zoom);
+    else {
+      const window_ = box();
+      centre = {
+        x: centre.x + action.move[0] * window_.width * KEY_STEP,
+        y: centre.y + action.move[1] * window_.height * KEY_STEP,
+      };
       settle();
       pan();
       if (options.callouts) draw();
       changed();
-    };
-    if (event.key === "ArrowLeft") step(-1, 0);
-    else if (event.key === "ArrowRight") step(1, 0);
-    else if (event.key === "ArrowUp") step(0, -1);
-    else if (event.key === "ArrowDown") step(0, 1);
-    else if (event.key === "+" || event.key === "=") {
-      event.preventDefault();
-      api.zoomBy(1);
-    } else if (event.key === "-" || event.key === "_") {
-      event.preventDefault();
-      api.zoomBy(-1);
-    } else if (event.key === "0") {
-      event.preventDefault();
-      api.reset();
     }
   }
   // Before the key listener below: it takes Shift and an arrow, which move the focus between places and not the map.

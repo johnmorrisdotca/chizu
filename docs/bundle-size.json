@@ -6,12 +6,12 @@
       "gzip": 21184
     },
     "./draw": {
-      "minified": 60227,
-      "gzip": 20478
+      "minified": 59706,
+      "gzip": 20467
     },
     "./mount": {
-      "minified": 73904,
-      "gzip": 26470
+      "minified": 74162,
+      "gzip": 26706
     },
     "./names": {
       "minified": 56856,
@@ -58,12 +58,12 @@
       "gzip": 1076373
     },
     "./element": {
-      "minified": 18655949,
-      "gzip": 6709376
+      "minified": 18656344,
+      "gzip": 6709629
     },
     "./element/define": {
-      "minified": 18655964,
-      "gzip": 6709379
+      "minified": 18656359,
+      "gzip": 6709648
     },
     "./countries/ad": {
       "minified": 1370,

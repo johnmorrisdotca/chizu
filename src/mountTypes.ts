@@ -9,6 +9,20 @@ import type { ChizuLanguage } from "./strings.ts";
 import type { ChizuFeatureLayer, ChizuMap, MapBox } from "./types.ts";
 
 /**
+ * The palette of a mounted map: the page's own ("auto"), or the light or the dark one whatever the page does.
+ *
+ * @example
+ * ```ts no-run
+ * import WORLD from "@johnmorrisdotca/chizu/world";
+ * import { mountChizu, type ChizuTheme } from "@johnmorrisdotca/chizu/mount";
+ *
+ * const theme: ChizuTheme = "dark";
+ * mountChizu(document.querySelector<HTMLElement>("#map")!, { map: WORLD, theme });
+ * ```
+ */
+export type ChizuTheme = "auto" | "light" | "dark";
+
+/**
  * What a mounted map is told. Everything but `map` may be changed later with `set`.
  *
  * @example
@@ -43,6 +57,17 @@ export type ChizuMountOptions = {
   labels?: ChizuDrawOptions["labels"];
   /** The chosen region's code, or null. */
   selected?: string | null;
+  /**
+   * The palette: `"light"` or `"dark"` pins the map, its buttons and its line to that palette whatever the page's own
+   * is (a dark card on a light page), and `"auto"` follows the page's `data-theme` and its dark mode. Default `"auto"`.
+   */
+  theme?: ChizuTheme;
+  /**
+   * Whether a press chooses the place (and `selected`, its tone and the zoom to it follow). Off, a press only calls
+   * `onSelect` with the place's code, again and again for the same place, and nothing is chosen: a page that colours the
+   * map by its own rules keeps its state itself. Default true.
+   */
+  keepSelection?: boolean;
   /** Zoom in on a region when it is chosen. Default true. */
   fit?: boolean;
   /** Whether pressing a region chooses it. Off, a press does nothing and the map is only looked at (a quiz that asks the question itself). Default true. */

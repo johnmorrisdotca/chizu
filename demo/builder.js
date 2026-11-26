@@ -266,6 +266,9 @@ const leftOut = {
   "options.labels": "The labels control writes labels.",
   "options.controls": "The controls switch writes controls.",
   "options.selectable": "The selection switch writes selectable.",
+  "options.keepSelection":
+    "What a press keeps belongs to host code; the element also dispatches composed chizu-select events.",
+  "options.theme": "The theme control writes theme.",
   "options.smallStates": "The small countries switch writes small-states.",
   "options.zoom": "The zoom control writes zoom.",
   "options.cities":

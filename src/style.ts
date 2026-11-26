@@ -1,3 +1,8 @@
+/** The light palette of a drawing, as the custom properties `.chizu` sets. */
+export const PALETTE_LIGHT = `--cz-sea: #cfe3ee; --cz-land: #e9e1c8; --cz-line: #5d5a50; --cz-inset: #7a766a; --cz-ink: #1f2320; --cz-selected: #ffd23f; --cz-correct: #9bd6a8; --cz-wrong: #f0a99b; --cz-hint: #b7dcf4; --cz-muted: #d9d5c6; --cz-faint: #f3efe4; --cz-callout: #ffffff; --cz-callout-ink: #1f2320; --cz-leader: #3a3d38; --cz-halo: #f7f3e8; --cz-marine: #cfe3ee; --cz-water: #a6cde6; --cz-water-ink: #2b5d84; --cz-feature-line: #6b5d45; --cz-feature-selected: #4f9bd6; --cz-airport: #2f78b5; --cz-harbour: #1f8a6a; --cz-runway: #4b4f58;`;
+/** The dark palette of a drawing, as the custom properties `.chizu` sets. */
+export const PALETTE_DARK = `--cz-sea: #18303d; --cz-land: #4a4a3d; --cz-line: #aaa592; --cz-inset: #8f8b7a; --cz-ink: #ece8dc; --cz-selected: #a8841a; --cz-correct: #2f6b45; --cz-wrong: #8a3a2c; --cz-hint: #2d5a78; --cz-muted: #3a3a30; --cz-faint: #55554a; --cz-callout: #ece8dc; --cz-callout-ink: #1f2320; --cz-leader: #ece8dc; --cz-halo: #1d201e; --cz-marine: #18303d; --cz-water: #2f6283; --cz-water-ink: #9fcbe8; --cz-feature-line: #cdbd97; --cz-feature-selected: #3f8cc6; --cz-airport: #7cc4ff; --cz-harbour: #5fd3a6; --cz-runway: #b9bdc7;`;
+
 /**
  * THE STYLE a chizu drawing wears: the colours of its land and sea as custom properties, and the one rule that matters
  * for a map pressed with fingers: nothing in the drawing can be selected, dragged or double-tapped.
@@ -22,30 +27,18 @@
  */
 export const CHIZU_STYLE = `
 .chizu {
-  --cz-sea: #cfe3ee; --cz-land: #e9e1c8; --cz-line: #5d5a50; --cz-inset: #7a766a; --cz-ink: #1f2320;
-  --cz-selected: #ffd23f; --cz-correct: #9bd6a8; --cz-wrong: #f0a99b; --cz-hint: #b7dcf4; --cz-muted: #d9d5c6; --cz-faint: #f3efe4;
-  --cz-callout: #ffffff; --cz-callout-ink: #1f2320; --cz-leader: #3a3d38; --cz-halo: #f7f3e8;
-  --cz-marine: #cfe3ee; --cz-water: #a6cde6; --cz-water-ink: #2b5d84; --cz-feature-line: #6b5d45; --cz-feature-selected: #4f9bd6;
-  --cz-airport: #2f78b5; --cz-harbour: #1f8a6a; --cz-runway: #4b4f58;
+  ${PALETTE_LIGHT}
   --cz-font: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
   display: block; width: 100%; height: auto;
   user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .chizu {
-    --cz-sea: #18303d; --cz-land: #4a4a3d; --cz-line: #aaa592; --cz-inset: #8f8b7a; --cz-ink: #ece8dc;
-    --cz-selected: #a8841a; --cz-correct: #2f6b45; --cz-wrong: #8a3a2c; --cz-hint: #2d5a78; --cz-muted: #3a3a30; --cz-faint: #55554a;
-    --cz-callout: #ece8dc; --cz-callout-ink: #1f2320; --cz-leader: #ece8dc; --cz-halo: #1d201e;
-    --cz-marine: #18303d; --cz-water: #2f6283; --cz-water-ink: #9fcbe8; --cz-feature-line: #cdbd97; --cz-feature-selected: #3f8cc6;
-    --cz-airport: #7cc4ff; --cz-harbour: #5fd3a6; --cz-runway: #b9bdc7;
+    ${PALETTE_DARK}
   }
 }
 :root[data-theme="dark"] .chizu {
-  --cz-sea: #18303d; --cz-land: #4a4a3d; --cz-line: #aaa592; --cz-inset: #8f8b7a; --cz-ink: #ece8dc;
-  --cz-selected: #a8841a; --cz-correct: #2f6b45; --cz-wrong: #8a3a2c; --cz-hint: #2d5a78; --cz-muted: #3a3a30; --cz-faint: #55554a;
-  --cz-callout: #ece8dc; --cz-callout-ink: #1f2320; --cz-leader: #ece8dc; --cz-halo: #1d201e;
-  --cz-marine: #18303d; --cz-water: #2f6283; --cz-water-ink: #9fcbe8; --cz-feature-line: #cdbd97; --cz-feature-selected: #3f8cc6;
-  --cz-airport: #7cc4ff; --cz-harbour: #5fd3a6; --cz-runway: #b9bdc7;
+  ${PALETTE_DARK}
 }
 .chizu * { user-select: none; -webkit-user-select: none; }
 .chizu .cz-sea { fill: var(--cz-sea); }

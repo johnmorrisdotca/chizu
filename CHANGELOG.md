@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **`theme` and `keepSelection` on `mountChizu`, and the element's `mounted`** (MODULES-1864, for Kane's desk). `mountChizu` takes `theme` (`"auto"`, `"light"` or `"dark"`, type `ChizuTheme`): light or dark pins the map's palette, its buttons and its line whatever the page's own is, and `set({ theme })` changes it. `keepSelection: false` makes a press only call `onSelect` with the place's code, every time, and choose, tone and zoom to nothing. `<chizu-map>`, `<chizu-locator>` and `<chizu-quiz>` hand their `ChizuMount` to the page as `element.mounted` (null before the map is drawn), and `options.theme` and `options.keepSelection` are their host options (the `theme` attribute still wins). `onHover` and `onFocus`, the other part of the ticket, are in 1.13.0 (MODULES-1492). The palettes are the same CSS written once (`PALETTE_LIGHT`, `PALETTE_DARK` in `src/style.ts`), and the keys of a mounted map are in `src/mountKeys.ts`. Tests: `e2e/mount-options.demo.mjs`.
+
 ## [1.17.1] - 2026-11-26
 
 - **The continents are written in one Japanese style, with no 大陸** (MODULES-1858). North America's `groupJa` was 北アメリカ大陸 (CLDR's name) while the other continents were アジア, アフリカ, ヨーロッパ, オセアニア and 南アメリカ. It is now 北アメリカ (きたあめりか) on the 59 countries and territories of the continent and in `CHIZU_CONTINENTS`, and UN M49's subregion Northern America, which kuni now calls 北部アメリカ (ほくぶあめりか) so the two are told apart, is that in `CHIZU_SUBREGIONS`. The data is built from kuni 1.17.2 (it was 1.6.0), so `scripts/data-config.mjs` reads that version and `GROUP_READINGS` has the readings. Test: `src/groups.test.ts`, which fails on the old data.

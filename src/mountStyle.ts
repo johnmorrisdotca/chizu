@@ -1,4 +1,8 @@
-import { CHIZU_STYLE } from "./style.ts";
+import type { ChizuTheme } from "./mountTypes.ts";
+import { CHIZU_STYLE, PALETTE_DARK, PALETTE_LIGHT } from "./style.ts";
+
+const FRAME_LIGHT = "--czm-ink: #1f2320; --czm-surface: #fbf8f1; --czm-rule: #bdb6a4; --czm-accent: #b5452c;";
+const FRAME_DARK = "--czm-ink: #ece8dc; --czm-surface: #1d201e; --czm-rule: #4a4d46; --czm-accent: #ff8a6b;";
 
 /**
  * THE STYLE a mounted map wears, beside the drawing's own (`CHIZU_STYLE`): the frame the map sits in, the zoom buttons
@@ -15,14 +19,14 @@ import { CHIZU_STYLE } from "./style.ts";
  */
 export const CHIZU_MAP_STYLE = `${CHIZU_STYLE}
 .chizu-map {
-  --czm-ink: #1f2320; --czm-surface: #fbf8f1; --czm-rule: #bdb6a4; --czm-accent: #b5452c;
+  ${FRAME_LIGHT}
   position: relative; display: block; max-width: 100%; box-sizing: border-box; color: var(--czm-ink);
   font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .chizu-map { --czm-ink: #ece8dc; --czm-surface: #1d201e; --czm-rule: #4a4d46; --czm-accent: #ff8a6b; }
+  :root:not([data-theme="light"]) .chizu-map { ${FRAME_DARK} }
 }
-:root[data-theme="dark"] .chizu-map { --czm-ink: #ece8dc; --czm-surface: #1d201e; --czm-rule: #4a4d46; --czm-accent: #ff8a6b; }
+:root[data-theme="dark"] .chizu-map { ${FRAME_DARK} }
 .chizu-map *, .chizu-map *::before, .chizu-map *::after { box-sizing: border-box; }
 .chizu-map .czm-stage { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; position: relative; overflow: hidden; border: 1px solid var(--czm-rule); border-radius: 10px; touch-action: none; cursor: grab; background: var(--cz-sea, #cfe3ee); }
 .chizu-map .czm-stage[data-dragging="true"] { cursor: grabbing; }
@@ -36,6 +40,13 @@ export const CHIZU_MAP_STYLE = `${CHIZU_STYLE}
 .chizu-map .czm-button:focus-visible { outline: 3px solid var(--czm-accent); outline-offset: 2px; }
 .chizu-map .czm-says { margin: 6px 0 0; min-height: 1.4em; font-size: .9rem; }
 .chizu-map .czm-zoom { position: absolute; left: 8px; bottom: 8px; padding: 2px 8px; border-radius: 8px; background: var(--czm-surface); border: 1px solid var(--czm-rule); font-size: .8rem; font-variant-numeric: tabular-nums; pointer-events: none; }
+.chizu-map.chizu-map[data-chizu-theme="light"] { ${FRAME_LIGHT} }
+.chizu-map.chizu-map[data-chizu-theme="light"] .chizu { ${PALETTE_LIGHT} }
+.chizu-map.chizu-map[data-chizu-theme="dark"] { ${FRAME_DARK} }
+.chizu-map.chizu-map[data-chizu-theme="dark"] .chizu { ${PALETTE_DARK} }
+/* A pinned palette is a card of its own, so the line under the map reads on a page of the other one. */
+.chizu-map[data-chizu-theme="light"], .chizu-map[data-chizu-theme="dark"] { background: var(--czm-surface); border-radius: 10px; }
+.chizu-map[data-chizu-theme="light"] .czm-says, .chizu-map[data-chizu-theme="dark"] .czm-says { padding: 0 8px 8px; }
 `;
 
 /**
@@ -70,4 +81,10 @@ export function selectedTones(options: {
   const out: Record<string, string> = { ...(options.tones ?? {}) };
   if (options.selected && out[options.selected] === undefined) out[options.selected] = "selected";
   return out;
+}
+
+/** Pin the palette of the map in `host` to light or dark (`theme`), or hand it back to the page's own with "auto". */
+export function wearTheme(host: Element, theme: ChizuTheme | undefined): void {
+  if (theme === "light" || theme === "dark") host.setAttribute("data-chizu-theme", theme);
+  else host.removeAttribute("data-chizu-theme");
 }

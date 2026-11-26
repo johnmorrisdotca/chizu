@@ -66,6 +66,29 @@ mountChizu(document.querySelector<HTMLElement>("#map")!, {
 - **Pointer.** A mouse or pen resting on a region (or a drawn feature) says its code; null on leaving it, on leaving the map, and for as long as a button is held (a drag or a press). A finger never says anything, because touch has no hover: a page must also show what it needs on a press (`onSelect`).
 - **Keyboard.** The regions are not in the tab order (a world has too many); the map is the one tab stop. With it focused, Shift and an arrow key move the focus to the nearest place in that direction, Enter or Space presses it (`onSelect`), Escape gives the focus back to the map, and the bare arrow keys still move the map. The focused place has a three-pixel accent outline, and a screen reader says its name. A focus that a click gave to a place is not reported.
 
+## Theme, presses that keep nothing, and the mount
+
+A mounted map follows the page's light or dark. `theme: "light"` or `"dark"` pins the map, its buttons and its line to that palette whatever the page does (a dark card on a light page), and `"auto"`, the default, follows the page again; `set({ theme })` changes it later. On `<chizu-map>` the `theme` attribute does the same, and `options.theme` is its host default.
+
+`keepSelection: false` makes a press only tell: `onSelect` gets the place's code every time, even for the one pressed before, and nothing is chosen, coloured as chosen or zoomed to. A page that colours the map by its own rules (`tones`, `colors`) keeps its state itself. Default true: the press chooses the place, and pressing it again lets go (`onSelect(null)`).
+
+`<chizu-map>`, `<chizu-locator>` and `<chizu-quiz>` hand their mount to the page as `element.mounted`: the `ChizuMount` (`select`, `show`, `set`, `view`, `zoomBy`) once the map is drawn, and null before that, while it loads and after it fails. A redraw makes a new one, so read it again after `chizu-load`.
+
+```ts no-run
+import { mountChizu } from "@johnmorrisdotca/chizu/mount";
+import WORLD from "@johnmorrisdotca/chizu/world";
+
+mountChizu(document.querySelector<HTMLElement>("#card")!, {
+  map: WORLD,
+  theme: "dark",
+  keepSelection: false,
+  onSelect: (code) => console.log("pressed", code),
+});
+
+const element = document.querySelector("chizu-map")!;
+element.addEventListener("chizu-load", () => element.mounted?.select("FR"));
+```
+
 Native released options remain available through the host options property,
 including colors, onSelect and onView. Callback details are the native values;
 DOM events still bubble and compose with JSON-safe details. Map/feature labels

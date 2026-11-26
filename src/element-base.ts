@@ -78,6 +78,8 @@ export const CHIZU_ELEMENT_OPTION_KEYS = Object.keys({
   selected: true,
   fit: true,
   selectable: true,
+  keepSelection: true,
+  theme: true,
   smallStates: true,
   controls: true,
   detail: true,
@@ -181,6 +183,11 @@ export class ChizuElement extends ElementBase {
   #revision = 0;
   #scheduled = false;
   #languageWatcher: MutationObserver | null = null;
+
+  /** The mounted map once it is drawn, to choose, show or zoom from the page (`select`, `show`, `set`, `view`); null before, while the map loads, and when it failed or the element is out of the page. A redraw makes a new one, so read it again after `chizu-load`. */
+  get mounted(): ChizuMount | null {
+    return this.mount;
+  }
 
   /** Host-only mounted-map options; assigning them redraws the element. */
   get options(): ChizuElementOptions {
@@ -380,6 +387,7 @@ export class ChizuElement extends ElementBase {
     stage.className = "map";
     wrap.append(stage);
     const selectable = on(this, "selectable", this.options_.selectable ?? true);
+    const theme = this.getAttribute("theme");
     this.mount = mountChizu(stage, {
       ...this.options_,
       smallStates: false,
@@ -392,6 +400,7 @@ export class ChizuElement extends ElementBase {
       labels: this.hasAttribute("labels") ? on(this, "labels") : this.options_.labels,
       controls: on(this, "controls", this.options_.controls ?? true),
       selectable,
+      theme: theme === "light" || theme === "dark" ? theme : this.options_.theme,
       zoom: Math.round(number(this.getAttribute("zoom"), this.options_.zoom ?? 1, 1, 10)) as MapZoom,
       onSelect: (code) => {
         const choose = wrap.querySelector("select");

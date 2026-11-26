@@ -63,6 +63,7 @@ src/
 ├── mountCities.ts      a mounted map's cities, asked for once
 ├── mountCallouts.ts    where a mounted map's callouts keep out of the buttons
 ├── mountHover.ts       the place under the pointer, and the place the keyboard reached
+├── mountKeys.ts        what each key does to a mounted map
 ├── mountSmallStates.ts the small countries' dots on a mounted map, fetched when asked for
 ├── mountTypes.ts       what a mounted map is told and what it gives back
 ├── mountStyle.ts       the page's colours
