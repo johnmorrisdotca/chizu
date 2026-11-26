@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [1.18.0] - 2026-11-26
+
 ### Added
 
 - **A Disputed areas page, and a `disputed` flag on the regions** (MODULES-1612). [docs/guides/disputed-areas.md](./docs/guides/disputed-areas.md) (and its Japanese twin) lists 13 places whose status is disputed (Crimea and Sevastopol, the Northern Territories, Kashmir, Aksai Chin, Arunachal Pradesh, the Golan, Western Sahara, Northern Cyprus, Somaliland, Kosovo, Taiwan, Abkhazia and South Ossetia, Transnistria): Natural Earth's de facto rule, the UN or ISO position, and what chizu draws, with the code. Eight regions that are a place's own carry `disputed: true`, a one-line `disputedNote` and `disputedNoteJa` (new optional fields of `ChizuRegion`), on every map that draws them: `XK`, `TW` and `EH` on the world, the finer world and each one's own map; `UA-43` and `UA-40` on `divisions/ru`; `AR`, `JK` and `LA` on `divisions/in`. No outline, code or order changed. The demo's card says so beside the board. The page found that Somaliland and the north of Cyprus are missing from the 1:50m outlines (the finer world, Somalia's and Cyprus's own maps): filed as MODULES-1872, not changed here. The notes come from `DISPUTED_REGIONS` in `scripts/data-config/disputed.mjs`. Tests: `src/disputed.test.ts`, `e2e/views.demo.mjs`.
