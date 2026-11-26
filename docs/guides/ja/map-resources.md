@@ -296,7 +296,7 @@ description: 既存の公開パスから作る、地図と地物の固定 import
 | `@johnmorrisdotca/chizu/divisions/se` | [スウェーデンの行政区画](entry:divisions-se) |
 | `@johnmorrisdotca/chizu/divisions/th` | [タイの行政区画](entry:divisions-th) |
 | `@johnmorrisdotca/chizu/divisions/tw` | [台湾の行政区画](entry:divisions-tw) |
-| `@johnmorrisdotca/chizu/divisions/um-islands` | [アメリカ合衆国領有小離島（各島を枠内に表示）](entry:divisions-um-islands) |
+| `@johnmorrisdotca/chizu/divisions/um-islands` | [合衆国領有小離島（各島を別枠で表示）](entry:divisions-um-islands) |
 | `@johnmorrisdotca/chizu/divisions/us` | [アメリカの行政区画](entry:divisions-us) |
 | `@johnmorrisdotca/chizu/divisions/vn` | [ベトナムの行政区画](entry:divisions-vn) |
 | `@johnmorrisdotca/chizu/divisions/vn-2025` | [ベトナムの行政区画（2025年、34の省・市）](entry:divisions-vn-2025) |

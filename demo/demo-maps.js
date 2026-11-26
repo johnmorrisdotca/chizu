@@ -63,7 +63,12 @@ export function populateMaps() {
         option(`country:${country.code.toLowerCase()}`, mapLabel(country)),
         // The nine islands of the United States Minor Outlying Islands, each in a box, beside the country's own map.
         ...(country.code === "UM"
-          ? [option("divisions:um-islands", `${mapLabel(country)} ${say("islandsInBoxes")}`)]
+          ? [
+              option(
+                "divisions:um-islands",
+                `${mapLabel(country)}${language.lang === "ja" ? "" : " "}${say("islandsInBoxes")}`,
+              ),
+            ]
           : []),
       ]),
     ),

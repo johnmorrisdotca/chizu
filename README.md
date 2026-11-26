@@ -286,7 +286,7 @@ mount.zoomBy(1);
 
 ### 3. A bundler, and a framework
 
-Each country's map is its own file and its own dynamic import (`@johnmorrisdotca/chizu/load` holds one `import()` for each), so a bundler makes a chunk of every one and a page fetches only the one it draws. The world is 170 kB (61 kB gzipped). A map is a plain object, so it serialises and caches as it is.
+Each country's map is its own file and its own dynamic import (`@johnmorrisdotca/chizu/load` holds one `import()` for each), so a bundler makes a chunk of every one and a page fetches only the one it draws. The world is 170 kB (61 kB gzipped).
 
 ### What a developer gets
 
@@ -564,7 +564,7 @@ pickDistractors(WORLD, "JP", { count: 3 });    // ["KP", "KR", "TW"]: nothing to
 findQuestion(WORLD, "FR", seededRandom(7));    // the target and its choices in an order the seed fixes
 ```
 
-A wrong answer is scored 100 for a land neighbour, 60 for sharing a group and up to 40 for being close (`distractorScore`), so the choices are places a person could take it for. With a `random` stream the best few are shuffled and cut so the same country is not asked with the same company every time; without one the answer is simply the best `count`. `among` limits the places that may be offered.
+A wrong answer is scored 100 for a land neighbour, 60 for sharing a group and up to 40 for being close (`distractorScore`). With a `random` stream the best few are shuffled and cut so the same country is not asked with the same company every time; without one the answer is simply the best `count`. `among` limits the places that may be offered.
 
 ## Continents and other groups
 
@@ -673,6 +673,7 @@ The [API reference](https://johnmorrisdotca.github.io/chizu/api.html) lists ever
 | `@johnmorrisdotca/chizu/runways` | `RUNWAYS`, `RUNWAYS_CREDIT`: for `drawChizu`'s `runways` |
 | `@johnmorrisdotca/chizu/load` | `loadCountry`, `loadDivisions`, `loadFeatures`, `loadWorldDetail`, `COUNTRY_CODES`, `DIVISIONS_CODES`, `FEATURE_MAPS` |
 | `@johnmorrisdotca/chizu/world` | the world, as the default export and as `WORLD` |
+| `@johnmorrisdotca/chizu/world-1990` | the world of 1 January 1990, as the default export and as `WORLD_1990` |
 | `@johnmorrisdotca/chizu/small-states` | `withSmallStates`: 62 small countries as dots |
 | `@johnmorrisdotca/chizu/views` | `withView`, `loadView`, `CHIZU_VIEWS`: points of view |
 | `@johnmorrisdotca/chizu/views/*` | one view's changes (`ukr`, `jpn`), as the default export |

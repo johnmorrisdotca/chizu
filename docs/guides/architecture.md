@@ -26,6 +26,7 @@ src/
 ├── element-define.ts   registers them as tags
 ├── load-entry.ts       loadCountry and loadDivisions
 ├── world-entry.ts      the world's entry
+├── world-1990-entry.ts the world as it was in 1990, its own entry
 ├── small-states-entry.ts  the smallest countries as dots, its own entry
 ├── smallStates.ts      the table of them and `withSmallStates`
 ├── views-entry.ts      the points of view on disputed places, its own entry
@@ -89,6 +90,7 @@ src/
     ├── world-geo.data.ts        the world as longitude and latitude
     ├── world-geo-detail.data.ts the world as longitude and latitude, from the 1:50m outlines
     ├── world-detail.data.ts     the world drawn finer, for a map zoomed in
+    ├── world-1990.data.ts       the world as it was on 1 January 1990
     ├── countries.data.ts        the table of every country
     ├── loaders.data.ts          one import for each country's map
     ├── divisions-geo-loaders.data.ts  one import for each country's regions in degrees

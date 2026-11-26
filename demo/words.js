@@ -232,7 +232,7 @@ export const WORDS = {
     features: "重ね表示",
     featureModes: { off: "なし", water: "海と川", capitals: "首都", all: "すべて" },
     cities: "都市",
-    islandsInBoxes: "（すべての島を枠内に表示）",
+    islandsInBoxes: "（島ごとに別枠で表示）",
     overlays: "線と点",
     view: "領土の立場",
     viewChoices: { default: "標準", ukr: "ウクライナ", jpn: "日本" },

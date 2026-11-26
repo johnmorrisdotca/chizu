@@ -41,6 +41,10 @@
       "minified": 179564,
       "gzip": 60676
     },
+    "./world-1990": {
+      "minified": 255800,
+      "gzip": 82778
+    },
     "./small-states": {
       "minified": 11774,
       "gzip": 4186

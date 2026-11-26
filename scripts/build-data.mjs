@@ -52,6 +52,7 @@ import {
   regionNames,
   regionType,
 } from "./build-data/world.mjs";
+import { buildWorld1990, writeWorld1990 } from "./build-data/world1990.mjs";
 import { featureSources, featuresOn } from "./build-features.mjs";
 import {
   CHIZU_ONS_SOURCE,
@@ -262,6 +263,7 @@ export async function main() {
 `,
   );
 
+  writeWorld1990(buildWorld1990(worldSource, divisionsSource, world));
   const allMaps = [world];
   const { countries, near, cutCodes } = await withCutOutlines(countriesSource, fineSource);
   const table = [];

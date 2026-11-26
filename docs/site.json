@@ -34,6 +34,10 @@
       "en": "The world map",
       "ja": "世界地図"
     },
+    "./world-1990": {
+      "en": "The world in 1990",
+      "ja": "1990年の世界"
+    },
     "./small-states": {
       "en": "The world's smallest countries as dots",
       "ja": "世界の小さな国を点で表示"
@@ -1192,7 +1196,7 @@
     },
     "./divisions/um-islands": {
       "en": "U.S. Minor Outlying Islands, each place in a box",
-      "ja": "アメリカ合衆国領有小離島（各島を枠内に表示）"
+      "ja": "合衆国領有小離島（各島を別枠で表示）"
     },
     "./divisions/us": {
       "en": "United States regions",
