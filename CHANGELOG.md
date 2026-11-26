@@ -6,6 +6,10 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- The test deadlines are longer (15 s for the native tests, 60 s for the documentation's size measure), since the measure of about 590 entries sometimes ran out of 15 s on CI and the release waits for CI to be green.
+
 ## [1.19.0] - 2026-11-26
 
 ### Added
