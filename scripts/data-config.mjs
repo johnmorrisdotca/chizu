@@ -59,6 +59,14 @@ export const NATURAL_EARTH = {
 export const EXCLUDED = new Set(["AQ", "TF", "CYN", "SOL"]);
 
 /*
+ * Natural Earth draws Somaliland (`SOL`) and Northern Cyprus (`CYN`) as countries of their own at 1:50m and 1:10m, and
+ * leaves a hole in Somalia and in Cyprus where they are. They are left off every map (EXCLUDED), so each is joined to the
+ * country the UN counts it in, along their shared border, wherever the two are drawn apart (the 1:110m file draws them
+ * whole already). Their own outlines stay in the files in longitude and latitude, as features of their own.
+ */
+export const JOINED_OUTLINES = { SO: ["SOL"], CY: ["CYN", "CNM"] };
+
+/*
  * KUNI: WHO A PLACE IS. The names, readings, continents and ISO codes of the countries and their subdivisions are
  * read from kuni 国 (@johnmorrisdotca/kuni, MIT, its names from Unicode CLDR and Wikidata) at build time, so that the
  * two packages never disagree about a name. It is a development dependency of this script only, pinned to one

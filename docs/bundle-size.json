@@ -34,16 +34,16 @@
       "gzip": 18891
     },
     "./load": {
-      "minified": 19678138,
-      "gzip": 7071226
+      "minified": 19681294,
+      "gzip": 7072309
     },
     "./world": {
-      "minified": 179564,
-      "gzip": 60676
+      "minified": 179685,
+      "gzip": 60719
     },
     "./world-1990": {
-      "minified": 255800,
-      "gzip": 82778
+      "minified": 255921,
+      "gzip": 82819
     },
     "./small-states": {
       "minified": 11774,
@@ -66,12 +66,12 @@
       "gzip": 1076373
     },
     "./element": {
-      "minified": 19127734,
-      "gzip": 6895031
+      "minified": 19130381,
+      "gzip": 6895949
     },
     "./element/define": {
-      "minified": 19127749,
-      "gzip": 6895075
+      "minified": 19130396,
+      "gzip": 6895928
     },
     "./countries/ad": {
       "minified": 1370,
@@ -294,8 +294,8 @@
       "gzip": 685
     },
     "./countries/cy": {
-      "minified": 4623,
-      "gzip": 2321
+      "minified": 4831,
+      "gzip": 2415
     },
     "./countries/cz": {
       "minified": 3892,
@@ -306,8 +306,8 @@
       "gzip": 4054
     },
     "./countries/dj": {
-      "minified": 3510,
-      "gzip": 1863
+      "minified": 3515,
+      "gzip": 1868
     },
     "./countries/dk": {
       "minified": 30102,
@@ -906,8 +906,8 @@
       "gzip": 2111
     },
     "./countries/so": {
-      "minified": 2581,
-      "gzip": 1419
+      "minified": 3293,
+      "gzip": 1755
     },
     "./countries/sr": {
       "minified": 3198,
@@ -1450,8 +1450,8 @@
       "gzip": 300
     },
     "./features/country-cy": {
-      "minified": 1258,
-      "gzip": 691
+      "minified": 1670,
+      "gzip": 847
     },
     "./features/country-cz": {
       "minified": 8385,
@@ -2054,8 +2054,8 @@
       "gzip": 4049
     },
     "./features/country-so": {
-      "minified": 8492,
-      "gzip": 3610
+      "minified": 9681,
+      "gzip": 4038
     },
     "./features/country-sr": {
       "minified": 12217,

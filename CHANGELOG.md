@@ -8,6 +8,7 @@ All notable changes to this project are written here. The format follows
 
 ### Fixed
 
+- **Somaliland and the north of Cyprus are no longer holes** (MODULES-1872). Natural Earth draws Somaliland (`SOL`) and Northern Cyprus (`CYN`, with the UN buffer zone `CNM`) as countries of their own, which chizu leaves off every map, so Somalia and Cyprus were drawn without them: a hole in the northwest of Somalia and in the north of Cyprus, on the world, the finer world and the two countries' own maps. They are now joined to Somalia and to Cyprus along the borders they share (`JOINED_OUTLINES` in `scripts/data-config.mjs`), where the two are drawn apart, and are still not countries or regions of their own. **This changes how `SO` and `CY` are drawn on `world`, `world-detail`, `countries/so` and `countries/cy`** (and the bounding box, centre and `neighbors` of `SO`, `CY` and `DJ`), which CONTRIBUTING counts as a major change: the codes, the regions and the quiz of a seed are as they were. Tests: `src/joined-outlines.test.ts`.
 - The test deadlines are longer (15 s for the native tests, 60 s for the documentation's size measure), since the measure of about 590 entries sometimes ran out of 15 s on CI and the release waits for CI to be green.
 
 ## [1.19.0] - 2026-11-26

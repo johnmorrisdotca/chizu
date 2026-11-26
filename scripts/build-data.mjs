@@ -51,6 +51,7 @@ import {
   regionIso,
   regionNames,
   regionType,
+  withJoinedOutlines,
 } from "./build-data/world.mjs";
 import { buildWorld1990, writeWorld1990 } from "./build-data/world1990.mjs";
 import { featureSources, featuresOn } from "./build-features.mjs";
@@ -209,7 +210,7 @@ export async function main() {
   const worldSource = await source("ne_110m_admin_0_countries.geojson");
   const countriesSource = await source("ne_50m_admin_0_countries.geojson");
   const fineSource = await source("ne_10m_admin_0_countries.geojson");
-  const fine = new Map(fineSource.features.map((feature) => [feature.properties.ADM0_A3, feature]));
+  const fine = new Map(withJoinedOutlines(fineSource.features).map((feature) => [feature.properties.ADM0_A3, feature]));
   const divisionsSource = await withOns(await source("ne_10m_admin_1_states_provinces.geojson"));
 
   rmSync(out, { recursive: true, force: true });

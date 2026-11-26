@@ -1,6 +1,6 @@
 import { continentName, country as kuniCountry } from "@johnmorrisdotca/kuni";
 import { subdivision as kuniSubdivision } from "@johnmorrisdotca/kuni/subdivisions";
-import { geoPath, geoProjection } from "d3-geo";
+import { geoArea, geoPath, geoProjection } from "d3-geo";
 import { isoOf, kanaReading, millerRaw, readingOf } from "../build-data.mjs";
 import {
   CONTINENT_NAMES,
@@ -8,6 +8,7 @@ import {
   DISPLAY_NAMES,
   EXCLUDED,
   ISO_JOIN,
+  JOINED_OUTLINES,
   KUNI,
   KUNI_NAMES_KEPT_FROM_NATURAL_EARTH,
   NAME_FIXES,
@@ -18,6 +19,7 @@ import {
   SHORT_NAMES_NOT_EVERYDAY,
   TYPE_FIXES,
 } from "../data-config.mjs";
+import { union } from "./dissolve.mjs";
 import { simplifyShared } from "./geo.mjs";
 import {
   CENTRE_LONGITUDE,
@@ -30,9 +32,32 @@ import {
   WORLD_WIDTH,
 } from "./geometry.mjs";
 
+/**
+ * The features with each place in JOINED_OUTLINES drawn into its country where the two are apart (a hole where the one
+ * was left off), and the places themselves kept. Where the country's outline already has the place in it (1:110m), or the
+ * two do not meet along a border, the country is as it was.
+ */
+export function withJoinedOutlines(features) {
+  const byCode = new Map(features.map((feature) => [isoOf(feature.properties), feature]));
+  return features.map((feature) => {
+    const parts = (JOINED_OUTLINES[isoOf(feature.properties)] ?? []).map((code) => byCode.get(code)).filter(Boolean);
+    if (parts.length === 0) return feature;
+    const geometries = [feature, ...parts].map((one) => one.geometry);
+    const sum = geometries.reduce((total, geometry) => total + geoArea({ type: "Feature", geometry }), 0);
+    try {
+      const whole = union(geometries);
+      return Math.abs(geoArea({ type: "Feature", geometry: whole }) - sum) > sum * 1e-9
+        ? feature
+        : { ...feature, geometry: whole };
+    } catch {
+      return feature;
+    }
+  });
+}
+
 export function countriesFrom(collection, keepExcluded = false) {
   const taken = new Set();
-  const features = collection.features
+  const features = (keepExcluded ? collection.features : withJoinedOutlines(collection.features))
     .filter((feature) => keepExcluded || !EXCLUDED.has(isoOf(feature.properties)))
     // A sovereign's own entry first, so a code two entries claim (Australia's two island territories use AU) goes to the one that is the country.
     .sort((a, b) => Number(b.properties.NAME === b.properties.ADMIN) - Number(a.properties.NAME === a.properties.ADMIN))
