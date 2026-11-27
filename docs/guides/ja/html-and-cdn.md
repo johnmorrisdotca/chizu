@@ -48,5 +48,5 @@ unpkg はパッケージのファイルをそのまま配ります。`?module` �
 ## 注意
 
 - `<script type="module">` を使います。普通の script では `import` できません。
-- ページを変えたくないときは、アドレスにメジャーバージョンを書きます (`@johnmorrisdotca/chizu@1`)。
+- ページを変えたくないときは、アドレスにメジャーバージョンを書きます (`@johnmorrisdotca/chizu@2`)。
 - 属性は [地図・ロケーター・クイズの埋め込み](embed-maps.md) にあります。何も表示されないときは、[困ったとき](troubleshooting.md) を見てください。

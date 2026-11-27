@@ -6,6 +6,8 @@ All notable changes to this project are written here. The format follows
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-11-26
+
 ### Breaking
 
 - **Somaliland is drawn with Somalia and northern Cyprus with Cyprus, so `SO` and `CY` are drawn differently** (MODULES-1872). Natural Earth draws Somaliland (`SOL`) and Northern Cyprus (`CYN`, with the UN buffer zone `CNM`) as countries of their own, which chizu leaves off every map, so Somalia and Cyprus were drawn with a hole in the northwest of Somalia and in the north of Cyprus. That is not how the UN draws them, and not how most maps do. They are now joined to Somalia and to Cyprus along the borders they share (`JOINED_OUTLINES` in `scripts/data-config.mjs`), where the two are drawn apart, and are still not countries or regions of their own. CONTRIBUTING counts a change to how a region is drawn as a major change, so this is 2.0.0. **What moved**, exactly:

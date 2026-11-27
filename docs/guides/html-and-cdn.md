@@ -48,5 +48,5 @@ unpkg serves the package's own files; `?module` makes it rewrite the imports ins
 ## Notes
 
 - Use `<script type="module">`. A classic script cannot `import`.
-- Pin a major version in the address (`@johnmorrisdotca/chizu@1`) when you want the page to stay as it is.
+- Pin a major version in the address (`@johnmorrisdotca/chizu@2`) when you want the page to stay as it is.
 - The attributes are in [embed maps, locators and quizzes](embed-maps.md). If nothing appears, see [troubleshooting](troubleshooting.md).

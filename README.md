@@ -340,8 +340,8 @@ Save this as a file and open it: a world you can drag, zoom with the buttons, th
 <title>A map</title>
 <div id="map" style="height: 70vh"></div>
 <script type="module">
-  import WORLD from "https://cdn.jsdelivr.net/npm/@johnmorrisdotca/chizu@1/dist/world-entry.js";
-  import { mountChizu } from "https://cdn.jsdelivr.net/npm/@johnmorrisdotca/chizu@1/dist/mount-entry.js";
+  import WORLD from "https://cdn.jsdelivr.net/npm/@johnmorrisdotca/chizu@2/dist/world-entry.js";
+  import { mountChizu } from "https://cdn.jsdelivr.net/npm/@johnmorrisdotca/chizu@2/dist/mount-entry.js";
 
   const map = mountChizu(document.getElementById("map"), {
     map: WORLD,

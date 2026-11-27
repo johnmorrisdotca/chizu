@@ -3,7 +3,7 @@
 [Open the builder](https://johnmorrisdotca.github.io/chizu/builder.html) to preview each element and copy a custom element, iframe, ES module, React 19, Vue, Svelte, Angular, plain HTML block or iframe URL. The builder link carries its options. The iframe pages load built-in maps and named features from their own site, store nothing, and never contact a geocoding service. The npm pin comes from the current package major.
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@johnmorrisdotca/chizu@1/dist/element-define.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@johnmorrisdotca/chizu@2/dist/element-define.js"></script>
 <chizu-map region="world" highlight="JP CA" labels></chizu-map>
 <chizu-locator region="country-jp" place="Q200239"></chizu-locator>
 <chizu-quiz region="divisions-jp" seed="7"></chizu-quiz>
