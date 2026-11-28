@@ -16,7 +16,7 @@ import * as tsModule from "typescript";
 
 const ts = tsModule.default?.createSourceFile ? tsModule.default : tsModule.createSourceFile ? tsModule : (await import("typescript-api")).default;
 
-import { DOCS_SITE_VERSION, docsProblems, importLineOf, measureBundles, modelOf, navigationEntries, packageOf, sizeBadge } from "../scripts/docs-site.mjs";
+import { DOCS_SITE_VERSION, docsProblems, importLineOf, measureBundles, modelOf, navigationEntries, packageOf, shortLabel, sizeBadge } from "../scripts/docs-site.mjs";
 
 import { readInputs } from "../scripts/readme-lint.mjs";
 
@@ -27,12 +27,24 @@ const pkg = JSON.parse(read("package.json"));
 // The recorded hashes: the generator and its browser test are one text in every package. A change to either is made in
 // every repository at once, with a new DOCS_SITE_VERSION and the new hashes here.
 const RECORDED = {
-  version: "2026-11-03-guide-images",
-  "scripts/docs-site.mjs": "8c827fce376b6a4622d610f325e0f92936208a68566d9abed8d96ccdace8096a",
+  version: "2026-11-27-sidebar-names",
+  "scripts/docs-site.mjs": "dcca98bd14baa2530c70fd7b196e24e9eac1bdf6ab801d0de7a601c152c70cda",
   "e2e/docs-site.demo.mjs": "915d74e4017cf117f8322b712ab2f1fa55058d654ff0fca0e476af85bce5fbf6",
 };
 
 describe("the documentation site's shared files", () => {
+  it("keeps a short clause as the sidebar name and uses the export path when the title is still a sentence", () => {
+    expect(shortLabel("Printable sheets: connect-the-dots constellations", "./sheets")).toBe("Printable sheets");
+    expect(shortLabel("Stars: names, positions, distance and colour", ".")).toBe("Stars");
+    expect(shortLabel("The 88 constellations, in English and Japanese", "./constellations")).toBe("The 88 constellations");
+    expect(shortLabel("A star drawn from its numbers as SVG, and next to the Sun", "./portrait")).toBe("Portrait");
+    expect(shortLabel("The sky seen from another star, with the nearby stars moved too", "./sky-from/nearby")).toBe("Sky From Nearby");
+    expect(shortLabel("Who found each of the 11,898 Messier, NGC and IC objects and when", "./provenance/ngc-ic")).toBe("Provenance NGC IC");
+    expect(shortLabel("印刷するシート: 星座の点つなぎ", "./sheets")).toBe("印刷するシート");
+    expect(shortLabel("88星座 (英語と日本語)", "./constellations")).toBe("88星座");
+    expect(shortLabel("数値から描いた星のSVGの絵と、太陽との大きさくらべ", "./portrait")).toBe("Portrait");
+  });
+
   it("are the family's one text, byte for byte", () => {
     expect(DOCS_SITE_VERSION).toBe(RECORDED.version);
     for (const path of ["scripts/docs-site.mjs", "e2e/docs-site.demo.mjs"]) expect(sha(path), path).toBe(RECORDED[path]);
